@@ -22,6 +22,7 @@
 
 # In[42]:
 
+MODEL_VERSION = '_v7'
 
 import tensorflow as tf
 from tensorflow.keras import backend as K
