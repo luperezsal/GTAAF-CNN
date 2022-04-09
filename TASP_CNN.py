@@ -1088,7 +1088,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[ ]:
 
 
-tasp_cnn.save(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
+# tasp_cnn.save(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
 
 
 # ### Carga de modelo pre-entrenado
@@ -1096,7 +1096,7 @@ tasp_cnn.save(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
 # In[ ]:
 
 
-# tasp_cnn = tf.keras.models.load_model(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
+tasp_cnn = tf.keras.models.load_model(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
 
 
 # ### Resultados
@@ -1110,21 +1110,21 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 
 ########################################################################
 
-F1_SCORE_PATH = 'F1scores/'
-F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
+# F1_SCORE_PATH = 'F1scores/'
+# F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
 
-## Plot history: F1 SCORE
-figure_name = plt.figure(figsize=(20, 10))
-plt.plot(history.history['f1_score'], label='F1 score (training data)')
-plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-plt.title('F1 score')
-plt.ylabel('F1 score value')
-plt.xlabel('No. epoch')
-plt.legend(loc="upper left")
-plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
-plt.show()
+# ## Plot history: F1 SCORE
+# figure_name = plt.figure(figsize=(20, 10))
+# plt.plot(history.history['f1_score'], label='F1 score (training data)')
+# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+# plt.title('F1 score')
+# plt.ylabel('F1 score value')
+# plt.xlabel('No. epoch')
+# plt.legend(loc="upper left")
+# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
+# plt.show()
 
-print(history)
+# print(history)
 
 ########################################################################
 
