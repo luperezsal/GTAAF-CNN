@@ -1856,7 +1856,7 @@ space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 100, 3000, 200),
+        'n_estimators': hp.quniform('n_estimators', 100, 1500, 100),
         'tree_method': 'gpu_hist'
     }
 
@@ -1888,7 +1888,7 @@ trials = Trials()
 best_hyperparams = fmin(fn = objective,
                         space = space,
                         algo = tpe.suggest,
-                        max_evals = 500,
+                        max_evals = 250,
                         trials = trials)
 
 
