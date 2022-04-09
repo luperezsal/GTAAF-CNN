@@ -3,9 +3,20 @@
 
 # # Métodos
 
+# In[1]:
+
+
+from datetime import datetime
+
+MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+
+HYPERPARAMS_PATH = './hyperparams/'
+WEIGHTS_PATH = './feature_weights/'
+
+
 # ## Carga Google Drive
 
-# In[74]:
+# In[2]:
 
 
 # from google.colab import drive
@@ -14,24 +25,21 @@
 
 # ## Timestamp
 
-# In[75]:
+# In[3]:
 
 
 from numba import cuda
-from datetime import datetime
-
-MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 
 
 # ## Importar Tensorflow
 
-# In[76]:
+# In[4]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[77]:
+# In[5]:
 
 
 import tensorflow as tf
@@ -46,7 +54,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[78]:
+# In[6]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -58,7 +66,7 @@ get_ipython().system('nvidia-smi')
 
 # ## Importador/Exportador Feature Weights
 
-# In[79]:
+# In[7]:
 
 
 import json
@@ -76,7 +84,7 @@ def load_weights(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[80]:
+# In[8]:
 
 
 import numpy as np
@@ -156,7 +164,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[81]:
+# In[9]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -178,7 +186,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[82]:
+# In[10]:
 
 
 from scipy.stats import zscore
@@ -198,7 +206,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[83]:
+# In[11]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -219,7 +227,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[84]:
+# In[12]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -234,7 +242,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ## Reshape de imágenes
 
-# In[85]:
+# In[13]:
 
 
 # Add one channel
@@ -257,7 +265,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[86]:
+# In[14]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -287,7 +295,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[87]:
+# In[15]:
 
 
 import seaborn as sns
@@ -301,7 +309,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[88]:
+# In[16]:
 
 
 from sklearn.decomposition import PCA
@@ -321,7 +329,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[89]:
+# In[17]:
 
 
 from sklearn.manifold import TSNE
@@ -348,7 +356,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[90]:
+# In[18]:
 
 
 def autoencoder ():
@@ -373,7 +381,7 @@ def autoencoder ():
 
 # ## TASP-CNN
 
-# In[91]:
+# In[19]:
 
 
 import tensorflow_addons as tfa
@@ -401,7 +409,7 @@ tasp_cnn.compile(
   )
 
 
-# In[92]:
+# In[20]:
 
 
 print('Done!')
@@ -411,13 +419,13 @@ print('Done!')
 
 # ## Importación de datos
 
-# In[93]:
+# In[21]:
 
 
 # !conda install pandas --y
 
 
-# In[94]:
+# In[22]:
 
 
 import pandas as pd
@@ -471,7 +479,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[95]:
+# In[23]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -633,13 +641,13 @@ clean_df
 
 # ## Split de datos
 
-# In[96]:
+# In[24]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[97]:
+# In[25]:
 
 
 from sklearn.model_selection import train_test_split
@@ -654,7 +662,7 @@ X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
 Y_test = test['Casualty Severity']
 
 
-# In[98]:
+# In[26]:
 
 
 # fv2gi(feature_vector)
@@ -676,13 +684,13 @@ Y_test = test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[99]:
+# In[27]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[100]:
+# In[28]:
 
 
 X_train = X_train.astype(int)
@@ -694,7 +702,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversamplig de datos
 
-# In[101]:
+# In[29]:
 
 
 print('********** Before OverSampling **********')
@@ -706,9 +714,9 @@ print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 X_train, Y_train = oversample_data(X_train, Y_train)
 
 
-# ## Pesos XGBoost
+# ## XGBoost
 
-# In[102]:
+# In[30]:
 
 
 from xgboost import XGBClassifier
@@ -716,89 +724,123 @@ from sklearn.metrics import accuracy_score
 from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 
-# ### Carga de pesos
+# ### Hiperparámetros
 
-# In[103]:
+# #### Carga hiperparámetros
+
+# In[34]:
 
 
-FILE_PATH = './XGBoost_Weights/'
+# FILE_NAME = 'madrid_hyperparams_v7.json'
+
+# best_hyperparams = load_weights(HYPERPARAMS_PATH, FILE_NAME)
+
+
+# #### Cálculo de Hiperparámetros
+
+# In[35]:
+
+
+Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_test_onehot  = casualty_to_one_hot(Y_test)
+
+space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
+        'gamma': hp.uniform ('gamma', 1,9),
+        'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
+        'reg_lambda' : hp.uniform('reg_lambda', 0,1),
+        'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
+        'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
+        'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
+        'tree_method': 'gpu_hist'
+    }
+
+def objective(space):
+    clf = XGBClassifier(n_estimators = int(space['n_estimators']),
+                        max_depth = int(space['max_depth']),
+                        gamma = space['gamma'],
+                        reg_alpha = int(space['reg_alpha']),
+                        min_child_weight = int(space['min_child_weight']),
+                        colsample_bytree = int(space['colsample_bytree']),
+                        tree_method = space['tree_method']
+                       )
+    
+    evaluation = [(X_train, Y_train), (X_test, Y_test)]
+    
+    clf.fit(X_train, Y_train,
+            eval_set = evaluation, eval_metric = "auc",
+            early_stopping_rounds = 10, verbose = False)
+            
+    
+    pred = clf.predict(X_test)
+    accuracy = accuracy_score(Y_test, pred>0.5)
+    print ("SCORE:", accuracy)
+    return {'loss': -accuracy, 'status': STATUS_OK }
+
+
+trials = Trials()
+
+best_hyperparams = fmin(fn = objective,
+                        space = space,
+                        algo = tpe.suggest,
+                        max_evals = 5,
+                        trials = trials)
+
+
+# #### Escritura hiperparámetros
+
+# In[ ]:
+
+
+FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
+
+write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+
+
+# In[ ]:
+
+
+print(best_hyperparams)
+
+
+# ### Pesos de características
+
+# #### Carga definitiva/auxiliar de pesos
+
+# In[ ]:
+
+
 # FILE_NAME = 'leeds_calculated_weights.json'
 FILE_NAME = 'leeds_weights2022-04-09-11:07:27.json'
 
-feature_vector = load_weights(FILE_PATH, FILE_NAME)
+feature_vector = load_weights(WEIGHTS_PATH, FILE_NAME)
 display(feature_vector)
 
 
-# ### Cálculo con Hiperparámetros
+# #### Cálculo de pesos de caracetrísticas
 
-# In[104]:
-
-
-# Y_train_onehot = casualty_to_one_hot(Y_train)
-# Y_test_onehot  = casualty_to_one_hot(Y_test)
-
-# space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
-#         'gamma': hp.uniform ('gamma', 1,9),
-#         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
-#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
-#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
-#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-#         'n_estimators': hp.quniform('n_estimators', 50, 4000, 50),
-#         'tree_method': 'gpu_hist'
-#     }
-
-# def objective(space):
-#     clf = XGBClassifier(n_estimators = int(space['n_estimators']),
-#                         max_depth = int(space['max_depth']),
-#                         gamma = space['gamma'],
-#                         reg_alpha = int(space['reg_alpha']),
-#                         min_child_weight = int(space['min_child_weight']),
-#                         colsample_bytree = int(space['colsample_bytree']),
-#                         tree_method = space['tree_method'])
-    
-#     evaluation = [(X_train, Y_train), (X_test, Y_test)]
-    
-#     clf.fit(X_train, Y_train,
-#             eval_set = evaluation, eval_metric = "auc",
-#             early_stopping_rounds = 10, verbose = False)
-    
-#     pred = clf.predict(X_test)
-#     accuracy = accuracy_score(Y_test, pred>0.5)
-#     print ("SCORE:", accuracy)
-#     return {'loss': -accuracy, 'status': STATUS_OK }
+# In[ ]:
 
 
-# trials = Trials()
+from numpy import loadtxt
+from xgboost import XGBClassifier,XGBRanker
+from matplotlib import pyplot
+from xgboost import plot_importance
 
-# best_hyperparams = fmin(fn = objective,
-#                         space = space,
-#                         algo  = tpe.suggest,
-#                         max_evals = 100,
-#                         trials = trials)
+xgboost = XGBClassifier(best_hyperparams)
 
-# from numpy import loadtxt
-# from xgboost import XGBClassifier,XGBRanker
-# from matplotlib import pyplot
-# from xgboost import plot_importance
+xgboost.fit(X_train, Y_train)
 
-# xgboost = XGBClassifier(best_hyperparams)
-
-# xgboost.fit(X_train, Y_train)
-
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
-
-# device = cuda.get_current_device()
-# device.reset()
+child_weights  = np.array(xgboost.feature_importances_)
+feature_vector = fill_feature_vector(X_train, child_weights)
 
 
-# ### Visualización pesos calculados
+# #### Visualización pesos calculados
 
-# In[105]:
+# In[ ]:
 
 
 # FILE_PATH = './XGBoost_Weights/'
-# FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
+# FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
 # print(xgboost.get_booster().get_score(importance_type= 'weight'))
 # plt.figure(figsize=(10, 5))
@@ -809,29 +851,30 @@ display(feature_vector)
 #   print(column, weight)
 
 
+# #### Escritura de pesos de características
+
+# In[ ]:
+
+
+matrix_indexes = fv2gi(feature_vector)
+
+FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'leeds_default_weights.json'
+
+write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+
+
 # ### Cálculo índices de matriz
 
-# In[106]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
 
 
-# ### Escritura
-
-# In[107]:
-
-
-FILE_PATH = './XGBoost_Weights/'
-FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
-# FILE_NAME = 'leeds_default_weights.json'
-
-write_weights(feature_vector, FILE_PATH, FILE_NAME)
-
-
 # ## Construcción de imágenes
 
-# In[108]:
+# In[ ]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -842,7 +885,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[109]:
+# In[ ]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -851,7 +894,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[110]:
+# In[ ]:
 
 
 plt.gray()
@@ -861,13 +904,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[111]:
+# In[ ]:
 
 
 # !conda install scikit-image
 
 
-# In[112]:
+# In[ ]:
 
 
 from skimage.feature import hog
@@ -881,7 +924,7 @@ for i in range(0,3):
   plt.show()
 
 
-# In[113]:
+# In[ ]:
 
 
 # input_shape = (5, 5)
@@ -892,13 +935,13 @@ array_test_images  = np.asarray(test_images)
 
 # 
 
-# In[114]:
+# In[ ]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[115]:
+# In[ ]:
 
 
 ######### EN TERMINAL #########
@@ -907,7 +950,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## One-Hot
 
-# In[116]:
+# In[ ]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -916,7 +959,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Visualización de datos
 
-# In[117]:
+# In[ ]:
 
 
 # !conda install seaborn
@@ -924,7 +967,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### Matriz de correlación
 
-# In[118]:
+# In[ ]:
 
 
 # correlation_matrix(X_test)
@@ -932,7 +975,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### PCA
 
-# In[119]:
+# In[ ]:
 
 
 # pca(X_train, X_test)
@@ -940,7 +983,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### TSNE
 
-# In[120]:
+# In[ ]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -960,7 +1003,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # #### Entrenamiento
 
-# In[121]:
+# In[ ]:
 
 
 X_train = array_train_images
@@ -978,7 +1021,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[122]:
+# In[ ]:
 
 
 # # create encoder model
@@ -1032,7 +1075,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
-# In[123]:
+# In[ ]:
 
 
 from sklearn.manifold import TSNE
@@ -1071,7 +1114,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Entrenamiento
 
-# In[124]:
+# In[ ]:
 
 
 # input_train_shape = (len(array_train_images), 5, 5, 1)
@@ -1092,7 +1135,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Escritura del modelo
 
-# In[125]:
+# In[ ]:
 
 
 # tasp_cnn.save(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
@@ -1100,7 +1143,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Carga de modelo pre-entrenado
 
-# In[126]:
+# In[ ]:
 
 
 # tasp_cnn = tf.keras.models.load_model(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
@@ -1108,7 +1151,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Resultados
 
-# In[127]:
+# In[ ]:
 
 
 # from sklearn.metrics import classification_report
@@ -1153,7 +1196,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # report_df
 
 
-# In[128]:
+# In[ ]:
 
 
 # import tensorflow as tf
@@ -1163,7 +1206,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # predictions
 
 
-# In[129]:
+# In[ ]:
 
 
 # prediction_string = [str(prediction) for prediction in predictions]
@@ -1180,7 +1223,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # 
 # 
 
-# In[130]:
+# In[ ]:
 
 
 import pandas as pd
@@ -1226,7 +1269,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[131]:
+# In[ ]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1238,7 +1281,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[132]:
+# In[ ]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1315,13 +1358,13 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
 
 
-# In[133]:
+# In[ ]:
 
 
 data_frame.tipo_via.value_counts()
 
 
-# In[134]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1393,7 +1436,7 @@ data_frame.tipo_via.value_counts()
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[135]:
+# In[ ]:
 
 
 weather_conditions_replace = {
@@ -1598,7 +1641,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[136]:
+# In[ ]:
 
 
 # Todos las comas a puntos
@@ -1687,7 +1730,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[137]:
+# In[ ]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -1705,7 +1748,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[138]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1718,7 +1761,7 @@ X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
 Y_test = test['lesividad']
 
 
-# In[139]:
+# In[ ]:
 
 
 # feature_vector = {}
@@ -1751,7 +1794,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[140]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -1763,7 +1806,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[141]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -1775,9 +1818,9 @@ print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 X_train, Y_train = oversample_data(X_train, Y_train)
 
 
-# ## Pesos XGBoost
+# ## XGBoost
 
-# In[142]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -1785,88 +1828,117 @@ from sklearn.metrics import accuracy_score
 from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 
-# ### Carga de pesos
-
-# In[143]:
-
-
-FILE_PATH = './XGBoost_Weights/'
-# FILE_NAME = 'madrid_calculated_weights.json'
-FILE_NAME = 'madrid_weights2022-04-09-14:19:48.json'
-
-feature_vector = load_weights(FILE_PATH, FILE_NAME)
-display(feature_vector)
-
-
-# ### Cálculo con Hiperparámetros
+# ### Hiperparámetros
 
 # - [Bayesian Optimization with HYPEROPT](https://www.kaggle.com/code/prashant111/a-guide-on-xgboost-hyperparameters-tuning/notebook)
 
-# In[144]:
+# #### Carga hiperparámetros
+
+# In[ ]:
 
 
-# Y_train_onehot = casualty_to_one_hot(Y_train)
-# Y_test_onehot  = casualty_to_one_hot(Y_test)
+FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-# space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
-#         'gamma': hp.uniform ('gamma', 1,9),
-#         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
-#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
-#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
-#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-#         'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
-#         'tree_method': 'gpu_hist'
-#     }
+best_hyperparams = load_weights(HYPERPARAMS_PATH, FILE_NAME)
 
-# def objective(space):
-#     clf = XGBClassifier(n_estimators = int(space['n_estimators']),
-#                         max_depth = int(space['max_depth']),
-#                         gamma = space['gamma'],
-#                         reg_alpha = int(space['reg_alpha']),
-#                         min_child_weight = int(space['min_child_weight']),
-#                         colsample_bytree = int(space['colsample_bytree']),
-#                         tree_method = space['tree_method'])
+
+# #### Cálculo de Hiperparámetros
+
+# In[ ]:
+
+
+Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_test_onehot  = casualty_to_one_hot(Y_test)
+
+space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
+        'gamma': hp.uniform ('gamma', 1,9),
+        'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
+        'reg_lambda' : hp.uniform('reg_lambda', 0,1),
+        'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
+        'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
+        'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
+        # 'tree_method': 'gpu_hist'
+    }
+
+def objective(space):
+    clf = XGBClassifier(n_estimators = int(space['n_estimators']),
+                        max_depth = int(space['max_depth']),
+                        gamma = space['gamma'],
+                        reg_alpha = int(space['reg_alpha']),
+                        min_child_weight = int(space['min_child_weight']),
+                        colsample_bytree = int(space['colsample_bytree']),
+                        # tree_method = space['tree_method']
+                       )
     
-#     evaluation = [(X_train, Y_train), (X_test, Y_test)]
+    evaluation = [(X_train, Y_train), (X_test, Y_test)]
     
-#     clf.fit(X_train, Y_train,
-#             eval_set = evaluation, eval_metric = "auc",
-#             early_stopping_rounds = 10, verbose = False)
+    clf.fit(X_train, Y_train,
+            eval_set = evaluation, eval_metric = "auc",
+            early_stopping_rounds = 10, verbose = False)
             
     
-#     pred = clf.predict(X_test)
-#     accuracy = accuracy_score(Y_test, pred>0.5)
-#     print ("SCORE:", accuracy)
-#     return {'loss': -accuracy, 'status': STATUS_OK }
+    pred = clf.predict(X_test)
+    accuracy = accuracy_score(Y_test, pred>0.5)
+    print ("SCORE:", accuracy)
+    return {'loss': -accuracy, 'status': STATUS_OK }
 
 
-# trials = Trials()
+trials = Trials()
 
-# best_hyperparams = fmin(fn = objective,
-#                         space = space,
-#                         algo = tpe.suggest,
-#                         max_evals = 100,
-#                         trials = trials)
-
-# from numpy import loadtxt
-# from xgboost import XGBClassifier,XGBRanker
-# from matplotlib import pyplot
-# from xgboost import plot_importance
-
-# xgboost = XGBClassifier(best_hyperparams)
-
-# xgboost.fit(X_train, Y_train)
-
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
-
-# device = cuda.get_current_device()
-# device.reset()
+best_hyperparams = fmin(fn = objective,
+                        space = space,
+                        algo = tpe.suggest,
+                        max_evals = 5,
+                        trials = trials)
 
 
-# ### Visualización pesos calculados
+# #### Escritura hiperparámetros
 
-# In[145]:
+# In[ ]:
+
+
+hyperparams_path = './hyperparams/'
+FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
+
+write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+
+
+# In[ ]:
+
+
+print(best_hyperparams)
+
+
+# ### Pesos de características
+
+# #### Carga definitiva/auxiliar de pesos
+
+# In[ ]:
+
+
+# FILE_NAME = 'madrid_calculated_weights.json'
+FILE_NAME = 'madrid_weights2022-04-09-14:19:48.json'
+
+feature_vector = load_weights(WEIGHTS_PATH, FILE_NAME)
+display(feature_vector)
+
+
+# #### Cálculo de pesos de caracetrísticas
+
+# In[ ]:
+
+
+xgboost = XGBClassifier(best_hyperparams)
+
+xgboost.fit(X_train, Y_train)
+
+child_weights  = np.array(xgboost.feature_importances_)
+feature_vector = fill_feature_vector(X_train, child_weights)
+
+
+# #### Visualización pesos calculados
+
+# In[ ]:
 
 
 # FILE_PATH = './XGBoost_Weights/'
@@ -1886,15 +1958,7 @@ display(feature_vector)
 # feature_vector = fill_feature_vector(X_train, child_weights)
 
 
-# ### Cálculo índices de matriz
-
-# In[146]:
-
-
-matrix_indexes = fv2gi(feature_vector)
-
-
-# ### Escritura
+# #### Escritura de pesos de características
 
 # - v5: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades no están en rango.
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
@@ -1903,14 +1967,17 @@ matrix_indexes = fv2gi(feature_vector)
 # In[ ]:
 
 
-FILE_PATH = './XGBoost_Weights/'
+matrix_indexes = fv2gi(feature_vector)
+
 FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
 # FILE_NAME = 'default_calculated_weights.json'
 
-write_weights(feature_vector, FILE_PATH, FILE_NAME)
+write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
-# In[71]:
+# ### Cálculo índices de matriz
+
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -1918,7 +1985,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[72]:
+# In[ ]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -1929,7 +1996,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[73]:
+# In[ ]:
 
 
 train_images = shape_images(X_data = X_train,
