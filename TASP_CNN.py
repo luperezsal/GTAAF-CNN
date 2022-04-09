@@ -722,7 +722,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 FILE_PATH = './XGBoost_Weights/'
 # FILE_NAME = 'leeds_calculated_weights.json'
-FILE_NAME = 'leeds_default_weights.json'
+FILE_NAME = 'leeds_weights2022-04-09-11:07:27.json'
 
 feature_vector = load_weights(FILE_PATH, FILE_NAME)
 display(feature_vector)
@@ -733,59 +733,59 @@ display(feature_vector)
 # In[37]:
 
 
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
+# Y_train_onehot = casualty_to_one_hot(Y_train)
+# Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
-        'gamma': hp.uniform ('gamma', 1,9),
-        'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
-        'reg_lambda' : hp.uniform('reg_lambda', 0,1),
-        'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
-        'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 50, 4000, 50),
-        'tree_method': 'gpu_hist'
-    }
+# space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
+#         'gamma': hp.uniform ('gamma', 1,9),
+#         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
+#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
+#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
+#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
+#         'n_estimators': hp.quniform('n_estimators', 50, 4000, 50),
+#         'tree_method': 'gpu_hist'
+#     }
 
-def objective(space):
-    clf = XGBClassifier(n_estimators = int(space['n_estimators']),
-                        max_depth = int(space['max_depth']),
-                        gamma = space['gamma'],
-                        reg_alpha = int(space['reg_alpha']),
-                        min_child_weight = int(space['min_child_weight']),
-                        colsample_bytree = int(space['colsample_bytree']),
-                        tree_method = space['tree_method'])
+# def objective(space):
+#     clf = XGBClassifier(n_estimators = int(space['n_estimators']),
+#                         max_depth = int(space['max_depth']),
+#                         gamma = space['gamma'],
+#                         reg_alpha = int(space['reg_alpha']),
+#                         min_child_weight = int(space['min_child_weight']),
+#                         colsample_bytree = int(space['colsample_bytree']),
+#                         tree_method = space['tree_method'])
     
-    evaluation = [(X_train, Y_train), (X_test, Y_test)]
+#     evaluation = [(X_train, Y_train), (X_test, Y_test)]
     
-    clf.fit(X_train, Y_train,
-            eval_set = evaluation, eval_metric = "auc",
-            early_stopping_rounds = 10, verbose = False)
+#     clf.fit(X_train, Y_train,
+#             eval_set = evaluation, eval_metric = "auc",
+#             early_stopping_rounds = 10, verbose = False)
     
-    pred = clf.predict(X_test)
-    accuracy = accuracy_score(Y_test, pred>0.5)
-    print ("SCORE:", accuracy)
-    return {'loss': -accuracy, 'status': STATUS_OK }
+#     pred = clf.predict(X_test)
+#     accuracy = accuracy_score(Y_test, pred>0.5)
+#     print ("SCORE:", accuracy)
+#     return {'loss': -accuracy, 'status': STATUS_OK }
 
 
-trials = Trials()
+# trials = Trials()
 
-best_hyperparams = fmin(fn = objective,
-                        space = space,
-                        algo  = tpe.suggest,
-                        max_evals = 100,
-                        trials = trials)
+# best_hyperparams = fmin(fn = objective,
+#                         space = space,
+#                         algo  = tpe.suggest,
+#                         max_evals = 100,
+#                         trials = trials)
 
-from numpy import loadtxt
-from xgboost import XGBClassifier,XGBRanker
-from matplotlib import pyplot
-from xgboost import plot_importance
+# from numpy import loadtxt
+# from xgboost import XGBClassifier,XGBRanker
+# from matplotlib import pyplot
+# from xgboost import plot_importance
 
-xgboost = XGBClassifier(best_hyperparams)
+# xgboost = XGBClassifier(best_hyperparams)
 
-xgboost.fit(X_train, Y_train)
+# xgboost.fit(X_train, Y_train)
 
-child_weights  = np.array(xgboost.feature_importances_)
-feature_vector = fill_feature_vector(X_train, child_weights)
+# child_weights  = np.array(xgboost.feature_importances_)
+# feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # ### Visualización pesos calculados
@@ -793,16 +793,16 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-FILE_PATH = './XGBoost_Weights/'
-FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
+# FILE_PATH = './XGBoost_Weights/'
+# FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
-print(xgboost.get_booster().get_score(importance_type= 'weight'))
-plt.figure(figsize=(10, 5))
-plt.barh(X_train.columns, xgboost.feature_importances_)
-plt.savefig(FILE_PATH + FILE_NAME)
+# print(xgboost.get_booster().get_score(importance_type= 'weight'))
+# plt.figure(figsize=(10, 5))
+# plt.barh(X_train.columns, xgboost.feature_importances_)
+# plt.savefig(FILE_PATH + FILE_NAME)
 
-for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-  print(column, weight)
+# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
+#   print(column, weight)
 
 
 # ### Cálculo índices de matriz
