@@ -1070,17 +1070,17 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[ ]:
 
 
-input_train_shape = (len(array_train_images), 5, 5, 1)
-input_test_shape = (len(array_test_images), 5, 5, 1)
+# input_train_shape = (len(array_train_images), 5, 5, 1)
+# input_test_shape = (len(array_test_images), 5, 5, 1)
 
-array_train_images.reshape(input_train_shape)
-array_test_images.reshape(input_test_shape)
+# array_train_images.reshape(input_train_shape)
+# array_test_images.reshape(input_test_shape)
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                    batch_size = 128, epochs = 100, shuffle = True,
-                    validation_data = (array_test_images, Y_test_onehot))
+# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+#                     batch_size = 128, epochs = 100, shuffle = True,
+#                     validation_data = (array_test_images, Y_test_onehot))
 
-# history
+# # history
 
 
 # ### Escritura del modelo
@@ -1807,7 +1807,7 @@ space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 50, 4000, 50),
+        'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
         'tree_method': 'gpu_hist'
     }
 
