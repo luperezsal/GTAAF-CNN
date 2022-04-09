@@ -1856,7 +1856,7 @@ space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
+        'n_estimators': hp.quniform('n_estimators', 100, 4000, 200),
         'tree_method': 'gpu_hist'
     }
 
