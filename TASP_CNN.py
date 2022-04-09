@@ -742,7 +742,8 @@ space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 50, 4000, 50)
+        'n_estimators': hp.quniform('n_estimators', 50, 4000, 50),
+        'tree_method': 'gpu_hist'
     }
 
 def objective(space):
@@ -752,7 +753,7 @@ def objective(space):
                         reg_alpha = int(space['reg_alpha']),
                         min_child_weight = int(space['min_child_weight']),
                         colsample_bytree = int(space['colsample_bytree']),
-                        tree_method = 'gpu_hist')
+                        tree_method = space['tree_method'])
     
     evaluation = [(X_train, Y_train), (X_test, Y_test)]
     
@@ -1806,7 +1807,8 @@ space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 50, 4000, 50)
+        'n_estimators': hp.quniform('n_estimators', 50, 4000, 50),
+        'tree_method': 'gpu_hist'
     }
 
 def objective(space):
@@ -1816,7 +1818,7 @@ def objective(space):
                         reg_alpha = int(space['reg_alpha']),
                         min_child_weight = int(space['min_child_weight']),
                         colsample_bytree = int(space['colsample_bytree']),
-                        tree_method = 'gpu_hist')
+                        tree_method = space['tree_method'])
     
     evaluation = [(X_train, Y_train), (X_test, Y_test)]
     
@@ -1844,13 +1846,7 @@ from xgboost import XGBClassifier,XGBRanker
 from matplotlib import pyplot
 from xgboost import plot_importance
 
-n_trees = 1000
-booster = 'gbtree'
-importance_type = 'weight'
-
-xgboost = XGBClassifier(n_estimators = n_trees,
-                        booster = booster,
-                        importance_type = importance_type)
+xgboost = XGBClassifier(best_hyperparams)
 
 xgboost.fit(X_train, Y_train)
 
