@@ -782,7 +782,7 @@ trials = Trials()
 best_hyperparams = fmin(fn = objective,
                         space = space,
                         algo = tpe.suggest,
-                        max_evals = 500,
+                        max_evals = 100,
                         trials = trials)
 
 
@@ -1143,7 +1143,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[37]:
 
 
 # tasp_cnn = tf.keras.models.load_model(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
@@ -1154,46 +1154,46 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[ ]:
 
 
-# from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
+Y_test_labels = one_hot_to_casualty(Y_test)
 
-# ########################################################################
+########################################################################
 
-# # F1_SCORE_PATH = 'F1scores/'
-# # F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
+# F1_SCORE_PATH = 'F1scores/'
+# F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
 
-# # ## Plot history: F1 SCORE
-# # figure_name = plt.figure(figsize=(20, 10))
-# # plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# # plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# # plt.title('F1 score')
-# # plt.ylabel('F1 score value')
-# # plt.xlabel('No. epoch')
-# # plt.legend(loc="upper left")
-# # plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
-# # plt.show()
+# ## Plot history: F1 SCORE
+# figure_name = plt.figure(figsize=(20, 10))
+# plt.plot(history.history['f1_score'], label='F1 score (training data)')
+# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+# plt.title('F1 score')
+# plt.ylabel('F1 score value')
+# plt.xlabel('No. epoch')
+# plt.legend(loc="upper left")
+# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
+# plt.show()
 
-# # print(history)
+# print(history)
 
-# ########################################################################
+########################################################################
 
-# # evaluate the network
-# print("[INFO] evaluating network...")
-# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+# evaluate the network
+print("[INFO] evaluating network...")
+predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-# report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-#                                predictions.argmax(axis=1),
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+report = classification_report(tf.argmax(Y_test_onehot, axis=1),
+                               predictions.argmax(axis=1),
+                               target_names = Y_test_labels.unique(),
+                               output_dict = True)
 
-# REPORTS_PATH = 'Reports/'
-# REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
+REPORTS_PATH = 'Reports/'
+REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 
-# report_df
+report_df
 
 
 # In[ ]:
@@ -1837,9 +1837,9 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # In[ ]:
 
 
-FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'madrid_hyperparams_v7.json'
 
-best_hyperparams = load_weights(HYPERPARAMS_PATH, FILE_NAME)
+# best_hyperparams = load_weights(HYPERPARAMS_PATH, FILE_NAME)
 
 
 # #### Cálculo de Hiperparámetros
@@ -1917,7 +1917,7 @@ print(best_hyperparams)
 
 
 # FILE_NAME = 'madrid_calculated_weights.json'
-FILE_NAME = 'madrid_weights2022-04-09-14:19:48.json'
+FILE_NAME = 'madrid_weights_v7.json'
 
 feature_vector = load_weights(WEIGHTS_PATH, FILE_NAME)
 display(feature_vector)
