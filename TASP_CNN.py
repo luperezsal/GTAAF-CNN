@@ -17,6 +17,7 @@
 # In[5]:
 
 
+from numba import cuda
 from datetime import datetime
 
 MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
@@ -30,7 +31,7 @@ MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 # !pip install tensorflow-addons
 
 
-# In[7]:
+# In[4]:
 
 
 import tensorflow as tf
@@ -787,6 +788,9 @@ display(feature_vector)
 # child_weights  = np.array(xgboost.feature_importances_)
 # feature_vector = fill_feature_vector(X_train, child_weights)
 
+# device = cuda.get_current_device()
+# device.reset()
+
 
 # ### Visualización pesos calculados
 
@@ -1081,6 +1085,9 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 #                     validation_data = (array_test_images, Y_test_onehot))
 
 # # history
+
+# device = cuda.get_current_device()
+# device.reset()
 
 
 # ### Escritura del modelo
@@ -1853,6 +1860,9 @@ xgboost.fit(X_train, Y_train)
 child_weights  = np.array(xgboost.feature_importances_)
 feature_vector = fill_feature_vector(X_train, child_weights)
 
+device = cuda.get_current_device()
+device.reset()
+
 
 # ### Visualización pesos calculados
 
@@ -2127,6 +2137,9 @@ array_test_images  = array_test_images.reshape(input_test_shape)
 history = tasp_cnn.fit(array_train_images, Y_train_onehot, verbose=2,
                     batch_size = 128, epochs = 100, shuffle = True,
                     validation_data = (array_test_images, Y_test_onehot))
+
+device = cuda.get_current_device()
+device.reset()
 
 
 # ### Escritura del modelo
