@@ -782,7 +782,7 @@ trials = Trials()
 best_hyperparams = fmin(fn = objective,
                         space = space,
                         algo = tpe.suggest,
-                        max_evals = 5,
+                        max_evals = 500,
                         trials = trials)
 
 
