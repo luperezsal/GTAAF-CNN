@@ -699,7 +699,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Pesos XGBoost
 
-# In[ ]:
+# In[28]:
 
 
 from xgboost import XGBClassifier
@@ -709,7 +709,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Carga de pesos
 
-# In[28]:
+# In[29]:
 
 
 FILE_PATH = './XGBoost_Weights/'
@@ -722,93 +722,93 @@ display(feature_vector)
 
 # ### Cálculo
 
-# In[29]:
+# In[31]:
 
 
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
+# Y_train_onehot = casualty_to_one_hot(Y_train)
+# Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
-        'gamma': hp.uniform ('gamma', 1,9),
-        'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
-        'reg_lambda' : hp.uniform('reg_lambda', 0,1),
-        'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
-        'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 50, 4000, 50)
-    }
+# space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
+#         'gamma': hp.uniform ('gamma', 1,9),
+#         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
+#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
+#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
+#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
+#         'n_estimators': hp.quniform('n_estimators', 50, 4000, 50)
+#     }
 
-def objective(space):
-    clf = XGBClassifier(n_estimators = int(space['n_estimators']),
-                        max_depth = int(space['max_depth']),
-                        gamma = space['gamma'],
-                        reg_alpha = int(space['reg_alpha']),
-                        min_child_weight = int(space['min_child_weight']),
-                        colsample_bytree = int(space['colsample_bytree']))
+# def objective(space):
+#     clf = XGBClassifier(n_estimators = int(space['n_estimators']),
+#                         max_depth = int(space['max_depth']),
+#                         gamma = space['gamma'],
+#                         reg_alpha = int(space['reg_alpha']),
+#                         min_child_weight = int(space['min_child_weight']),
+#                         colsample_bytree = int(space['colsample_bytree']))
     
-    evaluation = [(X_train, Y_train), (X_test, Y_test)]
+#     evaluation = [(X_train, Y_train), (X_test, Y_test)]
     
-    clf.fit(X_train, Y_train,
-            eval_set = evaluation, eval_metric = "auc",
-            early_stopping_rounds = 10, verbose = False)
+#     clf.fit(X_train, Y_train,
+#             eval_set = evaluation, eval_metric = "auc",
+#             early_stopping_rounds = 10, verbose = False)
     
-    pred = clf.predict(X_test)
-    accuracy = accuracy_score(Y_test, pred>0.5)
-    print ("SCORE:", accuracy)
-    return {'loss': -accuracy, 'status': STATUS_OK }
+#     pred = clf.predict(X_test)
+#     accuracy = accuracy_score(Y_test, pred>0.5)
+#     print ("SCORE:", accuracy)
+#     return {'loss': -accuracy, 'status': STATUS_OK }
 
 
-trials = Trials()
+# trials = Trials()
 
-best_hyperparams = fmin(fn = objective,
-                        space = space,
-                        algo = tpe.suggest,
-                        max_evals = 100,
-                        trials = trials)
+# best_hyperparams = fmin(fn = objective,
+#                         space = space,
+#                         algo = tpe.suggest,
+#                         max_evals = 100,
+#                         trials = trials)
 
-from numpy import loadtxt
-from xgboost import XGBClassifier,XGBRanker
-from matplotlib import pyplot
-from xgboost import plot_importance
+# from numpy import loadtxt
+# from xgboost import XGBClassifier,XGBRanker
+# from matplotlib import pyplot
+# from xgboost import plot_importance
 
-xgboost = XGBClassifier(n_estimators = n_trees,
-                        booster = booster,
-                        importance_type = importance_type)
+# xgboost = XGBClassifier(n_estimators = n_trees,
+#                         booster = booster,
+#                         importance_type = importance_type)
 
-xgboost.fit(X_train, Y_train)
+# xgboost.fit(X_train, Y_train)
 
-child_weights  = np.array(xgboost.feature_importances_)
-feature_vector = fill_feature_vector(X_train, child_weights)
+# child_weights  = np.array(xgboost.feature_importances_)
+# feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # ### Visualización pesos calculados
 
-# In[30]:
+# In[ ]:
 
 
-print(xgboost.get_booster().get_score(importance_type= 'weight'))
-plt.figure(figsize=(10, 5))
-plt.barh(X_train.columns, xgboost.feature_importances_)
-print(xgboost.feature_importances_)
+# print(xgboost.get_booster().get_score(importance_type= 'weight'))
+# plt.figure(figsize=(10, 5))
+# plt.barh(X_train.columns, xgboost.feature_importances_)
+# print(xgboost.feature_importances_)
 
-for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-  print(column, weight)
+# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
+#   print(column, weight)
 
 
 # ### Escritura
 
-# In[31]:
+# In[ ]:
 
 
-FILE_PATH = './XGBoost_Weights/'
-FILE_NAME = 'leeds_calculated_weights' + MODEL_VERSION + '.json'
-# FILE_NAME = 'leeds_default_weights.json'
+# FILE_PATH = './XGBoost_Weights/'
+# FILE_NAME = 'leeds_calculated_weights' + MODEL_VERSION + '.json'
+# # FILE_NAME = 'leeds_default_weights.json'
 
-write_weights(feature_vector, FILE_PATH, FILE_NAME)
+# write_weights(feature_vector, FILE_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
 
-# In[32]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -816,7 +816,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[33]:
+# In[ ]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -827,7 +827,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[34]:
+# In[ ]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -836,7 +836,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[35]:
+# In[ ]:
 
 
 plt.gray()
@@ -846,13 +846,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[36]:
+# In[ ]:
 
 
 # !conda install scikit-image
 
 
-# In[37]:
+# In[ ]:
 
 
 from skimage.feature import hog
@@ -866,7 +866,7 @@ for i in range(0,3):
   plt.show()
 
 
-# In[38]:
+# In[ ]:
 
 
 # input_shape = (5, 5)
@@ -877,7 +877,7 @@ array_test_images  = np.asarray(test_images)
 
 # 
 
-# In[39]:
+# In[ ]:
 
 
 # !conda install -c conda-forge tensorflow 
@@ -886,19 +886,13 @@ array_test_images  = np.asarray(test_images)
 # In[ ]:
 
 
-
-
-
-# In[40]:
-
-
 ######### EN TERMINAL #########
 # !pip install tensorflow-addons
 
 
 # ## One-Hot
 
-# In[41]:
+# In[ ]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -907,7 +901,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Visualización de datos
 
-# In[42]:
+# In[ ]:
 
 
 # !conda install seaborn
@@ -915,7 +909,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### Matriz de correlación
 
-# In[43]:
+# In[ ]:
 
 
 # correlation_matrix(X_test)
@@ -923,7 +917,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### PCA
 
-# In[44]:
+# In[ ]:
 
 
 # pca(X_train, X_test)
@@ -931,7 +925,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### TSNE
 
-# In[45]:
+# In[ ]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -951,7 +945,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # #### Entrenamiento
 
-# In[46]:
+# In[ ]:
 
 
 X_train = array_train_images
@@ -969,7 +963,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[47]:
+# In[ ]:
 
 
 # # create encoder model
@@ -1023,7 +1017,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
-# In[48]:
+# In[ ]:
 
 
 from sklearn.manifold import TSNE
@@ -1062,7 +1056,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Entrenamiento
 
-# In[49]:
+# In[ ]:
 
 
 input_train_shape = (len(array_train_images), 5, 5, 1)
@@ -1082,7 +1076,7 @@ tasp_cnn.save(root_path + 'leeds_model_' + MODEL_VERSION + '.h5')
 
 # ### Carga de modelo pre-entrenado
 
-# In[50]:
+# In[ ]:
 
 
 # tasp_cnn = tf.keras.models.load_model(root_path + 'model.h5')
@@ -1090,7 +1084,7 @@ tasp_cnn.save(root_path + 'leeds_model_' + MODEL_VERSION + '.h5')
 
 # ### Resultados
 
-# In[51]:
+# In[ ]:
 
 
 from sklearn.metrics import classification_report
@@ -1135,7 +1129,7 @@ report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 report_df
 
 
-# In[52]:
+# In[ ]:
 
 
 # import tensorflow as tf
@@ -1145,7 +1139,7 @@ report_df
 # predictions
 
 
-# In[53]:
+# In[ ]:
 
 
 # prediction_string = [str(prediction) for prediction in predictions]
@@ -1162,7 +1156,7 @@ report_df
 # 
 # 
 
-# In[54]:
+# In[ ]:
 
 
 import pandas as pd
@@ -1210,7 +1204,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[55]:
+# In[ ]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1222,7 +1216,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[56]:
+# In[ ]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1299,13 +1293,13 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
 
 
-# In[57]:
+# In[ ]:
 
 
 data_frame.tipo_via.value_counts()
 
 
-# In[58]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1377,7 +1371,7 @@ data_frame.tipo_via.value_counts()
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[59]:
+# In[ ]:
 
 
 weather_conditions_replace = {
@@ -1582,7 +1576,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[60]:
+# In[ ]:
 
 
 # Todos las comas a puntos
@@ -1671,7 +1665,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[61]:
+# In[ ]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -1689,7 +1683,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[62]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1702,7 +1696,7 @@ X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
 Y_test = test['lesividad']
 
 
-# In[63]:
+# In[ ]:
 
 
 # feature_vector = {}
@@ -1735,7 +1729,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[64]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -1747,7 +1741,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[65]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -1761,7 +1755,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Pesos XGBoost
 
-# In[66]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -1771,7 +1765,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Carga de pesos
 
-# In[67]:
+# In[ ]:
 
 
 FILE_PATH = './XGBoost_Weights/'
@@ -1786,13 +1780,13 @@ display(feature_vector)
 
 # - [Bayesian Optimization with HYPEROPT](https://www.kaggle.com/code/prashant111/a-guide-on-xgboost-hyperparameters-tuning/notebook)
 
-# In[75]:
+# In[ ]:
 
 
 hp.quniform('n_estimators', 50, 4000, 50)
 
 
-# In[79]:
+# In[ ]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
