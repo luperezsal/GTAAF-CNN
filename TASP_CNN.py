@@ -799,7 +799,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # In[ ]:
 
 
-print(best_hyperparams)
+# print(best_hyperparams)
 
 
 # ### Pesos de características
