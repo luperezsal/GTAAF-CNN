@@ -805,6 +805,14 @@ for column, weight in zip(X_train.columns,xgboost.feature_importances_):
   print(column, weight)
 
 
+# ### Cálculo índices de matriz
+
+# In[42]:
+
+
+matrix_indexes = fv2gi(feature_vector)
+
+
 # ### Escritura
 
 # In[ ]:
@@ -815,14 +823,6 @@ FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
 # FILE_NAME = 'leeds_default_weights.json'
 
 write_weights(feature_vector, FILE_PATH, FILE_NAME)
-
-
-# ### Cálculo índices de matriz
-
-# In[ ]:
-
-
-matrix_indexes = fv2gi(feature_vector)
 
 
 # ## Construcción de imágenes
