@@ -1967,12 +1967,12 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-matrix_indexes = fv2gi(feature_vector)
+# matrix_indexes = fv2gi(feature_vector)
 
-FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
-# FILE_NAME = 'default_calculated_weights.json'
+# FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
+# # FILE_NAME = 'default_calculated_weights.json'
 
-write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+# write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
@@ -2167,6 +2167,21 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 
 # ## TASP-CNN
+
+# In[ ]:
+
+
+import tensorflow as tf
+from tensorflow.keras import backend as K
+from tensorflow.keras import layers, models
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras import applications, optimizers
+from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
+from tensorflow.keras.utils import model_to_dot, plot_model
+from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
+
 
 # ### Entrenamiento
 
