@@ -699,6 +699,14 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Pesos XGBoost
 
+# In[ ]:
+
+
+from xgboost import XGBClassifier
+from sklearn.metrics import accuracy_score
+from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
+
+
 # ### Carga de pesos
 
 # In[28]:
