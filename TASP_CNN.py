@@ -1215,7 +1215,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # 
 # 
 
-# In[61]:
+# In[97]:
 
 
 import pandas as pd
@@ -1261,7 +1261,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[62]:
+# In[98]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1273,7 +1273,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[63]:
+# In[99]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1356,7 +1356,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 data_frame.tipo_via.value_counts()
 
 
-# In[65]:
+# In[100]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1428,7 +1428,7 @@ data_frame.tipo_via.value_counts()
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[66]:
+# In[101]:
 
 
 weather_conditions_replace = {
@@ -1633,7 +1633,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[67]:
+# In[102]:
 
 
 # Todos las comas a puntos
@@ -1722,13 +1722,13 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[68]:
+# In[103]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'localizacion', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
 data_frame = data_frame.loc[:, ~data_frame.columns.isin(COLUMNS_TO_REMOVE)]
 
-data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
+# data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_x_utm": "coordenada_x_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_y_utm": "coordenada_y_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"positiva_alcohol": "drogas_alcohol_positivo"}, errors="raise", inplace=True)
