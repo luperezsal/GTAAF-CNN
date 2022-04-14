@@ -66,18 +66,18 @@ print('Found GPU at: {}'.format(device_name))
 get_ipython().system('nvidia-smi')
 
 
-# ## Importador/Exportador Feature Weights
+# ## Importador/Exportador JSON
 
 # In[7]:
 
 
 import json
 
-def write_weights(feature_vector, root_path, file_name):
+def write_json(feature_vector, root_path, file_name):
     with open(root_path + file_name, 'w') as outfile:
         json.dump(feature_vector, outfile)
 
-def load_weights(root_path, file_name):
+def load_json(root_path, file_name):
     with open(root_path + file_name) as json_file:
         data = json.load(json_file)
 
@@ -735,7 +735,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # FILE_NAME = 'madrid_hyperparams_v7.json'
 
-# best_hyperparams = load_weights(HYPERPARAMS_PATH, FILE_NAME)
+# best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 
 # #### Cálculo de Hiperparámetros
@@ -795,7 +795,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-# write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
 # print(best_hyperparams)
 
 
@@ -809,7 +809,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # FILE_NAME = 'leeds_calculated_weights.json'
 FILE_NAME = 'leeds_weights2022-04-14-10:55:09.json'
 
-feature_vector = load_weights(WEIGHTS_PATH, FILE_NAME)
+feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 display(feature_vector)
 
 
@@ -1756,32 +1756,32 @@ Y_test = test['lesividad']
 # In[ ]:
 
 
-# feature_vector = {}
+feature_vector = {}
 
-# feature_vector['Accident Features'] = {
-#     'feature_childs': ['coordenada_x_utm', 'coordenada_y_utm', 'tipo_carretera', 'hora', 'vehiculos_implicados'],
-#     'feature_weights': [0.043706235, 0.04066877, 0.04932402, 0.037829854,  0.037388127]
-# } 
+feature_vector['Accident Features'] = {
+    'feature_childs': ['coordenada_x_utm', 'coordenada_y_utm', 'tipo_carretera', 'hora', 'vehiculos_implicados'],
+    'feature_weights': [0.043706235, 0.04066877, 0.04932402, 0.037829854,  0.037388127]
+} 
 
-# feature_vector['Roadway Features'] = {
-#     'feature_childs': ['tipo_accidente', 'distrito'], # Road Surface 
-#     'feature_weights': [0.07036541, 0]
-# } 
+feature_vector['Roadway Features'] = {
+    'feature_childs': ['tipo_accidente', 'distrito'], # Road Surface 
+    'feature_weights': [0.07036541, 0]
+} 
 
-# feature_vector['Environmental Features'] = {
-#     'feature_childs': ['estado_meteorológico'],
-#     'feature_weights': [0.04621587]
-# } 
-# feature_vector['Vehicle Features'] = {
-#     'feature_childs': ['tipo_vehiculo'],
-#     'feature_weights': [0.1835905]
-# }
+feature_vector['Environmental Features'] = {
+    'feature_childs': ['estado_meteorológico'],
+    'feature_weights': [0.04621587]
+} 
+feature_vector['Vehicle Features'] = {
+    'feature_childs': ['tipo_vehiculo'],
+    'feature_weights': [0.1835905]
+}
 
-# feature_vector['Casualty Features'] = {
-#     'feature_childs': ['tipo_persona', 'sexo', 'rango_edad', 'drogas_alcohol_positivo'],
-#     'feature_weights': [0.29104254, 0.03937937, 0.054408602, 0.059951354]
-# } 
-# matrix_indexes = fv2gi(feature_vector)
+feature_vector['Casualty Features'] = {
+    'feature_childs': ['tipo_persona', 'sexo', 'rango_edad', 'drogas_alcohol_positivo'],
+    'feature_weights': [0.29104254, 0.03937937, 0.054408602, 0.059951354]
+} 
+matrix_indexes = fv2gi(feature_vector)
 
 
 # ## Normalización de datos
@@ -1831,7 +1831,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # FILE_NAME = 'madrid_hyperparams_v7.json'
 
-# best_hyperparams = load_weights(HYPERPARAMS_PATH, FILE_NAME)
+# best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 
 # #### Cálculo de Hiperparámetros
@@ -1891,7 +1891,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-# write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
 # print(best_hyperparams)
 
 
@@ -1905,7 +1905,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # FILE_NAME = 'madrid_calculated_weights.json'
 FILE_NAME = 'madrid_weights2022-04-14-11:16:13.json'
 
-feature_vector = load_weights(WEIGHTS_PATH, FILE_NAME)
+feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 display(feature_vector)
 
 
@@ -1957,7 +1957,7 @@ display(feature_vector)
 # FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
 # # FILE_NAME = 'default_calculated_weights.json'
 
-# write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+# write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
