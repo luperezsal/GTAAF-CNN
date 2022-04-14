@@ -1113,17 +1113,17 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[ ]:
 
 
-input_train_shape = (len(array_train_images), 5, 5, 1)
-input_test_shape = (len(array_test_images), 5, 5, 1)
+# input_train_shape = (len(array_train_images), 5, 5, 1)
+# input_test_shape = (len(array_test_images), 5, 5, 1)
 
-array_train_images.reshape(input_train_shape)
-array_test_images.reshape(input_test_shape)
+# array_train_images.reshape(input_train_shape)
+# array_test_images.reshape(input_test_shape)
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                    batch_size = 128, epochs = 100, shuffle = True,
-                    validation_data = (array_test_images, Y_test_onehot))
+# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+#                     batch_size = 128, epochs = 100, shuffle = True,
+#                     validation_data = (array_test_images, Y_test_onehot))
 
-# history
+# # history
 
 
 # ### Escritura del modelo
@@ -1131,7 +1131,7 @@ history = tasp_cnn.fit(array_train_images, Y_train_onehot,
 # In[ ]:
 
 
-tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
+# tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 
 
 # ### Carga de modelo pre-entrenado
@@ -1147,45 +1147,45 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 # In[ ]:
 
 
-from sklearn.metrics import classification_report
+# from sklearn.metrics import classification_report
 
-Y_test_labels = one_hot_to_casualty(Y_test)
+# Y_test_labels = one_hot_to_casualty(Y_test)
 
-########################################################################
+# ########################################################################
 
-# F1_SCORE_PATH = 'F1scores/'
-# F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
+# # F1_SCORE_PATH = 'F1scores/'
+# # F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
 
-# ## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
-# plt.show()
+# # ## Plot history: F1 SCORE
+# # figure_name = plt.figure(figsize=(20, 10))
+# # plt.plot(history.history['f1_score'], label='F1 score (training data)')
+# # plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+# # plt.title('F1 score')
+# # plt.ylabel('F1 score value')
+# # plt.xlabel('No. epoch')
+# # plt.legend(loc="upper left")
+# # plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
+# # plt.show()
 
-# print(history)
+# # print(history)
 
-########################################################################
+# ########################################################################
 
-# evaluate the network
-print("[INFO] evaluating network...")
-predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+# # evaluate the network
+# print("[INFO] evaluating network...")
+# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-                               predictions.argmax(axis=1),
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
+# report = classification_report(tf.argmax(Y_test_onehot, axis=1),
+#                                predictions.argmax(axis=1),
+#                                target_names = Y_test_labels.unique(),
+#                                output_dict = True)
 
-REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
+# REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
+# report_df = pd.DataFrame(report).transpose()
+# report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 
-report_df
+# report_df
 
 
 # In[ ]:
@@ -1848,7 +1848,7 @@ space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 100, 1500, 100),
+        'n_estimators': hp.quniform('n_estimators', 100, 4000s, 100),
         'tree_method': 'gpu_hist'
     }
 
@@ -1880,7 +1880,7 @@ trials = Trials()
 best_hyperparams = fmin(fn = objective,
                         space = space,
                         algo = tpe.suggest,
-                        max_evals = 250,
+                        max_evals = 100,
                         trials = trials)
 
 
@@ -1889,15 +1889,9 @@ best_hyperparams = fmin(fn = objective,
 # In[ ]:
 
 
-hyperparams_path = './hyperparams/'
 FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
 
 write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-
-
-# In[ ]:
-
-
 print(best_hyperparams)
 
 
@@ -1933,20 +1927,20 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-# FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
+FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
-# print(xgboost.get_booster().get_score(importance_type= 'weight'))
-# plt.figure(figsize=(10, 5))
-# plt.barh(X_train.columns, xgboost.feature_importances_)
-# plt.savefig(WEIGHTS_PATH + FILE_NAME)
+print(xgboost.get_booster().get_score(importance_type= 'weight'))
+plt.figure(figsize=(10, 5))
+plt.barh(X_train.columns, xgboost.feature_importances_)
+plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
-# print(xgboost.feature_importances_)
+print(xgboost.feature_importances_)
 
-# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-#   print(column, weight)
+for column, weight in zip(X_train.columns,xgboost.feature_importances_):
+  print(column, weight)
 
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
+child_weights  = np.array(xgboost.feature_importances_)
+feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Escritura de pesos de características
@@ -1958,12 +1952,12 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-# matrix_indexes = fv2gi(feature_vector)
+matrix_indexes = fv2gi(feature_vector)
 
-# FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
-# # FILE_NAME = 'default_calculated_weights.json'
+FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'default_calculated_weights.json'
 
-# write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
@@ -2193,7 +2187,7 @@ history = tasp_cnn.fit(array_train_images, Y_train_onehot, verbose=2,
 # In[ ]:
 
 
-tasp_cnn.save(root_path + 'madrid_model_bayesian' + MODEL_TIMESTAMP + '.h5')
+tasp_cnn.save(MODELS_PATH + 'madrid_model_bayesian' + MODEL_TIMESTAMP + '.h5')
 
 
 # ### Carga de modelo pre-entrenado
