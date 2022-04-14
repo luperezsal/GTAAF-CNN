@@ -12,6 +12,8 @@ MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 
 HYPERPARAMS_PATH = './hyperparams/'
 WEIGHTS_PATH = './feature_weights/'
+REPORTS_PATH = 'Reports/
+MODELS_PATH  = 'Models/'
 
 
 # ## Carga Google Drive
@@ -839,13 +841,12 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-FILE_PATH = './XGBoost_Weights/'
 FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
 print(xgboost.get_booster().get_score(importance_type= 'weight'))
 plt.figure(figsize=(10, 5))
 plt.barh(X_train.columns, xgboost.feature_importances_)
-plt.savefig(FILE_PATH + FILE_NAME)
+plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
 for column, weight in zip(X_train.columns,xgboost.feature_importances_):
   print(column, weight)
@@ -856,12 +857,12 @@ for column, weight in zip(X_train.columns,xgboost.feature_importances_):
 # In[ ]:
 
 
-# matrix_indexes = fv2gi(feature_vector)
+matrix_indexes = fv2gi(feature_vector)
 
-# FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
-# # FILE_NAME = 'leeds_default_weights.json'
+FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'leeds_default_weights.json'
 
-# write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
@@ -1129,16 +1130,13 @@ history = tasp_cnn.fit(array_train_images, Y_train_onehot,
 
 # history
 
-device = cuda.get_current_device()
-device.reset()
-
 
 # ### Escritura del modelo
 
 # In[ ]:
 
 
-# tasp_cnn.save(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
+tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 
 
 # ### Carga de modelo pre-entrenado
@@ -1146,7 +1144,7 @@ device.reset()
 # In[37]:
 
 
-# tasp_cnn = tf.keras.models.load_model(root_path + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
+# tasp_cnn = tf.keras.models.load_model(MODELS_PATH + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
 
 
 # ### Resultados
@@ -1187,7 +1185,6 @@ report = classification_report(tf.argmax(Y_test_onehot, axis=1),
                                target_names = Y_test_labels.unique(),
                                output_dict = True)
 
-REPORTS_PATH = 'Reports/'
 REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
 
 report_df = pd.DataFrame(report).transpose()
@@ -1941,13 +1938,12 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-# FILE_PATH = './XGBoost_Weights/'
 # FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
 # print(xgboost.get_booster().get_score(importance_type= 'weight'))
 # plt.figure(figsize=(10, 5))
 # plt.barh(X_train.columns, xgboost.feature_importances_)
-# plt.savefig(FILE_PATH + FILE_NAME)
+# plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
 # print(xgboost.feature_importances_)
 
