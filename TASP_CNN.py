@@ -921,9 +921,6 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 import xgboost as xgb
 import random
 
-xgDMatrix = xgb.DMatrix(X_train, Y_train) #create Dmatrix
-xgbDMatrixTest = xgb.DMatrix(X_test, Y_test)
-
 numberOfParents = 10 # number of parents to start
 numberOfParentsMating = 2 # Number of parents that will mate
 numberOfParameters = 7  # Number of parameters that will be optimized
