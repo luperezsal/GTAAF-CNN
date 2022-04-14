@@ -796,12 +796,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
 
 # write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-
-
-# In[ ]:
-
-
-print(best_hyperparams)
+# print(best_hyperparams)
 
 
 # ### Pesos de características
