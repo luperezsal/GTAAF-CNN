@@ -295,6 +295,7 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
     fScore = []
     for i in range(population.shape[0]):
         param = { 'objective':'multi:softprob',
+                  'tree_method': 'gpu_hist',
                   'num_class': 3,
                   'learning_rate': population[i][0],
                   'n_estimators': population[i][1], 
