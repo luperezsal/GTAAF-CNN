@@ -1839,49 +1839,49 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # In[ ]:
 
 
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
+# Y_train_onehot = casualty_to_one_hot(Y_train)
+# Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
-        'gamma': hp.uniform ('gamma', 1,9),
-        'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
-        'reg_lambda' : hp.uniform('reg_lambda', 0,1),
-        'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
-        'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-        'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
-        'tree_method': 'gpu_hist'
-    }
+# space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
+#         'gamma': hp.uniform ('gamma', 1,9),
+#         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
+#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
+#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
+#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
+#         'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
+#         'tree_method': 'gpu_hist'
+#     }
 
-def objective(space):
-    clf = XGBClassifier(n_estimators = int(space['n_estimators']),
-                        max_depth = int(space['max_depth']),
-                        gamma = space['gamma'],
-                        reg_alpha = int(space['reg_alpha']),
-                        min_child_weight = int(space['min_child_weight']),
-                        colsample_bytree = int(space['colsample_bytree']),
-                        tree_method = space['tree_method']
-                       )
+# def objective(space):
+#     clf = XGBClassifier(n_estimators = int(space['n_estimators']),
+#                         max_depth = int(space['max_depth']),
+#                         gamma = space['gamma'],
+#                         reg_alpha = int(space['reg_alpha']),
+#                         min_child_weight = int(space['min_child_weight']),
+#                         colsample_bytree = int(space['colsample_bytree']),
+#                         tree_method = space['tree_method']
+#                        )
     
-    evaluation = [(X_train, Y_train), (X_test, Y_test)]
+#     evaluation = [(X_train, Y_train), (X_test, Y_test)]
     
-    clf.fit(X_train, Y_train,
-            eval_set = evaluation, eval_metric = "auc",
-            early_stopping_rounds = 10, verbose = False)
+#     clf.fit(X_train, Y_train,
+#             eval_set = evaluation, eval_metric = "auc",
+#             early_stopping_rounds = 10, verbose = False)
             
     
-    pred = clf.predict(X_test)
-    accuracy = accuracy_score(Y_test, pred>0.5)
-    print ("SCORE:", accuracy)
-    return {'loss': -accuracy, 'status': STATUS_OK }
+#     pred = clf.predict(X_test)
+#     accuracy = accuracy_score(Y_test, pred>0.5)
+#     print ("SCORE:", accuracy)
+#     return {'loss': -accuracy, 'status': STATUS_OK }
 
 
-trials = Trials()
+# trials = Trials()
 
-best_hyperparams = fmin(fn = objective,
-                        space = space,
-                        algo = tpe.suggest,
-                        max_evals = 100,
-                        trials = trials)
+# best_hyperparams = fmin(fn = objective,
+#                         space = space,
+#                         algo = tpe.suggest,
+#                         max_evals = 100,
+#                         trials = trials)
 
 
 # #### Escritura hiperparámetros
@@ -1889,10 +1889,10 @@ best_hyperparams = fmin(fn = objective,
 # In[ ]:
 
 
-FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-print(best_hyperparams)
+# write_weights(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+# print(best_hyperparams)
 
 
 # ### Pesos de características
@@ -1903,7 +1903,7 @@ print(best_hyperparams)
 
 
 # FILE_NAME = 'madrid_calculated_weights.json'
-FILE_NAME = 'madrid_weights_v7.json'
+FILE_NAME = 'madrid_weights2022-04-14-11:16:13.json'
 
 feature_vector = load_weights(WEIGHTS_PATH, FILE_NAME)
 display(feature_vector)
@@ -1914,12 +1914,12 @@ display(feature_vector)
 # In[ ]:
 
 
-xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
+# xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
 
-xgboost.fit(X_train, Y_train)
+# xgboost.fit(X_train, Y_train)
 
-child_weights  = np.array(xgboost.feature_importances_)
-feature_vector = fill_feature_vector(X_train, child_weights)
+# child_weights  = np.array(xgboost.feature_importances_)
+# feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Visualización pesos calculados
@@ -1927,20 +1927,20 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
+# FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
-print(xgboost.get_booster().get_score(importance_type= 'weight'))
-plt.figure(figsize=(10, 5))
-plt.barh(X_train.columns, xgboost.feature_importances_)
-plt.savefig(WEIGHTS_PATH + FILE_NAME)
+# print(xgboost.get_booster().get_score(importance_type= 'weight'))
+# plt.figure(figsize=(10, 5))
+# plt.barh(X_train.columns, xgboost.feature_importances_)
+# plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
-print(xgboost.feature_importances_)
+# print(xgboost.feature_importances_)
 
-for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-  print(column, weight)
+# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
+#   print(column, weight)
 
-child_weights  = np.array(xgboost.feature_importances_)
-feature_vector = fill_feature_vector(X_train, child_weights)
+# child_weights  = np.array(xgboost.feature_importances_)
+# feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Escritura de pesos de características
@@ -1952,12 +1952,12 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-matrix_indexes = fv2gi(feature_vector)
+# matrix_indexes = fv2gi(feature_vector)
 
-FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
-# FILE_NAME = 'default_calculated_weights.json'
+# FILE_NAME = 'madrid_weights' + MODEL_TIMESTAMP + '.json'
+# # FILE_NAME = 'default_calculated_weights.json'
 
-write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+# write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
