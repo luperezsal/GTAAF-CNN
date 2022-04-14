@@ -5,7 +5,7 @@
 
 # ## Carga Google Drive
 
-# In[2]:
+# In[1]:
 
 
 # from google.colab import drive
@@ -14,7 +14,7 @@
 
 # ## Timestamp
 
-# In[3]:
+# In[2]:
 
 
 from datetime import datetime
@@ -29,13 +29,13 @@ MODELS_PATH  = 'Models/'
 
 # ## Importar Tensorflow
 
-# In[4]:
+# In[3]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[5]:
+# In[4]:
 
 
 import tensorflow as tf
@@ -50,7 +50,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[6]:
+# In[5]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -62,7 +62,7 @@ get_ipython().system('nvidia-smi')
 
 # ## Importador/Exportador JSON
 
-# In[7]:
+# In[6]:
 
 
 import json
@@ -80,7 +80,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[8]:
+# In[7]:
 
 
 import numpy as np
@@ -160,7 +160,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[9]:
+# In[8]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -182,7 +182,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[10]:
+# In[9]:
 
 
 from scipy.stats import zscore
@@ -202,7 +202,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[11]:
+# In[10]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -223,7 +223,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[12]:
+# In[11]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -240,7 +240,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[123]:
+# In[12]:
 
 
 def initilialize_poplulation(numberOfParents):
@@ -254,7 +254,6 @@ def initilialize_poplulation(numberOfParents):
     colSampleByTree =  np.empty([numberOfParents, 1])
 
     for i in range(numberOfParents):
-        print(i)
         learningRate[i] = round(random.uniform(0.01, 1), 2)
         nEstimators[i] = random.randrange(10, 1500, step = 25)
         maxDepth[i] = int(random.randrange(1, 10, step= 1))
@@ -270,7 +269,7 @@ def initilialize_poplulation(numberOfParents):
 
 # ### Fitness function
 
-# In[148]:
+# In[13]:
 
 
 from sklearn.metrics import f1_score
@@ -287,15 +286,16 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[143]:
+# In[49]:
 
 
 from xgboost import XGBClassifier
 
-def train_population(population, X_train, Y_train, X_test, Y_test):
+def train_population(population, dMatrixTrain, dMatrixTest, y_test):
     fScore = []
     for i in range(population.shape[0]):
-        param = { 'objective':'binary:logistic',
+        param = { 'objective':'multi:softprob',
+                  'num_class': 3,
                   'learning_rate': population[i][0],
                   'n_estimators': population[i][1], 
                   'max_depth': int(population[i][2]), 
@@ -306,19 +306,23 @@ def train_population(population, X_train, Y_train, X_test, Y_test):
                   'seed': 24}
 
         num_round = 100
-        xgb = XGBClassifier(param, num_round)
-        xgbT = xgb.fit(X_train, Y_train)
-        preds = xgb.predict(X_test)
-        preds = preds>0.5
-        print(fitness_f1score(Y_test, preds))
-        fScore.append(fitness_f1score(Y_test, preds))
+        xgbT = xgb.train(param,
+                         dMatrixTrain,
+                         num_round)
+
+        preds = xgbT.predict(dMatrixTest)
+        
+        single_predictions = [np.argmax(pred) for pred in preds]
+        # preds = preds > 0.5
+
+        fScore.append(np.argmax(fitness_f1score(Y_test, single_predictions)))
 
     return fScore
 
 
 # ### Selección de padres
 
-# In[118]:
+# In[15]:
 
 
 #select parents for mating
@@ -337,7 +341,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[119]:
+# In[16]:
 
 
 '''
@@ -371,12 +375,13 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[120]:
+# In[53]:
 
 
 def mutation(crossover, numberOfParameters):
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
-    
+    minMaxValue = np.zeros((numberOfParameters, 2))
+
     minMaxValue[0:] = [0.01, 1.0]    # min/max learning rate
     minMaxValue[1, :] = [10, 2000]   # min/max n_estimator
     minMaxValue[2, :] = [1, 15]      # min/max depth
@@ -421,7 +426,7 @@ def mutation(crossover, numberOfParameters):
 
 # ## Reshape de imágenes
 
-# In[121]:
+# In[18]:
 
 
 # Add one channel
@@ -444,7 +449,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[14]:
+# In[19]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -474,7 +479,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[15]:
+# In[20]:
 
 
 import seaborn as sns
@@ -488,7 +493,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[16]:
+# In[21]:
 
 
 from sklearn.decomposition import PCA
@@ -508,7 +513,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[17]:
+# In[22]:
 
 
 from sklearn.manifold import TSNE
@@ -535,7 +540,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[18]:
+# In[23]:
 
 
 def autoencoder ():
@@ -560,7 +565,7 @@ def autoencoder ():
 
 # ## TASP-CNN
 
-# In[19]:
+# In[24]:
 
 
 import tensorflow_addons as tfa
@@ -588,7 +593,7 @@ tasp_cnn.compile(
   )
 
 
-# In[20]:
+# In[25]:
 
 
 print('Done!')
@@ -598,13 +603,13 @@ print('Done!')
 
 # ## Importación de datos
 
-# In[21]:
+# In[26]:
 
 
 # !conda install pandas --y
 
 
-# In[22]:
+# In[27]:
 
 
 import pandas as pd
@@ -658,7 +663,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[23]:
+# In[28]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -820,13 +825,13 @@ clean_df
 
 # ## Split de datos
 
-# In[24]:
+# In[29]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[25]:
+# In[30]:
 
 
 from sklearn.model_selection import train_test_split
@@ -841,7 +846,7 @@ X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
 Y_test = test['Casualty Severity']
 
 
-# In[26]:
+# In[31]:
 
 
 # fv2gi(feature_vector)
@@ -863,13 +868,13 @@ Y_test = test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[27]:
+# In[32]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[28]:
+# In[33]:
 
 
 X_train = X_train.astype(int)
@@ -881,7 +886,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversamplig de datos
 
-# In[29]:
+# In[34]:
 
 
 print('********** Before OverSampling **********')
@@ -895,7 +900,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[108]:
+# In[35]:
 
 
 from xgboost import XGBClassifier
@@ -905,7 +910,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[150]:
+# In[56]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -921,10 +926,15 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 import xgboost as xgb
 import random
 
-numberOfParents = 10 # number of parents to start
-numberOfParentsMating = 2 # Number of parents that will mate
+Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_test_onehot  = casualty_to_one_hot(Y_test)
+
+numberOfParents = 8 # number of parents to start
+numberOfParentsMating = 4 # Number of parents that will mate
 numberOfParameters = 7  # Number of parameters that will be optimized
-numberOfGenerations = 1 # Number of genration that will be created#define the population sizepopulationSize = (numberOfParents, numberOfParameters)#initialize the population with randomly generated parameters
+numberOfGenerations = 10 # Number of genration that will be created#define the population sizepopulationSize = (numberOfParents, numberOfParameters)#initialize the population with randomly generated parameters
+
+populationSize = (numberOfParents, numberOfParameters)
 
 population = initilialize_poplulation(numberOfParents) # Define an array to store the fitness  hitory
 fitnessHistory = np.empty([numberOfGenerations+1, numberOfParents]) # Define an array to store the value of each parameter for each parent and generation
@@ -934,13 +944,15 @@ populationHistory[0:numberOfParents, :] = population
 
 for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
+
+    xgbDMatrixTrain = xgb.DMatrix(data = X_train, label = Y_train)
+    xgbDMatrixTest  = xgb.DMatrix(data = X_test,  label = Y_test)
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
-                                    X_train = X_train,
-                                    Y_train = Y_train,
-                                    X_test  = X_test,
-                                    Y_test  = Y_test)
+                                    dMatrixTrain = xgbDMatrixTrain,
+                                    dMatrixTest =  xgbDMatrixTest,
+                                    y_test = Y_test)
 
     fitnessHistory[generation, :] = fitnessValue
     
@@ -967,8 +979,35 @@ for generation in range(numberOfGenerations):
     
     populationHistory[(generation+1)*numberOfParents : (generation+1)*numberOfParents+ numberOfParents , :] = population # Srore parent information
     
-#Best solution from the final iterationfitness = geneticXGboost.train_population(population=population, dMatrixTrain=xgDMatrix, dMatrixtest=xgbDMatrixTest, y_test=y_test)
-fitnessHistory[generation+1, :] = fitness#index of the best solution
+#Best solution from the final iteration
+
+fitness = train_population(population = population,
+                           dMatrixTrain = xgbDMatrixTrain,
+                           dMatrixTest  = xgbDMatrixTest,
+                           y_test = Y_test)
+
+fitnessHistory[generation+1, :] = fitness # index of the best solution
+bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
+
+best_hyperparams = {}
+best_hyperparams['learning_rate'] = population[bestFitnessIndex][0]
+best_hyperparams['n_estimators']  = population[bestFitnessIndex][1]
+best_hyperparams['max_depth'] = population[bestFitnessIndex][2]
+best_hyperparams['min_child_weight'] = population[bestFitnessIndex][3]
+best_hyperparams['gamma'] = population[bestFitnessIndex][4]
+best_hyperparams['subsample'] =  population[bestFitnessIndex][5]
+best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
+
+
+# In[59]:
+
+
+fitness = train_population(population = population,
+                           dMatrixTrain = xgbDMatrixTrain,
+                           dMatrixTest  = xgbDMatrixTest,
+                           y_test = Y_test)
+
+fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
 best_hyperparams = {}
@@ -985,7 +1024,7 @@ best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
 
 # #### Carga hiperparámetros
 
-# In[31]:
+# In[ ]:
 
 
 # FILE_NAME = 'madrid_hyperparams_v7.json'
@@ -995,7 +1034,7 @@ best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
 
 # #### Cálculo de Hiperparámetros
 
-# In[32]:
+# In[ ]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1045,7 +1084,7 @@ best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
 
 # #### Escritura hiperparámetros
 
-# In[33]:
+# In[ ]:
 
 
 FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
@@ -1058,7 +1097,7 @@ print(best_hyperparams)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[34]:
+# In[ ]:
 
 
 # FILE_NAME = 'leeds_calculated_weights.json'
@@ -1070,7 +1109,7 @@ display(feature_vector)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[35]:
+# In[ ]:
 
 
 from numpy import loadtxt
@@ -1088,7 +1127,7 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 
 # #### Visualización pesos calculados
 
-# In[36]:
+# In[ ]:
 
 
 FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
@@ -1104,7 +1143,7 @@ for column, weight in zip(X_train.columns,xgboost.feature_importances_):
 
 # #### Escritura de pesos de características
 
-# In[37]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -1117,7 +1156,7 @@ write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 # ### Cálculo índices de matriz
 
-# In[38]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -1125,7 +1164,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[39]:
+# In[ ]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -1136,7 +1175,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[40]:
+# In[ ]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -1145,7 +1184,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[41]:
+# In[ ]:
 
 
 plt.gray()
@@ -1155,13 +1194,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[42]:
+# In[ ]:
 
 
 # !conda install scikit-image
 
 
-# In[43]:
+# In[ ]:
 
 
 from skimage.feature import hog
@@ -1175,7 +1214,7 @@ for i in range(0,3):
   plt.show()
 
 
-# In[44]:
+# In[ ]:
 
 
 # input_shape = (5, 5)
@@ -1186,13 +1225,13 @@ array_test_images  = np.asarray(test_images)
 
 # 
 
-# In[45]:
+# In[ ]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[46]:
+# In[ ]:
 
 
 ######### EN TERMINAL #########
@@ -1201,7 +1240,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## One-Hot
 
-# In[47]:
+# In[ ]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1210,7 +1249,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Visualización de datos
 
-# In[48]:
+# In[ ]:
 
 
 # !conda install seaborn
@@ -1218,7 +1257,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### Matriz de correlación
 
-# In[49]:
+# In[ ]:
 
 
 # correlation_matrix(X_test)
@@ -1226,7 +1265,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### PCA
 
-# In[50]:
+# In[ ]:
 
 
 # pca(X_train, X_test)
@@ -1234,7 +1273,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### TSNE
 
-# In[51]:
+# In[ ]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -1254,7 +1293,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # #### Entrenamiento
 
-# In[52]:
+# In[ ]:
 
 
 X_train = array_train_images
@@ -1272,7 +1311,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[53]:
+# In[ ]:
 
 
 # # create encoder model
@@ -1326,7 +1365,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
-# In[54]:
+# In[ ]:
 
 
 from sklearn.manifold import TSNE
@@ -1365,7 +1404,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Entrenamiento
 
-# In[55]:
+# In[ ]:
 
 
 input_train_shape = (len(array_train_images), 5, 5, 1)
@@ -1383,7 +1422,7 @@ history = tasp_cnn.fit(array_train_images, Y_train_onehot,
 
 # ### Escritura del modelo
 
-# In[56]:
+# In[ ]:
 
 
 tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
@@ -1391,7 +1430,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 
 # ### Carga de modelo pre-entrenado
 
-# In[57]:
+# In[ ]:
 
 
 # tasp_cnn = tf.keras.models.load_model(MODELS_PATH + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
@@ -1399,7 +1438,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 
 # ### Resultados
 
-# In[58]:
+# In[ ]:
 
 
 from sklearn.metrics import classification_report
@@ -1443,7 +1482,7 @@ report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 report_df
 
 
-# In[59]:
+# In[ ]:
 
 
 # import tensorflow as tf
@@ -1453,7 +1492,7 @@ report_df
 # predictions
 
 
-# In[60]:
+# In[ ]:
 
 
 # prediction_string = [str(prediction) for prediction in predictions]
@@ -1470,7 +1509,7 @@ report_df
 # 
 # 
 
-# In[97]:
+# In[ ]:
 
 
 import pandas as pd
@@ -1516,19 +1555,20 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[98]:
+# In[ ]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
 data_frame.rename(columns={"positiva_alcohol_rename": "vehiculos_implicados"}, errors="raise", inplace=True)
 data_frame = data_frame.reset_index(drop=True)
+# data_frame.localizacion.unique()[:1000]
 
 
 # ## Limpieza de datos
 
 # ### Clasificación de carreteras
 
-# In[99]:
+# In[ ]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1605,13 +1645,13 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
 
 
-# In[64]:
+# In[ ]:
 
 
 data_frame.tipo_via.value_counts()
 
 
-# In[100]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1683,7 +1723,7 @@ data_frame.tipo_via.value_counts()
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[101]:
+# In[ ]:
 
 
 weather_conditions_replace = {
@@ -1888,7 +1928,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[102]:
+# In[ ]:
 
 
 # Todos las comas a puntos
@@ -1977,7 +2017,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[103]:
+# In[ ]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'localizacion', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -1995,7 +2035,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[69]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2008,7 +2048,7 @@ X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
 Y_test = test['lesividad']
 
 
-# In[70]:
+# In[ ]:
 
 
 # # FILE_NAME = 'madrid_calculated_weights.json'
@@ -2018,7 +2058,7 @@ Y_test = test['lesividad']
 # display(feature_vector)
 
 
-# In[95]:
+# In[ ]:
 
 
 
@@ -2081,7 +2121,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[72]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -2093,7 +2133,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[73]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -2107,7 +2147,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[74]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -2121,7 +2161,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga hiperparámetros
 
-# In[75]:
+# In[ ]:
 
 
 # FILE_NAME = 'madrid_hyperparams_v7.json'
@@ -2131,7 +2171,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Cálculo de Hiperparámetros
 
-# In[76]:
+# In[ ]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -2181,7 +2221,7 @@ best_hyperparams = fmin(fn = objective,
 
 # #### Escritura hiperparámetros
 
-# In[77]:
+# In[ ]:
 
 
 FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
@@ -2194,7 +2234,7 @@ print(best_hyperparams)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[78]:
+# In[ ]:
 
 
 FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
@@ -2206,7 +2246,7 @@ display(feature_vector)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[79]:
+# In[ ]:
 
 
 xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
@@ -2219,7 +2259,7 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 
 # #### Visualización pesos calculados
 
-# In[80]:
+# In[ ]:
 
 
 FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
@@ -2244,7 +2284,7 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[81]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -2257,7 +2297,7 @@ write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 # ### Cálculo índices de matriz
 
-# In[82]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -2265,7 +2305,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[83]:
+# In[ ]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -2276,7 +2316,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[84]:
+# In[ ]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -2291,7 +2331,7 @@ for i in range(0,3):
     plt.show()
 
 
-# In[85]:
+# In[ ]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -2302,7 +2342,7 @@ for i in range(0,3):
 
 # ## One-Hot
 
-# In[86]:
+# In[ ]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -2314,7 +2354,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## Visualización de datos
 
-# In[87]:
+# In[ ]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -2322,7 +2362,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### Matriz de correlación
 
-# In[88]:
+# In[ ]:
 
 
 # correlation_matrix(X_test)
@@ -2330,7 +2370,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### PCA
 
-# In[89]:
+# In[ ]:
 
 
 # pca(X_train, X_test)
@@ -2338,7 +2378,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### TSNE
 
-# In[90]:
+# In[ ]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -2358,7 +2398,7 @@ array_test_images  = np.asarray(test_images)
 
 # #### Entrenamiento
 
-# In[91]:
+# In[ ]:
 
 
 # input_img = Input(shape=(25,))
@@ -2392,7 +2432,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[92]:
+# In[ ]:
 
 
 # # create encoder model
@@ -2450,7 +2490,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # ### Entrenamiento
 
-# In[93]:
+# In[ ]:
 
 
 array_train_images = np.asarray(train_images)
