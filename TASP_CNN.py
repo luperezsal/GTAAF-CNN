@@ -245,24 +245,37 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 def initilialize_poplulation(numberOfParents):
 
-    learningRate = np.empty([numberOfParents, 1])
-    nEstimators = np.empty([numberOfParents, 1], dtype = np.uint8)
-    maxDepth = np.empty([numberOfParents, 1], dtype = np.uint8)
-    minChildWeight = np.empty([numberOfParents, 1])
+    maxDepth   = np.empty([numberOfParents, 1], dtype = np.uint8)
+    regAlpha   = np.empty([numberOfParents, 1])
+    regLambda  = np.empty([numberOfParents, 1])
     gammaValue = np.empty([numberOfParents, 1])
-    subSample = np.empty([numberOfParents, 1])
+    subSample  = np.empty([numberOfParents, 1])
+    learningRate = np.empty([numberOfParents, 1])
+    nEstimators  = np.empty([numberOfParents, 1], dtype = np.uint8)
+    minChildWeight  = np.empty([numberOfParents, 1])
     colSampleByTree =  np.empty([numberOfParents, 1])
 
+    # space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
+#         'gamma': hp.uniform ('gamma', 1,9),
+#         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
+#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
+#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
+#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
+#         'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
+#         'tree_method': 'gpu_hist'
+#     }
     for i in range(numberOfParents):
         learningRate[i] = round(random.uniform(0.01, 1), 2)
-        nEstimators[i] = random.randrange(10, 1500, step = 25)
+        nEstimators[i] = random.randrange(10, 2000, step = 50)
         maxDepth[i] = int(random.randrange(1, 10, step= 1))
-        minChildWeight[i] = round(random.uniform(0.01, 10.0), 2)
+        minChildWeight[i] = round(random.uniform(0.01, 15.0), 1)
         gammaValue[i] = round(random.uniform(0.01, 10.0), 2)
         subSample[i] = round(random.uniform(0.01, 1.0), 2)
         colSampleByTree[i] = round(random.uniform(0.01, 1.0), 2)
+        regAlpha[i]  = round(random.uniform(40,180), 1)
+        regLambda[i] = round(random.uniform(0,1), 1)
     
-    population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree), axis= 1)
+    population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree, regAlpha, regLambda), axis= 1)
   
     return population
 
@@ -286,7 +299,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[49]:
+# In[14]:
 
 
 from xgboost import XGBClassifier
@@ -304,6 +317,8 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
                   'gamma': population[i][4], 
                   'subsample': population[i][5],
                   'colsample_bytree': population[i][6],
+                  'reg_alpha': population[i][7],
+                  'reg_lambda': population[i][8],
                   'seed': 24}
 
         num_round = 100
@@ -376,7 +391,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[53]:
+# In[17]:
 
 
 def mutation(crossover, numberOfParameters):
@@ -397,9 +412,9 @@ def mutation(crossover, numberOfParameters):
 
     print(parameterSelect)
 
-    if parameterSelect == 0: #learning_rate
+    if parameterSelect == 0: # learning_rate
         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-    if parameterSelect == 1: #n_estimators
+    if parameterSelect == 1: # n_estimators
         mutationValue = np.random.randint(-200, 200, 1)
     if parameterSelect == 2: #max_depth
         mutationValue = np.random.randint(-5, 5, 1)
@@ -407,10 +422,14 @@ def mutation(crossover, numberOfParameters):
         mutationValue = round(np.random.uniform(5, 5), 2)
     if parameterSelect == 4: #gamma
         mutationValue = round(np.random.uniform(-2, 2), 2)
-    if parameterSelect == 5: #subsample
+    if parameterSelect == 5: # subsample
         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-    if parameterSelect == 6: #colsample
+    if parameterSelect == 6: # colsample
         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+    if parameterSelect == 6: # reg_alpha
+        mutationValue = round(np.random.uniform(40,180), 1)
+    if parameterSelect == 6: # reg_lambda
+        mutationValue = round(np.random.uniform(40,180), 1)
   
     #indtroduce mutation by changing one parameter, and set to max or min if it goes out of range
     for idx in range(crossover.shape[0]):
@@ -911,7 +930,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[56]:
+# In[36]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -932,7 +951,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 numberOfParents = 8 # number of parents to start
 numberOfParentsMating = 4 # Number of parents that will mate
-numberOfParameters = 7  # Number of parameters that will be optimized
+numberOfParameters = 9  # Number of parameters that will be optimized
 numberOfGenerations = 10 # Number of genration that will be created#define the population sizepopulationSize = (numberOfParents, numberOfParameters)#initialize the population with randomly generated parameters
 
 populationSize = (numberOfParents, numberOfParameters)
@@ -991,34 +1010,15 @@ fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
 best_hyperparams = {}
-best_hyperparams['learning_rate'] = population[bestFitnessIndex][0]
+best_hyperparams['eta'] = population[bestFitnessIndex][0]
 best_hyperparams['n_estimators']  = population[bestFitnessIndex][1]
 best_hyperparams['max_depth'] = population[bestFitnessIndex][2]
 best_hyperparams['min_child_weight'] = population[bestFitnessIndex][3]
 best_hyperparams['gamma'] = population[bestFitnessIndex][4]
 best_hyperparams['subsample'] =  population[bestFitnessIndex][5]
 best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
-
-
-# In[59]:
-
-
-fitness = train_population(population = population,
-                           dMatrixTrain = xgbDMatrixTrain,
-                           dMatrixTest  = xgbDMatrixTest,
-                           y_test = Y_test)
-
-fitnessHistory[generation+1, :] = fitness # index of the best solution
-bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
-
-best_hyperparams = {}
-best_hyperparams['learning_rate'] = population[bestFitnessIndex][0]
-best_hyperparams['n_estimators']  = population[bestFitnessIndex][1]
-best_hyperparams['max_depth'] = population[bestFitnessIndex][2]
-best_hyperparams['min_child_weight'] = population[bestFitnessIndex][3]
-best_hyperparams['gamma'] = population[bestFitnessIndex][4]
-best_hyperparams['subsample'] =  population[bestFitnessIndex][5]
-best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
+best_hyperparams['reg_alpha'] =  population[bestFitnessIndex][7]
+best_hyperparams['reg_lambda'] =  population[bestFitnessIndex][8]
 
 
 # ### Hiperparámetros
