@@ -1152,7 +1152,7 @@ matrix_indexes = fv2gi(feature_vector)
 FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
 # FILE_NAME = 'leeds_default_weights.json'
 
-write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
