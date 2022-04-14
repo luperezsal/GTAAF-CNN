@@ -3,19 +3,6 @@
 
 # # Métodos
 
-# In[1]:
-
-
-from datetime import datetime
-
-MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
-
-HYPERPARAMS_PATH = './hyperparams/'
-WEIGHTS_PATH = './feature_weights/'
-REPORTS_PATH = 'Reports/'
-MODELS_PATH  = 'Models/'
-
-
 # ## Carga Google Drive
 
 # In[2]:
@@ -30,7 +17,14 @@ MODELS_PATH  = 'Models/'
 # In[3]:
 
 
-from numba import cuda
+from datetime import datetime
+
+MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+
+HYPERPARAMS_PATH = './hyperparams/'
+WEIGHTS_PATH = './feature_weights/'
+REPORTS_PATH = 'Reports/'
+MODELS_PATH  = 'Models/'
 
 
 # ## Importar Tensorflow
@@ -242,9 +236,192 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
     return matrix_3d
 
 
+# ## Algoritmo genético
+
+# ### Inicializar población
+
+# In[123]:
+
+
+def initilialize_poplulation(numberOfParents):
+
+    learningRate = np.empty([numberOfParents, 1])
+    nEstimators = np.empty([numberOfParents, 1], dtype = np.uint8)
+    maxDepth = np.empty([numberOfParents, 1], dtype = np.uint8)
+    minChildWeight = np.empty([numberOfParents, 1])
+    gammaValue = np.empty([numberOfParents, 1])
+    subSample = np.empty([numberOfParents, 1])
+    colSampleByTree =  np.empty([numberOfParents, 1])
+
+    for i in range(numberOfParents):
+        print(i)
+        learningRate[i] = round(random.uniform(0.01, 1), 2)
+        nEstimators[i] = random.randrange(10, 1500, step = 25)
+        maxDepth[i] = int(random.randrange(1, 10, step= 1))
+        minChildWeight[i] = round(random.uniform(0.01, 10.0), 2)
+        gammaValue[i] = round(random.uniform(0.01, 10.0), 2)
+        subSample[i] = round(random.uniform(0.01, 1.0), 2)
+        colSampleByTree[i] = round(random.uniform(0.01, 1.0), 2)
+    
+    population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree), axis= 1)
+  
+    return population
+
+
+# ### Fitness function
+
+# In[148]:
+
+
+from sklearn.metrics import f1_score
+
+def fitness_f1score(y_true, y_pred):
+#     xgboost = XGBClassifier(params=params)
+
+#     fitness = xgboost.fit(X_train, Y_train).training_score
+
+    fitness = round((f1_score(y_true, y_pred, average='weighted')), 4)
+
+    return fitness #train the data annd find fitness score
+
+
+# ### Evaluación de población
+
+# In[143]:
+
+
+from xgboost import XGBClassifier
+
+def train_population(population, X_train, Y_train, X_test, Y_test):
+    fScore = []
+    for i in range(population.shape[0]):
+        param = { 'objective':'binary:logistic',
+                  'learning_rate': population[i][0],
+                  'n_estimators': population[i][1], 
+                  'max_depth': int(population[i][2]), 
+                  'min_child_weight': population[i][3],
+                  'gamma': population[i][4], 
+                  'subsample': population[i][5],
+                  'colsample_bytree': population[i][6],
+                  'seed': 24}
+
+        num_round = 100
+        xgb = XGBClassifier(param, num_round)
+        xgbT = xgb.fit(X_train, Y_train)
+        preds = xgb.predict(X_test)
+        preds = preds>0.5
+        print(fitness_f1score(Y_test, preds))
+        fScore.append(fitness_f1score(Y_test, preds))
+
+    return fScore
+
+
+# ### Selección de padres
+
+# In[118]:
+
+
+#select parents for mating
+def new_parents_selection(population, fitness, numParents):
+    selectedParents = np.empty((numParents, population.shape[1])) #create an array to store fittest parents
+    
+    #find the top best performing parents
+    for parentId in range(numParents):
+        bestFitnessId = np.where(fitness == np.max(fitness))
+        bestFitnessId  = bestFitnessId[0][0]
+        selectedParents[parentId, :] = population[bestFitnessId, :]
+        fitness[bestFitnessId] = -1 #set this value to negative, in case of F1-score, so this parent is not selected again
+
+    return selectedParents
+
+
+# ### Cruzamiento de población
+
+# In[119]:
+
+
+'''
+Mate these parents to create children having parameters from these parents (we are using uniform crossover method)
+'''
+def crossover_uniform(parents, childrenSize):
+    
+    crossoverPointIndex = np.arange(0, np.uint8(childrenSize[1]), 1, dtype= np.uint8) #get all the index
+    crossoverPointIndex1 = np.random.randint(0, np.uint8(childrenSize[1]), np.uint8(childrenSize[1]/2)) # select half  of the indexes randomly
+    crossoverPointIndex2 = np.array(list(set(crossoverPointIndex) - set(crossoverPointIndex1))) #select leftover indexes
+    
+    children = np.empty(childrenSize)
+    
+    '''
+    Create child by choosing parameters from two parents selected using new_parent_selection function. The parameter values
+    will be picked from the indexes, which were randomly selected above. 
+    '''
+    for i in range(childrenSize[0]):
+        
+        #find parent 1 index 
+        parent1_index = i%parents.shape[0]
+        #find parent 2 index
+        parent2_index = (i+1)%parents.shape[0]
+        #insert parameters based on random selected indexes in parent 1
+        children[i, crossoverPointIndex1] = parents[parent1_index, crossoverPointIndex1]
+        #insert parameters based on random selected indexes in parent 1
+        children[i, crossoverPointIndex2] = parents[parent2_index, crossoverPointIndex2]
+
+    return children
+
+
+# ### Mutación
+
+# In[120]:
+
+
+def mutation(crossover, numberOfParameters):
+    # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
+    
+    minMaxValue[0:] = [0.01, 1.0]    # min/max learning rate
+    minMaxValue[1, :] = [10, 2000]   # min/max n_estimator
+    minMaxValue[2, :] = [1, 15]      # min/max depth
+    minMaxValue[3, :] = [0, 10.0]    # min/max child_weight
+    minMaxValue[4, :] = [0.01, 10.0] # min/max gamma
+    minMaxValue[5, :] = [0.01, 1.0]  # min/maxsubsample
+    minMaxValue[6, :] = [0.01, 1.0]  # min/maxcolsample_bytree
+ 
+    # Mutation changes a single gene in each offspring randomly.
+    mutationValue = 0
+    parameterSelect = np.random.randint(0, 7, 1)
+
+    print(parameterSelect)
+
+    if parameterSelect == 0: #learning_rate
+        mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+    if parameterSelect == 1: #n_estimators
+        mutationValue = np.random.randint(-200, 200, 1)
+    if parameterSelect == 2: #max_depth
+        mutationValue = np.random.randint(-5, 5, 1)
+    if parameterSelect == 3: #min_child_weight
+        mutationValue = round(np.random.uniform(5, 5), 2)
+    if parameterSelect == 4: #gamma
+        mutationValue = round(np.random.uniform(-2, 2), 2)
+    if parameterSelect == 5: #subsample
+        mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+    if parameterSelect == 6: #colsample
+        mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+  
+    #indtroduce mutation by changing one parameter, and set to max or min if it goes out of range
+    for idx in range(crossover.shape[0]):
+        crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
+
+        if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
+            crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
+
+        if(crossover[idx, parameterSelect] < minMaxValue[parameterSelect, 0]):
+            crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 0]
+
+    return crossover
+
+
 # ## Reshape de imágenes
 
-# In[13]:
+# In[121]:
 
 
 # Add one channel
@@ -718,12 +895,93 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[30]:
+# In[108]:
 
 
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
+
+
+# ### Genético
+
+# In[150]:
+
+
+# from sklearn.preprocessing import StandardScaler
+
+# sc = StandardScaler()
+# X_train = sc.fit_transform(X_train)
+# X_test  = sc.transform(X_test)
+
+# XGboost Classifier
+# model xgboost
+# use xgboost API now
+
+import xgboost as xgb
+import random
+
+xgDMatrix = xgb.DMatrix(X_train, Y_train) #create Dmatrix
+xgbDMatrixTest = xgb.DMatrix(X_test, Y_test)
+
+numberOfParents = 10 # number of parents to start
+numberOfParentsMating = 2 # Number of parents that will mate
+numberOfParameters = 7  # Number of parameters that will be optimized
+numberOfGenerations = 1 # Number of genration that will be created#define the population sizepopulationSize = (numberOfParents, numberOfParameters)#initialize the population with randomly generated parameters
+
+population = initilialize_poplulation(numberOfParents) # Define an array to store the fitness  hitory
+fitnessHistory = np.empty([numberOfGenerations+1, numberOfParents]) # Define an array to store the value of each parameter for each parent and generation
+populationHistory = np.empty([(numberOfGenerations+1)*numberOfParents, numberOfParameters]) # Insert the value of initial parameters in history
+
+populationHistory[0:numberOfParents, :] = population
+
+for generation in range(numberOfGenerations):
+    print("This is number %s generation" % (generation))
+    
+    # Train the dataset and obtain fitness
+    fitnessValue = train_population(population = population,
+                                    X_train = X_train,
+                                    Y_train = Y_train,
+                                    X_test  = X_test,
+                                    Y_test  = Y_test)
+
+    fitnessHistory[generation, :] = fitnessValue
+    
+    # Best score in the current iteration
+    print('Best F1 score in the this iteration = {}'.format(np.max(fitnessHistory[generation, :]))) # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
+    
+    parents = new_parents_selection(population = population,
+                                    fitness = fitnessValue,
+                                    numParents = numberOfParentsMating)
+    
+    # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
+    children = crossover_uniform(parents = parents,
+                                 childrenSize = (populationSize[0] - parents.shape[0], numberOfParameters))
+    
+    # Add mutation to create genetic diversity
+    children_mutated = mutation(children, numberOfParameters)
+    
+    '''
+    We will create new population, which will contain parents that where selected previously based on the
+    fitness score and rest of them  will be children
+    '''
+    population[0:parents.shape[0], :] = parents # Fittest parents
+    population[parents.shape[0]:, :] = children_mutated # Children
+    
+    populationHistory[(generation+1)*numberOfParents : (generation+1)*numberOfParents+ numberOfParents , :] = population # Srore parent information
+    
+#Best solution from the final iterationfitness = geneticXGboost.train_population(population=population, dMatrixTrain=xgDMatrix, dMatrixtest=xgbDMatrixTest, y_test=y_test)
+fitnessHistory[generation+1, :] = fitness#index of the best solution
+bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
+
+best_hyperparams = {}
+best_hyperparams['learning_rate'] = population[bestFitnessIndex][0]
+best_hyperparams['n_estimators']  = population[bestFitnessIndex][1]
+best_hyperparams['max_depth'] = population[bestFitnessIndex][2]
+best_hyperparams['min_child_weight'] = population[bestFitnessIndex][3]
+best_hyperparams['gamma'] = population[bestFitnessIndex][4]
+best_hyperparams['subsample'] =  population[bestFitnessIndex][5]
+best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
 
 
 # ### Hiperparámetros
@@ -793,10 +1051,10 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # In[33]:
 
 
-# FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
+FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-# print(best_hyperparams)
+write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+print(best_hyperparams)
 
 
 # ### Pesos de características
@@ -818,17 +1076,17 @@ display(feature_vector)
 # In[35]:
 
 
-# from numpy import loadtxt
-# from xgboost import XGBClassifier,XGBRanker
-# from matplotlib import pyplot
-# from xgboost import plot_importance
+from numpy import loadtxt
+from xgboost import XGBClassifier,XGBRanker
+from matplotlib import pyplot
+from xgboost import plot_importance
 
-# xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
+xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
 
-# xgboost.fit(X_train, Y_train)
+xgboost.fit(X_train, Y_train)
 
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
+child_weights  = np.array(xgboost.feature_importances_)
+feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Visualización pesos calculados
@@ -836,15 +1094,15 @@ display(feature_vector)
 # In[36]:
 
 
-# FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
+FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
-# print(xgboost.get_booster().get_score(importance_type= 'weight'))
-# plt.figure(figsize=(10, 5))
-# plt.barh(X_train.columns, xgboost.feature_importances_)
-# plt.savefig(WEIGHTS_PATH + FILE_NAME)
+print(xgboost.get_booster().get_score(importance_type= 'weight'))
+plt.figure(figsize=(10, 5))
+plt.barh(X_train.columns, xgboost.feature_importances_)
+plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
-# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-#   print(column, weight)
+for column, weight in zip(X_train.columns,xgboost.feature_importances_):
+  print(column, weight)
 
 
 # #### Escritura de pesos de características
@@ -852,12 +1110,12 @@ display(feature_vector)
 # In[37]:
 
 
-# matrix_indexes = fv2gi(feature_vector)
+matrix_indexes = fv2gi(feature_vector)
 
-# FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
-# # FILE_NAME = 'leeds_default_weights.json'
+FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'leeds_default_weights.json'
 
-# write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
+write_weights(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
@@ -1113,17 +1371,17 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[55]:
 
 
-# input_train_shape = (len(array_train_images), 5, 5, 1)
-# input_test_shape = (len(array_test_images), 5, 5, 1)
+input_train_shape = (len(array_train_images), 5, 5, 1)
+input_test_shape = (len(array_test_images), 5, 5, 1)
 
-# array_train_images.reshape(input_train_shape)
-# array_test_images.reshape(input_test_shape)
+array_train_images.reshape(input_train_shape)
+array_test_images.reshape(input_test_shape)
 
-# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-#                     batch_size = 128, epochs = 100, shuffle = True,
-#                     validation_data = (array_test_images, Y_test_onehot))
+history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                    batch_size = 128, epochs = 100, shuffle = True,
+                    validation_data = (array_test_images, Y_test_onehot))
 
-# # history
+# history
 
 
 # ### Escritura del modelo
@@ -1131,7 +1389,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[56]:
 
 
-# tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
+tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 
 
 # ### Carga de modelo pre-entrenado
@@ -1147,45 +1405,45 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[58]:
 
 
-# from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
+Y_test_labels = one_hot_to_casualty(Y_test)
 
-# ########################################################################
+########################################################################
 
-# # F1_SCORE_PATH = 'F1scores/'
-# # F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
+# F1_SCORE_PATH = 'F1scores/'
+# F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
 
-# # ## Plot history: F1 SCORE
-# # figure_name = plt.figure(figsize=(20, 10))
-# # plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# # plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# # plt.title('F1 score')
-# # plt.ylabel('F1 score value')
-# # plt.xlabel('No. epoch')
-# # plt.legend(loc="upper left")
-# # plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
-# # plt.show()
+# ## Plot history: F1 SCORE
+# figure_name = plt.figure(figsize=(20, 10))
+# plt.plot(history.history['f1_score'], label='F1 score (training data)')
+# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+# plt.title('F1 score')
+# plt.ylabel('F1 score value')
+# plt.xlabel('No. epoch')
+# plt.legend(loc="upper left")
+# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
+# plt.show()
 
-# # print(history)
+# print(history)
 
-# ########################################################################
+########################################################################
 
-# # evaluate the network
-# print("[INFO] evaluating network...")
-# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+# evaluate the network
+print("[INFO] evaluating network...")
+predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-# report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-#                                predictions.argmax(axis=1),
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+report = classification_report(tf.argmax(Y_test_onehot, axis=1),
+                               predictions.argmax(axis=1),
+                               target_names = Y_test_labels.unique(),
+                               output_dict = True)
 
-# REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
+REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 
-# report_df
+report_df
 
 
 # In[59]:
