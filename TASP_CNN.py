@@ -730,7 +730,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga hiperparámetros
 
-# In[40]:
+# In[31]:
 
 
 # FILE_NAME = 'madrid_hyperparams_v7.json'
@@ -740,7 +740,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Cálculo de Hiperparámetros
 
-# In[35]:
+# In[32]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -790,7 +790,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Escritura hiperparámetros
 
-# In[ ]:
+# In[33]:
 
 
 # FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
@@ -803,7 +803,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[34]:
 
 
 # FILE_NAME = 'leeds_calculated_weights.json'
@@ -815,7 +815,7 @@ display(feature_vector)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[39]:
+# In[35]:
 
 
 # from numpy import loadtxt
@@ -833,7 +833,7 @@ display(feature_vector)
 
 # #### Visualización pesos calculados
 
-# In[ ]:
+# In[36]:
 
 
 # FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
@@ -849,7 +849,7 @@ display(feature_vector)
 
 # #### Escritura de pesos de características
 
-# In[ ]:
+# In[37]:
 
 
 # matrix_indexes = fv2gi(feature_vector)
@@ -862,7 +862,7 @@ display(feature_vector)
 
 # ### Cálculo índices de matriz
 
-# In[ ]:
+# In[38]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -870,7 +870,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[39]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -881,7 +881,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[40]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -890,7 +890,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[ ]:
+# In[41]:
 
 
 plt.gray()
@@ -900,13 +900,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[ ]:
+# In[42]:
 
 
 # !conda install scikit-image
 
 
-# In[ ]:
+# In[43]:
 
 
 from skimage.feature import hog
@@ -920,7 +920,7 @@ for i in range(0,3):
   plt.show()
 
 
-# In[ ]:
+# In[44]:
 
 
 # input_shape = (5, 5)
@@ -931,13 +931,13 @@ array_test_images  = np.asarray(test_images)
 
 # 
 
-# In[ ]:
+# In[45]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[ ]:
+# In[46]:
 
 
 ######### EN TERMINAL #########
@@ -946,7 +946,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## One-Hot
 
-# In[ ]:
+# In[47]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -955,7 +955,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Visualización de datos
 
-# In[ ]:
+# In[48]:
 
 
 # !conda install seaborn
@@ -963,7 +963,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[49]:
 
 
 # correlation_matrix(X_test)
@@ -971,7 +971,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### PCA
 
-# In[ ]:
+# In[50]:
 
 
 # pca(X_train, X_test)
@@ -979,7 +979,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### TSNE
 
-# In[ ]:
+# In[51]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -999,7 +999,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[52]:
 
 
 X_train = array_train_images
@@ -1017,7 +1017,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[ ]:
+# In[53]:
 
 
 # # create encoder model
@@ -1071,7 +1071,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
-# In[ ]:
+# In[54]:
 
 
 from sklearn.manifold import TSNE
@@ -1110,7 +1110,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Entrenamiento
 
-# In[ ]:
+# In[55]:
 
 
 # input_train_shape = (len(array_train_images), 5, 5, 1)
@@ -1128,7 +1128,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Escritura del modelo
 
-# In[ ]:
+# In[56]:
 
 
 # tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
@@ -1136,7 +1136,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Carga de modelo pre-entrenado
 
-# In[37]:
+# In[57]:
 
 
 # tasp_cnn = tf.keras.models.load_model(MODELS_PATH + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
@@ -1144,7 +1144,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Resultados
 
-# In[ ]:
+# In[58]:
 
 
 # from sklearn.metrics import classification_report
@@ -1188,7 +1188,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # report_df
 
 
-# In[ ]:
+# In[59]:
 
 
 # import tensorflow as tf
@@ -1198,7 +1198,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # predictions
 
 
-# In[ ]:
+# In[60]:
 
 
 # prediction_string = [str(prediction) for prediction in predictions]
@@ -1215,7 +1215,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # 
 # 
 
-# In[ ]:
+# In[61]:
 
 
 import pandas as pd
@@ -1261,7 +1261,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[ ]:
+# In[62]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1273,7 +1273,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[ ]:
+# In[63]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1350,13 +1350,13 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
 
 
-# In[ ]:
+# In[64]:
 
 
 data_frame.tipo_via.value_counts()
 
 
-# In[ ]:
+# In[65]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1428,7 +1428,7 @@ data_frame.tipo_via.value_counts()
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[ ]:
+# In[66]:
 
 
 weather_conditions_replace = {
@@ -1633,7 +1633,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[ ]:
+# In[67]:
 
 
 # Todos las comas a puntos
@@ -1722,7 +1722,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[ ]:
+# In[68]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -1740,7 +1740,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[ ]:
+# In[69]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1753,40 +1753,80 @@ X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
 Y_test = test['lesividad']
 
 
-# In[ ]:
+# In[70]:
 
 
-feature_vector = {}
+# FILE_NAME = 'madrid_calculated_weights.json'
+FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
 
-feature_vector['Accident Features'] = {
-    'feature_childs': ['coordenada_x_utm', 'coordenada_y_utm', 'tipo_carretera', 'hora', 'vehiculos_implicados'],
-    'feature_weights': [0.043706235, 0.04066877, 0.04932402, 0.037829854,  0.037388127]
-} 
+feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
+display(feature_vector)
 
-feature_vector['Roadway Features'] = {
-    'feature_childs': ['tipo_accidente', 'distrito'], # Road Surface 
-    'feature_weights': [0.07036541, 0]
-} 
 
-feature_vector['Environmental Features'] = {
-    'feature_childs': ['estado_meteorológico'],
-    'feature_weights': [0.04621587]
-} 
-feature_vector['Vehicle Features'] = {
-    'feature_childs': ['tipo_vehiculo'],
-    'feature_weights': [0.1835905]
-}
+# In[95]:
 
-feature_vector['Casualty Features'] = {
-    'feature_childs': ['tipo_persona', 'sexo', 'rango_edad', 'drogas_alcohol_positivo'],
-    'feature_weights': [0.29104254, 0.03937937, 0.054408602, 0.059951354]
-} 
-matrix_indexes = fv2gi(feature_vector)
+
+
+# feature_vector = {}
+
+# feature_vector['Accident Features'] = {
+#     'feature_childs': ['coordenada_x_utm', 'coordenada_y_utm', 'distrito', 'hora', 'vehiculos_implicados'],
+#     'feature_weights': [0.165774538, 0.171530785, 0.082228259, 0.047771472, 0.060763375]
+# } 
+
+# feature_vector['Roadway Features'] = {
+#     'feature_childs': ['tipo_accidente'], # Road Surface 
+#     'feature_weights': [0.07036541]
+# }
+
+# feature_vector['Environmental Features'] = {
+#     'feature_childs': ['estado_meteorológico'],
+#     'feature_weights': [0.04354843]
+# }
+
+# feature_vector['Vehicle Features'] = {
+#     'feature_childs': ['tipo_vehiculo'],
+#     'feature_weights': [0.126314657]
+# }
+
+# feature_vector['Casualty Features'] = {
+#     'feature_childs': ['tipo_persona', 'sexo', 'rango_edad', 'drogas_alcohol_positivo'],
+#     'feature_weights': [0.067057589, 0.049116389, 0.095220163, 0.059951354]
+# } 
+# matrix_indexes = fv2gi(feature_vector)
+
+# # {'Accident Features': {'feature_childs': ['Easting',
+# #    'Northing',
+# #    '1st Road Class',
+# #    'Accident Time',
+# #    'Number of Vehicles'],
+# #   'feature_weights': [0.165774538,
+# #    0.171530785,
+# #    0.082228259,
+# #    0.047771472,
+# #    0.060763375],
+# #   'wpi': 0.528068429},
+# #  'Roadway Features': {'feature_childs': ['Road Surface'],
+# #   'feature_weights': [0.048847406],
+# #   'wpi': 0.048847406},
+# #  'Environmental Features': {'feature_childs': ['Lighting Conditions',
+# #    'Weather Conditions'],
+# #   'feature_weights': [0.041826936, 0.04354843],
+# #   'wpi': 0.08537536600000001},
+# #  'Vehicle Features': {'feature_childs': ['Type of Vehicle'],
+# #   'feature_weights': [0.126314657],
+# #   'wpi': 0.126314657},
+# #  'Casualty Features': {'feature_childs': ['Casualty Class',
+# #    'Sex of Casualty',
+# #    'Age of Casualty'],
+# #   'feature_weights': [0.067057589, 0.049116389, 0.095220163],
+# #   'wpi': 0.211394141}}
+# feature_vector
 
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[72]:
 
 
 X_train = X_train.astype(int)
@@ -1798,7 +1838,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[ ]:
+# In[73]:
 
 
 print('********** Before OverSampling **********')
@@ -1812,7 +1852,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[ ]:
+# In[74]:
 
 
 from xgboost import XGBClassifier
@@ -1826,7 +1866,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga hiperparámetros
 
-# In[ ]:
+# In[75]:
 
 
 # FILE_NAME = 'madrid_hyperparams_v7.json'
@@ -1836,7 +1876,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Cálculo de Hiperparámetros
 
-# In[ ]:
+# In[76]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1886,7 +1926,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Escritura hiperparámetros
 
-# In[ ]:
+# In[77]:
 
 
 # FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
@@ -1899,19 +1939,19 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[78]:
 
 
-# FILE_NAME = 'madrid_calculated_weights.json'
-FILE_NAME = 'madrid_weights2022-04-14-11:16:13.json'
+# # FILE_NAME = 'madrid_calculated_weights.json'
+# FILE_NAME = 'madrid_weights2022-04-14-11:16:13.json'
 
-feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
-display(feature_vector)
+# feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
+# display(feature_vector)
 
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[ ]:
+# In[79]:
 
 
 # xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
@@ -1924,7 +1964,7 @@ display(feature_vector)
 
 # #### Visualización pesos calculados
 
-# In[ ]:
+# In[80]:
 
 
 # FILE_NAME = 'madrid_figure_weights' + MODEL_TIMESTAMP + '.jpg'
@@ -1949,7 +1989,7 @@ display(feature_vector)
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[ ]:
+# In[81]:
 
 
 # matrix_indexes = fv2gi(feature_vector)
@@ -1962,7 +2002,7 @@ display(feature_vector)
 
 # ### Cálculo índices de matriz
 
-# In[ ]:
+# In[82]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -1970,7 +2010,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[83]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -1981,7 +2021,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[84]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -1996,7 +2036,7 @@ for i in range(0,3):
     plt.show()
 
 
-# In[ ]:
+# In[85]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -2007,7 +2047,7 @@ for i in range(0,3):
 
 # ## One-Hot
 
-# In[ ]:
+# In[86]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -2019,7 +2059,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## Visualización de datos
 
-# In[ ]:
+# In[87]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -2027,7 +2067,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[88]:
 
 
 # correlation_matrix(X_test)
@@ -2035,7 +2075,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### PCA
 
-# In[ ]:
+# In[89]:
 
 
 # pca(X_train, X_test)
@@ -2043,7 +2083,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### TSNE
 
-# In[ ]:
+# In[90]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -2063,7 +2103,7 @@ array_test_images  = np.asarray(test_images)
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[91]:
 
 
 # input_img = Input(shape=(25,))
@@ -2097,7 +2137,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[ ]:
+# In[92]:
 
 
 # # create encoder model
@@ -2155,7 +2195,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # ### Entrenamiento
 
-# In[ ]:
+# In[93]:
 
 
 array_train_images = np.asarray(train_images)
