@@ -12,7 +12,7 @@ MODEL_TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 
 HYPERPARAMS_PATH = './hyperparams/'
 WEIGHTS_PATH = './feature_weights/'
-REPORTS_PATH = 'Reports/
+REPORTS_PATH = 'Reports/'
 MODELS_PATH  = 'Models/'
 
 
