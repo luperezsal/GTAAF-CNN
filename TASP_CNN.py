@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Diagrama de flujo
+
 # ![title](Data/Data_flow.png)
 
 # # Métodos
@@ -1144,10 +1146,10 @@ best_hyperparams['reg_lambda'] =  population[bestFitnessIndex][8]
 # In[ ]:
 
 
-# FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
+FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-# print(best_hyperparams)
+write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+print(best_hyperparams)
 
 
 # ### Pesos de características
