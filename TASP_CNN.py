@@ -2327,10 +2327,11 @@ print(best_hyperparams)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[66]:
 
 
-FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
+# FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
+FILE_NAME = 'madrid_weights_v7.json'
 # FILE_NAME = 'madrid_weights2022-04-14-11:16:13.json'
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
