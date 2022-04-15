@@ -266,14 +266,14 @@ def initilialize_poplulation(numberOfParents):
 #     }
     for i in range(numberOfParents):
         learningRate[i] = round(random.uniform(0.01, 1), 2)
-        nEstimators[i] = random.randrange(10, 2000, step = 50)
-        maxDepth[i] = int(random.randrange(1, 10, step= 1))
+        nEstimators[i] = random.randrange(10, 2000, step = 100)
+        maxDepth[i] = int(random.randrange(1, 20, step= 1))
         minChildWeight[i] = round(random.uniform(0.01, 15.0), 1)
         gammaValue[i] = round(random.uniform(0.01, 10.0), 2)
         subSample[i] = round(random.uniform(0.01, 1.0), 2)
         colSampleByTree[i] = round(random.uniform(0.01, 1.0), 2)
         regAlpha[i]  = round(random.uniform(40,180), 1)
-        regLambda[i] = round(random.uniform(0,1), 1)
+        regLambda[i] = round(random.uniform(0,1), 3)
     
     population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree, regAlpha, regLambda), axis= 1)
   
@@ -341,16 +341,16 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
 # In[15]:
 
 
-#select parents for mating
+# Select parents for mating
 def new_parents_selection(population, fitness, numParents):
-    selectedParents = np.empty((numParents, population.shape[1])) #create an array to store fittest parents
+    selectedParents = np.empty((numParents, population.shape[1])) # Create an array to store fittest parents.
     
-    #find the top best performing parents
+    # Find the top best performing parents
     for parentId in range(numParents):
         bestFitnessId = np.where(fitness == np.max(fitness))
         bestFitnessId  = bestFitnessId[0][0]
         selectedParents[parentId, :] = population[bestFitnessId, :]
-        fitness[bestFitnessId] = -1 #set this value to negative, in case of F1-score, so this parent is not selected again
+        fitness[bestFitnessId] = -1 # Set this value to negative, in case of F1-score, so this parent is not selected again
 
     return selectedParents
 
@@ -398,13 +398,15 @@ def mutation(crossover, numberOfParameters):
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
     minMaxValue = np.zeros((numberOfParameters, 2))
 
-    minMaxValue[0:] = [0.01, 1.0]    # min/max learning rate
-    minMaxValue[1, :] = [10, 2000]   # min/max n_estimator
-    minMaxValue[2, :] = [1, 15]      # min/max depth
-    minMaxValue[3, :] = [0, 10.0]    # min/max child_weight
-    minMaxValue[4, :] = [0.01, 10.0] # min/max gamma
-    minMaxValue[5, :] = [0.01, 1.0]  # min/maxsubsample
-    minMaxValue[6, :] = [0.01, 1.0]  # min/maxcolsample_bytree
+    minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
+    minMaxValue[1,:] = [10, 2000]   # min/max n_estimator
+    minMaxValue[2,:] = [1, 15]      # min/max depth
+    minMaxValue[3,:] = [0, 10.0]    # min/max child_weight
+    minMaxValue[4,:] = [0.01, 10.0] # min/max gamma
+    minMaxValue[5,:] = [0.01, 1.0]  # min/max subsample
+    minMaxValue[6,:] = [0.01, 1.0]  # min/max colsample_bytree
+    minMaxValue[7,:] = [40.0,180.0] # min/max reg_alpha
+    minMaxValue[8,:] = [0.0, 1.0]   # min/max reg_lambda
  
     # Mutation changes a single gene in each offspring randomly.
     mutationValue = 0
@@ -429,9 +431,9 @@ def mutation(crossover, numberOfParameters):
     if parameterSelect == 7: # reg_alpha
         mutationValue = round(np.random.uniform(40,180), 1)
     if parameterSelect == 8: # reg_lambda
-        mutationValue = round(np.random.uniform(40,180), 1)
+        mutationValue = round(np.random.uniform(0,1), 3)
   
-    #indtroduce mutation by changing one parameter, and set to max or min if it goes out of range
+    # Introduce mutation by changing one parameter, and set to max or min if it goes out of range
     for idx in range(crossover.shape[0]):
         crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
 
@@ -2178,8 +2180,8 @@ import random
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-numberOfParents = 20 # number of parents to start
-numberOfParentsMating = 10 # Number of parents that will mate
+numberOfParents = 40 # number of parents to start
+numberOfParentsMating = 20 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
 numberOfGenerations = 20 # Number of genration that will be created 
 
