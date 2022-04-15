@@ -473,9 +473,9 @@ def mutation(crossover, numberOfParameters):
         # Mutation changes a single gene in each offspring randomly.
 
         
-        mutation_probability = 1
+        mutation_probability = 0
 
-        while MUTATION_PROBABILITY < mutation_probability:
+        while MUTATION_PROBABILITY > mutation_probability:
             
             mutationValue = 0
             parameterSelect = np.random.randint(0, 9, 1)
