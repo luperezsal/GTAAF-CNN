@@ -454,6 +454,7 @@ def crossover_uniform(parents, childrenSize):
 
 
 MUTATION_PROBABILITY = 0.3
+
 def mutation(crossover, numberOfParameters):
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
     minMaxValue = np.zeros((numberOfParameters, 2))
@@ -470,14 +471,17 @@ def mutation(crossover, numberOfParameters):
  
     for idx in range(crossover.shape[0]):
         # Mutation changes a single gene in each offspring randomly.
-        mutationValue = 0
-        parameterSelect = np.random.randint(0, 9, 1)
 
-        print(parameterSelect)
         
         mutation_probability = 1
 
         while MUTATION_PROBABILITY < mutation_probability:
+            
+            mutationValue = 0
+            parameterSelect = np.random.randint(0, 9, 1)
+
+            print(idx, parameterSelect)
+            
             if parameterSelect == 0: # learning_rate
                 mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
             if parameterSelect == 1: # n_estimators
@@ -499,14 +503,13 @@ def mutation(crossover, numberOfParameters):
             
             mutation_probability = np.random.rand(1)
   
-    
-        crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
+            crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
 
-        if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
-            crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
+            if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
+                crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
 
-        if(crossover[idx, parameterSelect] < minMaxValue[parameterSelect, 0]):
-            crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 0]
+            if(crossover[idx, parameterSelect] < minMaxValue[parameterSelect, 0]):
+                crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 0]
 
     return crossover
 
