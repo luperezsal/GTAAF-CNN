@@ -949,12 +949,13 @@ import random
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-numberOfParents = 8 # number of parents to start
-numberOfParentsMating = 4 # Number of parents that will mate
+numberOfParents = 100 # number of parents to start
+numberOfParentsMating = 30 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
-numberOfGenerations = 10 # Number of genration that will be created#define the population sizepopulationSize = (numberOfParents, numberOfParameters)#initialize the population with randomly generated parameters
+numberOfGenerations = 1000 # Number of genration that will be created 
 
-populationSize = (numberOfParents, numberOfParameters)
+# Define the population size
+populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
 
 population = initilialize_poplulation(numberOfParents) # Define an array to store the fitness  hitory
 fitnessHistory = np.empty([numberOfGenerations+1, numberOfParents]) # Define an array to store the value of each parameter for each parent and generation
