@@ -292,7 +292,7 @@ def fitness_f1score(y_true, y_pred):
 
 #     fitness = xgboost.fit(X_train, Y_train).training_score
 
-    fitness = round((f1_score(y_true, y_pred, average='micro')), 4)
+    fitness = round((f1_score(y_true, y_pred, average='weighted')), 4)
 
     return fitness #train the data annd find fitness score
 
@@ -949,10 +949,10 @@ import random
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-numberOfParents = 100 # number of parents to start
-numberOfParentsMating = 30 # Number of parents that will mate
+numberOfParents = 8 # number of parents to start
+numberOfParentsMating = 4 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
-numberOfGenerations = 1000 # Number of genration that will be created 
+numberOfGenerations = 4 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
