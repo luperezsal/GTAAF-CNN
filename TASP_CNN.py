@@ -1210,10 +1210,10 @@ best_hyperparams['reg_lambda'] =  population[bestFitnessIndex][8]
 # In[124]:
 
 
-# FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
+FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-# print(best_hyperparams)
+write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+print(best_hyperparams)
 
 
 # ### Pesos de características
@@ -1235,17 +1235,17 @@ display(feature_vector)
 # In[126]:
 
 
-# from numpy import loadtxt
-# from xgboost import XGBClassifier,XGBRanker
-# from matplotlib import pyplot
-# from xgboost import plot_importance
+from numpy import loadtxt
+from xgboost import XGBClassifier,XGBRanker
+from matplotlib import pyplot
+from xgboost import plot_importance
 
-# xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
+xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
 
-# xgboost.fit(X_train, Y_train)
+xgboost.fit(X_train, Y_train)
 
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
+child_weights  = np.array(xgboost.feature_importances_)
+feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Visualización pesos calculados
@@ -1253,15 +1253,15 @@ display(feature_vector)
 # In[127]:
 
 
-# FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
+FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
 
-# print(xgboost.get_booster().get_score(importance_type= 'weight'))
-# plt.figure(figsize=(10, 5))
-# plt.barh(X_train.columns, xgboost.feature_importances_)
-# plt.savefig(WEIGHTS_PATH + FILE_NAME)
+print(xgboost.get_booster().get_score(importance_type= 'weight'))
+plt.figure(figsize=(10, 5))
+plt.barh(X_train.columns, xgboost.feature_importances_)
+plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
-# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-#   print(column, weight)
+for column, weight in zip(X_train.columns,xgboost.feature_importances_):
+  print(column, weight)
 
 
 # #### Escritura de pesos de características
@@ -1269,12 +1269,12 @@ display(feature_vector)
 # In[128]:
 
 
-# matrix_indexes = fv2gi(feature_vector)
+matrix_indexes = fv2gi(feature_vector)
 
-# FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
-# # FILE_NAME = 'leeds_default_weights.json'
+FILE_NAME = 'leeds_weights' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'leeds_default_weights.json'
 
-# write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
+write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
@@ -1516,17 +1516,17 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[145]:
 
 
-# input_train_shape = (len(array_train_images), 5, 5, 1)
-# input_test_shape = (len(array_test_images), 5, 5, 1)
+input_train_shape = (len(array_train_images), 5, 5, 1)
+input_test_shape = (len(array_test_images), 5, 5, 1)
 
-# array_train_images.reshape(input_train_shape)
-# array_test_images.reshape(input_test_shape)
+array_train_images.reshape(input_train_shape)
+array_test_images.reshape(input_test_shape)
 
-# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-#                     batch_size = 128, epochs = 100, shuffle = True,
-#                     validation_data = (array_test_images, Y_test_onehot))
+history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                    batch_size = 128, epochs = 100, shuffle = True,
+                    validation_data = (array_test_images, Y_test_onehot))
 
-# # history
+# history
 
 
 # ### Escritura del modelo
@@ -1550,45 +1550,45 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[148]:
 
 
-# from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
+Y_test_labels = one_hot_to_casualty(Y_test)
 
-# ########################################################################
+########################################################################
 
-# F1_SCORE_PATH = 'F1scores/'
-# F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
+F1_SCORE_PATH = 'F1scores/'
+F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
 
-# ## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
-# plt.show()
+## Plot history: F1 SCORE
+figure_name = plt.figure(figsize=(20, 10))
+plt.plot(history.history['f1_score'], label='F1 score (training data)')
+plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+plt.title('F1 score')
+plt.ylabel('F1 score value')
+plt.xlabel('No. epoch')
+plt.legend(loc="upper left")
+plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
+plt.show()
 
-# print(history)
+print(history)
 
-# ########################################################################
+########################################################################
 
-# # evaluate the network
-# print("[INFO] evaluating network...")
-# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+# evaluate the network
+print("[INFO] evaluating network...")
+predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-# report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-#                                predictions.argmax(axis=1),
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+report = classification_report(tf.argmax(Y_test_onehot, axis=1),
+                               predictions.argmax(axis=1),
+                               target_names = Y_test_labels.unique(),
+                               output_dict = True)
 
-# REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
+REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 
-# report_df
+report_df
 
 
 # In[149]:
