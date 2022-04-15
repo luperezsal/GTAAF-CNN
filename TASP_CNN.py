@@ -1658,64 +1658,64 @@ data_frame.tipo_via.value_counts()
 # In[ ]:
 
 
-# ######################### SIGUIENTE CELDA #########################
+######################### SIGUIENTE CELDA #########################
 
-# # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
-# # A, A(M) y Motorway lo mismo?
-# # B:            De carácter regional y utilizado para conectar zonas de menor importancia.
-# #               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
-# #               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
-# #               ¿Carretera como tal?
+# Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
+# A, A(M) y Motorway lo mismo?
+# B:            De carácter regional y utilizado para conectar zonas de menor importancia.
+#               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
+#               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
+#               ¿Carretera como tal?
 
-# # C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
-# #               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
+# C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
+#               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
 
-# # Unclassified
-# street_regex  = ('CALL.|Calle|CALLE|c/|C/|C.|calle|'
-#                  'AVDA|AV|AVENIDA|AVDA|avenida|Avda.|'
-#                  'PASEO|paseo|'
-#                  'PARQUE|PQUE|'
-#                  'RONDA|'
-#                  'PUERTA|PTA|Puerta|'
-#                  'PNTE|PUENTE|'
-#                  'PLAZA|PZA|'
-#                  'CMNO|CAMINO|'
-#                  'BULE|'
-#                  'TRVA|'
-#                  'CUSTA|CUESTA|'
-#                  'GTA|gta|GLORIETA|glorieta|ROTONDA|'
-#                  'AEROPUERTO|AEROP'
-# )
+# Unclassified
+street_regex  = ('CALL.|Calle|CALLE|c/|C/|C.|calle|'
+                 'AVDA|AV|AVENIDA|AVDA|avenida|Avda.|'
+                 'PASEO|paseo|'
+                 'PARQUE|PQUE|'
+                 'RONDA|'
+                 'PUERTA|PTA|Puerta|'
+                 'PNTE|PUENTE|'
+                 'PLAZA|PZA|'
+                 'CMNO|CAMINO|'
+                 'BULE|'
+                 'TRVA|'
+                 'CUSTA|CUESTA|'
+                 'GTA|gta|GLORIETA|glorieta|ROTONDA|'
+                 'AEROPUERTO|AEROP'
+)
 
-# highway_regex = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
-# road_regex = 'CTRA.|CARRETERA|carretera|CRA.|CALZADA|POLIGONO' # B
+highway_regex = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
+road_regex = 'CTRA.|CARRETERA|carretera|CRA.|CALZADA|POLIGONO' # B
 
-# street_indexes  = data_frame[data_frame.localizacion.str.contains(street_regex,  case = True, regex=True)].index
-# highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
-# road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
-# # avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
-# # ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
+street_indexes  = data_frame[data_frame.localizacion.str.contains(street_regex,  case = True, regex=True)].index
+highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
+road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
+# avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
+# ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
 
-# data_frame['tipo_via'] = 'N/A'
+data_frame['tipo_via'] = 'N/A'
 
-# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
-# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
-# data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
-# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
-# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
+data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
+data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
+# data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+# data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
 
 
-# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
-# data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
-# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
-# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
-# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
+data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
+data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
+data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
+# data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
+# data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
 
-# positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
-# data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
+positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
+data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
 
-# data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
-# # print(data_frame.localizacion.unique())
+data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
+# print(data_frame.localizacion.unique())
 
 
 # Consideraciones:
@@ -2027,7 +2027,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'localizacion', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
 data_frame = data_frame.loc[:, ~data_frame.columns.isin(COLUMNS_TO_REMOVE)]
 
-# data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
+data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_x_utm": "coordenada_x_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_y_utm": "coordenada_y_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"positiva_alcohol": "drogas_alcohol_positivo"}, errors="raise", inplace=True)
