@@ -1,4 +1,4 @@
 XGBoost_Weights/.ipynb_checkpoints/*-checkpoint.json
-.ipynb_checkpoints/*
-*.h5
+Data/*
+.ipynb_checkpoints/
 .ipynb_checkpoints/TASP_CNN-checkpoint.ipynb
