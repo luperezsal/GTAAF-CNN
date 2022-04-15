@@ -292,7 +292,7 @@ def fitness_f1score(y_true, y_pred):
 
 #     fitness = xgboost.fit(X_train, Y_train).training_score
 
-    fitness = round((f1_score(y_true, y_pred, average='weighted')), 4)
+    fitness = round((f1_score(y_true, y_pred, average='micro')), 4)
 
     return fitness #train the data annd find fitness score
 
@@ -930,7 +930,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[36]:
+# In[37]:
 
 
 # from sklearn.preprocessing import StandardScaler
