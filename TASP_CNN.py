@@ -2346,13 +2346,13 @@ for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
 
     xgbDMatrixTrain = xgb.DMatrix(data = X_train, label = Y_train)
-    xgbDMatrixTest  = xgb.DMatrix(data = X_test,  label = Y_test)
+    xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled, label = Y_test_downsampled)
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
                                     dMatrixTrain = xgbDMatrixTrain,
                                     dMatrixTest =  xgbDMatrixTest,
-                                    y_test = Y_test)
+                                    y_test = Y_test_downsampled)
 
     fitnessHistory[generation, :] = fitnessValue
     
@@ -2384,7 +2384,7 @@ for generation in range(numberOfGenerations):
 fitness = train_population(population = population,
                            dMatrixTrain = xgbDMatrixTrain,
                            dMatrixTest  = xgbDMatrixTest,
-                           y_test = Y_test)
+                           y_test = Y_test_downsampled)
 
 fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
