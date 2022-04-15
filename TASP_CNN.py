@@ -458,7 +458,9 @@ def crossover_uniform(parents, childrenSize):
 
 def mutation(crossover, numberOfParameters):
     
-    MUTATION_PROBABILITY = 1/numberOfParameters
+    # MUTATION_PROBABILITY = 1/numberOfParameters
+    
+    MUTATION_PROBABILITY = 0.2
 
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
     minMaxValue = np.zeros((numberOfParameters, 2))
@@ -2341,7 +2343,7 @@ Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 numberOfParents = 40 # number of parents to start
-numberOfParentsMating = 25 # Number of parents that will mate
+numberOfParentsMating = 20 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
 numberOfGenerations = 100 # Number of genration that will be created 
 
