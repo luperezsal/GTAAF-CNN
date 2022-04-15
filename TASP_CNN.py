@@ -1128,7 +1128,7 @@ for generation in range(numberOfGenerations):
 fitness = train_population(population = population,
                            dMatrixTrain = xgbDMatrixTrain,
                            dMatrixTest  = xgbDMatrixTest,
-                           y_test = Y_test)
+                           y_test = Y_test_downsampled)
 
 fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
