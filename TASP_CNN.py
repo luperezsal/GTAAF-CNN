@@ -1652,12 +1652,6 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # In[ ]:
 
 
-data_frame.tipo_via.value_counts()
-
-
-# In[ ]:
-
-
 ######################### SIGUIENTE CELDA #########################
 
 # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
@@ -2024,7 +2018,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 # In[ ]:
 
 
-COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'localizacion', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
+COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
 data_frame = data_frame.loc[:, ~data_frame.columns.isin(COLUMNS_TO_REMOVE)]
 
 data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
