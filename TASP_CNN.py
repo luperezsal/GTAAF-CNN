@@ -455,7 +455,7 @@ def crossover_uniform(parents, childrenSize):
 # In[18]:
 
 
-MUTATION_PROBABILITY = 0.3
+MUTATION_PROBABILITY = 0.2
 
 def mutation(crossover, numberOfParameters):
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
@@ -940,7 +940,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[32]:
+# In[40]:
 
 
 from sklearn.model_selection import train_test_split
@@ -951,9 +951,9 @@ from sklearn.utils import resample
 
 downsampled_train, downsampled_test = train_test_split(clean_df, test_size=0.2)
 
-slight_data  = clean_df[clean_df['Casualty Severity'] == 'Slight']
-serious_data = clean_df[clean_df['Casualty Severity'] == 'Serious']
-fatal_data   = clean_df[clean_df['Casualty Severity'] == 'Fatal']
+slight_data  = test[test['Casualty Severity'] == 'Slight']
+serious_data = test[test['Casualty Severity'] == 'Serious']
+fatal_data   = test[test['Casualty Severity'] == 'Fatal']
 
 X_slight_downsampled = resample(slight_data,
                                 replace = True,
@@ -1043,13 +1043,6 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[39]:
-
-
-display(X_test_downsampled)
-Y_test_downsampled.value_counts()
-
-
 # In[38]:
 
 
@@ -1075,7 +1068,7 @@ Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 numberOfParents = 50 # number of parents to start
 numberOfParentsMating = 20 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
-numberOfGenerations = 10 # Number of genration that will be created 
+numberOfGenerations = 100 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
@@ -1229,7 +1222,6 @@ print(best_hyperparams)
 FILE_NAME = 'leeds_weights2022-04-14-10:55:09.json'
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
-display(feature_vector)
 
 
 # #### Cálculo de pesos de caracetrísticas
