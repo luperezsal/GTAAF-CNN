@@ -299,7 +299,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[14]:
+# In[1]:
 
 
 from xgboost import XGBClassifier
@@ -324,7 +324,8 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
         num_round = 100
         xgbT = xgb.train(param,
                          dMatrixTrain,
-                         num_round)
+                         num_round,
+                         verbosity = 0)
 
         preds = xgbT.predict(dMatrixTest)
         
