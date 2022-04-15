@@ -1513,7 +1513,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 # 
 # 
 
-# In[ ]:
+# In[56]:
 
 
 import pandas as pd
@@ -1559,7 +1559,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[ ]:
+# In[57]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1572,7 +1572,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[ ]:
+# In[58]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1647,9 +1647,10 @@ data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alco
 
 data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
+data_frame = data_frame.reset_index(drop=True)
 
 
-# In[ ]:
+# In[59]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1721,7 +1722,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[ ]:
+# In[60]:
 
 
 weather_conditions_replace = {
