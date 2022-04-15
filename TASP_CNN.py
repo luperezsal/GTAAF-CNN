@@ -322,10 +322,10 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
                   'seed': 24}
 
         num_round = 100
+        xgb.set_config(verbosity=0)
         xgbT = xgb.train(param,
                          dMatrixTrain,
-                         num_round,
-                         verbosity = 0)
+                         num_round)
 
         preds = xgbT.predict(dMatrixTest)
         
