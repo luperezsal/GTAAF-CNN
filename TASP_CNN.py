@@ -293,7 +293,7 @@ def fitness_f1score(y_true, y_pred):
 #     fitness = xgboost.fit(X_train, Y_train).training_score
     fitness = round((f1_score(y_true, y_pred, average='micro')), 4)
 
-    return fitness #train the data annd find fitness score
+    return fitness # Train the data annd find fitness score
 
 
 # ### Evaluación de población
@@ -307,7 +307,7 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
     fScore = []
     for i in range(population.shape[0]):
         param = { 'objective':'multi:softprob',
-                  # 'tree_method': 'gpu_hist',
+                  'tree_method': 'gpu_hist',
                   'num_class': 3,
                   'learning_rate': population[i][0],
                   'n_estimators': population[i][1], 
