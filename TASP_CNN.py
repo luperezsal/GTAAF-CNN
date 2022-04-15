@@ -282,7 +282,7 @@ def initilialize_poplulation(numberOfParents):
 
 # ### Fitness function
 
-# In[49]:
+# In[13]:
 
 
 from sklearn.metrics import f1_score
@@ -298,7 +298,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[48]:
+# In[14]:
 
 
 from xgboost import XGBClassifier
@@ -932,7 +932,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[50]:
+# In[36]:
 
 
 # # from sklearn.preprocessing import StandardScaler
@@ -1028,7 +1028,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga hiperparámetros
 
-# In[ ]:
+# In[37]:
 
 
 # FILE_NAME = 'madrid_hyperparams_v7.json'
@@ -1038,7 +1038,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Cálculo de Hiperparámetros
 
-# In[ ]:
+# In[38]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1088,7 +1088,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Escritura hiperparámetros
 
-# In[ ]:
+# In[39]:
 
 
 # FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
@@ -1101,7 +1101,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[40]:
 
 
 # FILE_NAME = 'leeds_calculated_weights.json'
@@ -1113,7 +1113,7 @@ display(feature_vector)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[ ]:
+# In[41]:
 
 
 # from numpy import loadtxt
@@ -1131,7 +1131,7 @@ display(feature_vector)
 
 # #### Visualización pesos calculados
 
-# In[ ]:
+# In[42]:
 
 
 # FILE_NAME = 'leeds_figure_weights' + MODEL_TIMESTAMP + '.jpg'
@@ -1147,7 +1147,7 @@ display(feature_vector)
 
 # #### Escritura de pesos de características
 
-# In[ ]:
+# In[43]:
 
 
 # matrix_indexes = fv2gi(feature_vector)
@@ -1160,7 +1160,7 @@ display(feature_vector)
 
 # ### Cálculo índices de matriz
 
-# In[ ]:
+# In[44]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -1168,7 +1168,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[45]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -1179,7 +1179,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[46]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -1188,7 +1188,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[ ]:
+# In[47]:
 
 
 plt.gray()
@@ -1198,13 +1198,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[ ]:
+# In[48]:
 
 
 # !conda install scikit-image
 
 
-# In[ ]:
+# In[49]:
 
 
 from skimage.feature import hog
@@ -1218,7 +1218,7 @@ for i in range(0,3):
   plt.show()
 
 
-# In[ ]:
+# In[50]:
 
 
 # input_shape = (5, 5)
@@ -1229,13 +1229,13 @@ array_test_images  = np.asarray(test_images)
 
 # 
 
-# In[ ]:
+# In[51]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[ ]:
+# In[52]:
 
 
 ######### EN TERMINAL #########
@@ -1244,7 +1244,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## One-Hot
 
-# In[ ]:
+# In[53]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1253,7 +1253,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Visualización de datos
 
-# In[ ]:
+# In[54]:
 
 
 # !conda install seaborn
@@ -1261,7 +1261,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[55]:
 
 
 # correlation_matrix(X_test)
@@ -1269,7 +1269,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### PCA
 
-# In[ ]:
+# In[56]:
 
 
 # pca(X_train, X_test)
@@ -1277,7 +1277,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### TSNE
 
-# In[ ]:
+# In[57]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -1297,7 +1297,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[58]:
 
 
 X_train = array_train_images
@@ -1315,7 +1315,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[ ]:
+# In[59]:
 
 
 # # create encoder model
@@ -1369,7 +1369,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
-# In[ ]:
+# In[60]:
 
 
 from sklearn.manifold import TSNE
@@ -1408,7 +1408,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Entrenamiento
 
-# In[ ]:
+# In[61]:
 
 
 # input_train_shape = (len(array_train_images), 5, 5, 1)
@@ -1426,7 +1426,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ### Escritura del modelo
 
-# In[ ]:
+# In[62]:
 
 
 tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
@@ -1434,7 +1434,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 
 # ### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[63]:
 
 
 # tasp_cnn = tf.keras.models.load_model(MODELS_PATH + 'leeds_model_bayesian' + MODEL_TIMESTAMP + '.h5')
@@ -1442,7 +1442,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 
 # ### Resultados
 
-# In[ ]:
+# In[64]:
 
 
 # from sklearn.metrics import classification_report
@@ -1486,7 +1486,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 # report_df
 
 
-# In[ ]:
+# In[65]:
 
 
 # import tensorflow as tf
@@ -1496,7 +1496,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 # predictions
 
 
-# In[ ]:
+# In[66]:
 
 
 # prediction_string = [str(prediction) for prediction in predictions]
@@ -1513,7 +1513,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 # 
 # 
 
-# In[56]:
+# In[67]:
 
 
 import pandas as pd
@@ -1559,7 +1559,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[57]:
+# In[68]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1572,7 +1572,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[58]:
+# In[69]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1647,70 +1647,69 @@ data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alco
 
 data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
-data_frame = data_frame.reset_index(drop=True)
 
 
-# In[59]:
+# In[70]:
 
 
-######################### SIGUIENTE CELDA #########################
+# ######################### SIGUIENTE CELDA #########################
 
-# Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
-# A, A(M) y Motorway lo mismo?
-# B:            De carácter regional y utilizado para conectar zonas de menor importancia.
-#               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
-#               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
-#               ¿Carretera como tal?
+# # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
+# # A, A(M) y Motorway lo mismo?
+# # B:            De carácter regional y utilizado para conectar zonas de menor importancia.
+# #               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
+# #               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
+# #               ¿Carretera como tal?
 
-# C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
-#               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
+# # C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
+# #               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
 
-# Unclassified
-street_regex  = ('CALL.|Calle|CALLE|c/|C/|C.|calle|'
-                 'AVDA|AV|AVENIDA|AVDA|avenida|Avda.|'
-                 'PASEO|paseo|'
-                 'PARQUE|PQUE|'
-                 'RONDA|'
-                 'PUERTA|PTA|Puerta|'
-                 'PNTE|PUENTE|'
-                 'PLAZA|PZA|'
-                 'CMNO|CAMINO|'
-                 'BULE|'
-                 'TRVA|'
-                 'CUSTA|CUESTA|'
-                 'GTA|gta|GLORIETA|glorieta|ROTONDA|'
-                 'AEROPUERTO|AEROP'
-)
+# # Unclassified
+# street_regex  = ('CALL.|Calle|CALLE|c/|C/|C.|calle|'
+#                  'AVDA|AV|AVENIDA|AVDA|avenida|Avda.|'
+#                  'PASEO|paseo|'
+#                  'PARQUE|PQUE|'
+#                  'RONDA|'
+#                  'PUERTA|PTA|Puerta|'
+#                  'PNTE|PUENTE|'
+#                  'PLAZA|PZA|'
+#                  'CMNO|CAMINO|'
+#                  'BULE|'
+#                  'TRVA|'
+#                  'CUSTA|CUESTA|'
+#                  'GTA|gta|GLORIETA|glorieta|ROTONDA|'
+#                  'AEROPUERTO|AEROP'
+# )
 
-highway_regex = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
-road_regex = 'CTRA.|CARRETERA|carretera|CRA.|CALZADA|POLIGONO' # B
+# highway_regex = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
+# road_regex = 'CTRA.|CARRETERA|carretera|CRA.|CALZADA|POLIGONO' # B
 
-street_indexes  = data_frame[data_frame.localizacion.str.contains(street_regex,  case = True, regex=True)].index
-highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
-road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
-# avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
-# ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
+# street_indexes  = data_frame[data_frame.localizacion.str.contains(street_regex,  case = True, regex=True)].index
+# highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
+# road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
+# # avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
+# # ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
 
-data_frame['tipo_via'] = 'N/A'
+# data_frame['tipo_via'] = 'N/A'
 
-data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
-data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
-data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
-# data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
-# data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
+# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
+# data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
+# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
 
 
-data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
-data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
-data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
-# data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
-# data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
+# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
+# data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
+# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
+# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
+# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
 
-positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
-data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
+# # positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
+# # data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
 
-data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
-# print(data_frame.localizacion.unique())
+# data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
+# # print(data_frame.localizacion.unique())
 
 
 # Consideraciones:
@@ -1722,7 +1721,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[60]:
+# In[71]:
 
 
 weather_conditions_replace = {
@@ -1927,7 +1926,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[ ]:
+# In[72]:
 
 
 # Todos las comas a puntos
@@ -2016,7 +2015,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[ ]:
+# In[73]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2034,7 +2033,13 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[ ]:
+# In[74]:
+
+
+data_frame
+
+
+# In[75]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2047,7 +2052,7 @@ X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
 Y_test = test['lesividad']
 
 
-# In[ ]:
+# In[76]:
 
 
 # # FILE_NAME = 'madrid_calculated_weights.json'
@@ -2057,7 +2062,7 @@ Y_test = test['lesividad']
 # display(feature_vector)
 
 
-# In[ ]:
+# In[77]:
 
 
 
@@ -2120,7 +2125,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[78]:
 
 
 X_train = X_train.astype(int)
@@ -2132,7 +2137,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[ ]:
+# In[79]:
 
 
 print('********** Before OverSampling **********')
@@ -2146,7 +2151,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[ ]:
+# In[80]:
 
 
 from xgboost import XGBClassifier
@@ -2156,7 +2161,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[ ]:
+# In[81]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -2327,7 +2332,7 @@ print(best_hyperparams)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[66]:
+# In[ ]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
