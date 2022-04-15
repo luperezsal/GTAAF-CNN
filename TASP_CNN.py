@@ -2340,10 +2340,10 @@ import random
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
-numberOfParents = 30 # number of parents to start
-numberOfParentsMating = 15 # Number of parents that will mate
+numberOfParents = 40 # number of parents to start
+numberOfParentsMating = 25 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
-numberOfGenerations = 15 # Number of genration that will be created 
+numberOfGenerations = 100 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
