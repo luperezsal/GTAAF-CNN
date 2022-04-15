@@ -870,7 +870,7 @@ clean_df
 
 # ### Downsampling
 
-# In[31]:
+# In[33]:
 
 
 from sklearn.model_selection import train_test_split
@@ -899,6 +899,10 @@ X_serious_downsampled = resample(serious_data,
 
 train = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
 
+print(len(X_slight_downsampled))
+print(len(X_serious_downsampled))
+print(len(fatal_data))
+print(len(train))
 X_train = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
 Y_train = train['Casualty Severity']
 
@@ -992,7 +996,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 numberOfParents = 50 # number of parents to start
 numberOfParentsMating = 20 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
-numberOfGenerations = 50 # Number of genration that will be created 
+numberOfGenerations = 10 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
