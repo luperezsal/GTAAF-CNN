@@ -450,9 +450,10 @@ def crossover_uniform(parents, childrenSize):
 #     return crossover
 
 
-# In[40]:
+# In[45]:
 
 
+MUTATION_PROBABILITY = 0.3
 def mutation(crossover, numberOfParameters):
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
     minMaxValue = np.zeros((numberOfParameters, 2))
@@ -473,25 +474,30 @@ def mutation(crossover, numberOfParameters):
         parameterSelect = np.random.randint(0, 9, 1)
 
         print(parameterSelect)
+        
+        mutation_probability = 1
 
-        if parameterSelect == 0: # learning_rate
-            mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-        if parameterSelect == 1: # n_estimators
-            mutationValue = np.random.randint(-100, 100, 1)
-        if parameterSelect == 2: #max_depth
-            mutationValue = np.random.randint(-5, 5, 1)
-        if parameterSelect == 3: #min_child_weight
-            mutationValue = round(np.random.uniform(5, 5), 2)
-        if parameterSelect == 4: #gamma
-            mutationValue = round(np.random.uniform(-2, 2), 2)
-        if parameterSelect == 5: # subsample
-            mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-        if parameterSelect == 6: # colsample
-            mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-        if parameterSelect == 7: # reg_alpha
-            mutationValue = round(np.random.uniform(-20,20), 1)
-        if parameterSelect == 8: # reg_lambda
-            mutationValue = round(np.random.uniform(-0.3,0.3), 3)
+        while MUTATION_PROBABILITY < mutation_probability:
+            if parameterSelect == 0: # learning_rate
+                mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+            if parameterSelect == 1: # n_estimators
+                mutationValue = np.random.randint(-100, 100, 1)
+            if parameterSelect == 2: #max_depth
+                mutationValue = np.random.randint(-5, 5, 1)
+            if parameterSelect == 3: #min_child_weight
+                mutationValue = round(np.random.uniform(5, 5), 2)
+            if parameterSelect == 4: #gamma
+                mutationValue = round(np.random.uniform(-2, 2), 2)
+            if parameterSelect == 5: # subsample
+                mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+            if parameterSelect == 6: # colsample
+                mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+            if parameterSelect == 7: # reg_alpha
+                mutationValue = round(np.random.uniform(-20,20), 1)
+            if parameterSelect == 8: # reg_lambda
+                mutationValue = round(np.random.uniform(-0.3,0.3), 3)
+            
+            mutation_probability = np.random.rand(1)
   
     
         crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
