@@ -282,7 +282,7 @@ def initilialize_poplulation(numberOfParents):
 
 # ### Fitness function
 
-# In[13]:
+# In[49]:
 
 
 from sklearn.metrics import f1_score
@@ -291,15 +291,14 @@ def fitness_f1score(y_true, y_pred):
 #     xgboost = XGBClassifier(params=params)
 
 #     fitness = xgboost.fit(X_train, Y_train).training_score
-
-    fitness = round((f1_score(y_true, y_pred, average='weighted')), 4)
+    fitness = round((f1_score(y_true, y_pred, average='micro')), 4)
 
     return fitness #train the data annd find fitness score
 
 
 # ### Evaluación de población
 
-# In[1]:
+# In[48]:
 
 
 from xgboost import XGBClassifier
@@ -308,7 +307,7 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
     fScore = []
     for i in range(population.shape[0]):
         param = { 'objective':'multi:softprob',
-                  'tree_method': 'gpu_hist',
+                  # 'tree_method': 'gpu_hist',
                   'num_class': 3,
                   'learning_rate': population[i][0],
                   'n_estimators': population[i][1], 
@@ -332,7 +331,7 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
         single_predictions = [np.argmax(pred) for pred in preds]
         # preds = preds > 0.5
 
-        fScore.append(np.argmax(fitness_f1score(Y_test, single_predictions)))
+        fScore.append(fitness_f1score(Y_test, single_predictions))
 
     return fScore
 
@@ -931,7 +930,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[37]:
+# In[50]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -950,10 +949,10 @@ import random
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-numberOfParents = 8 # number of parents to start
-numberOfParentsMating = 4 # Number of parents that will mate
+numberOfParents = 100 # number of parents to start
+numberOfParentsMating = 30 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
-numberOfGenerations = 4 # Number of genration that will be created 
+numberOfGenerations = 500 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
