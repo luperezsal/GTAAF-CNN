@@ -856,16 +856,16 @@ clean_df
 # In[30]:
 
 
-# from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
-# Y = clean_df['Casualty Severity']
+Y = clean_df['Casualty Severity']
 
-# train, test = train_test_split(clean_df, test_size=0.2)
-# X_train = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
-# Y_train = train['Casualty Severity']
+train, test = train_test_split(clean_df, test_size=0.2)
+X_train = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
+Y_train = train['Casualty Severity']
 
-# X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
-# Y_test = test['Casualty Severity']
+X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
+Y_test = test['Casualty Severity']
 
 
 # ### Downsampling
@@ -879,11 +879,11 @@ Y = clean_df['Casualty Severity']
 
 from sklearn.utils import resample
 
-train, test = train_test_split(clean_df, test_size=0.2)
+downsampled_train, downsampled_test = train_test_split(clean_df, test_size=0.2)
 
-slight_data  = train[train['Casualty Severity'] == 'Slight']
-serious_data = train[train['Casualty Severity'] == 'Serious']
-fatal_data   = train[train['Casualty Severity'] == 'Fatal']
+slight_data  = downsampled_train[downsampled_train['Casualty Severity'] == 'Slight']
+serious_data = downsampled_train[downsampled_train['Casualty Severity'] == 'Serious']
+fatal_data   = downsampled_train[downsampled_train['Casualty Severity'] == 'Fatal']
 
 print(len(slight_data))
 print(len(serious_data))
@@ -897,17 +897,18 @@ X_serious_downsampled = resample(serious_data,
                                  replace = True,
                                  n_samples = len(fatal_data))
 
-train = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
+downsampled_train = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
 
 print(len(X_slight_downsampled))
 print(len(X_serious_downsampled))
 print(len(fatal_data))
-print(len(train))
-X_train = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
-Y_train = train['Casualty Severity']
+print(len(downsampled_train))
 
-X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
-Y_test = test['Casualty Severity']
+X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['Casualty Severity'])]
+X_train_downsampled = downsampled_train['Casualty Severity']
+
+X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Casualty Severity'])]
+Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
 # In[32]:
@@ -943,9 +944,13 @@ Y_test = test['Casualty Severity']
 
 X_train = X_train.astype(int)
 X_test  = X_test.astype(int)
+X_train_downsampled = X_train_downsampled.astype(int)
+X_test_downsampled  = X_test_downsampled.astype(int)
 
 X_train = normalize_data(X_train)
 X_test  = normalize_data(X_test)
+X_train_downsampled = normalize_data(X_train_downsampled)
+X_test_downsampled  = normalize_data(X_test_downsampled)
 
 
 # ## Oversamplig de datos
@@ -953,13 +958,13 @@ X_test  = normalize_data(X_test)
 # In[35]:
 
 
-# print('********** Before OverSampling **********')
-# print('Slight: ', (Y_train == 'Slight').sum())
-# print('Serious:', (Y_train == 'Serious').sum())
-# print('Fatal:  ', (Y_train == 'Fatal').sum())
-# print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
+print('********** Before OverSampling **********')
+print('Slight: ', (Y_train == 'Slight').sum())
+print('Serious:', (Y_train == 'Serious').sum())
+print('Fatal:  ', (Y_train == 'Fatal').sum())
+print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 
-# X_train, Y_train = oversample_data(X_train, Y_train)
+X_train, Y_train = oversample_data(X_train, Y_train)
 
 
 # ## XGBoost
@@ -974,7 +979,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[37]:
+# In[36]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1007,11 +1012,12 @@ populationHistory = np.empty([(numberOfGenerations+1)*numberOfParents, numberOfP
 
 populationHistory[0:numberOfParents, :] = population
 
+print(population)
 for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
 
-    xgbDMatrixTrain = xgb.DMatrix(data = X_train, label = Y_train)
-    xgbDMatrixTest  = xgb.DMatrix(data = X_test,  label = Y_test)
+    xgbDMatrixTrain = xgb.DMatrix(data = X_train_downsampled, label = Y_train_downsampled)
+    xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled,  label = Y_test_downsampled)
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
@@ -1040,16 +1046,16 @@ for generation in range(numberOfGenerations):
     fitness score and rest of them  will be children
     '''
     population[0:parents.shape[0], :] = parents # Fittest parents
-    population[parents.shape[0]:, :] = children_mutated # Children
+    population[parents.shape[0]:, :]  = children_mutated # Children
     
-    populationHistory[(generation+1)*numberOfParents : (generation+1)*numberOfParents+ numberOfParents , :] = population # Srore parent information
+    populationHistory[(generation+1)*numberOfParents : (generation+1)*numberOfParents+ numberOfParents , :] = population # Store parent information
     
 #Best solution from the final iteration
 
 fitness = train_population(population = population,
                            dMatrixTrain = xgbDMatrixTrain,
                            dMatrixTest  = xgbDMatrixTest,
-                           y_test = Y_test)
+                           y_test = Y_test_downsampled)
 
 fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
