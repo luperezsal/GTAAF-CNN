@@ -408,7 +408,7 @@ def mutation(crossover, numberOfParameters):
  
     # Mutation changes a single gene in each offspring randomly.
     mutationValue = 0
-    parameterSelect = np.random.randint(0, 7, 1)
+    parameterSelect = np.random.randint(0, 9, 1)
 
     print(parameterSelect)
 
@@ -426,9 +426,9 @@ def mutation(crossover, numberOfParameters):
         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
     if parameterSelect == 6: # colsample
         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-    if parameterSelect == 6: # reg_alpha
+    if parameterSelect == 7: # reg_alpha
         mutationValue = round(np.random.uniform(40,180), 1)
-    if parameterSelect == 6: # reg_lambda
+    if parameterSelect == 8: # reg_lambda
         mutationValue = round(np.random.uniform(40,180), 1)
   
     #indtroduce mutation by changing one parameter, and set to max or min if it goes out of range
@@ -949,10 +949,10 @@ import random
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-numberOfParents = 100 # number of parents to start
-numberOfParentsMating = 30 # Number of parents that will mate
+numberOfParents = 20 # number of parents to start
+numberOfParentsMating = 10 # Number of parents that will mate
 numberOfParameters = 9  # Number of parameters that will be optimized
-numberOfGenerations = 500 # Number of genration that will be created 
+numberOfGenerations = 20 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
