@@ -1058,17 +1058,11 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 import xgboost as xgb
 import random
 
-print(Y_train)
-print(Y_train_downsampled)
-
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
-
-print(Y_train)
-print(Y_train_downsampled)
 
 numberOfParents = 50 # number of parents to start
 numberOfParentsMating = 20 # Number of parents that will mate
@@ -1088,7 +1082,7 @@ for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
 
     xgbDMatrixTrain = xgb.DMatrix(data = X_train, label = Y_train)
-    xgbDMatrixTest  = xgb.DMatrix(data = X_test_, label = Y_test)
+    xgbDMatrixTest  = xgb.DMatrix(data = X_test, label = Y_test)
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
