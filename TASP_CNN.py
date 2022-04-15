@@ -3,7 +3,7 @@
 
 # # Diagrama de flujo
 
-# ![title](Data/Data_flow.png)
+# <center><img src="Data/Data_flow.png"/></center>
 
 # # Métodos
 
@@ -369,7 +369,7 @@ Mate these parents to create children having parameters from these parents (we a
 '''
 def crossover_uniform(parents, childrenSize):
     
-    crossoverPointIndex = np.arange(0, np.uint8(childrenSize[1]), 1, dtype= np.uint8) #get all the index
+    crossoverPointIndex  = np.arange(0, np.uint8(childrenSize[1]), 1, dtype= np.uint8) # get all the index
     crossoverPointIndex1 = np.random.randint(0, np.uint8(childrenSize[1]), np.uint8(childrenSize[1]/2)) # select half  of the indexes randomly
     crossoverPointIndex2 = np.array(list(set(crossoverPointIndex) - set(crossoverPointIndex1))) #select leftover indexes
     
@@ -395,7 +395,62 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[17]:
+# In[39]:
+
+
+# def mutation(crossover, numberOfParameters):
+#     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
+#     minMaxValue = np.zeros((numberOfParameters, 2))
+
+#     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
+#     minMaxValue[1,:] = [10, 2000]   # min/max n_estimator
+#     minMaxValue[2,:] = [1, 15]      # min/max depth
+#     minMaxValue[3,:] = [0, 10.0]    # min/max child_weight
+#     minMaxValue[4,:] = [0.01, 10.0] # min/max gamma
+#     minMaxValue[5,:] = [0.01, 1.0]  # min/max subsample
+#     minMaxValue[6,:] = [0.01, 1.0]  # min/max colsample_bytree
+#     minMaxValue[7,:] = [40.0,180.0] # min/max reg_alpha
+#     minMaxValue[8,:] = [0.0, 1.0]   # min/max reg_lambda
+ 
+#     # Mutation changes a single gene in each offspring randomly.
+#     mutationValue = 0
+#     parameterSelect = np.random.randint(0, 9, 1)
+
+#     print(parameterSelect)
+
+#     if parameterSelect == 0: # learning_rate
+#         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+#     if parameterSelect == 1: # n_estimators
+#         mutationValue = np.random.randint(-100, 100, 1)
+#     if parameterSelect == 2: #max_depth
+#         mutationValue = np.random.randint(-5, 5, 1)
+#     if parameterSelect == 3: #min_child_weight
+#         mutationValue = round(np.random.uniform(5, 5), 2)
+#     if parameterSelect == 4: #gamma
+#         mutationValue = round(np.random.uniform(-2, 2), 2)
+#     if parameterSelect == 5: # subsample
+#         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+#     if parameterSelect == 6: # colsample
+#         mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+#     if parameterSelect == 7: # reg_alpha
+#         mutationValue = round(np.random.uniform(-20,20), 1)
+#     if parameterSelect == 8: # reg_lambda
+#         mutationValue = round(np.random.uniform(-0.3,0.3), 3)
+  
+#     # Introduce mutation by changing one parameter, and set to max or min if it goes out of range
+#     for idx in range(crossover.shape[0]):
+#         crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
+
+#         if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
+#             crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
+
+#         if(crossover[idx, parameterSelect] < minMaxValue[parameterSelect, 0]):
+#             crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 0]
+
+#     return crossover
+
+
+# In[40]:
 
 
 def mutation(crossover, numberOfParameters):
@@ -412,33 +467,33 @@ def mutation(crossover, numberOfParameters):
     minMaxValue[7,:] = [40.0,180.0] # min/max reg_alpha
     minMaxValue[8,:] = [0.0, 1.0]   # min/max reg_lambda
  
-    # Mutation changes a single gene in each offspring randomly.
-    mutationValue = 0
-    parameterSelect = np.random.randint(0, 9, 1)
-
-    print(parameterSelect)
-
-    if parameterSelect == 0: # learning_rate
-        mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-    if parameterSelect == 1: # n_estimators
-        mutationValue = np.random.randint(-200, 200, 1)
-    if parameterSelect == 2: #max_depth
-        mutationValue = np.random.randint(-5, 5, 1)
-    if parameterSelect == 3: #min_child_weight
-        mutationValue = round(np.random.uniform(5, 5), 2)
-    if parameterSelect == 4: #gamma
-        mutationValue = round(np.random.uniform(-2, 2), 2)
-    if parameterSelect == 5: # subsample
-        mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-    if parameterSelect == 6: # colsample
-        mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-    if parameterSelect == 7: # reg_alpha
-        mutationValue = round(np.random.uniform(40,180), 1)
-    if parameterSelect == 8: # reg_lambda
-        mutationValue = round(np.random.uniform(0,1), 3)
-  
-    # Introduce mutation by changing one parameter, and set to max or min if it goes out of range
     for idx in range(crossover.shape[0]):
+        # Mutation changes a single gene in each offspring randomly.
+        mutationValue = 0
+        parameterSelect = np.random.randint(0, 9, 1)
+
+        print(parameterSelect)
+
+        if parameterSelect == 0: # learning_rate
+            mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+        if parameterSelect == 1: # n_estimators
+            mutationValue = np.random.randint(-100, 100, 1)
+        if parameterSelect == 2: #max_depth
+            mutationValue = np.random.randint(-5, 5, 1)
+        if parameterSelect == 3: #min_child_weight
+            mutationValue = round(np.random.uniform(5, 5), 2)
+        if parameterSelect == 4: #gamma
+            mutationValue = round(np.random.uniform(-2, 2), 2)
+        if parameterSelect == 5: # subsample
+            mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+        if parameterSelect == 6: # colsample
+            mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+        if parameterSelect == 7: # reg_alpha
+            mutationValue = round(np.random.uniform(-20,20), 1)
+        if parameterSelect == 8: # reg_lambda
+            mutationValue = round(np.random.uniform(-0.3,0.3), 3)
+  
+    
         crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
 
         if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
