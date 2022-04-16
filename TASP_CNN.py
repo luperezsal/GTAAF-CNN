@@ -458,28 +458,28 @@ def crossover_uniform(parents, childrenSize):
 
 def mutation(crossover, numberOfParameters):
     
-    # MUTATION_PROBABILITY = 1/numberOfParameters
+    MUTATION_PROBABILITY = 1/numberOfParameters
     
-    MUTATION_PROBABILITY = 0.2
+    # MUTATION_PROBABILITY = 0.2
 
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
-    minMaxValue = np.zeros((numberOfParameters, 2))
+#     minMaxValue = np.zeros((numberOfParameters, 2))
 
-    minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
-    minMaxValue[1,:] = [100, 2000]  # min/max n_estimator
-    minMaxValue[2,:] = [1, 15]      # min/max depth
-    minMaxValue[3,:] = [0, 10.0]    # min/max child_weight
-    minMaxValue[4,:] = [0.01, 10.0] # min/max gamma
-    minMaxValue[5,:] = [0.01, 1.0]  # min/max subsample
-    minMaxValue[6,:] = [0.01, 1.0]  # min/max colsample_bytree
-    minMaxValue[7,:] = [40.0,180.0] # min/max reg_alpha
-    minMaxValue[8,:] = [0.0, 1.0]   # min/max reg_lambda
+#     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
+#     minMaxValue[1,:] = [100, 2000]  # min/max n_estimator
+#     minMaxValue[2,:] = [1, 15]      # min/max depth
+#     minMaxValue[3,:] = [0, 10.0]    # min/max child_weight
+#     minMaxValue[4,:] = [0.01, 10.0] # min/max gamma
+#     minMaxValue[5,:] = [0.01, 1.0]  # min/max subsample
+#     minMaxValue[6,:] = [0.01, 1.0]  # min/max colsample_bytree
+#     minMaxValue[7,:] = [40.0,180.0] # min/max reg_alpha
+#     minMaxValue[8,:] = [0.0, 1.0]   # min/max reg_lambda
  
     for idx in range(crossover.shape[0]):
         # Mutation changes a single gene in each offspring randomly.
 
         
-        mutation_probability = 0
+        mutation_probability = np.random.rand(1)
 
         while MUTATION_PROBABILITY > mutation_probability:
             
@@ -489,23 +489,32 @@ def mutation(crossover, numberOfParameters):
             print(idx, parameterSelect)
             
             if parameterSelect == 0: # learning_rate
-                mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
+                # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
+                mutationValue = round(random.uniform(0.01, 1), 2)
             if parameterSelect == 1: # n_estimators
-                mutationValue = np.random.randint(-150, 150, 1)
+                # mutationValue = np.random.randint(-150, 150, 1)
+                mutationValue = random.randrange(100, 2000, step = 150)
             if parameterSelect == 2: # max_depth
-                mutationValue = np.random.randint(-3, 3, 1)
+                # mutationValue = np.random.randint(-3, 3, 1)
+                mutationValue = int(random.randrange(1, 20, step= 1))
             if parameterSelect == 3: # min_child_weight
-                mutationValue = round(np.random.uniform(5, 5), 2)
+                # mutationValue = round(np.random.uniform(5, 5), 2)
+                mutationValue = round(random.uniform(0.01, 15.0), 1)
             if parameterSelect == 4: #gamma
-                mutationValue = round(np.random.uniform(-2, 2), 2)
+                # mutationValue = round(np.random.uniform(-2, 2), 2)
+                mutationValue = round(random.uniform(0.01, 10.0), 2)
             if parameterSelect == 5: # subsample
-                mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+                # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+                mutationValue = round(random.uniform(0.01, 1.0), 2)
             if parameterSelect == 6: # colsample
-                mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+                # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+                mutationValue = round(random.uniform(0.01, 1.0), 2)
             if parameterSelect == 7: # reg_alpha
-                mutationValue = round(np.random.uniform(-20,20), 1)
+                # mutationValue = round(np.random.uniform(-20,20), 1)
+                mutationValue = round(random.uniform(40,180), 1)
             if parameterSelect == 8: # reg_lambda
-                mutationValue = round(np.random.uniform(-0.2,0.2), 3)
+                # mutationValue = round(np.random.uniform(-0.2,0.2), 3)
+                mutationValue = round(random.uniform(0,1), 3)
             
             mutation_probability = np.random.rand(1)
   
