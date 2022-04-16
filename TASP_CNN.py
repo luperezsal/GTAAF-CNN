@@ -520,11 +520,11 @@ def mutation(crossover, numberOfParameters):
   
             crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
 
-            if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
-                crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
+#             if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
+#                 crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
 
-            if(crossover[idx, parameterSelect] < minMaxValue[parameterSelect, 0]):
-                crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 0]
+#             if(crossover[idx, parameterSelect] < minMaxValue[parameterSelect, 0]):
+#                 crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 0]
 
     return crossover
 
