@@ -499,7 +499,7 @@ def mutation(crossover, numberOfParameters):
         while MUTATION_PROBABILITY > mutation_probability:
             
             mutationValue = 0
-            parameterSelect = np.random.randint(0, 9, 1)
+            parameterSelect = np.random.randint(0, numberOfParameters, 1)
 
             print(idx, parameterSelect)
             
