@@ -508,7 +508,7 @@ def mutation(crossover, numberOfParameters):
                 mutationValue = round(random.uniform(0.01, 1.0), 2)
             if parameterSelect == 6: # colsample
                 # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-                mutationValue = round(random.uniform(0.01, 1.0), 2)
+                mutationValue = round(random.uniform(0.5, 1.0), 2)
             if parameterSelect == 7: # reg_alpha
                 # mutationValue = round(np.random.uniform(-20,20), 1)
                 mutationValue = round(random.uniform(40,180), 1)
@@ -517,8 +517,9 @@ def mutation(crossover, numberOfParameters):
                 mutationValue = round(random.uniform(0,1), 3)
             
             mutation_probability = np.random.rand(1)
-  
-            crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
+
+            crossover[idx, parameterSelect] = mutationValue
+            # crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
 
 #             if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
 #                 crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
