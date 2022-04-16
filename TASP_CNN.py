@@ -274,17 +274,24 @@ def initilialize_poplulation(numberOfParents):
 #         'tree_method': 'gpu_hist'
 #     }
     for i in range(numberOfParents):
+        # learningRate[i] = round(random.uniform(0.01, 1), 2)
+        # nEstimators[i] = random.randrange(100, 2000, step = 150)
+        # maxDepth[i] = int(random.randrange(1, 20, step= 1))
+        # minChildWeight[i] = round(random.uniform(0.01, 15.0), 1)
+        # gammaValue[i] = round(random.uniform(0.01, 10.0), 2)
+        # subSample[i] = round(random.uniform(0.01, 1.0), 2)
+        # colSampleByTree[i] = round(random.uniform(0.01, 1.0), 2)
+        # regAlpha[i]  = round(random.uniform(40,180), 1)
+        # regLambda[i] = round(random.uniform(0,1), 3)
+        
         learningRate[i] = round(random.uniform(0.01, 1), 2)
-        nEstimators[i] = random.randrange(100, 2000, step = 150)
         maxDepth[i] = int(random.randrange(1, 20, step= 1))
         minChildWeight[i] = round(random.uniform(0.01, 15.0), 1)
-        gammaValue[i] = round(random.uniform(0.01, 10.0), 2)
-        subSample[i] = round(random.uniform(0.01, 1.0), 2)
-        colSampleByTree[i] = round(random.uniform(0.01, 1.0), 2)
-        regAlpha[i]  = round(random.uniform(40,180), 1)
-        regLambda[i] = round(random.uniform(0,1), 3)
+
     
-    population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree, regAlpha, regLambda), axis= 1)
+    # population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree, regAlpha, regLambda), axis= 1)
+    population = np.concatenate((learningRate, maxDepth, minChildWeight), axis= 1)
+
   
     return population
 
@@ -313,18 +320,26 @@ from xgboost import XGBClassifier
 def train_population(population, dMatrixTrain, dMatrixTest, y_test):
     fScore = []
     for i in range(population.shape[0]):
+        # param = { 'objective':'multi:softprob',
+        #           'tree_method': 'gpu_hist',
+        #           'num_class': 3,
+        #           'learning_rate': population[i][0],
+        #           'n_estimators': population[i][1], 
+        #           'max_depth': int(population[i][2]), 
+        #           'min_child_weight': population[i][3],
+        #           'gamma': population[i][4], 
+        #           'subsample': population[i][5],
+        #           'colsample_bytree': population[i][6],
+        #           'reg_alpha': population[i][7],
+        #           'reg_lambda': population[i][8]
+        #         }
+
         param = { 'objective':'multi:softprob',
                   'tree_method': 'gpu_hist',
                   'num_class': 3,
                   'learning_rate': population[i][0],
-                  'n_estimators': population[i][1], 
-                  'max_depth': int(population[i][2]), 
-                  'min_child_weight': population[i][3],
-                  'gamma': population[i][4], 
-                  'subsample': population[i][5],
-                  'colsample_bytree': population[i][6],
-                  'reg_alpha': population[i][7],
-                  'reg_lambda': population[i][8]
+                  'max_depth': int(population[i][1]), 
+                  'min_child_weight': population[i][2]
                 }
 
         num_round = 100
@@ -488,34 +503,45 @@ def mutation(crossover, numberOfParameters):
 
             print(idx, parameterSelect)
             
+            # if parameterSelect == 0: # learning_rate
+            #     # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
+            #     mutationValue = round(random.uniform(0.01, 1), 2)
+            # if parameterSelect == 1: # n_estimators
+            #     # mutationValue = np.random.randint(-150, 150, 1)
+            #     mutationValue = random.randrange(100, 2000, step = 150)
+            # if parameterSelect == 2: # max_depth
+            #     # mutationValue = np.random.randint(-3, 3, 1)
+            #     mutationValue = int(random.randrange(1, 20, step= 1))
+            # if parameterSelect == 3: # min_child_weight
+            #     # mutationValue = round(np.random.uniform(5, 5), 2)
+            #     mutationValue = round(random.uniform(0.01, 15.0), 1)
+            # if parameterSelect == 4: #gamma
+            #     # mutationValue = round(np.random.uniform(-2, 2), 2)
+            #     mutationValue = round(random.uniform(0.01, 10.0), 2)
+            # if parameterSelect == 5: # subsample
+            #     # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+            #     mutationValue = round(random.uniform(0.01, 1.0), 2)
+            # if parameterSelect == 6: # colsample
+            #     # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
+            #     mutationValue = round(random.uniform(0.5, 1.0), 2)
+            # if parameterSelect == 7: # reg_alpha
+            #     # mutationValue = round(np.random.uniform(-20,20), 1)
+            #     mutationValue = round(random.uniform(40,180), 1)
+            # if parameterSelect == 8: # reg_lambda
+            #     # mutationValue = round(np.random.uniform(-0.2,0.2), 3)
+            #     mutationValue = round(random.uniform(0,1), 3)
+
             if parameterSelect == 0: # learning_rate
                 # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
                 mutationValue = round(random.uniform(0.01, 1), 2)
-            if parameterSelect == 1: # n_estimators
-                # mutationValue = np.random.randint(-150, 150, 1)
-                mutationValue = random.randrange(100, 2000, step = 150)
-            if parameterSelect == 2: # max_depth
+            if parameterSelect == 1: # max_depth
                 # mutationValue = np.random.randint(-3, 3, 1)
                 mutationValue = int(random.randrange(1, 20, step= 1))
-            if parameterSelect == 3: # min_child_weight
+            if parameterSelect == 2: # min_child_weight
                 # mutationValue = round(np.random.uniform(5, 5), 2)
                 mutationValue = round(random.uniform(0.01, 15.0), 1)
-            if parameterSelect == 4: #gamma
-                # mutationValue = round(np.random.uniform(-2, 2), 2)
-                mutationValue = round(random.uniform(0.01, 10.0), 2)
-            if parameterSelect == 5: # subsample
-                # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-                mutationValue = round(random.uniform(0.01, 1.0), 2)
-            if parameterSelect == 6: # colsample
-                # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-                mutationValue = round(random.uniform(0.5, 1.0), 2)
-            if parameterSelect == 7: # reg_alpha
-                # mutationValue = round(np.random.uniform(-20,20), 1)
-                mutationValue = round(random.uniform(40,180), 1)
-            if parameterSelect == 8: # reg_lambda
-                # mutationValue = round(np.random.uniform(-0.2,0.2), 3)
-                mutationValue = round(random.uniform(0,1), 3)
-            
+
+
             mutation_probability = np.random.rand(1)
 
             crossover[idx, parameterSelect] = mutationValue
@@ -1081,7 +1107,7 @@ Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 numberOfParents = 40 # number of parents to start
 numberOfParentsMating = 15 # Number of parents that will mate
-numberOfParameters = 9  # Number of parameters that will be optimized
+numberOfParameters = 3  # Number of parameters that will be optimized
 numberOfGenerations = 100 # Number of genration that will be created 
 
 # Define the population size
