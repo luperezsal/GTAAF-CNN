@@ -378,7 +378,8 @@ def new_parents_selection(population, fitness, numParents):
 
         individuals_probability_to_be_selected = current_fitness/population_fitness
 
-        
+        print(f'individuals_probability_to_be_selected: {individuals_probability_to_be_selected}')
+
         random_number = random.uniform(0,1)
 
         for parentId in range(numParents): 
