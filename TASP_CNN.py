@@ -366,13 +366,37 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
 # Select parents for mating
 def new_parents_selection(population, fitness, numParents):
     selectedParents = np.empty((numParents, population.shape[1])) # Create an array to store fittest parents.
-    
-    # Find the top best performing parents
-    for parentId in range(numParents):
-        bestFitnessId = np.where(fitness == np.max(fitness))
-        bestFitnessId  = bestFitnessId[0][0]
-        selectedParents[parentId, :] = population[bestFitnessId, :]
-        fitness[bestFitnessId] = -1 # Set this value to negative, in case of F1-score, so this parent is not selected again
+
+
+    current_population = population
+    current_fitness = fitness
+
+    current_selected_parents_number = 0
+
+    while current_selected_parents_number < numParents:
+        print(f'Number of parents selected: {current_selected_parents_number}')
+        population_fitness = np.sum(current_fitness)
+
+        individuals_probability_to_be_selected = current_fitness/population_fitness
+
+        
+        random_number = random.uniform(0,1)
+
+        for parentId in range(numParents): 
+            if sum(individuals_probability_to_be_selected[:parentId]) > random_number:
+                selectedParents[parentId, :] = current_population[parentId,:]
+                current_population = np.delete(current_population, parentId,0)
+                current_fitness = np.delete(current_fitness, parentId,0)
+                current_selected_parents_number += 1
+                break
+            
+
+        # for parentId in range(numParents):
+        #     bestFitnessId = np.where(fitness == np.max(fitness))
+        #     bestFitnessId  = bestFitnessId[0][0]
+        #     selectedParents[parentId, :] = population[bestFitnessId, :]
+        #     fitness[bestFitnessId] = -1 # Set this value to negative, in case of F1-score, so this parent is not selected again
+
 
     return selectedParents
 
