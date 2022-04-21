@@ -9,7 +9,7 @@
 
 # ## Carga Google Drive
 
-# In[1]:
+# In[41]:
 
 
 # from google.colab import drive
@@ -18,7 +18,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[2]:
+# In[42]:
 
 
 from datetime import datetime
@@ -34,13 +34,13 @@ MODELS_PATH  = 'Models/'
 
 # ## Importar Tensorflow
 
-# In[3]:
+# In[43]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[4]:
+# In[44]:
 
 
 import tensorflow as tf
@@ -55,7 +55,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[5]:
+# In[45]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -67,7 +67,7 @@ get_ipython().system('nvidia-smi')
 
 # ## Importador/Exportador JSON
 
-# In[6]:
+# In[46]:
 
 
 import json
@@ -85,7 +85,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[7]:
+# In[47]:
 
 
 import numpy as np
@@ -165,7 +165,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[8]:
+# In[48]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -187,7 +187,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[9]:
+# In[49]:
 
 
 from scipy.stats import zscore
@@ -207,7 +207,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[10]:
+# In[50]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -232,7 +232,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[11]:
+# In[51]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -249,7 +249,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[12]:
+# In[52]:
 
 
 def initilialize_poplulation(numberOfParents):
@@ -298,7 +298,7 @@ def initilialize_poplulation(numberOfParents):
 
 # ### Fitness function
 
-# In[13]:
+# In[53]:
 
 
 from sklearn.metrics import f1_score
@@ -312,7 +312,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[14]:
+# In[54]:
 
 
 from xgboost import XGBClassifier
@@ -360,15 +360,15 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
 
 # ### Selección de padres
 
-# In[40]:
+# In[55]:
 
 
-import numpy.random as np
+import numpy.random as npr
 
 def selectOne(population, fitness):
     max_f = sum([f for f in fitness])
     selection_probs = [f/max_f for f in fitness]
-    return population[np.choice(len(population), p=selection_probs),:]
+    return population[npr.choice(len(population), p=selection_probs),:]
 
 
 # Select parents for mating
@@ -416,7 +416,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[16]:
+# In[56]:
 
 
 '''
@@ -450,7 +450,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[17]:
+# In[57]:
 
 
 # def mutation(crossover, numberOfParameters):
@@ -505,7 +505,7 @@ def crossover_uniform(parents, childrenSize):
 #     return crossover
 
 
-# In[18]:
+# In[58]:
 
 
 def mutation(crossover, numberOfParameters):
@@ -597,7 +597,7 @@ def mutation(crossover, numberOfParameters):
 
 # ## Reshape de imágenes
 
-# In[19]:
+# In[59]:
 
 
 # Add one channel
@@ -620,7 +620,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[20]:
+# In[60]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -650,7 +650,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[21]:
+# In[61]:
 
 
 import seaborn as sns
@@ -664,7 +664,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[22]:
+# In[62]:
 
 
 from sklearn.decomposition import PCA
@@ -684,7 +684,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[23]:
+# In[63]:
 
 
 from sklearn.manifold import TSNE
@@ -711,7 +711,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[24]:
+# In[64]:
 
 
 def autoencoder ():
@@ -736,7 +736,7 @@ def autoencoder ():
 
 # ## TASP-CNN
 
-# In[25]:
+# In[65]:
 
 
 import tensorflow_addons as tfa
@@ -764,7 +764,7 @@ tasp_cnn.compile(
   )
 
 
-# In[26]:
+# In[66]:
 
 
 print('Done!')
@@ -774,13 +774,13 @@ print('Done!')
 
 # ## Importación de datos
 
-# In[27]:
+# In[67]:
 
 
 # !conda install pandas --y
 
 
-# In[28]:
+# In[68]:
 
 
 import pandas as pd
@@ -834,7 +834,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[29]:
+# In[69]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -996,13 +996,13 @@ clean_df
 
 # ## Split de datos
 
-# In[30]:
+# In[70]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[31]:
+# In[71]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1019,7 +1019,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[32]:
+# In[72]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1054,7 +1054,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Ca
 Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
-# In[33]:
+# In[73]:
 
 
 # fv2gi(feature_vector)
@@ -1076,13 +1076,13 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[34]:
+# In[74]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[35]:
+# In[75]:
 
 
 X_train = X_train.astype(int)
@@ -1098,7 +1098,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## Oversamplig de datos
 
-# In[36]:
+# In[76]:
 
 
 print('********** Before OverSampling **********')
@@ -1112,7 +1112,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[37]:
+# In[77]:
 
 
 from xgboost import XGBClassifier
@@ -1122,7 +1122,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[38]:
+# In[78]:
 
 
 # from sklearn.preprocessing import StandardScaler
