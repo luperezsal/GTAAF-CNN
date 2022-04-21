@@ -1117,7 +1117,7 @@ populationHistory = np.empty([(numberOfGenerations+1)*numberOfParents, numberOfP
 populationHistory[0:numberOfParents, :] = population
 
 xgbDMatrixTrain = xgb.DMatrix(data = X_train_downsampled, label = Y_train_downsampled)
-xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled, label = Y_test_downsampled)
+xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled,  label = Y_test_downsampled)
     
 for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
@@ -1126,12 +1126,15 @@ for generation in range(numberOfGenerations):
     # print(f'Population before resampling is  {population}')
     
     unique_individuals = np.unique(population, axis=0)
+    
     new_individuals_to_create = numberOfParents - len(unique_individuals)
     
     for i in range(new_individuals_to_create):
         new_population.append(generate_individual())
     
     new_population = np.array(new_population)
+    print(type(population[1]), population[1])
+    print(type(new_population[1]), new_population[1])
     np.concatenate((population, new_population), axis=0)
     # print(type(population))
     print(f'Current population is {new_population}')
