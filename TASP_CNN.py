@@ -360,7 +360,7 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
 
 # ### Selección de padres
 
-# In[39]:
+# In[40]:
 
 
 import numpy.random as np
@@ -373,7 +373,7 @@ def selectOne(population, fitness):
 
 # Select parents for mating
 def new_parents_selection(population, fitness, numParents):
-#     selectedParents = np.empty((numParents, population.shape[1])) # Create an array to store fittest parents.
+    selectedParents = np.empty((numParents, population.shape[1])) # Create an array to store fittest parents.
 
 
 #     current_population = population
