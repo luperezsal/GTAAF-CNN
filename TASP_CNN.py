@@ -383,7 +383,7 @@ def new_parents_selection(population, fitness, numParents):
 
         for parentId in range(numParents): 
             if sum(individuals_probability_to_be_selected[:parentId]) > random_number:
-                print(f'Done! Selected parant {parendId}, prob: {individuals_probability_to_be_selected[parentId]}, parent: {current_population[parentId,:]})
+                print(f'Done! Selected parant {parendId}, prob: {individuals_probability_to_be_selected[parentId]}, parent: {current_population[parentId,:]}')
                 selectedParents[parentId, :] = current_population[parentId,:]
                 current_population = np.delete(current_population, parentId,0)
                 current_fitness = np.delete(current_fitness, parentId,0)
