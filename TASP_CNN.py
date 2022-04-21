@@ -1131,7 +1131,7 @@ for generation in range(numberOfGenerations):
         new_population.append(generate_individual())
 
     new_population.append(unique_individuals)
-    population = new_population
+    population = np.array(new_population)
     print(f'Current population is {population}')
 
     
