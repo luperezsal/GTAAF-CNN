@@ -531,13 +531,13 @@ def mutation(crossover, numberOfParameters):
 
             if parameterSelect == 0: # learning_rate
                 # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
-                mutationValue = round(random.uniform(-0.1, 0.1), 2)
+                mutationValue = round(random.uniform(-0.3, 0.3), 2)
             if parameterSelect == 1: # max_depth
                 # mutationValue = np.random.randint(-3, 3, 1)
-                mutationValue = int(random.randrange(-3, 3, step= 1))
+                mutationValue = int(random.randrange(-4, 4, step= 1))
             if parameterSelect == 2: # min_child_weight
                 # mutationValue = round(np.random.uniform(5, 5), 2)
-                mutationValue = round(random.uniform(-3, 3), 1)
+                mutationValue = round(random.uniform(-5, 5), 1)
 
 
             mutation_probability = np.random.rand(1)
