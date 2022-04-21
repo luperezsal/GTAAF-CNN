@@ -1127,12 +1127,12 @@ for generation in range(numberOfGenerations):
     unique_individuals = np.unique(population, axis=0)
     
     number_of_new_individuals = numberOfParents - len(unique_individuals)
-    for i in range(number_of_new_individuals):
+    for i in range(number_of_new_individuals - 1):
         new_population.append(generate_individual())
 
     new_population.append(unique_individuals)
     new_population = np.array(new_population)
-    # population = new_population
+    population = new_population
     # print(type(population))
     print(type(new_population))
     print(f'Current population is {population}')
