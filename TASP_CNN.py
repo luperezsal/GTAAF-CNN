@@ -1080,7 +1080,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[79]:
+# In[82]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1122,14 +1122,17 @@ xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled, label = Y_test_downsamp
 for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
 
-    print(f'Population before resampling is  {population}')
-    unique_individuals =  np.unique(population, axis=0)
+    # print(f'Population before resampling is  {population}')
     new_population = []
-    for i in range(numberOfParents - len(unique_individuals)):
-        new_population[i] = generate_individual()
+    unique_individuals =  np.unique(population, axis=0)
     
-    new_population = new_population.append(unique_individuals)
-    print(f'Current population is {population}')
+    number_of_new_individuals = numberOfParents - len(unique_individuals)
+    for i in range(number_of_new_individuals):
+        new_population.append(generate_individual())
+
+    new_population.append(unique_individuals)
+    # population = new_population
+    # print(f'Current population is {population}')
 
     
     # Train the dataset and obtain fitness
