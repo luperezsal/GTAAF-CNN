@@ -1080,7 +1080,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[112]:
+# In[113]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1126,7 +1126,7 @@ for generation in range(numberOfGenerations):
     # print(f'Population before resampling is  {population}')
     
     unique_individuals = np.unique(population, axis=0)
-    new_individuals_to_create = numberOfParents - 20#len(unique_individuals)
+    new_individuals_to_create = numberOfParents - len(unique_individuals)
     
     for i in range(new_individuals_to_create):
         new_population.append(generate_individual())
