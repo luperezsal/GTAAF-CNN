@@ -1080,7 +1080,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[82]:
+# In[83]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1132,7 +1132,7 @@ for generation in range(numberOfGenerations):
 
     new_population.append(unique_individuals)
     # population = new_population
-    # print(f'Current population is {population}')
+    print(f'Current population is {population}')
 
     
     # Train the dataset and obtain fitness
