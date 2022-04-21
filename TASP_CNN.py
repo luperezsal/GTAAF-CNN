@@ -249,21 +249,21 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[12]:
+# In[76]:
 
 
-def initilialize_poplulation(numberOfParents):
+def generate_individual():
 
-    maxDepth   = np.empty([numberOfParents, 1], dtype = np.uint8)
-    regAlpha   = np.empty([numberOfParents, 1])
-    regLambda  = np.empty([numberOfParents, 1])
-    gammaValue = np.empty([numberOfParents, 1])
-    subSample  = np.empty([numberOfParents, 1])
-    learningRate = np.empty([numberOfParents, 1])
-    nEstimators  = np.empty([numberOfParents, 1], dtype = np.uint8)
-    minChildWeight  = np.empty([numberOfParents, 1])
-    colSampleByTree =  np.empty([numberOfParents, 1])
+    learningRate = round(random.uniform(0.01, 1), 2)
+    maxDepth = int(random.randrange(1, 20, step= 1))
+    minChildWeight = round(random.uniform(0.01, 15.0), 1)
 
+    individual = [learningRate, maxDepth, minChildWeight]
+
+    return individual
+
+def initilialize_population(numberOfParents):
+    population = []
     # space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
 #         'gamma': hp.uniform ('gamma', 1,9),
 #         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
@@ -283,17 +283,12 @@ def initilialize_poplulation(numberOfParents):
         # colSampleByTree[i] = round(random.uniform(0.01, 1.0), 2)
         # regAlpha[i]  = round(random.uniform(40,180), 1)
         # regLambda[i] = round(random.uniform(0,1), 3)
-        
-        learningRate[i] = round(random.uniform(0.01, 1), 2)
-        maxDepth[i] = int(random.randrange(1, 20, step= 1))
-        minChildWeight[i] = round(random.uniform(0.01, 15.0), 1)
 
+        population.append(generate_individual())
     
     # population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree, regAlpha, regLambda), axis= 1)
-    population = np.concatenate((learningRate, maxDepth, minChildWeight), axis= 1)
-
   
-    return population
+    return np.array(population)
 
 
 # ### Fitness function
@@ -1085,7 +1080,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[38]:
+# In[79]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1115,19 +1110,28 @@ numberOfGenerations = 100 # Number of genration that will be created
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
 
-population = initilialize_poplulation(numberOfParents) # Define an array to store the fitness  hitory
+population = initilialize_population(numberOfParents) # Define an array to store the fitness  hitory
 fitnessHistory = np.empty([numberOfGenerations+1, numberOfParents]) # Define an array to store the value of each parameter for each parent and generation
 populationHistory = np.empty([(numberOfGenerations+1)*numberOfParents, numberOfParameters]) # Insert the value of initial parameters in history
 
 populationHistory[0:numberOfParents, :] = population
 
+xgbDMatrixTrain = xgb.DMatrix(data = X_train_downsampled, label = Y_train_downsampled)
+xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled, label = Y_test_downsampled)
+    
 for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
 
-    xgbDMatrixTrain = xgb.DMatrix(data = X_train_downsampled, label = Y_train_downsampled)
-    xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled, label = Y_test_downsampled)
+    print(f'Population before resampling is  {population}')
+    unique_individuals =  np.unique(population, axis=0)
+    new_population = []
+    for i in range(numberOfParents - len(unique_individuals)):
+        new_population[i] = generate_individual()
     
+    new_population = new_population.append(unique_individuals)
     print(f'Current population is {population}')
+
+    
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
                                     dMatrixTrain = xgbDMatrixTrain,
