@@ -374,7 +374,6 @@ def new_parents_selection(population, fitness, numParents):
     current_selected_parents_number = 0
 
     while current_selected_parents_number < numParents:
-        print(f'Number of parents selected: {current_selected_parents_number}')
         population_fitness = np.sum(current_fitness)
 
         individuals_probability_to_be_selected = current_fitness/population_fitness
