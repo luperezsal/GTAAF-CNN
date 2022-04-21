@@ -1134,8 +1134,9 @@ for generation in range(numberOfGenerations):
     
     new_population = np.array(new_population)
     print(type(population[1]), population[1])
-    print(type(new_population[1]), new_population[1])
-    np.concatenate((population, new_population), axis=0)
+    # print(type(new_population[1]), new_population[1])
+    if (len(unique_individuals) > 0):
+        np.concatenate((population, new_population), axis=0)
     # print(type(population))
     print(f'Current population is {new_population}')
 
