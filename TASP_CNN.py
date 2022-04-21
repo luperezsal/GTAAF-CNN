@@ -1173,14 +1173,14 @@ for generation in range(numberOfGenerations):
                                  childrenSize = (populationSize[0] - parents.shape[0], numberOfParameters))
     
     # Add mutation to create genetic diversity
-    children_mutated = mutation(children, numberOfParameters)
+    # children_mutated = mutation(children, numberOfParameters)
     
     '''
     We will create new population, which will contain parents that where selected previously based on the
     fitness score and rest of them  will be children
     '''
     population[0:parents.shape[0], :] = parents # Fittest parents
-    population[parents.shape[0]:, :]  = children_mutated # Children
+    population[parents.shape[0]:, :]  = children # Children
     
     populationHistory[(generation+1)*numberOfParents : (generation+1)*numberOfParents+ numberOfParents , :] = population # Store parent information
     
