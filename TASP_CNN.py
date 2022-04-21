@@ -505,6 +505,9 @@ def mutation(crossover, numberOfParameters):
     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
 #     minMaxValue = np.zeros((numberOfParameters, 2))
 
+    minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
+    minMaxValue[1,:] = [1, 15]      # min/max depth
+    minMaxValue[2,:] = [0, 10.0]    # min/max child_weight
 #     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
 #     minMaxValue[1,:] = [100, 2000]  # min/max n_estimator
 #     minMaxValue[2,:] = [1, 15]      # min/max depth
