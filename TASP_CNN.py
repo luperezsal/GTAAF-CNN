@@ -382,7 +382,7 @@ def new_parents_selection(population, fitness, numParents):
 
         random_number = random.uniform(0,1)
 
-        for parentId in range(len(current_fitness)): 
+        for parentId in range(len(fitness)): 
             if sum(individuals_probability_to_be_selected[:parentId]) > random_number:
                 print(f'Done! Selected parant {parentId}, prob: {individuals_probability_to_be_selected[parentId]}, parent: {current_population[parentId,:]}')
                 selectedParents[parentId, :] = current_population[parentId,:]
