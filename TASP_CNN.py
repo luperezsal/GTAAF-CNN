@@ -363,52 +363,15 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
 # In[15]:
 
 
-import numpy.random as npr
-
-def selectOne(population, fitness):
-    max_f = sum([f for f in fitness])
-    selection_probs = [f/max_f for f in fitness]
-    return population[npr.choice(len(population), p=selection_probs),:]
-
-
 # Select parents for mating
 def new_parents_selection(population, fitness, numParents):
     selectedParents = np.empty((numParents, population.shape[1])) # Create an array to store fittest parents.
 
-
-#     current_population = population
-#     current_fitness = fitness
-
-    current_selected_parents_number = 0
-
-#     while current_selected_parents_number < numParents:
-#         population_fitness = np.sum(current_fitness)
-
-#         individuals_probability_to_be_selected = current_fitness/population_fitness
-
-#         print(f'individuals_probability_to_be_selected: {individuals_probability_to_be_selected}')
-
-#         random_number = random.uniform(0,1)
-
-#         for parentId in range(len(fitness)): 
-#             if sum(individuals_probability_to_be_selected[:parentId]) > random_number:
-#                 print(f'Done! Selected parant {parentId}, prob: {individuals_probability_to_be_selected[parentId]}, parent: {current_population[parentId,:]}')
-#                 selectedParents[current_selected_parents_number, :] = current_population[parentId,:]
-#                 current_fitness[parentId] = 0
-#                 current_selected_parents_number += 1
-#                 break
-    for i in range(numParents):
-        individual = selectOne(population, fitness)
-        selectedParents[i, :] = individual
-        fitness = np.delete(fitness, i,0)
-        population = np.delete(population, i,0)
-
-
-        # for parentId in range(numParents):
-        #     bestFitnessId = np.where(fitness == np.max(fitness))
-        #     bestFitnessId  = bestFitnessId[0][0]
-        #     selectedParents[parentId, :] = population[bestFitnessId, :]
-        #     fitness[bestFitnessId] = -1 # Set this value to negative, in case of F1-score, so this parent is not selected again
+    for parentId in range(numParents):
+        bestFitnessId = np.where(fitness == np.max(fitness))
+        bestFitnessId  = bestFitnessId[0][0]
+        selectedParents[parentId, :] = population[bestFitnessId, :]
+        fitness[bestFitnessId] = -1 # Set this value to negative, in case of F1-score, so this parent is not selected again
 
 
     return selectedParents
