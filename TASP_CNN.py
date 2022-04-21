@@ -531,7 +531,7 @@ def mutation(crossover, numberOfParameters):
 
             if parameterSelect == 0: # learning_rate
                 # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
-                mutationValue = round(random.uniform(-0.1, 0.1), 2)
+                mutationValue = round(random.uniform(-0.2, 0.2), 2)
             if parameterSelect == 1: # max_depth
                 # mutationValue = np.random.randint(-3, 3, 1)
                 mutationValue = int(random.randrange(-3, 3, step= 1))
@@ -1124,14 +1124,14 @@ for generation in range(numberOfGenerations):
 
     # print(f'Population before resampling is  {population}')
     new_population = []
-    unique_individuals =  np.unique(population, axis=0)
+    unique_individuals = np.unique(population, axis=0)
     
     number_of_new_individuals = numberOfParents - len(unique_individuals)
     for i in range(number_of_new_individuals):
         new_population.append(generate_individual())
 
     new_population.append(unique_individuals)
-    # population = new_population
+    population = new_population
     print(f'Current population is {population}')
 
     
