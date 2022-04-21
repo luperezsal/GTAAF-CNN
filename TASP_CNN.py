@@ -249,7 +249,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[96]:
+# In[76]:
 
 
 def generate_individual():
@@ -531,7 +531,7 @@ def mutation(crossover, numberOfParameters):
 
             if parameterSelect == 0: # learning_rate
                 # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
-                mutationValue = round(random.uniform(-0.2, 0.2), 2)
+                mutationValue = round(random.uniform(-0.1, 0.1), 2)
             if parameterSelect == 1: # max_depth
                 # mutationValue = np.random.randint(-3, 3, 1)
                 mutationValue = int(random.randrange(-3, 3, step= 1))
@@ -1080,7 +1080,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[103]:
+# In[112]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1121,23 +1121,20 @@ xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled, label = Y_test_downsamp
     
 for generation in range(numberOfGenerations):
     print("This is number %s generation" % (generation))
-
-    # print(f'Population before resampling is  {population}')
     new_population = []
-    unique_individuals = np.unique(population, axis=0)
+    # print(type(population[1]))
+    # print(f'Population before resampling is  {population}')
     
-    number_of_new_individuals = numberOfParents - 20
-    for i in range(number_of_new_individuals - 1):
+    unique_individuals = np.unique(population, axis=0)
+    new_individuals_to_create = numberOfParents - 20#len(unique_individuals)
+    
+    for i in range(new_individuals_to_create):
         new_population.append(generate_individual())
-
-    new_population.append(unique_individuals)
+    
     new_population = np.array(new_population)
-    population = new_population
-
-    print(population[1],type(population[1]))
-    print(new_population[1], type(new_population[1]))
-    print(f'Current population is {population}')
-    print(f'Newpopulation is {new_population}')
+    np.concatenate((population, new_population), axis=0)
+    # print(type(population))
+    print(f'Current population is {new_population}')
 
     
     # Train the dataset and obtain fitness
