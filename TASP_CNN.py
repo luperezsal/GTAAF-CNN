@@ -1138,6 +1138,7 @@ for generation in range(numberOfGenerations):
     if (new_individuals_to_create):
         np.concatenate((population, new_population), axis=0)
     # print(type(population))
+    print(f'Current population is {population}')
     print(f'Current population is {new_population}')
 
     
