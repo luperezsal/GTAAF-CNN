@@ -418,7 +418,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[40]:
+# In[17]:
 
 
 def mutation(crossover, numberOfParameters):
@@ -437,7 +437,7 @@ def mutation(crossover, numberOfParameters):
  
     # Mutation changes a single gene in each offspring randomly.
     mutationValue = 0
-    parameterSelect = np.random.randint(0, numerOfParameters, 1)
+    parameterSelect = np.random.randint(0, numberOfParameters, 1)
 
     print(parameterSelect)
 #             if parameterSelect == 0: # learning_rate
@@ -1107,7 +1107,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[39]:
+# In[38]:
 
 
 # from sklearn.preprocessing import StandardScaler
