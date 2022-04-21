@@ -249,7 +249,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[76]:
+# In[96]:
 
 
 def generate_individual():
@@ -1080,7 +1080,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[86]:
+# In[103]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1126,15 +1126,16 @@ for generation in range(numberOfGenerations):
     new_population = []
     unique_individuals = np.unique(population, axis=0)
     
-    number_of_new_individuals = numberOfParents - len(unique_individuals)
+    number_of_new_individuals = numberOfParents - 20
     for i in range(number_of_new_individuals - 1):
         new_population.append(generate_individual())
 
     new_population.append(unique_individuals)
     new_population = np.array(new_population)
     population = new_population
-    # print(type(population))
-    print(type(new_population))
+
+    print(population[1],type(population[1]))
+    print(new_population[1], type(new_population[1]))
     print(f'Current population is {population}')
     print(f'Newpopulation is {new_population}')
 
