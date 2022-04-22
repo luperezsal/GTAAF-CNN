@@ -258,7 +258,7 @@ def generate_individual():
 
     learningRate = round(random.uniform(0.01, 1), 2)
     maxDepth = int(random.randrange(1, 20, step= 1))
-    minChildWeight = round(random.uniform(0.01, 15.0), 1)
+    minChildWeight = round(random.uniform(0.1, 15.0), 1)
     nEstimators = random.randrange(0, 2000, step = 150)
 
     # learningRate = round(random.uniform(0.01, 1), 2)
@@ -507,8 +507,8 @@ def mutation(crossover, numberOfParameters):
     minMaxValue = np.zeros((numberOfParameters, 2))
 
     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
-    minMaxValue[1,:] = [1, 15]      # min/max depth
-    minMaxValue[2,:] = [0, 10.0]    # min/max child_weight
+    minMaxValue[1,:] = [1, 20]      # min/max depth
+    minMaxValue[2,:] = [0, 15.0]    # min/max child_weight
     minMaxValue[3,:] = [0, 2000]  # min/max n_estimator
 
 #     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
@@ -573,7 +573,7 @@ def mutation(crossover, numberOfParameters):
                 mutationValue = round(random.uniform(-5, 5), 1)
             if parameterSelect == 2: # min_child_weight
                 # mutationValue = round(np.random.uniform(5, 5), 2)
-                mutationValue = int(random.randrange(-100, 100, step= 15))
+                mutationValue = int(random.randrange(-100, 100, step=99))
 
 
             mutation_probability = np.random.rand(1)
