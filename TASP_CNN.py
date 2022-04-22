@@ -31,7 +31,7 @@ WEIGHTS_PATH = './feature_weights/'
 REPORTS_PATH = 'Reports/'
 MODELS_PATH  = 'Models/'
 
-HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution'
+HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution/'
 
 
 # ## Importar Tensorflow
@@ -259,6 +259,7 @@ def generate_individual():
     learningRate = round(random.uniform(0.01, 1), 2)
     maxDepth = int(random.randrange(1, 20, step= 1))
     minChildWeight = round(random.uniform(0.01, 15.0), 1)
+    nEstimators = random.randrange(0, 2000, step = 150)
 
     # learningRate = round(random.uniform(0.01, 1), 2)
     # nEstimators = random.randrange(100, 2000, step = 150)
@@ -270,7 +271,7 @@ def generate_individual():
     # regAlpha  = round(random.uniform(40,180), 1)
     # regLambda = round(random.uniform(0,1), 3)
     
-    individual = [learningRate, maxDepth, minChildWeight]
+    individual = [learningRate, maxDepth, minChildWeight, nEstimators]
 
     return individual
 
@@ -346,7 +347,8 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
                   'num_class': 3,
                   'learning_rate': population[i][0],
                   'max_depth': int(population[i][1]), 
-                  'min_child_weight': population[i][2]
+                  'min_child_weight': population[i][2],
+                  'n_estimators': population[i][3]
                 }
 
         num_round = 100
@@ -507,6 +509,8 @@ def mutation(crossover, numberOfParameters):
     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
     minMaxValue[1,:] = [1, 15]      # min/max depth
     minMaxValue[2,:] = [0, 10.0]    # min/max child_weight
+    minMaxValue[3,:] = [0, 2000]  # min/max n_estimator
+
 #     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
 #     minMaxValue[1,:] = [100, 2000]  # min/max n_estimator
 #     minMaxValue[2,:] = [1, 15]      # min/max depth
@@ -567,6 +571,9 @@ def mutation(crossover, numberOfParameters):
             if parameterSelect == 2: # min_child_weight
                 # mutationValue = round(np.random.uniform(5, 5), 2)
                 mutationValue = round(random.uniform(-5, 5), 1)
+            if parameterSelect == 2: # min_child_weight
+                # mutationValue = round(np.random.uniform(5, 5), 2)
+                mutationValue = int(random.randrange(-100, 100, step= 15))
 
 
             mutation_probability = np.random.rand(1)
@@ -1109,7 +1116,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[68]:
+# In[38]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1133,7 +1140,7 @@ Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 numberOfParents = 50 # number of parents to start
 numberOfParentsMating = 25 # Number of parents that will mate
-numberOfParameters = 3  # Number of parameters that will be optimized
+numberOfParameters = 4  # Number of parameters that will be optimized
 numberOfGenerations = 100 # Number of genration that will be created 
 
 # Define the population size
@@ -1168,8 +1175,8 @@ for generation in range(numberOfGenerations):
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
     # print(type(population))
-    print(f'Current population is {population}')
-    print(f'Current population is {new_population}')
+    print(f'Current population is {len(population)}')
+    print(f'New population is {len(new_population)}')
 
     
     # Train the dataset and obtain fitness
@@ -1245,12 +1252,12 @@ plt.plot(np.arange(len(x_fitness)), x_fitness)
 plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
 
-# In[80]:
+# In[ ]:
 
 
 FILE_NAME = 'leeds_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
 
-LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'Score']
+LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
 
 plt.figure(figsize=(15, 8))
 plt.plot(best_solution_history)
