@@ -1174,8 +1174,8 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
-numberOfParents = 50 # number of parents to start
-numberOfParentsMating = 10 # Number of parents that will mate
+numberOfParents = 20 # number of parents to start
+numberOfParentsMating = 8 # Number of parents that will mate
 numberOfParameters = 4  # Number of parameters that will be optimized
 numberOfGenerations = 100 # Number of genration that will be created 
 
