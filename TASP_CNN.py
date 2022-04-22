@@ -1138,10 +1138,10 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
-numberOfParents = 100 # number of parents to start
-numberOfParentsMating = 30 # Number of parents that will mate
+numberOfParents = 150 # number of parents to start
+numberOfParentsMating = 50 # Number of parents that will mate
 numberOfParameters = 4  # Number of parameters that will be optimized
-numberOfGenerations = 1000 # Number of genration that will be created 
+numberOfGenerations = 5000 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
@@ -2461,10 +2461,10 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
-numberOfParents = 100 # number of parents to start
-numberOfParentsMating = 30 # Number of parents that will mate
+numberOfParents = 150 # number of parents to start
+numberOfParentsMating = 50 # Number of parents that will mate
 numberOfParameters = 4  # Number of parameters that will be optimized
-numberOfGenerations = 1000 # Number of genration that will be created 
+numberOfGenerations = 5000 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
