@@ -1179,7 +1179,7 @@ for generation in range(numberOfGenerations):
     
     # Best score in the current iteration
     max_score_index = np.argmax(fitnessHistory[generation,:])
-    max_score_value = fitnessHistory[max_score_index,:]
+    max_score_value = np.max(fitnessHistory[generation,:])
     max_score_solution = population[max_score_index,:]
     print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
     
