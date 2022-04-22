@@ -1157,10 +1157,10 @@ xgbDMatrixTrain = xgb.DMatrix(data = X_train_downsampled, label = Y_train_downsa
 xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled,  label = Y_test_downsampled)
     
 for generation in range(numberOfGenerations):
+
     print("This is number %s generation" % (generation))
+
     new_population = []
-    # print(type(population[1]))
-    # print(f'Population before resampling is  {population}')
     
     unique_individuals = np.unique(population, axis=0)
     
@@ -1170,22 +1170,22 @@ for generation in range(numberOfGenerations):
         new_population.append(generate_individual())
     
     new_population = np.array(new_population)
-    print(type(population[1]), population[1])
-    # print(type(new_population[1]), new_population[1])
+
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
-    # print(type(population))
-    print(f'Current population is {len(population)}')
-    print(f'New population is {len(new_population)}')
+
+    print(f'Current population is {population}')
+    print(f'New population is {new_population}')
 
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
                                     dMatrixTrain = xgbDMatrixTrain,
-                                    dMatrixTest =  xgbDMatrixTest,
+                                    dMatrixTest  =  xgbDMatrixTest,
                                     y_test = Y_test_downsampled)
 
     fitnessHistory[generation,:] = fitnessValue
+
     # Best score in the current iteration
     max_score_index = np.argmax(fitnessHistory[generation,:])
     max_score_value = np.max(fitnessHistory[generation,:])
@@ -1231,6 +1231,8 @@ best_hyperparams = {}
 best_hyperparams['eta'] = population[bestFitnessIndex][0]
 best_hyperparams['max_depth'] = population[bestFitnessIndex][1]
 best_hyperparams['min_child_weight'] = population[bestFitnessIndex][2]
+best_hyperparams['max_depth'] = population[bestFitnessIndex][3]
+
 
 # best_hyperparams['eta'] = population[bestFitnessIndex][0]
 # best_hyperparams['n_estimators']  = population[bestFitnessIndex][1]
@@ -1241,7 +1243,6 @@ best_hyperparams['min_child_weight'] = population[bestFitnessIndex][2]
 # best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
 # best_hyperparams['reg_alpha'] =  population[bestFitnessIndex][7]
 # best_hyperparams['reg_lambda'] =  population[bestFitnessIndex][8]
-
 
 x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
