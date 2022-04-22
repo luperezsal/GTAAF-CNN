@@ -32,6 +32,7 @@ REPORTS_PATH = 'Reports/'
 MODELS_PATH  = 'Models/'
 
 HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution/'
+FINAL_POPULATION_PATH = './population/'
 
 
 # ## Importar Tensorflow
@@ -87,7 +88,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[7]:
+# In[ ]:
 
 
 import numpy as np
@@ -167,7 +168,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[8]:
+# In[ ]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -189,7 +190,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[9]:
+# In[ ]:
 
 
 from scipy.stats import zscore
@@ -209,7 +210,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[10]:
+# In[ ]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -234,7 +235,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[11]:
+# In[ ]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -251,7 +252,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[12]:
+# In[ ]:
 
 
 def generate_individual():
@@ -306,7 +307,7 @@ def initilialize_population(numberOfParents):
 
 # ### Fitness function
 
-# In[13]:
+# In[ ]:
 
 
 from sklearn.metrics import f1_score
@@ -320,7 +321,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[14]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -369,7 +370,7 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
 
 # ### Selección de padres
 
-# In[15]:
+# In[ ]:
 
 
 # Select parents for mating
@@ -388,7 +389,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[16]:
+# In[ ]:
 
 
 '''
@@ -422,7 +423,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[17]:
+# In[ ]:
 
 
 # def mutation(crossover, numberOfParameters):
@@ -494,7 +495,7 @@ def crossover_uniform(parents, childrenSize):
 #     return crossover
 
 
-# In[18]:
+# In[ ]:
 
 
 def mutation(crossover, numberOfParameters):
@@ -532,7 +533,7 @@ def mutation(crossover, numberOfParameters):
             mutationValue = 0
             parameterSelect = np.random.randint(0, numberOfParameters, 1)
 
-            print(idx, parameterSelect)
+            # print(idx, parameterSelect)
             
             # if parameterSelect == 0: # learning_rate
             #     # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
@@ -591,7 +592,7 @@ def mutation(crossover, numberOfParameters):
 
 # ## Reshape de imágenes
 
-# In[19]:
+# In[ ]:
 
 
 # Add one channel
@@ -614,7 +615,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[20]:
+# In[ ]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -644,7 +645,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[21]:
+# In[ ]:
 
 
 import seaborn as sns
@@ -658,7 +659,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[22]:
+# In[ ]:
 
 
 from sklearn.decomposition import PCA
@@ -678,7 +679,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[23]:
+# In[ ]:
 
 
 from sklearn.manifold import TSNE
@@ -705,7 +706,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[24]:
+# In[ ]:
 
 
 def autoencoder ():
@@ -730,7 +731,7 @@ def autoencoder ():
 
 # ## TASP-CNN
 
-# In[25]:
+# In[ ]:
 
 
 import tensorflow_addons as tfa
@@ -758,7 +759,7 @@ tasp_cnn.compile(
   )
 
 
-# In[26]:
+# In[ ]:
 
 
 print('Done!')
@@ -768,13 +769,13 @@ print('Done!')
 
 # ## Importación de datos
 
-# In[27]:
+# In[ ]:
 
 
 # !conda install pandas --y
 
 
-# In[28]:
+# In[ ]:
 
 
 import pandas as pd
@@ -828,7 +829,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[29]:
+# In[ ]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -990,13 +991,13 @@ clean_df
 
 # ## Split de datos
 
-# In[30]:
+# In[ ]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[31]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1013,7 +1014,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[32]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1048,7 +1049,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Ca
 Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
-# In[33]:
+# In[ ]:
 
 
 # fv2gi(feature_vector)
@@ -1070,13 +1071,13 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[34]:
+# In[ ]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[35]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -1092,7 +1093,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## Oversamplig de datos
 
-# In[36]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -1106,7 +1107,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[37]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -1116,7 +1117,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[38]:
+# In[ ]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1174,8 +1175,8 @@ for generation in range(numberOfGenerations):
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
-    print(f'Current population is {population}')
-    print(f'New population is {new_population}')
+    # print(f'Current population is {population}')
+    # print(f'New population is {new_population}')
 
     
     # Train the dataset and obtain fitness
@@ -1264,6 +1265,14 @@ plt.figure(figsize=(15, 8))
 plt.plot(best_solution_history)
 plt.legend(LEGEND_LABELS)
 plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
+
+
+# In[ ]:
+
+
+FILE_NAME = 'leeds_population_' + MODEL_TIMESTAMP  + '.jpg'
+
+np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
 # ### Hiperparámetros
@@ -1741,7 +1750,7 @@ report_df
 # 
 # 
 
-# In[39]:
+# In[ ]:
 
 
 import pandas as pd
@@ -1787,7 +1796,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[40]:
+# In[ ]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1800,7 +1809,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[41]:
+# In[ ]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1877,7 +1886,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
 
 
-# In[42]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1949,7 +1958,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[43]:
+# In[ ]:
 
 
 weather_conditions_replace = {
@@ -2154,7 +2163,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[44]:
+# In[ ]:
 
 
 # Todos las comas a puntos
@@ -2243,7 +2252,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[45]:
+# In[ ]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2259,7 +2268,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[46]:
+# In[ ]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2270,7 +2279,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[47]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2283,7 +2292,7 @@ X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
 Y_test = test['lesividad']
 
 
-# In[48]:
+# In[ ]:
 
 
 # # FILE_NAME = 'madrid_calculated_weights.json'
@@ -2293,7 +2302,7 @@ Y_test = test['lesividad']
 # display(feature_vector)
 
 
-# In[49]:
+# In[ ]:
 
 
 
@@ -2356,7 +2365,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[50]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -2368,7 +2377,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[51]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -2382,7 +2391,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Downsampling de datos
 
-# In[52]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2413,7 +2422,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[53]:
+# In[ ]:
 
 
 X_test_downsampled  = X_test_downsampled.astype(int)
@@ -2421,7 +2430,7 @@ X_test_downsampled  = X_test_downsampled.astype(int)
 X_test_downsampled = normalize_data(X_test_downsampled)
 
 
-# In[54]:
+# In[ ]:
 
 
 Y_test_downsampled
@@ -2429,7 +2438,7 @@ Y_test_downsampled
 
 # ## XGBoost
 
-# In[55]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -2439,7 +2448,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[56]:
+# In[ ]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -2497,8 +2506,8 @@ for generation in range(numberOfGenerations):
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
-    print(f'Current population is {population}')
-    print(f'New population is {new_population}')
+    # print(f'Current population is {population}')
+    # print(f'New population is {new_population}')
 
     
     # Train the dataset and obtain fitness
@@ -2587,6 +2596,14 @@ plt.figure(figsize=(15, 8))
 plt.plot(best_solution_history)
 plt.legend(LEGEND_LABELS)
 plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
+
+
+# In[ ]:
+
+
+FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.jpg'
+
+np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
 # ### Hiperparámetros
