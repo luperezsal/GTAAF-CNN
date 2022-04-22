@@ -1246,7 +1246,6 @@ plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
 # best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 # 0.04 2 6.5 --> 0.778
-best_hyperparams = {}
 
 
 # #### Cálculo de Hiperparámetros
