@@ -1242,6 +1242,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 # 0.04 2 6.5 --> 0.778
+best_hyperparams = {}
 best_hyperparams['eta'] = 0.04
 best_hyperparams['max_depth'] = 2
 best_hyperparams['min_child_weight'] = 6.5
