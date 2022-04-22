@@ -31,6 +31,8 @@ WEIGHTS_PATH = './feature_weights/'
 REPORTS_PATH = 'Reports/'
 MODELS_PATH  = 'Models/'
 
+HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution'
+
 
 # ## Importar Tensorflow
 
@@ -1107,7 +1109,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[38]:
+# In[68]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -1129,8 +1131,8 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
-numberOfParents = 35 # number of parents to start
-numberOfParentsMating = 15 # Number of parents that will mate
+numberOfParents = 50 # number of parents to start
+numberOfParentsMating = 25 # Number of parents that will mate
 numberOfParameters = 3  # Number of parameters that will be optimized
 numberOfGenerations = 100 # Number of genration that will be created 
 
@@ -1141,6 +1143,7 @@ population = initilialize_population(numberOfParents) # Define an array to store
 fitnessHistory = np.empty([numberOfGenerations+1, numberOfParents]) # Define an array to store the value of each parameter for each parent and generation
 populationHistory = np.empty([(numberOfGenerations+1)*numberOfParents, numberOfParameters]) # Insert the value of initial parameters in history
 
+best_solution_history = np.empty([(numberOfGenerations), numberOfParameters+1])
 populationHistory[0:numberOfParents, :] = population
 
 xgbDMatrixTrain = xgb.DMatrix(data = X_train_downsampled, label = Y_train_downsampled)
@@ -1176,11 +1179,15 @@ for generation in range(numberOfGenerations):
                                     y_test = Y_test_downsampled)
 
     fitnessHistory[generation,:] = fitnessValue
-    
     # Best score in the current iteration
     max_score_index = np.argmax(fitnessHistory[generation,:])
     max_score_value = np.max(fitnessHistory[generation,:])
-    max_score_solution = population[max_score_index,:]
+    max_score_solution = population[max_score_index]
+
+    max_solution_with_score = []
+    max_solution_with_score = np.append(max_score_solution, max_score_value)
+    best_solution_history[generation] = max_solution_with_score
+
     print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
     
     parents = new_parents_selection(population = population,
@@ -1236,6 +1243,19 @@ FILE_NAME = 'leeds_ga_' + MODEL_TIMESTAMP  + '.jpg'
 plt.figure(figsize=(10, 5))
 plt.plot(np.arange(len(x_fitness)), x_fitness)
 plt.savefig(GA_SCORES_PATH + FILE_NAME)
+
+
+# In[80]:
+
+
+FILE_NAME = 'leeds_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
+
+LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'Score']
+
+plt.figure(figsize=(15, 8))
+plt.plot(best_solution_history)
+plt.legend(LEGEND_LABELS)
+plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
 
 
 # ### Hiperparámetros
