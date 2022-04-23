@@ -1267,18 +1267,6 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
 # ### Hiperparámetros
 
 # #### Carga hiperparámetros
@@ -1294,8 +1282,8 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 best_hyperparams = {}
 best_hyperparams['eta'] = 0.73
 best_hyperparams['max_depth'] = 1
-best_hyperparams['min_child_weight'] = 8
-best_hyperparams['max_depth'] = 6
+best_hyperparams['min_child_weight'] = 8.4
+best_hyperparams['n_estimators'] = 600
 
 
 # #### Cálculo de Hiperparámetros
@@ -2420,13 +2408,14 @@ X_serious_downsampled = resample(serious_data,
                                  replace = True,
                                  n_samples = len(fatal_data))
 
-downsampled_test = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
 
-# downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
+downsampled_dataset = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
+
+downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
 
 
-# X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['lesividad'])]
-# Y_train_downsampled = downsampled_train['lesividad']
+X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['lesividad'])]
+Y_train_downsampled = downsampled_train['lesividad']
 
 X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['lesividad'])]
 Y_test_downsampled = downsampled_test['lesividad']
