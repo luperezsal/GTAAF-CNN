@@ -1155,8 +1155,8 @@ for generation in range(number_of_generations):
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
-    print(f'Current population is {population}')
-    print(f'New population is {new_population}')
+    # print(f'Current population is {population}')
+    # print(f'New population is {new_population}')
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
@@ -2500,8 +2500,8 @@ for generation in range(number_of_generations):
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
-    print(f'Current population is {population}')
-    print(f'New population is {new_population}')
+    # print(f'Current population is {population}')
+    # print(f'New population is {new_population}')
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
