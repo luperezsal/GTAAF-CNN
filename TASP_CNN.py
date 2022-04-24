@@ -333,7 +333,7 @@ def train_population(population, hyperparams_name_to_optimize, X_train, Y_train,
     integer_hyperparams = {'n_estimators', 'max_depth'}
 
     params = {'objective':'multi:softprob',
-               # 'tree_method': 'gpu_hist',
+               'tree_method': 'gpu_hist',
                'num_class': 3
              }
 
@@ -2620,18 +2620,6 @@ x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])
 # np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-best_hyperparams
-
-
 # ### Hiperparámetros
 
 # - [Bayesian Optimization with HYPEROPT](https://www.kaggle.com/code/prashant111/a-guide-on-xgboost-hyperparameters-tuning/notebook)
@@ -2647,11 +2635,11 @@ best_hyperparams
 
 # 0.875 GA
 # 0.04, 1, 3.9, 900
-best_hyperparams = {}
-best_hyperparams['eta'] = 0.04
-best_hyperparams['max_depth'] = 1
-best_hyperparams['min_child_weight'] = 3.9
-best_hyperparams['n_estimators'] = 900
+# best_hyperparams = {}
+# best_hyperparams['eta'] = 0.04
+# best_hyperparams['max_depth'] = 1
+# best_hyperparams['min_child_weight'] = 3.9
+# best_hyperparams['n_estimators'] = 900
 
 
 # #### Cálculo de Hiperparámetros
