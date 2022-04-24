@@ -1262,7 +1262,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # plt.legend(LEGEND_LABELS)
 # plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
 
-# FILE_NAME = 'leeds_population_' + MODEL_TIMESTAMP  + '.jpg'
+# FILE_NAME = 'leeds_population_' + MODEL_TIMESTAMP  + '.txt'
 
 # np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
@@ -2608,7 +2608,7 @@ plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
 # In[ ]:
 
 
-FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.jpg'
+FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.txt'
 
 np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
@@ -2707,6 +2707,14 @@ display(feature_vector)
 
 # In[ ]:
 
+
+# 0.875 GA
+# 0.04, 1, 3.9, 900
+# best_hyperparams = {}
+# best_hyperparams['eta'] = 0.04
+# best_hyperparams['max_depth'] = 1
+# best_hyperparams['min_child_weight'] = 3.9
+# best_hyperparams['n_estimators'] = 900
 
 xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
 
