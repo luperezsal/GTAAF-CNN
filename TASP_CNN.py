@@ -9,7 +9,7 @@
 
 # ## Carga Google Drive
 
-# In[7]:
+# In[1]:
 
 
 # from google.colab import drive
@@ -18,7 +18,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[8]:
+# In[2]:
 
 
 from datetime import datetime
@@ -37,13 +37,13 @@ FINAL_POPULATION_PATH = './population/'
 
 # ## Importar Tensorflow
 
-# In[9]:
+# In[3]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[10]:
+# In[4]:
 
 
 import tensorflow as tf
@@ -58,7 +58,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[11]:
+# In[5]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -70,7 +70,7 @@ get_ipython().system('nvidia-smi')
 
 # ## Importador/Exportador JSON
 
-# In[12]:
+# In[6]:
 
 
 import json
@@ -88,7 +88,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[13]:
+# In[7]:
 
 
 import numpy as np
@@ -168,7 +168,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[14]:
+# In[8]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -190,7 +190,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[15]:
+# In[9]:
 
 
 from scipy.stats import zscore
@@ -210,7 +210,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[16]:
+# In[10]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -235,7 +235,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[17]:
+# In[11]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -252,7 +252,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[51]:
+# In[12]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -322,7 +322,7 @@ def initilialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[19]:
+# In[13]:
 
 
 from sklearn.metrics import f1_score
@@ -336,7 +336,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[65]:
+# In[52]:
 
 
 from xgboost import XGBClassifier
@@ -348,7 +348,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
     integer_hyperparams = {'n_estimators', 'max_depth'}
 
     params = {'objective':'multi:softprob',
-               'tree_method': 'gpu_hist',
+               # 'tree_method': 'gpu_hist',
                'num_class': 3
              }
 
@@ -385,15 +385,20 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 #             hyperparams_to_optimize[key] = int(hyperparams_to_optimize[key])
         
         params.update(hyperparams)
+        print(params)
 
 
-        num_round = 500
+        # num_round = 500
+        num_round = hyperparams['n_estimators']
+        print(num_round)
         xgb.set_config(verbosity=0)
-        xgbT = xgb.train(params,
-                         dMatrixTrain,
-                         num_round)
+        bst = xgb.train(params,
+                         dMatrixTrain
+                         ,num_round)
+        config = bst.save_config()
+        print(config)
 
-        preds = xgbT.predict(dMatrixTest)
+        preds = bst.predict(dMatrixTest)
         
         single_predictions = [np.argmax(pred) for pred in preds]
         # preds = preds > 0.5
@@ -405,7 +410,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[21]:
+# In[15]:
 
 
 # Select parents for mating
@@ -423,7 +428,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[22]:
+# In[16]:
 
 
 '''
@@ -457,7 +462,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[23]:
+# In[17]:
 
 
 # def mutation(crossover, numberOfParameters):
@@ -529,7 +534,7 @@ def crossover_uniform(parents, childrenSize):
 #     return crossover
 
 
-# In[80]:
+# In[18]:
 
 
 def mutation(crossover, number_of_parameters, hyperparams_to_optimize):
@@ -638,7 +643,7 @@ def mutation(crossover, number_of_parameters, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[25]:
+# In[19]:
 
 
 # Add one channel
@@ -661,7 +666,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[26]:
+# In[20]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -691,7 +696,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[27]:
+# In[21]:
 
 
 import seaborn as sns
@@ -705,7 +710,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[28]:
+# In[22]:
 
 
 from sklearn.decomposition import PCA
@@ -725,7 +730,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[29]:
+# In[23]:
 
 
 from sklearn.manifold import TSNE
@@ -752,7 +757,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[30]:
+# In[24]:
 
 
 def autoencoder ():
@@ -777,7 +782,7 @@ def autoencoder ():
 
 # ## TASP-CNN
 
-# In[31]:
+# In[25]:
 
 
 import tensorflow_addons as tfa
@@ -805,7 +810,7 @@ tasp_cnn.compile(
   )
 
 
-# In[32]:
+# In[26]:
 
 
 print('Done!')
@@ -815,13 +820,13 @@ print('Done!')
 
 # ## Importación de datos
 
-# In[33]:
+# In[27]:
 
 
 # !conda install pandas --y
 
 
-# In[34]:
+# In[28]:
 
 
 import pandas as pd
@@ -875,7 +880,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[35]:
+# In[29]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -1037,13 +1042,13 @@ clean_df
 
 # ## Split de datos
 
-# In[36]:
+# In[30]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[37]:
+# In[31]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1060,7 +1065,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[38]:
+# In[32]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1095,7 +1100,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Ca
 Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
-# In[39]:
+# In[33]:
 
 
 # fv2gi(feature_vector)
@@ -1117,13 +1122,13 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[40]:
+# In[34]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[41]:
+# In[35]:
 
 
 X_train = X_train.astype(int)
@@ -1139,7 +1144,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## Oversamplig de datos
 
-# In[42]:
+# In[36]:
 
 
 print('********** Before OverSampling **********')
@@ -1153,7 +1158,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[43]:
+# In[37]:
 
 
 from xgboost import XGBClassifier
@@ -1163,7 +1168,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[48]:
+# In[38]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -1189,7 +1194,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 }
 
 
-# In[84]:
+# In[53]:
 
 
 import xgboost as xgb
@@ -1220,7 +1225,7 @@ fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # De
 populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
 
 best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
-populationHistory[0:numberOfParents, :] = population
+populationHistory[0:number_of_individuals,:] = population
 
 
 xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
@@ -1279,10 +1284,12 @@ for generation in range(number_of_generations):
     
     # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
     children = crossover_uniform(parents = parents,
-                                 childrenSize = (populationSize[0] - parents.shape[0], numberOfParameters))
+                                 childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
     
     # Add mutation to create genetic diversity
-    children_mutated = mutation(children, numberOfParameters, hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+    children_mutated = mutation(children,
+                                number_of_hyperparams,
+                                hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
     
     '''
     We will create new population, which will contain parents that where selected previously based on the
@@ -1291,7 +1298,7 @@ for generation in range(number_of_generations):
     population[0:parents.shape[0], :] = parents # Fittest parents
     population[parents.shape[0]:, :]  = children_mutated # Children
     
-    populationHistory[(generation+1)*numberOfParents : (generation+1)*numberOfParents+ numberOfParents , :] = population # Store parent information
+    populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
     
 #Best solution from the final iteration
 
