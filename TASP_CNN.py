@@ -273,7 +273,7 @@ def generate_individual():
     # regLambda = round(random.uniform(0,1), 3)
     
     individual = [learningRate, maxDepth, minChildWeight, nEstimators]
-    # print(individual)
+
     return individual
 
 def initilialize_population(numberOfParents):
@@ -321,13 +321,13 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[100]:
+# In[112]:
 
 
 from xgboost import XGBClassifier
 import xgboost as xgb
 
-def train_population(population, hyperparams_name_to_optimize, X_train, Y_train, X_test, Y_test):
+def train_population(population, hyperparams_name_to_optimize, X_train, Y_train, X_test, Y_test,dMatrixTrain,dMatrixTest):
     fScore = []
     
     integer_hyperparams = {'n_estimators', 'max_depth'}
@@ -369,11 +369,12 @@ def train_population(population, hyperparams_name_to_optimize, X_train, Y_train,
 
 
         num_round = 100
-        xgb = XGBClassifier(**params, verbosity=0)
-        xgbT = xgb.fit(X_train,
-                       Y_train)
+        xgb.set_config(verbosity=0)
+        xgbT = xgb.train(params,
+                         dMatrixTrain,
+                         num_round)
 
-        preds = xgbT.predict(X_test)
+        preds = xgbT.predict(dMatrixTest)
         
         single_predictions = [np.argmax(pred) for pred in preds]
         # preds = preds > 0.5
@@ -2464,7 +2465,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[101]:
+# In[115]:
 
 
 # from sklearn.preprocessing import StandardScaler
@@ -2535,7 +2536,9 @@ for generation in range(numberOfGenerations):
                                     X_train = X_train_downsampled,
                                     Y_train  =  Y_train_downsampled,
                                     X_test = X_test_downsampled,
-                                    Y_test = Y_test_downsampled)
+                                    Y_test = Y_test_downsampled,
+                                   dMatrixTrain = xgbDMatrixTrain,
+                                   dMatrixTest = xgbDMatrixTest)
 
     fitnessHistory[generation,:] = fitnessValue
 
@@ -2573,10 +2576,13 @@ for generation in range(numberOfGenerations):
 #Best solution from the final iteration
 
 fitness = train_population(population = population,
-                           hyperparams_name_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-                           X_train = X_train_downsampled,
-                           Y_train  =  Y_train_downsampled)
-
+                                    hyperparams_name_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                                    X_train = X_train_downsampled,
+                                    Y_train  =  Y_train_downsampled,
+                                    X_test = X_test_downsampled,
+                                    Y_test = Y_test_downsampled,
+                                   dMatrixTrain = xgbDMatrixTrain,
+                                   dMatrixTest = xgbDMatrixTest)
 fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
