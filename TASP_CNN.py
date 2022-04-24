@@ -2315,7 +2315,6 @@ Y_test = test['lesividad']
 FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
-display(feature_vector)
 
 
 # In[38]:
@@ -2537,9 +2536,9 @@ for generation in range(numberOfGenerations):
                                     Y_train  =  Y_train_downsampled,
                                     X_test = X_test_downsampled,
                                     Y_test = Y_test_downsampled,
-                                   dMatrixTrain = xgbDMatrixTrain,
-                                   dMatrixTest = xgbDMatrixTest)
-
+                                    dMatrixTrain = xgbDMatrixTrain,
+                                    dMatrixTest = xgbDMatrixTest)
+ 
     fitnessHistory[generation,:] = fitnessValue
 
     # Best score in the current iteration
@@ -2576,13 +2575,13 @@ for generation in range(numberOfGenerations):
 #Best solution from the final iteration
 
 fitness = train_population(population = population,
-                                    hyperparams_name_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-                                    X_train = X_train_downsampled,
-                                    Y_train  =  Y_train_downsampled,
-                                    X_test = X_test_downsampled,
-                                    Y_test = Y_test_downsampled,
-                                   dMatrixTrain = xgbDMatrixTrain,
-                                   dMatrixTest = xgbDMatrixTest)
+                           hyperparams_name_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                           X_train = X_train_downsampled,
+                           Y_train  =  Y_train_downsampled,
+                           X_test = X_test_downsampled,
+                           Y_test = Y_test_downsampled,
+                           dMatrixTrain = xgbDMatrixTrain,
+                           dMatrixTest = xgbDMatrixTest)
 fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
@@ -2606,24 +2605,24 @@ for n_param in range(numberOfParameters):
 
 x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
-# FILE_NAME = 'madrid_ga_' + MODEL_TIMESTAMP  + '.jpg'
+FILE_NAME = 'madrid_ga_' + MODEL_TIMESTAMP  + '.jpg'
 
-# plt.figure(figsize=(10, 5))
-# plt.plot(np.arange(len(x_fitness)), x_fitness)
-# plt.savefig(GA_SCORES_PATH + FILE_NAME)
+plt.figure(figsize=(10, 5))
+plt.plot(np.arange(len(x_fitness)), x_fitness)
+plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
-# FILE_NAME = 'madrid_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
+FILE_NAME = 'madrid_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
 
-# LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
+LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
 
-# plt.figure(figsize=(15, 8))
-# plt.plot(best_solution_history)
-# plt.legend(LEGEND_LABELS)
-# plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
+plt.figure(figsize=(15, 8))
+plt.plot(best_solution_history)
+plt.legend(LEGEND_LABELS)
+plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
 
-# FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.txt'
+FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.txt'
 
-# np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
+np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
 # ### Hiperparámetros
