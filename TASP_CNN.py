@@ -2491,7 +2491,7 @@ HYPERPARAMS_TO_OPTIMIZE = ['eta', 'max_depth', 'min_child_weight', 'n_estimators
 numberOfParents = 50 # number of parents to start
 numberOfParentsMating = 20 # Number of parents that will mate
 numberOfParameters = len(HYPERPARAMS_TO_OPTIMIZE) # Number of parameters that will be optimized
-numberOfGenerations = 2 # Number of genration that will be created 
+numberOfGenerations = 100 # Number of genration that will be created 
 
 # Define the population size
 populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
