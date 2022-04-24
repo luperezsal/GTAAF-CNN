@@ -1646,17 +1646,17 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[ ]:
 
 
-input_train_shape = (len(array_train_images), 5, 5, 1)
-input_test_shape = (len(array_test_images), 5, 5, 1)
+# input_train_shape = (len(array_train_images), 5, 5, 1)
+# input_test_shape = (len(array_test_images), 5, 5, 1)
 
-array_train_images.reshape(input_train_shape)
-array_test_images.reshape(input_test_shape)
+# array_train_images.reshape(input_train_shape)
+# array_test_images.reshape(input_test_shape)
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                    batch_size = 128, epochs = 100, shuffle = True,
-                    validation_data = (array_test_images, Y_test_onehot))
+# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+#                     batch_size = 128, epochs = 100, shuffle = True,
+#                     validation_data = (array_test_images, Y_test_onehot))
 
-# history
+# # history
 
 
 # ### Escritura del modelo
@@ -1680,45 +1680,45 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 # In[ ]:
 
 
-from sklearn.metrics import classification_report
+# from sklearn.metrics import classification_report
 
-Y_test_labels = one_hot_to_casualty(Y_test)
+# Y_test_labels = one_hot_to_casualty(Y_test)
 
-########################################################################
+# ########################################################################
 
-F1_SCORE_PATH = 'F1scores/'
-F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
+# F1_SCORE_PATH = 'F1scores/'
+# F1_SCORE_NAME = 'leeds_f1_score' + MODEL_TIMESTAMP
 
-## Plot history: F1 SCORE
-figure_name = plt.figure(figsize=(20, 10))
-plt.plot(history.history['f1_score'], label='F1 score (training data)')
-plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-plt.title('F1 score')
-plt.ylabel('F1 score value')
-plt.xlabel('No. epoch')
-plt.legend(loc="upper left")
-plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
-plt.show()
+# ## Plot history: F1 SCORE
+# figure_name = plt.figure(figsize=(20, 10))
+# plt.plot(history.history['f1_score'], label='F1 score (training data)')
+# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+# plt.title('F1 score')
+# plt.ylabel('F1 score value')
+# plt.xlabel('No. epoch')
+# plt.legend(loc="upper left")
+# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME + '.jpg')
+# plt.show()
 
-print(history)
+# print(history)
 
-########################################################################
+# ########################################################################
 
-# evaluate the network
-print("[INFO] evaluating network...")
-predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+# # evaluate the network
+# print("[INFO] evaluating network...")
+# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-                               predictions.argmax(axis=1),
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
+# report = classification_report(tf.argmax(Y_test_onehot, axis=1),
+#                                predictions.argmax(axis=1),
+#                                target_names = Y_test_labels.unique(),
+#                                output_dict = True)
 
-REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
+# REPORT_NAME  = 'leeds_report' + MODEL_TIMESTAMP + '.csv'
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
+# report_df = pd.DataFrame(report).transpose()
+# report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 
-report_df
+# report_df
 
 
 # In[ ]:
@@ -2293,11 +2293,11 @@ Y_test = test['lesividad']
 # In[ ]:
 
 
-# # FILE_NAME = 'madrid_calculated_weights.json'
-# FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
+# FILE_NAME = 'madrid_calculated_weights.json'
+FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
 
-# feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
-# display(feature_vector)
+feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
+display(feature_vector)
 
 
 # In[ ]:
@@ -2427,12 +2427,6 @@ Y_test_downsampled = downsampled_test['lesividad']
 X_test_downsampled  = X_test_downsampled.astype(int)
 
 X_test_downsampled = normalize_data(X_test_downsampled)
-
-
-# In[ ]:
-
-
-Y_test_downsampled
 
 
 # ## XGBoost
