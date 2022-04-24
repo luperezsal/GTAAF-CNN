@@ -385,7 +385,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 #             hyperparams_to_optimize[key] = int(hyperparams_to_optimize[key])
         
         params.update(hyperparams)
-        print(params)
+        # print(params)
 
 
         # num_round = 500
