@@ -348,7 +348,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
     integer_hyperparams = {'n_estimators', 'max_depth'}
 
     params = {'objective':'multi:softprob',
-               # 'tree_method': 'gpu_hist',
+               'tree_method': 'gpu_hist',
                'num_class': 3
              }
 
@@ -389,14 +389,14 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 
         # num_round = 500
-        num_round = hyperparams['n_estimators']
-        print(num_round)
+        num_round = params['n_estimators']
+        # print(num_round)
         xgb.set_config(verbosity=0)
         bst = xgb.train(params,
                          dMatrixTrain
                          ,num_round)
         config = bst.save_config()
-        print(config)
+        # print(config)
 
         preds = bst.predict(dMatrixTest)
         
