@@ -88,7 +88,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[7]:
 
 
 import numpy as np
@@ -168,7 +168,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[ ]:
+# In[8]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -190,7 +190,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[9]:
 
 
 from scipy.stats import zscore
@@ -210,7 +210,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[ ]:
+# In[10]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -235,7 +235,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[11]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -252,7 +252,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[ ]:
+# In[12]:
 
 
 def generate_individual():
@@ -307,7 +307,7 @@ def initilialize_population(numberOfParents):
 
 # ### Fitness function
 
-# In[ ]:
+# In[13]:
 
 
 from sklearn.metrics import f1_score
@@ -321,7 +321,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[ ]:
+# In[14]:
 
 
 from xgboost import XGBClassifier
@@ -370,7 +370,7 @@ def train_population(population, dMatrixTrain, dMatrixTest, y_test):
 
 # ### Selección de padres
 
-# In[ ]:
+# In[15]:
 
 
 # Select parents for mating
@@ -389,7 +389,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[ ]:
+# In[16]:
 
 
 '''
@@ -423,7 +423,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[ ]:
+# In[17]:
 
 
 # def mutation(crossover, numberOfParameters):
@@ -495,7 +495,7 @@ def crossover_uniform(parents, childrenSize):
 #     return crossover
 
 
-# In[ ]:
+# In[18]:
 
 
 def mutation(crossover, numberOfParameters):
@@ -592,7 +592,7 @@ def mutation(crossover, numberOfParameters):
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[19]:
 
 
 # Add one channel
@@ -615,7 +615,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[ ]:
+# In[20]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -645,7 +645,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[21]:
 
 
 import seaborn as sns
@@ -659,7 +659,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[ ]:
+# In[22]:
 
 
 from sklearn.decomposition import PCA
@@ -679,7 +679,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[ ]:
+# In[23]:
 
 
 from sklearn.manifold import TSNE
@@ -706,7 +706,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[ ]:
+# In[24]:
 
 
 def autoencoder ():
@@ -731,7 +731,7 @@ def autoencoder ():
 
 # ## TASP-CNN
 
-# In[ ]:
+# In[25]:
 
 
 import tensorflow_addons as tfa
@@ -759,7 +759,7 @@ tasp_cnn.compile(
   )
 
 
-# In[ ]:
+# In[26]:
 
 
 print('Done!')
@@ -1748,7 +1748,7 @@ tasp_cnn.save(MODELS_PATH + 'leeds_' + MODEL_TIMESTAMP + '.h5')
 # 
 # 
 
-# In[ ]:
+# In[27]:
 
 
 import pandas as pd
@@ -1794,7 +1794,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[ ]:
+# In[28]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1807,7 +1807,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[ ]:
+# In[29]:
 
 
 ######################### SIGUIENTE CELDA #########################
@@ -1884,7 +1884,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # # print(data_frame.localizacion.unique())
 
 
-# In[ ]:
+# In[30]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1956,7 +1956,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[ ]:
+# In[31]:
 
 
 weather_conditions_replace = {
@@ -2161,7 +2161,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[ ]:
+# In[32]:
 
 
 # Todos las comas a puntos
@@ -2250,7 +2250,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[ ]:
+# In[33]:
 
 
 COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2266,7 +2266,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[ ]:
+# In[34]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2277,20 +2277,22 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[ ]:
+# In[49]:
 
 
 from sklearn.model_selection import train_test_split
 
 train, test = train_test_split(data_frame, test_size=0.2)
 X_train = train.loc[:, ~train.columns.isin(['lesividad'])]
+X_train = X_train.astype(int)
 Y_train = train['lesividad']
 
 X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
+X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[ ]:
+# In[50]:
 
 
 # FILE_NAME = 'madrid_calculated_weights.json'
@@ -2300,7 +2302,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 display(feature_vector)
 
 
-# In[ ]:
+# In[37]:
 
 
 
@@ -2363,7 +2365,7 @@ display(feature_vector)
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[51]:
 
 
 X_train = X_train.astype(int)
@@ -2375,7 +2377,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[ ]:
+# In[52]:
 
 
 print('********** Before OverSampling **********')
@@ -2389,7 +2391,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Downsampling de datos
 
-# In[ ]:
+# In[53]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2421,17 +2423,29 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[ ]:
+# In[55]:
 
 
+X_train = X_train.astype(int)
+X_test  = X_test.astype(int)
+X_train_downsampled = X_train_downsampled.astype(int)
 X_test_downsampled  = X_test_downsampled.astype(int)
 
-X_test_downsampled = normalize_data(X_test_downsampled)
+X_train = normalize_data(X_train)
+X_test  = normalize_data(X_test)
+X_train_downsampled = normalize_data(X_train_downsampled)
+X_test_downsampled  = normalize_data(X_test_downsampled)
+
+
+# In[56]:
+
+
+X_train_downsampled.dtypes
 
 
 # ## XGBoost
 
-# In[ ]:
+# In[42]:
 
 
 from xgboost import XGBClassifier
@@ -2441,7 +2455,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[ ]:
+# In[57]:
 
 
 # from sklearn.preprocessing import StandardScaler
