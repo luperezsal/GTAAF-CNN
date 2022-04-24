@@ -273,50 +273,16 @@ def generate_individual(hyperparams_to_optimize):
             hyperparam = round(random.uniform(min_value, max_value), round_to)
 
         individual.append(hyperparam)
-
-    # learningRate = round(random.uniform(0.01, 1), 2)
-    # maxDepth = int(random.randrange(1, 20, step= 1))
-    # minChildWeight = round(random.uniform(0.1, 15.0), 1)
-    # nEstimators = random.randrange(0, 2000, step = 150)
-
-    # learningRate = round(random.uniform(0.01, 1), 2)
-    # nEstimators = random.randrange(100, 2000, step = 150)
-    # maxDepth = int(random.randrange(1, 20, step= 1))
-    # minChildWeight = round(random.uniform(0.01, 15.0), 1)
-    # gammaValue = round(random.uniform(0.01, 10.0), 2)
-    # subSample = round(random.uniform(0.01, 1.0), 2)
-    # colSampleByTree = round(random.uniform(0.01, 1.0), 2)
-    # regAlpha  = round(random.uniform(40,180), 1)
-    # regLambda = round(random.uniform(0,1), 3)
     
     return individual
 
 def initilialize_population(number_of_individuals, hyperparams_to_optimize):
     population = []
-    # space={'max_depth': hp.quniform("max_depth", 3, 25, 1),
-#         'gamma': hp.uniform ('gamma', 1,9),
-#         'reg_alpha' : hp.quniform('reg_alpha', 40,180,1),
-#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
-#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
-#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-#         'n_estimators': hp.quniform('n_estimators', 100, 4000, 100),
-#         'tree_method': 'gpu_hist'
-#     }
+
     for i in range(number_of_individuals):
-        # learningRate[i] = round(random.uniform(0.01, 1), 2)
-        # nEstimators[i] = random.randrange(100, 2000, step = 150)
-        # maxDepth[i] = int(random.randrange(1, 20, step= 1))
-        # minChildWeight[i] = round(random.uniform(0.01, 15.0), 1)
-        # gammaValue[i] = round(random.uniform(0.01, 10.0), 2)
-        # subSample[i] = round(random.uniform(0.01, 1.0), 2)
-        # colSampleByTree[i] = round(random.uniform(0.01, 1.0), 2)
-        # regAlpha[i]  = round(random.uniform(40,180), 1)
-        # regLambda[i] = round(random.uniform(0,1), 3)
 
         population.append(generate_individual(hyperparams_to_optimize))
-    
-    # population = np.concatenate((learningRate, nEstimators, maxDepth, minChildWeight, gammaValue, subSample, colSampleByTree, regAlpha, regLambda), axis= 1)
-  
+      
     return np.array(population)
 
 
@@ -336,7 +302,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[52]:
+# In[40]:
 
 
 from xgboost import XGBClassifier
@@ -345,28 +311,12 @@ import xgboost as xgb
 def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixTest, Y_test):
     fScore = []
     
-    integer_hyperparams = {'n_estimators', 'max_depth'}
-
     params = {'objective':'multi:softprob',
                'tree_method': 'gpu_hist',
                'num_class': 3
              }
 
     for i in range(population.shape[0]):
-        # param = { 'objective':'multi:softprob',
-        #           'tree_method': 'gpu_hist',
-        #           'num_class': 3,
-        #           'learning_rate': population[i][0],
-        #           'n_estimators': population[i][1], 
-        #           'max_depth': int(population[i][2]), 
-        #           'min_child_weight': population[i][3],
-        #           'gamma': population[i][4], 
-        #           'subsample': population[i][5],
-        #           'colsample_bytree': population[i][6],
-        #           'reg_alpha': population[i][7],
-        #           'reg_lambda': population[i][8]
-        #         }
-
         # Se almacenan en hyperparams_to_optimize los valores del individuo con su nombre correspondiente de hyperparams_name_to_optimize.
         hyperparams = {}
 
@@ -378,25 +328,14 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
             hyperparams[hyperparam_name_to_optimize] = hyperparam_value
             hyperparams[hyperparam_name_to_optimize] = hyperparams[hyperparam_name_to_optimize].astype(data_type)
         
-#         # Se obtienen aquellos hiperparámetros que deben ser tratados como int y se actualizan.
-#         integer_dict_keys = set(set(hyperparams_to_optimize.keys()) & set(integer_hyperparams))
-        
-#         for key in integer_dict_keys:
-#             hyperparams_to_optimize[key] = int(hyperparams_to_optimize[key])
-        
         params.update(hyperparams)
-        # print(params)
 
-
-        # num_round = 500
         num_round = params['n_estimators']
-        # print(num_round)
+
         xgb.set_config(verbosity=0)
         bst = xgb.train(params,
-                         dMatrixTrain
-                         ,num_round)
-        config = bst.save_config()
-        # print(config)
+                        dMatrixTrain,
+                        num_round)
 
         preds = bst.predict(dMatrixTest)
         
@@ -537,25 +476,14 @@ def crossover_uniform(parents, childrenSize):
 # In[18]:
 
 
-def mutation(crossover, number_of_parameters, hyperparams_to_optimize):
+def mutation(crossover, hyperparams_to_optimize):
     
     # MUTATION_PROBABILITY = 1/numberOfParameters
     
-    MUTATION_PROBABILITY = 0.3
-
-#     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
-#     minMaxValue[1,:] = [100, 2000]  # min/max n_estimator
-#     minMaxValue[2,:] = [1, 15]      # min/max depth
-#     minMaxValue[3,:] = [0, 10.0]    # min/max child_weight
-#     minMaxValue[4,:] = [0.01, 10.0] # min/max gamma
-#     minMaxValue[5,:] = [0.01, 1.0]  # min/max subsample
-#     minMaxValue[6,:] = [0.01, 1.0]  # min/max colsample_bytree
-#     minMaxValue[7,:] = [40.0,180.0] # min/max reg_alpha
-#     minMaxValue[8,:] = [0.0, 1.0]   # min/max reg_lambda
- 
+    MUTATION_PROBABILITY = 0.4
+    number_of_parameters = len(hyperparams_to_optimize)
     for idx in range(crossover.shape[0]):
-        # Mutation changes a single gene in each offspring randomly.
-        
+
         mutation_probability = np.random.rand(1)
 
         while MUTATION_PROBABILITY > mutation_probability:
@@ -572,7 +500,6 @@ def mutation(crossover, number_of_parameters, hyperparams_to_optimize):
 
             data_type = hyperparams_to_optimize[hyperparam_selected_name]['type']
             
-
             if data_type == 'int':
                 step = hyperparams_to_optimize[hyperparam_selected_name]['step']
                 hyperparam = int(random.randrange(min_mutation_value, max_mutation_value, step = step))
@@ -582,51 +509,6 @@ def mutation(crossover, number_of_parameters, hyperparams_to_optimize):
                 hyperparam = round(random.uniform(min_mutation_value, max_mutation_value), round_to)
                 
             print(idx, hyperparam_selected_name, hyperparam)
-
-
-            
-            
-            # if parameterSelect == 0: # learning_rate
-            #     # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
-            #     mutationValue = round(random.uniform(0.01, 1), 2)
-            # if parameterSelect == 1: # n_estimators
-            #     # mutationValue = np.random.randint(-150, 150, 1)
-            #     mutationValue = random.randrange(100, 2000, step = 150)
-            # if parameterSelect == 2: # max_depth
-            #     # mutationValue = np.random.randint(-3, 3, 1)
-            #     mutationValue = int(random.randrange(1, 20, step= 1))
-            # if parameterSelect == 3: # min_child_weight
-            #     # mutationValue = round(np.random.uniform(5, 5), 2)
-            #     mutationValue = round(random.uniform(0.01, 15.0), 1)
-            # if parameterSelect == 4: #gamma
-            #     # mutationValue = round(np.random.uniform(-2, 2), 2)
-            #     mutationValue = round(random.uniform(0.01, 10.0), 2)
-            # if parameterSelect == 5: # subsample
-            #     # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-            #     mutationValue = round(random.uniform(0.01, 1.0), 2)
-            # if parameterSelect == 6: # colsample
-            #     # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-            #     mutationValue = round(random.uniform(0.5, 1.0), 2)
-            # if parameterSelect == 7: # reg_alpha
-            #     # mutationValue = round(np.random.uniform(-20,20), 1)
-            #     mutationValue = round(random.uniform(40,180), 1)
-            # if parameterSelect == 8: # reg_lambda
-            #     # mutationValue = round(np.random.uniform(-0.2,0.2), 3)
-            #     mutationValue = round(random.uniform(0,1), 3)
-
-            # if parameterSelect == 0: # learning_rate
-            #     # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
-            #     mutationValue = round(random.uniform(-0.3, 0.3), 2)
-            # if parameterSelect == 1: # max_depth
-            #     # mutationValue = np.random.randint(-3, 3, 1)
-            #     mutationValue = int(random.randrange(-4, 4, step= 1))
-            # if parameterSelect == 2: # min_child_weight
-            #     # mutationValue = round(np.random.uniform(5, 5), 2)
-            #     mutationValue = round(random.uniform(-5, 5), 1)
-            # if parameterSelect == 2: # min_child_weight
-            #     # mutationValue = round(np.random.uniform(5, 5), 2)
-            #     mutationValue = int(random.randrange(-100, 100, step=99))
-
 
             mutation_probability = np.random.rand(1)
 
@@ -1191,10 +1073,35 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                                             'mutation': [-200, 200],
                                             'step': 150
                                    },
-}
+                           'gamma': {'type': 'float',
+                                             'init': [0.01, 10.0],
+                                             'mutation': [-2, 2],
+                                             'round': 2
+                                   },
+                           'subsample': {'type': 'float', ## ATTENTION! SUBSAMPLE OF TRAINING
+                                         'init': [0.01, 1],
+                                         'mutation': [-0.3, 0.3],
+                                         'round': 2
+                                   },
+                           'colsample_bytree': {'type': 'float', ## ATENTION!! SUBSAMPLE OF COLUMNS
+                                         'init': [0.01, 1],
+                                         'mutation': [-0.3, 0.3],
+                                         'round': 2
+                                   },
+                           'reg_alpha': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
+                                         'init': [0, 1],
+                                         'mutation': [-0.3, 0.3],
+                                         'round': 2
+                                   },
+                           'reg_lambda': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
+                                         'init': [0, 1],
+                                         'mutation': [-0.3, 0.3],
+                                         'round': 2
+                                   }
+                          }
 
 
-# In[53]:
+# In[42]:
 
 
 import xgboost as xgb
@@ -1206,21 +1113,16 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
-# clean_df['Weather Conditions'] = clean_df['Weather Conditions'].astype('int')
 
+number_of_individuals = 50
+numberOfParentsMating = 25
+number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
+number_of_generations = 100
 
-number_of_individuals = 50 # number of parents to start
-numberOfParentsMating = 20 # Number of parents that will mate
-number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE) # Number of parameters that will be optimized
-number_of_generations = 100 # Number of genration that will be created 
-
-# Define the population size
-populationSize = (number_of_individuals, number_of_hyperparams) # initialize the population with randomly generated parameters
-
+populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
-                                     hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE) # Define an array to store the fitness  hitory
+                                     hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
 
-# Define an array to store the fitness  hitory
 fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
 populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
 
@@ -1233,7 +1135,6 @@ xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
 
 xgbDMatrixTest  = xgb.DMatrix(data  = X_test_downsampled, 
                               label = Y_test_downsampled)
-
 
 for generation in range(number_of_generations):
 
@@ -1254,9 +1155,8 @@ for generation in range(number_of_generations):
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
-    # print(f'Current population is {population}')
-    # print(f'New population is {new_population}')
-
+    print(f'Current population is {population}')
+    print(f'New population is {new_population}')
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
@@ -1288,7 +1188,6 @@ for generation in range(number_of_generations):
     
     # Add mutation to create genetic diversity
     children_mutated = mutation(children,
-                                number_of_hyperparams,
                                 hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
     
     '''
@@ -1313,22 +1212,10 @@ bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
 
 best_hyperparams = {}
-best_hyperparams['eta'] = population[bestFitnessIndex][0]
-best_hyperparams['max_depth'] = population[bestFitnessIndex][1]
-best_hyperparams['min_child_weight'] = population[bestFitnessIndex][2]
-best_hyperparams['max_depth'] = population[bestFitnessIndex][3]
+for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
+    best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
-
-# best_hyperparams['eta'] = population[bestFitnessIndex][0]
-# best_hyperparams['n_estimators']  = population[bestFitnessIndex][1]
-# best_hyperparams['max_depth'] = population[bestFitnessIndex][2]
-# best_hyperparams['min_child_weight'] = population[bestFitnessIndex][3]
-# best_hyperparams['gamma'] = population[bestFitnessIndex][4]
-# best_hyperparams['subsample'] =  population[bestFitnessIndex][5]
-# best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
-# best_hyperparams['reg_alpha'] =  population[bestFitnessIndex][7]
-# best_hyperparams['reg_lambda'] =  population[bestFitnessIndex][8]
-
+#### PLOT FITNESS EVOLUTION ####
 x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
 FILE_NAME = 'leeds_ga_' + MODEL_TIMESTAMP  + '.jpg'
@@ -1337,6 +1224,7 @@ plt.figure(figsize=(10, 5))
 plt.plot(np.arange(len(x_fitness)), x_fitness)
 plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
+#### PLOT HYPERPARAMS EVOLUTION ####
 FILE_NAME = 'leeds_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
 
 LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
@@ -1361,13 +1249,13 @@ np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 # FILE_NAME = 'madrid_hyperparams_v7.json'
 
 # best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
-# 0.04 2 6.5 --> 0.778
 
-best_hyperparams = {}
-best_hyperparams['eta'] = 0.73
-best_hyperparams['max_depth'] = 1
-best_hyperparams['min_child_weight'] = 8.4
-best_hyperparams['n_estimators'] = 600
+# 0.04 2 6.5 --> 0.778
+# best_hyperparams = {}
+# best_hyperparams['eta'] = 0.73
+# best_hyperparams['max_depth'] = 1
+# best_hyperparams['min_child_weight'] = 8.4
+# best_hyperparams['n_estimators'] = 600
 
 
 # #### Cálculo de Hiperparámetros
@@ -1428,7 +1316,6 @@ best_hyperparams['n_estimators'] = 600
 FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
 
 write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-print(best_hyperparams)
 
 
 # ### Pesos de características
@@ -1454,7 +1341,8 @@ from xgboost import XGBClassifier,XGBRanker
 from matplotlib import pyplot
 from xgboost import plot_importance
 
-xgboost = XGBClassifier(best_hyperparams, tree_method = 'gpu_hist')
+xgboost = XGBClassifier(best_hyperparams,
+                        tree_method = 'gpu_hist')
 
 xgboost.fit(X_train, Y_train)
 
@@ -2535,43 +2423,33 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # In[ ]:
 
 
-HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
-                                   'init': [0.01, 1],
-                                   'mutation': [-0.3, 0.3],
-                                   'round': 2
-                                   },
-                           'max_depth': {'type': 'int',
-                                         'init': [1, 20],
-                                         'mutation': [-4, 4],
-                                         'step': 1
-                                   },
-                           'min_child_weight': {'type': 'float',
-                                                'init': [0.1, 15.0],
-                                                'mutation': [-5, 5],
-                                                'round': 1
-                                   },
-                           'n_estimators': {'type': 'int',
-                                            'init': [0, 2000],
-                                            'mutation': [-200, 200],
-                                            'step': 150
-                                   },
-}
+# HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
+#                                    'init': [0.01, 1],
+#                                    'mutation': [-0.3, 0.3],
+#                                    'round': 2
+#                                    },
+#                            'max_depth': {'type': 'int',
+#                                          'init': [1, 20],
+#                                          'mutation': [-4, 4],
+#                                          'step': 1
+#                                    },
+#                            'min_child_weight': {'type': 'float',
+#                                                 'init': [0.1, 15.0],
+#                                                 'mutation': [-5, 5],
+#                                                 'round': 1
+#                                    },
+#                            'n_estimators': {'type': 'int',
+#                                             'init': [0, 2000],
+#                                             'mutation': [-200, 200],
+#                                             'step': 150
+#                                    },
+# }
 
 
 # In[ ]:
 
 
-# from sklearn.preprocessing import StandardScaler
-
-# sc = StandardScaler()
-# X_train = sc.fit_transform(X_train)
-# X_test  = sc.transform(X_test)
-
-# XGboost Classifier
-# model xgboost
-# use xgboost API now
-
-# import xgboost as xgb
+import xgboost as xgb
 import random
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -2580,29 +2458,30 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
-# clean_df['Weather Conditions'] = clean_df['Weather Conditions'].astype('int')
+
+number_of_individuals = 50
+numberOfParentsMating = 25
+number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
+number_of_generations = 100
+
+populationSize = (number_of_individuals, number_of_hyperparams)
+population = initilialize_population(number_of_individuals   = number_of_individuals,
+                                     hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+
+fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
+populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
+
+best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
+populationHistory[0:number_of_individuals,:] = population
 
 
-numberOfParents = 50 # number of parents to start
-numberOfParentsMating = 20 # Number of parents that will mate
-numberOfParameters = len(HYPERPARAMS_TO_OPTIMIZE) # Number of parameters that will be optimized
-numberOfGenerations = 100 # Number of genration that will be created 
+xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
+                              label = Y_train_downsampled)
 
-# Define the population size
-populationSize = (numberOfParents, numberOfParameters) # initialize the population with randomly generated parameters
+xgbDMatrixTest  = xgb.DMatrix(data  = X_test_downsampled, 
+                              label = Y_test_downsampled)
 
-population = initilialize_population(numberOfParents) # Define an array to store the fitness  hitory
-fitnessHistory = np.empty([numberOfGenerations+1, numberOfParents]) # Define an array to store the value of each parameter for each parent and generation
-populationHistory = np.empty([(numberOfGenerations+1)*numberOfParents, numberOfParameters]) # Insert the value of initial parameters in history
-
-best_solution_history = np.empty([(numberOfGenerations), numberOfParameters+1])
-populationHistory[0:numberOfParents, :] = population
-
-xgbDMatrixTrain = xgb.DMatrix(data = X_train_downsampled, label = Y_train_downsampled)
-xgbDMatrixTest  = xgb.DMatrix(data = X_test_downsampled,  label = Y_test_downsampled)
-
-
-for generation in range(numberOfGenerations):
+for generation in range(number_of_generations):
 
     print("This is number %s generation" % (generation))
 
@@ -2610,23 +2489,23 @@ for generation in range(numberOfGenerations):
     
     unique_individuals = np.unique(population, axis=0)
     
-    new_individuals_to_create = numberOfParents - len(unique_individuals)
+    new_individuals_to_create = number_of_individuals - len(unique_individuals)
     
     for i in range(new_individuals_to_create):
-        new_population.append(generate_individual())
+        new_individual = generate_individual(hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+        new_population.append(new_individual)
     
     new_population = np.array(new_population)
 
     if (new_individuals_to_create):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
-    # print(f'Current population is {population}')
-    # print(f'New population is {new_population}')
-
+    print(f'Current population is {population}')
+    print(f'New population is {new_population}')
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
-                                    hyperparams_name_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                                    hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
                                     dMatrixTrain = xgbDMatrixTrain,
                                     dMatrixTest = xgbDMatrixTest,
                                     Y_test = Y_test_downsampled)
@@ -2650,10 +2529,11 @@ for generation in range(numberOfGenerations):
     
     # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
     children = crossover_uniform(parents = parents,
-                                 childrenSize = (populationSize[0] - parents.shape[0], numberOfParameters))
+                                 childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
     
     # Add mutation to create genetic diversity
-    children_mutated = mutation(children, numberOfParameters)
+    children_mutated = mutation(children,
+                                hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
     
     '''
     We will create new population, which will contain parents that where selected previously based on the
@@ -2662,45 +2542,35 @@ for generation in range(numberOfGenerations):
     population[0:parents.shape[0], :] = parents # Fittest parents
     population[parents.shape[0]:, :]  = children_mutated # Children
     
-    populationHistory[(generation+1)*numberOfParents : (generation+1)*numberOfParents+ numberOfParents , :] = population # Store parent information
+    populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
     
 #Best solution from the final iteration
 
 fitness = train_population(population = population,
-                           hyperparams_name_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                           hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
                            dMatrixTrain = xgbDMatrixTrain,
                            dMatrixTest = xgbDMatrixTest,
                            Y_test = Y_test_downsampled)
+
 fitnessHistory[generation+1, :] = fitness # index of the best solution
 bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
-# 
 
 best_hyperparams = {}
+for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
+    best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
-for n_param in range(numberOfParameters):
-    hyperparam_to_optimize = HYPERPARAMS_TO_OPTIMIZE[n_param]
-    best_hyperparams[hyperparam_to_optimize] = population[bestFitnessIndex][n_param]
-
-# best_hyperparams['eta'] = population[bestFitnessIndex][0]
-# best_hyperparams['n_estimators']  = population[bestFitnessIndex][1]
-# best_hyperparams['max_depth'] = population[bestFitnessIndex][2]
-# best_hyperparams['min_child_weight'] = population[bestFitnessIndex][3]
-# best_hyperparams['gamma'] = population[bestFitnessIndex][4]
-# best_hyperparams['subsample'] =  population[bestFitnessIndex][5]
-# best_hyperparams['colsample_bytree'] =  population[bestFitnessIndex][6]
-# best_hyperparams['reg_alpha'] =  population[bestFitnessIndex][7]
-# best_hyperparams['reg_lambda'] =  population[bestFitnessIndex][8]
-
+#### PLOT FITNESS EVOLUTION ####
 x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
-FILE_NAME = 'madrid_ga_' + MODEL_TIMESTAMP  + '.jpg'
+FILE_NAME = 'leeds_ga_' + MODEL_TIMESTAMP  + '.jpg'
 
 plt.figure(figsize=(10, 5))
 plt.plot(np.arange(len(x_fitness)), x_fitness)
 plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
-FILE_NAME = 'madrid_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
+#### PLOT HYPERPARAMS EVOLUTION ####
+FILE_NAME = 'leeds_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
 
 LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
 
@@ -2709,7 +2579,7 @@ plt.plot(best_solution_history)
 plt.legend(LEGEND_LABELS)
 plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
 
-FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.txt'
+FILE_NAME = 'leeds_population_' + MODEL_TIMESTAMP  + '.txt'
 
 np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
@@ -2817,8 +2687,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
 xgboost = XGBClassifier(best_hyperparams,
-                        #tree_method = 'gpu_hist'
-                       )
+                        tree_method = 'gpu_hist')
 
 xgboost.fit(X_train, Y_train)
 
