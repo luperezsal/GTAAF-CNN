@@ -1054,22 +1054,22 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                                    'init': [0.01, 1],
-                                   'mutation': [-0.4, 0.4],
+                                   'mutation': [-0.3, 0.3],
                                    'round': 2
                                    },
                            'max_depth': {'type': 'int',
                                          'init': [1, 20],
-                                         'mutation': [-9, 9],
+                                         'mutation': [-5, 5],
                                          'step': 1
                                    },
                            'min_child_weight': {'type': 'float',
                                                 'init': [0.1, 15.0],
-                                                'mutation': [-7, 7],
+                                                'mutation': [-4, 4],
                                                 'round': 1
                                    },
                            'n_estimators': {'type': 'int',
                                             'init': [0, 2000],
-                                            'mutation': [-500, 500],
+                                            'mutation': [-150, 150],
                                             'step': 150
                                    },
                            # 'gamma': {'type': 'float',
@@ -1113,8 +1113,8 @@ Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 60
-numberOfParentsMating = 30
+number_of_individuals = 40
+numberOfParentsMating = 15
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
 number_of_generations = 100
 
@@ -1155,7 +1155,7 @@ for generation in range(number_of_generations):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
     # print(f'Current population is {population}')
-    # print(f'New population is {new_population}')
+    print(f'New population is {len(new_population)}')
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
@@ -2524,7 +2524,7 @@ for generation in range(number_of_generations):
         population = np.concatenate((unique_individuals, new_population), axis=0)
 
     # print(f'Current population is {population}')
-    # print(f'New population is {new_population}')
+    print(f'New population is {len(new_population)}')
     
     # Train the dataset and obtain fitness
     fitnessValue = train_population(population = population,
