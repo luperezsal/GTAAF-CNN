@@ -302,7 +302,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[40]:
+# In[14]:
 
 
 from xgboost import XGBClassifier
@@ -956,13 +956,11 @@ Y = clean_df['Casualty Severity']
 
 from sklearn.utils import resample
 
-downsampled_train, downsampled_test = train_test_split(clean_df, test_size=0.2)
-
 slight_data  = test[test['Casualty Severity'] == 'Slight']
 serious_data = test[test['Casualty Severity'] == 'Serious']
 fatal_data   = test[test['Casualty Severity'] == 'Fatal']
 
-X_slight_downsampled = resample(slight_data,
+X_slight_downsampled  = resample(slight_data,
                                 replace = True,
                                 n_samples = len(fatal_data))
 
@@ -972,7 +970,7 @@ X_serious_downsampled = resample(serious_data,
 
 downsampled_dataset = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
 
-downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
+downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.3)
 
 
 X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['Casualty Severity'])]
@@ -1117,7 +1115,7 @@ Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 number_of_individuals = 50
 numberOfParentsMating = 25
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 2
+number_of_generations = 25
 
 populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -1720,7 +1718,7 @@ report_df
 # 
 # 
 
-# In[ ]:
+# In[28]:
 
 
 import pandas as pd
@@ -1766,7 +1764,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[ ]:
+# In[29]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1779,84 +1777,84 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[ ]:
+# In[30]:
 
 
-######################### SIGUIENTE CELDA #########################
+# ######################### SIGUIENTE CELDA #########################
 
-# Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
-# A, A(M) y Motorway lo mismo?
-# B:            De carácter regional y utilizado para conectar zonas de menor importancia.
-#               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
-#               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
-#               ¿Carretera como tal?
+# # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
+# # A, A(M) y Motorway lo mismo?
+# # B:            De carácter regional y utilizado para conectar zonas de menor importancia.
+# #               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
+# #               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
+# #               ¿Carretera como tal?
 
-# C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
-#               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
+# # C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
+# #               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
 
-# Unclassified
+# # Unclassified
 
 
-regex = {}
-regex['paseo_regex'] = 'PASEO|paseo'
-regex['parque_regex'] = 'PARQUE|PQUE'
-regex['ronda_regex'] = 'RONDA'
-regex['puerta_regex'] = 'PUERTA|PTA|Puerta'
-regex['puente_regex'] = 'PNTE|PUENTE'
-regex['plaza_regex'] = 'PLAZA|PZA'
-regex['camino_regex']= 'CMNO|CAMINO'
-regex['bulevard_regex'] = 'BULE'
-regex['travesia_regex'] = 'TRVA'
-regex['cuesta_regex'] = 'CUSTA|CUESTA'
-regex['rotonda_regex'] = 'GTA|gta|GLORIETA|glorieta|ROTONDA'
-regex['aeropuerto_regex'] ='AEROPUERTO|AEROP'
-regex['calzada_regex'] = 'CALZADA'
-regex['poligono_regex'] ='POLIGONO'
-regex['highway_regex'] = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
-regex['road_regex'] = 'CTRA.|CARRETERA|carretera|CRA.' # B
-regex['avenida_regex'] = 'AVDA|AV|AVENIDA|AVDA|Avda.|avenida'
-regex['calle_regex']  = 'CALL.|Calle|CALLE|c/|C/|C.|calle'
-
-data_frame['tipo_via'] = 'N/A'
-
-for index,regex_values in enumerate(regex.values()):
-    print(regex_values)
-    regex_indexes = data_frame[data_frame.localizacion.str.contains(regex_values,  case = True, regex=True)].index
-    print(len(regex_indexes))
-    data_frame.iloc[regex_indexes, data_frame.columns.get_loc('tipo_via')] = str(index)
-    data_frame.iloc[regex_indexes, data_frame.columns.get_loc('localizacion')] = str(index)
-    
-    
-    
-# street_indexes  = data_frame[data_frame.localizacion.str.contains('CALL.|Calle|CALLE|c/|C/|C.|calle', case = True, regex=True)].index
-# highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
-# road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
-# # avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
-# # ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
+# regex = {}
+# regex['paseo_regex'] = 'PASEO|paseo'
+# regex['parque_regex'] = 'PARQUE|PQUE'
+# regex['ronda_regex'] = 'RONDA'
+# regex['puerta_regex'] = 'PUERTA|PTA|Puerta'
+# regex['puente_regex'] = 'PNTE|PUENTE'
+# regex['plaza_regex'] = 'PLAZA|PZA'
+# regex['camino_regex']= 'CMNO|CAMINO'
+# regex['bulevard_regex'] = 'BULE'
+# regex['travesia_regex'] = 'TRVA'
+# regex['cuesta_regex'] = 'CUSTA|CUESTA'
+# regex['rotonda_regex'] = 'GTA|gta|GLORIETA|glorieta|ROTONDA'
+# regex['aeropuerto_regex'] ='AEROPUERTO|AEROP'
+# regex['calzada_regex'] = 'CALZADA'
+# regex['poligono_regex'] ='POLIGONO'
+# regex['highway_regex'] = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
+# regex['road_regex'] = 'CTRA.|CARRETERA|carretera|CRA.' # B
+# regex['avenida_regex'] = 'AVDA|AV|AVENIDA|AVDA|Avda.|avenida'
+# regex['calle_regex']  = 'CALL.|Calle|CALLE|c/|C/|C.|calle'
 
 # data_frame['tipo_via'] = 'N/A'
 
-# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
-# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
-# data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
-# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
-# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+# for index,regex_values in enumerate(regex.values()):
+#     print(regex_values)
+#     regex_indexes = data_frame[data_frame.localizacion.str.contains(regex_values,  case = True, regex=True)].index
+#     print(len(regex_indexes))
+#     data_frame.iloc[regex_indexes, data_frame.columns.get_loc('tipo_via')] = str(index)
+#     data_frame.iloc[regex_indexes, data_frame.columns.get_loc('localizacion')] = str(index)
+    
+    
+    
+# # street_indexes  = data_frame[data_frame.localizacion.str.contains('CALL.|Calle|CALLE|c/|C/|C.|calle', case = True, regex=True)].index
+# # highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
+# # road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
+# # # avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
+# # # ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
+
+# # data_frame['tipo_via'] = 'N/A'
+
+# # data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
+# # data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
+# # data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
+# # # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+# # # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
 
 
-# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
-# data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
-# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
-# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
-# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
+# # data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
+# # data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
+# # data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
+# # # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
+# # # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
 
-positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
-data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
+# positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
+# data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
 
-data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
-# # print(data_frame.localizacion.unique())
+# data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
+# # # print(data_frame.localizacion.unique())
 
 
-# In[ ]:
+# In[31]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1928,7 +1926,7 @@ data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[ ]:
+# In[32]:
 
 
 weather_conditions_replace = {
@@ -2133,7 +2131,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[ ]:
+# In[33]:
 
 
 # Todos las comas a puntos
@@ -2222,13 +2220,15 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[ ]:
+# In[34]:
 
 
-COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
+# COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
+COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'localizacion', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
+
 data_frame = data_frame.loc[:, ~data_frame.columns.isin(COLUMNS_TO_REMOVE)]
 
-data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
+# data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_x_utm": "coordenada_x_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_y_utm": "coordenada_y_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"positiva_alcohol": "drogas_alcohol_positivo"}, errors="raise", inplace=True)
@@ -2238,7 +2238,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[ ]:
+# In[35]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2249,7 +2249,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[ ]:
+# In[36]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2264,16 +2264,16 @@ X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[ ]:
+# In[37]:
 
 
-# FILE_NAME = 'madrid_calculated_weights.json'
-FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
+# # FILE_NAME = 'madrid_calculated_weights.json'
+# FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
 
-feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
+# feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
-# In[ ]:
+# In[38]:
 
 
 
@@ -2336,7 +2336,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[39]:
 
 
 X_train = X_train.astype(int)
@@ -2348,7 +2348,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[ ]:
+# In[40]:
 
 
 print('********** Before OverSampling **********')
@@ -2362,7 +2362,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Downsampling de datos
 
-# In[ ]:
+# In[41]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2384,8 +2384,7 @@ X_serious_downsampled = resample(serious_data,
 
 downsampled_dataset = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
 
-downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
-
+downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.3)
 
 X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['lesividad'])]
 Y_train_downsampled = downsampled_train['lesividad']
@@ -2394,7 +2393,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[ ]:
+# In[42]:
 
 
 X_train = X_train.astype(int)
@@ -2410,7 +2409,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## XGBoost
 
-# In[ ]:
+# In[43]:
 
 
 from xgboost import XGBClassifier
@@ -2420,7 +2419,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[ ]:
+# In[44]:
 
 
 # HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -2446,7 +2445,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # }
 
 
-# In[ ]:
+# In[45]:
 
 
 import xgboost as xgb
@@ -2462,7 +2461,7 @@ Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 number_of_individuals = 50
 numberOfParentsMating = 25
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 2
+number_of_generations = 25
 
 populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -2563,14 +2562,14 @@ for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
 #### PLOT FITNESS EVOLUTION ####
 x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
-FILE_NAME = 'leeds_ga_' + MODEL_TIMESTAMP  + '.jpg'
+FILE_NAME = 'madrid_ga_' + MODEL_TIMESTAMP  + '.jpg'
 
 plt.figure(figsize=(10, 5))
 plt.plot(np.arange(len(x_fitness)), x_fitness)
 plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
 #### PLOT HYPERPARAMS EVOLUTION ####
-FILE_NAME = 'leeds_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
+FILE_NAME = 'madrid_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
 
 LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
 
@@ -2579,7 +2578,7 @@ plt.plot(best_solution_history)
 plt.legend(LEGEND_LABELS)
 plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
 
-FILE_NAME = 'leeds_population_' + MODEL_TIMESTAMP  + '.txt'
+FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.txt'
 
 np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
@@ -2671,14 +2670,15 @@ print(best_hyperparams)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[50]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
-FILE_NAME = 'madrid_weights_v7.json'
+FILE_NAME = 'madrid_weights_no_roadClass.json'
 # FILE_NAME = 'madrid_weights2022-04-14-11:16:13.json'
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
+feature_vector
 
 
 # #### Cálculo de pesos de caracetrísticas
