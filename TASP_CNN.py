@@ -319,11 +319,11 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
                'num_class': 3
              }
 
-    for i in range(population.shape[0]):
+    for individual_index in range(population.shape[0]):
         # Se almacenan en hyperparams_to_optimize los valores del individuo con su nombre correspondiente de hyperparams_name_to_optimize.
         hyperparams = {}
 
-        for index, hyperparam_value in enumerate(population[i]):
+        for index, hyperparam_value in enumerate(population[individual_index]):
 
             hyperparam_name_to_optimize = list(hyperparams_to_optimize.keys())[index]
             data_type = hyperparams_to_optimize[hyperparam_name_to_optimize]['type']
@@ -332,6 +332,8 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
             hyperparams[hyperparam_name_to_optimize] = hyperparams[hyperparam_name_to_optimize].astype(data_type)
         
         params.update(hyperparams)
+
+        print(params)
 
         num_round = params['n_estimators']
 
@@ -492,7 +494,6 @@ def mutation(crossover, hyperparams_to_optimize):
 
         while MUTATION_PROBABILITY > mutation_probability:
             
-            mutationValue = 0
             hyperparam_selected_index = np.random.randint(0, number_of_parameters)
             hyperparam_selected_name  = list(hyperparams_to_optimize.keys())[hyperparam_selected_index]
 
@@ -1062,12 +1063,12 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                                    'round': 2
                                    },
                            'max_depth': {'type': 'int',
-                                         'init': [1, 30],
-                                         'mutation': [-10, 10],
+                                         'init': [1, 25],
+                                         'mutation': [-6, 6],
                                          'step': 1
                                    },
                            'min_child_weight': {'type': 'float',
-                                                'init': [0.01, 30.0],
+                                                'init': [0.01, 20.0],
                                                 'mutation': [-7, 7],
                                                 'round': 1
                                    },
