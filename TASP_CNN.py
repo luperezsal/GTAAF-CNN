@@ -1113,10 +1113,10 @@ Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 10
-numberOfParentsMating = 4
+number_of_individuals = 120
+numberOfParentsMating = 30
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 3
+number_of_generations = 100
 
 populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -1252,16 +1252,16 @@ np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 # In[41]:
 
 
-FILE_NAME = 'leeds_hyperparams2022-04-24-10:34:21.json'
+# FILE_NAME = 'leeds_hyperparams2022-04-24-10:34:21.json'
 
-best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
+# best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
-# # 0.04 2 6.5 --> 0.778
-# # best_hyperparams = {}
-# # best_hyperparams['eta'] = 0.73
-# # best_hyperparams['max_depth'] = 1
-# # best_hyperparams['min_child_weight'] = 8.4
-# # best_hyperparams['n_estimators'] = 600
+# # # 0.04 2 6.5 --> 0.778
+# # # best_hyperparams = {}
+# # # best_hyperparams['eta'] = 0.73
+# # # best_hyperparams['max_depth'] = 1
+# # # best_hyperparams['min_child_weight'] = 8.4
+# # # best_hyperparams['n_estimators'] = 600
 
 
 # #### Cálculo de Hiperparámetros
