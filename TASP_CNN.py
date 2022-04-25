@@ -4,6 +4,8 @@
 # # Diagrama de flujo
 
 # <center><img src="Data/Data_flow.png"/></center>
+# 
+# https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=294849
 
 # # Métodos
 
@@ -267,7 +269,7 @@ def generate_individual(hyperparams_to_optimize):
         
         if data_type == 'int':
             step = hyperparams_to_optimize[key]['step']
-            hyperparam = int(random.randrange(min_value, max_value, step = step))
+            hyperparam = int(random.randrange(min_value, max_value))
 
         if data_type == 'float':
             round_to = hyperparams_to_optimize[key]['round']
@@ -481,8 +483,9 @@ def mutation(crossover, hyperparams_to_optimize):
     
     # MUTATION_PROBABILITY = 1/numberOfParameters
     
-    MUTATION_PROBABILITY = 0.4
+    MUTATION_PROBABILITY = 0.1
     number_of_parameters = len(hyperparams_to_optimize)
+
     for idx in range(crossover.shape[0]):
 
         mutation_probability = np.random.rand(1)
@@ -511,8 +514,6 @@ def mutation(crossover, hyperparams_to_optimize):
                 
             print(idx, hyperparam_selected_name, hyperparam)
 
-            mutation_probability = np.random.rand(1)
-
             crossover[idx, hyperparam_selected_index] = crossover[idx,hyperparam_selected_index] + mutationValue
 
             if(crossover[idx, hyperparam_selected_index] > max_limit_value):
@@ -520,6 +521,9 @@ def mutation(crossover, hyperparams_to_optimize):
 
             if(crossover[idx, hyperparam_selected_index] < min_limit_value):
                 crossover[idx, hyperparam_selected_index] = min_limit_value
+                
+            mutation_probability = np.random.rand(1)
+
 
     return crossover
 
@@ -1058,19 +1062,19 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                                    'round': 2
                                    },
                            'max_depth': {'type': 'int',
-                                         'init': [1, 20],
-                                         'mutation': [-5, 5],
+                                         'init': [1, 60],
+                                         'mutation': [-10, 10],
                                          'step': 1
                                    },
                            'min_child_weight': {'type': 'float',
-                                                'init': [0.1, 15.0],
+                                                'init': [0.01, 10.0],
                                                 'mutation': [-4, 4],
                                                 'round': 1
                                    },
                            'n_estimators': {'type': 'int',
-                                            'init': [0, 2000],
+                                            'init': [0, 1500],
                                             'mutation': [-150, 150],
-                                            'step': 150
+                                            'step': 25
                                    },
                            # 'gamma': {'type': 'float',
                            #                   'init': [0.01, 10.0],
@@ -1114,9 +1118,9 @@ Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
 number_of_individuals = 40
-numberOfParentsMating = 15
+numberOfParentsMating = 10
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 100
+number_of_generations = 30
 
 populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
