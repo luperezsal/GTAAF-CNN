@@ -312,7 +312,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
     fScore = []
     
     params = {'objective':'multi:softprob',
-               'tree_method': 'gpu_hist',
+               # 'tree_method': 'gpu_hist',
                'num_class': 3
              }
 
@@ -1048,58 +1048,58 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[38]:
+# In[69]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                                    'init': [0.01, 1],
-                                   'mutation': [-0.3, 0.3],
+                                   'mutation': [-0.4, 0.4],
                                    'round': 2
                                    },
                            'max_depth': {'type': 'int',
                                          'init': [1, 20],
-                                         'mutation': [-4, 4],
+                                         'mutation': [-9, 9],
                                          'step': 1
                                    },
                            'min_child_weight': {'type': 'float',
                                                 'init': [0.1, 15.0],
-                                                'mutation': [-5, 5],
+                                                'mutation': [-7, 7],
                                                 'round': 1
                                    },
                            'n_estimators': {'type': 'int',
                                             'init': [0, 2000],
-                                            'mutation': [-200, 200],
+                                            'mutation': [-500, 500],
                                             'step': 150
                                    },
                            'gamma': {'type': 'float',
                                              'init': [0.01, 10.0],
-                                             'mutation': [-2, 2],
+                                             'mutation': [-4, 4],
                                              'round': 2
                                    },
                            'subsample': {'type': 'float', ## ATTENTION! SUBSAMPLE OF TRAINING
                                          'init': [0.01, 1],
-                                         'mutation': [-0.3, 0.3],
+                                         'mutation': [-0.4, 0.4],
                                          'round': 2
                                    },
                            'colsample_bytree': {'type': 'float', ## ATENTION!! SUBSAMPLE OF COLUMNS
                                          'init': [0.01, 1],
-                                         'mutation': [-0.3, 0.3],
+                                         'mutation': [-0.4, 0.4],
                                          'round': 2
                                    },
                            'reg_alpha': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
                                          'init': [0, 1],
-                                         'mutation': [-0.3, 0.3],
+                                         'mutation': [-0.4, 0.4],
                                          'round': 2
                                    },
                            'reg_lambda': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
                                          'init': [0, 1],
-                                         'mutation': [-0.3, 0.3],
+                                         'mutation': [-0.4, 0.4],
                                          'round': 2
                                    }
                           }
 
 
-# In[42]:
+# In[71]:
 
 
 import xgboost as xgb
@@ -1112,10 +1112,10 @@ Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 50
-numberOfParentsMating = 25
+number_of_individuals = 150
+numberOfParentsMating = 75
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 25
+number_of_generations = 100
 
 populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -1213,6 +1213,16 @@ best_hyperparams = {}
 for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
     best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
+
+# In[77]:
+
+
+best_solution_history[:,1]
+
+
+# In[81]:
+
+
 #### PLOT FITNESS EVOLUTION ####
 x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
@@ -1225,12 +1235,15 @@ plt.savefig(GA_SCORES_PATH + FILE_NAME)
 #### PLOT HYPERPARAMS EVOLUTION ####
 FILE_NAME = 'leeds_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
 
-LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
+LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
 
 plt.figure(figsize=(15, 8))
-plt.plot(best_solution_history)
+best_solution_history_aux = best_solution_history
+best_solution_history_aux[:,1] = best_solution_history[:,1]/2
+best_solution_history_aux[:,3] = best_solution_history[:,3]/100
+plt.plot(best_solution_history_aux)
 plt.legend(LEGEND_LABELS)
-plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
+plt.savefig(HYPERPARAMS_EVOLUTON_PATH +  'TEST.jpg', dpi=300)
 
 FILE_NAME = 'leeds_population_' + MODEL_TIMESTAMP  + '.txt'
 
@@ -1718,7 +1731,7 @@ report_df
 # 
 # 
 
-# In[28]:
+# In[ ]:
 
 
 import pandas as pd
@@ -1764,7 +1777,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[29]:
+# In[ ]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -1777,7 +1790,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[30]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1854,7 +1867,7 @@ data_frame = data_frame.reset_index(drop=True)
 # # # print(data_frame.localizacion.unique())
 
 
-# In[31]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -1926,7 +1939,7 @@ data_frame = data_frame.reset_index(drop=True)
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[32]:
+# In[ ]:
 
 
 weather_conditions_replace = {
@@ -2131,7 +2144,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[33]:
+# In[ ]:
 
 
 # Todos las comas a puntos
@@ -2220,7 +2233,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[34]:
+# In[ ]:
 
 
 # COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2238,7 +2251,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[35]:
+# In[ ]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2249,7 +2262,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ## Split de datos
 
-# In[36]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2264,7 +2277,7 @@ X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[37]:
+# In[ ]:
 
 
 # # FILE_NAME = 'madrid_calculated_weights.json'
@@ -2273,7 +2286,7 @@ Y_test = test['lesividad']
 # feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
-# In[38]:
+# In[ ]:
 
 
 
@@ -2336,7 +2349,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[39]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -2348,7 +2361,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[40]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -2362,7 +2375,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Downsampling de datos
 
-# In[41]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2393,7 +2406,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[42]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -2409,7 +2422,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## XGBoost
 
-# In[43]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -2419,7 +2432,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[44]:
+# In[ ]:
 
 
 # HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -2445,7 +2458,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # }
 
 
-# In[45]:
+# In[ ]:
 
 
 import xgboost as xgb
@@ -2458,10 +2471,10 @@ Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 50
-numberOfParentsMating = 25
+number_of_individuals = 150
+numberOfParentsMating = 75
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 25
+number_of_generations = 100
 
 populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -2571,12 +2584,12 @@ plt.savefig(GA_SCORES_PATH + FILE_NAME)
 #### PLOT HYPERPARAMS EVOLUTION ####
 FILE_NAME = 'madrid_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
 
-LEGEND_LABELS = ['Learning Rate', 'Max Depth', 'Min Child Weigth', 'N Estimators', 'Score']
+LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
 
 plt.figure(figsize=(15, 8))
 plt.plot(best_solution_history)
 plt.legend(LEGEND_LABELS)
-plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME)
+plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME, dpi=300)
 
 FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.txt'
 
@@ -2670,7 +2683,7 @@ print(best_hyperparams)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[50]:
+# In[ ]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
