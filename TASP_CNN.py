@@ -305,6 +305,12 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
+# In[ ]:
+
+
+import time
+
+
 # In[14]:
 
 
@@ -333,14 +339,17 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
         
         params.update(hyperparams)
 
-        print(params)
-
         num_round = params['n_estimators']
+        
+        start = time.time()
 
         xgb.set_config(verbosity=0)
         bst = xgb.train(params,
                         dMatrixTrain,
                         num_round)
+
+        end = time.time()
+        print(hyperparams, end - start)
 
         preds = bst.predict(dMatrixTest)
         
