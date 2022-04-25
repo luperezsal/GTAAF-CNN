@@ -1062,13 +1062,13 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                                    'round': 2
                                    },
                            'max_depth': {'type': 'int',
-                                         'init': [1, 60],
+                                         'init': [1, 30],
                                          'mutation': [-10, 10],
                                          'step': 1
                                    },
                            'min_child_weight': {'type': 'float',
-                                                'init': [0.01, 10.0],
-                                                'mutation': [-4, 4],
+                                                'init': [0.01, 30.0],
+                                                'mutation': [-7, 7],
                                                 'round': 1
                                    },
                            'n_estimators': {'type': 'int',
