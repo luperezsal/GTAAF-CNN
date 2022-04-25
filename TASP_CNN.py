@@ -349,7 +349,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
                         num_round)
 
         end = time.time()
-        print(hyperparams, end - start)
+        print(f"{hyperparams} --> {round(end - start, 2)}")
 
         preds = bst.predict(dMatrixTest)
         
