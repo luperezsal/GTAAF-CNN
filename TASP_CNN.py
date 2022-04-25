@@ -312,7 +312,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
     fScore = []
     
     params = {'objective':'multi:softprob',
-               # 'tree_method': 'gpu_hist',
+               'tree_method': 'gpu_hist',
                'num_class': 3
              }
 
@@ -1112,8 +1112,8 @@ Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 60
-numberOfParentsMating = 30
+number_of_individuals = 150
+numberOfParentsMating = 75
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
 number_of_generations = 100
 
@@ -2471,8 +2471,8 @@ Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 60
-numberOfParentsMating = 30
+number_of_individuals = 150
+numberOfParentsMating = 75
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
 number_of_generations = 100
 
