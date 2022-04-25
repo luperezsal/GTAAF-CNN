@@ -33,6 +33,7 @@ MODELS_PATH  = 'Models/'
 
 HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution/'
 FINAL_POPULATION_PATH = './population/'
+CONFUSION_MATRIX_PATH = 'confusion_matrix/'
 
 
 # ## Importar Tensorflow
@@ -1048,7 +1049,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[69]:
+# In[38]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -1071,35 +1072,35 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                                             'mutation': [-500, 500],
                                             'step': 150
                                    },
-                           'gamma': {'type': 'float',
-                                             'init': [0.01, 10.0],
-                                             'mutation': [-4, 4],
-                                             'round': 2
-                                   },
-                           'subsample': {'type': 'float', ## ATTENTION! SUBSAMPLE OF TRAINING
-                                         'init': [0.01, 1],
-                                         'mutation': [-0.4, 0.4],
-                                         'round': 2
-                                   },
-                           'colsample_bytree': {'type': 'float', ## ATENTION!! SUBSAMPLE OF COLUMNS
-                                         'init': [0.01, 1],
-                                         'mutation': [-0.4, 0.4],
-                                         'round': 2
-                                   },
-                           'reg_alpha': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
-                                         'init': [0, 1],
-                                         'mutation': [-0.4, 0.4],
-                                         'round': 2
-                                   },
-                           'reg_lambda': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
-                                         'init': [0, 1],
-                                         'mutation': [-0.4, 0.4],
-                                         'round': 2
-                                   }
+                           # 'gamma': {'type': 'float',
+                           #                   'init': [0.01, 10.0],
+                           #                   'mutation': [-4, 4],
+                           #                   'round': 2
+                           #         },
+                           # 'subsample': {'type': 'float', ## ATTENTION! SUBSAMPLE OF TRAINING
+                           #               'init': [0.01, 1],
+                           #               'mutation': [-0.4, 0.4],
+                           #               'round': 2
+                           #         },
+                           # 'colsample_bytree': {'type': 'float', ## ATENTION!! SUBSAMPLE OF COLUMNS
+                           #               'init': [0.01, 1],
+                           #               'mutation': [-0.4, 0.4],
+                           #               'round': 2
+                           #         },
+                           # 'reg_alpha': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
+                           #               'init': [0, 1],
+                           #               'mutation': [-0.4, 0.4],
+                           #               'round': 2
+                           #         },
+                           # 'reg_lambda': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
+                           #               'init': [0, 1],
+                           #               'mutation': [-0.4, 0.4],
+                           #               'round': 2
+                           #         }
                           }
 
 
-# In[71]:
+# In[39]:
 
 
 import xgboost as xgb
@@ -1112,10 +1113,10 @@ Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
 Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 60
-numberOfParentsMating = 15
+number_of_individuals = 10
+numberOfParentsMating = 4
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 100
+number_of_generations = 3
 
 populationSize = (number_of_individuals, number_of_hyperparams)
 population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -1702,6 +1703,21 @@ report_df = pd.DataFrame(report).transpose()
 report_df.to_csv(REPORTS_PATH + REPORT_NAME, index= True)
 
 report_df
+
+############## SAVE CONFUSION MATRIX ##############
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+CONFUSION_MATRIX_NAME  = 'leeds_confusion_matrix_' + MODEL_TIMESTAMP + '.csv'
+
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = predictions.argmax(axis=1)
+
+cm = confusion_matrix(y_true, y_predicted, labels = Y_test_labels.unique())
+
+confussion_matrix = ConfusionMatrixDisplay.from_estimator(confusion_matrix = cm,
+                                                          display_labels = Y_test_labels.unique())
+
+confussion_matrix.figure_.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 300)
 
 
 # In[ ]:
