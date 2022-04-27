@@ -1,24 +1,40 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# [TFM](https://github.com/jmrplens/TFG-TFM_EPS)
+
 # # Diagrama de flujo
 
-# In[49]:
+# In[1]:
 
 
 import xgboost as xgb
-xgb.__version__
+import pandas
+
+params = {'objective':'multi:softprob',
+           'tree_method': 'gpu_hist',
+           'num_class': 3
+         }
+
+data = pandas.DataFrame(np.arange(12).reshape((4,3)), columns=['a', 'b', 'c'])
+label = pandas.DataFrame(np.random.randint(2, size=4))
+dMatrixTrain = xgb.DMatrix(data, label=label)
+
+bst = xgb.train(params,
+                dMatrixTrain,
+                100)
 
 
-# <center><img src="Data/Data_flow.png"/></center>
+# <center><img src="Data/Data_flow.svg"/></center>
 # 
+# Metodología
 # https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=294849
 
 # # Métodos
 
 # ## Carga Google Drive
 
-# In[1]:
+# In[2]:
 
 
 # from google.colab import drive
@@ -27,7 +43,7 @@ xgb.__version__
 
 # ## Versión y especificación de directorios
 
-# In[2]:
+# In[3]:
 
 
 from datetime import datetime
@@ -47,13 +63,13 @@ CONFUSION_MATRIX_PATH = 'confusion_matrix/'
 
 # ## Importar Tensorflow
 
-# In[3]:
+# In[4]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[4]:
+# In[1]:
 
 
 import tensorflow as tf
@@ -68,7 +84,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[5]:
+# In[3]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -80,7 +96,7 @@ get_ipython().system('nvidia-smi')
 
 # ## Importador/Exportador JSON
 
-# In[6]:
+# In[ ]:
 
 
 import json
@@ -98,7 +114,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[7]:
+# In[ ]:
 
 
 import numpy as np
@@ -178,7 +194,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[8]:
+# In[ ]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -200,7 +216,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[9]:
+# In[ ]:
 
 
 from scipy.stats import zscore
@@ -220,7 +236,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[10]:
+# In[ ]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -245,7 +261,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[11]:
+# In[ ]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -262,7 +278,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[12]:
+# In[ ]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -298,7 +314,7 @@ def initilialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[13]:
+# In[ ]:
 
 
 from sklearn.metrics import f1_score
@@ -312,13 +328,13 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[14]:
+# In[ ]:
 
 
 import time
 
 
-# In[15]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -373,7 +389,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[16]:
+# In[ ]:
 
 
 # Select parents for mating
@@ -391,7 +407,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[17]:
+# In[ ]:
 
 
 '''
@@ -425,7 +441,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[18]:
+# In[ ]:
 
 
 # def mutation(crossover, numberOfParameters):
@@ -497,14 +513,14 @@ def crossover_uniform(parents, childrenSize):
 #     return crossover
 
 
-# In[19]:
+# In[ ]:
 
 
 def mutation(crossover, hyperparams_to_optimize):
     
     # MUTATION_PROBABILITY = 1/numberOfParameters
     
-    MUTATION_PROBABILITY = 0.1
+    MUTATION_PROBABILITY = 0.2
     number_of_parameters = len(hyperparams_to_optimize)
 
     for idx in range(crossover.shape[0]):
@@ -552,7 +568,7 @@ def mutation(crossover, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[20]:
+# In[ ]:
 
 
 # Add one channel
@@ -575,7 +591,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[21]:
+# In[ ]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -605,7 +621,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[22]:
+# In[ ]:
 
 
 import seaborn as sns
@@ -619,7 +635,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[23]:
+# In[ ]:
 
 
 from sklearn.decomposition import PCA
@@ -639,7 +655,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[24]:
+# In[ ]:
 
 
 from sklearn.manifold import TSNE
@@ -666,7 +682,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[25]:
+# In[ ]:
 
 
 def autoencoder ():
@@ -689,12 +705,41 @@ def autoencoder ():
     return autoencoder
 
 
-# ## TASP-CNN
+# ## 1D-convolution
 
-# In[26]:
+# In[ ]:
 
 
 import tensorflow_addons as tfa
+
+lr_init = 0.1
+num_classes = 3
+
+convolution_1d = models.Sequential()
+convolution_1d.add(layers.Conv1D(256, 3,strides = 1, activation='relu', padding='same', input_shape=(5, 5, 1)))
+convolution_1d.add(layers.BatchNormalization())
+convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
+convolution_1d.add(layers.BatchNormalization())
+convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
+convolution_1d.add(layers.BatchNormalization())
+convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
+convolution_1d.add(layers.BatchNormalization())  
+convolution_1d.add(layers.Flatten())
+convolution_1d.add(layers.Dense(units=128))
+convolution_1d.add(layers.Dense(3, activation='softmax'))
+
+convolution_1d.compile(
+    optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
+    loss='categorical_crossentropy',
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+  )
+
+
+# ## TASP-CNN
+
+# In[ ]:
+
+
 
 lr_init = 0.1
 num_classes = 3
@@ -719,7 +764,7 @@ tasp_cnn.compile(
   )
 
 
-# In[27]:
+# In[ ]:
 
 
 print('Done!')
@@ -729,13 +774,13 @@ print('Done!')
 
 # ## Importación de datos
 
-# In[28]:
+# In[ ]:
 
 
 # !conda install pandas --y
 
 
-# In[29]:
+# In[ ]:
 
 
 import pandas as pd
@@ -789,7 +834,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[30]:
+# In[ ]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -951,13 +996,13 @@ clean_df
 
 # ## Split de datos
 
-# In[31]:
+# In[ ]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[32]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -974,7 +1019,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[33]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1007,7 +1052,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Ca
 Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
-# In[34]:
+# In[ ]:
 
 
 # fv2gi(feature_vector)
@@ -1029,13 +1074,13 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[35]:
+# In[ ]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[36]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -1051,7 +1096,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## Oversamplig de datos
 
-# In[37]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -1065,7 +1110,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[38]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -1075,7 +1120,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[39]:
+# In[ ]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -1126,7 +1171,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                           }
 
 
-# In[40]:
+# In[ ]:
 
 
 # import xgboost as xgb
@@ -1139,10 +1184,10 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 # Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-# number_of_individuals = 40
-# numberOfParentsMating = 10
+# number_of_individuals = 100
+# numberOfParentsMating = 25
 # number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-# number_of_generations = 30
+# number_of_generations = 100
 
 # populationSize = (number_of_individuals, number_of_hyperparams)
 # population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -1241,7 +1286,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 #     best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[41]:
+# In[ ]:
 
 
 # #### PLOT FITNESS EVOLUTION ####
@@ -1254,7 +1299,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 # plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
 # #### PLOT HYPERPARAMS EVOLUTION ####
-# FILE_NAME = 'leeds_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
+# FILE_NAME = f"leeds_ga_hyperparams_evolution_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.jpg"
 
 # LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
 
@@ -1266,7 +1311,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 # plt.legend(LEGEND_LABELS)
 # plt.savefig(HYPERPARAMS_EVOLUTON_PATH +  'TEST.jpg', dpi=300)
 
-# FILE_NAME = 'leeds_population_' + MODEL_TIMESTAMP  + '.txt'
+# FILE_NAME = f"leeds_population_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.txt"
 
 # np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
@@ -1275,24 +1320,27 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 
 # #### Carga hiperparámetros
 
-# In[42]:
+# In[ ]:
 
 
-FILE_NAME = 'leeds_hyperparams2022-04-25-23:40:57.json'
+# FILE_NAME = 'leeds_hyperparams2022-04-25-23:40:57.json'
 
-best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
+# best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
-# # # 0.04 2 6.5 --> 0.778
-# # # best_hyperparams = {}
-# # # best_hyperparams['eta'] = 0.73
-# # # best_hyperparams['max_depth'] = 1
-# # # best_hyperparams['min_child_weight'] = 8.4
-# # # best_hyperparams['n_estimators'] = 600
+# # # # 0.04 2 6.5 --> 0.778
+# # # # best_hyperparams = {}
+# # # # best_hyperparams['eta'] = 0.73
+# # # # best_hyperparams['max_depth'] = 1
+# # # # best_hyperparams['min_child_weight'] = 8.4
+# # # # best_hyperparams['n_estimators'] = 600
+
+
+# 1.00e-01 2.00e+00 1.00e+00 5.83e+02 --> 0.72
 
 
 # #### Cálculo de Hiperparámetros
 
-# In[43]:
+# In[ ]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1342,10 +1390,10 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Escritura hiperparámetros
 
-# In[44]:
+# In[ ]:
 
 
-FILE_NAME = 'leeds_hyperparams' + MODEL_TIMESTAMP + '.json'
+FILE_NAME = f"leeds_hyperparams_{MODEL_TIMESTAMP}.json"
 
 write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
 
@@ -1354,7 +1402,7 @@ write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[45]:
+# In[ ]:
 
 
 # FILE_NAME = 'leeds_calculated_weights.json'
@@ -1365,7 +1413,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[47]:
+# In[ ]:
 
 
 from numpy import loadtxt
@@ -1373,8 +1421,8 @@ from xgboost import XGBClassifier,XGBRanker
 from matplotlib import pyplot
 from xgboost import plot_importance
 
-xgboost = XGBClassifier(best_hyperparams,
-                        tree_method = 'gpu_hist')
+xgboost = XGBClassifier(best_hyperparams)
+                        # tree_method = 'gpu_hist')
 
 xgboost.fit(X_train, Y_train)
 
@@ -1465,8 +1513,6 @@ for i in range(0,3):
 array_train_images = np.asarray(train_images)
 array_test_images  = np.asarray(test_images)
 
-
-# 
 
 # In[ ]:
 
@@ -1643,9 +1689,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # plot_TSNE(X_train, Y_train, n_components=3)
 
 
-# ## TASP-CNN
-
-# ### Entrenamiento
+# ## 1D-Convolution
 
 # In[ ]:
 
@@ -1655,6 +1699,24 @@ input_test_shape = (len(array_test_images), 5, 5, 1)
 
 array_train_images.reshape(input_train_shape)
 array_test_images.reshape(input_test_shape)
+
+
+# In[ ]:
+
+
+history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                            batch_size = 128, epochs = 200, shuffle = True,
+                            validation_data = (array_test_images, Y_test_onehot))
+
+
+# ## TASP-CNN
+
+# ### Entrenamiento
+
+# In[ ]:
+
+
+
 
 history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                     batch_size = 128, epochs = 200, shuffle = True,
@@ -2102,7 +2164,6 @@ age_replace = {
     'Desconocido': 5,
 }
 
-### OJO QUE ESTAMOS REPLICANDO LA ESTRUCTURA DEL DATASET DE LEEDS
 # age_replace = {
 #     'Menor de 5 años': 1,
 #     'De 6 a 9 años': 2,
@@ -2495,142 +2556,142 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # }
 
 
-# In[50]:
+# In[ ]:
 
 
-# import xgboost as xgb
-# import random
+import xgboost as xgb
+import random
 
-# Y_train_onehot = casualty_to_one_hot(Y_train)
-# Y_test_onehot  = casualty_to_one_hot(Y_test)
+Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-# Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
-# Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
-
-
-# # number_of_individuals = 60
-# # numberOfParentsMating = 15
-# # number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-# # number_of_generations = 100
-
-# populationSize = (number_of_individuals, number_of_hyperparams)
-# population = initilialize_population(number_of_individuals   = number_of_individuals,
-#                                      hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
-
-# fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
-# populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
-
-# best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
-# populationHistory[0:number_of_individuals,:] = population
+Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
+Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-# xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
-#                               label = Y_train_downsampled)
+# number_of_individuals = 60
+# numberOfParentsMating = 15
+# number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
+# number_of_generations = 100
 
-# xgbDMatrixTest  = xgb.DMatrix(data  = X_test_downsampled, 
-#                               label = Y_test_downsampled)
+populationSize = (number_of_individuals, number_of_hyperparams)
+population = initilialize_population(number_of_individuals   = number_of_individuals,
+                                     hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
 
-# for generation in range(number_of_generations):
+fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
+populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
 
-#     print("This is number %s generation" % (generation))
+best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
+populationHistory[0:number_of_individuals,:] = population
 
-#     new_population = []
+
+xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
+                              label = Y_train_downsampled)
+
+xgbDMatrixTest  = xgb.DMatrix(data  = X_test_downsampled, 
+                              label = Y_test_downsampled)
+
+for generation in range(number_of_generations):
+
+    print("This is number %s generation" % (generation))
+
+    new_population = []
     
-#     unique_individuals = np.unique(population, axis=0)
+    unique_individuals = np.unique(population, axis=0)
     
-#     new_individuals_to_create = number_of_individuals - len(unique_individuals)
+    new_individuals_to_create = number_of_individuals - len(unique_individuals)
     
-#     for i in range(new_individuals_to_create):
-#         new_individual = generate_individual(hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
-#         new_population.append(new_individual)
+    for i in range(new_individuals_to_create):
+        new_individual = generate_individual(hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+        new_population.append(new_individual)
     
-#     new_population = np.array(new_population)
+    new_population = np.array(new_population)
 
-#     if (new_individuals_to_create):
-#         population = np.concatenate((unique_individuals, new_population), axis=0)
+    if (new_individuals_to_create):
+        population = np.concatenate((unique_individuals, new_population), axis=0)
 
-#     # print(f'Current population is {population}')
-#     print(f'New population is {len(new_population)}')
+    # print(f'Current population is {population}')
+    print(f'New population is {len(new_population)}')
     
-#     # Train the dataset and obtain fitness
-#     fitnessValue = train_population(population = population,
-#                                     hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-#                                     dMatrixTrain = xgbDMatrixTrain,
-#                                     dMatrixTest = xgbDMatrixTest,
-#                                     Y_test = Y_test_downsampled)
+    # Train the dataset and obtain fitness
+    fitnessValue = train_population(population = population,
+                                    hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                                    dMatrixTrain = xgbDMatrixTrain,
+                                    dMatrixTest = xgbDMatrixTest,
+                                    Y_test = Y_test_downsampled)
  
-#     fitnessHistory[generation,:] = fitnessValue
+    fitnessHistory[generation,:] = fitnessValue
 
-#     # Best score in the current iteration
-#     max_score_index = np.argmax(fitnessHistory[generation,:])
-#     max_score_value = np.max(fitnessHistory[generation,:])
-#     max_score_solution = population[max_score_index]
+    # Best score in the current iteration
+    max_score_index = np.argmax(fitnessHistory[generation,:])
+    max_score_value = np.max(fitnessHistory[generation,:])
+    max_score_solution = population[max_score_index]
 
-#     max_solution_with_score = []
-#     max_solution_with_score = np.append(max_score_solution, max_score_value)
-#     best_solution_history[generation] = max_solution_with_score
+    max_solution_with_score = []
+    max_solution_with_score = np.append(max_score_solution, max_score_value)
+    best_solution_history[generation] = max_solution_with_score
 
-#     print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
+    print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
     
-#     parents = new_parents_selection(population = population,
-#                                     fitness = fitnessValue,
-#                                     numParents = numberOfParentsMating)
+    parents = new_parents_selection(population = population,
+                                    fitness = fitnessValue,
+                                    numParents = numberOfParentsMating)
     
-#     # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
-#     children = crossover_uniform(parents = parents,
-#                                  childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
+    # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
+    children = crossover_uniform(parents = parents,
+                                 childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
     
-#     # Add mutation to create genetic diversity
-#     children_mutated = mutation(children,
-#                                 hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+    # Add mutation to create genetic diversity
+    children_mutated = mutation(children,
+                                hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
     
-#     '''
-#     We will create new population, which will contain parents that where selected previously based on the
-#     fitness score and rest of them  will be children
-#     '''
-#     population[0:parents.shape[0], :] = parents # Fittest parents
-#     population[parents.shape[0]:, :]  = children_mutated # Children
+    '''
+    We will create new population, which will contain parents that where selected previously based on the
+    fitness score and rest of them  will be children
+    '''
+    population[0:parents.shape[0], :] = parents # Fittest parents
+    population[parents.shape[0]:, :]  = children_mutated # Children
     
-#     populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
+    populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
     
-# #Best solution from the final iteration
+#Best solution from the final iteration
 
-# fitness = train_population(population = population,
-#                            hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-#                            dMatrixTrain = xgbDMatrixTrain,
-#                            dMatrixTest = xgbDMatrixTest,
-#                            Y_test = Y_test_downsampled)
+fitness = train_population(population = population,
+                           hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                           dMatrixTrain = xgbDMatrixTrain,
+                           dMatrixTest = xgbDMatrixTest,
+                           Y_test = Y_test_downsampled)
 
-# fitnessHistory[generation+1, :] = fitness # index of the best solution
-# bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
+fitnessHistory[generation+1, :] = fitness # index of the best solution
+bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
 
-# best_hyperparams = {}
-# for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
-#     best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
+best_hyperparams = {}
+for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
+    best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
-# #### PLOT FITNESS EVOLUTION ####
-# x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
+#### PLOT FITNESS EVOLUTION ####
+x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
-# FILE_NAME = 'madrid_ga_' + MODEL_TIMESTAMP  + '.jpg'
+FILE_NAME = 'madrid_ga_' + MODEL_TIMESTAMP  + '.jpg'
 
-# plt.figure(figsize=(10, 5))
-# plt.plot(np.arange(len(x_fitness)), x_fitness)
-# plt.savefig(GA_SCORES_PATH + FILE_NAME)
+plt.figure(figsize=(10, 5))
+plt.plot(np.arange(len(x_fitness)), x_fitness)
+plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
-# #### PLOT HYPERPARAMS EVOLUTION ####
-# FILE_NAME = 'madrid_ga_hyperparams_evolution_' + MODEL_TIMESTAMP  + '.jpg'
+#### PLOT HYPERPARAMS EVOLUTION ####
+FILE_NAME = f"madrid_ga_hyperparams_evolution_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.jpg"
 
-# LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
+LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
 
-# plt.figure(figsize=(15, 8))
-# plt.plot(best_solution_history)
-# plt.legend(LEGEND_LABELS)
-# plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME, dpi=300)
+plt.figure(figsize=(15, 8))
+plt.plot(best_solution_history)
+plt.legend(LEGEND_LABELS)
+plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME, dpi=300)
 
-# FILE_NAME = 'madrid_population_' + MODEL_TIMESTAMP  + '.txt'
+FILE_NAME = f"madrid_population_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.txt"
 
-# np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
+np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
 # ### Hiperparámetros
@@ -2707,7 +2768,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Escritura hiperparámetros
 
-# In[51]:
+# In[ ]:
 
 
 # FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
