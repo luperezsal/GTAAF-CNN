@@ -1684,7 +1684,7 @@ MODEL_NAME = 'convolution_1d'
 
 
 history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                            batch_size = 128, epochs = 2, shuffle = True,
+                            batch_size = 128, epochs = 100, shuffle = True,
                             validation_data = (array_test_images, Y_test_onehot))
 
 
