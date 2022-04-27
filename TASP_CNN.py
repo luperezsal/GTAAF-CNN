@@ -1400,7 +1400,7 @@ from xgboost import XGBClassifier,XGBRanker
 from matplotlib import pyplot
 from xgboost import plot_importance
 
-xgboost = XGBClassifier(best_hyperparams)
+xgboost = XGBClassifier(best_hyperparams,
                         tree_method = 'gpu_hist')
 
 xgboost.fit(X_train, Y_train)
