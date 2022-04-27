@@ -1723,7 +1723,7 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 
 # F1_SCORE_NAME = f"{F1_SCORES_PATH}/{CONVOLUTION_1D_PATH}/leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-F1_SCORE_PATH = f"{F1_SCORE_PATH}{MODEL_NAME}/"
+F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
 ## Plot history: F1 SCORE
@@ -3123,9 +3123,9 @@ MODEL_NAME = 'convolution_2d'
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                       batch_size = 128, epochs = 100, shuffle = True,
-                       validation_data = (array_test_images, Y_test_onehot))
+history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                             batch_size = 128, epochs = 100, shuffle = True,
+                             validation_data = (array_test_images, Y_test_onehot))
 # history
 
 
@@ -3162,7 +3162,7 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 
 ########################################################################
 
-F1_SCORE_PATH = f"{F1_SCORE_PATH}{MODEL_NAME}/"
+F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"madrid_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
 ## Plot history: F1 SCORE
