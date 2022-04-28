@@ -1745,11 +1745,13 @@ print('Best n_neighbors:', best_model.best_estimator_.get_params()['n_neighbors'
 
 # #### Resultados
 
-# In[265]:
+# In[266]:
 
 
 y_true = tf.argmax(Y_test_onehot, axis=1)
 y_predicted = best_model.predict(X_test)
+
+Y_test_labels = one_hot_to_casualty(Y_test)
 
 ############## SAVE CLASSIFICATION REPORT ##############
 report = classification_report(y_true,
@@ -1769,7 +1771,9 @@ report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
 CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-cm = confusion_matrix(y_true, y_predicted, labels = Y_test.unique())
+cm = confusion_matrix(y_true,
+                      y_predicted,
+                      labels = Y_test.unique())
 
 disp = ConfusionMatrixDisplay(confusion_matrix = cm,
                               display_labels = Y_test_labels.unique()).plot()
@@ -1822,7 +1826,6 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[79]:
 
 
-Y_test_labels = one_hot_to_casualty(Y_test)
 
 y_true = tf.argmax(Y_test_onehot, axis=1)
 y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
