@@ -1675,7 +1675,8 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[198]:
 
 
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+import pickle
 
 
 # ### KNN
@@ -1692,12 +1693,12 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[255]:
 
 
-leaf_size = list(range(1,50))
-n_neighbors = list(range(1,30))
-p = [1,2]
+leaf_size = list(range(1,2))
+n_neighbors = list(range(1,2))
+p = [1]
 
 # Create new KNN object
 hyperparameters = dict(leaf_size = leaf_size,
@@ -1710,7 +1711,7 @@ knn_2 = KNeighborsClassifier()
 # Fit the model
 clf = GridSearchCV(knn_2,
                    hyperparameters,
-                   cv = 10)
+                   cv = 2)
 
 best_model = clf.fit(X_train, Y_train)
 
@@ -1744,63 +1745,36 @@ print('Best n_neighbors:', best_model.best_estimator_.get_params()['n_neighbors'
 
 # #### Resultados
 
-# In[79]:
+# In[265]:
 
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = best_model.predict(X_test)
 
-# # ########################################################################
+############## SAVE CLASSIFICATION REPORT ##############
+report = classification_report(y_true,
+                               y_predicted,
+                               target_names = Y_test_labels.unique(),
+                               output_dict = True)
 
-# # F1_SCORE_NAME = f"{F1_SCORES_PATH}/{CONVOLUTION_1D_PATH}/leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
-# ## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-# plt.show()
 
-# print(history)
+############## SAVE CONFUSION MATRIX ##############
 
-# # ########################################################################
-# print("[INFO] evaluating network...")
-# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-# report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-#                                predictions.argmax(axis=1),
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+cm = confusion_matrix(y_true, y_predicted, labels = Y_test.unique())
 
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+disp = ConfusionMatrixDisplay(confusion_matrix = cm,
+                              display_labels = Y_test_labels.unique()).plot()
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
-
-# display(report_df)
-
-# ############## SAVE CONFUSION MATRIX ##############
-# from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
-
-# y_true = tf.argmax(Y_test_onehot, axis=1)
-# y_predicted = predictions.argmax(axis=1)
-
-# cm = confusion_matrix(y_true, y_predicted, labels = Y_test.unique())
-
-# disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-#                               display_labels = Y_test_labels.unique()).plot()
-
-# plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 
 
 # ### Convolution 1D
@@ -1848,13 +1822,12 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[79]:
 
 
-from sklearn.metrics import classification_report
-
 Y_test_labels = one_hot_to_casualty(Y_test)
 
-# ########################################################################
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
 
-# F1_SCORE_NAME = f"{F1_SCORES_PATH}/{CONVOLUTION_1D_PATH}/leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+############## SAVE CLASSIFICATION REPORT ##############
 
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
@@ -1876,8 +1849,8 @@ print(history)
 print("[INFO] evaluating network...")
 predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-                               predictions.argmax(axis=1),
+report = classification_report(y_true,
+                               y_predicted,
                                target_names = Y_test_labels.unique(),
                                output_dict = True)
 
@@ -1898,7 +1871,9 @@ CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}
 y_true = tf.argmax(Y_test_onehot, axis=1)
 y_predicted = predictions.argmax(axis=1)
 
-cm = confusion_matrix(y_true, y_predicted, labels = Y_test.unique())
+cm = confusion_matrix(y_true,
+                      y_predicted,
+                      labels = Y_test.unique())
 
 disp = ConfusionMatrixDisplay(confusion_matrix = cm,
                               display_labels = Y_test_labels.unique()).plot()
@@ -1954,11 +1929,12 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[87]:
 
 
-from sklearn.metrics import classification_report
-
 Y_test_labels = one_hot_to_casualty(Y_test)
 
-# ########################################################################
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
+
+############## SAVE CLASSIFICATION REPORT ##############
 
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
@@ -1982,8 +1958,8 @@ print(history)
 print("[INFO] evaluating network...")
 predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-                               predictions.argmax(axis=1),
+report = classification_report(y_true,
+                               y_predicted,
                                target_names = Y_test_labels.unique(),
                                output_dict = True)
 
@@ -2004,7 +1980,9 @@ CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}
 y_true = tf.argmax(Y_test_onehot, axis=1)
 y_predicted = predictions.argmax(axis=1)
 
-cm = confusion_matrix(y_true, y_predicted, labels = Y_test.unique())
+cm = confusion_matrix(y_true,
+                      y_predicted,
+                      labels = Y_test.unique())
 
 disp = ConfusionMatrixDisplay(confusion_matrix = cm,
                               display_labels = Y_test_labels.unique()).plot()
