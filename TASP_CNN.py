@@ -1698,9 +1698,9 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# leaf_size = list(range(1,10, 2))
-# n_neighbors = list(range(1,100, 10))
-# p = [1, 2]
+leaf_size = list(range(1,10, 2))
+n_neighbors = list(range(1,100, 10))
+p = [1, 2]
 
 # # Create new KNN object
 # hyperparameters = dict(leaf_size = leaf_size,
@@ -3265,8 +3265,10 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-leaf_size = list(range(1,10, 2))
-n_neighbors = list(range(1,100, 10))
+# leaf_size = list(range(1,10, 2))
+# n_neighbors = list(range(1,100, 10))
+# p = [1, 2]
+
 # Create new KNN object
 hyperparameters = dict(leaf_size = leaf_size,
                        n_neighbors = n_neighbors,
