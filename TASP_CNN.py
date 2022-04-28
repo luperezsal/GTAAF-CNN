@@ -1696,8 +1696,8 @@ MODEL_NAME = MODELS_NAME[0]
 # In[69]:
 
 
-leaf_size = list(range(1,30))
-n_neighbors = list(range(1,50))
+leaf_size = list(range(1,3))
+n_neighbors = list(range(1,4))
 p = [1, 2]
 
 # Create new KNN object
@@ -1706,12 +1706,12 @@ hyperparameters = dict(leaf_size = leaf_size,
                        p = p)
 
 # Use GridSearch
-knn_2 = KNeighborsClassifier()
+knn_2 = KNeighborsClassifier(n_jobs=-1)
 
 # Fit the model
 clf = GridSearchCV(knn_2,
                    hyperparameters,
-                   cv = 10)
+                   cv = 3)
 
 knn = clf.fit(X_train, Y_train)
 
@@ -3247,23 +3247,23 @@ MODEL_NAME = MODELS_NAME[0]
 # In[132]:
 
 
-from dask_cuda import LocalCUDACluster
+# from dask_cuda import LocalCUDACluster
 
-# Create a Dask single-node CUDA cluster w/ one worker per device
-cluster = LocalCUDACluster(protocol="ucx",
-                           enable_tcp_over_ucx=True,
-                           enable_nvlink=True,
-                           enable_infiniband=False)
+# # Create a Dask single-node CUDA cluster w/ one worker per device
+# cluster = LocalCUDACluster(protocol="ucx",
+#                            enable_tcp_over_ucx=True,
+#                            enable_nvlink=True,
+#                            enable_infiniband=False)
 
-from dask.distributed import Client
-client = Client(cluster)
+# from dask.distributed import Client
+# client = Client(cluster)
 
 
 # In[128]:
 
 
-leaf_size = list(range(1,15))
-n_neighbors = list(range(1,20))
+leaf_size = list(range(1,3))
+n_neighbors = list(range(1,4))
 p = [1, 2]
 
 # Create new KNN object
@@ -3277,7 +3277,7 @@ knn_2 = KNeighborsClassifier(n_jobs=-1)
 # Fit the model
 clf = GridSearchCV(knn_2,
                    hyperparameters,
-                   cv = 5)
+                   cv = 3)
 
 knn = clf.fit(X_train, Y_train)
 
