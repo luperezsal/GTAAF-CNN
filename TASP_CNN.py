@@ -363,7 +363,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
         fitness_score = fitness_f1score(Y_test, single_predictions)
 
-        # print(f"{individual_index}: {hyperparams} --> time(s): {round(end - start, 2)} --> score: {fitness_score}")
+        print(f"{individual_index}: {hyperparams} --> time(s): {round(end - start, 2)} --> score: {fitness_score}")
 
         fScore.append(fitness_score)
 
