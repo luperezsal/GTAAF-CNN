@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[89]:
+# In[249]:
 
 
 from datetime import datetime
@@ -43,7 +43,9 @@ FINAL_POPULATION_PATH = './population/'
 CONFUSIONS_MATRIX_PATH = 'confusion_matrix/'
 
 ###### MODELS ######
-CONVOLUTION_1D_PATH = '1d_convolution/'
+MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d']
+
+REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
 
 # ## Importar Tensorflow
@@ -1685,7 +1687,7 @@ from sklearn.metrics import classification_report
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
 
-MODEL_NAME = 'knn'
+MODEL_NAME = MODELS_NAME[0]
 
 
 # #### Entrenamiento
@@ -1693,29 +1695,29 @@ MODEL_NAME = 'knn'
 # In[ ]:
 
 
-# leaf_size = list(range(1,50))
-# n_neighbors = list(range(1,30))
-# p = [1,2]
+leaf_size = list(range(1,50))
+n_neighbors = list(range(1,30))
+p = [1,2]
 
-# # Create new KNN object
-# hyperparameters = dict(leaf_size = leaf_size,
-#                        n_neighbors = n_neighbors,
-#                        p = p)
+# Create new KNN object
+hyperparameters = dict(leaf_size = leaf_size,
+                       n_neighbors = n_neighbors,
+                       p = p)
 
-# # Use GridSearch
-# knn_2 = KNeighborsClassifier()
+# Use GridSearch
+knn_2 = KNeighborsClassifier()
 
-# # Fit the model
-# clf = GridSearchCV(knn_2,
-#                    hyperparameters,
-#                    cv = 10)
+# Fit the model
+clf = GridSearchCV(knn_2,
+                   hyperparameters,
+                   cv = 10)
 
-# best_model = clf.fit(X_train, Y_train)
+best_model = clf.fit(X_train, Y_train)
 
-# # Print The value of best Hyperparameters
-# print('Best leaf_size:', best_model.best_estimator_.get_params()['leaf_size'])
-# print('Best p:', best_model.best_estimator_.get_params()['p'])
-# print('Best n_neighbors:', best_model.best_estimator_.get_params()['n_neighbors'])
+# Print The value of best Hyperparameters
+print('Best leaf_size:', best_model.best_estimator_.get_params()['leaf_size'])
+print('Best p:', best_model.best_estimator_.get_params()['p'])
+print('Best n_neighbors:', best_model.best_estimator_.get_params()['n_neighbors'])
 
 
 # #### Escritura del modelo
@@ -1806,7 +1808,7 @@ MODEL_NAME = 'knn'
 # In[70]:
 
 
-MODEL_NAME = 'convolution_1d'
+MODEL_NAME = MODELS_NAME[1]
 
 
 # #### Entrenamiento
@@ -1909,7 +1911,7 @@ plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 # In[ ]:
 
 
-MODEL_NAME = 'convolution_2d'
+MODEL_NAME = MODELS_NAME[2]
 
 
 # #### Entrenamiento
@@ -3246,7 +3248,7 @@ array_test_images  = array_test_images.reshape(input_test_shape)
 # In[ ]:
 
 
-MODEL_NAME = 'convolution_1d'
+MODEL_NAME = MODELS_NAME[1]
 
 
 # #### Entrenamiento
@@ -3350,7 +3352,7 @@ plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 # In[ ]:
 
 
-MODEL_NAME = 'convolution_2d'
+MODEL_NAME = MODELS_NAME[2]
 
 
 # #### Entrenamiento
@@ -3453,4 +3455,70 @@ plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 
 
 # tasp_cnn.save(root_path + 'madrid_model_XGBOOST_predicted.h5')
+
+
+# # Data Summary
+
+# In[251]:
+
+
+# MODEL_TIMESTAMP
+
+# WEIGHTS_PATH  = './feature_weights/'
+# REPORTS_PATH  = 'Reports/'
+# MODELS_PATH   = 'Models/'
+# F1_SCORES_PATH = 'F1scores/'
+# GA_SCORES_PATH = 'GA_Scores/'
+# HYPERPARAMS_PATH = './hyperparams/'
+
+# HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution/'
+# FINAL_POPULATION_PATH = './population/'
+# CONFUSIONS_MATRIX_PATH = 'confusion_matrix/'
+
+# ###### MODELS ######
+# MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d']
+# DATA_PATHS = [REPORTS_PATH]
+
+from os.path import exists
+
+MODEL_TIMESTAMP = '2022-04-27-22:41:52'
+
+reports_summary = pd.DataFrame()
+
+cities = ['leeds', 'madrid']
+
+models_renaming = {'knn': 'knn',
+                   'convolution_1d': '1c',
+                   'convolution_2d': '2c'}
+
+for model_name in MODELS_NAME:
+    
+    REPORT_PATH = f"{REPORTS_PATH}{model_name}/"
+
+    for city in cities:
+        REPORT_NAME  = f"{city}_{model_name}_report_{MODEL_TIMESTAMP}.csv"
+
+        if exists(REPORT_PATH + REPORT_NAME):
+            report = pd.read_csv(REPORT_PATH + REPORT_NAME, index_col=[0])
+            report.insert(0, 'city', city[0])
+            report.insert(1, 'model', models_renaming[model_name])
+            
+            reports_summary = pd.concat([reports_summary, report])
+
+reports_summary = reports_summary.sort_values(['city', 'model'], ascending = [True, True])
+
+c_m = reports_summary['city'] + '_' + reports_summary['model']
+reports_summary.insert(0, 'c_m', c_m)
+
+reports_summary.drop(['city', 'model'], axis=1, inplace = True)
+
+SAVE_PATH =  f"{REPORTS_SUMMARY_PATH}{MODEL_TIMESTAMP}.csv"
+
+reports_summary.to_csv(SAVE_PATH, index= True)
+
+
+# In[222]:
+
+
+
 
