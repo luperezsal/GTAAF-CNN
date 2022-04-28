@@ -1167,10 +1167,10 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 # Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-# number_of_individuals = 100
-# numberOfParentsMating = 35
-# number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-# number_of_generations = 100
+number_of_individuals = 100
+numberOfParentsMating = 35
+number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
+number_of_generations = 100
 
 # populationSize = (number_of_individuals, number_of_hyperparams)
 # population = initilialize_population(number_of_individuals   = number_of_individuals,
