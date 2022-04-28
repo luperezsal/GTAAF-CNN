@@ -1706,7 +1706,7 @@ hyperparameters = dict(leaf_size = leaf_size,
                        p = p)
 
 # Use GridSearch
-knn_2 = KNeighborsClassifier(n_jobs=-1)
+knn_2 = KNeighborsClassifier()
 
 # Fit the model
 clf = GridSearchCV(knn_2,
@@ -3272,7 +3272,7 @@ hyperparameters = dict(leaf_size = leaf_size,
                        p = p)
 
 # Use GridSearch
-knn_2 = KNeighborsClassifier(n_jobs=-1)
+knn_2 = KNeighborsClassifier()
 
 # Fit the model
 clf = GridSearchCV(knn_2,
