@@ -1306,7 +1306,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 # In[42]:
 
 
-FILE_NAME = 'leeds_hyperparams2022-04-15-17:10:57.json '
+FILE_NAME = 'leeds_hyperparams2022-04-15-17:10:57.json'
 
 best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
