@@ -1874,7 +1874,7 @@ REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 report_df = pd.DataFrame(report).transpose()
 report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
-display(report_df)
+# display(report_df)
 
 ############## SAVE CONFUSION MATRIX ##############
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -1983,7 +1983,7 @@ REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 report_df = pd.DataFrame(report).transpose()
 report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
-display(report_df)
+# display(report_df)
 
 ############## SAVE CONFUSION MATRIX ##############
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -3012,7 +3012,7 @@ for column, weight in zip(X_train.columns,xgboost.feature_importances_):
 
 child_weights  = np.array(xgboost.feature_importances_)
 feature_vector = fill_feature_vector(X_train, child_weights)
-display(feature_vector)
+# display(feature_vector)
 
 
 # #### Escritura de pesos de características
@@ -3444,7 +3444,7 @@ REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 report_df = pd.DataFrame(report).transpose()
 report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
-display(report_df)
+# display(report_df)
 
 ############## SAVE CONFUSION MATRIX ##############
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -3548,7 +3548,7 @@ REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 report_df = pd.DataFrame(report).transpose()
 report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
-display(report_df)
+# display(report_df)
 
 ############## SAVE CONFUSION MATRIX ##############
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
