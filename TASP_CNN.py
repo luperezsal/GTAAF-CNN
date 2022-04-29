@@ -1375,9 +1375,9 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 # In[381]:
 
 
-FILE_NAME = f"leeds_hyperparams_{MODEL_TIMESTAMP}.json"
+# FILE_NAME = f"leeds_hyperparams_{MODEL_TIMESTAMP}.json"
 
-write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
 
 
 # ### Pesos de características
@@ -1702,25 +1702,29 @@ leaf_size = list(range(1,10, 2))
 n_neighbors = list(range(1,100, 10))
 p = [1, 2]
 
-# # Create new KNN object
-# hyperparameters = dict(leaf_size = leaf_size,
-#                        n_neighbors = n_neighbors,
-#                        p = p)
 
-# # Use GridSearch
-# knn_2 = KNeighborsClassifier()
+# In[ ]:
 
-# # Fit the model
-# clf = GridSearchCV(knn_2,
-#                    hyperparameters,
-#                    cv = 10)
 
-# knn = clf.fit(X_train, Y_train)
+# Create new KNN object
+hyperparameters = dict(leaf_size = leaf_size,
+                       n_neighbors = n_neighbors,
+                       p = p)
 
-# # Print The value of best Hyperparameters
-# print('Best leaf_size:', knn.best_estimator_.get_params()['leaf_size'])
-# print('Best p:', knn.best_estimator_.get_params()['p'])
-# print('Best n_neighbors:', knn.best_estimator_.get_params()['n_neighbors'])
+# Use GridSearch
+knn_2 = KNeighborsClassifier()
+
+# Fit the model
+clf = GridSearchCV(knn_2,
+                   hyperparameters,
+                   cv = 10)
+
+knn = clf.fit(X_train, Y_train)
+
+# Print The value of best Hyperparameters
+print('Best leaf_size:', knn.best_estimator_.get_params()['leaf_size'])
+print('Best p:', knn.best_estimator_.get_params()['p'])
+print('Best n_neighbors:', knn.best_estimator_.get_params()['n_neighbors'])
 
 
 # #### Escritura del modelo
@@ -1755,37 +1759,37 @@ p = [1, 2]
 # In[ ]:
 
 
-# y_true = tf.argmax(Y_test_onehot, axis=1)
-# y_predicted = knn.predict(X_test)
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = knn.predict(X_test)
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
+Y_test_labels = one_hot_to_casualty(Y_test)
 
-# ############## SAVE CLASSIFICATION REPORT ##############
-# report = classification_report(y_true,
-#                                y_predicted,
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+############## SAVE CLASSIFICATION REPORT ##############
+report = classification_report(y_true,
+                               y_predicted,
+                               target_names = Y_test_labels.unique(),
+                               output_dict = True)
 
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
 
-# ############## SAVE CONFUSION MATRIX ##############
+############## SAVE CONFUSION MATRIX ##############
 
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-# cm = confusion_matrix(y_true,
-#                       y_predicted,
-#                       labels = Y_test.unique())
+cm = confusion_matrix(y_true,
+                      y_predicted,
+                      labels = Y_test.unique())
 
-# disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-#                               display_labels = Y_test_labels.unique()).plot()
+disp = ConfusionMatrixDisplay(confusion_matrix = cm,
+                              display_labels = Y_test_labels.unique()).plot()
 
-# plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 
 
 # ### Convolution 1D
@@ -1801,9 +1805,9 @@ MODEL_NAME = MODELS_NAME[1]
 # In[ ]:
 
 
-# history = convolution_1d.fit(array_train_images, Y_train_onehot,
-#                             batch_size = 128, epochs = 100, shuffle = True,
-#                             validation_data = (array_test_images, Y_test_onehot))
+history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                            batch_size = 128, epochs = 100, shuffle = True,
+                            validation_data = (array_test_images, Y_test_onehot))
 
 
 # #### Escritura del modelo
@@ -1811,10 +1815,10 @@ MODEL_NAME = MODELS_NAME[1]
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -1834,61 +1838,61 @@ MODEL_NAME = MODELS_NAME[1]
 
 
 
-# y_true = tf.argmax(Y_test_onehot, axis=1)
-# y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
 
-# ############## SAVE CLASSIFICATION REPORT ##############
+############## SAVE CLASSIFICATION REPORT ##############
 
-# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# ## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-# plt.show()
+## Plot history: F1 SCORE
+figure_name = plt.figure(figsize=(20, 10))
+plt.plot(history.history['f1_score'], label='F1 score (training data)')
+plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+plt.title('F1 score')
+plt.ylabel('F1 score value')
+plt.xlabel('No. epoch')
+plt.legend(loc="upper left")
+plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
+plt.show()
 
-# print(history)
+print(history)
 
-# # ########################################################################
-# print("[INFO] evaluating network...")
-# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+# ########################################################################
+print("[INFO] evaluating network...")
+predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-# report = classification_report(y_true,
-#                                y_predicted,
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+report = classification_report(y_true,
+                               y_predicted,
+                               target_names = Y_test_labels.unique(),
+                               output_dict = True)
 
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
-# display(report_df)
+display(report_df)
 
-# ############## SAVE CONFUSION MATRIX ##############
-# from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+############## SAVE CONFUSION MATRIX ##############
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-# y_true = tf.argmax(Y_test_onehot, axis=1)
-# y_predicted = predictions.argmax(axis=1)
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = predictions.argmax(axis=1)
 
-# cm = confusion_matrix(y_true,
-#                       y_predicted,
-#                       labels = Y_test.unique())
+cm = confusion_matrix(y_true,
+                      y_predicted,
+                      labels = Y_test.unique())
 
-# disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-#                               display_labels = Y_test_labels.unique()).plot()
+disp = ConfusionMatrixDisplay(confusion_matrix = cm,
+                              display_labels = Y_test_labels.unique()).plot()
 
-# plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 
 
 # ### Convolution 2D
@@ -1904,11 +1908,11 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-#                     batch_size = 128, epochs = 100, shuffle = True,
-#                     validation_data = (array_test_images, Y_test_onehot))
+history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                    batch_size = 128, epochs = 100, shuffle = True,
+                    validation_data = (array_test_images, Y_test_onehot))
 
-# # history
+# history
 
 
 # #### Escritura del modelo
@@ -1916,10 +1920,10 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -1939,65 +1943,65 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
+Y_test_labels = one_hot_to_casualty(Y_test)
 
-# y_true = tf.argmax(Y_test_onehot, axis=1)
-# y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
 
-# ############## SAVE CLASSIFICATION REPORT ##############
+############## SAVE CLASSIFICATION REPORT ##############
 
-# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# ## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-# plt.show()
+## Plot history: F1 SCORE
+figure_name = plt.figure(figsize=(20, 10))
+plt.plot(history.history['f1_score'], label='F1 score (training data)')
+plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+plt.title('F1 score')
+plt.ylabel('F1 score value')
+plt.xlabel('No. epoch')
+plt.legend(loc="upper left")
+plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
+plt.show()
 
-# print(history)
+print(history)
 
-# # ########################################################################
+# ########################################################################
 
-# # evaluate the network
-# print("[INFO] evaluating network...")
-# predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
+# evaluate the network
+print("[INFO] evaluating network...")
+predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
 
-# report = classification_report(y_true,
-#                                y_predicted,
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+report = classification_report(y_true,
+                               y_predicted,
+                               target_names = Y_test_labels.unique(),
+                               output_dict = True)
 
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
-# display(report_df)
+display(report_df)
 
-# ############## SAVE CONFUSION MATRIX ##############
-# from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+############## SAVE CONFUSION MATRIX ##############
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-# y_true = tf.argmax(Y_test_onehot, axis=1)
-# y_predicted = predictions.argmax(axis=1)
+y_true = tf.argmax(Y_test_onehot, axis=1)
+y_predicted = predictions.argmax(axis=1)
 
-# cm = confusion_matrix(y_true,
-#                       y_predicted,
-#                       labels = Y_test.unique())
+cm = confusion_matrix(y_true,
+                      y_predicted,
+                      labels = Y_test.unique())
 
-# disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-#                               display_labels = Y_test_labels.unique()).plot()
+disp = ConfusionMatrixDisplay(confusion_matrix = cm,
+                              display_labels = Y_test_labels.unique()).plot()
 
-# plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 
 
 # # Madrid Data
@@ -2953,10 +2957,10 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 # In[406]:
 
 
-FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
+# FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-print(best_hyperparams)
+# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+# print(best_hyperparams)
 
 
 # ### Pesos de características
