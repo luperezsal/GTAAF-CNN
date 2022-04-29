@@ -1167,10 +1167,10 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 # Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
 
 
-number_of_individuals = 100
-numberOfParentsMating = 35
-number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 100
+# number_of_individuals = 100
+# numberOfParentsMating = 35
+# number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
+# number_of_generations = 100
 
 # populationSize = (number_of_individuals, number_of_hyperparams)
 # population = initilialize_population(number_of_individuals   = number_of_individuals,
@@ -1306,7 +1306,7 @@ number_of_generations = 100
 # In[379]:
 
 
-FILE_NAME = 'leeds_hyperparams2022-04-15-17:10:57.json'
+FILE_NAME = 'leeds_hyperparams_2022-04-28-19:07:55.json'
 
 best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
@@ -2738,7 +2738,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # }
 
 
-# In[ ]:
+# In[405]:
 
 
 # import xgboost as xgb
@@ -2885,7 +2885,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # In[ ]:
 
 
-FILE_NAME = 'madrid_hyperparams2022-04-22-11:55:16.json'
+FILE_NAME = 'madrid_hyperparams2022-04-28-19:07:55.json'
 
 best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
@@ -2950,13 +2950,13 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Escritura hiperparámetros
 
-# In[ ]:
+# In[406]:
 
 
-# FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
+FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
 
-# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-# print(best_hyperparams)
+write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+print(best_hyperparams)
 
 
 # ### Pesos de características
