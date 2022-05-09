@@ -39,7 +39,7 @@ GA_SCORES_PATH = 'GA_Scores/'
 HYPERPARAMS_PATH = './hyperparams/'
 
 HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution/'
-FINAL_POPULATION_PATH = './population/'
+FINAL_POPULATION_PATH  = './population/'
 CONFUSIONS_MATRIX_PATH = 'confusion_matrix/'
 
 ###### MODELS ######
@@ -653,7 +653,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
     # z_test = TSNE(n_components=2).fit_transform(X_test_scaled),
 
     palette = sns.color_palette('husl', 3)
-    fig,ax  = plt.subplots(1,1,figsize=(15,10))
+    fig,ax  = plt.subplots(1, 1, figsize=(15,10))
     sns.scatterplot(x = z_data[:,0],
                     y = z_data[:,1],
                     hue = Y_data,
@@ -1016,8 +1016,8 @@ serious_data = test[test['Casualty Severity'] == 'Serious']
 fatal_data   = test[test['Casualty Severity'] == 'Fatal']
 
 X_slight_downsampled  = resample(slight_data,
-                                replace = True,
-                                n_samples = len(fatal_data))
+                                 replace = True,
+                                 n_samples = len(fatal_data))
 
 X_serious_downsampled = resample(serious_data,
                                  replace = True,
@@ -1699,8 +1699,8 @@ MODEL_NAME = MODELS_NAME[0]
 
 
 leaf_size = list(range(1,10, 2))
-n_neighbors = list(range(1,100, 10))
-p = [1, 2]
+n_neighbors = list(range(1,25, 5))
+p = [1, 2, 3]
 
 
 # In[ ]:
@@ -1717,14 +1717,25 @@ knn_2 = KNeighborsClassifier()
 # Fit the model
 clf = GridSearchCV(knn_2,
                    hyperparameters,
-                   cv = 10)
+                   cv = 5)
 
 knn = clf.fit(X_train, Y_train)
 
 # Print The value of best Hyperparameters
-print('Best leaf_size:', knn.best_estimator_.get_params()['leaf_size'])
-print('Best p:', knn.best_estimator_.get_params()['p'])
-print('Best n_neighbors:', knn.best_estimator_.get_params()['n_neighbors'])
+
+best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
+best_p = knn.best_estimator_.get_params()['p']
+best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
+
+print('Best leaf_size:', best_leaf_size)
+print('Best p:', best_p)
+print('Best n_neighbors:', best_n_neighbors)
+
+df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'p':[best_p]})
+
+FILE_NAME = f"{MODEL_NAME}/leeds_{MODEL_TIMESTAMP}.csv"
+
+df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
 
 # #### Escritura del modelo
@@ -3284,14 +3295,26 @@ knn_2 = KNeighborsClassifier()
 # Fit the model
 clf = GridSearchCV(knn_2,
                    hyperparameters,
-                   cv = 10)
+                   cv = 4)
 
+knn = clf.fit(X_train, Y_train)
 knn = clf.fit(X_train, Y_train)
 
 # Print The value of best Hyperparameters
-print('Best leaf_size:', knn.best_estimator_.get_params()['leaf_size'])
-print('Best p:', knn.best_estimator_.get_params()['p'])
-print('Best n_neighbors:', knn.best_estimator_.get_params()['n_neighbors'])
+
+best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
+best_p = knn.best_estimator_.get_params()['p']
+best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
+
+print('Best leaf_size:', best_leaf_size)
+print('Best p:', best_p)
+print('Best n_neighbors:', best_n_neighbors)
+
+df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'p':[best_p]})
+
+FILE_NAME = f"{MODEL_NAME}/leeds_{MODEL_TIMESTAMP}.csv"
+
+df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
 
 # #### Escritura del modelo
@@ -3638,10 +3661,10 @@ reports_summary.insert(0, 'accident_type', reports_summary.index)
 
 import seaborn as sns
 
-MEASURE_TYPES = ['precision', 'recall', 'f1-score']
+MEASURE_TYPES  = ['precision', 'recall', 'f1-score']
 ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
-fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities))
+fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,10))
 
 leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
 madrid_reports_summary = reports_summary[reports_summary['city'] == 'madrid']
