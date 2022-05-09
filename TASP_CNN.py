@@ -3312,7 +3312,7 @@ print('Best n_neighbors:', best_n_neighbors)
 
 df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'p':[best_p]})
 
-FILE_NAME = f"{MODEL_NAME}/leeds_{MODEL_TIMESTAMP}.csv"
+FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
 
 df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
