@@ -13,9 +13,9 @@
         A continuación se presentarán los modelos con los que se ha experimentado para resolver este problema. 
 
         \subsection {Algoritmos Genéticos}
-            Un \textit{Algoritmo Genético}, o \textit{Genetic Algorithm (GA)} es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema mediante la evolución de un conjunto de soluciones denominadas individuos.
+            Un \textit{Algoritmo Genético}, o \textit{Genetic Algorithm (GA)}, es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema mediante la evolución de un conjunto de soluciones denominadas individuos.
 
-            El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación actual para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan (adaptación al medio) mediante una función heurística.
+            El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación correspondiente para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan (adaptación al medio) mediante una función heurística.
 
             Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar el espacio de búsqueda.
 
@@ -23,6 +23,7 @@
             
             \begin{enumerate}
                 \item Inicialización de la Población:
+
                         En primer lugar es necesario generar los \textit{n} individuos de la población aleatoriamente. Cada uno de estos individuos está formado por el conjunto de parámetros que son objeto de optimización \ref{InitialPopulation}.
 
                         \begin{figure}[h]
@@ -33,9 +34,11 @@
                         \end{figure}
 
                 \item Evaluación de Población:
+
                         Es la primera fase del proceso iterativo del algoritmo genético. En él, cada uno de los individuos pertenecientes a la población son evaluados mediante la función \textit{fitness} para obtener el \textit{score} de cada individuo de la población actual.
 
                 \item Selección de Padres:
+
                         Una vez evaluados los individuos de la población, se procede a seleccionar aquellos padres que mejor \textit{score} han obtenido para crear nuevas soluciones a partir de éstos. Existen distintas técnicas de selección, como por ejemplo escoger aquellos \textit{n} mejores padres de la población o técnicas basadas en métodos probabilísticos, para que aquellos individuos que menos puntuación logren, tengan alguna probabilidad de ser elegidos para la generación de nuevas soluciones. Este tipo de técnicas se utilizan para aumentar la diversidad en la pobĺación y evitar caer en soluciones acotadas a mínimos locales del problema. Se puede ver el proceso de cómo son seleccionados los padres en función de su \textit{fitness} en la figura \ref{FitnessFunction}.
 
                         \begin{figure}[h]
@@ -46,6 +49,7 @@
                         \end{figure}
 
                 \item Cruzamiento:
+
                         Una vez seleccionados los padres es necesario que intercambien información entre ellos para dar lugar a nuevos individuos, este proceso de herencia de información es posible realizarlo aplicando distintas filosofías; seleccionar un punto o posición de cruzamiento a lo largo del vector de los padres y combinar ambos padres, o escoger aleatoriamente las posiciones de los parámetros de ambos padres y se combinen para dar lugar a la solución generada \ref{ParentsMatingMutation}.
 
                         \begin{figure}[h]
@@ -56,21 +60,62 @@
                         \end{figure}
 
                 \item Mutación:
+
                         Cuando los padres seleccionados son combinados para dar lugar a los candidatos de la nueva generación, es importante aplicar un proceso de mutación entre éstos debido a la necesidad de generar diversidad en la población. Si se combina la misma información entre generaciones, se corre el riesgo de converger prematuramente a un mínimo local del espacio de búsqueda. Por este motivo se introduce el concepto de mutación, que consiste en aplicar una modificación aleatoria sobre alguno de los parámetros de los individuos generados para poder ampliar el espacio de soluciones. 
             \end{enumerate}
 
             Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada, como establecer un umbral mínimo del \textit{score} de las soluciones, o fijar un número específico de iteraciones que se ejecutarán en el algoritmo.
 
 
-            ¿Citar parámetros?
+            A continuación enumeraremos los parámetros con los que configurar un algoritmo genético. Dependiendo del tipo de algoritmo utilizado es posible encontrar distintos parámetros con los que inicializar el algoritmo, sin embargo estos son los más extendidos:
+
+
+            \begin{itemize}
+
+                \item Tamaño de la población:
+
+                Ees el número de individuos que sobrevivirán entre iteraciones, es decir, los individuos que se tratarán de mejorar a lo largo de las ejecuciones. En los experimentos de este trabajo Sección 5 se han inicializado 100 individuos, cada uno de ellos con 4 hiperparámetros del algoritmoo \textit{XGBoost} a optimizar.
+
+                \item Número de iteraciones:
+
+                Es el número generaciones que evolucionarán en el algoritmo. Habitualmente un mayor número de iteraciones permite una mayor precisión de los resultados a costa de invertir recursos computacionales, debido a que existen mayores probabilidades de que los individuos evolucionen. En los experimentos se han usado el mismo número de iteraciones para cada uno de los algoritmos. Esto provoca que el tiempo de ejecución entre algoritmos varíe debido a su propia naturaleza.
+
+                \item Probabilidad de cruce:
+
+                Probabilidad con la que dos padres intercambian su información entre sí para dar lugar a un nuevo individuo hijo.
+
+                \item Probabilidad de mutación:
+
+                Indica la probabilidad con la que cada hiperparámetro puede variar su valor, es decir, con una probabilidad de 0.5, cada hiperparámetro de un individuo hijo tiene un 50 por ciento de probabilidades de modificar su valor. Se establece además un rango de posibles valores en los cuales un párámetro de un individuo puede mutar, es decir, se definen unos valores máximos y mínimos en los que el parámetro mutará y se escoge un valor aleatorio dentro del rango. De esta forma si muta un mismo parámetro para varios individuos de la generación, esta condición se asegurará de que las variaciones aplicadas a cada uno de ellos estén controladas y sean distintas para cada uno de ellos.
+
+            \end{itemize}
 
 
         \subsection {XGBoost}
 
             
-            Extreme Gradient Boosting Algortihm o \textit{XGBoost} \citep{XGBoostTutorial} \cite{Hubel1968} es una libería open-source que implementa ...
+            Extreme Gradient Boosting Algortihm o \textit{XGBoost} es una libería open-source que implementa . Se trata de uno de los algoritmos más importantes de los últimos años, logrando un rendimiento diez veces mayor a otras soluciones populares en una misma máquina y llegando a las primeras posiciones en numerosos retos propuestos en \textit{Kaggle} \citep{XGBoostTutorial}.
 
-            Pertenece a la familia Ensemble de los algoritmo de ML, que se basan en la construcción de un modelo predictivo mediante la combinación múltiple de otros modelos. XGBoost implementa el algoritmo  que provee de múltiples árboles de decisión
+            XGBoost se basa en los modelos \textit{Ensemble Boosting} de los algoritmos de \textit{ML}, de ahí su nombre \textit{Gradient Boosting}. La técnica \textit{Boosting} se basa en construir un modelo robusto (\textit{strong learner}) combinando una serie de modelos débiles (\textit{weak learners}).
+
+
+
+
+            https://www.nvidia.com/en-us/glossary/data-science/xgboost/
+
+
+            
+            ------------------------------------------------
+
+            Estos construyen un modelo predictivo mediante la combinación de otros modelos, la salida al predecir una muestra por el Ensemble será la combinación de la predicción de cada uno de los modelos individuales, y sobre sus resultados se pueden aplicar distintas estrategias para escoger la predicción agregada de éstos.
+
+            \textit{XGBoost} implementa en su arquitectura \textit{Ensemble Boosting} una serie de Árboles de Decisión, cada uno de los cuales 
+
+            -----------------------------------------------
+
+            Además, \textit{XGBoost} aplica técnicas de regularización en su función de pérdida, de tal forma que reduce la influencia individual de cada árbol generado y de sus hojas para poder dar lugar a posteriores árboles que consigan mejorar el modelo, evitando de esta manera el sobreajuste u \textit{overfitting}.
+
+
 
         \subsection {Redes Neuronales Convolucionales (CNN)}
 
@@ -78,9 +123,9 @@
 
             Para entrenar a una \textit{CNN} es necesario hacerlo mediante ejemplos etiquetados, ya que este tipo de redes se basa en el aprendizaje supervisado. Es decir, durante el proceso de entrenamiento se comparará la salida de las predicciones de la última capa con la salida conocida, y se calculará la entropía cruzada entre las distribuciones  para optimizar los pesos de las capas mediante el método \textit{Descenso por Gradiente} \textit{(Backward Propagation)}
 
-            Antes de entrar en el detalle de la implementación de las \textit{CNN} es necesario introducir los siguientes conceptos para la posterior comprensión de las arquitecturas:
 
-            COMUNES EN UNA RED NEURONAL:
+            Antes de entrar en el detalle de la implementación de las \textit{CNN} es necesario introducir los siguientes conceptos comunes a todas las \textit{NN} para la posterior comprensión de las arquitecturas:
+
 
             \begin{itemize}
 
@@ -96,7 +141,19 @@
 
 
                 \item Softmax:
-                    Función que 
+
+                    Se trata de la generalización en forma multidimensional de la función logística o \textit{logistic function}. Softmax es una función que permite la transformación de un vector de números reales a una distribución de probabilidad. Esta función se suele aplicar como capa de activación en el último nivel en las \textit{NN}, representando la probabilidad de que la salida de la red pertenezca a cada una de las $K$ clases posibles en el modelo \cite{Softmax}. 
+
+                    Esto se debe a que normalmente los componentes de la salida de la última capa de una red neuronal (denominados como \textit{logits}) son el resultado de la predicción en forma de números reales no normalizados, por lo tanto pueden ser mayores que $1$ e incluso negativos. La función permite calcular la distribución de probabilidad en base a estos \textit{logits} y calcular la probabilidad de pertenencia a cada una de las $K$ clases que componen el modelo mediante la siguiente fórmula:
+
+
+                    \begin{center}
+                        $\sigma(z_i) = \frac{e^{z_{i}}}{\sum_{j=1}^K e^{z_{j}}} \ \ \ for\ i=1,2,\dots,K$
+                    \end{center}
+
+
+                    Esta función es continua y diferenciable, por lo que es posible aplicar el método \textit{GD} para actualizar los valores de los pesos de la red neuronal en las capas anteriores gracias a estas propiedades que permiten la derivabilidad de la función.
+
 
                 \item Cross-Entropy:
 
@@ -121,9 +178,12 @@
 
                     Gracias a las propiedades de la función \textit{Softmax} es posible utilizar \textit{GD} para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
 
-                \item Normalización:
+                \item Batch Normalization:
 
-                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario transformar los datos de entrada a la entrada de la capa, o lo que es lo mismo, normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época \textit{epoch}). El método \textit{Batch Normalization} \cite{BatchNormalization} permite normalizar los datos de tal forma que permite utilizar tasas de aprendizaje mayores además de actuar como regularizador, permitiendo reducir el número de capas \textit{Dropout} que existan en la arquitectura.
+                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario transformar los datos de entrada a la entrada de la capa, o lo que es lo mismo, normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época \textit{epoch}).
+
+
+                    El método \textit{Batch Normalization} \cite{BatchNormalization} normaliza los datos de tal forma que permite utilizar tasas de aprendizaje mayores además de actuar como regularizador, reduciendo así el número de capas \textit{Dropout} que existan en la arquitectura.
 
             \end{itemize}
 
@@ -176,7 +236,7 @@
 
             !!!!!\cite{KL-Divergence}!!!!!
 
-            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN}, podemos hacer distinción entre dos enfoques distintos que se han aplicado a en este proyecto:
+            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN}, podemos hacer distinción entre dos enfoques distintos que se han aplicado en este proyecto:
 
 
             \subsubsection{Unidimensionales (Conv-1D)}
@@ -208,9 +268,7 @@
 
                 
             \subsubsection {Bidimensionales (Conv-2D)}
-                Otra de las técnicas convolucionales utizadas en este documento son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}.
-
-                El \textit{kernel} será de bidimensional, al ser una convolución de dos dimensiones, es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
+                Otra de las técnicas convolucionales utizadas en este documento son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}, sin embargo en este caso \textit{kernel} será de bidimensional por ser una convolución de dos dimensiones, es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
 
                 \textit{}
 
