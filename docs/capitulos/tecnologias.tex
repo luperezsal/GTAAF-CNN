@@ -61,7 +61,8 @@
 
             Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada, como establecer un umbral mínimo del \textit{score} de las soluciones, o fijar un número específico de iteraciones que se ejecutarán en el algoritmo.
 
-            ¿Enumerar parámetros?
+
+            ¿Citar parámetros?
 
 
         \subsection {XGBoost}
@@ -82,6 +83,7 @@
             COMUNES EN UNA RED NEURONAL:
 
             \begin{itemize}
+
                 \item Entropía:
 
                     La entropía sobre una varible aleatoria $X$ es el grado de incertidumbre producido en base a los posibles valores que puede tomar como respuesta, es decir, a mayor entropía de una variable aleatoria $X$, existe mayor grado de incertidumbre sobre ella. La entropia $H(X)$ se calcula en base a la siguiente fórmula:
@@ -115,9 +117,13 @@
 
                 \item BackPropagation:
 
-                    En el proceso de entrenamiento de la CNN es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}, algoritmo de optimización que maximiza el valor de una función siempre y cuando ésta sea continua diferenciable.
+                    En el proceso de entrenamiento de la \textit{CNN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}, algoritmo de optimización que maximiza el valor de una función siempre y cuando ésta sea continua diferenciable.
 
                     Gracias a las propiedades de la función \textit{Softmax} es posible utilizar \textit{GD} para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
+
+                \item Normalización:
+
+                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario transformar los datos de entrada a la entrada de la capa, o lo que es lo mismo, normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época \textit{epoch}). El método \textit{Batch Normalization} \cite{BatchNormalization} permite normalizar los datos de tal forma que permite utilizar tasas de aprendizaje mayores además de actuar como regularizador, permitiendo reducir el número de capas \textit{Dropout} que existan en la arquitectura.
 
             \end{itemize}
 
@@ -125,81 +131,110 @@
             ESPECÍFICOS DE CNN:
 
             \begin{itemize}
-                \item Filtros:
+
+                \item Kernels:
+
+                    Son las estructuras que se encargan de realizar la convolución. Los kernels son matrices de pesos unidimensionales ($1 \times n$) o bidimensionales ($n \times m$)dependiendo del tipo de convolución que se esté aplicando (Convolución 1-D o Convolución 2-D), y se encargan de proyectar las posiciones de la matriz que correspondan en instante de la convolución en un mapa de características (\textit{feature map}) que será pasado a la siguiente capa de la red.
+
+                    Un kernel realiza el producto escalar de sus pesos con respecto a las posiciones de la matriz de entrada (imagen o \textit{feature map}) que colisionen en ese momento con el kernel, generando un nuevo \textit{feature map} de menor dimensión, a menos que se utilice la técnica de \textit{Padding} \cite{Kernels}.
+                     
                 \item Filtros:
 
-                \item Padding: El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución. Estas posiciones son aquellas en las que el filtro de la convolución pasaría una única vez en caso de no aplicar \textit{padding}.
-                El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.
+                    Un filtro no es más que una agrupación de kernels, siempre tendrán una dimensión mayor que la definida para el kernel. Por ejemplo, si disponemos de un kernel unidimensional ($1 \times n$), el filtro contendrá $k$ kernels de ($1 \times n$) en la capa convolucional definida \cite{FiltersFeatureMaps}
 
-                \begin{figure}[h]
-                    \centering
-                    \includegraphics[width=10cm]{archivos/CNN/padding}
-                    \caption{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}
-                    \label{PaddingImage}
-                 \end{figure}
+                \item Strides:
+
+                    Son los saltos producidos por un kernel en cada etapa de la convolución, dependiendo si la convolución es dimensional o bidimensional, el stride constará de una dimensión ($i$), es decir, los pasos hacia la derecha en la imagen, o de dos dimensiones ($i, j$), los pasos hacia la derecha y hacia abajo en la imagen.
+
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=10cm]{archivos/CNN/Stride}
+                        \caption{http://makeyourownneuralnetwork.blogspot.com/2020/02/calculating-output-size-of-convolutions.html}
+                        \label{StrideImage}
+                     \end{figure}
+
+                \item Padding:
+
+                    El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución. Estas posiciones son aquellas en las que el filtro de la convolución pasaría una única vez en caso de no aplicar \textit{padding}.
+
+                    El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=10cm]{archivos/CNN/padding}
+                        \caption{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}
+                        \label{PaddingImage}
+                     \end{figure}
+
+
+
                         
             \end{itemize}
 
-Padding
+            En el proceso de entrenamiento de la \textit{CNN} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}
 
-Padding is the process of adding one or more pixels of zeros all around the boundaries of an image, in order to increase its effective size.
-
-Convolutional layers return by default a smaller tensor than the input. If a lot of convolutional layers are strung together, the output tensor is progressively reduced in size until, eventually, it might become unusable.
-
-By padding an tensor before a convolutional layer, i.e., "increasing" its size, this effect can be mitigated.
-
-It helps us keep more of the information at the border of an image. Without padding, very few values at the next layer would be affected by pixels as the edges of an image
-
-
-                
-
-Filters: The number of convolutional filters to include in the layer. Default: 32
-
-Width: The size of a single filter. Default: 3
-
-Horizontal stride: The number of cells to move while performing the convolution along the vector. Default: 1
-
-Activation: The function that will be applied to each element of the output. Default: ReLu
-
-Padding: Same results in padding the input such that the output has the same length as the original input. Valid means "no padding".
-
-Use bias: Adds a bias vector to a tensor.
-
-Trainable: Whether we want the training algorithm to change the value of the weights during training. In some cases, one will want to keep parts of the network static, for instance when using the encoder part of an autoencoder as preprocessing for another model.
-
-            \cite{KL-Divergence}
+            !!!!!\cite{KL-Divergence}!!!!!
 
             Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN}, podemos hacer distinción entre dos enfoques distintos que se han aplicado a en este proyecto:
 
 
-            \subsubsection{Unidimensionales (Conv-1D)}.
+            \subsubsection{Unidimensionales (Conv-1D)}
             
-                Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza filtros \textit{(filters)} construidos en base a bloques unidimensionales que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas caracetrísticas en ellas.
+                Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.
 
+                Las complejidad computacional de las \textit{CNN-1D} es mucho más simple que las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.
+
+
+                El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
+                
+
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=15cm]{archivos/CNN/1D/1CNNArchImage}
+                    \caption{https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png}
+                    \label{1CNNArchImage}
+                \end{figure}
+
+
+                Al ser una arquitectura unidimensional, el \textit{kernel} tendrá que tener un tamaño ($1 \times n$).
 
                 \begin{figure}[h]
                     \centering
                     \includegraphics[width=7cm]{archivos/CNN/1D/1DConvolution}
-                    \caption{https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un filtro (centro) que resulta en la convolución de un mapa de características (derecha).}
+                    \caption{https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).}
                     \label{1DConvolutionImage}
                 \end{figure}
 
-                El resultado de este proceso es la proyección de los filtros sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Estos filtros se utilizan para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
-
-                FIGURA DE UNA ARQUITECTURA 1-D
-
-                Existen diferentes parámetros a configurar dentro de una \textit{1D-CNN}:
-
-
-
-
-
-
-                \cite{Conv1D_Survey}
+                
             \subsubsection {Bidimensionales (Conv-2D)}
-                Otra de las técnicas convolucionales utizadas en este documento son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}
+                Otra de las técnicas convolucionales utizadas en este documento son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}.
+
+                El \textit{kernel} será de bidimensional, al ser una convolución de dos dimensiones, es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
+
+                \textit{}
 
         \subsection {KNN}
+
+            El algoritmo \textit{K vecinos más próximos}, o \textit{K-Nearest Neighbors (kNN)} \cite{KNN}, es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.
+
+            El algoritmo \textit{KNN} asume que muestras con características parecidas deben pertenecer a la misma clase. O lo que es lo mismo, muestras parecidas deben estar cercanas en el espacio dimensional.
+
+            Esta técnica se basa en representar las muestras de un conjunto de datos en base a sus características en un espacio n-dimensional y clasificar la muestra correspondiente como la clase mayoritaria al calcular la distancia de dicha muestra a los $k$ vecinos más próximos. Normalmente la distancia empleada es la \textit{Euclídea}, aunque es posible calcular otras distancias como \textit{Manhattan} o \textit{Chebyshev}.
+            
+            A medida que se incrementan las dimensiones del espacio resulta más costoso computacionalmente calcular distancias entre los puntos.
+
+
+            Por lo tanto, el único parámetro a configurar es el número de vecinos más cercanos que se calculará en base al punto que queramos clasificar, en la figura \ref{KNNImage} se muestra un ejemplo de un problema de clasificacíón aplicando distintos valores al parámetros $k$.
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=10cm]{archivos/CNN/KNN/KNNImage}
+                \caption{https://forum.huawei.com/enterprise/es/data/attachment/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png KNN aplicado con distintos valores de $k$}
+                \label{KNNImage}
+            \end{figure}
+
+            
 
     \section{Especificaciones técnicas}
 
@@ -211,10 +246,10 @@ Trainable: Whether we want the training algorithm to change the value of the wei
 
             \begin{itemize}
                 \item Lenguaje de programación:
-                    \subitem Python: 3.9.11
+                    \subitem Python: lenguaje de programación interpretado de nivel alto multiparadigma. La versión empleada para el desarrollo del proyecto ha sido 3.9.11.
                 \item Liberías: Se enumerarán las librerías 
-                    \subitem Pandas: ĺibería que provee de herramientaas que permiten el análisis y la manipulación de datos. La versión utilizada para este proyecto es la 1.3.5 \cite{Pandas}. 
-                    \subitem Tensorflow: libería utilizada para la implementación de redes neuronaless permitiendo su ejecución. Este proyecto se basa en la versión 2.8.0 \cite{Tensorflow}.
+                    \subitem Pandas: libería que provee de herramientaas que permiten el análisis y la manipulación de datos. La versión utilizada para este proyecto es la 1.3.5 \cite{Pandas}. 
+                    \subitem Tensorflow: libería utilizada para la implementación de redes neuronales permitiendo su ejecución. Este proyecto se basa en la versión 2.8.0 \cite{Tensorflow}.
                     \subitem Sklearn: librería que contiene múltiples modelos predictivos implementados, basado en NumPy, SciPy y Matplotlib. La versión configurada para este proyecto es 1.0.2 \cite{Scikit-Learn}.
                     \subitem XGboost: paquete que contiene la implementación del algoritmo XGBoost, además de múltiples configuraciones como la ejecución en \textit{CPU, GPU y GPU paralelizada}. La importación de esta librería ha sido en base a la versión 1.5.0 \cite{XGBoostLibrary}.
                 \item Software:
@@ -232,5 +267,5 @@ Trainable: Whether we want the training algorithm to change the value of the wei
 
 
         \subsection{Especificaciones del servidor}
-            Los experimentos de este artículo se han realizado bajo un servidor con CPU \textit{Dual AMD Rome 7742} (128 cores) y contando con GPU \textit{DGX NVIDIA A100} (40GB).
+            Los experimentos de este artículo se han realizado bajo un servidor con CPU \textit{Dual AMD Rome 7742} (128 cores) y contando con una GPU \textit{DGX NVIDIA A100} de  40 GigaBytes (\textit{GB}).
             
