@@ -1,0 +1,236 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plantilla TFG/TFM
+% Escuela Politécnica Superior de la Universidad de Alicante
+% Realizado por: Jose Manuel Requena Plens
+% Contacto: info@jmrplens.com / Telegram:@jmrplens
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Tecnologías}
+\label{tecnologias}
+
+    \section{Modelos}
+
+        A continuación se presentarán los modelos con los que se ha experimentado para resolver este problema. 
+
+        \subsection {Algoritmos Genéticos}
+            Un \textit{Algoritmo Genético}, o \textit{Genetic Algorithm (GA)} es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema mediante la evolución de un conjunto de soluciones denominadas individuos.
+
+            El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación actual para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan (adaptación al medio) mediante una función heurística.
+
+            Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar el espacio de búsqueda.
+
+            Para comprender el funcionamiento de los algoritmos genéticos es necesario analizar cada una de las fases que lo constituyen:
+            
+            \begin{enumerate}
+                \item Inicialización de la Población:
+                        En primer lugar es necesario generar los \textit{n} individuos de la población aleatoriamente. Cada uno de estos individuos está formado por el conjunto de parámetros que son objeto de optimización \ref{InitialPopulation}.
+
+                        \begin{figure}[h]
+                            \centering
+                            \includesvg[inkscapelatex=false]{archivos/GA/InitialPopulation}
+                            \caption{Inicialización de la población.}
+                            \label{InitialPopulation}
+                        \end{figure}
+
+                \item Evaluación de Población:
+                        Es la primera fase del proceso iterativo del algoritmo genético. En él, cada uno de los individuos pertenecientes a la población son evaluados mediante la función \textit{fitness} para obtener el \textit{score} de cada individuo de la población actual.
+
+                \item Selección de Padres:
+                        Una vez evaluados los individuos de la población, se procede a seleccionar aquellos padres que mejor \textit{score} han obtenido para crear nuevas soluciones a partir de éstos. Existen distintas técnicas de selección, como por ejemplo escoger aquellos \textit{n} mejores padres de la población o técnicas basadas en métodos probabilísticos, para que aquellos individuos que menos puntuación logren, tengan alguna probabilidad de ser elegidos para la generación de nuevas soluciones. Este tipo de técnicas se utilizan para aumentar la diversidad en la pobĺación y evitar caer en soluciones acotadas a mínimos locales del problema. Se puede ver el proceso de cómo son seleccionados los padres en función de su \textit{fitness} en la figura \ref{FitnessFunction}.
+
+                        \begin{figure}[h]
+                            \centering
+                            \includesvg[inkscapelatex=false]{archivos/GA/FitnessFunction}
+                            \caption{Selección de padres candidatos.}
+                            \label{FitnessFunction}
+                        \end{figure}
+
+                \item Cruzamiento:
+                        Una vez seleccionados los padres es necesario que intercambien información entre ellos para dar lugar a nuevos individuos, este proceso de herencia de información es posible realizarlo aplicando distintas filosofías; seleccionar un punto o posición de cruzamiento a lo largo del vector de los padres y combinar ambos padres, o escoger aleatoriamente las posiciones de los parámetros de ambos padres y se combinen para dar lugar a la solución generada \ref{ParentsMatingMutation}.
+
+                        \begin{figure}[h]
+                            \centering
+                            \includesvg[inkscapelatex=false]{archivos/GA/ParentsMatingMutation}
+                            \caption{Mutación de hijos.}
+                            \label{ParentsMatingMutation}
+                        \end{figure}
+
+                \item Mutación:
+                        Cuando los padres seleccionados son combinados para dar lugar a los candidatos de la nueva generación, es importante aplicar un proceso de mutación entre éstos debido a la necesidad de generar diversidad en la población. Si se combina la misma información entre generaciones, se corre el riesgo de converger prematuramente a un mínimo local del espacio de búsqueda. Por este motivo se introduce el concepto de mutación, que consiste en aplicar una modificación aleatoria sobre alguno de los parámetros de los individuos generados para poder ampliar el espacio de soluciones. 
+            \end{enumerate}
+
+            Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada, como establecer un umbral mínimo del \textit{score} de las soluciones, o fijar un número específico de iteraciones que se ejecutarán en el algoritmo.
+
+            ¿Enumerar parámetros?
+
+
+        \subsection {XGBoost}
+
+            
+            Extreme Gradient Boosting Algortihm o \textit{XGBoost} \citep{XGBoostTutorial} \cite{Hubel1968} es una libería open-source que implementa ...
+
+            Pertenece a la familia Ensemble de los algoritmo de ML, que se basan en la construcción de un modelo predictivo mediante la combinación múltiple de otros modelos. XGBoost implementa el algoritmo  que provee de múltiples árboles de decisión
+
+        \subsection {Redes Neuronales Convolucionales (CNN)}
+
+            Las Redes Neuronales Convolucionales tratan de imitar el comportamiento del sistema nervioso para identificar patrones en los datos de entrada.
+
+            Para entrenar a una \textit{CNN} es necesario hacerlo mediante ejemplos etiquetados, ya que este tipo de redes se basa en el aprendizaje supervisado. Es decir, durante el proceso de entrenamiento se comparará la salida de las predicciones de la última capa con la salida conocida, y se calculará la entropía cruzada entre las distribuciones  para optimizar los pesos de las capas mediante el método \textit{Descenso por Gradiente} \textit{(Backward Propagation)}
+
+            Antes de entrar en el detalle de la implementación de las \textit{CNN} es necesario introducir los siguientes conceptos para la posterior comprensión de las arquitecturas:
+
+            COMUNES EN UNA RED NEURONAL:
+
+            \begin{itemize}
+                \item Entropía:
+
+                    La entropía sobre una varible aleatoria $X$ es el grado de incertidumbre producido en base a los posibles valores que puede tomar como respuesta, es decir, a mayor entropía de una variable aleatoria $X$, existe mayor grado de incertidumbre sobre ella. La entropia $H(X)$ se calcula en base a la siguiente fórmula:
+
+                    \begin{center}
+                        $H(X) = -\sum_{i = 1}^n p(x_i) \log_2 p(x_i)$
+                    \end{center}
+
+                    Donde $x_i$ es cada uno de los posibles valores que puede tomar la variable como respuesta y $p(x_i)$ es la probabilidad de obtener dicho valor. Por lo tanto, es deseable mantener distribuciones con un grado de entropía bajo, ya que existirá menos incertidumbre en ella.
+
+
+                \item Softmax:
+                    Función que 
+
+                \item Cross-Entropy:
+
+                    El objetivo de cross-entropy es minimizar la función de pérdida (\textit{log loss}) comparando la probabilidad de la clase predicha con respecto a su valor verdadero. Al aplicar una penalización logarítmica, las probabilidades de las clases que más disten respecto a su valor verdadero se verán más acentuadas \cite{Cross-Entropy}.
+
+                    \begin{center}
+                        $L_{CE} = -\sum_{i = 1}^n y_i \log_2(p_i)$
+                    \end{center}
+
+                    Donde $n$ es el número de clases a predecir, el valor $y_i$ es la etiqueta de la clase verdadera, y $p_i$ es la probabilidad de que la muestra actual pertenezca a la clase $i$.
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=7cm]{archivos/CNN/CrossEntropy}
+                        \caption{https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e}
+                        \label{CrossEntropyImage}
+                     \end{figure}
+
+                \item BackPropagation:
+
+                    En el proceso de entrenamiento de la CNN es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}, algoritmo de optimización que maximiza el valor de una función siempre y cuando ésta sea continua diferenciable.
+
+                    Gracias a las propiedades de la función \textit{Softmax} es posible utilizar \textit{GD} para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
+
+            \end{itemize}
+
+
+            ESPECÍFICOS DE CNN:
+
+            \begin{itemize}
+                \item Filtros:
+                \item Filtros:
+
+                \item Padding: El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución. Estas posiciones son aquellas en las que el filtro de la convolución pasaría una única vez en caso de no aplicar \textit{padding}.
+                El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.
+
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=10cm]{archivos/CNN/padding}
+                    \caption{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}
+                    \label{PaddingImage}
+                 \end{figure}
+                        
+            \end{itemize}
+
+Padding
+
+Padding is the process of adding one or more pixels of zeros all around the boundaries of an image, in order to increase its effective size.
+
+Convolutional layers return by default a smaller tensor than the input. If a lot of convolutional layers are strung together, the output tensor is progressively reduced in size until, eventually, it might become unusable.
+
+By padding an tensor before a convolutional layer, i.e., "increasing" its size, this effect can be mitigated.
+
+It helps us keep more of the information at the border of an image. Without padding, very few values at the next layer would be affected by pixels as the edges of an image
+
+
+                
+
+Filters: The number of convolutional filters to include in the layer. Default: 32
+
+Width: The size of a single filter. Default: 3
+
+Horizontal stride: The number of cells to move while performing the convolution along the vector. Default: 1
+
+Activation: The function that will be applied to each element of the output. Default: ReLu
+
+Padding: Same results in padding the input such that the output has the same length as the original input. Valid means "no padding".
+
+Use bias: Adds a bias vector to a tensor.
+
+Trainable: Whether we want the training algorithm to change the value of the weights during training. In some cases, one will want to keep parts of the network static, for instance when using the encoder part of an autoencoder as preprocessing for another model.
+
+            \cite{KL-Divergence}
+
+            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN}, podemos hacer distinción entre dos enfoques distintos que se han aplicado a en este proyecto:
+
+
+            \subsubsection{Unidimensionales (Conv-1D)}.
+            
+                Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza filtros \textit{(filters)} construidos en base a bloques unidimensionales que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas caracetrísticas en ellas.
+
+
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=7cm]{archivos/CNN/1D/1DConvolution}
+                    \caption{https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un filtro (centro) que resulta en la convolución de un mapa de características (derecha).}
+                    \label{1DConvolutionImage}
+                \end{figure}
+
+                El resultado de este proceso es la proyección de los filtros sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Estos filtros se utilizan para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
+
+                FIGURA DE UNA ARQUITECTURA 1-D
+
+                Existen diferentes parámetros a configurar dentro de una \textit{1D-CNN}:
+
+
+
+
+
+
+                \cite{Conv1D_Survey}
+            \subsubsection {Bidimensionales (Conv-2D)}
+                Otra de las técnicas convolucionales utizadas en este documento son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}
+
+        \subsection {KNN}
+
+    \section{Especificaciones técnicas}
+
+        En esta sección detallaremos las herramientas que han sido utilizadas para poder realizar este proyecto.
+
+
+        \subsection{Herramientas utilizadas}
+            Para el desarrollo de este proyecto se ha hecho uso de los siguientes programas:
+
+            \begin{itemize}
+                \item Lenguaje de programación:
+                    \subitem Python: 3.9.11
+                \item Liberías: Se enumerarán las librerías 
+                    \subitem Pandas: ĺibería que provee de herramientaas que permiten el análisis y la manipulación de datos. La versión utilizada para este proyecto es la 1.3.5 \cite{Pandas}. 
+                    \subitem Tensorflow: libería utilizada para la implementación de redes neuronaless permitiendo su ejecución. Este proyecto se basa en la versión 2.8.0 \cite{Tensorflow}.
+                    \subitem Sklearn: librería que contiene múltiples modelos predictivos implementados, basado en NumPy, SciPy y Matplotlib. La versión configurada para este proyecto es 1.0.2 \cite{Scikit-Learn}.
+                    \subitem XGboost: paquete que contiene la implementación del algoritmo XGBoost, además de múltiples configuraciones como la ejecución en \textit{CPU, GPU y GPU paralelizada}. La importación de esta librería ha sido en base a la versión 1.5.0 \cite{XGBoostLibrary}.
+                \item Software:
+                    \subitem CUDA: plataforma de computación paralelizada que permite la ejecución de código en \textit{GPU}, esto permite que las redes neuronales puedan entrenarse con mayor rapidez que en \textit{CPU} debido a la velocidad con la que se realizan las operaciones orientadas a datos en las tarjetas gráficas. Se ha utilizado la versión 11.6 \cite{CUDA}. 
+                    \subitem Anaconda: distribución open-source que ofrece la flexibilidad de mantener varios entornos con distintas configuraciones y versiones de distinas librerías, facilitando además la migración entre equipos. La versión utilizada ha sido la 4.12.0 \cite{Anaconda}.
+                    \subitem Jupyter Notebook: entorno interactivo que permite la creación, edición y ejecución de notebooks de forma local y remota. La versión utilizada para el desarrollo de este proyecto ha sido la 6.4.10 \cite{JupyterNotebook}.
+                    \subitem Jupyter Lab: interfaz de nueva generación que convive con el entorno Jupyter Notebook, ofrece numerosas funcionalidades como es la navegación entre distintos repositorios dentro de la interfaz. La versión instalada para la realización del proyecto ha sido la 3.3.2 \cite{JupyterLab}.
+                    \subitem MiKTeX:
+                    \subitem DiagramsNet: plataforma utilizada para la confección de figuras mostradas en este documento \cite{DiagramsNet}. 
+                    \subitem Google Meets: plataforma utilizada para realizar reuniones semanales con el tutor \cite{GoogleMeet}.
+                \item Sistemas de control de versiones:
+                    \subitem Github: repositorio donde tener un control de las versiones del desarrollo \cite{Github}.
+                    
+            \end{itemize}
+
+
+        \subsection{Especificaciones del servidor}
+            Los experimentos de este artículo se han realizado bajo un servidor con CPU \textit{Dual AMD Rome 7742} (128 cores) y contando con GPU \textit{DGX NVIDIA A100} (40GB).
+            

@@ -1,0 +1,29 @@
+\selectlanguage *{spanish}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Inicialización de la población.\relax }}{17}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Selección de padres candidatos.\relax }}{18}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Mutación de hijos.\relax }}{19}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e\relax }}{20}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/\relax }}{21}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un filtro (centro) que resulta en la convolución de un mapa de características (derecha).\relax }}{22}{figure.caption.21}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Ejemplo de subfiguras\relax }}{26}{figure.caption.23}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Ejemplo de subfiguras vertical\relax }}{26}{figure.caption.24}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Diagrama realizado en latex con Tikz.\relax }}{34}{figure.caption.26}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Gráfica sencilla.\relax }}{35}{figure.caption.27}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces OP/S003\relax }}{35}{figure.caption.28}%
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Gráfica barras.\relax }}{36}{figure.caption.29}%
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Directividad normalizada del altavoz (0 dBV en el eje).\relax }}{37}{figure.caption.30}%
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Ejemplo de gráfica obtenida con matlab2tikz.\relax }}{38}{figure.caption.31}%
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Amplitud de la aceleración en el modo número 8.\relax }}{38}{figure.caption.32}%
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Señal realizada con Tikz, sin imágenes.\relax }}{39}{figure.caption.33}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
