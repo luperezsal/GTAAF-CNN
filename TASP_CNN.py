@@ -14,7 +14,7 @@
 
 # ## Carga Google Drive
 
-# In[338]:
+# In[1]:
 
 
 # from google.colab import drive
@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[339]:
+# In[2]:
 
 
 from datetime import datetime
@@ -50,13 +50,13 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
 # ## Importar Tensorflow
 
-# In[340]:
+# In[3]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[341]:
+# In[4]:
 
 
 import tensorflow as tf
@@ -71,7 +71,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[342]:
+# In[5]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -83,7 +83,7 @@ get_ipython().system('nvidia-smi')
 
 # ## Importador/Exportador JSON
 
-# In[343]:
+# In[6]:
 
 
 import json
@@ -101,7 +101,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[344]:
+# In[7]:
 
 
 import numpy as np
@@ -181,7 +181,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[345]:
+# In[8]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -203,7 +203,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[346]:
+# In[9]:
 
 
 from scipy.stats import zscore
@@ -223,7 +223,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[347]:
+# In[10]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -248,7 +248,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[348]:
+# In[11]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -265,7 +265,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ### Inicializar población
 
-# In[349]:
+# In[12]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -301,7 +301,7 @@ def initilialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[350]:
+# In[13]:
 
 
 from sklearn.metrics import f1_score
@@ -315,7 +315,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[404]:
+# In[14]:
 
 
 from xgboost import XGBClassifier
@@ -372,7 +372,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[352]:
+# In[15]:
 
 
 # Select parents for mating
@@ -390,7 +390,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[353]:
+# In[16]:
 
 
 '''
@@ -424,7 +424,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[354]:
+# In[17]:
 
 
 # def mutation(crossover, numberOfParameters):
@@ -496,7 +496,7 @@ def crossover_uniform(parents, childrenSize):
 #     return crossover
 
 
-# In[355]:
+# In[18]:
 
 
 def mutation(crossover, hyperparams_to_optimize):
@@ -551,7 +551,7 @@ def mutation(crossover, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[356]:
+# In[19]:
 
 
 # Add one channel
@@ -574,7 +574,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[357]:
+# In[20]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -604,7 +604,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[358]:
+# In[21]:
 
 
 import seaborn as sns
@@ -618,7 +618,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[359]:
+# In[22]:
 
 
 from sklearn.decomposition import PCA
@@ -638,7 +638,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[360]:
+# In[23]:
 
 
 from sklearn.manifold import TSNE
@@ -665,7 +665,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
 
 # ### Autoencoder
 
-# In[361]:
+# In[24]:
 
 
 def autoencoder ():
@@ -690,7 +690,7 @@ def autoencoder ():
 
 # ## 1D-Convolution
 
-# In[362]:
+# In[25]:
 
 
 import tensorflow_addons as tfa
@@ -709,7 +709,7 @@ convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding
 convolution_1d.add(layers.BatchNormalization())  
 convolution_1d.add(layers.Flatten())
 convolution_1d.add(layers.Dense(units=128))
-convolution_1d.add(layers.Dense(3, activation='softmax'))
+convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
 
 convolution_1d.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
@@ -720,8 +720,7 @@ convolution_1d.compile(
 
 # ## TASP-CNN
 
-# In[363]:
-
+# In[38]:
 
 
 lr_init = 0.1
@@ -738,7 +737,7 @@ tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', paddi
 tasp_cnn.add(layers.BatchNormalization())  
 tasp_cnn.add(layers.Flatten())
 tasp_cnn.add(layers.Dense(units=128))
-tasp_cnn.add(layers.Dense(3, activation='softmax'))
+tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 
 tasp_cnn.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
@@ -747,7 +746,7 @@ tasp_cnn.compile(
   )
 
 
-# In[364]:
+# In[27]:
 
 
 print('Done!')
@@ -1700,7 +1699,6 @@ MODEL_NAME = MODELS_NAME[0]
 
 leaf_size = list(range(1,10, 2))
 n_neighbors = list(range(1,25, 5))
-p = [1, 2, 3]
 
 
 # In[ ]:
@@ -1708,8 +1706,7 @@ p = [1, 2, 3]
 
 # Create new KNN object
 hyperparameters = dict(leaf_size = leaf_size,
-                       n_neighbors = n_neighbors,
-                       p = p)
+                       n_neighbors = n_neighbors)
 
 # Use GridSearch
 knn_2 = KNeighborsClassifier()
@@ -1724,14 +1721,12 @@ knn = clf.fit(X_train, Y_train)
 # Print The value of best Hyperparameters
 
 best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
-best_p = knn.best_estimator_.get_params()['p']
 best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
 
 print('Best leaf_size:', best_leaf_size)
-print('Best p:', best_p)
 print('Best n_neighbors:', best_n_neighbors)
 
-df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'p':[best_p]})
+df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
 
 FILE_NAME = f"{MODEL_NAME}/leeds_{MODEL_TIMESTAMP}.csv"
 
@@ -3286,8 +3281,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # Create new KNN object
 hyperparameters = dict(leaf_size = leaf_size,
-                       n_neighbors = n_neighbors,
-                       p = p)
+                       n_neighbors = n_neighbors)
 
 # Use GridSearch
 knn_2 = KNeighborsClassifier()
@@ -3303,14 +3297,12 @@ knn = clf.fit(X_train, Y_train)
 # Print The value of best Hyperparameters
 
 best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
-best_p = knn.best_estimator_.get_params()['p']
 best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
 
 print('Best leaf_size:', best_leaf_size)
-print('Best p:', best_p)
 print('Best n_neighbors:', best_n_neighbors)
 
-df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'p':[best_p]})
+df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
 
 FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
 
