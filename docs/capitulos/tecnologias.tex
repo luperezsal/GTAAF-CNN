@@ -13,11 +13,11 @@
         A continuación se presentarán los modelos con los que se ha experimentado para resolver este problema. 
 
         \subsection {Algoritmos Genéticos}
-            Un \textit{Algoritmo Genético}, o \textit{Genetic Algorithm (GA)}, es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema mediante la evolución de un conjunto de soluciones denominadas individuos.
+            Un \textit{Algoritmo Genético}, o \textit{Genetic Algorithm (GA)}, es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema mediante la evolución de un conjunto de soluciones denominadas individuos.\\
 
-            El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación correspondiente para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan (adaptación al medio) mediante una función heurística.
+            El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación correspondiente para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan (adaptación al medio) mediante una función heurística.\\
 
-            Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar el espacio de búsqueda.
+            Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar el espacio de búsqueda.\\
 
             Para comprender el funcionamiento de los algoritmos genéticos es necesario analizar cada una de las fases que lo constituyen:
             
@@ -50,13 +50,13 @@
 
                 \item Cruzamiento:
 
-                        Una vez seleccionados los padres es necesario que intercambien información entre ellos para dar lugar a nuevos individuos, este proceso de herencia de información es posible realizarlo aplicando distintas filosofías; seleccionar un punto o posición de cruzamiento a lo largo del vector de los padres y combinar ambos padres, o escoger aleatoriamente las posiciones de los parámetros de ambos padres y se combinen para dar lugar a la solución generada \ref{ParentsMatingMutation}.
+                        Una vez seleccionados los padres es necesario que intercambien información entre ellos para dar lugar a nuevos individuos, este proceso de herencia de información es posible realizarlo aplicando distintas filosofías; seleccionar un punto o posición de cruzamiento a lo largo del vector de los padres y combinar ambos padres, o escoger aleatoriamente las posiciones de los parámetros de ambos padres y se combinen para dar lugar a la solución generada \ref{ParentsMatingMutationImage}.
 
                         \begin{figure}[h]
                             \centering
                             \includesvg[inkscapelatex=false]{archivos/GA/ParentsMatingMutation}
                             \caption{Mutación de hijos.}
-                            \label{ParentsMatingMutation}
+                            \label{ParentsMatingMutationImage}
                         \end{figure}
 
                 \item Mutación:
@@ -64,7 +64,7 @@
                         Cuando los padres seleccionados son combinados para dar lugar a los candidatos de la nueva generación, es importante aplicar un proceso de mutación entre éstos debido a la necesidad de generar diversidad en la población. Si se combina la misma información entre generaciones, se corre el riesgo de converger prematuramente a un mínimo local del espacio de búsqueda. Por este motivo se introduce el concepto de mutación, que consiste en aplicar una modificación aleatoria sobre alguno de los parámetros de los individuos generados para poder ampliar el espacio de soluciones. 
             \end{enumerate}
 
-            Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada, como establecer un umbral mínimo del \textit{score} de las soluciones, o fijar un número específico de iteraciones que se ejecutarán en el algoritmo.
+            Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada, como establecer un umbral mínimo del \textit{score} de las soluciones, o fijar un número específico de iteraciones que se ejecutarán en el algoritmo.\\
 
 
             A continuación enumeraremos los parámetros con los que configurar un algoritmo genético. Dependiendo del tipo de algoritmo utilizado es posible encontrar distintos parámetros con los que inicializar el algoritmo, sin embargo estos son los más extendidos:
@@ -94,40 +94,83 @@
         \subsection {XGBoost}
 
             
-            Extreme Gradient Boosting Algortihm o \textit{XGBoost} es una libería open-source que implementa . Se trata de uno de los algoritmos más importantes de los últimos años, logrando un rendimiento diez veces mayor a otras soluciones populares en una misma máquina y llegando a las primeras posiciones en numerosos retos propuestos en \textit{Kaggle} \citep{XGBoostTutorial}.
+            \textit{Extreme Gradient Boosting Algortihm} (\textit{XGBoost}) es una libería open-source que implementa algoritmos \textit{ML Ensembles de tipo Boosting}. Se trata de uno de los algoritmos más importantes de los últimos años, logrando un rendimiento diez veces mayor a otras soluciones populares en una misma máquina y llegando a las primeras posiciones en numerosos retos propuestos en \textit{Kaggle} \cite{XGBoostTutorial}.\\
 
-            XGBoost se basa en los modelos \textit{Ensemble Boosting} de los algoritmos de \textit{ML}, de ahí su nombre \textit{Gradient Boosting}. La técnica \textit{Boosting} se basa en construir un modelo robusto (\textit{strong learner}) combinando una serie de modelos débiles (\textit{weak learners}).
-
-
+            XGBoost se basa en los modelos \textit{Ensemble Boosting} de los algoritmos de \textit{ML}, de ahí su nombre \textit{Gradient Boosting}. La técnica \textit{Boosting} se basa en construir un modelo robusto (\textit{strong learner}) combinando una serie de modelos débiles (\textit{weak learners}) \cite{NvidiaXGBoost}.\\
 
 
-            https://www.nvidia.com/en-us/glossary/data-science/xgboost/
+            Concretamente \textit{XGBoost} implementa \textit{Gradient Boosting Decision Trees (GBDT)}, que es un algoritmo similar a los \textit{Random Forest}, y es utilizado tanto para clasificación como para regresión.\\
 
+            La diferencia principal de los \textit{Random Forest} con respecto a \textit{XGBoost} radica en la diferencia en la que los \textit{Ensembles Bagging} calculan las predicciones. Los algoritmos de tipo \textit{Bagging} construyen $n$ modelos de las mismas características pero entrenados con distintos ejemplos muestreados desde el conjunto de entrenamiento, y construye un modelo final predictivo en el que la salida predecida será la combinación de la predicción de cada uno de los modelos individuales, sobre sus resultados se pueden aplicar distintas estrategias para escoger la predicción agregada de éstos (como realizar la media de las predicciones, escoger la predicción más frecuente de los modelos individuales, etc).\\
+
+            En el caso de los \textit{Ensembles Boosting} la idea es combinar secuencialmente modelos (\textit{Árboles de decisión}) de tal forma que su objetivo es minimizar los residuos de los árboles generados anteriormente, en lugar de crear una predicción conjunta entre todos ellos como era el caso de los \textit{Ensembles Bagging}, y utiliza el método de \textit{Gradient Descent} para minimizar estos residuos.\\
+
+
+            En la figura \ref{XGBoostFlowImage} se puede observar cómo se van construyendo los árboles clasificadores y cómo cada árbol minimiza el residuo producido por el árbol anterior.\\
+
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=10cm]{archivos/XGBoostFlowImage}
+                \caption{Degradation state recognition of piston pump based on ICEEMDAN and XGBoost(FIG3). Proceso de optimización de XGBoost.}
+                \label{XGBoostFlowImage}
+             \end{figure}
 
             
-            ------------------------------------------------
-
-            Estos construyen un modelo predictivo mediante la combinación de otros modelos, la salida al predecir una muestra por el Ensemble será la combinación de la predicción de cada uno de los modelos individuales, y sobre sus resultados se pueden aplicar distintas estrategias para escoger la predicción agregada de éstos.
-
-            \textit{XGBoost} implementa en su arquitectura \textit{Ensemble Boosting} una serie de Árboles de Decisión, cada uno de los cuales 
-
-            -----------------------------------------------
-
             Además, \textit{XGBoost} aplica técnicas de regularización en su función de pérdida, de tal forma que reduce la influencia individual de cada árbol generado y de sus hojas para poder dar lugar a posteriores árboles que consigan mejorar el modelo, evitando de esta manera el sobreajuste u \textit{overfitting}.
 
 
 
         \subsection {Redes Neuronales Convolucionales (CNN)}
 
-            Las Redes Neuronales Convolucionales tratan de imitar el comportamiento del sistema nervioso para identificar patrones en los datos de entrada.
+            Las Redes Neuronales Convolucionales tratan de imitar el comportamiento del sistema nervioso para identificar patrones en los datos de entrada.\\
 
-            Para entrenar a una \textit{CNN} es necesario hacerlo mediante ejemplos etiquetados, ya que este tipo de redes se basa en el aprendizaje supervisado. Es decir, durante el proceso de entrenamiento se comparará la salida de las predicciones de la última capa con la salida conocida, y se calculará la entropía cruzada entre las distribuciones  para optimizar los pesos de las capas mediante el método \textit{Descenso por Gradiente} \textit{(Backward Propagation)}
+            Para entrenar a una \textit{CNN} es necesario hacerlo mediante ejemplos etiquetados, ya que este tipo de redes se basa en el aprendizaje supervisado. Es decir, durante el proceso de entrenamiento se comparará la salida de las predicciones de la última capa con la salida conocida, y se calculará la entropía cruzada entre las distribuciones  para optimizar los pesos de las capas mediante el método \textit{Descenso por Gradiente} \textit{(Backward Propagation)}.\\
+
+
+            A modo de comprensión, se muestra la arquitectura de una \textit{NN}, donde se pueden observar las conexiones entre cada capa de la red y sus salidas en la figura \ref{NNImage}. Existe una capa de entrada inicial \textit{input layer} que corresponde a cada una de las características del ejemplo de entrada (en el caso de imágenes se trata de cada uno de los píxeles). Cada una de las características de la capa de entrada se conecta con cada una de las neuronas primera capa oculta \textit{hidden layer} a través de conexiones denominadas pesos \textit{weights} que son los que serán aprendidos en la red con el objetivo de encontrar patrones entre las características mediante el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}.\\
+
+
+            Esta metodología se aplica para cada una de las \textit{hidden layers} presentes en la arquitectura hasta la última capa, para que la red aprenda patrones entre las distintas salidas de cada capa hasta llegar a una función \textit{SoftMax} que dictará la clase predicha en base a la salida de la capa final, u \textit{output layer}.\\
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=10cm]{archivos/NNImage}
+                \caption{https://www.v7labs.com/blog/neural-networks-activation-functions. Arquitectura de una Red Neuronal.}
+                \label{NNImage}
+             \end{figure}
+
 
 
             Antes de entrar en el detalle de la implementación de las \textit{CNN} es necesario introducir los siguientes conceptos comunes a todas las \textit{NN} para la posterior comprensión de las arquitecturas:
 
 
             \begin{itemize}
+
+                \item Función de activación:
+
+                    Las funciones de activación son las encargadas de decidir si una neurona es activada o no en función de la entrada a esta función, es decir, basándose en los datos de entrada a la función, ésta decidirá si este input producirá un determinado \textit{output} a la salida de ella. Esta función suele situarse en la salida de cada capa de la red para decidir si una determinada neurona de la siguiente capa se activará o no.
+
+                    Existen distintos enfoques en lo que respecta a las funciones de activación, como 
+
+                    En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
+
+                    \begin{center}
+                        $f(x) = \left\{
+                                       \begin{array}{lr}
+                                         0 & \text{if } x<=0\\
+                                         x & \text{if } x>0
+                                       \end{array}
+                                \right.$
+                    \end{center}
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=10cm]{archivos/CNN/RELUImage}
+                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
+                        \label{RELUImage}
+                     \end{figure}
+
 
                 \item Entropía:
 
@@ -174,7 +217,7 @@
 
                 \item BackPropagation:
 
-                    En el proceso de entrenamiento de la \textit{CNN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}, algoritmo de optimización que maximiza el valor de una función siempre y cuando ésta sea continua diferenciable.
+                    En el proceso de entrenamiento de la \textit{CNN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza el método \textit{GD}, algoritmo de optimización que maximiza el valor de una función siempre y cuando ésta sea continua diferenciable.
 
                     Gracias a las propiedades de la función \textit{Softmax} es posible utilizar \textit{GD} para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
 
@@ -188,13 +231,13 @@
             \end{itemize}
 
 
-            ESPECÍFICOS DE CNN:
+            A contiuación definiremos los parámetros específicos aplicados a las \textit{CNNs}:
 
             \begin{itemize}
 
                 \item Kernels:
 
-                    Son las estructuras que se encargan de realizar la convolución. Los kernels son matrices de pesos unidimensionales ($1 \times n$) o bidimensionales ($n \times m$)dependiendo del tipo de convolución que se esté aplicando (Convolución 1-D o Convolución 2-D), y se encargan de proyectar las posiciones de la matriz que correspondan en instante de la convolución en un mapa de características (\textit{feature map}) que será pasado a la siguiente capa de la red.
+                    Son las estructuras que se encargan de realizar la convolución. Los kernels son matrices de pesos unidimensionales ($1 \times n$) o bidimensionales ($n \times m$)dependiendo del tipo de convolución que se esté aplicando (Convolución 1-D o Convolución 2-D), y se encargan de proyectar las posiciones de la matriz de entrada que correspondan en instante de la convolución en un mapa de características (\textit{feature map}), que será el input de la siguiente capa de la red. De esta forma, los kernels permiten inferir patrones en la matriz de entrada en gracias a la actualización de sus pesos. En función de la profundidad de la capa, los kernels podrán encontrar patrones más simples (capas más superficiales de la red) o más complejos (capas más profundas de la red) debido a que la entrada a cada capa es una convolución (aplicación del filtro) de las capas anteriores.
 
                     Un kernel realiza el producto escalar de sus pesos con respecto a las posiciones de la matriz de entrada (imagen o \textit{feature map}) que colisionen en ese momento con el kernel, generando un nuevo \textit{feature map} de menor dimensión, a menos que se utilice la técnica de \textit{Padding} \cite{Kernels}.
                      
@@ -206,7 +249,6 @@
 
                     Son los saltos producidos por un kernel en cada etapa de la convolución, dependiendo si la convolución es dimensional o bidimensional, el stride constará de una dimensión ($i$), es decir, los pasos hacia la derecha en la imagen, o de dos dimensiones ($i, j$), los pasos hacia la derecha y hacia abajo en la imagen.
 
-
                     \begin{figure}[h]
                         \centering
                         \includegraphics[width=10cm]{archivos/CNN/Stride}
@@ -216,9 +258,9 @@
 
                 \item Padding:
 
-                    El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución. Estas posiciones son aquellas en las que el filtro de la convolución pasaría una única vez en caso de no aplicar \textit{padding}.
+                    El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución. Estas posiciones son aquellas en las que el filtro de la convolución pasaría una única vez en caso de no aplicar \textit{padding}.\\
 
-                    El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.
+                    El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.\\
 
                     \begin{figure}[h]
                         \centering
@@ -228,22 +270,34 @@
                      \end{figure}
 
 
+                \item Función de activación:
 
-                        
+
+                    En el caso de las redes neuronales convolucionales, la forma de aplicar la función de activación 
+
+
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=10cm]{archivos/CNN/CNNRELUImage}
+                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634}
+                        \label{CNNRELUImage}
+                     \end{figure}
+
             \end{itemize}
 
-            En el proceso de entrenamiento de la \textit{CNN} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}
+            En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida.
 
             !!!!!\cite{KL-Divergence}!!!!!
 
-            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN}, podemos hacer distinción entre dos enfoques distintos que se han aplicado en este proyecto:
+            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques distintos de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a dimensionalidad de éste.
 
 
             \subsubsection{Unidimensionales (Conv-1D)}
             
-                Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.
+                Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
 
-                Las complejidad computacional de las \textit{CNN-1D} es mucho más simple que las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.
+                Las complejidad computacional de las \textit{CNN-1D} es mucho más simple que las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
 
 
                 El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
@@ -274,13 +328,13 @@
 
         \subsection {KNN}
 
-            El algoritmo \textit{K vecinos más próximos}, o \textit{K-Nearest Neighbors (kNN)} \cite{KNN}, es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.
+            El algoritmo \textit{K vecinos más próximos}, o \textit{K-Nearest Neighbors (kNN)} \cite{KNN}, es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.\\
 
-            El algoritmo \textit{KNN} asume que muestras con características parecidas deben pertenecer a la misma clase. O lo que es lo mismo, muestras parecidas deben estar cercanas en el espacio dimensional.
+            El algoritmo \textit{KNN} asume que muestras con características parecidas deben pertenecer a la misma clase. O lo que es lo mismo, muestras parecidas deben estar cercanas en el espacio dimensional.\\
 
-            Esta técnica se basa en representar las muestras de un conjunto de datos en base a sus características en un espacio n-dimensional y clasificar la muestra correspondiente como la clase mayoritaria al calcular la distancia de dicha muestra a los $k$ vecinos más próximos. Normalmente la distancia empleada es la \textit{Euclídea}, aunque es posible calcular otras distancias como \textit{Manhattan} o \textit{Chebyshev}.
+            Esta técnica se basa en representar las muestras de un conjunto de datos en base a sus características en un espacio n-dimensional y clasificar la muestra correspondiente como la clase mayoritaria al calcular la distancia de dicha muestra a los $k$ vecinos más próximos. Normalmente la distancia empleada es la \textit{Euclídea}, aunque es posible calcular otras distancias como \textit{Manhattan} o \textit{Chebyshev}.\\
             
-            A medida que se incrementan las dimensiones del espacio resulta más costoso computacionalmente calcular distancias entre los puntos.
+            A medida que se incrementan las dimensiones del espacio resulta más costoso computacionalmente calcular distancias entre los puntos.\\
 
 
             Por lo tanto, el único parámetro a configurar es el número de vecinos más cercanos que se calculará en base al punto que queramos clasificar, en la figura \ref{KNNImage} se muestra un ejemplo de un problema de clasificacíón aplicando distintos valores al parámetros $k$.
