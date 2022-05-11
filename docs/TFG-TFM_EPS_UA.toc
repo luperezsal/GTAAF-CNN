@@ -27,32 +27,32 @@
 \contentsline {section}{\numberline {4.1}Modelos}{17}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Algoritmos Genéticos}{17}{subsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.1.2}XGBoost}{20}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Redes Neuronales Convolucionales (CNN)}{20}{subsection.4.1.3}%
-\contentsline {subsubsection}{\numberline {4.1.3.1}Unidimensionales (Conv-1D)}{24}{subsubsection.4.1.3.1}%
-\contentsline {subsubsection}{\numberline {4.1.3.2}Bidimensionales (Conv-2D)}{25}{subsubsection.4.1.3.2}%
-\contentsline {subsection}{\numberline {4.1.4}KNN}{25}{subsection.4.1.4}%
-\contentsline {section}{\numberline {4.2}Especificaciones técnicas}{25}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Herramientas utilizadas}{26}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Especificaciones del servidor}{27}{subsection.4.2.2}%
-\contentsline {chapter}{\numberline {5}Metodología (Con ejemplos de figuras)}{29}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Diagrama de flujo}{29}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Inserción de figuras}{29}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Diagrama de Gantt}{29}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Desarrollo (Con ejemplos de código)}{33}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Inserción de código}{33}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Usos y personalización}{36}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Importar archivos fuente}{37}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Resultados (Con ejemplos de gráficos)}{39}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Diagramas}{39}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Gráficas}{40}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Línea}{40}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Barras}{41}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}Polar}{42}{subsection.7.2.3}%
-\contentsline {section}{\numberline {7.3}Importados de MATLAB}{43}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Ejemplo avanzado}{44}{section.7.4}%
-\contentsline {chapter}{\numberline {8}Conclusiones (Con ejemplos de matemáticas)}{47}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Matemáticas}{47}{section.8.1}%
-\contentsline {chapter}{\numberline {A}Anexo I}{51}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Páginas horizontales}{53}{appendix.B}%
-\contentsline {chapter}{\numberline {C}Importar PDF}{57}{appendix.C}%
+\contentsline {subsection}{\numberline {4.1.3}Redes Neuronales Convolucionales (CNN)}{21}{subsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.3.1}Unidimensionales (Conv-1D)}{27}{subsubsection.4.1.3.1}%
+\contentsline {subsubsection}{\numberline {4.1.3.2}Bidimensionales (Conv-2D)}{28}{subsubsection.4.1.3.2}%
+\contentsline {subsection}{\numberline {4.1.4}KNN}{28}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Especificaciones técnicas}{29}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Herramientas utilizadas}{29}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Especificaciones del servidor}{30}{subsection.4.2.2}%
+\contentsline {chapter}{\numberline {5}Metodología (Con ejemplos de figuras)}{31}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Diagrama de flujo}{31}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Inserción de figuras}{31}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Diagrama de Gantt}{31}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Desarrollo (Con ejemplos de código)}{35}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Inserción de código}{35}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Usos y personalización}{38}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Importar archivos fuente}{39}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Resultados (Con ejemplos de gráficos)}{41}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Diagramas}{41}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Gráficas}{42}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Línea}{42}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Barras}{43}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Polar}{44}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Importados de MATLAB}{45}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Ejemplo avanzado}{46}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Conclusiones (Con ejemplos de matemáticas)}{49}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Matemáticas}{49}{section.8.1}%
+\contentsline {chapter}{\numberline {A}Anexo I}{53}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Páginas horizontales}{55}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Importar PDF}{59}{appendix.C}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
