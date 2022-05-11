@@ -17,7 +17,7 @@
 
             El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación correspondiente para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan (adaptación al medio) mediante una función heurística.\\
 
-            Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar el espacio de búsqueda.\\
+            Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar éste espacio.\\
 
             Para comprender el funcionamiento de los algoritmos genéticos es necesario analizar cada una de las fases que lo constituyen:
             
@@ -29,7 +29,7 @@
                         \begin{figure}[h]
                             \centering
                             \includesvg[inkscapelatex=false]{archivos/GA/InitialPopulation}
-                            \caption{Inicialización de la población.}
+                            \caption{Inicialización de la población. Cada individuo está constituido por n parámetros del XGBoost a optimizar.}
                             \label{InitialPopulation}
                         \end{figure}
 
@@ -61,7 +61,7 @@
 
                 \item Mutación:
 
-                        Cuando los padres seleccionados son combinados para dar lugar a los candidatos de la nueva generación, es importante aplicar un proceso de mutación entre éstos debido a la necesidad de generar diversidad en la población. Si se combina la misma información entre generaciones, se corre el riesgo de converger prematuramente a un mínimo local del espacio de búsqueda. Por este motivo se introduce el concepto de mutación, que consiste en aplicar una modificación aleatoria sobre alguno de los parámetros de los individuos generados para poder ampliar el espacio de soluciones. 
+                        Cuando los padres seleccionados son combinados para dar lugar a los candidatos de la nueva generación, es importante aplicar un proceso de mutación entre éstos debido a la necesidad de generar diversidad en la población. Si se combina la misma información entre generaciones se corre el riesgo de converger prematuramente a un mínimo local del espacio de búsqueda. Por este motivo se introduce el concepto de mutación, que consiste en aplicar una modificación aleatoria sobre alguno de los parámetros de los individuos generados para poder ampliar el espacio de soluciones. 
             \end{enumerate}
 
             Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada, como establecer un umbral mínimo del \textit{score} de las soluciones, o fijar un número específico de iteraciones que se ejecutarán en el algoritmo.\\
@@ -123,15 +123,16 @@
 
         \subsection {Redes Neuronales Convolucionales (CNN)}
 
-            Las Redes Neuronales Convolucionales tratan de imitar el comportamiento del sistema nervioso para identificar patrones en los datos de entrada.\\
-
-            Para entrenar a una \textit{CNN} es necesario hacerlo mediante ejemplos etiquetados, ya que este tipo de redes se basa en el aprendizaje supervisado. Es decir, durante el proceso de entrenamiento se comparará la salida de las predicciones de la última capa con la salida conocida, y se calculará la entropía cruzada entre las distribuciones  para optimizar los pesos de las capas mediante el método \textit{Descenso por Gradiente} \textit{(Backward Propagation)}.\\
+            Las Redes Neuronales son modelos que emulan comportamiento del cerebro a la hora de procesar la información, entrenándose sobre un conjunto de datos de entrenamiento para identificar patrones entre ellos.\\
 
 
-            A modo de comprensión, se muestra la arquitectura de una \textit{NN}, donde se pueden observar las conexiones entre cada capa de la red y sus salidas en la figura \ref{NNImage}. Existe una capa de entrada inicial \textit{input layer} que corresponde a cada una de las características del ejemplo de entrada (en el caso de imágenes se trata de cada uno de los píxeles). Cada una de las características de la capa de entrada se conecta con cada una de las neuronas primera capa oculta \textit{hidden layer} a través de conexiones denominadas pesos \textit{weights} que son los que serán aprendidos en la red con el objetivo de encontrar patrones entre las características mediante el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}.\\
+            Para entrenar una \textit{CNN} es necesario hacerlo mediante ejemplos etiquetados, ya que este tipo de redes se basa en el aprendizaje supervisado. Es decir, durante el proceso de entrenamiento se comparará la salida de las predicciones de la última capa con la salida conocida, y se calculará la entropía cruzada entre las distribuciones, de esta forma los pesos de las capas son optmizados mediante el método \textit{Descenso por Gradiente} \textit{(Backward Propagation)}.\\
 
 
-            Esta metodología se aplica para cada una de las \textit{hidden layers} presentes en la arquitectura hasta la última capa, para que la red aprenda patrones entre las distintas salidas de cada capa hasta llegar a una función \textit{SoftMax} que dictará la clase predicha en base a la salida de la capa final, u \textit{output layer}.\\
+            A modo de comprensión, se muestra la arquitectura de una \textit{NN}, donde se pueden observar las conexiones entre cada capa de la red y sus salidas en la figura \ref{NNImage}. Existe una capa de entrada inicial \textit{input layer} que corresponde a cada una de las características del ejemplo de entrada (en el caso de imágenes se trata de cada uno de los píxeles). Cada una de las características de la capa de entrada se conecta con cada una de las neuronas de la primera capa oculta \textit{hidden layer} a través de conexiones denominadas pesos (\textit{weights}) que son los que serán aprendidos en la red con el objetivo de encontrar patrones entre las características mediante el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}.\\
+
+
+            Esta metodología se aplica para cada una de las \textit{hidden layers} presentes en la arquitectura hasta la última capa, llegando hasta la última función \textit{SoftMax} que dictará la clase predicha en base a la salida de la capa final, u \textit{output layer}.\\
 
             \begin{figure}[h]
                 \centering
@@ -149,11 +150,11 @@
 
                 \item Función de activación:
 
-                    Las funciones de activación son las encargadas de decidir si una neurona es activada o no en función de la entrada a esta función, es decir, basándose en los datos de entrada a la función, ésta decidirá si este input producirá un determinado \textit{output} a la salida de ella. Esta función suele situarse en la salida de cada capa de la red para decidir si una determinada neurona de la siguiente capa se activará o no.
+                    Las funciones de activación son las encargadas de decidir si una neurona es activada o no en función de la entrada a esta función, es decir, basándose en los datos de entrada, ésta decidirá si este input producirá un determinado \textit{output} a la salida de ella. Esta función suele situarse en la salida de cada capa de la red para decidir si una determinada neurona de la siguiente capa se activa o no.
 
-                    Existen distintos enfoques en lo que respecta a las funciones de activación, como 
+                    Existen distintos enfoques en lo que respecta a las funciones de activación, como la función logística \textit{logistic function}, tangente hiperbólica \textit{hyperbolic tangent} y \textit{softmax} entre otras.
 
-                    En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
+                    En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)} a la salida de cada capa de convolución, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
 
                     \begin{center}
                         $f(x) = \left\{
@@ -185,9 +186,9 @@
 
                 \item Softmax:
 
-                    Se trata de la generalización en forma multidimensional de la función logística o \textit{logistic function}. Softmax es una función que permite la transformación de un vector de números reales a una distribución de probabilidad. Esta función se suele aplicar como capa de activación en el último nivel en las \textit{NN}, representando la probabilidad de que la salida de la red pertenezca a cada una de las $K$ clases posibles en el modelo \cite{Softmax}. 
+                    Se trata de la generalización en forma multidimensional de la función logística o \textit{logistic function}. \textit{Softmax} es una función que permite la transformación de un vector de números reales a una distribución de probabilidad. Esta función se suele aplicar como capa de activación en el último nivel en las \textit{NN}, representando la probabilidad de que la salida de la red pertenezca a cada una de las $K$ clases posibles en el modelo \cite{Softmax}. 
 
-                    Esto se debe a que normalmente los componentes de la salida de la última capa de una red neuronal (denominados como \textit{logits}) son el resultado de la predicción en forma de números reales no normalizados, por lo tanto pueden ser mayores que $1$ e incluso negativos. La función permite calcular la distribución de probabilidad en base a estos \textit{logits} y calcular la probabilidad de pertenencia a cada una de las $K$ clases que componen el modelo mediante la siguiente fórmula:
+                    Esto es necesario debido a que normalmente los componentes de la salida de la última capa de una red neuronal (denominados como \textit{logits}) son el resultado de la predicción en forma de números reales no normalizados, por lo tanto pueden ser mayores que $1$ e incluso negativos. La función permite calcular la distribución de probabilidad en base a estos \textit{logits} y calcular la probabilidad de pertenencia de la muestra a cada una de las $K$ clases que componen el modelo mediante la siguiente fórmula:
 
 
                     \begin{center}
@@ -211,19 +212,31 @@
                     \begin{figure}[h]
                         \centering
                         \includegraphics[width=7cm]{archivos/CNN/CrossEntropy}
-                        \caption{https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e}
+                        \caption{https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdader a (derecha).}
                         \label{CrossEntropyImage}
                      \end{figure}
 
-                \item BackPropagation:
+                \item Back Propagation:
 
                     En el proceso de entrenamiento de la \textit{CNN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza el método \textit{GD}, algoritmo de optimización que maximiza el valor de una función siempre y cuando ésta sea continua diferenciable.
 
                     Gracias a las propiedades de la función \textit{Softmax} es posible utilizar \textit{GD} para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
 
+                \item Learning Rate:
+
+                    La \textit{tasa de aprendizaje}, o \textit{learning rate} define el tamaño de paso que se aplicará a a la hora de optimizar los pesos de la red. El valor del \textit{learning rate} se comprende en el intervalo $[0,1]$, de tal forma que a menor valor de la tasa de aprendizaje menor será el cambio que se produce en los pesos de las neuronas del modelo, el caso contrario ocurre cuando adopta un valor alto.\\
+
+
+
+                    Este parámetro no es sencillo de especificar, el \textit{learning rate} es un regularizador que con valores altos permite que la red no caiga en \textit{overfitting}, caso que ocurriría si el valor fuera demasiado pequeño y la minimización de la función de pérdida cayese en un mínimo local debido a aprender demasiado de los datos de entrenamiento. Si el valor es muy alto los pesos de los parámetros de la red variarán excesivamente impidiendo la convergencia en un mínimo de la función.\\
+
+                    Esta disyuntiva ha sido ampliamente estudiada en los últimos tiempos, acerca de cuál es el valor ideal del \textit{learning rate} en las \textit{NN} \cite{LearningRate}, aunque comunmente se configura con el valor $0.1$.
+
+
+
                 \item Batch Normalization:
 
-                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario transformar los datos de entrada a la entrada de la capa, o lo que es lo mismo, normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época \textit{epoch}).
+                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario transformar los datos de entrada a la entrada de la capa, o lo que es lo mismo, normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época \textit{epoch}).\\
 
 
                     El método \textit{Batch Normalization} \cite{BatchNormalization} normaliza los datos de tal forma que permite utilizar tasas de aprendizaje mayores además de actuar como regularizador, reduciendo así el número de capas \textit{Dropout} que existan en la arquitectura.
@@ -273,24 +286,25 @@
                 \item Función de activación:
 
 
-                    En el caso de las redes neuronales convolucionales, la forma de aplicar la función de activación 
+                    En el caso de las redes neuronales convolucionales, la función de activación (en este proyecto \textit{ReLU}) se aplica a cada casilla proyectada por cada kernel sobre la matriz de entrada, de tal forma que cambia el valor a $0$ sobre aquellos valores que resulten negativos de la convolución.\\
+
+                    En la figura \ref{CNNRELUImage} se puede apreciar cómo se aplica la función de activación \textit{ReLU} para cada casilla de la proyección de un \textit{kernel} bidimensinoal sobre una \textit{red convolucional de dos dimensiones}.
 
 
 
                     \begin{figure}[h]
                         \centering
                         \includegraphics[width=10cm]{archivos/CNN/CNNRELUImage}
-                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634}
+                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Ejemplo de ReLU aplicado a una convolución de dos dimensiones.}
                         \label{CNNRELUImage}
                      \end{figure}
 
             \end{itemize}
 
-            En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida.
+            En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida. \\
 
-            !!!!!\cite{KL-Divergence}!!!!!
 
-            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques distintos de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a dimensionalidad de éste.
+            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a su dimensionalidad.
 
 
             \subsubsection{Unidimensionales (Conv-1D)}
@@ -322,7 +336,7 @@
 
                 
             \subsubsection {Bidimensionales (Conv-2D)}
-                Otra de las técnicas convolucionales utizadas en este documento son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}, sin embargo en este caso \textit{kernel} será de bidimensional por ser una convolución de dos dimensiones, es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
+                Otra de las técnicas convolucionales implementadas en este proyecto son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}, sin embargo, en este caso \textit{kernel} será de bidimensional al ser una convolución de dos dimensiones, por lo que es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
 
                 \textit{}
 
@@ -356,26 +370,47 @@
         \subsection{Herramientas utilizadas}
             Para el desarrollo de este proyecto se ha hecho uso de los siguientes programas:
 
-            \begin{itemize}
-                \item Lenguaje de programación:
-                    \subitem Python: lenguaje de programación interpretado de nivel alto multiparadigma. La versión empleada para el desarrollo del proyecto ha sido 3.9.11.
-                \item Liberías: Se enumerarán las librerías 
-                    \subitem Pandas: libería que provee de herramientaas que permiten el análisis y la manipulación de datos. La versión utilizada para este proyecto es la 1.3.5 \cite{Pandas}. 
-                    \subitem Tensorflow: libería utilizada para la implementación de redes neuronales permitiendo su ejecución. Este proyecto se basa en la versión 2.8.0 \cite{Tensorflow}.
-                    \subitem Sklearn: librería que contiene múltiples modelos predictivos implementados, basado en NumPy, SciPy y Matplotlib. La versión configurada para este proyecto es 1.0.2 \cite{Scikit-Learn}.
-                    \subitem XGboost: paquete que contiene la implementación del algoritmo XGBoost, además de múltiples configuraciones como la ejecución en \textit{CPU, GPU y GPU paralelizada}. La importación de esta librería ha sido en base a la versión 1.5.0 \cite{XGBoostLibrary}.
-                \item Software:
-                    \subitem CUDA: plataforma de computación paralelizada que permite la ejecución de código en \textit{GPU}, esto permite que las redes neuronales puedan entrenarse con mayor rapidez que en \textit{CPU} debido a la velocidad con la que se realizan las operaciones orientadas a datos en las tarjetas gráficas. Se ha utilizado la versión 11.6 \cite{CUDA}. 
-                    \subitem Anaconda: distribución open-source que ofrece la flexibilidad de mantener varios entornos con distintas configuraciones y versiones de distinas librerías, facilitando además la migración entre equipos. La versión utilizada ha sido la 4.12.0 \cite{Anaconda}.
-                    \subitem Jupyter Notebook: entorno interactivo que permite la creación, edición y ejecución de notebooks de forma local y remota. La versión utilizada para el desarrollo de este proyecto ha sido la 6.4.10 \cite{JupyterNotebook}.
-                    \subitem Jupyter Lab: interfaz de nueva generación que convive con el entorno Jupyter Notebook, ofrece numerosas funcionalidades como es la navegación entre distintos repositorios dentro de la interfaz. La versión instalada para la realización del proyecto ha sido la 3.3.2 \cite{JupyterLab}.
-                    \subitem MiKTeX:
-                    \subitem DiagramsNet: plataforma utilizada para la confección de figuras mostradas en este documento \cite{DiagramsNet}. 
-                    \subitem Google Meets: plataforma utilizada para realizar reuniones semanales con el tutor \cite{GoogleMeet}.
-                \item Sistemas de control de versiones:
-                    \subitem Github: repositorio donde tener un control de las versiones del desarrollo \cite{Github}.
+            \begin{description}
+
+                \item [Lenguaje de programación]:
+
+                    \begin{itemize}
+                        \item Python: lenguaje de programación interpretado de nivel alto multiparadigma. La versión empleada para el desarrollo del proyecto ha sido 3.9.11.
+                    \end{itemize}
+
+                \item [Liberías]:
+
+                    \begin{itemize}
+
+                        \item Pandas: libería que provee de herramientas que permiten el análisis y la manipulación de datos. La versión utilizada para este proyecto es la 1.3.5 \cite{Pandas}. 
+                        \item Tensorflow: libería utilizada para la implementación de redes neuronales permitiendo su ejecución. Este proyecto se basa en la versión 2.8.0 \cite{Tensorflow}.
+                        \item Sklearn: librería que contiene múltiples modelos predictivos implementados, basado en NumPy, SciPy y Matplotlib. La versión configurada para este proyecto es 1.0.2 \cite{Scikit-Learn}.
+                        \item XGboost: paquete que contiene la implementación del algoritmo XGBoost, además de múltiples configuraciones como la ejecución en \textit{CPU, GPU y GPU paralelizada}. La importación de esta librería ha sido en base a la versión 1.5.0 \cite{XGBoostLibrary}.
+
+                    \end{itemize}
+
+                \item [Software]:
+
+                    \begin{itemize}
+
+                        \item CUDA: plataforma de computación paralelizada que permite la ejecución de código en \textit{GPU}, esto permite que las redes neuronales puedan entrenarse con mayor rapidez que en \textit{CPU} debido a la velocidad con la que se realizan las operaciones orientadas a datos en las tarjetas gráficas. Se ha utilizado la versión 11.6 \cite{CUDA}. 
+                        \item Anaconda: distribución open-source que ofrece la flexibilidad de mantener varios entornos con distintas configuraciones y versiones de distinas librerías, facilitando además la migración entre equipos. La versión utilizada ha sido la 4.12.0 \cite{Anaconda}.
+                        \item Jupyter Notebook: entorno interactivo que permite la creación, edición y ejecución de notebooks de forma local y remota. La versión utilizada para el desarrollo de este proyecto ha sido la 6.4.10 \cite{JupyterNotebook}.
+                        \item Jupyter Lab: interfaz de nueva generación que convive con el entorno Jupyter Notebook, ofrece numerosas funcionalidades como es la navegación entre distintos repositorios dentro de la interfaz. La versión instalada para la realización del proyecto ha sido la 3.3.2 \cite{JupyterLab}.
+                        \item MiKTeX:
+                        \item DiagramsNet: plataforma utilizada para la confección de figuras mostradas en este documento \cite{DiagramsNet}. 
+                        \item Google Meets: plataforma utilizada para realizar reuniones semanales con el tutor \cite{GoogleMeet}.
+
+                    \end{itemize}
+
+                \item [Sistemas de control de versiones]:
+                    \begin{itemize}
+
+                        \item Github: repositorio donde tener un control de las versiones del desarrollo \cite{Github}.
+                    \end{itemize}
+
                     
-            \end{itemize}
+            \end{description}
 
 
         \subsection{Especificaciones del servidor}
