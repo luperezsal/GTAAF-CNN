@@ -1844,7 +1844,7 @@ MODEL_NAME = MODELS_NAME[1]
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
 MODEL_FILE_NAME = 'leeds_convolution_1d_2022-04-27-21:50:26.h5'
 
-convolution_1d = tf.keras.models.load_model(MODELS_PATH + MODEL_FILE_NAME)
+convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -3410,89 +3410,37 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# from dask_cuda import LocalCUDACluster
+# # leaf_size = list(range(1,10, 2))
+# # n_neighbors = list(range(1,100, 10))
+# # p = [1, 2]
 
-# # Create a Dask single-node CUDA cluster w/ one worker per device
-# cluster = LocalCUDACluster(protocol="ucx",
-#                            enable_tcp_over_ucx=True,
-#                            enable_nvlink=True,
-#                            enable_infiniband=False)
+# # Create new KNN object
+# hyperparameters = dict(leaf_size = leaf_size,
+#                        n_neighbors = n_neighbors)
 
-# from dask.distributed import Client
-# client = Client(cluster)
+# # Use GridSearch
+# knn_2 = KNeighborsClassifier()
 
+# # Fit the model
+# clf = GridSearchCV(knn_2,
+#                    hyperparameters,
+#                    cv = 4)
 
-# In[ ]:
+# knn = clf.fit(X_train, Y_train)
 
+# # Print The value of best Hyperparameters
 
-# leaf_size = list(range(1,10, 2))
-# n_neighbors = list(range(1,100, 10))
-# p = [1, 2]
+# best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
+# best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
 
-# Create new KNN object
-hyperparameters = dict(leaf_size = leaf_size,
-                       n_neighbors = n_neighbors)
+# print('Best leaf_size:', best_leaf_size)
+# print('Best n_neighbors:', best_n_neighbors)
 
-# Use GridSearch
-knn_2 = KNeighborsClassifier()
+# df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
 
-# Fit the model
-clf = GridSearchCV(knn_2,
-                   hyperparameters,
-                   cv = 4)
+# FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
 
-knn = clf.fit(X_train, Y_train)
-knn = clf.fit(X_train, Y_train)
-
-# Print The value of best Hyperparameters
-
-best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
-best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
-
-print('Best leaf_size:', best_leaf_size)
-print('Best n_neighbors:', best_n_neighbors)
-
-df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
-
-FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
-
-df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
-
-
-# In[80]:
-
-
-import autosklearn.classification
-
-automl = autosklearn.classification.AutoSklearnClassifier(
-    time_left_for_this_task=300,
-    per_run_time_limit=30,
-    # Bellow two flags are provided to speed up calculations
-    # Not recommended for a real implementation
-    initial_configurations_via_metalearning=0,
-    smac_scenario_args={'runcount_limit': 1},
-)
-
-
-# In[83]:
-
-
-automl.fit(X_train, Y_train)
-
-
-# In[82]:
-
-
-from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
-
-
-y_predicted = automl.predict(X_test)
-
-report = classification_report(Y_test,
-                               y_predicted,
-                               target_names = Y_test.unique(),
-                               output_dict = True)
-report
+# df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
 
 # #### Escritura del modelo
@@ -3527,37 +3475,37 @@ report
 # In[ ]:
 
 
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = knn.predict(X_test)
+# y_true = tf.argmax(Y_test_onehot, axis=1)
+# y_predicted = knn.predict(X_test)
 
-Y_test_labels = one_hot_to_casualty(Y_test)
+# Y_test_labels = one_hot_to_casualty(Y_test)
 
-############## SAVE CLASSIFICATION REPORT ##############
-report = classification_report(y_true,
-                               y_predicted,
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
+# ############## SAVE CLASSIFICATION REPORT ##############
+# report = classification_report(y_true,
+#                                y_predicted,
+#                                target_names = Y_test_labels.unique(),
+#                                output_dict = True)
 
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+# REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+# report_df = pd.DataFrame(report).transpose()
+# report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
 
 
-############## SAVE CONFUSION MATRIX ##############
+# ############## SAVE CONFUSION MATRIX ##############
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-cm = confusion_matrix(y_true,
-                      y_predicted,
-                      labels = Y_test.unique())
+# cm = confusion_matrix(y_true,
+#                       y_predicted,
+#                       labels = Y_test.unique())
 
-disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-                              display_labels = Y_test_labels.unique()).plot()
+# disp = ConfusionMatrixDisplay(confusion_matrix = cm,
+#                               display_labels = Y_test_labels.unique()).plot()
 
-plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+# plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 
 
 # ### Convolution 1D
@@ -3573,10 +3521,10 @@ MODEL_NAME = MODELS_NAME[1]
 # In[ ]:
 
 
-history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                             batch_size = 128, epochs = 100, shuffle = True,
-                             validation_data = (array_test_images, Y_test_onehot))
-# history
+# history = convolution_1d.fit(array_train_images, Y_train_onehot,
+#                              batch_size = 128, epochs = 100, shuffle = True,
+#                              validation_data = (array_test_images, Y_test_onehot))
+# # history
 
 
 # #### Escritura del modelo
@@ -3584,10 +3532,10 @@ history = convolution_1d.fit(array_train_images, Y_train_onehot,
 # In[ ]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -3595,10 +3543,10 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = 'MADRID'
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-11-08:53:52.h5'
 
-# tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -3615,18 +3563,18 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-## Plot history: F1 SCORE
-figure_name = plt.figure(figsize=(20, 10))
-plt.plot(history.history['f1_score'], label='F1 score (training data)')
-plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-plt.title('F1 score')
-plt.ylabel('F1 score value')
-plt.xlabel('No. epoch')
-plt.legend(loc="upper left")
-plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-plt.show()
+# ## Plot history: F1 SCORE
+# figure_name = plt.figure(figsize=(20, 10))
+# plt.plot(history.history['f1_score'], label='F1 score (training data)')
+# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+# plt.title('F1 score')
+# plt.ylabel('F1 score value')
+# plt.xlabel('No. epoch')
+# plt.legend(loc="upper left")
+# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
+# plt.show()
 
-print(history)
+# print(history)
 
 ########################################################################
 
@@ -3677,10 +3625,10 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                       batch_size = 128, epochs = 100, shuffle = True,
-                       validation_data = (array_test_images, Y_test_onehot))
-# history
+# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+#                        batch_size = 128, epochs = 100, shuffle = True,
+#                        validation_data = (array_test_images, Y_test_onehot))
+# # history
 
 
 # #### Escritura del modelo
@@ -3688,10 +3636,10 @@ history = tasp_cnn.fit(array_train_images, Y_train_onehot,
 # In[ ]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -3699,10 +3647,10 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = 'MADRID'
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-11-08:53:52.h5'
 
-# tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
