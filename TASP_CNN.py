@@ -2031,18 +2031,6 @@ plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 MODEL_NAME = 'auto_ml'
 
 
-# In[248]:
-
-
-Y_train
-
-
-# In[253]:
-
-
-
-
-
 # In[251]:
 
 
@@ -2056,10 +2044,15 @@ clf = ak.ImageClassifier(num_classes = 3,
                          loss='categorical_crossentropy',
                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
                          overwrite = True,
+                         tuner= 'bayesian',
                          max_trials = 100,
                          )
     
-clf.fit(array_train_images, np.asarray(Y_train), epochs = 100, validation_data = (array_test_images, np.asarray(Y_test)))
+clf.fit(array_train_images,
+        np.asarray(Y_train),
+        epochs = 100,
+        batch_size = 128,
+        validation_data = (array_test_images, np.asarray(Y_test)))
 
 best_auto_model = clf.export_model()
 display(best_auto_model.summary())
