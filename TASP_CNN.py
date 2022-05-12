@@ -1685,6 +1685,12 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 # In[ ]:
 
 
+Y_test_labels = one_hot_to_casualty(Y_test)
+
+
+# In[ ]:
+
+
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 import pickle
 
@@ -1777,7 +1783,6 @@ n_neighbors = list(range(1,25, 5))
 # y_true = tf.argmax(Y_test_onehot, axis=1)
 # y_predicted = knn.predict(X_test)
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
 
 # ############## SAVE CLASSIFICATION REPORT ##############
 # report = classification_report(y_true,
@@ -1850,7 +1855,6 @@ convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 # #### Resultados
 
 # In[ ]:
-
 
 
 y_true = tf.argmax(Y_test_onehot, axis=1)
