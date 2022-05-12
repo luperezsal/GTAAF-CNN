@@ -41,29 +41,242 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
 \section{Proceso}
 
+    En esta sección describiremos cada uno de los pasos que ha seguido el desarrollo del proyecto, desde la búsqueda inicial de datos hasta la implementación final de los algoritmos:
+
     \begin{enumerate}
 
         \item Datos
-            \cite{Dataset}
+
+            El conjunto de datos con el que se ha trabajado en este proyecto describe accidentes de tráfico de la ciudad de Madrid en un periodo concreto, desde el año 2019 hasta el 2022. Este dataset ha sido obtenido desde la fuente del portal de datos abiertos de Madrid \cite{Dataset}, donde es posible encontrar conjuntos de datos de distinta naturaleza relativos a la ciudad de Madrid.
+
+            El número total de registros en este periodo de tiempo es de 60966 instancias, cada una de las cuales consta de 17 características que se describirán en la tabla \ref{DescripcionDatosTabla}:
+
+            \begin{table}[h]
+                \centering
+                    \begin{tabular}{p{0.35\linewidth} | p{0.6\linewidth}}
+                        Atributo&Descripción\\
+                        \hline
+                        \texttt Número de expediente&Identificador del incidente, si varios registros tienen el mismo un número de expediente se consideran como un mismo incidente y cada registro representa distintas personas involucradas en el incidente (Conductor, Pasajero o Peatón).\\
+                        \texttt Fecha&Día mes y año en el que se ha producido el incidente.\\
+                        \texttt Hora&Hora y minuto del día.\\
+                        \texttt Localización&Nombre de la calle.\\
+                        \texttt Número&Número de la calle.\\
+                        \texttt Distrito&Nombre del distrito de Madrid.\\
+                        \texttt Tipo de accidente&Tipología de accidente (Colisión doble, Colisión múltiple, Alcance, Choque contra obstáculo, Atropello, Vuelco, Caída, Otras causas)\\
+                        \texttt Estado meteorológico&Condiciones climatológicas en el momento del incidente (Despejado, Nublado, Lluvia débil, Lluvia intensa, Granizado o Nevando)\\
+                        \texttt Tipo de vehículo&\\
+                        \texttt Tipo de persona&Persona que ha sido involucrada en el incidente (Conductor, Pasajero o Peatón)\\
+                        \texttt Rango de edad&\\
+                        \texttt Sexo&Sexo de la persona involucrada (Hombre o Mujer)\\
+                        \texttt Lesividad&\\
+                        \texttt Coordenada X&Coordenada X del accidente en formato \textit{UTM}\\
+                        \texttt Coordenada Y&Coordenada Y del accidente en formato \textit{UTM}\\
+                        \texttt Positivo en alcohol&Si la persona implicada ha dado positivo en el control de alcoholemia (S o N)\\
+                        \texttt Positivo en drogas&Si la persona implicada ha dado positivo en el control de alcoholemia (S o N)\\ \hline
+                    \end{tabular}
+                    \caption{Descripción de los datos.}
+                    \label{DescripcionDatosTabla}
+
+            \end{table}
+
+
+            Se pueden consultar los más detalles de las características del dataset descripción del conjunto de datos del portal \textit{Open Data} de Madrid \cite{InfoDatasetMadrid}.\\
+
 
             \begin{enumerate}
-                \item Importación de datos
+
                 \item Limpieza de datos
-                \item Separación de datos
+
+                    Una vez importados los datos en el proyecto, es requisito hacer una limpieza de éstos (\textit{Data Cleaning}), eligiendo las características que serán utilizadas como variables explicativas en las predicciones atendiendo además a los valores de las instancias, ya que pueden contener valores nulos, valores atípicos (\textit{outliers}) o contener valores erróneos. Esta problemática requiere de estrategias a la hora de tratar estos valores.\\
+
+                    En el caso del dataset de accidentes de tráfico de este proyecto se han escogido las siguientes características como variables explicativas \textit{hora, distrito, tipo accidente, estado meteorológico, tipo vehiculo, tipo persona, rango edad, sexo, positivo alcohol, positivo drogas, vehiculos implicados, coordenada x utm, coordenada y utm}.\\
+
+
+                    Una vez que se han obtenido los predictores con los que trabajarán los modelos, se han eliminado aquellos registros duplicados y aquellos que tuvieran algún valor nulo en alguno de sus predictores. Por lo tanto, las dimensiones finales del conjunto de datos pasarán a ser 12 variables y 54364 registros con respecto a las 17 columnas y 60966 filas originales.\\
+
+
+
+                \item Transformaciones de datos
+
+
+                    En primer lugar ha sido necesario transformar las columnas \textit{coordenada x utm} y \textit{coordenada y utm} a números enteros para que los modelos los puedan tratar. Inicialmente estos valores estaban establecidos como String, sin seguir un formato de decimales estandarizado, por lo que se ha tenido que crear un proceso que analizase cada casuístca y los tradujese a un formato estandarizado.
+
+
+                    Las columnas \textit{positiva alcohol} y \textit{positiva drogas} se han unido en una nueva columna debido a la cantidad de valores nulos que existía en la segunda variable, por lo que se crea una nueva columna que hace referencia a la intoxicacion etílica o estupefaciente.
+
+                    Para que una \textit{CNN} pueda entrenarse en base a los datos de entrenamiento estos deben ser numéricos, por lo tanto se requiere de una serie de transformacíones que migren los datos categóricos a valores numéricos con el objetivo de que la \textit{CNN} pueda interpretar los datos de entrada como una imagen.
+
+                    Como el objetivo del proyecto es detectar la gravedad del accidente y éste se interpreta según la lesividad de cada una de las personas implicadas, se han transformado los valores de la característica \textit{lesividad} de acuerdo a su gravedad:
+
+                    \begin{itemize}
+                        \item Accidentes leves: comprenden los accidentes desde los que no ha habido ningún herido hasta aquellos en los que alguno de los implicados ha ingresado en un centro hospitalario no más de 24 horas.
+                        \item Accidentes severos: accidentes que han requerido de un ingreso hospitalario superior a 24 horas de alguna de las personas involucradas en el incidente.
+                        \item Accidentes fatales: accidentes que han provocado víctimas mortales hasta las 24 horas posteriores al incidente.
+                    \end{itemize}
+
+                    En la tabla \ref{TransformacionDatosTabla} se definene las transformaciones aplicadas sobre las variables del modelo para migrar estos datos a formato numérico.
+
+
+
+                    \begin{table}[ht]
+                      \centering
+                      \begin{tabular}{ll}
+                           \toprule
+                           \textbf{Característica} & \textbf{Tipado}\\
+                           \midrule
+                           \midrule
+                           \multicolumn{2}{c}{Variable Respuesta}\\
+                           \midrule
+
+                           \multirow{3}{*}{Lesividad}            & 0: Accidentes leves (\textit{1, 2, 5, 6, 7, 14}).\\
+                                                                 & 1: Accidentes severos (\textit{3}).\\
+                                                                 & 2: Accidentes fatales (\textit{4}).\\
+
+                           \midrule
+                           \midrule
+                           \multicolumn{2}{c}{Variables Explicativas}\\
+                           \midrule
+                           \multirow{2}{*}{Hora}                 & 1: Noche (\textit{6 PM - 6 AM}).\\
+                                                                 & 2: Día (\textit{6 AM - 6 PM}).\\
+                           \midrule
+                           \multirow{1}{*}{Distrito}             & Numeración en función de orden de aparición.\\
+                           \midrule
+                           \multirow{2}{*}{Tipo Accidente}       & Item 2\\
+                                                                 & Item 2\\
+                           \midrule
+                           \multirow{7}{*}{Estado Meteorológico} & 1: Despejado.\\
+                                                                 & 2: Nublado.\\
+                                                                 & 3: Lluvia débil.\\
+                                                                 & 4: Lluvia intensa.\\
+                                                                 & 5: Granizando.\\
+                                                                 & 6: Nevando.\\
+                                                                 & 7: Se desconoce.\\
+                           \midrule
+                           \multirow{2}{*}{Tipo Vehículo}        & Item 2\\
+                                                                 & Item 2\\
+                           \midrule
+                           \multirow{3}{*}{Tipo Persona}         & 1: Conductor.\\
+                                                                 & 2: Pasajero.\\
+                                                                 & 3: Peatón.\\
+                           \midrule
+                           \multirow{5}{*}{Rango Edad}           & 1: Menores de 18 años.\\
+                                                                 & 2: De 18 a 25 años.\\
+                                                                 & 3: De 25 a 65 años.\\
+                                                                 & 4: Mayores de 65 años.\\
+                                                                 & 5: Edad desconocida.\\
+                           \midrule
+                           \multirow{3}{*}{Sexo}                 & 1: Hombre.\\
+                                                                 & 2: Mujer.\\
+                                                                 & 3: Desconocido.\\
+                           \midrule
+                           \multirow{2}{*}{Positivo}             & 1: Sí.\\
+                                                                 & 2: No.\\
+                           \bottomrule
+                      \end{tabular}
+                      \caption{Transformaciones aplicadas a los datos.}
+                      \label{TransformacionDatosTabla}
+                    \end{table}
+                    
+
+
+                \item Análisis de datos
+
+                    Una de las fases más importantes antes de comenzar el modelado en cualquier proyecto \textit{Data Science} es el análisis de datos. Este proceso tiene como objetivo la descripción de los datos, identificación de \textit{outliers} y valores erróneos, y tendencias que se puedan dar en ellos.\\
+
+                    Como el objetivo es predecir la gravedad del accidente en función del resto de variables explicativas en el dataset, comenzaremos analizando los datos que correspondan a cada una de las tres posibles clases (leves, severos y fatales) realizando un histograma \ref{CasualtyClassImage}. Como podemos observar, nos encontramos ante un dataset claramente desbalanceado con respecto a la variable respuesta, contando con 53009 accidentes leves, 1271 severos y 84 fatales.\\
+
+                    Un conjunto de datos desbalanceado se define como aquel que contiene un número de instancias mucho mayor de determinadas clases con respecto al resto de clases \cite{WhyImbalancedDataIsAProblem}. Esto se convierte en un problema para los modelos de clasificación ya que estos modelos tenderán a predecir las muestras como aquellas que pertenecen a las mayoritarias sobre el conjunto de test debido a que las reglas de classificación de las clases menos numerosas tienden a ser ignoradas.\\
+
+                    El desbalanceo de datos es un problema ampliamente estudiado a lo largo de los años y existen numerosos métodos orientados a tratar este problema mediante distintas técnicas de muestreo \cite{ImbalancedDataReview}, por lo que será necesario aplicar distintas técnicas sobre el conjunto de datos en la siguiente sección.
+
+
+                    \begin{figure}[h]
+                        \centering
+                        \includesvg[width=15cm]{archivos/Datos/CasualtyClass}
+                        \caption{Histograma de tipo de accidente.}
+                        \label{CasualtyClassImage}
+                     \end{figure}
+
+
+                    \begin{figure}[h]
+                        \centering
+                        \includesvg[width=15cm]{archivos/Datos/CorrelationMatrix}
+                        \caption{Matriz de correlación para los predictores escogidos del dataset.}
+                        \label{CorrelationMatrixImage}
+                     \end{figure}
+
+                    \begin{figure}[h]
+                        \centering
+                        \includesvg[width=15cm]{archivos/Datos/PCAImage}
+                        \caption{PCA aplicado a los datos.}
+                        \label{PCAImage}
+                     \end{figure}
+
                 \item Normalización de datos
+
+
+                    La normalización de datos es un proceso necesario a la hora de obtener buenos resultados en los modelos predictivos de \glsentryshort{ml}. Cuando un modelo es entrenado, es bastante probable existan características en distintas escalas. En consecuencia, las características que contengan un rango de valores numérico más alto, ya sea por la naturaleza de la variable o porque se encuentren en otra escala, dominarán a aquellas características que contengan un rango menor a la hora de aplicar modelos \glsentryshort{ml} que sean sensibles a la desnormalización de datos, como por ejemplo \glsentryshort{ml} o \glsentryshort{knn} \cite{NormalizationSensitiveModels}.\\
+
+
+                    El proceso de normalización tiene como objetivo minimizar el \textit{bias} de aquellas características cuya contribución sea mayor a la hora de encontrar patrones entre los datos. Existen distintas técnicas de normalización como por ejemplo \glsentryfull{mc}, \glsentryfull{vss} o \glsentryfull{mmn} entre otras \cite{DataNormalizationInvestigation}.\\
+
+
+                    En este proyecto se ha utilizado la normalización \glsentryfull{ZSN} debido a las propiedades que ofrece, \glsentryshort{ZSN} que utiliza la media y la desviación típica para reescalar los datos de tal forma que la distribución de ellos esté definida por una media de cero y una desviación típica unitaria, consiguiendo representaciones de acuerdo a una distribución normal.\\
+
+                    Los resultados obtenidos después de aplicar esta técnica se pueden interpretar como la distancia de cada valor con respecto a la media.
+
+                   \begin{center}
+                        $x^* = \frac{x - u}{\sigma}$
+                    \end{center}
+
+
+                    Donde $x^*$ es una muestra de una característica de los datos, $u$ es la media total de dicha característica y $\sigma$ es la desviación típica total de los valores de la característica.
+
+
+                \item Separación de datos
+
+                    La siguiente fase en cualquier modelo de \glsentryshort{ML} es la separación de datos (\textit{split}). Esta fase consiste en dividir el conjunto total de datos en al menos dos subconjuntos, uno de entrenamiento y otro de test. El modelo se entrenará en base a los datos de entrenamiento y se evaluará con los datos de test, los resultados sobre este conjunto permitirán comparar los modelos en base a las predicciones sobre las muestras que nunca han visto.\\
+
+
+                    !!!!!!Comúnmente la proporción de datos de entrenamiento y test está establecida en un 0.8, en la figura \ref{DataSplitImage} se muestra una representación visual de esta división.!!!!!!!! 
+
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=10cm]{archivos/Datos/DataSplitImage.png}
+                        \caption{https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.}
+                        \label{DataSplitImage}
+                     \end{figure}
+
             \end{enumerate}
 
-        \item Muestreo
+        \item Remuestreo
+
+            
+
+            Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias.
             \begin{enumerate}
+
                 \item Downsampling
+
                 \item Synthetic Data
-                    ~\ref{SMOTEII}
+
+                    \ref{SMOTEII}
+
             \end{enumerate}
 
         \item Algoritmo Genético
+            \cite{GAXGBoost}
+
         \item XGBoost
+
         \item Construcción de imágenes
-        \item Modelos
+
+            \cite{TASPCNN}
+
+        \item Implementación de Modelos
+
+            \cite{AutoSklearn}
 
     \end{enumerate}
 

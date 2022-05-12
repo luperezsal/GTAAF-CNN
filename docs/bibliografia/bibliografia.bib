@@ -1,10 +1,12 @@
 % Encoding: UTF-8
 
-%%%% @Comment{TECNOLOGIAS}
+% TECNOLOGIAS
 
-%%% @Comment{Algoritmos}
+%% Modelos
 
-%% @Comment{XGBoost}
+%%% Algoritmos Genéticos
+
+%%% XGBoost
 
 @InProceedings{XGBoostTutorial,
   doi = {10.1145/2939672.2939785},  
@@ -24,7 +26,7 @@
   url = {https://www.nvidia.com/en-us/glossary/data-science/xgboost/}
 }
 
-%% @Comment{NN}
+%%% NN
 
 @online{Softmax,
   author = {Wikipedia},
@@ -77,7 +79,7 @@
 
 
 
-%% @Comment{Conv1D}
+%%%% Conv1D
 
 @misc{Conv1D_Survey,
   doi = {10.48550/ARXIV.1905.03554},
@@ -96,7 +98,7 @@
   url = {https://towardsdatascience.com/types-of-convolution-kernels-simplified-f040cb307c37}
 }
 
-@Comment{KNN}
+%%%  KNN
 
 @article{KNN,
   title={An introduction to kernel and nearest-neighbor nonparametric regression},
@@ -109,8 +111,9 @@
   publisher={Taylor \& Francis}
 }
 
+%% Especificaciones Técnicas
 
-%%%% Comment{Herramientas} %%%%
+%%% Herramientas Utilizadas
 
 @online{Python,
   author = {Python},
@@ -185,10 +188,14 @@
   url = {https://jupyterlab.readthedocs.io/en/stable/}
 }
 
+%%% Especificaciones del servidor
 
-@Comment{METODOLOGIA}
 
-@Comment{Datos}
+% Metodología
+
+%% Diagrama de Flujo
+%% Diagrama de Gantt
+%% Proceso
 
 
 @online{Dataset,
@@ -198,9 +205,76 @@
   urldate = {2022-05-11}
 }
 
-@Comment{Muestreo}
+@online{InfoDatasetMadrid,
+  author = {Portal de Datos Abiertos del Ayuntamiento de Madrid},
+  title = {ESTRUCTURA DEL CONJUNTO DE DATOS},
+  url = {https://datos.madrid.es/FWProjects/egob/Catalogo/Seguridad/Ficheros/Estructura_DS_Accidentes_trafico_desde_2019.pdf}
+}
 
-@Comment{synthetic data}
+%%% Datos
+
+%%%% Limpieza de datos
+%%%% Transformaciones de datos
+%%%% Análisis de datos
+
+@article{WhyImbalancedDataIsAProblem,
+  title={Classification of imbalanced data: A review},
+  author={Sun, Yanmin and Wong, Andrew KC and Kamel, Mohamed S},
+  journal={International journal of pattern recognition and artificial intelligence},
+  volume={23},
+  number={04},
+  pages={687--719},
+  year={2009},
+  publisher={World Scientific}
+}
+
+
+@article{ImbalancedDataReview,
+  title = {Learning from class-imbalanced data: Review of methods and applications},
+  journal = {Expert Systems with Applications},
+  volume = {73},
+  pages = {220-239},
+  year = {2017},
+  issn = {0957-4174},
+  doi = {https://doi.org/10.1016/j.eswa.2016.12.035},
+  url = {https://www.sciencedirect.com/science/article/pii/S0957417416307175},
+  author = {Guo Haixiang and Li Yijing and Jennifer Shang and Gu Mingyun and Huang Yuanyue and Gong Bing},
+  keywords = {Rare events, Imbalanced data, Machine learning, Data mining},
+  abstract = {Rare events, especially those that could potentially negatively impact society, often require humans’ decision-making responses. Detecting rare events can be viewed as a prediction task in data mining and machine learning communities. As these events are rarely observed in daily life, the prediction task suffers from a lack of balanced data. In this paper, we provide an in depth review of rare event detection from an imbalanced learning perspective. Five hundred and seventeen related papers that have been published in the past decade were collected for the study. The initial statistics suggested that rare events detection and imbalanced learning are concerned across a wide range of research areas from management science to engineering. We reviewed all collected papers from both a technical and a practical point of view. Modeling methods discussed include techniques such as data preprocessing, classification algorithms and model evaluation. For applications, we first provide a comprehensive taxonomy of the existing application domains of imbalanced learning, and then we detail the applications for each category. Finally, some suggestions from the reviewed papers are incorporated with our experiences and judgments to offer further research directions for the imbalanced learning and rare event detection fields.}
+}
+
+
+
+%%%% Separación de datos
+%%%% Normalización de datos
+
+
+@article{DataNormalizationInvestigation,
+  title = {Investigating the impact of data normalization on classification performance},
+  journal = {Applied Soft Computing},
+  volume = {97},
+  pages = {105524},
+  year = {2020},
+  issn = {1568-4946},
+  doi = {https://doi.org/10.1016/j.asoc.2019.105524},
+  url = {https://www.sciencedirect.com/science/article/pii/S1568494619302947},
+  author = {Dalwinder Singh and Birmohan Singh},
+  keywords = {Ant lion optimization, Data normalization, Feature selection, Feature weighting, -NN classifier},
+  abstract = {Data normalization is one of the pre-processing approaches where the data is either scaled or transformed to make an equal contribution of each feature. The success of machine learning algorithms depends upon the quality of the data to obtain a generalized predictive model of the classification problem. The importance of data normalization for improving data quality and subsequently the performance of machine learning algorithms has been presented in many studies. But, the work lacks for the feature selection and feature weighting approaches, a current research trend in machine learning for improving performance. Therefore, this study aims to investigate the impact of fourteen data normalization methods on classification performance considering full feature set, feature selection, and feature weighting. In this paper, we also present a modified Ant Lion optimization that search feature subsets and the best feature weights along with the parameter of Nearest Neighbor Classifier. Experiments are performed on 21 publicly available real and synthetic datasets, and results are analyzed based on the accuracy, the percentage of feature reduced and runtime. It has been observed from the results that no single method outperforms others. Therefore, we have suggested a set of the best and the worst methods combining the normalization procedure and empirical analysis of results. The better performers are z-Score and Pareto Scaling for the full feature set and feature selection, and tanh and its variant for feature weighting. The worst performers are Mean Centered, Variable Stability Scaling and Median and Median Absolute Deviation methods along with un-normalized data.}
+}
+
+@online{NormalizationSensitiveModels,
+  author = {Data School},
+  title = {Comparing supervised learning algorithms},
+  url = {https://www.dataschool.io/comparing-supervised-learning-algorithms/},
+}
+
+
+%%% Muestreo
+
+%%%% Downsampling
+
+%%%% Synthetic Data
 
 @article{SMOTEII,
   doi = {10.1613/jair.953},  
@@ -215,16 +289,37 @@
   journal = {Journal of Artificial Intelligence Research}
 }
 
-@Comment{Muestreo}
+%%% Algoritmo Genético
 
-@Comment{Algoritmo Genético}
+@online{GAXGBoost,
+  author = {Mohit Jain},
+  title = {Hyperparameter tuning in XGBoost using genetic algorithm},
+  url = {https://towardsdatascience.com/hyperparameter-tuning-in-xgboost-using-genetic-algorithm-17bd2e581b17},
+}
 
-@Comment{XGBoost}
 
-@Comment{Construcción de imágenes}
+%%% XGBoost
 
-@Comment{Modelos implementados}
+%%% Construcción de imágenes
 
+@article{TASPCNN,
+  title={Traffic accident’s severity prediction: A deep-learning approach-based CNN network},
+  author={Zheng, Ming and Li, Tong and Zhu, Rui and Chen, Jing and Ma, Zifei and Tang, Mingjing and Cui, Zhongqiang and Wang, Zhan},
+  journal={IEEE Access},
+  volume={7},
+  pages={39897--39910},
+  year={2019},
+  publisher={IEEE}
+}
+
+%%% Implementación de Modelos
+
+@article{AutoSklearn,
+    title     = {Auto-Sklearn 2.0: Hands-free AutoML via Meta-Learning},
+    author    = {Feurer, Matthias and Eggensperger, Katharina and Falkner, Stefan and Lindauer, Marius and Hutter, Frank},
+    journal   = {arXiv:2007.04074 [cs.LG]},
+    year      = {2020},
+}
 
 
 
