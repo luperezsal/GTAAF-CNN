@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  11 MAY 2022 20:49
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  13 MAY 2022 00:42
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1950,11 +1950,7 @@ Package glossaries Info: Writing glossary file TFG-TFM_EPS_UA.glo on input line
 Package glossaries Info: Writing glossary file TFG-TFM_EPS_UA.acn on input line
  87.
  (anexos/acronimos.tex)
-(TFG-TFM_EPS_UA.aux
-LaTeX Info: Redefining \rmfamily on input line 29.
-LaTeX Info: Redefining \sffamily on input line 29.
-LaTeX Info: Redefining \ttfamily on input line 29.
-)
+No file TFG-TFM_EPS_UA.aux.
 \openout1 = `TFG-TFM_EPS_UA.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 93.
@@ -1968,7 +1964,6 @@ LaTeX Font Info:    ... okay on input line 93.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 93.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 9
 3.
-
 (/home/luis/.miktex/texmfs/install/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
@@ -2133,6 +2128,10 @@ LaTeX Info: Redefining \nameref on input line 93.
 \@outlinefile=\write7
 \openout7 = `TFG-TFM_EPS_UA.out'.
 
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
 Class scrbook Info: loading recommended package `bookmark'.
 (scrbook)           Using `bookmark' together with `hyperref' is recommended,
 (scrbook)           because of handling of possible bookmark level gaps.
@@ -2141,7 +2140,6 @@ Class scrbook Info: loading recommended package `bookmark'.
 (scrbook)           you can avoid this message adding:
 (scrbook)             \usepackage{bookmark}
 (scrbook)           before \begin{document} on input line 93.
-
 (/home/luis/.miktex/texmfs/install/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
 
@@ -2157,10 +2155,11 @@ loading the todonotes package. on input line 93.
 
 \c@lstlisting=\count422
 Package scrhack Info: undefining \float@addtolists on input line 93.
+()
 LaTeX Info: Redefining \rmfamily on input line 93.
 LaTeX Info: Redefining \sffamily on input line 93.
 LaTeX Info: Redefining \ttfamily on input line 93.
-(include/portada/portada_color.tex
+ (include/portada/portada_color.tex
 
 Package fontspec Info: Font family 'HelveticaLTStd-Cond(0)' created for font
 (fontspec)             'HelveticaLTStd-Cond' with options
@@ -2362,112 +2361,50 @@ e 12.
 ] [12
 
 
-]) (TFG-TFM_EPS_UA.toc
-LaTeX Info: Redefining \rmfamily on input line 1.
-LaTeX Info: Redefining \sffamily on input line 1.
-LaTeX Info: Redefining \ttfamily on input line 1.
- [13
-
-
 ])
+
+Package hyperref Warning: old toc file detected, not used; run LaTeX again.
+
 \tf@toc=\write8
 \openout8 = `TFG-TFM_EPS_UA.toc'.
 
- [14]
-(TFG-TFM_EPS_UA.lof
-LaTeX Info: Redefining \rmfamily on input line 1.
-LaTeX Info: Redefining \sffamily on input line 1.
-LaTeX Info: Redefining \ttfamily on input line 1.
-
-Overfull \hbox (2.09216pt too wide) in paragraph at lines 10--10
- [][] [][]\TU/lmr/m/n/10.95 https://www.v7labs.com/blog/neural-networks-activat
-ion-functions. Arquitec- 
- []
+[13
 
 
-Overfull \hbox (24.40822pt too wide) in paragraph at lines 11--11
- [][] [][]\TU/lmr/m/n/10.95 https://www.researchgate.net/journal/Transport-in-P
-orous-Media-1573-1634. Fun- 
- []
-
-
-Overfull \hbox (10.5602pt too wide) in paragraph at lines 12--12
- [][] [][]\TU/lmr/m/n/10.95 https://towardsdatascience.com/cross-entropy-loss-f
-unction-f38c4ec8643e Cross- 
- []
-
-
-Overfull \hbox (2.84044pt too wide) in paragraph at lines 13--13
- [][] [][]\TU/lmr/m/n/10.95 http://makeyourownneuralnetwork.blogspot.com/2020/0
-2/calculating-output- 
- []
-
-
-Overfull \hbox (2.96089pt too wide) in paragraph at lines 14--14
- [][] [][]\TU/lmr/m/n/10.95 https://indoml.com/2018/03/07/student-notes-convolu
-tional-neural-networks- 
- []
-
-
-Overfull \hbox (30.78113pt too wide) in paragraph at lines 15--15
- [][] [][]\TU/lmr/m/n/10.95 https://www.researchgate.net/journal/Transport-in-P
-orous-Media-1573-1634. Ejem- 
- []
-
-
-Overfull \hbox (152.23128pt too wide) in paragraph at lines 16--16
- [][] [][]\TU/lmr/m/n/10.95 https://www.researchgate.net/publication/329201018/
-figure/fig2/AS:697400008138753@1543284527161/The- 
- []
-
-
-Overfull \hbox (34.22314pt too wide) in paragraph at lines 16--16
- \TU/lmr/m/n/10.95 architecture-of-our-1D-CNN-model-This-model-consists-of-two-
-convolutional-layers.png[] [][]  
- []
-
-
-Overfull \hbox (4.31868pt too wide) in paragraph at lines 17--17
- [][] [][]\TU/lmr/m/n/10.95 https://peltarion.com/knowledge-center/documentatio
-n/modeling-view/build- 
- []
-
-
-Overfull \hbox (200.69594pt too wide) in paragraph at lines 18--18
- [][] [][]\TU/lmr/m/n/10.95 https://forum.huawei.com/enterprise/es/data/attachm
-ent/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png 
- []
-
-[15
-
-
-])
-\tf@lof=\write9
-\openout9 = `TFG-TFM_EPS_UA.lof'.
-
- [16] (TFG-TFM_EPS_UA.lot
-LaTeX Info: Redefining \rmfamily on input line 1.
-LaTeX Info: Redefining \sffamily on input line 1.
-LaTeX Info: Redefining \ttfamily on input line 1.
-)
-\tf@lot=\write10
-\openout10 = `TFG-TFM_EPS_UA.lot'.
-
- [17
-
-
-] [18
-
-
-] (TFG-TFM_EPS_UA.lol)
-\tf@lol=\write11
-\openout11 = `TFG-TFM_EPS_UA.lol'.
-
- [19] [20
+] [14
 
 
 ]
-(capitulos/Introduccion.tex
+
+Package hyperref Warning: old lof file detected, not used; run LaTeX again.
+
+\tf@lof=\write9
+\openout9 = `TFG-TFM_EPS_UA.lof'.
+
+[15] [16
+
+
+]
+
+Package hyperref Warning: old lot file detected, not used; run LaTeX again.
+
+\tf@lot=\write10
+\openout10 = `TFG-TFM_EPS_UA.lot'.
+
+[17] [18
+
+
+]
+
+Package hyperref Warning: old lol file detected, not used; run LaTeX again.
+
+\tf@lol=\write11
+\openout11 = `TFG-TFM_EPS_UA.lol'.
+
+[19] [20
+
+
+] (capitulos/Introduccion.tex
 chapter 1.
 [1
 
@@ -2614,6 +2551,14 @@ chapter 2.
 
 ]
 chapter 3.
+
+LaTeX Warning: Reference `tabla_parametros' on page 13 undefined on input line 
+45.
+
+
+LaTeX Warning: Reference `tabla_parametros' on page 13 undefined on input line 
+45.
+
 [13]
 Underfull \vbox (badness 2478) has occurred while \output is active []
 
@@ -2638,10 +2583,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
+
+LaTeX Warning: Reference `InitialPopulation' on page 17 undefined on input line
+ 27.
+
 File: ./svg-inkscape/InitialPopulation_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/InitialPopulation_svg-raw.pdf>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Reference `FitnessFunction' on page 17 undefined on input line 4
+2.
 
 [17
 
@@ -2649,9 +2602,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 ]
 File: ./svg-inkscape/FitnessFunction_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/FitnessFunction_svg-raw.pdf>
+
+
+LaTeX Warning: Reference `ParentsMatingMutationImage' on page 18 undefined on i
+nput line 53.
+
 File: ./svg-inkscape/ParentsMatingMutation_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/ParentsMatingMutation_svg-raw.pdf>
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -2698,6 +2655,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--107
  []
 
 
+LaTeX Warning: Reference `XGBoostFlowImage' on page 20 undefined on input line 
+109.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
  []
@@ -2722,6 +2683,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 129--130
  []
 
 
+LaTeX Warning: Reference `NNImage' on page 21 undefined on input line 132.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 132--133
 
  []
@@ -2738,6 +2702,9 @@ Underfull \hbox (badness 4556) in paragraph at lines 140--140
 [][][]|\TU/lmr/m/n/10 https://www.v7labs.com/blog/neural-networks-activation-fu
 nctions. Arquitectura de
  []
+
+
+LaTeX Warning: Reference `RELUImage' on page 22 undefined on input line 157.
 
 File: archivos/CNN/RELUImage.png Graphic file (type bmp)
 <archivos/CNN/RELUImage.png>
@@ -2832,6 +2799,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 289--290
 
  []
 
+
+LaTeX Warning: Reference `CNNRELUImage' on page 26 undefined on input line 291.
+
+
 File: archivos/CNN/CNNRELUImage.png Graphic file (type bmp)
 <archivos/CNN/CNNRELUImage.png>
 
@@ -2912,6 +2883,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 349--350
 Underfull \hbox (badness 10000) in paragraph at lines 351--352
 
  []
+
+
+LaTeX Warning: Reference `KNNImage' on page 29 undefined on input line 354.
 
 File: archivos/CNN/KNN/KNNImage.png Graphic file (type bmp)
 <archivos/CNN/KNN/KNNImage.png>
@@ -2996,18 +2970,181 @@ Overfull \hbox (32.74792pt too wide) in paragraph at lines 37--38
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `Dataset' on page 33 undefined on input line 4
-7.
+Package natbib Warning: Citation `Dataset' on page 33 undefined on input line 5
+0.
 
 
-LaTeX Warning: Reference `SMOTEII' on page 33 undefined on input line 60.
+LaTeX Warning: Reference `DescripcionDatosTabla' on page 33 undefined on input 
+line 52.
+
+
+Overfull \hbox (2.35448pt too wide) in paragraph at lines 56--77
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package natbib Warning: Citation `InfoDatasetMadrid' on page 33 undefined on in
+put line 83.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
 
 [33]
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+[34]
+
+LaTeX Warning: Reference `TransformacionDatosTabla' on page 35 undefined on inp
+ut line 117.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+
+ []
+
+
+LaTeX Warning: Reference `CasualtyClassImage' on page 35 undefined on input lin
+e 186.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+
+Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 35 undef
+ined on input line 188.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+
+ []
+
+[35]
+
+Package natbib Warning: Citation `ImbalancedDataReview' on page 36 undefined on
+ input line 190.
+
+Package svg Info: Last page of `./svg-inkscape/CasualtyClass_svg-tex.pdf' is 1 
+on input line 195.
+(svg-inkscape/CasualtyClass_svg-tex.pdf_tex
+File: ./svg-inkscape/CasualtyClass_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/CasualtyClass_svg-tex.pdf, page 1>
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package svg Info: Last page of `./svg-inkscape/CorrelationMatrix_svg-tex.pdf' i
+s 1 on input line 203.
+(svg-inkscape/CorrelationMatrix_svg-tex.pdf_tex
+File: ./svg-inkscape/CorrelationMatrix_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/CorrelationMatrix_svg-tex.pdf, page 1>
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package svg Info: Last page of `./svg-inkscape/PCAImage_svg-tex.pdf' is 1 on in
+put line 210.
+(svg-inkscape/PCAImage_svg-tex.pdf_tex
+File: ./svg-inkscape/PCAImage_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/PCAImage_svg-tex.pdf, page 1>
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package natbib Warning: Citation `NormalizationSensitiveModels' on page 36 unde
+fined on input line 218.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+
+Package natbib Warning: Citation `DataNormalizationInvestigation' on page 36 un
+defined on input line 221.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 238--239
+
+ []
+
+[36]
+
+LaTeX Warning: Reference `DataSplitImage' on page 37 undefined on input line 24
+1.
+
+File: archivos/Datos/DataSplit.png Graphic file (type bmp)
+<archivos/Datos/DataSplit.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 247--247
+[][][]|\TU/lmr/m/n/10 https://towardsdatascience.com/train-test-split-and-cross
+-validation-in-python-
+ []
+
+
+Underfull \hbox (badness 1320) in paragraph at lines 247--247
+\TU/lmr/m/n/10 80b61beca4b6. División de un conjunto de datos en datos de entre
+namiento y
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Reference `SMOTEII' on page 37 undefined on input line 264.
+
+
+Package natbib Warning: Citation `GAXGBoost' on page 37 undefined on input line
+ 269.
+
+
+Package natbib Warning: Citation `TASPCNN' on page 37 undefined on input line 2
+75.
+
+
+Package natbib Warning: Citation `AutoSklearn' on page 37 undefined on input li
+ne 279.
+
+[37]
+
+LaTeX Warning: Reference `multiimagen' on page 38 undefined on input line 287.
+
+
+LaTeX Warning: Reference `multiimagen' on page 38 undefined on input line 287.
+
 File: archivos/subs-sin.png Graphic file (type bmp)
 <archivos/subs-sin.png>
 File: archivos/subs-con.png Graphic file (type bmp)
 <archivos/subs-con.png>
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -3048,15 +3185,15 @@ Missing character: There is no º in font cmmi10!
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (capitulos/desarrollo.tex [34] [35] [36] [37] [38
-
-
-]
+) (capitulos/desarrollo.tex [38] [39] [40] [41] [42] [43] [44]
 chapter 6.
 
 Underfull \hbox (badness 10000) in paragraph at lines 14--16
 
  []
+
+
+LaTeX Warning: Reference `C_code' on page 45 undefined on input line 19.
 
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
@@ -3066,24 +3203,30 @@ File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 31.
- [39]
+ [45
+
+
+]
+
+LaTeX Warning: Reference `usos' on page 46 undefined on input line 61.
+
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang2.sty
 File: lstlang2.sty 2020/03/24 1.8d listings language file
-) [40]
+) [46]
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) [41]
+) [47]
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) [42]
-[43] (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
+) [48]
+[49] (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 (archivos/ejemplos/holamundo.cpp) (archivos/ejemplos/holamundo.py)
-(archivos/ejemplos/holamundo.m)) (capitulos/resultados.tex [44]
+(archivos/ejemplos/holamundo.m)) (capitulos/resultados.tex [50]
 chapter 7.
 
 Underfull \hbox (badness 10000) in paragraph at lines 12--15
@@ -3105,7 +3248,7 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0.pdf Graphic file (type
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf>
-[45
+[51
 
 
 ]
@@ -3114,13 +3257,13 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf Graphic file (type
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf>
-[46] (archivos/ejemplos/perjudicialesopticacentro.tex
+[52] (archivos/ejemplos/perjudicialesopticacentro.tex
 ===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3' is up-to-date.
  ======
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf>
-) [47]
+) [53]
 ===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4' is up-to-date.
  ======
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4.pdf Graphic file (type
@@ -3135,7 +3278,7 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5.pdf Graphic file (type
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [48]
+ [54]
 Overfull \hbox (47.22083pt too wide) in paragraph at lines 227--229
 []\TU/lmr/m/n/10.95 Gracias a la herramienta \TU/lmr/m/it/10.95 matlab2tikz \TU
 /lmr/m/n/10.95 ([]$[][][][][] [][][] [][] [] [][][][][][][][][][] [] [][][][] [
@@ -3148,7 +3291,7 @@ Overfull \hbox (47.22083pt too wide) in paragraph at lines 227--229
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf>
-) [49] (archivos/ejemplos/2D-3314hz.tex
+) [55] (archivos/ejemplos/2D-3314hz.tex
 ===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7' is up-to-date.
  ======
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7.pdf Graphic file (type
@@ -3165,12 +3308,12 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8.pdf Graphic file (type
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf>
-[50]) (capitulos/conclusiones.tex [51] [52
+[56]) (capitulos/conclusiones.tex [57] [58
 
 
 ]
 chapter 8.
-[53]
+[59]
 Overfull \hbox (10.95pt too wide) in paragraph at lines 92--99
 []\TU/lmr/m/n/10.95 donde:[] 
  []
@@ -3180,15 +3323,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--99
 
  []
 
-[54]) [55]
+[60]
+
+LaTeX Warning: Reference `ecuacion' on page 61 undefined on input line 132.
+
+
+LaTeX Warning: Reference `ecucon' on page 61 undefined on input line 132.
+
+
+LaTeX Warning: Reference `ecu1' on page 61 undefined on input line 132.
+
+
+LaTeX Warning: Reference `ecu2' on page 61 undefined on input line 132.
+
+) [61]
 No file TFG-TFM_EPS_UA.bbl.
 No file TFG-TFM_EPS_UA.acr.
-(anexos/anexo_I.tex [56]
+(anexos/anexo_I.tex [62]
 chapter A.
-) (anexos/anexo_2.tex [57
+) (anexos/anexo_2.tex [63
 
 
-] [58
+] [64
 
 
 ]
@@ -3198,12 +3354,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
  []
 
-[59]
+[65]
 Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
-[60
+[66
 
 
 ]
@@ -3211,14 +3367,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
-[61
+[67
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 29--30
 
  []
 
-) (anexos/anexo_3.tex [62
+) (anexos/anexo_3.tex [68
 
 
 ]
@@ -3231,7 +3387,7 @@ File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
 File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-[63
+[69
 
 
 ]
@@ -3241,7 +3397,7 @@ File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
 File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
- [64])
+ [70])
 
 Package natbib Warning: There were undefined citations.
 
@@ -3303,16 +3459,19 @@ LaTeX Info: Redefining \ttfamily on input line 29.
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 66337 strings out of 410931
- 1523626 string characters out of 2825211
- 2814574 words of memory out of 3000000
- 85869 multiletter control sequences out of 15000+600000
+ 66605 strings out of 410931
+ 1528768 string characters out of 2825211
+ 2811529 words of memory out of 3000000
+ 86129 multiletter control sequences out of 15000+600000
  504987 words of font info for 213 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  113i,21n,150p,10708b,3029s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
-Output written on TFG-TFM_EPS_UA.pdf (84 pages).
+Output written on TFG-TFM_EPS_UA.pdf (90 pages).

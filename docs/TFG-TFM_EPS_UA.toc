@@ -38,22 +38,22 @@
 \contentsline {section}{\numberline {5.1}Diagrama de flujo}{33}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Diagrama de Gantt}{33}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Proceso}{33}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Inserción de figuras}{34}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Desarrollo (Con ejemplos de código)}{39}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Inserción de código}{39}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Usos y personalización}{42}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Importar archivos fuente}{43}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Resultados (Con ejemplos de gráficos)}{45}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Diagramas}{45}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Gráficas}{46}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Línea}{46}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Barras}{47}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}Polar}{48}{subsection.7.2.3}%
-\contentsline {section}{\numberline {7.3}Importados de MATLAB}{49}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Ejemplo avanzado}{50}{section.7.4}%
-\contentsline {chapter}{\numberline {8}Conclusiones (Con ejemplos de matemáticas)}{53}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Matemáticas}{53}{section.8.1}%
-\contentsline {chapter}{\numberline {A}Anexo I}{57}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Páginas horizontales}{59}{appendix.B}%
-\contentsline {chapter}{\numberline {C}Importar PDF}{63}{appendix.C}%
+\contentsline {section}{\numberline {5.4}Inserción de figuras}{38}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Desarrollo (Con ejemplos de código)}{45}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Inserción de código}{45}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Usos y personalización}{48}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Importar archivos fuente}{49}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Resultados (Con ejemplos de gráficos)}{51}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Diagramas}{51}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Gráficas}{52}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Línea}{52}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Barras}{53}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Polar}{54}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Importados de MATLAB}{55}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Ejemplo avanzado}{56}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Conclusiones (Con ejemplos de matemáticas)}{59}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Matemáticas}{59}{section.8.1}%
+\contentsline {chapter}{\numberline {A}Anexo I}{63}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Páginas horizontales}{65}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Importar PDF}{69}{appendix.C}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
