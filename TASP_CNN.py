@@ -2034,7 +2034,7 @@ MODEL_NAME = 'auto_ml'
 # In[143]:
 
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
 
 
 # In[ ]:
@@ -2043,7 +2043,7 @@ MODEL_NAME = 'auto_ml'
 import autokeras as ak
 from tensorflow.keras.datasets import mnist
 
-
+# (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
 
 clf = ak.ImageClassifier(num_classes = 3,
