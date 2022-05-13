@@ -2045,9 +2045,8 @@ clf = ak.ImageClassifier(num_classes = 3,
                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
                          overwrite = True,
                          tuner= 'bayesian',
-                         max_trials = 20,
-                         max_model_size = 4
-                         )
+                         max_trials = 13
+                        )
     
 clf.fit(array_train_images,
         np.asarray(Y_train),
