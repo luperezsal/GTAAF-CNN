@@ -2046,7 +2046,7 @@ clf = ak.ImageClassifier(num_classes = 3,
                          overwrite = True,
                          tuner= 'bayesian',
                          max_trials = 20,
-                         max_model_size = 5
+                         max_model_size = 4
                          )
     
 clf.fit(array_train_images,
