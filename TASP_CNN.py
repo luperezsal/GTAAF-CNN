@@ -43,7 +43,7 @@ FINAL_POPULATION_PATH  = './population/'
 CONFUSIONS_MATRIX_PATH = 'confusion_matrix/'
 
 ###### MODELS ######
-MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d']
+MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'auto_ml']
 
 REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
@@ -761,22 +761,90 @@ tasp_cnn.summary()
 print('Done!')
 
 
+# ## Results
+
+# ### F1-Score History
+
+# In[29]:
+
+
+def plot_f1_score_history(f1_score_path, f1_score_name, history):
+    figure_name = plt.figure(figsize=(20, 10))
+
+    plt.plot(history.history['f1_score'], label='F1 score (training data)')
+    plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
+    plt.title('F1 score')
+    plt.ylabel('F1 score value')
+    plt.xlabel('No. epoch')
+    plt.legend(loc="upper left")
+    plt.savefig(f1_score_path + f1_score_name)
+    plt.show()
+    
+    print(history)
+
+
+# ### Classification Report
+
+# In[30]:
+
+
+from sklearn.metrics import classification_report
+
+def plot_classification_report(path, file_name, y_true, y_predicted):
+
+    labels = one_hot_to_casualty(y_true)
+
+    report = classification_report(y_true,
+                                   y_predicted,
+                                   target_names = labels.unique(),
+                                   output_dict  = True)
+
+
+    report_df = pd.DataFrame(report).transpose()
+    report_df.to_csv(path + file_name, index = True)
+
+    print(report_df)
+
+
+# ### Confusion Matrix
+
+# In[31]:
+
+
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+def plot_confusion_matrix(path, file_name, y_true, y_predicted):
+
+    cm = confusion_matrix(y_true,
+                          y_predicted,
+                          labels = y_true.unique())
+
+    labels = one_hot_to_casualty(y_true)
+
+    disp = ConfusionMatrixDisplay(confusion_matrix = cm,
+                                  display_labels = labels.unique()).plot()
+
+    plt.savefig(path + file_name, dpi = 150)
+
+
 # # Leeds Data
 
 # ## Importación de datos
 
-# In[29]:
+# In[32]:
 
 
 # !conda install pandas --y
 
 
-# In[30]:
+# In[33]:
 
 
 import pandas as pd
 # https://datamillnorth.org/dataset/road-traffic-accidents
 # root_path = '/content/drive/Othercomputers/Mi portátil/Drive/Master UA/TFM/TFM_DATA/'
+
+city_name = 'leeds'
 
 root_path = './Data/Leeds/'
 
@@ -825,7 +893,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[31]:
+# In[34]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -987,13 +1055,13 @@ clean_df
 
 # ## Split de datos
 
-# In[32]:
+# In[35]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[33]:
+# In[36]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1010,7 +1078,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[34]:
+# In[37]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1043,7 +1111,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Ca
 Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
-# In[35]:
+# In[38]:
 
 
 # fv2gi(feature_vector)
@@ -1065,13 +1133,13 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[36]:
+# In[39]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[37]:
+# In[40]:
 
 
 X_train = X_train.astype(int)
@@ -1087,7 +1155,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## Oversamplig de datos
 
-# In[38]:
+# In[41]:
 
 
 print('********** Before OverSampling **********')
@@ -1101,7 +1169,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## XGBoost
 
-# In[39]:
+# In[42]:
 
 
 from xgboost import XGBClassifier
@@ -1111,7 +1179,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[40]:
+# In[43]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -1162,7 +1230,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                           }
 
 
-# In[41]:
+# In[44]:
 
 
 # import xgboost as xgb
@@ -1277,7 +1345,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 #     best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[42]:
+# In[45]:
 
 
 # #### PLOT FITNESS EVOLUTION ####
@@ -1311,7 +1379,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
 
 # #### Carga hiperparámetros
 
-# In[43]:
+# In[46]:
 
 
 FILE_NAME = 'leeds_hyperparams_2022-04-28-19:07:55.json'
@@ -1330,7 +1398,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Cálculo de Hiperparámetros
 
-# In[44]:
+# In[47]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1380,7 +1448,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Escritura hiperparámetros
 
-# In[45]:
+# In[48]:
 
 
 # FILE_NAME = f"leeds_hyperparams_{MODEL_TIMESTAMP}.json"
@@ -1392,7 +1460,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[46]:
+# In[49]:
 
 
 # FILE_NAME = 'leeds_calculated_weights.json'
@@ -1403,7 +1471,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[47]:
+# In[50]:
 
 
 # from numpy import loadtxt
@@ -1423,7 +1491,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Visualización pesos calculados
 
-# In[48]:
+# In[51]:
 
 
 # FILE_NAME = f"leeds_figure_weights_{MODEL_TIMESTAMP}.jpg"
@@ -1439,7 +1507,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Escritura de pesos de características
 
-# In[49]:
+# In[52]:
 
 
 # matrix_indexes = fv2gi(feature_vector)
@@ -1452,7 +1520,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # ### Cálculo índices de matriz
 
-# In[50]:
+# In[53]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -1460,7 +1528,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[51]:
+# In[54]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -1471,7 +1539,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[52]:
+# In[55]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -1480,7 +1548,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[53]:
+# In[56]:
 
 
 plt.gray()
@@ -1490,13 +1558,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[54]:
+# In[57]:
 
 
 # !conda install scikit-image
 
 
-# In[55]:
+# In[58]:
 
 
 # input_shape = (5, 5)
@@ -1505,13 +1573,13 @@ array_train_images = np.asarray(train_images)
 array_test_images  = np.asarray(test_images)
 
 
-# In[56]:
+# In[59]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[57]:
+# In[60]:
 
 
 ######### EN TERMINAL #########
@@ -1520,7 +1588,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## One-Hot
 
-# In[58]:
+# In[61]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1529,7 +1597,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Visualización de datos
 
-# In[59]:
+# In[62]:
 
 
 # !conda install seaborn
@@ -1537,7 +1605,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### Matriz de correlación
 
-# In[60]:
+# In[63]:
 
 
 # correlation_matrix(X_test)
@@ -1545,7 +1613,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### PCA
 
-# In[61]:
+# In[64]:
 
 
 # pca(X_train, X_test)
@@ -1553,7 +1621,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### TSNE
 
-# In[62]:
+# In[65]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -1573,7 +1641,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # #### Entrenamiento
 
-# In[63]:
+# In[66]:
 
 
 X_train = array_train_images
@@ -1591,7 +1659,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[64]:
+# In[67]:
 
 
 # # create encoder model
@@ -1645,7 +1713,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
-# In[65]:
+# In[68]:
 
 
 from sklearn.manifold import TSNE
@@ -1682,22 +1750,21 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ## Models
 
-# In[66]:
+# In[69]:
 
 
 Y_test_labels = one_hot_to_casualty(Y_test)
 
 
-# In[67]:
+# In[70]:
 
 
-from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 import pickle
 
 
 # ### KNN
 
-# In[68]:
+# In[71]:
 
 
 # from sklearn.neighbors import NearestNeighbors
@@ -1709,14 +1776,14 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[69]:
+# In[72]:
 
 
 leaf_size = list(range(1,10, 2))
 n_neighbors = list(range(1,25, 5))
 
 
-# In[70]:
+# In[73]:
 
 
 # # Create new KNN object
@@ -1750,7 +1817,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Escritura del modelo
 
-# In[71]:
+# In[74]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1765,7 +1832,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Carga de modelo pre-entrenado
 
-# In[72]:
+# In[75]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1777,7 +1844,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Resultados
 
-# In[73]:
+# In[76]:
 
 
 # y_true = tf.argmax(Y_test_onehot, axis=1)
@@ -1814,7 +1881,7 @@ n_neighbors = list(range(1,25, 5))
 
 # ### Convolution 1D
 
-# In[74]:
+# In[77]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -1822,7 +1889,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[75]:
+# In[78]:
 
 
 # history = convolution_1d.fit(array_train_images, Y_train_onehot,
@@ -1832,7 +1899,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Escritura del modelo
 
-# In[76]:
+# In[79]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1843,7 +1910,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Carga de modelo pre-entrenado
 
-# In[77]:
+# In[80]:
 
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1854,69 +1921,41 @@ convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Resultados
 
-# In[78]:
+# In[81]:
 
 
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = convolution_1d.predict(x=array_test_images, batch_size=128).argmax(axis=1)
-
-############## SAVE CLASSIFICATION REPORT ##############
+Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-# plt.show()
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
 
-# print(history)
-
-# ########################################################################
 print("[INFO] evaluating network...")
-predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
-
-report = classification_report(y_true,
-                               y_predicted,
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
 
 REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+plot_classification_report(path = REPORT_PATH,
+                           file_name = REPORT_NAME,
+                           y_true = Y_test,
+                           y_predicted = Y_predicted)
 
-# display(report_df)
-
-############## SAVE CONFUSION MATRIX ##############
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = predictions.argmax(axis=1)
-
-cm = confusion_matrix(y_true,
-                      y_predicted,
-                      labels = Y_test.unique())
-
-disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-                              display_labels = Y_test_labels.unique()).plot()
-
-plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                      file_name = CONFUSION_MATRIX_NAME,
+                      y_true = Y_test,
+                      y_predicted = Y_predicted)
 
 
 # ### Convolution 2D
 
-# In[ ]:
+# In[82]:
 
 
 MODEL_NAME = MODELS_NAME[2]
@@ -1924,7 +1963,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[83]:
 
 
 # history = tasp_cnn.fit(array_train_images, Y_train_onehot,
@@ -1936,7 +1975,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 # #### Escritura del modelo
 
-# In[ ]:
+# In[84]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1947,7 +1986,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 # #### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[85]:
 
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1959,79 +1998,47 @@ tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Resultados
 
-# In[ ]:
+# In[86]:
 
 
-Y_test_labels = one_hot_to_casualty(Y_test)
-
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
-
-############## SAVE CLASSIFICATION REPORT ##############
+Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-# plt.show()
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
 
-# print(history)
-
-# ########################################################################
-
-# evaluate the network
 print("[INFO] evaluating network...")
-predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
-
-report = classification_report(y_true,
-                               y_predicted,
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
 
 REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+plot_classification_report(path = REPORT_PATH,
+                           file_name = REPORT_NAME,
+                           y_true = Y_test,
+                           y_predicted = Y_predicted)
 
-# display(report_df)
-
-############## SAVE CONFUSION MATRIX ##############
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = predictions.argmax(axis=1)
-
-cm = confusion_matrix(y_true,
-                      y_predicted,
-                      labels = Y_test.unique())
-
-disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-                              display_labels = Y_test_labels.unique()).plot()
-
-plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                      file_name = CONFUSION_MATRIX_NAME,
+                      y_true = Y_test,
+                      y_predicted = Y_predicted)
 
 
 # ## AutoML
 
-# In[ ]:
+# In[87]:
 
 
 MODEL_NAME = 'auto_ml'
 
 
-# In[ ]:
+# In[89]:
 
 
 import autokeras as ak
@@ -2050,89 +2057,74 @@ clf = ak.ImageClassifier(num_classes = 3,
     
 clf.fit(array_train_images,
         np.asarray(Y_train),
-        epochs = 100,
+        epochs = 50,
         batch_size = 128,
         validation_data = (array_test_images, np.asarray(Y_test)))
 
 best_auto_model = clf.export_model()
-display(best_auto_model.summary())
+print(best_auto_model.summary())
 
 
 # ### Escritura del modelo
 
-# In[ ]:
+# In[104]:
 
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
 best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
+
+# def myprint(s):
+#     with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}_summary.txt",'w+') as f:
+#         print(s, file=f)
+
+        
+from contextlib import redirect_stdout
+
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_summary.txt"
+
+# with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
+
+#     best_auto_model.summary(print_fn=lambda x: f.write(x + '\n'))
+with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
+    with redirect_stdout(f):
+        best_auto_model.summary()
+        f.close()
 
 
 # ### Resultados
 
-# In[ ]:
+# In[93]:
 
 
-Y_test_labels = one_hot_to_casualty(Y_test)
-
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = tasp_cnn.predict(x=array_test_images, batch_size=128).argmax(axis=1)
-
-############## SAVE CLASSIFICATION REPORT ##############
+Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"leeds_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-# plt.show()
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
 
-# print(history)
-
-# ########################################################################
-
-# evaluate the network
 print("[INFO] evaluating network...")
-predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
-
-report = classification_report(y_true,
-                               y_predicted,
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
 
 REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+plot_classification_report(path = REPORT_PATH,
+                           file_name = REPORT_NAME,
+                           y_true = Y_test,
+                           y_predicted = Y_predicted)
 
-# display(report_df)
-
-############## SAVE CONFUSION MATRIX ##############
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = predictions.argmax(axis=1)
-
-cm = confusion_matrix(y_true,
-                      y_predicted,
-                      labels = Y_test.unique())
-
-disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-                              display_labels = Y_test_labels.unique()).plot()
-
-plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                      file_name = CONFUSION_MATRIX_NAME,
+                      y_true = Y_test,
+                      y_predicted = Y_predicted)
 
 
 # # Madrid Data
@@ -2145,7 +2137,7 @@ plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
 # 
 # 
 
-# In[80]:
+# In[ ]:
 
 
 import pandas as pd
@@ -2199,7 +2191,7 @@ data_frame
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[81]:
+# In[ ]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -2361,7 +2353,7 @@ data_frame = data_frame.reset_index(drop=True)
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[82]:
+# In[ ]:
 
 
 weather_conditions_replace = {
@@ -2565,7 +2557,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[83]:
+# In[ ]:
 
 
 # Todos las comas a puntos
@@ -2654,7 +2646,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[84]:
+# In[ ]:
 
 
 # COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2678,7 +2670,7 @@ data_frame = data_frame.reset_index(drop=True)
 data_frame.columns
 
 
-# In[86]:
+# In[ ]:
 
 
 import seaborn as sns
@@ -3166,14 +3158,14 @@ feature_vector
 # In[ ]:
 
 
-xgboost = XGBClassifier(best_hyperparams,
-                        tree_method = 'gpu_hist',
-                        single_precision_histogram =  True)
+# xgboost = XGBClassifier(best_hyperparams,
+#                         tree_method = 'gpu_hist',
+#                         single_precision_histogram =  True)
 
-xgboost.fit(X_train, Y_train)
+# xgboost.fit(X_train, Y_train)
 
-child_weights  = np.array(xgboost.feature_importances_)
-feature_vector = fill_feature_vector(X_train, child_weights)
+# child_weights  = np.array(xgboost.feature_importances_)
+# feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Visualización pesos calculados
@@ -3195,7 +3187,6 @@ for column, weight in zip(X_train.columns,xgboost.feature_importances_):
 
 child_weights  = np.array(xgboost.feature_importances_)
 feature_vector = fill_feature_vector(X_train, child_weights)
-# display(feature_vector)
 
 
 # #### Escritura de pesos de características
@@ -3207,12 +3198,12 @@ feature_vector = fill_feature_vector(X_train, child_weights)
 # In[ ]:
 
 
-matrix_indexes = fv2gi(feature_vector)
+# matrix_indexes = fv2gi(feature_vector)
 
-FILE_NAME = f"{city_name}_weights{MODEL_TIMESTAMP}.json"
-# FILE_NAME = 'default_calculated_weights.json'
+# FILE_NAME = f"{city_name}_weights{MODEL_TIMESTAMP}.json"
+# # FILE_NAME = 'default_calculated_weights.json'
 
-write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
+# write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
@@ -3282,18 +3273,18 @@ array_test_images  = np.asarray(test_images)
 
 # ### Matriz de correlación
 
-# In[88]:
+# In[ ]:
 
 
-correlation_matrix(data_frame)
+# correlation_matrix(data_frame)
 
 
 # ### PCA
 
-# In[89]:
+# In[ ]:
 
 
-pca(X_train, X_test)
+# pca(X_train, X_test)
 
 
 # ### TSNE
@@ -3420,6 +3411,8 @@ input_test_shape  = (len(array_test_images), 5, 5, 1)
 array_train_images = array_train_images.reshape(input_train_shape)
 array_test_images  = array_test_images.reshape(input_test_shape)
 
+Y_test_labels = one_hot_to_casualty(Y_test)
+
 
 # ### KNN
 
@@ -3502,37 +3495,35 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# y_true = tf.argmax(Y_test_onehot, axis=1)
 # y_predicted = knn.predict(X_test)
 
-# Y_test_labels = one_hot_to_casualty(Y_test)
+# Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-# ############## SAVE CLASSIFICATION REPORT ##############
-# report = classification_report(y_true,
-#                                y_predicted,
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
+# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+
+# # plot_f1_score(f1_score_path = F1_SCORE_PATH,
+# #               f1_score_name = F1_SCORE_NAME,
+# #               history = history)
+
+# print("[INFO] evaluating network...")
 
 # REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
 # REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+# plot_classification_report(path = REPORT_PATH,
+#                            file_name = REPORT_NAME,
+#                            y_true = Y_test,
+#                            y_predicted = Y_predicted)
 
-
-# ############## SAVE CONFUSION MATRIX ##############
 
 # CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+# CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-# cm = confusion_matrix(y_true,
-#                       y_predicted,
-#                       labels = Y_test.unique())
-
-# disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-#                               display_labels = Y_test_labels.unique()).plot()
-
-# plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+# plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+#                       file_name = CONFUSION_MATRIX_NAME,
+#                       y_true = Y_test,
+#                       y_predicted = Y_predicted)
 
 
 # ### Convolution 1D
@@ -3581,62 +3572,33 @@ convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-from sklearn.metrics import classification_report
-
-Y_test_labels = one_hot_to_casualty(Y_test)
-
-########################################################################
+Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# ## Plot history: F1 SCORE
-# figure_name = plt.figure(figsize=(20, 10))
-# plt.plot(history.history['f1_score'], label='F1 score (training data)')
-# plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-# plt.title('F1 score')
-# plt.ylabel('F1 score value')
-# plt.xlabel('No. epoch')
-# plt.legend(loc="upper left")
-# plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-# plt.show()
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
 
-# print(history)
-
-########################################################################
-
-# evaluate the network
 print("[INFO] evaluating network...")
-predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
-
-report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-                               predictions.argmax(axis=1),
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
 
 REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
 REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+plot_classification_report(path = REPORT_PATH,
+                           file_name = REPORT_NAME,
+                           y_true = Y_test,
+                           y_predicted = Y_predicted)
 
-# display(report_df)
-
-############## SAVE CONFUSION MATRIX ##############
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = predictions.argmax(axis=1)
-
-cm = confusion_matrix(y_true, y_predicted, labels = Y_test.unique())
-
-disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-                              display_labels = Y_test_labels.unique()).plot()
-
-plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                      file_name = CONFUSION_MATRIX_NAME,
+                      y_true = Y_test,
+                      y_predicted = Y_predicted)
 
 
 # ### Convolution 2D
@@ -3685,68 +3647,115 @@ tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-from sklearn.metrics import classification_report
-
-Y_test_labels = one_hot_to_casualty(Y_test)
-
-########################################################################
+Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-## Plot history: F1 SCORE
-figure_name = plt.figure(figsize=(20, 10))
-plt.plot(history.history['f1_score'], label='F1 score (training data)')
-plt.plot(history.history['val_f1_score'], label='F1 score (validation data)')
-plt.title('F1 score')
-plt.ylabel('F1 score value')
-plt.xlabel('No. epoch')
-plt.legend(loc="upper left")
-plt.savefig(F1_SCORE_PATH + F1_SCORE_NAME)
-plt.show()
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
 
-print(history)
-
-########################################################################
-
-# evaluate the network
 print("[INFO] evaluating network...")
-predictions = tasp_cnn.predict(x=array_test_images, batch_size=128)
-
-report = classification_report(tf.argmax(Y_test_onehot, axis=1),
-                               predictions.argmax(axis=1),
-                               target_names = Y_test_labels.unique(),
-                               output_dict = True)
 
 REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
 REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-report_df = pd.DataFrame(report).transpose()
-report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
+plot_classification_report(path = REPORT_PATH,
+                           file_name = REPORT_NAME,
+                           y_true = Y_test,
+                           y_predicted = Y_predicted)
 
-# display(report_df)
-
-############## SAVE CONFUSION MATRIX ##############
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-y_true = tf.argmax(Y_test_onehot, axis=1)
-y_predicted = predictions.argmax(axis=1)
+plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                      file_name = CONFUSION_MATRIX_NAME,
+                      y_true = Y_test,
+                      y_predicted = Y_predicted)
 
-cm = confusion_matrix(y_true, y_predicted, labels = Y_test.unique())
 
-disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-                              display_labels = Y_test_labels.unique()).plot()
+# ## AutoML
 
-plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+# In[ ]:
+
+
+MODEL_NAME = MODELS_NAME[3]
 
 
 # In[ ]:
 
 
 # tasp_cnn.save(root_path + 'madrid_model_XGBOOST_predicted.h5')
+
+
+# In[ ]:
+
+
+import autokeras as ak
+
+clf = ak.ImageClassifier(num_classes = 3,
+                         loss='categorical_crossentropy',
+                         metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
+                         overwrite = True,
+                         tuner= 'bayesian',
+                         max_trials = 5
+                        )
+
+clf.fit(array_train_images,
+        np.asarray(Y_train),
+        epochs = 100,
+        batch_size = 128,
+        validation_data = (array_test_images, np.asarray(Y_test)))
+
+best_auto_model = clf.export_model()
+print(best_auto_model.summary())
+
+
+# ### Escritura del modelo
+
+# In[ ]:
+
+
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+
+best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# ### Resultados
+
+# In[ ]:
+
+
+Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+
+F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
+
+print("[INFO] evaluating network...")
+
+REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+
+plot_classification_report(path = REPORT_PATH,
+                           file_name = REPORT_NAME,
+                           y_true = Y_test,
+                           y_predicted = Y_predicted)
+
+
+CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+
+plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                      file_name = CONFUSION_MATRIX_NAME,
+                      y_true = Y_test,
+                      y_predicted = Y_predicted)
 
 
 # # Data Summary
