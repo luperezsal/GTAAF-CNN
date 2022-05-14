@@ -3296,6 +3296,7 @@ for i in range(0,3):
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 array_train_images = np.asarray(train_images)
