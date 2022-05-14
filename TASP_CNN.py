@@ -1755,6 +1755,20 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 Y_test_labels = one_hot_to_casualty(Y_test)
 
+from sklearn.utils import class_weight
+
+pesos = class_weight.compute_class_weight('balanced',
+                                          classes = np.unique(Y_train_onehot),
+                                          y = Y_train_onehot)
+
+
+print('\nPesos calculados:', pesos, '\n\n')
+
+
+# Keras espera un diccionario donde la clave sea el número de clase 
+# y el valor sea el peso calculado. 
+pesos = dict(enumerate(pesos))  
+
 
 # In[70]:
 
@@ -1892,9 +1906,13 @@ MODEL_NAME = MODELS_NAME[1]
 # In[78]:
 
 
-# history = convolution_1d.fit(array_train_images, Y_train_onehot,
-#                             batch_size = 128, epochs = 100, shuffle = True,
-#                             validation_data = (array_test_images, Y_test_onehot))
+history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                             class_weight = pesos,
+                             batch_size = 128,
+                             epochs = 100,
+                             shuffle = True,
+                             validation_data = (array_test_images, Y_test_onehot))
+history
 
 
 # #### Escritura del modelo
@@ -1929,9 +1947,9 @@ Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).ar
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
+plot_f1_score(f1_score_path = F1_SCORE_PATH,
+              f1_score_name = F1_SCORE_NAME,
+              history = history)
 
 print("[INFO] evaluating network...")
 
@@ -1966,11 +1984,14 @@ MODEL_NAME = MODELS_NAME[2]
 # In[83]:
 
 
-# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-#                     batch_size = 128, epochs = 100, shuffle = True,
-#                     validation_data = (array_test_images, Y_test_onehot))
+history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                       class_weight = pesos,
+                       batch_size = 128,
+                       epochs = 100,
+                       shuffle = True,
+                       validation_data = (array_test_images, Y_test_onehot))
 
-# # history
+history
 
 
 # #### Escritura del modelo
@@ -1978,10 +1999,10 @@ MODEL_NAME = MODELS_NAME[2]
 # In[84]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -1989,11 +2010,11 @@ MODEL_NAME = MODELS_NAME[2]
 # In[85]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'leeds_convolution_2d_2022-05-11-08:53:52.h5'
-# MODEL_NAME = 'leeds_2022-04-25-08:30:33.h5'
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = 'leeds_convolution_2d_2022-05-11-08:53:52.h5'
+# # MODEL_NAME = 'leeds_2022-04-25-08:30:33.h5'
 
-tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+# tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -2006,9 +2027,9 @@ Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(a
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
+plot_f1_score(f1_score_path = F1_SCORE_PATH,
+              f1_score_name = F1_SCORE_NAME,
+              history = history)
 
 print("[INFO] evaluating network...")
 
@@ -2041,28 +2062,28 @@ MODEL_NAME = 'auto_ml'
 # In[89]:
 
 
-import autokeras as ak
-from tensorflow.keras.datasets import mnist
+# import autokeras as ak
+# from tensorflow.keras.datasets import mnist
 
-# (x_train, y_train), (x_test, y_test) = mnist.load_data()
+# # (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
-clf = ak.ImageClassifier(num_classes = 3,
-                         loss='categorical_crossentropy',
-                         metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
-                         overwrite = True,
-                         tuner= 'bayesian',
-                         max_trials = 20,
-                         max_model_size = 3000000
-                        )
+# clf = ak.ImageClassifier(num_classes = 3,
+#                          loss='categorical_crossentropy',
+#                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
+#                          overwrite = True,
+#                          tuner= 'bayesian',
+#                          max_trials = 20,
+#                          max_model_size = 3000000
+#                         )
     
-clf.fit(array_train_images,
-        np.asarray(Y_train),
-        epochs = 50,
-        batch_size = 128,
-        validation_data = (array_test_images, np.asarray(Y_test)))
+# clf.fit(array_train_images,
+#         np.asarray(Y_train),
+#         epochs = 50,
+#         batch_size = 128,
+#         validation_data = (array_test_images, np.asarray(Y_test)))
 
-best_auto_model = clf.export_model()
-print(best_auto_model.summary())
+# best_auto_model = clf.export_model()
+# print(best_auto_model.summary())
 
 
 # ### Escritura del modelo
@@ -2070,27 +2091,27 @@ print(best_auto_model.summary())
 # In[104]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
+# best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
 
-# def myprint(s):
-#     with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}_summary.txt",'w+') as f:
-#         print(s, file=f)
+# # def myprint(s):
+# #     with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}_summary.txt",'w+') as f:
+# #         print(s, file=f)
 
         
-from contextlib import redirect_stdout
+# from contextlib import redirect_stdout
 
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_summary.txt"
+# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_summary.txt"
 
+# # with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
+
+# #     best_auto_model.summary(print_fn=lambda x: f.write(x + '\n'))
 # with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
-
-#     best_auto_model.summary(print_fn=lambda x: f.write(x + '\n'))
-with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
-    with redirect_stdout(f):
-        best_auto_model.summary()
-        f.close()
+#     with redirect_stdout(f):
+#         best_auto_model.summary()
+#         f.close()
 
 
 # ### Resultados
@@ -2098,33 +2119,33 @@ with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
 # In[93]:
 
 
-Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+# Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-plot_f1_score(f1_score_path = F1_SCORE_PATH,
-              f1_score_name = F1_SCORE_NAME,
-              history = history)
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
 
-print("[INFO] evaluating network...")
+# print("[INFO] evaluating network...")
 
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+# REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-plot_classification_report(path = REPORT_PATH,
-                           file_name = REPORT_NAME,
-                           y_true = Y_test,
-                           y_predicted = Y_predicted)
+# plot_classification_report(path = REPORT_PATH,
+#                            file_name = REPORT_NAME,
+#                            y_true = Y_test,
+#                            y_predicted = Y_predicted)
 
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                      file_name = CONFUSION_MATRIX_NAME,
-                      y_true = Y_test,
-                      y_predicted = Y_predicted)
+# plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+#                       file_name = CONFUSION_MATRIX_NAME,
+#                       y_true = Y_test,
+#                       y_predicted = Y_predicted)
 
 
 # # Madrid Data
@@ -3413,6 +3434,20 @@ array_test_images  = array_test_images.reshape(input_test_shape)
 
 Y_test_labels = one_hot_to_casualty(Y_test)
 
+from sklearn.utils import class_weight
+
+pesos = class_weight.compute_class_weight('balanced',
+                                          classes = np.unique(Y_train_onehot),
+                                          y = Y_train_onehot)
+
+
+print('\nPesos calculados:', pesos, '\n\n')
+
+
+# Keras espera un diccionario donde la clave sea el número de clase 
+# y el valor sea el peso calculado. 
+pesos = dict(enumerate(pesos))  
+
 
 # ### KNN
 
@@ -3539,10 +3574,13 @@ MODEL_NAME = MODELS_NAME[1]
 # In[154]:
 
 
-# history = convolution_1d.fit(array_train_images, Y_train_onehot,
-#                              batch_size = 128, epochs = 100, shuffle = True,
-#                              validation_data = (array_test_images, Y_test_onehot))
-# # history
+history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                             class_weight = pesos,
+                             batch_size = 128,
+                             epochs = 100,
+                             shuffle = True,
+                             validation_data = (array_test_images, Y_test_onehot))
+history
 
 
 # #### Escritura del modelo
@@ -3550,10 +3588,10 @@ MODEL_NAME = MODELS_NAME[1]
 # In[155]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -3561,10 +3599,10 @@ MODEL_NAME = MODELS_NAME[1]
 # In[156]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-11-08:53:52.h5'
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-11-08:53:52.h5'
 
-convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+# convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -3577,9 +3615,9 @@ Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).ar
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
+plot_f1_score(f1_score_path = F1_SCORE_PATH,
+              f1_score_name = F1_SCORE_NAME,
+              history = history)
 
 print("[INFO] evaluating network...")
 
@@ -3614,22 +3652,13 @@ MODEL_NAME = MODELS_NAME[2]
 # In[159]:
 
 
-pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_onehot),
-                                          y = Y_train_onehot)
-
-
-print('\nPesos calculados:', pesos, '\n\n')
-
-
-# Keras espera un diccionario donde la clave sea el número de clase 
-# y el valor sea el peso calculado. 
-pesos = dict(enumerate(pesos))  
-    
 history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                       batch_size = 128, epochs = 100, shuffle = True,
+                       class_weight = pesos,
+                       batch_size = 128,
+                       epochs = 100,
+                       shuffle = True,
                        validation_data = (array_test_images, Y_test_onehot))
-# history
+history
 
 
 # #### Escritura del modelo
@@ -3664,9 +3693,9 @@ Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(a
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
+plot_f1_score(f1_score_path = F1_SCORE_PATH,
+              f1_score_name = F1_SCORE_NAME,
+              history = history)
 
 print("[INFO] evaluating network...")
 
@@ -3705,32 +3734,32 @@ MODEL_NAME = MODELS_NAME[3]
 # In[165]:
 
 
-import autokeras as ak
+# import autokeras as ak
 
-# clf = ak.ImageClassifier(num_classes = 3,
-#                          loss='categorical_crossentropy',
-#                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
-#                          overwrite = True,
-#                          tuner= 'bayesian',
-#                          max_trials = 20,
-#                          max_model_size = 3000000
+# # clf = ak.ImageClassifier(num_classes = 3,
+# #                          loss='categorical_crossentropy',
+# #                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
+# #                          overwrite = True,
+# #                          tuner= 'bayesian',
+# #                          max_trials = 20,
+# #                          max_model_size = 3000000
+# #                         )
+# clf = ak.StructuredDataClassifier(num_classes = 3,
+#                              loss='categorical_crossentropy',
+#                              metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
+#                              overwrite = True,
+#                              tuner= 'bayesian',
+#                              max_trials = 20
 #                         )
-clf = ak.StructuredDataClassifier(num_classes = 3,
-                             loss='categorical_crossentropy',
-                             metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
-                             overwrite = True,
-                             tuner= 'bayesian',
-                             max_trials = 20
-                        )
 
-clf.fit(array_train_images,
-        np.asarray(Y_train),
-        epochs = 100,
-        batch_size = 128,
-        validation_data = (array_test_images, np.asarray(Y_test)))
+# clf.fit(array_train_images,
+#         np.asarray(Y_train),
+#         epochs = 100,
+#         batch_size = 128,
+#         validation_data = (array_test_images, np.asarray(Y_test)))
 
-best_auto_model = clf.export_model()
-print(best_auto_model.summary())
+# best_auto_model = clf.export_model()
+# print(best_auto_model.summary())
 
 
 # ### Escritura del modelo
@@ -3738,10 +3767,10 @@ print(best_auto_model.summary())
 # In[ ]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
+# best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # ### Resultados
@@ -3749,33 +3778,33 @@ best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+# Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
+# # plot_f1_score(f1_score_path = F1_SCORE_PATH,
+# #               f1_score_name = F1_SCORE_NAME,
+# #               history = history)
 
-print("[INFO] evaluating network...")
+# print("[INFO] evaluating network...")
 
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+# REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-plot_classification_report(path = REPORT_PATH,
-                           file_name = REPORT_NAME,
-                           y_true = Y_test,
-                           y_predicted = Y_predicted)
+# plot_classification_report(path = REPORT_PATH,
+#                            file_name = REPORT_NAME,
+#                            y_true = Y_test,
+#                            y_predicted = Y_predicted)
 
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
 
-plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                      file_name = CONFUSION_MATRIX_NAME,
-                      y_true = Y_test,
-                      y_predicted = Y_predicted)
+# plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+#                       file_name = CONFUSION_MATRIX_NAME,
+#                       y_true = Y_test,
+#                       y_predicted = Y_predicted)
 
 
 # # Data Summary
@@ -3808,8 +3837,8 @@ cities = ['leeds', 'madrid']
 
 models_renaming = {'knn': 'KNN',
                    'convolution_1d': '1D-convolution',
-                   'convolution_2d': '2D-convolution',
-                   'auto_ml': 'AutoML'}
+                   'convolution_2d': '2D-convolution'}
+                   # 'auto_ml': 'AutoML'}
 
 for model_name in MODELS_NAME:
     
