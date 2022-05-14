@@ -3593,7 +3593,7 @@ MODEL_NAME = MODELS_NAME[1]
 # In[ ]:
 
 
-history = convolution_1d.fit(array_train_images, Y_train_onehot,
+history = convolution_1d.fit(array_train_original_images, Y_train_original_onehot,
                              class_weight = pesos,
                              batch_size = 128,
                              epochs = 100,
@@ -3671,7 +3671,7 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+history = tasp_cnn.fit(array_train_original_images, Y_train_original_onehot,
                        class_weight = pesos,
                        batch_size = 128,
                        epochs = 100,
