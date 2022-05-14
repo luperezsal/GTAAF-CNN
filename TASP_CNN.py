@@ -1070,7 +1070,7 @@ Y = clean_df['Casualty Severity']
 
 train, test = train_test_split(clean_df, test_size=0.2)
 X_train = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
-Y_train = train['Casualty Severity']
+Y_train = Y_train_labels = train['Casualty Severity']
 
 X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
 Y_test = test['Casualty Severity']
@@ -1750,7 +1750,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ## Models
 
-# In[69]:
+# In[70]:
 
 
 Y_test_labels = one_hot_to_casualty(Y_test)
@@ -1758,8 +1758,8 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 from sklearn.utils import class_weight
 
 pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_onehot),
-                                          y = Y_train_onehot)
+                                          classes = np.unique(Y_train_labels),
+                                          y = Y_train_labels)
 
 
 print('\nPesos calculados:', pesos, '\n\n')
@@ -1770,7 +1770,7 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
-# In[70]:
+# In[ ]:
 
 
 import pickle
@@ -1778,7 +1778,7 @@ import pickle
 
 # ### KNN
 
-# In[71]:
+# In[ ]:
 
 
 # from sklearn.neighbors import NearestNeighbors
@@ -1790,14 +1790,14 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[72]:
+# In[ ]:
 
 
 leaf_size = list(range(1,10, 2))
 n_neighbors = list(range(1,25, 5))
 
 
-# In[73]:
+# In[ ]:
 
 
 # # Create new KNN object
@@ -1831,7 +1831,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Escritura del modelo
 
-# In[74]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1846,7 +1846,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Carga de modelo pre-entrenado
 
-# In[75]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1858,7 +1858,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Resultados
 
-# In[76]:
+# In[ ]:
 
 
 # y_true = tf.argmax(Y_test_onehot, axis=1)
@@ -1895,7 +1895,7 @@ n_neighbors = list(range(1,25, 5))
 
 # ### Convolution 1D
 
-# In[77]:
+# In[ ]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -1903,7 +1903,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[78]:
+# In[ ]:
 
 
 history = convolution_1d.fit(array_train_images, Y_train_onehot,
@@ -1917,7 +1917,7 @@ history
 
 # #### Escritura del modelo
 
-# In[79]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1928,7 +1928,7 @@ history
 
 # #### Carga de modelo pre-entrenado
 
-# In[80]:
+# In[ ]:
 
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1939,7 +1939,7 @@ convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Resultados
 
-# In[81]:
+# In[ ]:
 
 
 Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
@@ -1973,7 +1973,7 @@ plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
 
 # ### Convolution 2D
 
-# In[82]:
+# In[ ]:
 
 
 MODEL_NAME = MODELS_NAME[2]
@@ -1981,7 +1981,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 # #### Entrenamiento
 
-# In[83]:
+# In[ ]:
 
 
 history = tasp_cnn.fit(array_train_images, Y_train_onehot,
@@ -1996,7 +1996,7 @@ history
 
 # #### Escritura del modelo
 
-# In[84]:
+# In[ ]:
 
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -2007,7 +2007,7 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Carga de modelo pre-entrenado
 
-# In[85]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -2019,7 +2019,7 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Resultados
 
-# In[86]:
+# In[ ]:
 
 
 Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
@@ -2053,13 +2053,13 @@ plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
 
 # ## AutoML
 
-# In[87]:
+# In[ ]:
 
 
 MODEL_NAME = 'auto_ml'
 
 
-# In[89]:
+# In[ ]:
 
 
 # import autokeras as ak
@@ -2088,7 +2088,7 @@ MODEL_NAME = 'auto_ml'
 
 # ### Escritura del modelo
 
-# In[104]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -2116,7 +2116,7 @@ MODEL_NAME = 'auto_ml'
 
 # ### Resultados
 
-# In[93]:
+# In[ ]:
 
 
 # Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
@@ -2158,7 +2158,7 @@ MODEL_NAME = 'auto_ml'
 # 
 # 
 
-# In[106]:
+# In[ ]:
 
 
 import pandas as pd
@@ -2202,7 +2202,7 @@ data_frame.lesividad = data_frame.lesividad.replace(' ', 14).astype(int)
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[107]:
+# In[ ]:
 
 
 data_frame
@@ -2212,7 +2212,7 @@ data_frame
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[108]:
+# In[ ]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -2225,7 +2225,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[109]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2302,7 +2302,7 @@ data_frame = data_frame.reset_index(drop=True)
 # # # print(data_frame.localizacion.unique())
 
 
-# In[110]:
+# In[ ]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2374,7 +2374,7 @@ data_frame = data_frame.reset_index(drop=True)
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[111]:
+# In[ ]:
 
 
 weather_conditions_replace = {
@@ -2578,7 +2578,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[112]:
+# In[ ]:
 
 
 # Todos las comas a puntos
@@ -2667,7 +2667,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[113]:
+# In[ ]:
 
 
 # COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2685,13 +2685,13 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[114]:
+# In[ ]:
 
 
 data_frame.columns
 
 
-# In[115]:
+# In[ ]:
 
 
 import seaborn as sns
@@ -2711,7 +2711,7 @@ data_frame.lesividad.value_counts()
 
 
 
-# In[116]:
+# In[ ]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2722,7 +2722,7 @@ data_frame.lesividad.value_counts()
 
 # ## Split de datos
 
-# In[117]:
+# In[ ]:
 
 
 import seaborn as sns
@@ -2736,13 +2736,13 @@ sns.histplot(data=data_frame, x="lesividad", stat='count')
 data_frame.lesividad.value_counts()
 
 
-# In[118]:
+# In[ ]:
 
 
 a
 
 
-# In[119]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2757,7 +2757,7 @@ X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[120]:
+# In[ ]:
 
 
 # # FILE_NAME = f"{city_name}_calculated_weights.json"
@@ -2766,7 +2766,7 @@ Y_test = test['lesividad']
 # feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
-# In[121]:
+# In[ ]:
 
 
 
@@ -2829,7 +2829,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[122]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -2841,7 +2841,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[123]:
+# In[ ]:
 
 
 print('********** Before OverSampling **********')
@@ -2855,7 +2855,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Downsampling de datos
 
-# In[124]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2886,7 +2886,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[125]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -2902,7 +2902,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## XGBoost
 
-# In[126]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -2912,7 +2912,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[127]:
+# In[ ]:
 
 
 # HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -2938,7 +2938,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # }
 
 
-# In[128]:
+# In[ ]:
 
 
 # import xgboost as xgb
@@ -3082,7 +3082,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga hiperparámetros
 
-# In[129]:
+# In[ ]:
 
 
 FILE_NAME = 'madrid_hyperparams2022-04-28-19:07:55.json'
@@ -3100,7 +3100,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Cálculo de Hiperparámetros
 
-# In[130]:
+# In[ ]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -3150,7 +3150,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Escritura hiperparámetros
 
-# In[131]:
+# In[ ]:
 
 
 # FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
@@ -3163,7 +3163,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[132]:
+# In[ ]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
@@ -3176,7 +3176,7 @@ feature_vector
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[133]:
+# In[ ]:
 
 
 # xgboost = XGBClassifier(best_hyperparams,
@@ -3191,7 +3191,7 @@ feature_vector
 
 # #### Visualización pesos calculados
 
-# In[134]:
+# In[ ]:
 
 
 # FILE_NAME = f"{city_name}_figure_weights_{MODEL_TIMESTAMP}.jpg"
@@ -3216,7 +3216,7 @@ feature_vector
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[135]:
+# In[ ]:
 
 
 # matrix_indexes = fv2gi(feature_vector)
@@ -3229,7 +3229,7 @@ feature_vector
 
 # ### Cálculo índices de matriz
 
-# In[136]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -3237,7 +3237,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[137]:
+# In[ ]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -3248,7 +3248,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[138]:
+# In[ ]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -3263,7 +3263,7 @@ for i in range(0,3):
     plt.show()
 
 
-# In[139]:
+# In[ ]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -3274,7 +3274,7 @@ for i in range(0,3):
 
 # ## One-Hot
 
-# In[140]:
+# In[ ]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -3286,7 +3286,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## Visualización de datos
 
-# In[141]:
+# In[ ]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -3294,7 +3294,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### Matriz de correlación
 
-# In[142]:
+# In[ ]:
 
 
 # correlation_matrix(data_frame)
@@ -3302,7 +3302,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### PCA
 
-# In[143]:
+# In[ ]:
 
 
 # pca(X_train, X_test)
@@ -3310,7 +3310,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### TSNE
 
-# In[144]:
+# In[ ]:
 
 
 # output_file_name = './2d_test_tsne.jpg'
@@ -3330,7 +3330,7 @@ array_test_images  = np.asarray(test_images)
 
 # #### Entrenamiento
 
-# In[145]:
+# In[ ]:
 
 
 # input_img = Input(shape=(25,))
@@ -3364,7 +3364,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[146]:
+# In[ ]:
 
 
 # # create encoder model
@@ -3420,7 +3420,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # ## Models
 
-# In[147]:
+# In[ ]:
 
 
 array_train_images = np.asarray(train_images)
@@ -3437,8 +3437,8 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 from sklearn.utils import class_weight
 
 pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_onehot),
-                                          y = Y_train_onehot)
+                                          classes = np.unique(Y_train_labels),
+                                          y = Y_train_labels)
 
 
 print('\nPesos calculados:', pesos, '\n\n')
@@ -3451,7 +3451,7 @@ pesos = dict(enumerate(pesos))
 
 # ### KNN
 
-# In[148]:
+# In[ ]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -3462,7 +3462,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[149]:
+# In[ ]:
 
 
 # # leaf_size = list(range(1,10, 2))
@@ -3500,7 +3500,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Escritura del modelo
 
-# In[150]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3515,7 +3515,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Carga de modelo pre-entrenado
 
-# In[151]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3527,7 +3527,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Resultados
 
-# In[152]:
+# In[ ]:
 
 
 # y_predicted = knn.predict(X_test)
@@ -3563,7 +3563,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # ### Convolution 1D
 
-# In[153]:
+# In[ ]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -3571,7 +3571,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[154]:
+# In[ ]:
 
 
 history = convolution_1d.fit(array_train_images, Y_train_onehot,
@@ -3585,7 +3585,7 @@ history
 
 # #### Escritura del modelo
 
-# In[155]:
+# In[ ]:
 
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3596,7 +3596,7 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Carga de modelo pre-entrenado
 
-# In[156]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3607,7 +3607,7 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Resultados
 
-# In[157]:
+# In[ ]:
 
 
 Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
@@ -3641,7 +3641,7 @@ plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
 
 # ### Convolution 2D
 
-# In[158]:
+# In[ ]:
 
 
 MODEL_NAME = MODELS_NAME[2]
@@ -3649,7 +3649,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 # #### Entrenamiento
 
-# In[159]:
+# In[ ]:
 
 
 history = tasp_cnn.fit(array_train_images, Y_train_onehot,
@@ -3663,7 +3663,7 @@ history
 
 # #### Escritura del modelo
 
-# In[160]:
+# In[ ]:
 
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3674,7 +3674,7 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Carga de modelo pre-entrenado
 
-# In[161]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3685,7 +3685,7 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 # #### Resultados
 
-# In[162]:
+# In[ ]:
 
 
 Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
@@ -3719,19 +3719,19 @@ plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
 
 # ## AutoML
 
-# In[163]:
+# In[ ]:
 
 
 MODEL_NAME = MODELS_NAME[3]
 
 
-# In[164]:
+# In[ ]:
 
 
 # tasp_cnn.save(root_path + 'madrid_model_XGBOOST_predicted.h5')
 
 
-# In[165]:
+# In[ ]:
 
 
 # import autokeras as ak
