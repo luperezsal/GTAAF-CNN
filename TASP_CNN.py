@@ -3614,10 +3614,22 @@ MODEL_NAME = MODELS_NAME[2]
 # In[159]:
 
 
-# history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-#                        batch_size = 128, epochs = 100, shuffle = True,
-#                        validation_data = (array_test_images, Y_test_onehot))
-# # history
+pesos = class_weight.compute_class_weight('balanced',
+                                          classes = np.unique(Y_train_onehot),
+                                          y = Y_train_onehot)
+
+
+print('\nPesos calculados:', pesos, '\n\n')
+
+
+# Keras espera un diccionario donde la clave sea el número de clase 
+# y el valor sea el peso calculado. 
+pesos = dict(enumerate(pesos))  
+    
+history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                       batch_size = 128, epochs = 100, shuffle = True,
+                       validation_data = (array_test_images, Y_test_onehot))
+# history
 
 
 # #### Escritura del modelo
@@ -3625,10 +3637,10 @@ MODEL_NAME = MODELS_NAME[2]
 # In[160]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -3636,10 +3648,10 @@ MODEL_NAME = MODELS_NAME[2]
 # In[161]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-11-08:53:52.h5'
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-11-08:53:52.h5'
 
-tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+# tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -3695,13 +3707,20 @@ MODEL_NAME = MODELS_NAME[3]
 
 import autokeras as ak
 
-clf = ak.ImageClassifier(num_classes = 3,
-                         loss='categorical_crossentropy',
-                         metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
-                         overwrite = True,
-                         tuner= 'bayesian',
-                         max_trials = 20,
-                         max_model_size = 3000000
+# clf = ak.ImageClassifier(num_classes = 3,
+#                          loss='categorical_crossentropy',
+#                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
+#                          overwrite = True,
+#                          tuner= 'bayesian',
+#                          max_trials = 20,
+#                          max_model_size = 3000000
+#                         )
+clf = ak.StructuredDataClassifier(num_classes = 3,
+                             loss='categorical_crossentropy',
+                             metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
+                             overwrite = True,
+                             tuner= 'bayesian',
+                             max_trials = 20
                         )
 
 clf.fit(array_train_images,
