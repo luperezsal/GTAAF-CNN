@@ -241,7 +241,7 @@ def oversample_data(X_data, Y_labels):
     print('Slight: ', (Y_oversampled == 'Slight').sum())
     print('Serious:', (Y_oversampled == 'Serious').sum())
     print('Fatal:  ', (Y_oversampled == 'Fatal').sum())
-    print('\n Total X: ', len(X_oversampled), ' Total Y: ', len(Y_oversampled))
+    print('\n Total X: ', len(X_oversampled), ' Total Y: ', len(Y_oversampled), '\n')
 
     return X_oversampled, Y_oversampled
 
@@ -723,7 +723,7 @@ convolution_1d.compile(
 
 # ## TASP-CNN
 
-# In[26]:
+# In[80]:
 
 
 lr_init = 0.1
@@ -732,12 +732,16 @@ num_classes = 3
 tasp_cnn = models.Sequential()
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
 tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())  
+tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
 tasp_cnn.add(layers.Flatten())
 tasp_cnn.add(layers.Dense(units=128))
 tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
@@ -1158,16 +1162,22 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[41]:
+# In[79]:
 
 
-print('********** Before OverSampling **********')
+print('********** Train Before OverSampling **********')
 print('Slight: ', (Y_train == 'Slight').sum())
 print('Serious:', (Y_train == 'Serious').sum())
 print('Fatal:  ', (Y_train == 'Fatal').sum())
 print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 
 X_train, Y_train = oversample_data(X_train, Y_train)
+
+print('********** Test **********')
+print('Slight: ', (Y_test == 'Slight').sum())
+print('Serious:', (Y_test == 'Serious').sum())
+print('Fatal:  ', (Y_test == 'Fatal').sum())
+print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 
 # ## XGBoost
@@ -1921,7 +1931,7 @@ MODEL_NAME = MODELS_NAME[1]
 # In[78]:
 
 
-history = convolution_1d.fit(array_train_original_images, Y_train_original_onehot,
+history = convolution_1d.fit(array_train_images, Y_train_onehot,
                              class_weight = pesos,
                              batch_size = 128,
                              epochs = 100,
@@ -1999,7 +2009,7 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_original_images, Y_train_original_onehot,
+history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                        class_weight = pesos,
                        batch_size = 128,
                        epochs = 100,
@@ -3594,7 +3604,7 @@ MODEL_NAME = MODELS_NAME[1]
 # In[ ]:
 
 
-history = convolution_1d.fit(array_train_original_images, Y_train_original_onehot,
+history = convolution_1d.fit(array_train_images, Y_train_onehot,
                              class_weight = pesos,
                              batch_size = 128,
                              epochs = 100,
@@ -3672,7 +3682,7 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_original_images, Y_train_original_onehot,
+history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                        class_weight = pesos,
                        batch_size = 128,
                        epochs = 100,
@@ -3896,7 +3906,7 @@ import seaborn as sns
 MEASURE_TYPES  = ['precision', 'recall', 'f1-score']
 ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
-fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(20,15))
+fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,20))
 
 leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
 madrid_reports_summary = reports_summary[reports_summary['city'] == 'madrid']
