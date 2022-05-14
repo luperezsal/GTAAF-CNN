@@ -1947,9 +1947,9 @@ Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).ar
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-plot_f1_score(f1_score_path = F1_SCORE_PATH,
-              f1_score_name = F1_SCORE_NAME,
-              history = history)
+plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                      f1_score_name = F1_SCORE_NAME,
+                      history = history)
 
 print("[INFO] evaluating network...")
 
@@ -2027,9 +2027,9 @@ Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(a
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-plot_f1_score(f1_score_path = F1_SCORE_PATH,
-              f1_score_name = F1_SCORE_NAME,
-              history = history)
+plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                      f1_score_name = F1_SCORE_NAME,
+                      history = history)
 
 print("[INFO] evaluating network...")
 
@@ -3615,9 +3615,9 @@ Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).ar
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-plot_f1_score(f1_score_path = F1_SCORE_PATH,
-              f1_score_name = F1_SCORE_NAME,
-              history = history)
+plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                      f1_score_name = F1_SCORE_NAME,
+                      history = history)
 
 print("[INFO] evaluating network...")
 
@@ -3693,9 +3693,9 @@ Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(a
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-plot_f1_score(f1_score_path = F1_SCORE_PATH,
-              f1_score_name = F1_SCORE_NAME,
-              history = history)
+plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                      f1_score_name = F1_SCORE_NAME,
+                      history = history)
 
 print("[INFO] evaluating network...")
 
