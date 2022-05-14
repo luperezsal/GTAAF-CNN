@@ -2046,13 +2046,13 @@ from tensorflow.keras.datasets import mnist
 
 # (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
-
 clf = ak.ImageClassifier(num_classes = 3,
                          loss='categorical_crossentropy',
                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
                          overwrite = True,
                          tuner= 'bayesian',
-                         max_trials = 20
+                         max_trials = 20,
+                         max_model_size = 3000000
                         )
     
 clf.fit(array_train_images,
@@ -2103,9 +2103,9 @@ Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).a
 F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
 F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
 
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
+plot_f1_score(f1_score_path = F1_SCORE_PATH,
+              f1_score_name = F1_SCORE_NAME,
+              history = history)
 
 print("[INFO] evaluating network...")
 
@@ -3700,7 +3700,8 @@ clf = ak.ImageClassifier(num_classes = 3,
                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
                          overwrite = True,
                          tuner= 'bayesian',
-                         max_trials = 20
+                         max_trials = 20,
+                         max_model_size = 3000000
                         )
 
 clf.fit(array_train_images,
@@ -3788,7 +3789,8 @@ cities = ['leeds', 'madrid']
 
 models_renaming = {'knn': 'KNN',
                    'convolution_1d': '1D-convolution',
-                   'convolution_2d': '2D-convolution'}
+                   'convolution_2d': '2D-convolution',
+                   'auto_ml': 'AutoML'}
 
 for model_name in MODELS_NAME:
     
