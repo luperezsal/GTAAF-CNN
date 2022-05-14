@@ -1069,8 +1069,8 @@ from sklearn.model_selection import train_test_split
 Y = clean_df['Casualty Severity']
 
 train, test = train_test_split(clean_df, test_size=0.2)
-X_train = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
-Y_train = Y_train_labels = train['Casualty Severity']
+X_train = X_train_original = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
+Y_train = Y_train_original = train['Casualty Severity']
 
 X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
 Y_test = test['Casualty Severity']
@@ -1151,6 +1151,9 @@ X_train = normalize_data(X_train)
 X_test  = normalize_data(X_test)
 X_train_downsampled = normalize_data(X_train_downsampled)
 X_test_downsampled  = normalize_data(X_test_downsampled)
+
+X_train_original = X_train_original.astype(int)
+X_train_original = normalize_data(X_train_original)
 
 
 # ## Oversamplig de datos
@@ -1532,7 +1535,10 @@ matrix_indexes = fv2gi(feature_vector)
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
+train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
+
 test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
+
 
 pd.DataFrame(train_bgi[:,:,1057])
 
@@ -1546,6 +1552,10 @@ train_images = shape_images(X_data = X_train,
                             gray_images = train_bgi)
 test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
+
+
+train_original_images = shape_images(X_data = X_train_original,
+                            gray_images = train_original_bgi)
 
 
 # In[56]:
@@ -1572,6 +1582,8 @@ for i in range(0,3):
 array_train_images = np.asarray(train_images)
 array_test_images  = np.asarray(test_images)
 
+array_train_original_images = np.asarray(train_original_images)
+
 
 # In[59]:
 
@@ -1592,6 +1604,7 @@ array_test_images  = np.asarray(test_images)
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 
@@ -1646,8 +1659,10 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 X_train = array_train_images
 X_test = array_test_images
+X_train_original = array_train_original_images
 
 X_train = X_train.reshape(len(array_train_images), 25)
+X_train_original = X_train_original.reshape(len(array_train_original_images), 25)
 X_test  = X_test.reshape(len(X_test), 25)
 
 # autoencoder().fit(X_train, X_train,
@@ -1750,7 +1765,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
 
 # ## Models
 
-# In[70]:
+# In[69]:
 
 
 Y_test_labels = one_hot_to_casualty(Y_test)
@@ -1758,8 +1773,8 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 from sklearn.utils import class_weight
 
 pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_labels),
-                                          y = Y_train_labels)
+                                          classes = np.unique(Y_train_original),
+                                          y = Y_train_original)
 
 
 print('\nPesos calculados:', pesos, '\n\n')
@@ -1770,7 +1785,7 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
-# In[ ]:
+# In[70]:
 
 
 import pickle
@@ -1778,7 +1793,7 @@ import pickle
 
 # ### KNN
 
-# In[ ]:
+# In[71]:
 
 
 # from sklearn.neighbors import NearestNeighbors
@@ -1790,14 +1805,14 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[72]:
 
 
 leaf_size = list(range(1,10, 2))
 n_neighbors = list(range(1,25, 5))
 
 
-# In[ ]:
+# In[73]:
 
 
 # # Create new KNN object
@@ -1831,7 +1846,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Escritura del modelo
 
-# In[ ]:
+# In[74]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1846,7 +1861,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[75]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1858,7 +1873,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Resultados
 
-# In[ ]:
+# In[76]:
 
 
 # y_true = tf.argmax(Y_test_onehot, axis=1)
@@ -1895,7 +1910,7 @@ n_neighbors = list(range(1,25, 5))
 
 # ### Convolution 1D
 
-# In[ ]:
+# In[77]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -1903,10 +1918,10 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[78]:
 
 
-history = convolution_1d.fit(array_train_images, Y_train_onehot,
+history = convolution_1d.fit(array_train_original_images, Y_train_original_onehot,
                              class_weight = pesos,
                              batch_size = 128,
                              epochs = 100,
@@ -1984,7 +1999,7 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+history = tasp_cnn.fit(array_train_original_images, Y_train_original_onehot,
                        class_weight = pesos,
                        batch_size = 128,
                        epochs = 100,
@@ -2708,12 +2723,6 @@ data_frame.lesividad.value_counts()
 # In[ ]:
 
 
-
-
-
-# In[ ]:
-
-
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
 # Y_data_frame = data_frame['lesividad']
 
@@ -2739,18 +2748,15 @@ data_frame.lesividad.value_counts()
 # In[ ]:
 
 
-a
-
-
-# In[ ]:
-
-
 from sklearn.model_selection import train_test_split
 
 train, test = train_test_split(data_frame, test_size=0.2)
-X_train = train.loc[:, ~train.columns.isin(['lesividad'])]
+X_train = X_train_original = train.loc[:, ~train.columns.isin(['lesividad'])]
+
 X_train = X_train.astype(int)
-Y_train = train['lesividad']
+X_train_original = X_train_original.astype(int)
+
+Y_train = Y_train_original = train['lesividad']
 
 X_test = test.loc[:, ~test.columns.isin(['lesividad'])]
 X_test = X_test.astype(int)
@@ -2835,7 +2841,10 @@ Y_test = test['lesividad']
 X_train = X_train.astype(int)
 X_test  = X_test.astype(int)
 
+X_train_original = X_train_original.astype(int)
+
 X_train = normalize_data(X_train)
+X_train_original = normalize_data(X_train_original)
 X_test  = normalize_data(X_test)
 
 
@@ -2891,6 +2900,9 @@ Y_test_downsampled = downsampled_test['lesividad']
 
 X_train = X_train.astype(int)
 X_test  = X_test.astype(int)
+
+X_train_original = X_train_original.astype(int)
+
 X_train_downsampled = X_train_downsampled.astype(int)
 X_test_downsampled  = X_test_downsampled.astype(int)
 
@@ -3241,6 +3253,8 @@ matrix_indexes = fv2gi(feature_vector)
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
+train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
+
 test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
 
 pd.DataFrame(train_bgi[:,:,1057])
@@ -3253,6 +3267,10 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 train_images = shape_images(X_data = X_train,
                             gray_images = train_bgi)
+
+train_original_images = shape_images(X_data = X_train_original,
+                                     gray_images = train_original_bgi)
+
 test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
@@ -3281,6 +3299,7 @@ Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 array_train_images = np.asarray(train_images)
+array_train_original_images = np.asarray(train_original_images)
 array_test_images  = np.asarray(test_images)
 
 
@@ -3437,8 +3456,8 @@ Y_test_labels = one_hot_to_casualty(Y_test)
 from sklearn.utils import class_weight
 
 pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_labels),
-                                          y = Y_train_labels)
+                                          classes = np.unique(Y_train_original),
+                                          y = Y_train_original)
 
 
 print('\nPesos calculados:', pesos, '\n\n')
@@ -3876,7 +3895,7 @@ import seaborn as sns
 MEASURE_TYPES  = ['precision', 'recall', 'f1-score']
 ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
-fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,10))
+fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(20,15))
 
 leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
 madrid_reports_summary = reports_summary[reports_summary['city'] == 'madrid']
