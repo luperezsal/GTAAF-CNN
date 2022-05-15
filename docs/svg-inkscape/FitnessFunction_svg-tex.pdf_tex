@@ -1,0 +1,90 @@
+%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'FitnessFunction_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{318.375bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.58676108)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.14134276,0.46308617){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.14134276,0.39241479){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.14134276,0.32174341){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 3\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.14134276,0.08617215){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual n\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.14134276,0.18275637){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}....\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.14134276,0.25107203){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.65959953,0.46308617){\color[rgb]{0.27843137,0.27843137,0.27843137}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.65959953,0.39241479){\color[rgb]{0.27843137,0.27843137,0.27843137}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.65959953,0.32174341){\color[rgb]{0.27843137,0.27843137,0.27843137}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.65959953,0.08617215){\color[rgb]{0.27843137,0.27843137,0.27843137}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual n\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.65959953,0.18275637){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}....\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.65959953,0.25107203){\color[rgb]{0.27843137,0.27843137,0.27843137}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Individual 3\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.40047114,0.37828051){\color[rgb]{0.25098039,0.25098039,0.25098039}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Fitness Function\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.65959953,0.5431804){\color[rgb]{0.25098039,0.25098039,0.25098039}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Parents Selection\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.92815077,0.13093069){\color[rgb]{0.38039216,0.38039216,0.38039216}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Rejected\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{FitnessFunction_svg-tex.pdf}}%
+    \put(0.14134276,0.5431804){\color[rgb]{0.25098039,0.25098039,0.25098039}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Population\end{tabular}}}}%
+    \put(0.50176678,0.00490007){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Text is not SVG - cannot display\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
