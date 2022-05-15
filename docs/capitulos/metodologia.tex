@@ -243,30 +243,61 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     \begin{figure}[h]
                         \centering
-                        \includegraphics[width=10cm]{archivos/Datos/DataSplitImage.png}
+                        \includegraphics[width=10cm]{archivos/Datos/DataSplit}
                         \caption{https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.}
                         \label{DataSplitImage}
                      \end{figure}
 
+
+                \item Remuestreo
+
+
+                    Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias. En este proyecto se han hecho uso de las siguientes técnicas de remuestreo:
+
+                    
+                    \begin{enumerate}
+
+                        \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras igualando el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite. Aplicando esta técnica
+                        \cite{Downsampling}
+
+                        A LA ESPERA DE SABER SI ES LA MEJOR TECNICA
+
+                        \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Para la realización de este proyecto se ha hecho uso de la tećnica \glsentryfull{SMOTEII} \ref{SMOTEII}. Selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
+
+                        \glsentryshort{SMOTEII} ha sido utilizar para generar más muestras de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
+
+                    \end{enumerate}
+
             \end{enumerate}
 
-        \item Remuestreo
 
-            
-
-            Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias.
-            \begin{enumerate}
-
-                \item Downsampling
-
-                \item Synthetic Data
-
-                    \ref{SMOTEII}
-
-            \end{enumerate}
 
         \item Algoritmo Genético
-            \cite{GAXGBoost}
+
+            Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado. En este proyecto es necesario optmizar los hiperparámetros del algoritmo \glsentryshort{XGBoost}.\\
+
+            Para ello se ha hecho uso de algoritmos genéticos \cite{GAXGBoostCode}, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas \cite{GAXGBoostPaper}.
+
+            Debido al coste computacional que tendría optimizar todos los parámetros debido al espacio de búsqueda y al no ser necesario tener en cuenta todos, se han seleccionado aquellos que más influencia tienen en el entrenamiento del modelo. Los hiperparámetros de los que consta cada individuo de la población son:
+
+            \begin{enumerate}
+
+                \item Profundidad máxima: es la máxima altura que puede tomar el árbol. Si el árbol de decisión alcanza demasiada profundidad tenderá al \textit{overfitting} ya que aprenderá relaciones complejas entre los datos que pueden deberse a ruido en los datos de entrenamiento.
+
+                \item Peso mínimo de los hijos: es el mínimo peso que se establece a la hora de crear un nuevo nodo en el árbol. Cuando se entrena un árbol de decisión éste genera nuevos nodos en base a máxima separabilidad de los datos de entrenamiento en cada nivel. Con el límite de peso de los hijos establecemos un umbral mínimo de muestras que deben pertenecer a un nodo para realizar la separación. Un valor bajo en este parámetro permitirá crear nodos con menos muestras y por lo tanto el modelo tenderá al \textit{overfitting}.
+
+                \item ETA: tamaño de paso utilizado para aplicar descenso por gradiente para minimizar la pérdida de los árboles anteriores.
+
+            \end{enumerate}
+
+            Una vez inicializados aleatoriamente los 100 individuos especificados en la población, 50 de ellos se seleccionarán y se cruzarán entre sí. Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no se tomen valores extremos.
+
+            En el proceso de evaluación, se entrenarán 100 modelos XGBoost instanciados con los valores de cada individuo en la población, de tal forma que la función \textit{fitness} será 
+
+            SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
+            SE TESTA CON VALIDACION
+
+            Para la 
 
         \item XGBoost
 
@@ -275,6 +306,30 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
             \cite{TASPCNN}
 
         \item Implementación de Modelos
+
+            !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
+            En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)} a la salida de cada capa de convolución, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
+
+            \begin{center}
+                $f(x) = \left\{
+                               \begin{array}{lr}
+                                 0 & \text{if } x<=0\\
+                                 x & \text{if } x>0
+                               \end{array}
+                        \right.$
+            \end{center}
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=10cm]{archivos/CNN/RELUImage}
+                \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
+                \label{RELUImage}
+             \end{figure}
+            !!!!!!!!!!FIN DE LA REVISION!!!!!!!!!!
+
+            !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
+            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a su dimensionalidad.
+            !!!!!!!!!!FIN DE LA REVISION!!!!!!!!!!
 
             \cite{AutoSklearn}
 

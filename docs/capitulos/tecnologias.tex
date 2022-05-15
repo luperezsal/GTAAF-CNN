@@ -8,14 +8,14 @@
 \chapter{Tecnologías}
 \label{tecnologias}
 
+    Una vez definido el problema a tratar, los objetivos generales y específios del proyecto, la solución propuesta y los requisitos a implementar hay que analizar las herramientas y tecnologías a utilizar. Para esto habrá que plantearse diferentes modelos y tecnologías disponibles para el desarrollo y optar por aquellos que aporten estabilidad y buen rendimiento.
+
     \section{Modelos}
 
-        A continuación se presentarán los modelos con los que se ha experimentado para resolver este problema. 
+        En primer lugar analizaremos los modelos utilizados durante la realización del proyecto.
 
         \subsection {Algoritmos Genéticos}
-            Un \textit{Algoritmo Genético}, o \textit{Genetic Algorithm (GA)}, es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema mediante la evolución de un conjunto de soluciones denominadas individuos.\\
-
-            El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación correspondiente para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan (adaptación al medio) mediante una función heurística.\\
+            Un \textit{Algoritmo Genético} \cite{GA}, es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema. El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación correspondiente para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan mediante una función heurística denominada \textit{función fitness} que aproxima soluciones ideales a un problema.\\
 
             Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar éste espacio.\\
 
@@ -35,11 +35,11 @@
 
                 \item Evaluación de Población:
 
-                        Es la primera fase del proceso iterativo del algoritmo genético. En él, cada uno de los individuos pertenecientes a la población son evaluados mediante la función \textit{fitness} para obtener el \textit{score} de cada individuo de la población actual.
+                        Es la primera fase del proceso iterativo del algoritmo genético y, en él, cada uno de los individuos pertenecientes a la población son evaluados mediante la función \textit{fitness}.
 
                 \item Selección de Padres:
 
-                        Una vez evaluados los individuos de la población, se procede a seleccionar aquellos padres que mejor \textit{score} han obtenido para crear nuevas soluciones a partir de éstos. Existen distintas técnicas de selección, como por ejemplo escoger aquellos \textit{n} mejores padres de la población o técnicas basadas en métodos probabilísticos, para que aquellos individuos que menos puntuación logren, tengan alguna probabilidad de ser elegidos para la generación de nuevas soluciones. Este tipo de técnicas se utilizan para aumentar la diversidad en la pobĺación y evitar caer en soluciones acotadas a mínimos locales del problema. Se puede ver el proceso de cómo son seleccionados los padres en función de su \textit{fitness} en la figura \ref{FitnessFunction}.
+                        Una vez evaluados los individuos de la población, se procede a seleccionar aquellos que mejor valor han obtenido para crear nuevas soluciones a partir de éstos padres. Existen distintas técnicas de selección, como por ejemplo escoger aquellos \textit{n} mejores padres de la población o técnicas basadas en métodos probabilísticos, para que aquellos individuos que menos puntuación logren, tengan alguna probabilidad de ser elegidos para la generación de nuevas soluciones. Este tipo de técnicas se utilizan para aumentar la diversidad en la pobĺación y evitar caer en soluciones acotadas a mínimos locales del problema. Se puede ver el proceso de cómo son seleccionados los padres en función de su \textit{fitness} en la figura \ref{FitnessFunction}.
 
                         \begin{figure}[h]
                             \centering
@@ -48,9 +48,9 @@
                             \label{FitnessFunction}
                         \end{figure}
 
-                \item Cruzamiento:
+                \item Cruce:
 
-                        Una vez seleccionados los padres es necesario que intercambien información entre ellos para dar lugar a nuevos individuos, este proceso de herencia de información es posible realizarlo aplicando distintas filosofías; seleccionar un punto o posición de cruzamiento a lo largo del vector de los padres y combinar ambos padres, o escoger aleatoriamente las posiciones de los parámetros de ambos padres y se combinen para dar lugar a la solución generada \ref{ParentsMatingMutationImage}.
+                        Una vez seleccionados los padres es necesario que intercambien información entre ellos para dar lugar a nuevos individuos, este proceso de herencia de información es posible realizarlo aplicando distintas filosofías; seleccionar un punto o posición de cruce a lo largo del vector de los padres y combinar ambos padres, o escoger aleatoriamente las posiciones de los parámetros de ambos padres y combinarlos para dar lugar a la solución generada figura [\ref{ParentsMatingMutationImage}].
 
                         \begin{figure}[h]
                             \centering
@@ -64,7 +64,7 @@
                         Cuando los padres seleccionados son combinados para dar lugar a los candidatos de la nueva generación, es importante aplicar un proceso de mutación entre éstos debido a la necesidad de generar diversidad en la población. Si se combina la misma información entre generaciones se corre el riesgo de converger prematuramente a un mínimo local del espacio de búsqueda. Por este motivo se introduce el concepto de mutación, que consiste en aplicar una modificación aleatoria sobre alguno de los parámetros de los individuos generados para poder ampliar el espacio de soluciones. 
             \end{enumerate}
 
-            Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada, como establecer un umbral mínimo del \textit{score} de las soluciones, o fijar un número específico de iteraciones que se ejecutarán en el algoritmo.\\
+            Cada una de las fases enumeradas anteriormente se repite de forma iterativa entre generaciones hasta que se cumpla alguna condición de parada.
 
 
             A continuación enumeraremos los parámetros con los que configurar un algoritmo genético. Dependiendo del tipo de algoritmo utilizado es posible encontrar distintos parámetros con los que inicializar el algoritmo, sin embargo estos son los más extendidos:
@@ -72,13 +72,6 @@
 
             \begin{itemize}
 
-                \item Tamaño de la población:
-
-                Ees el número de individuos que sobrevivirán entre iteraciones, es decir, los individuos que se tratarán de mejorar a lo largo de las ejecuciones. En los experimentos de este trabajo Sección 5 se han inicializado 100 individuos, cada uno de ellos con 4 hiperparámetros del algoritmoo \textit{XGBoost} a optimizar.
-
-                \item Número de iteraciones:
-
-                Es el número generaciones que evolucionarán en el algoritmo. Habitualmente un mayor número de iteraciones permite una mayor precisión de los resultados a costa de invertir recursos computacionales, debido a que existen mayores probabilidades de que los individuos evolucionen. En los experimentos se han usado el mismo número de iteraciones para cada uno de los algoritmos. Esto provoca que el tiempo de ejecución entre algoritmos varíe debido a su propia naturaleza.
 
                 \item Probabilidad de cruce:
 
@@ -86,7 +79,7 @@
 
                 \item Probabilidad de mutación:
 
-                Indica la probabilidad con la que cada hiperparámetro puede variar su valor, es decir, con una probabilidad de 0.5, cada hiperparámetro de un individuo hijo tiene un 50 por ciento de probabilidades de modificar su valor. Se establece además un rango de posibles valores en los cuales un párámetro de un individuo puede mutar, es decir, se definen unos valores máximos y mínimos en los que el parámetro mutará y se escoge un valor aleatorio dentro del rango. De esta forma si muta un mismo parámetro para varios individuos de la generación, esta condición se asegurará de que las variaciones aplicadas a cada uno de ellos estén controladas y sean distintas para cada uno de ellos.
+                Indica la probabilidad con la que cada hiperparámetro puede variar su valor.
 
             \end{itemize}
 
@@ -101,12 +94,10 @@
 
             Concretamente \textit{XGBoost} implementa \textit{Gradient Boosting Decision Trees (GBDT)}, que es un algoritmo similar a los \textit{Random Forest}, y es utilizado tanto para clasificación como para regresión.\\
 
-            La diferencia principal de los \textit{Random Forest} con respecto a \textit{XGBoost} radica en la diferencia en la que los \textit{Ensembles Bagging} calculan las predicciones. Los algoritmos de tipo \textit{Bagging} construyen $n$ modelos de las mismas características pero entrenados con distintos ejemplos muestreados desde el conjunto de entrenamiento, y construye un modelo final predictivo en el que la salida predecida será la combinación de la predicción de cada uno de los modelos individuales, sobre sus resultados se pueden aplicar distintas estrategias para escoger la predicción agregada de éstos (como realizar la media de las predicciones, escoger la predicción más frecuente de los modelos individuales, etc).\\
-
-            En el caso de los \textit{Ensembles Boosting} la idea es combinar secuencialmente modelos (\textit{Árboles de decisión}) de tal forma que su objetivo es minimizar los residuos de los árboles generados anteriormente, en lugar de crear una predicción conjunta entre todos ellos como era el caso de los \textit{Ensembles Bagging}, y utiliza el método de \textit{Gradient Descent} para minimizar estos residuos.\\
+            La diferencia principal entre los algoritmos \textit{Random Forest} y \textit{XGBoost} radica en el hecho de que los primeras utilizan algoritmos \textit{Ensembles} tipo \textit{Bagging} y construyen un modelo final predictivo mediante en el que la salida será la combinación de las predicciones de cada uno de los modelos individuales. En el caso de los modelos \textit{Ensembles Boosting} (\textit{XGBoost}) se combinan secuencialmente de forma que su objetivo es minimizar el error producido los árboles generales utilizando para ello el método de descenso por gradiente.\\
 
 
-            En la figura \ref{XGBoostFlowImage} se puede observar cómo se van construyendo los árboles clasificadores y cómo cada árbol minimiza el residuo producido por el árbol anterior.\\
+            En la figura [\ref{XGBoostFlowImage}] se puede observar cómo se van construyendo los árboles clasificadores y cómo cada árbol minimiza el residuo producido por el árbol anterior.\\
 
 
             \begin{figure}[h]
@@ -121,15 +112,11 @@
 
 
 
-        \subsection {Redes Neuronales Convolucionales (CNN)}
+        \subsection {Redes Neuronales}
 
-            Las Redes Neuronales son modelos que emulan comportamiento del cerebro a la hora de procesar la información, entrenándose sobre un conjunto de datos de entrenamiento para identificar patrones entre ellos.\\
+            Las Redes Neuronales \cite{NNReview} son modelos que emulan comportamiento del cerebro a la hora de procesar la información, entrenándose sobre un conjunto de datos de entrenamiento para identificar patrones entre ellos.\\
 
-
-            Para entrenar una \textit{CNN} es necesario hacerlo mediante ejemplos etiquetados, ya que este tipo de redes se basa en el aprendizaje supervisado. Es decir, durante el proceso de entrenamiento se comparará la salida de las predicciones de la última capa con la salida conocida, y se calculará la entropía cruzada entre las distribuciones, de esta forma los pesos de las capas son optmizados mediante el método \textit{Descenso por Gradiente} \textit{(Backward Propagation)}.\\
-
-
-            A modo de comprensión, se muestra la arquitectura de una \textit{NN}, donde se pueden observar las conexiones entre cada capa de la red y sus salidas en la figura \ref{NNImage}. Existe una capa de entrada inicial \textit{input layer} que corresponde a cada una de las características del ejemplo de entrada (en el caso de imágenes se trata de cada uno de los píxeles). Cada una de las características de la capa de entrada se conecta con cada una de las neuronas de la primera capa oculta \textit{hidden layer} a través de conexiones denominadas pesos (\textit{weights}) que son los que serán aprendidos en la red con el objetivo de encontrar patrones entre las características mediante el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}.\\
+            A modo de comprensión, se muestra la arquitectura de una \textit{NN}, donde se pueden observar las conexiones entre cada capa de la red y sus salidas en la figura \ref{NNImage}. Existe una capa de entrada inicial que corresponde a cada una de las características del ejemplo de entrada (en el caso de imágenes se trata de cada uno de los píxeles). Cada una de las características de la capa de entrada se conecta con cada una de las neuronas de la primera capa oculta \textit{hidden layer} a través de conexiones denominadas pesos (\textit{weights}) que son los que serán aprendidos en la red con el objetivo de encontrar patrones entre las características mediante el método de \textit{Descenso por Gradiente} o \textit{Gradient Descent (GD)}.\\
 
 
             Esta metodología se aplica para cada una de las \textit{hidden layers} presentes en la arquitectura hasta la última capa, llegando hasta la última función \textit{SoftMax} que dictará la clase predicha en base a la salida de la capa final, u \textit{output layer}.\\
@@ -143,52 +130,34 @@
 
 
 
-            Antes de entrar en el detalle de la implementación de las \textit{CNN} es necesario introducir los siguientes conceptos comunes a todas las \textit{NN} para la posterior comprensión de las arquitecturas:
+            Existen una serie de conceptos comunes a todas las \textit{NN} que es conveniente nombrar para su comprensión:
 
 
             \begin{itemize}
 
                 \item Función de activación:
 
-                    Las funciones de activación son las encargadas de decidir si una neurona es activada o no en función de la entrada a esta función, es decir, basándose en los datos de entrada, ésta decidirá si este input producirá un determinado \textit{output} a la salida de ella. Esta función suele situarse en la salida de cada capa de la red para decidir si una determinada neurona de la siguiente capa se activa o no.
+                    Las funciones de activación son las encargadas de decidir si una neurona es activada o no en función de la entrada a esta función. Esta función suele situarse en la salida de cada capa de la red para decidir si una determinada neurona de la siguiente capa se activa o no.
 
-                    Existen distintos enfoques en lo que respecta a las funciones de activación, como la función logística \textit{logistic function}, tangente hiperbólica \textit{hyperbolic tangent} y \textit{softmax} entre otras.
-
-                    En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)} a la salida de cada capa de convolución, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
-
-                    \begin{center}
-                        $f(x) = \left\{
-                                       \begin{array}{lr}
-                                         0 & \text{if } x<=0\\
-                                         x & \text{if } x>0
-                                       \end{array}
-                                \right.$
-                    \end{center}
-
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=10cm]{archivos/CNN/RELUImage}
-                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
-                        \label{RELUImage}
-                     \end{figure}
+                    Existen distintos enfoques en lo que respecta a las funciones de activación, como la función logística, tangente hiperbólica y \textit{softmax} entre otras.
 
 
                 \item Entropía:
 
-                    La entropía sobre una varible aleatoria $X$ es el grado de incertidumbre producido en base a los posibles valores que puede tomar como respuesta, es decir, a mayor entropía de una variable aleatoria $X$, existe mayor grado de incertidumbre sobre ella. La entropia $H(X)$ se calcula en base a la siguiente fórmula:
+                    La entropía sobre una varible aleatoria $X$ es el grado de incertidumbre producido en base a los posibles valores que puede tomar como respuesta. Se calcula en base a la siguiente fórmula:
 
                     \begin{center}
                         $H(X) = -\sum_{i = 1}^n p(x_i) \log_2 p(x_i)$
                     \end{center}
 
-                    Donde $x_i$ es cada uno de los posibles valores que puede tomar la variable como respuesta y $p(x_i)$ es la probabilidad de obtener dicho valor. Por lo tanto, es deseable mantener distribuciones con un grado de entropía bajo, ya que existirá menos incertidumbre en ella.
+                    Donde $x_i$ es cada uno de los posibles valores que puede tomar la variable como respuesta y $p(x_i)$ es la probabilidad de obtener dicho valor. 
 
 
                 \item Softmax:
 
                     Se trata de la generalización en forma multidimensional de la función logística o \textit{logistic function}. \textit{Softmax} es una función que permite la transformación de un vector de números reales a una distribución de probabilidad. Esta función se suele aplicar como capa de activación en el último nivel en las \textit{NN}, representando la probabilidad de que la salida de la red pertenezca a cada una de las $K$ clases posibles en el modelo \cite{Softmax}. 
 
-                    Esto es necesario debido a que normalmente los componentes de la salida de la última capa de una red neuronal (denominados como \textit{logits}) son el resultado de la predicción en forma de números reales no normalizados, por lo tanto pueden ser mayores que $1$ e incluso negativos. La función permite calcular la distribución de probabilidad en base a estos \textit{logits} y calcular la probabilidad de pertenencia de la muestra a cada una de las $K$ clases que componen el modelo mediante la siguiente fórmula:
+                    Esto es necesario debido a que normalmente los componentes de la salida de la última capa de una red neuronal (\textit{logits}) son el resultado de la predicción en forma de números reales no normalizados, por lo tanto pueden ser mayores que $1$ e incluso negativos. La función permite calcular la distribución de probabilidad en base a estos \textit{logits} y calcular la probabilidad de pertenencia de la muestra a cada una de las $K$ clases que componen el modelo mediante la siguiente fórmula:
 
 
                     \begin{center}
@@ -212,15 +181,15 @@
                     \begin{figure}[h]
                         \centering
                         \includegraphics[width=7cm]{archivos/CNN/CrossEntropy}
-                        \caption{https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdader a (derecha).}
+                        \caption{https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdadera (derecha).}
                         \label{CrossEntropyImage}
                      \end{figure}
 
                 \item Back Propagation:
 
-                    En el proceso de entrenamiento de la \textit{CNN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza el método \textit{GD}, algoritmo de optimización que maximiza el valor de una función siempre y cuando ésta sea continua diferenciable.
+                    En el proceso de entrenamiento de la \textit{NN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza un algoritmo de optimización que maximiza el valor de una función \textit{GD}.
 
-                    Gracias a las propiedades de la función \textit{Softmax} es posible utilizar \textit{GD} para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
+                    Gracias a las propiedades de la función \textit{Softmax} es posible utilizar descenso por gradiente para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
 
                 \item Learning Rate:
 
@@ -236,13 +205,14 @@
 
                 \item Batch Normalization:
 
-                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario transformar los datos de entrada a la entrada de la capa, o lo que es lo mismo, normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época \textit{epoch}).\\
+                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario tormalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época.\\
 
 
                     El método \textit{Batch Normalization} \cite{BatchNormalization} normaliza los datos de tal forma que permite utilizar tasas de aprendizaje mayores además de actuar como regularizador, reduciendo así el número de capas \textit{Dropout} que existan en la arquitectura.
 
             \end{itemize}
 
+            !!!!!!!!!!!!!!!!!!!!!!!CNN!!!!!!!!!!!!!!!!!!!!!!!
 
             A contiuación definiremos los parámetros específicos aplicados a las \textit{CNNs}:
 
@@ -250,7 +220,7 @@
 
                 \item Kernels:
 
-                    Son las estructuras que se encargan de realizar la convolución. Los kernels son matrices de pesos unidimensionales ($1 \times n$) o bidimensionales ($n \times m$)dependiendo del tipo de convolución que se esté aplicando (Convolución 1-D o Convolución 2-D), y se encargan de proyectar las posiciones de la matriz de entrada que correspondan en instante de la convolución en un mapa de características (\textit{feature map}), que será el input de la siguiente capa de la red. De esta forma, los kernels permiten inferir patrones en la matriz de entrada en gracias a la actualización de sus pesos. En función de la profundidad de la capa, los kernels podrán encontrar patrones más simples (capas más superficiales de la red) o más complejos (capas más profundas de la red) debido a que la entrada a cada capa es una convolución (aplicación del filtro) de las capas anteriores.
+                    Son las estructuras que se encargan de realizar la convolución. Los kernels son matrices de pesos unidimensionales ($1 \times n$) o bidimensionales ($n \times m$) dependiendo del tipo de convolución que se esté aplicando (Convolución 1-D o Convolución 2-D), y se encargan de inferir patrones en la matriz de entrada gracias a la actualización de sus pesos. En función de la profundidad de la capa, los kernels podrán encontrar patrones más simples o más complejos debido a que la entrada a cada capa es una convolución (aplicación del filtro) de las capas anteriores.
 
                     Un kernel realiza el producto escalar de sus pesos con respecto a las posiciones de la matriz de entrada (imagen o \textit{feature map}) que colisionen en ese momento con el kernel, generando un nuevo \textit{feature map} de menor dimensión, a menos que se utilice la técnica de \textit{Padding} \cite{Kernels}.
                      
@@ -271,7 +241,7 @@
 
                 \item Padding:
 
-                    El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución. Estas posiciones son aquellas en las que el filtro de la convolución pasaría una única vez en caso de no aplicar \textit{padding}.\\
+                    El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución.\\
 
                     El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.\\
 
@@ -286,7 +256,7 @@
                 \item Función de activación:
 
 
-                    En el caso de las redes neuronales convolucionales, la función de activación (en este proyecto \textit{ReLU}) se aplica a cada casilla proyectada por cada kernel sobre la matriz de entrada, de tal forma que cambia el valor a $0$ sobre aquellos valores que resulten negativos de la convolución.\\
+                    En el caso de las redes neuronales convolucionales, la función de activación se aplica a cada casilla proyectada por cada kernel sobre la matriz de entrada, de tal forma que cambia el valor a $0$ sobre aquellos valores que resulten negativos de la convolución.\\
 
                     En la figura \ref{CNNRELUImage} se puede apreciar cómo se aplica la función de activación \textit{ReLU} para cada casilla de la proyección de un \textit{kernel} bidimensinoal sobre una \textit{red convolucional de dos dimensiones}.
 
@@ -301,13 +271,11 @@
 
             \end{itemize}
 
-            En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida. \\
+            En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida.\\
 
 
-            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a su dimensionalidad.
 
-
-            \subsubsection{Unidimensionales (Conv-1D)}
+            \subsubsection{Unidimensionales}
             
                 Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
 
@@ -368,51 +336,42 @@
 
 
         \subsection{Herramientas utilizadas}
-            Para el desarrollo de este proyecto se ha hecho uso de los siguientes programas:
+            En primer lugar se ha utilizado de forma intensiva \textit{Python}, que es un lenguaje de programación interpretado de nivel alto multiparadigma. La versión empleada para el desarrollo del proyecto ha sido 3.9.11. \cite{Python}
+            
+            Las liberías más utilizadas han sido:
 
             \begin{description}
 
-                \item [Lenguaje de programación]:
+                \item Pandas: libería que provee de herramientas que permiten el análisis y la manipulación de datos. La versión utilizada para este proyecto es la 1.3.5 \cite{Pandas}.
 
-                    \begin{itemize}
-                        \item Python: lenguaje de programación interpretado de nivel alto multiparadigma. La versión empleada para el desarrollo del proyecto ha sido 3.9.11.
-                    \end{itemize}
+                \item Tensorflow: libería utilizada para la implementación de redes neuronales permitiendo su ejecución. Este proyecto se basa en la versión 2.8.0 \cite{Tensorflow}.
 
-                \item [Liberías]:
+                \item Sklearn: librería que contiene múltiples modelos predictivos implementados, basado en NumPy, SciPy y Matplotlib. La versión configurada para este proyecto es 1.0.2 \cite{Scikit-Learn}.
 
-                    \begin{itemize}
+                \item XGboost: paquete que contiene la implementación del algoritmo XGBoost, además de múltiples configuraciones como la ejecución en \textit{CPU, GPU y GPU paralelizada}. La importación de esta librería ha sido en base a la versión 1.5.0 \cite{XGBoostLibrary}.
 
-                        \item Pandas: libería que provee de herramientas que permiten el análisis y la manipulación de datos. La versión utilizada para este proyecto es la 1.3.5 \cite{Pandas}. 
-                        \item Tensorflow: libería utilizada para la implementación de redes neuronales permitiendo su ejecución. Este proyecto se basa en la versión 2.8.0 \cite{Tensorflow}.
-                        \item Sklearn: librería que contiene múltiples modelos predictivos implementados, basado en NumPy, SciPy y Matplotlib. La versión configurada para este proyecto es 1.0.2 \cite{Scikit-Learn}.
-                        \item XGboost: paquete que contiene la implementación del algoritmo XGBoost, además de múltiples configuraciones como la ejecución en \textit{CPU, GPU y GPU paralelizada}. La importación de esta librería ha sido en base a la versión 1.5.0 \cite{XGBoostLibrary}.
-
-                    \end{itemize}
-
-                \item [Software]:
-
-                    \begin{itemize}
-
-                        \item CUDA: plataforma de computación paralelizada que permite la ejecución de código en \textit{GPU}, esto permite que las redes neuronales puedan entrenarse con mayor rapidez que en \textit{CPU} debido a la velocidad con la que se realizan las operaciones orientadas a datos en las tarjetas gráficas. Se ha utilizado la versión 11.6 \cite{CUDA}. 
-                        \item Anaconda: distribución open-source que ofrece la flexibilidad de mantener varios entornos con distintas configuraciones y versiones de distinas librerías, facilitando además la migración entre equipos. La versión utilizada ha sido la 4.12.0 \cite{Anaconda}.
-                        \item Jupyter Notebook: entorno interactivo que permite la creación, edición y ejecución de notebooks de forma local y remota. La versión utilizada para el desarrollo de este proyecto ha sido la 6.4.10 \cite{JupyterNotebook}.
-                        \item Jupyter Lab: interfaz de nueva generación que convive con el entorno Jupyter Notebook, ofrece numerosas funcionalidades como es la navegación entre distintos repositorios dentro de la interfaz. La versión instalada para la realización del proyecto ha sido la 3.3.2 \cite{JupyterLab}.
-                        \item MiKTeX:
-                        \item DiagramsNet: plataforma utilizada para la confección de figuras mostradas en este documento \cite{DiagramsNet}. 
-                        \item Google Meets: plataforma utilizada para realizar reuniones semanales con el tutor \cite{GoogleMeet}.
-
-                    \end{itemize}
-
-                \item [Sistemas de control de versiones]:
-                    \begin{itemize}
-
-                        \item Github: repositorio donde tener un control de las versiones del desarrollo \cite{Github}.
-                    \end{itemize}
-
-                    
             \end{description}
 
+            Respecto a las herramientas \textit{Software} utilizadas destacan:
+
+            \begin{description}
+
+                \item CUDA: plataforma de computación paralelizada que permite la ejecución de código en \textit{GPU}, esto permite que las redes neuronales puedan entrenarse con mayor rapidez que en \textit{CPU} debido a la velocidad con la que se realizan las operaciones orientadas a datos en las tarjetas gráficas. Se ha utilizado la versión 11.6 \cite{CUDA}.
+
+                \item Anaconda: distribución open-source que ofrece la flexibilidad de mantener varios entornos con distintas configuraciones y versiones de distinas librerías, facilitando además la migración entre equipos. La versión utilizada ha sido la 4.12.0 \cite{Anaconda}.
+
+                \item Jupyter Notebook: entorno interactivo que permite la creación, edición y ejecución de notebooks de forma local y remota. La versión utilizada para el desarrollo de este proyecto ha sido la 6.4.10 \cite{JupyterNotebook}.
+
+                \item Jupyter Lab: interfaz de nueva generación que convive con el entorno Jupyter Notebook, ofrece numerosas funcionalidades como es la navegación entre distintos repositorios dentro de la interfaz. La versión instalada para la realización del proyecto ha sido la 3.3.2 \cite{JupyterLab}.
+
+                \item DiagramsNet: plataforma utilizada para la confección de figuras mostradas en este documento \cite{DiagramsNet}. 
+
+                \item Google Meets: plataforma utilizada para realizar reuniones semanales con el tutor \cite{GoogleMeet}.
+
+            \end{description}
+
+            Como sistema de control de versiones se ha utilizado Github \cite{Github}, repositorio donde es posible subir versiones evolutivas del proyecto imprescincible en los proyectos de desarrollo \cite{Software}.
 
         \subsection{Especificaciones del servidor}
-            Los experimentos de este artículo se han realizado bajo un servidor con CPU \textit{Dual AMD Rome 7742} (128 cores) y contando con una GPU \textit{DGX NVIDIA A100} de  40 GigaBytes (\textit{GB}).
+            La mayor parte de los experimentos realizados en este trabajo se han ejecutado bajo un servidor con CPU \textit{Dual AMD Rome 7742} (128 cores) y contando con una GPU \textit{DGX NVIDIA A100} de  40 GigaBytes (\textit{GB}).
             
