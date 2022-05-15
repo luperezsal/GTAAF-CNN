@@ -48,11 +48,11 @@ MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'auto_ml']
 REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
 calculate_weights = True
-laptot = False
+laptop = False
 train_nn = True
 
 
-tree_method = 'auto' if laptot else 'gpu_hist'
+tree_method = 'auto' if laptop else 'gpu_hist'
 
 
 loaded_timestamp = '2022-05-15-21:46:08'
@@ -325,12 +325,19 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[14]:
+# In[51]:
 
 
 from xgboost import XGBClassifier
 import xgboost as xgb
 import time
+
+if not laptop:
+    from dask_cuda import LocalCUDACluster
+    from dask.distributed import Client
+
+    cluster = LocalCUDACluster()
+    client = Client(cluster)
 
 def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixTest, Y_test):
     fScore = []
@@ -359,10 +366,17 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
         
         start = time.time()
 
-        xgb.set_config(verbosity=0)
-        bst = xgb.train(params,
-                        dMatrixTrain)
-                        # num_round)
+        if not laptop:
+            bst = dask_xgboost.train(client,
+                                     params,
+                                     dMatrixTrain,
+                                     num_boost_round=10)
+        else:
+
+            xgb.set_config(verbosity=0)
+            bst = xgb.train(params,
+                            dMatrixTrain)
+                            # num_round)
 
         end = time.time()
 
