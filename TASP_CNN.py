@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[2]:
+# In[47]:
 
 
 from datetime import datetime
@@ -47,11 +47,13 @@ MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'auto_ml']
 
 REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
-calculate_weights = False
+calculate_weights = True
 laptot = False
+train_nn = True
+
+
 tree_method = 'auto' if laptot else 'gpu_hist'
 
-train_nn = True
 
 loaded_timestamp = '2022-05-15-21:46:08'
 
@@ -1124,7 +1126,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[42]:
+# In[48]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -1175,7 +1177,7 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                           }
 
 
-# In[43]:
+# In[49]:
 
 
 import xgboost as xgb
@@ -1185,11 +1187,12 @@ if calculate_weights:
     Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
     Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
     Y_test_onehot  = casualty_to_one_hot(Y_test)
+    Y_train_onehot  = casualty_to_one_hot(Y_train)
 
-    number_of_individuals = 150
-    numberOfParentsMating = 25
+    number_of_individuals = 75
+    numberOfParentsMating = 20
     number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-    number_of_generations = 120
+    number_of_generations = 50
 
     populationSize = (number_of_individuals, number_of_hyperparams)
     population = initialize_population(number_of_individuals   = number_of_individuals,
@@ -1202,8 +1205,8 @@ if calculate_weights:
     populationHistory[0:number_of_individuals,:] = population
 
 
-    xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
-                                  label = Y_train_downsampled)
+    xgbDMatrixTrain = xgb.DMatrix(data  = X_train,
+                                  label = Y_train)
 
     xgbDMatrixTest  = xgb.DMatrix(data  = X_test, 
                                   label = Y_test)
@@ -1863,7 +1866,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[81]:
+# In[77]:
 
 
 from keras.callbacks import ModelCheckpoint
@@ -1873,7 +1876,7 @@ if train_nn:
     file_name = '_epoch{epoch:02d}-loss{val_loss:.2f}'
     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_{file_name}.hdf5"
     
-    checkpoint = ModelCheckpoint(filepath=MODEL_FILE_NAME, 
+    checkpoint = ModelCheckpoint(filepath= MODEL_PATH + MODEL_FILE_NAME, 
                                  monitor = 'val_loss',
                                  verbose = 1, 
                                  save_best_only = True,
@@ -2928,6 +2931,8 @@ if calculate_weights:
     Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
     Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
     Y_test_onehot  = casualty_to_one_hot(Y_test)
+    
+    Y_train_onehot = casualty_to_one_hot(Y_train)
 
 
     populationSize = (number_of_individuals, number_of_hyperparams)
@@ -2941,8 +2946,8 @@ if calculate_weights:
     populationHistory[0:number_of_individuals,:] = population
 
 
-    xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
-                                  label = Y_train_downsampled)
+    xgbDMatrixTrain = xgb.DMatrix(data  = X_train,
+                                  label = Y_train)
 
     xgbDMatrixTest  = xgb.DMatrix(data  = X_test, 
                                   label = Y_test)
