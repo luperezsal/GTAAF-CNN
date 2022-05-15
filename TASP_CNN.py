@@ -336,8 +336,10 @@ if not laptop:
     from dask_cuda import LocalCUDACluster
     from dask.distributed import Client
 
-    cluster = LocalCUDACluster()
-    client = Client(cluster)
+    if __name__ == '__main__':
+        client = Client()
+        cluster = LocalCUDACluster()
+        client = Client(cluster)
 
 def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixTest, Y_test):
     fScore = []
