@@ -332,16 +332,10 @@ from xgboost import XGBClassifier
 import xgboost as xgb
 import time
 
-if not laptop:
-    from dask_cuda import LocalCUDACluster
-    from dask.distributed import Client
 
-    if __name__ == '__main__':
-        client = Client()
-        cluster = LocalCUDACluster()
-        client = Client(cluster)
 
 def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixTest, Y_test):
+
     fScore = []
     
     params = {'objective':'multi:softprob',
@@ -369,6 +363,23 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
         start = time.time()
 
         if not laptop:
+
+            import dask.array as da
+            import dask.distributed
+
+            if __name__ == "__main__":
+                cluster = dask.distributed.LocalCluster()
+                client = dask.distributed.Client(cluster)
+
+
+                output = xgb.dask.train(
+                                        client,
+                                        params,
+                                        {"verbosity": 2, "tree_method": "gpu_hist", "objective": "reg:squarederror"},
+                                        dtrain,
+                                        num_boost_round=4,
+                                        evals=[(dtrain, "train")],
+                )
             bst = xgboost.dask.train(client,
                                      params,
                                      dMatrixTrain,
@@ -1221,11 +1232,36 @@ if calculate_weights:
     populationHistory[0:number_of_individuals,:] = population
 
 
-    xgbDMatrixTrain = xgb.DMatrix(data  = X_train,
-                                  label = Y_train)
+    if not laptop:
 
-    xgbDMatrixTest  = xgb.DMatrix(data  = X_test, 
-                                  label = Y_test)
+        import dask.array as da
+        import dask.distributed
+
+        if __name__ == "__main__":
+            cluster = dask.distributed.LocalCluster()
+            client = dask.distributed.Client(cluster)
+
+            # X and y must be Dask dataframes or arrays
+            X = X_train
+            y = Y_train
+
+            dtrain = xgb.dask.DaskDMatrix(client, X_train, Y_train)
+            dtest  = xgb.dask.DaskDMatrix(client, X_test, Y_test)
+
+            output = xgb.dask.train(
+                client,
+                {"verbosity": 2, "tree_method": "gpu_hist", "objective": "reg:squarederror"},
+                dtrain,
+                num_boost_round=4,
+                evals=[(dtrain, "train")],
+            )
+    else:
+
+        dtrain = xgb.DMatrix(data  = X_train,
+                             label = Y_train)
+
+        dtest  = xgb.DMatrix(data  = X_test, 
+                             label = Y_test)
 
     for generation in range(number_of_generations):
 
@@ -1252,8 +1288,8 @@ if calculate_weights:
         # Train the dataset and obtain fitness
         fitnessValue = train_population(population = population,
                                         hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-                                        dMatrixTrain = xgbDMatrixTrain,
-                                        dMatrixTest = xgbDMatrixTest,
+                                        dMatrixTrain = dtrain,
+                                        dMatrixTest = dtest,
                                         Y_test = Y_test)
 
         fitnessHistory[generation,:] = fitnessValue
@@ -1294,8 +1330,8 @@ if calculate_weights:
 
     fitness = train_population(population = population,
                                hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-                               dMatrixTrain = xgbDMatrixTrain,
-                               dMatrixTest = xgbDMatrixTest,
+                               dMatrixTrain = dtrain,
+                               dMatrixTest = dtest,
                                Y_test = Y_test)
 
     fitnessHistory[generation+1, :] = fitness # index of the best solution
