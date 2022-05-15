@@ -1924,7 +1924,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 
 history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                             class_weight = pesos,
+                             # class_weight = pesos,
                              batch_size = 128,
                              epochs = 100,
                              shuffle = True,
@@ -2002,7 +2002,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 
 history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                       class_weight = pesos,
+                       # class_weight = pesos,
                        batch_size = 128,
                        epochs = 100,
                        shuffle = True,
@@ -3200,7 +3200,7 @@ feature_vector = fill_feature_vector(X_train_downsampled, child_weights)
 
 # ### Cálculo índices de matriz
 
-# In[ ]:
+# In[108]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -3554,7 +3554,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 
 history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                             class_weight = pesos,
+                             # class_weight = pesos,
                              batch_size = 128,
                              epochs = 100,
                              shuffle = True,
@@ -3632,7 +3632,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 
 history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                       class_weight = pesos,
+                       # class_weight = pesos,
                        batch_size = 128,
                        epochs = 100,
                        shuffle = True,
