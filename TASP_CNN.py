@@ -633,6 +633,7 @@ def autoencoder ():
 
 
 import tensorflow_addons as tfa
+from keras.callbacks import ModelCheckpoint
 
 lr_init = 0.1
 num_classes = 3
@@ -653,7 +654,7 @@ convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
 convolution_1d.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='macro', threshold=0.1)]
   )
 
 
@@ -681,7 +682,7 @@ tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 tasp_cnn.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='macro', threshold=0.1)]
   )
 
 
@@ -1867,12 +1868,23 @@ MODEL_NAME = MODELS_NAME[1]
 
 
 if train_nn:
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_epoch{epoch:02d}-loss{val_loss:.2f}.hdf5"
+
+    filepath = 'my_best_model.epoch{epoch:02d}-loss{val_loss:.2f}.hdf5'
+    checkpoint = ModelCheckpoint(filepath=filepath, 
+                                 monitor = 'val_loss',
+                                 verbose = 1, 
+                                 save_best_only = True,
+                                 mode = 'min')
+
     history = convolution_1d.fit(array_train_images, Y_train_onehot,
                                  # class_weight = pesos,
                                  batch_size = 128,
                                  epochs = 100,
                                  shuffle = True,
-                                 validation_data = (array_test_images, Y_test_onehot))
+                                 validation_data = (array_test_images, Y_test_onehot),
+                                 callbacks = callbacks)
     history
 
 
