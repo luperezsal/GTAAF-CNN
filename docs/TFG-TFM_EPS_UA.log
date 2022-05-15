@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  13 MAY 2022 00:42
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  15 MAY 2022 14:38
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2569,9 +2569,7 @@ LaTeX Font Info:    Calculating math sizes for size <9.85492> on input line 127
 (capitulos/tecnologias.tex [15] [16]
 chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--17
-
- []
+Package natbib Warning: Citation `GA' on page 17 undefined on input line 18.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 18--19
@@ -2609,21 +2607,29 @@ nput line 53.
 
 File: ./svg-inkscape/ParentsMatingMutation_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/ParentsMatingMutation_svg-raw.pdf>
+[18]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Package natbib Warning: Citation `XGBoostTutorial' on page 19 undefined on inpu
+t line 90.
 
 
-Underfull \vbox (badness 1231) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
- [18]
-Underfull \hbox (badness 10000) in paragraph at lines 67--68
+ []
+
+
+Package natbib Warning: Citation `NvidiaXGBoost' on page 19 undefined on input 
+line 92.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
 
  []
 
 [19]
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
 
-Package natbib Warning: Citation `XGBoostTutorial' on page 20 undefined on inpu
-t line 97.
+ []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 97--98
@@ -2631,162 +2637,130 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--98
  []
 
 
-Package natbib Warning: Citation `NvidiaXGBoost' on page 20 undefined on input 
-line 99.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 99--100
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 102--103
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 104--105
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
-
- []
-
-
 LaTeX Warning: Reference `XGBoostFlowImage' on page 20 undefined on input line 
-109.
+100.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
+Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
  []
 
-[20]
 File: archivos/XGBoostFlowImage.png Graphic file (type bmp)
 <archivos/XGBoostFlowImage.png>
 
-Underfull \hbox (badness 1448) in paragraph at lines 115--115
+Underfull \hbox (badness 1448) in paragraph at lines 106--106
 [][][]|\TU/lmr/m/n/10 Degradation state recognition of piston pump based on ICE
 EMDAN and XG-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 126--127
+Package natbib Warning: Citation `NNReview' on page 20 undefined on input line 
+117.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
+
+ []
+
+[20]
+
+LaTeX Warning: Reference `NNImage' on page 21 undefined on input line 119.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
-
- []
-
-
-LaTeX Warning: Reference `NNImage' on page 21 undefined on input line 132.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
-
- []
-
-[21]
-Underfull \hbox (badness 10000) in paragraph at lines 135--136
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
 
  []
 
 File: archivos/NNImage.jpg Graphic file (type bmp)
 <archivos/NNImage.jpg>
 
-Underfull \hbox (badness 4556) in paragraph at lines 140--140
+Underfull \hbox (badness 4556) in paragraph at lines 127--127
 [][][]|\TU/lmr/m/n/10 https://www.v7labs.com/blog/neural-networks-activation-fu
 nctions. Arquitectura de
  []
 
+[21]
 
-LaTeX Warning: Reference `RELUImage' on page 22 undefined on input line 157.
+Package natbib Warning: Citation `Softmax' on page 22 undefined on input line 1
+58.
 
-File: archivos/CNN/RELUImage.png Graphic file (type bmp)
-<archivos/CNN/RELUImage.png>
 
-Underfull \hbox (badness 3492) in paragraph at lines 171--171
-[][][]|\TU/lmr/m/n/10 https://www.researchgate.net/journal/Transport-in-Porous-
-Media-1573-1634. Función
- []
-
-[22]
-
-Package natbib Warning: Citation `Softmax' on page 23 undefined on input line 1
-89.
-
-[23]
-
-Package natbib Warning: Citation `Cross-Entropy' on page 24 undefined on input 
-line 204.
+Package natbib Warning: Citation `Cross-Entropy' on page 22 undefined on input 
+line 173.
 
 File: archivos/CNN/CrossEntropy.jpeg Graphic file (type bmp)
 <archivos/CNN/CrossEntropy.jpeg>
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--215
+Underfull \hbox (badness 10000) in paragraph at lines 184--184
 [][][]|\TU/lmr/m/n/10 https://towardsdatascience.com/cross-entropy-loss-functio
 n-f38c4ec8643e Cross-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--228
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
-
- []
-
-[24]
-
-Package natbib Warning: Citation `LearningRate' on page 25 undefined on input l
-ine 233.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 239--240
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
 
  []
 
 
-Package natbib Warning: Citation `BatchNormalization' on page 25 undefined on i
-nput line 242.
+Package natbib Warning: Citation `LearningRate' on page 23 undefined on input l
+ine 202.
 
 
-Package natbib Warning: Citation `Kernels' on page 25 undefined on input line 2
-55.
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
+
+ []
+
+[23]
+
+Package natbib Warning: Citation `BatchNormalization' on page 24 undefined on i
+nput line 211.
 
 
-Package natbib Warning: Citation `FiltersFeatureMaps' on page 25 undefined on i
-nput line 259.
+Package natbib Warning: Citation `Kernels' on page 24 undefined on input line 2
+25.
 
-[25]
+
+Package natbib Warning: Citation `FiltersFeatureMaps' on page 24 undefined on i
+nput line 229.
+
 File: archivos/CNN/Stride.png Graphic file (type bmp)
 <archivos/CNN/Stride.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 268--268
+Underfull \hbox (badness 10000) in paragraph at lines 238--238
 [][][]|\TU/lmr/m/n/10 http://makeyourownneuralnetwork.blogspot.com/2020/02/calc
 ulating-output-size-of-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--277
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
 
  []
 
 File: archivos/CNN/padding.png Graphic file (type bmp)
 <archivos/CNN/padding.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 281--281
+Underfull \hbox (badness 10000) in paragraph at lines 251--251
 [][][]|\TU/lmr/m/n/10 https://indoml.com/2018/03/07/student-notes-convolutional
 -neural-networks-cnn-
  []
@@ -2794,60 +2768,60 @@ Underfull \hbox (badness 10000) in paragraph at lines 281--281
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 289--290
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 259--260
 
  []
 
 
-LaTeX Warning: Reference `CNNRELUImage' on page 26 undefined on input line 291.
+LaTeX Warning: Reference `CNNRELUImage' on page 25 undefined on input line 261.
 
 
 File: archivos/CNN/CNNRELUImage.png Graphic file (type bmp)
 <archivos/CNN/CNNRELUImage.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 298--298
+Underfull \hbox (badness 1460) in paragraph at lines 268--268
 [][][]|\TU/lmr/m/n/10 https://www.researchgate.net/journal/Transport-in-Porous-
-Media-1573-1634. Ejem-
+Media-1573-1634. Ejemplo
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 304--305
-
- []
-
-[26]
-Underfull \hbox (badness 10000) in paragraph at lines 312--313
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
 
  []
 
 
-Package natbib Warning: Citation `Conv1D_Survey' on page 27 undefined on input 
-line 314.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 314--315
+Underfull \hbox (badness 10000) in paragraph at lines 280--281
 
  []
 
-[27]
+[25]
 
-Package natbib Warning: Citation `FiltersFeatureMaps' on page 28 undefined on i
-nput line 317.
+Package natbib Warning: Citation `Conv1D_Survey' on page 26 undefined on input 
+line 282.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 282--283
+
+ []
+
+
+Package natbib Warning: Citation `FiltersFeatureMaps' on page 26 undefined on i
+nput line 285.
 
 File: archivos/CNN/1D/1CNNArchImage.png Graphic file (type bmp)
 <archivos/CNN/1D/1CNNArchImage.png>
 
-Overfull \hbox (101.45229pt too wide) in paragraph at lines 323--323
+Overfull \hbox (101.45229pt too wide) in paragraph at lines 291--291
 [][][]|\TU/lmr/m/n/10 https://www.researchgate.net/publication/329201018/figure
 /fig2/AS:697400008138753@1543284527161/The-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 323--323
+Underfull \hbox (badness 10000) in paragraph at lines 291--291
 \TU/lmr/m/n/10 architecture-of-our-1D-CNN-model-This-model-consists-of-two-conv
 olutional-
  []
@@ -2855,42 +2829,45 @@ olutional-
 File: archivos/CNN/1D/1DConvolution.png Graphic file (type bmp)
 <archivos/CNN/1D/1DConvolution.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 333--333
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
 [][][]|\TU/lmr/m/n/10 https://peltarion.com/knowledge-center/documentation/mode
 ling-view/build-an-ai-
  []
 
-[28]
 
-Package natbib Warning: Citation `KNN' on page 29 undefined on input line 345.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
+[26]
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--346
-
- []
+Package natbib Warning: Citation `KNN' on page 27 undefined on input line 313.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 349--350
+Underfull \hbox (badness 10000) in paragraph at lines 315--316
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--352
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
 
  []
 
 
-LaTeX Warning: Reference `KNNImage' on page 29 undefined on input line 354.
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
+
+ []
+
+
+LaTeX Warning: Reference `KNNImage' on page 27 undefined on input line 322.
 
 File: archivos/CNN/KNN/KNNImage.png Graphic file (type bmp)
 <archivos/CNN/KNN/KNNImage.png>
 
-Overfull \hbox (145.71227pt too wide) in paragraph at lines 359--359
+Overfull \hbox (145.71227pt too wide) in paragraph at lines 327--327
 [][][]|\TU/lmr/m/n/10 https://forum.huawei.com/enterprise/es/data/attachment/fo
 rum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png
  []
@@ -2899,52 +2876,69 @@ rum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `Pandas' on page 29 undefined on input line 38
+Underfull \vbox (badness 3302) has occurred while \output is active []
+
+ [27]
+
+Package natbib Warning: Citation `Python' on page 28 undefined on input line 33
+9.
+
+
+Package natbib Warning: Citation `Pandas' on page 28 undefined on input line 34
 5.
 
 
-Package natbib Warning: Citation `Tensorflow' on page 29 undefined on input lin
-e 386.
+Package natbib Warning: Citation `Tensorflow' on page 28 undefined on input lin
+e 347.
 
 
-Package natbib Warning: Citation `Scikit-Learn' on page 29 undefined on input l
-ine 387.
-
-[29]
-
-Package natbib Warning: Citation `XGBoostLibrary' on page 30 undefined on input
- line 388.
+Package natbib Warning: Citation `Scikit-Learn' on page 28 undefined on input l
+ine 349.
 
 
-Package natbib Warning: Citation `CUDA' on page 30 undefined on input line 396.
+Overfull \hbox (8.84596pt too wide) in paragraph at lines 349--350
+[]\TU/lmr/m/n/10.95 Sklearn: librería que contiene múltiples modelos predictivo
+s implementados, basado en NumPy,
+ []
+
+
+Package natbib Warning: Citation `XGBoostLibrary' on page 28 undefined on input
+ line 351.
+
+[28]
+
+Package natbib Warning: Citation `CUDA' on page 29 undefined on input line 359.
 
 
 
-Package natbib Warning: Citation `Anaconda' on page 30 undefined on input line 
-397.
+Package natbib Warning: Citation `Anaconda' on page 29 undefined on input line 
+361.
 
 
-Package natbib Warning: Citation `JupyterNotebook' on page 30 undefined on inpu
-t line 398.
+Package natbib Warning: Citation `JupyterNotebook' on page 29 undefined on inpu
+t line 363.
 
 
-Package natbib Warning: Citation `JupyterLab' on page 30 undefined on input lin
-e 399.
-
-[30]
-
-Package natbib Warning: Citation `DiagramsNet' on page 31 undefined on input li
-ne 401.
+Package natbib Warning: Citation `JupyterLab' on page 29 undefined on input lin
+e 365.
 
 
-Package natbib Warning: Citation `GoogleMeet' on page 31 undefined on input lin
-e 402.
+Package natbib Warning: Citation `DiagramsNet' on page 29 undefined on input li
+ne 367.
 
 
-Package natbib Warning: Citation `Github' on page 31 undefined on input line 40
-9.
+Package natbib Warning: Citation `GoogleMeet' on page 29 undefined on input lin
+e 369.
 
-) (capitulos/metodologia.tex [31] [32
+
+Package natbib Warning: Citation `Github' on page 29 undefined on input line 37
+3.
+
+
+Package natbib Warning: Citation `Software' on page 29 undefined on input line 
+373.
+
+) (capitulos/metodologia.tex [29] [30
 
 
 ]
@@ -2970,11 +2964,11 @@ Overfull \hbox (32.74792pt too wide) in paragraph at lines 37--38
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `Dataset' on page 33 undefined on input line 5
+Package natbib Warning: Citation `Dataset' on page 31 undefined on input line 5
 0.
 
 
-LaTeX Warning: Reference `DescripcionDatosTabla' on page 33 undefined on input 
+LaTeX Warning: Reference `DescripcionDatosTabla' on page 31 undefined on input 
 line 52.
 
 
@@ -2986,7 +2980,7 @@ Overfull \hbox (2.35448pt too wide) in paragraph at lines 56--77
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `InfoDatasetMadrid' on page 33 undefined on in
+Package natbib Warning: Citation `InfoDatasetMadrid' on page 31 undefined on in
 put line 83.
 
 
@@ -3004,14 +2998,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--93
 
  []
 
-[33]
+[31]
 Underfull \hbox (badness 10000) in paragraph at lines 95--96
 
  []
 
-[34]
+[32]
 
-LaTeX Warning: Reference `TransformacionDatosTabla' on page 35 undefined on inp
+LaTeX Warning: Reference `TransformacionDatosTabla' on page 33 undefined on inp
 ut line 117.
 
 
@@ -3020,7 +3014,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 184--185
  []
 
 
-LaTeX Warning: Reference `CasualtyClassImage' on page 35 undefined on input lin
+LaTeX Warning: Reference `CasualtyClassImage' on page 33 undefined on input lin
 e 186.
 
 
@@ -3029,7 +3023,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 186--187
  []
 
 
-Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 35 undef
+Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 33 undef
 ined on input line 188.
 
 
@@ -3037,9 +3031,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 188--189
 
  []
 
-[35]
+[33]
 
-Package natbib Warning: Citation `ImbalancedDataReview' on page 36 undefined on
+Package natbib Warning: Citation `ImbalancedDataReview' on page 34 undefined on
  input line 190.
 
 Package svg Info: Last page of `./svg-inkscape/CasualtyClass_svg-tex.pdf' is 1 
@@ -3070,7 +3064,7 @@ File: ./svg-inkscape/PCAImage_svg-tex.pdf Graphic file (type pdf)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `NormalizationSensitiveModels' on page 36 unde
+Package natbib Warning: Citation `NormalizationSensitiveModels' on page 34 unde
 fined on input line 218.
 
 
@@ -3079,7 +3073,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--219
  []
 
 
-Package natbib Warning: Citation `DataNormalizationInvestigation' on page 36 un
+Package natbib Warning: Citation `DataNormalizationInvestigation' on page 34 un
 defined on input line 221.
 
 
@@ -3097,9 +3091,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 238--239
 
  []
 
-[36]
+[34]
 
-LaTeX Warning: Reference `DataSplitImage' on page 37 undefined on input line 24
+LaTeX Warning: Reference `DataSplitImage' on page 35 undefined on input line 24
 1.
 
 File: archivos/Datos/DataSplit.png Graphic file (type bmp)
@@ -3120,26 +3114,40 @@ namiento y
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Reference `SMOTEII' on page 37 undefined on input line 264.
+LaTeX Warning: Reference `SMOTEII' on page 35 undefined on input line 266.
 
 
-Package natbib Warning: Citation `GAXGBoost' on page 37 undefined on input line
- 269.
+Package natbib Warning: Citation `GAXGBoost' on page 35 undefined on input line
+ 271.
 
 
-Package natbib Warning: Citation `TASPCNN' on page 37 undefined on input line 2
-75.
+Package natbib Warning: Citation `TASPCNN' on page 35 undefined on input line 2
+79.
 
 
-Package natbib Warning: Citation `AutoSklearn' on page 37 undefined on input li
-ne 279.
+LaTeX Warning: Reference `RELUImage' on page 35 undefined on input line 284.
 
-[37]
+File: archivos/CNN/RELUImage.png Graphic file (type bmp)
+<archivos/CNN/RELUImage.png>
 
-LaTeX Warning: Reference `multiimagen' on page 38 undefined on input line 287.
+Underfull \hbox (badness 3492) in paragraph at lines 298--298
+[][][]|\TU/lmr/m/n/10 https://www.researchgate.net/journal/Transport-in-Porous-
+Media-1573-1634. Función
+ []
 
 
-LaTeX Warning: Reference `multiimagen' on page 38 undefined on input line 287.
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package natbib Warning: Citation `AutoSklearn' on page 35 undefined on input li
+ne 307.
+
+[35]
+
+LaTeX Warning: Reference `multiimagen' on page 36 undefined on input line 315.
+
+
+LaTeX Warning: Reference `multiimagen' on page 36 undefined on input line 315.
 
 File: archivos/subs-sin.png Graphic file (type bmp)
 <archivos/subs-sin.png>
@@ -3185,7 +3193,10 @@ Missing character: There is no º in font cmmi10!
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (capitulos/desarrollo.tex [38] [39] [40] [41] [42] [43] [44]
+) (capitulos/desarrollo.tex [36] [37] [38] [39] [40] [41] [42] [43] [44
+
+
+]
 chapter 6.
 
 Underfull \hbox (badness 10000) in paragraph at lines 14--16
@@ -3203,10 +3214,7 @@ File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 31.
- [45
-
-
-]
+ [45]
 
 LaTeX Warning: Reference `usos' on page 46 undefined on input line 61.
 
@@ -3468,7 +3476,7 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 Here is how much of TeX's memory you used:
  66605 strings out of 410931
  1528768 string characters out of 2825211
- 2811529 words of memory out of 3000000
+ 2811527 words of memory out of 3000000
  86129 multiletter control sequences out of 15000+600000
  504987 words of font info for 213 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191

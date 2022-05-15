@@ -6,25 +6,25 @@
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Inicialización de la población. Cada individuo está constituido por n parámetros del XGBoost a optimizar.\relax }}{18}{figure.caption.16}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Selección de padres candidatos.\relax }}{18}{figure.caption.17}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Mutación de hijos.\relax }}{19}{figure.caption.18}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Degradation state recognition of piston pump based on ICEEMDAN and XGBoost(FIG3). Proceso de optimización de XGBoost.\relax }}{21}{figure.caption.19}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces https://www.v7labs.com/blog/neural-networks-activation-functions. Arquitectura de una Red Neuronal.\relax }}{22}{figure.caption.20}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU\relax }}{23}{figure.caption.21}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdader a (derecha).\relax }}{24}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces http://makeyourownneuralnetwork.blogspot.com/2020/02/calculating-output-size-of-convolutions.html\relax }}{26}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/\relax }}{27}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Ejemplo de ReLU aplicado a una convolución de dos dimensiones.\relax }}{27}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png\relax }}{28}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).\relax }}{28}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces https://forum.huawei.com/enterprise/es/data/attachment/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png KNN aplicado con distintos valores de $k$\relax }}{30}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Degradation state recognition of piston pump based on ICEEMDAN and XGBoost(FIG3). Proceso de optimización de XGBoost.\relax }}{20}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces https://www.v7labs.com/blog/neural-networks-activation-functions. Arquitectura de una Red Neuronal.\relax }}{21}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdadera (derecha).\relax }}{23}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces http://makeyourownneuralnetwork.blogspot.com/2020/02/calculating-output-size-of-convolutions.html\relax }}{25}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/\relax }}{25}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Ejemplo de ReLU aplicado a una convolución de dos dimensiones.\relax }}{26}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png\relax }}{26}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).\relax }}{27}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces https://forum.huawei.com/enterprise/es/data/attachment/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png KNN aplicado con distintos valores de $k$\relax }}{28}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Flujo de datos del proceso del proyecto.\relax }}{39}{figure.caption.29}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Diagrama de Gantt de la planificación del proyecto.\relax }}{40}{figure.caption.30}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Histograma de tipo de accidente.\relax }}{40}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{42}{figure.caption.34}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces PCA aplicado a los datos.\relax }}{43}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.\relax }}{43}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Ejemplo de subfiguras\relax }}{43}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Ejemplo de subfiguras vertical\relax }}{44}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Flujo de datos del proceso del proyecto.\relax }}{37}{figure.caption.28}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Diagrama de Gantt de la planificación del proyecto.\relax }}{38}{figure.caption.29}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Histograma de tipo de accidente.\relax }}{38}{figure.caption.32}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{40}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces PCA aplicado a los datos.\relax }}{41}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.\relax }}{41}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU\relax }}{42}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Ejemplo de subfiguras\relax }}{42}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Ejemplo de subfiguras vertical\relax }}{42}{figure.caption.38}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {7.1}{\ignorespaces Diagrama realizado en latex con Tikz.\relax }}{52}{figure.caption.41}%

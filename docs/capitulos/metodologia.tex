@@ -252,7 +252,6 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \item Remuestreo
 
-            
 
             Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias.
 
@@ -270,7 +269,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \item Algoritmo Genético
             \cite{GAXGBoost}
-
+            DE LA REVISION, CAMBIAR DE POSICION AQUI
+            Tamaño de la población:
+            En los experimentos de este trabajo Sección 5 se han inicializado 100 individuos, cada uno de ellos con 4 hiperparámetros del algoritmoo \textit{XGBoost} a optimizar.
         \item XGBoost
 
         \item Construcción de imágenes
@@ -278,6 +279,30 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
             \cite{TASPCNN}
 
         \item Implementación de Modelos
+
+            !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
+            En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)} a la salida de cada capa de convolución, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
+
+            \begin{center}
+                $f(x) = \left\{
+                               \begin{array}{lr}
+                                 0 & \text{if } x<=0\\
+                                 x & \text{if } x>0
+                               \end{array}
+                        \right.$
+            \end{center}
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=10cm]{archivos/CNN/RELUImage}
+                \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
+                \label{RELUImage}
+             \end{figure}
+            !!!!!!!!!!FIN DE LA REVISION!!!!!!!!!!
+
+            !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
+            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a su dimensionalidad.
+            !!!!!!!!!!FIN DE LA REVISION!!!!!!!!!!
 
             \cite{AutoSklearn}
 
