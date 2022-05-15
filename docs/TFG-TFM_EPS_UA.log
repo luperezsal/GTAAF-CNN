@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  15 MAY 2022 14:38
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  15 MAY 2022 20:47
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -3114,40 +3114,98 @@ namiento y
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Reference `SMOTEII' on page 35 undefined on input line 266.
+Package natbib Warning: Citation `Downsampling' on page 35 undefined on input l
+ine 261.
 
 
-Package natbib Warning: Citation `GAXGBoost' on page 35 undefined on input line
- 271.
+LaTeX Warning: Reference `SMOTEII' on page 35 undefined on input line 265.
 
 
-Package natbib Warning: Citation `TASPCNN' on page 35 undefined on input line 2
-79.
+Underfull \hbox (badness 10000) in paragraph at lines 265--266
+
+ []
 
 
-LaTeX Warning: Reference `RELUImage' on page 35 undefined on input line 284.
+Underfull \hbox (badness 10000) in paragraph at lines 277--278
 
-File: archivos/CNN/RELUImage.png Graphic file (type bmp)
-<archivos/CNN/RELUImage.png>
+ []
 
-Underfull \hbox (badness 3492) in paragraph at lines 298--298
-[][][]|\TU/lmr/m/n/10 https://www.researchgate.net/journal/Transport-in-Porous-
-Media-1573-1634. Función
+
+Package natbib Warning: Citation `GAXGBoostCode' on page 35 undefined on input 
+line 279.
+
+
+Package natbib Warning: Citation `GAXGBoostPaper' on page 35 undefined on input
+ line 279.
+
+[35]
+
+LaTeX Warning: Reference `EvolucionHiperparametrosImage' on page 36 undefined o
+n input line 299.
+
+Package svg Info: Last page of `./svg-inkscape/EvolucionHiperparametros_svg-tex
+.pdf' is 1 on input line 303.
+(svg-inkscape/EvolucionHiperparametros_svg-tex.pdf_tex
+File: ./svg-inkscape/EvolucionHiperparametros_svg-tex.pdf Graphic file (type pd
+f)
+<use ./svg-inkscape/EvolucionHiperparametros_svg-tex.pdf, page 1>
+)
+Overfull \hbox (108.98227pt too wide) in paragraph at lines 303--304
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package svg Info: Last page of `./svg-inkscape/EvolucionF1Score_svg-tex.pdf' is
+ 1 on input line 310.
+(svg-inkscape/EvolucionF1Score_svg-tex.pdf_tex
+File: ./svg-inkscape/EvolucionF1Score_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/EvolucionF1Score_svg-tex.pdf, page 1>
+)
+Overfull \hbox (108.98227pt too wide) in paragraph at lines 310--311
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package svg Info: Last page of `./svg-inkscape/EvolucionF1Score_svg-tex.pdf' is
+ 1 on input line 327.
+(svg-inkscape/EvolucionF1Score_svg-tex.pdf_tex
+File: ./svg-inkscape/EvolucionF1Score_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/EvolucionF1Score_svg-tex.pdf, page 1>
+)
+Overfull \hbox (108.98227pt too wide) in paragraph at lines 327--328
+ [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `AutoSklearn' on page 35 undefined on input li
-ne 307.
-
-[35]
-
-LaTeX Warning: Reference `multiimagen' on page 36 undefined on input line 315.
+Package natbib Warning: Citation `TASPCNN' on page 36 undefined on input line 3
+35.
 
 
-LaTeX Warning: Reference `multiimagen' on page 36 undefined on input line 315.
+LaTeX Warning: Reference `RELUImage' on page 36 undefined on input line 340.
+
+File: archivos/CNN/RELUImage.png Graphic file (type bmp)
+<archivos/CNN/RELUImage.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[36]
+
+Package natbib Warning: Citation `AutoSklearn' on page 37 undefined on input li
+ne 363.
+
+[37]
+
+LaTeX Warning: Reference `multiimagen' on page 38 undefined on input line 371.
+
+
+LaTeX Warning: Reference `multiimagen' on page 38 undefined on input line 371.
 
 File: archivos/subs-sin.png Graphic file (type bmp)
 <archivos/subs-sin.png>
@@ -3193,10 +3251,8 @@ Missing character: There is no º in font cmmi10!
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (capitulos/desarrollo.tex [36] [37] [38] [39] [40] [41] [42] [43] [44
-
-
-]
+) (capitulos/desarrollo.tex [38] [39] [40] [41] [42] [43] [44] [45] [46]
+[47] [48]
 chapter 6.
 
 Underfull \hbox (badness 10000) in paragraph at lines 14--16
@@ -3204,7 +3260,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--16
  []
 
 
-LaTeX Warning: Reference `C_code' on page 45 undefined on input line 19.
+LaTeX Warning: Reference `C_code' on page 49 undefined on input line 19.
 
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
@@ -3214,27 +3270,30 @@ File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 31.
- [45]
+ [49
 
-LaTeX Warning: Reference `usos' on page 46 undefined on input line 61.
+
+]
+
+LaTeX Warning: Reference `usos' on page 50 undefined on input line 61.
 
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang2.sty
 File: lstlang2.sty 2020/03/24 1.8d listings language file
-) [46]
+) [50]
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) [47]
+) [51]
 (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) [48]
-[49] (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
+) [52]
+[53] (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 (archivos/ejemplos/holamundo.cpp) (archivos/ejemplos/holamundo.py)
-(archivos/ejemplos/holamundo.m)) (capitulos/resultados.tex [50]
+(archivos/ejemplos/holamundo.m)) (capitulos/resultados.tex [54]
 chapter 7.
 
 Underfull \hbox (badness 10000) in paragraph at lines 12--15
@@ -3256,7 +3315,7 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0.pdf Graphic file (type
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf>
-[51
+[55
 
 
 ]
@@ -3265,13 +3324,13 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf Graphic file (type
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf>
-[52] (archivos/ejemplos/perjudicialesopticacentro.tex
+[56] (archivos/ejemplos/perjudicialesopticacentro.tex
 ===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3' is up-to-date.
  ======
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf>
-) [53]
+) [57]
 ===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4' is up-to-date.
  ======
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4.pdf Graphic file (type
@@ -3286,7 +3345,7 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5.pdf Graphic file (type
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [54]
+ [58]
 Overfull \hbox (47.22083pt too wide) in paragraph at lines 227--229
 []\TU/lmr/m/n/10.95 Gracias a la herramienta \TU/lmr/m/it/10.95 matlab2tikz \TU
 /lmr/m/n/10.95 ([]$[][][][][] [][][] [][] [] [][][][][][][][][][] [] [][][][] [
@@ -3299,7 +3358,7 @@ Overfull \hbox (47.22083pt too wide) in paragraph at lines 227--229
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf>
-) [55] (archivos/ejemplos/2D-3314hz.tex
+) [59] (archivos/ejemplos/2D-3314hz.tex
 ===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7' is up-to-date.
  ======
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7.pdf Graphic file (type
@@ -3316,12 +3375,12 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8.pdf Graphic file (type
 File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf Graphic file (type
  pdf)
 <use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf>
-[56]) (capitulos/conclusiones.tex [57] [58
+[60]) (capitulos/conclusiones.tex [61] [62
 
 
 ]
 chapter 8.
-[59]
+[63]
 Overfull \hbox (10.95pt too wide) in paragraph at lines 92--99
 []\TU/lmr/m/n/10.95 donde:[] 
  []
@@ -3331,28 +3390,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--99
 
  []
 
-[60]
+[64]
 
-LaTeX Warning: Reference `ecuacion' on page 61 undefined on input line 132.
-
-
-LaTeX Warning: Reference `ecucon' on page 61 undefined on input line 132.
+LaTeX Warning: Reference `ecuacion' on page 65 undefined on input line 132.
 
 
-LaTeX Warning: Reference `ecu1' on page 61 undefined on input line 132.
+LaTeX Warning: Reference `ecucon' on page 65 undefined on input line 132.
 
 
-LaTeX Warning: Reference `ecu2' on page 61 undefined on input line 132.
+LaTeX Warning: Reference `ecu1' on page 65 undefined on input line 132.
 
-) [61]
+
+LaTeX Warning: Reference `ecu2' on page 65 undefined on input line 132.
+
+) [65]
 No file TFG-TFM_EPS_UA.bbl.
 No file TFG-TFM_EPS_UA.acr.
-(anexos/anexo_I.tex [62]
+(anexos/anexo_I.tex [66]
 chapter A.
-) (anexos/anexo_2.tex [63
+) (anexos/anexo_2.tex [67
 
 
-] [64
+] [68
 
 
 ]
@@ -3362,12 +3421,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
  []
 
-[65]
+[69]
 Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
-[66
+[70
 
 
 ]
@@ -3375,14 +3434,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
-[67
+[71
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 29--30
 
  []
 
-) (anexos/anexo_3.tex [68
+) (anexos/anexo_3.tex [72
 
 
 ]
@@ -3395,7 +3454,7 @@ File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
 File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-[69
+[73
 
 
 ]
@@ -3405,7 +3464,7 @@ File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
 File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
 <use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
- [70])
+ [74])
 
 Package natbib Warning: There were undefined citations.
 
@@ -3474,12 +3533,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 66605 strings out of 410931
- 1528768 string characters out of 2825211
- 2811527 words of memory out of 3000000
- 86129 multiletter control sequences out of 15000+600000
+ 66674 strings out of 410931
+ 1531167 string characters out of 2825211
+ 2812298 words of memory out of 3000000
+ 86188 multiletter control sequences out of 15000+600000
  504987 words of font info for 213 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  113i,21n,150p,10708b,3029s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
-Output written on TFG-TFM_EPS_UA.pdf (90 pages).
+Output written on TFG-TFM_EPS_UA.pdf (94 pages).

@@ -292,7 +292,26 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
             Una vez inicializados aleatoriamente los 100 individuos especificados en la población, 50 de ellos se seleccionarán y se cruzarán entre sí. Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no se tomen valores extremos.
 
-            En el proceso de evaluación, se entrenarán 100 modelos XGBoost instanciados con los valores de cada individuo en la población, de tal forma que la función \textit{fitness} será 
+            En el proceso de evaluación, se entrenarán 100 modelos XGBoost instanciados con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará \glsentryshort{XGBoost} será el conjunto de entrenamiento una vez aplicado \textit{undersampling}, de tal forma que entrenará con el mismo número de muestras para cada clase.
+
+            La función fitness a optimizar será el \textit{macro f1-score} sobre el conjunto de validación: EXPLICAR
+
+            En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación
+
+            \begin{figure}[h]
+                \centering
+                \includesvg[width = 550pt]{archivos/GA/EvolucionHiperparametros}
+                \caption{CAMBIAR POR LA QUE CORRESPONDA!!! Evolución de hiperparámetros a lo largo de las iteraciones.}
+                \label{EvolucionHiperparametrosImage}
+             \end{figure}
+
+            \begin{figure}[h]
+                \centering
+                \includesvg[width = 550pt]{archivos/GA/EvolucionF1Score}
+                \caption{CAMBIAR POR LA QUE CORRESPONDA!!! Evolución del macro F1 score a lo largo de las iteraciones.}
+                \label{EvolucionF1ScoreImage}
+             \end{figure}
+            El conjunto de validación de tal forma que la función \textit{fitness} será 
 
             SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
             SE TESTA CON VALIDACION
@@ -301,12 +320,58 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \item XGBoost
 
+
+            Una vez se han optimizados los hiperparámetros del \glsentryshort{XGBOOST}, se calcula la importancia de cada clase mediante el cálculo de los pesos.
+
+
+            \begin{figure}[h]
+                \centering
+                \includesvg[width = 550pt]{archivos/GA/EvolucionF1Score}
+                \caption{CAMBIAR POR LA QUE CORRESPONDA!!! Peso asignado por XGboost a las características.}
+                \label{FeatureWeightsImage}
+             \end{figure}
+
         \item Construcción de imágenes
 
-            \cite{TASPCNN}
+
+            El siguiente paso es transferir cada muestra a una imagen donde a cada característica se le asignará una posición.
+
+            La técnica a aplicar es posicionar de forma estratégica las características en función del peso asignado de por \glsentryshort{XGBOOST} y a una jerarquía predefinida
+            Gracias al cálculo de pesos de \glsentryshort{XGBOOST} \ \cite{TASPCNN}
+
+
+            Inicialmente las matrices de imágenes son inicializadas a cero.
+
+            La importancia de un padre viene dada por ĺa suma de los pesos de las características hijas.
+
+            Cada padre irá posicionado en una fila de la matriz, de forma que las características hijas irán ocupando las posiciones del vector resultante de dicha fila.
+
+            La asignación de filas por parte de los padres viene dada por la regla XXX donde aquel padre que más importancia tenga irá posicionado en la fila central de la matriz, el segundo padre irá posicionado por encima de éste y el tercero por debajo, así sucesivamente, de tal forma que se irán intercalando entre las filas.
+
+
+            Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
 
         \item Implementación de Modelos
 
+            En esta sección analizaremos los modelos utilizados en este proyecto con el objetivo de realizar un estudio comparativo entre las arquitecturas.
+
+            
+
+            \begin{enumerate}
+
+                \item KNN
+
+                    El método \glsentryshort{knn} servirá como referencia para testar el rendimiento del resto de modelos. Al ser un método que se aplica sobre un conjunto de datos tabular, no hará uso de las imágenes generadas.
+
+                    Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary} búsqueda de hiperparámetros ese ha aplicado sobre los datos en formato tabular, es decir, compa
+                    leaf_size = list(range(1,10, 2))
+                    n_neighbors = list(range(1,25, 5))
+
+                \item Peso mínimo de los hijos: es el mínimo peso que se establece a la hora de crear un nuevo nodo en el árbol. Cuando se entrena un árbol de decisión éste genera nuevos nodos en base a máxima separabilidad de los datos de entrenamiento en cada nivel. Con el límite de peso de los hijos establecemos un umbral mínimo de muestras que deben pertenecer a un nodo para realizar la separación. Un valor bajo en este parámetro permitirá crear nodos con menos muestras y por lo tanto el modelo tenderá al \textit{overfitting}.
+
+                \item ETA: tamaño de paso utilizado para aplicar descenso por gradiente para minimizar la pérdida de los árboles anteriores.
+
+            \end{enumerate}
             !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
             En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)} a la salida de cada capa de convolución, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
 
