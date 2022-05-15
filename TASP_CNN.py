@@ -3124,7 +3124,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 # In[233]:
 
 
-FILE_NAME = f"{city_name}_hyperparams{MODEL_TIMESTAMP}.json'
+FILE_NAME = f"{city_name}_hyperparams{MODEL_TIMESTAMP}.json"
 
 write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
 print(best_hyperparams)
