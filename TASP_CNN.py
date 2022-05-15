@@ -1869,9 +1869,9 @@ MODEL_NAME = MODELS_NAME[1]
 
 if train_nn:
     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_epoch{epoch:02d}-loss{val_loss:.2f}.hdf5"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_{file_name}.hdf5"
 
-    filepath = 'my_best_model.epoch{epoch:02d}-loss{val_loss:.2f}.hdf5'
+    filepath = '_epoch{epoch:02d}-loss{val_loss:.2f}'
     checkpoint = ModelCheckpoint(filepath=filepath, 
                                  monitor = 'val_loss',
                                  verbose = 1, 
