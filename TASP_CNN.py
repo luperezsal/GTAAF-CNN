@@ -369,7 +369,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
         start = time.time()
 
         if not laptop:
-            bst = dask_xgboost.train(client,
+            bst = xgboost.dask.train(client,
                                      params,
                                      dMatrixTrain,
                                      num_boost_round=10)
