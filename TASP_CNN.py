@@ -375,15 +375,10 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
                 output = xgb.dask.train(
                                         client,
                                         params,
-                                        {"verbosity": 2, "tree_method": "gpu_hist", "objective": "reg:squarederror"},
-                                        dtrain,
+                                        dMatrixTrain,
                                         num_boost_round=4,
-                                        evals=[(dtrain, "train")],
+                                        evals=[(dMatrixTrain, "train")],
                 )
-            bst = xgboost.dask.train(client,
-                                     params,
-                                     dMatrixTrain,
-                                     num_boost_round=10)
         else:
 
             xgb.set_config(verbosity=0)
@@ -1238,8 +1233,6 @@ if calculate_weights:
         import dask.distributed
 
         if __name__ == "__main__":
-            cluster = dask.distributed.LocalCluster()
-            client = dask.distributed.Client(cluster)
 
             # X and y must be Dask dataframes or arrays
             X = X_train
@@ -1248,13 +1241,6 @@ if calculate_weights:
             dtrain = xgb.dask.DaskDMatrix(client, X_train, Y_train)
             dtest  = xgb.dask.DaskDMatrix(client, X_test, Y_test)
 
-            output = xgb.dask.train(
-                client,
-                {"verbosity": 2, "tree_method": "gpu_hist", "objective": "reg:squarederror"},
-                dtrain,
-                num_boost_round=4,
-                evals=[(dtrain, "train")],
-            )
     else:
 
         dtrain = xgb.DMatrix(data  = X_train,
