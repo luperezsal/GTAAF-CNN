@@ -1863,7 +1863,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[80]:
+# In[81]:
 
 
 from keras.callbacks import ModelCheckpoint
@@ -1873,12 +1873,13 @@ if train_nn:
     file_name = '_epoch{epoch:02d}-loss{val_loss:.2f}'
     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_{file_name}.hdf5"
     
-    checkpoint = ModelCheckpoint(filepath=filepath, 
+    checkpoint = ModelCheckpoint(filepath=MODEL_FILE_NAME, 
                                  monitor = 'val_loss',
                                  verbose = 1, 
                                  save_best_only = True,
                                  mode = 'min')
     callbacks = [checkpoint]
+
     history = convolution_1d.fit(array_train_images, Y_train_onehot,
                                  # class_weight = pesos,
                                  batch_size = 128,
