@@ -69,25 +69,10 @@ loaded_timestamp = '2022-05-15-21:46:08'
 # In[4]:
 
 
-import tensorflow as tf
-from tensorflow.keras import backend as K
-from tensorflow.keras import layers, models
-from tensorflow.keras.regularizers import l2
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras import applications, optimizers
-from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
-from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
-from tensorflow.keras.utils import model_to_dot, plot_model
-from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
 # In[5]:
 
-
-device_name = tf.test.gpu_device_name()
-if device_name != '/device:GPU:0':
-  raise SystemError('GPU device not found')
-print('Found GPU at: {}'.format(device_name))
 # !nvidia-smi
 
 
@@ -530,7 +515,7 @@ def shape_images(X_data, gray_images):
 
 # In[19]:
 
-
+import tensorflow as tf
 def casualty_to_one_hot(Y_labels):
 
     transf = {
@@ -595,124 +580,8 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[22]:
 
 
-from sklearn.manifold import TSNE
-from sklearn.preprocessing import StandardScaler
-
-def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
-
-    X_data_scaled = StandardScaler().fit_transform(X_data)
-    z_data = TSNE(n_components = n_components).fit_transform(X_data_scaled)
-
-    # X_test_scaled = StandardScaler().fit_transform(X_test),
-    # z_test = TSNE(n_components=2).fit_transform(X_test_scaled),
-
-    palette = sns.color_palette('husl', 3)
-    fig,ax  = plt.subplots(1, 1, figsize=(15,10))
-    sns.scatterplot(x = z_data[:,0],
-                    y = z_data[:,1],
-                    hue = Y_data,
-                    palette = palette,
-                    legend = 'full')
-
-    if (output_file_name): plt.savefig('./Out/' + output_file_name)
-
-
-# ### Autoencoder
-
-# In[23]:
-
-
-def autoencoder ():
-    input_img = Input(shape=(25,))
-
-    # definimos el encoder, que tendra una entrada de Input_img y una segunda capa con entrada de encoder1 y salida 3
-    encoder1 = layers.Dense(15, activation='sigmoid')(input_img)
-    encoder2 = layers.Dense(3, activation='sigmoid')(encoder1)
-
-    # definimos el  decoder que tendra una entrada inicial de encoder3 y una salida de 128 y finalmete una capa de salida con los mismos que Input_img
-    decoder1 = layers.Dense(15, activation='sigmoid')(encoder2)
-    decoder2 = layers.Dense(25, activation='sigmoid')(decoder1)
-
-    # this model maps an input to its reconstruction
-    autoencoder = tf.keras.Model(inputs=input_img, outputs=decoder2)
-    autoencoder.summary()
-
-    autoencoder.compile(optimizer='adam', loss='binary_crossentropy') #se usan estos dos en estas arquitecturas
-    
-    return autoencoder
-
-
-# ## 1D-Convolution
-
-# In[24]:
-
-
-import tensorflow_addons as tfa
-
-lr_init = 0.1
-num_classes = 3
-
-convolution_1d = models.Sequential()
-convolution_1d.add(layers.Conv1D(256, 3,strides = 1, activation='relu', padding='same', input_shape=(5, 5, 1)))
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
-convolution_1d.add(layers.BatchNormalization())  
-convolution_1d.add(layers.Flatten())
-convolution_1d.add(layers.Dense(units=128))
-convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
-
-convolution_1d.compile(
-    optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
-    loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='macro', threshold=0.1)]
-  )
-
-
-# ## TASP-CNN
-
-# In[25]:
-
-
-lr_init = 0.1
-num_classes = 3
-
-tasp_cnn = models.Sequential()
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
-tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
-tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
-tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
-tasp_cnn.add(layers.BatchNormalization())  
-tasp_cnn.add(layers.Flatten())
-tasp_cnn.add(layers.Dense(units=128))
-tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
-
-tasp_cnn.compile(
-    optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
-    loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='macro', threshold=0.1)]
-  )
-
-
-# In[26]:
-
-
-tasp_cnn.summary()
-
-
-# In[27]:
-
-
-print('Done!')
 
 
 # ## Results
