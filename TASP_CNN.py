@@ -1931,6 +1931,9 @@ if train_nn:
                                  shuffle = True,
                                  validation_data = (array_test_images, Y_test_onehot),
                                  callbacks = callbacks)
+
+    convolution_1d.load_weights(MODEL_FILE_NAME)
+
     history
 
 
@@ -3699,26 +3702,26 @@ if not train_nn and not laptop:
 # In[256]:
 
 
-## Exportar los kernels
+# ## Exportar los kernels
 
-n_samples = 3
-layers = [0, 2, 4, 6]
+# n_samples = 3
+# layers = [0, 2, 4, 6]
 
-for layer_number in layers:
-    filters, biases = tasp_cnn.layers[layer_number].get_weights()
+# for layer_number in layers:
+#     filters, biases = tasp_cnn.layers[layer_number].get_weights()
     
-    layer_name = layer_number//2 + 1
+#     layer_name = layer_number//2 + 1
 
-    for i in range(n_samples):
-        # X,Y, channel, filter_number
-        current_filter = filters[:,:,0, i]
+#     for i in range(n_samples):
+#         # X,Y, channel, filter_number
+#         current_filter = filters[:,:,0, i]
 
-        plt.figure(figsize=(3, 3))
-        plt.grid(b = None)
-        plt.imshow(current_filter, cmap='gray')
+#         plt.figure(figsize=(3, 3))
+#         plt.grid(b = None)
+#         plt.imshow(current_filter, cmap='gray')
 
-        # plt.savefig(f"filters/{city_name}_filter_layer_{layer_name}_{i}.svg", transparent=True)
-        plt.show()
+#         # plt.savefig(f"filters/{city_name}_filter_layer_{layer_name}_{i}.svg", transparent=True)
+#         plt.show()
 
 
 # In[265]:
@@ -3746,12 +3749,6 @@ for layer_number in layers:
 #         ix += 1
 # # show the figure
 # plt.show()
-
-
-# In[149]:
-
-
-layer_outputs
 
 
 # #### Resultados
