@@ -698,10 +698,8 @@ tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', paddi
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
-tasp_cnn.add(layers.BatchNormalization())  
 tasp_cnn.add(layers.Flatten())
-tasp_cnn.add(layers.Dense(units=128))
+tasp_cnn.add(layers.Dense(units=64))
 tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 
 tasp_cnn.compile(
