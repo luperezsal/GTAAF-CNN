@@ -3086,8 +3086,8 @@ if calculate_weights and madrid:
 # In[160]:
 
 
-population
-fitnessValue
+# population
+# fitnessValue
 
 
 # In[114]:
