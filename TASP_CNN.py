@@ -1932,7 +1932,7 @@ if train_nn:
                                  validation_data = (array_test_images, Y_test_onehot),
                                  callbacks = callbacks)
 
-    convolution_1d.load_weights(MODEL_FILE_NAME)
+    # convolution_1d.load_weights(MODEL_FILE_NAME)
 
     history
 
