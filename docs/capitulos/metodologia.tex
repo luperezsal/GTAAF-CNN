@@ -8,22 +8,12 @@
 \chapter{Metodología}
 \label{metodologia}
 
-    - Explicar diagrama de flujo
-        - Cada uno de los i apartados (limpieza, etc.) --> especial hincapié a los datos (explicar los datos): 
-
-            - Fuente de datos
-            - Columnas
-            - Consideraciones de limpieza
-
-            - Analisis y tratamiento de datos -> meter las cuatro cajtas. y meter también análisis
-
 El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{Software} como el ciclo de vida de proyectos de \textit{Ciencia de Datos}, por lo que se ha dividido en varias fases acontecidas que definiremos a continuación en base a la planificación mediante un \textit{Diagrama de Gantt}:
 
 
 \section{Diagrama de flujo}
 
-
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
         \includesvg[inkscapelatex=false]{archivos/DataflowImage}
         \caption{Flujo de datos del proceso del proyecto.}
@@ -32,7 +22,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
 \section{Diagrama de Gantt}
 
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
         \includesvg[inkscapelatex=false]{archivos/GranttImage}
         \caption{Diagrama de Gantt de la planificación del proyecto.}
@@ -47,11 +37,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \item Datos
 
-            El conjunto de datos con el que se ha trabajado en este proyecto describe accidentes de tráfico de la ciudad de Madrid en un periodo concreto, desde el año 2019 hasta el 2022. Este dataset ha sido obtenido desde la fuente del portal de datos abiertos de Madrid \cite{Dataset}, donde es posible encontrar conjuntos de datos de distinta naturaleza relativos a la ciudad de Madrid.
+            El conjunto de datos con el que se ha trabajado en este proyecto describe accidentes de tráfico de la ciudad de Madrid en un periodo concreto, desde el año 2019 hasta el 2022. Este dataset ha sido obtenido desde la fuente del portal de datos abiertos de Madrid \cite{DatasetMadrid}, donde es posible encontrar conjuntos de datos de distinta naturaleza relativos a la ciudad de Madrid.
 
-            El número total de registros en este periodo de tiempo es de 60966 instancias, cada una de las cuales consta de 17 características que se describirán en la tabla \ref{DescripcionDatosTabla}:
+            El número total de registros en este periodo de tiempo es de 60.966 instancias, cada una de las cuales consta de 17 características que se describirán en la tabla \ref{DescripcionDatosTabla}:
 
-            \begin{table}[h]
+            \begin{table}[H]
                 \centering
                     \begin{tabular}{p{0.35\linewidth} | p{0.6\linewidth}}
                         Atributo&Descripción\\
@@ -64,11 +54,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \texttt Distrito&Nombre del distrito de Madrid.\\
                         \texttt Tipo de accidente&Tipología de accidente (Colisión doble, Colisión múltiple, Alcance, Choque contra obstáculo, Atropello, Vuelco, Caída, Otras causas)\\
                         \texttt Estado meteorológico&Condiciones climatológicas en el momento del incidente (Despejado, Nublado, Lluvia débil, Lluvia intensa, Granizado o Nevando)\\
-                        \texttt Tipo de vehículo&\\
+                        \texttt Tipo de vehículo&TODO\\
                         \texttt Tipo de persona&Persona que ha sido involucrada en el incidente (Conductor, Pasajero o Peatón)\\
-                        \texttt Rango de edad&\\
+                        \texttt Rango de edad&TODO\\
                         \texttt Sexo&Sexo de la persona involucrada (Hombre o Mujer)\\
-                        \texttt Lesividad&\\
+                        \texttt Lesividad&TODO\\
                         \texttt Coordenada X&Coordenada X del accidente en formato \textit{UTM}\\
                         \texttt Coordenada Y&Coordenada Y del accidente en formato \textit{UTM}\\
                         \texttt Positivo en alcohol&Si la persona implicada ha dado positivo en el control de alcoholemia (S o N)\\
@@ -87,12 +77,12 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \item Limpieza de datos
 
-                    Una vez importados los datos en el proyecto, es requisito hacer una limpieza de éstos (\textit{Data Cleaning}), eligiendo las características que serán utilizadas como variables explicativas en las predicciones atendiendo además a los valores de las instancias, ya que pueden contener valores nulos, valores atípicos (\textit{outliers}) o contener valores erróneos. Esta problemática requiere de estrategias a la hora de tratar estos valores.\\
+                    Una vez importados los datos en el proyecto, es requisito hacer una limpieza de éstos (\textit{Data Cleaning}), eligiendo las características que serán utilizadas como variables explicativas en las predicciones atendiendo además a los valores de las instancias, ya que pueden contener valores nulos, valores atípicos (\textit{outliers}) o contener valores erróneos. Esta problemática requiere de distintas estrategias a la hora de tratar estos valores.\\
 
                     En el caso del dataset de accidentes de tráfico de este proyecto se han escogido las siguientes características como variables explicativas \textit{hora, distrito, tipo accidente, estado meteorológico, tipo vehiculo, tipo persona, rango edad, sexo, positivo alcohol, positivo drogas, vehiculos implicados, coordenada x utm, coordenada y utm}.\\
 
 
-                    Una vez que se han obtenido los predictores con los que trabajarán los modelos, se han eliminado aquellos registros duplicados y aquellos que tuvieran algún valor nulo en alguno de sus predictores. Por lo tanto, las dimensiones finales del conjunto de datos pasarán a ser 12 variables y 54364 registros con respecto a las 17 columnas y 60966 filas originales.\\
+                    Una vez que se han obtenido los predictores con los que trabajarán los modelos, se han eliminado aquellos registros duplicados y aquellos que tuvieran algún valor nulo en alguno de sus predictores. Por lo tanto, las dimensiones finales del conjunto de datos pasarán a ser 12 variables y 54.364 registros con respecto a las 17 características y 60966 filas originales.\\
 
 
 
@@ -106,7 +96,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     Para que una \textit{CNN} pueda entrenarse en base a los datos de entrenamiento estos deben ser numéricos, por lo tanto se requiere de una serie de transformacíones que migren los datos categóricos a valores numéricos con el objetivo de que la \textit{CNN} pueda interpretar los datos de entrada como una imagen.
 
-                    Como el objetivo del proyecto es detectar la gravedad del accidente y éste se interpreta según la lesividad de cada una de las personas implicadas, se han transformado los valores de la característica \textit{lesividad} de acuerdo a su gravedad:
+                    La gravedad del accidente se interpreta según la lesividad de cada una de las personas implicadas, por lo que se han transformado los valores de la característica \textit{lesividad} de acuerdo a su gravedad:
 
                     \begin{itemize}
                         \item Accidentes leves: comprenden los accidentes desde los que no ha habido ningún herido hasta aquellos en los que alguno de los implicados ha ingresado en un centro hospitalario no más de 24 horas.
@@ -118,7 +108,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
 
 
-                    \begin{table}[ht]
+                    \begin{table}[H]
                       \centering
                       \begin{tabular}{ll}
                            \toprule
@@ -141,8 +131,8 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                            \midrule
                            \multirow{1}{*}{Distrito}             & Numeración en función de orden de aparición.\\
                            \midrule
-                           \multirow{2}{*}{Tipo Accidente}       & Item 2\\
-                                                                 & Item 2\\
+                           \multirow{2}{*}{Tipo Accidente}       & TODO\\
+                                                                 & TODO\\
                            \midrule
                            \multirow{7}{*}{Estado Meteorológico} & 1: Despejado.\\
                                                                  & 2: Nublado.\\
@@ -152,8 +142,8 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                                                                  & 6: Nevando.\\
                                                                  & 7: Se desconoce.\\
                            \midrule
-                           \multirow{2}{*}{Tipo Vehículo}        & Item 2\\
-                                                                 & Item 2\\
+                           \multirow{2}{*}{Tipo Vehículo}        & TODO\\
+                                                                 & TODO\\
                            \midrule
                            \multirow{3}{*}{Tipo Persona}         & 1: Conductor.\\
                                                                  & 2: Pasajero.\\
@@ -181,31 +171,31 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \item Análisis de datos
 
-                    Una de las fases más importantes antes de comenzar el modelado en cualquier proyecto \textit{Data Science} es el análisis de datos. Este proceso tiene como objetivo la descripción de los datos, identificación de \textit{outliers} y valores erróneos, y tendencias que se puedan dar en ellos.\\
+                    Una de las fases más importantes antes de comenzar el modelado en cualquier proyecto \textit{Data Science} es el análisis de datos. Este proceso tiene como objetivo la descripción de los datos, identificación de \textit{outliers}, valores erróneos y tendencias que se puedan dar en ellos.\\
 
-                    Como el objetivo es predecir la gravedad del accidente en función del resto de variables explicativas en el dataset, comenzaremos analizando los datos que correspondan a cada una de las tres posibles clases (leves, severos y fatales) realizando un histograma \ref{CasualtyClassImage}. Como podemos observar, nos encontramos ante un dataset claramente desbalanceado con respecto a la variable respuesta, contando con 53009 accidentes leves, 1271 severos y 84 fatales.\\
+                    Comenzaremos analizando los datos que correspondan a cada una de las tres posibles clases (leves, severos y fatales) realizando un histograma \ref{CasualtyClassImage}. Como podemos observar, nos encontramos ante un dataset claramente desbalanceado con respecto a la variable respuesta, contando con 53.009 accidentes leves, 1.271 severos y 84 fatales.\\
 
-                    Un conjunto de datos desbalanceado se define como aquel que contiene un número de instancias mucho mayor de determinadas clases con respecto al resto de clases \cite{WhyImbalancedDataIsAProblem}. Esto se convierte en un problema para los modelos de clasificación ya que estos modelos tenderán a predecir las muestras como aquellas que pertenecen a las mayoritarias sobre el conjunto de test debido a que las reglas de classificación de las clases menos numerosas tienden a ser ignoradas.\\
+                    Un conjunto de datos desbalanceado se define como aquel que contiene un número de instancias mucho mayor de determinadas clases con respecto al resto \cite{WhyImbalancedDataIsAProblem}. Esto se convierte en un problema para los modelos de clasificación ya que estos modelos tenderán a predecir las muestras como aquellas que pertenecen a las mayoritarias sobre el conjunto de test debido a que las reglas de classificación de las clases menos numerosas tienden a ser ignoradas.\\
 
-                    El desbalanceo de datos es un problema ampliamente estudiado a lo largo de los años y existen numerosos métodos orientados a tratar este problema mediante distintas técnicas de muestreo \cite{ImbalancedDataReview}, por lo que será necesario aplicar distintas técnicas sobre el conjunto de datos en la siguiente sección.
+                    El desbalanceo de datos es un problema ampliamente estudiado a lo largo de los años y existen numerosos métodos orientados a tratar este problema mediante distintas técnicas de muestreo \cite{ImbalancedDataReview}, por lo que será necesario aplicar distintas técnicas sobre el conjunto de datos.
 
 
-                    \begin{figure}[h]
+                    \begin{figure}[H]
                         \centering
-                        \includesvg[width=15cm]{archivos/Datos/CasualtyClass}
+                        \includesvg[scale=0.3]{archivos/Datos/CasualtyClass}
                         \caption{Histograma de tipo de accidente.}
                         \label{CasualtyClassImage}
                      \end{figure}
 
 
-                    \begin{figure}[h]
+                    \begin{figure}[H]
                         \centering
-                        \includesvg[width=15cm]{archivos/Datos/CorrelationMatrix}
+                        \includesvg[scale=0.3]{archivos/Datos/CorrelationMatrix}
                         \caption{Matriz de correlación para los predictores escogidos del dataset.}
                         \label{CorrelationMatrixImage}
                      \end{figure}
 
-                    \begin{figure}[h]
+                    \begin{figure}[H]
                         \centering
                         \includesvg[width=15cm]{archivos/Datos/PCAImage}
                         \caption{PCA aplicado a los datos.}
@@ -221,7 +211,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                     El proceso de normalización tiene como objetivo minimizar el \textit{bias} de aquellas características cuya contribución sea mayor a la hora de encontrar patrones entre los datos. Existen distintas técnicas de normalización como por ejemplo \glsentryfull{mc}, \glsentryfull{vss} o \glsentryfull{mmn} entre otras \cite{DataNormalizationInvestigation}.\\
 
 
-                    En este proyecto se ha utilizado la normalización \glsentryfull{ZSN} debido a las propiedades que ofrece, \glsentryshort{ZSN} que utiliza la media y la desviación típica para reescalar los datos de tal forma que la distribución de ellos esté definida por una media de cero y una desviación típica unitaria, consiguiendo representaciones de acuerdo a una distribución normal.\\
+                    En este proyecto se ha utilizado la normalización \glsentryfull{zsn} debido a las propiedades que ofrece, \glsentryshort{zsn} que utiliza la media y la desviación típica para reescalar los datos de tal forma que la distribución de ellos esté definida por una media de cero y una desviación típica unitaria, consiguiendo representaciones de acuerdo a una distribución normal.\\
 
                     Los resultados obtenidos después de aplicar esta técnica se pueden interpretar como la distancia de cada valor con respecto a la media.
 
@@ -238,10 +228,10 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                     La siguiente fase en cualquier modelo de \glsentryshort{ML} es la separación de datos (\textit{split}). Esta fase consiste en dividir el conjunto total de datos en al menos dos subconjuntos, uno de entrenamiento y otro de test. El modelo se entrenará en base a los datos de entrenamiento y se evaluará con los datos de test, los resultados sobre este conjunto permitirán comparar los modelos en base a las predicciones sobre las muestras que nunca han visto.\\
 
 
-                    !!!!!!Comúnmente la proporción de datos de entrenamiento y test está establecida en un 0.8, en la figura \ref{DataSplitImage} se muestra una representación visual de esta división.!!!!!!!! 
+                    Comúnmente la proporción de datos de entrenamiento y test está establecida en un 0.8, en la figura \ref{DataSplitImage} se muestra una representación visual de esta división.
 
 
-                    \begin{figure}[h]
+                    \begin{figure}[H]
                         \centering
                         \includegraphics[width=10cm]{archivos/Datos/DataSplit}
                         \caption{https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.}
@@ -257,14 +247,17 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                     
                     \begin{enumerate}
 
-                        \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras igualando el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite. Aplicando esta técnica
+                        \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras igualando el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite. 
+                        
+                        
                         \cite{Downsampling}
 
-                        A LA ESPERA DE SABER SI ES LA MEJOR TECNICA
+                        \textbf{No se redactará más hasta que se compruebe en los experimentos que esa técnica nos sirve}
+                        
 
-                        \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Para la realización de este proyecto se ha hecho uso de la tećnica \glsentryfull{SMOTEII} \ref{SMOTEII}. Selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
+                        \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Para la realización de este proyecto se ha hecho uso de la tećnica \glsentryfull{smoteii} \ref{smoteii}. Selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
 
-                        \glsentryshort{SMOTEII} ha sido utilizar para generar más muestras de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
+                        \glsentryshort{smoteii} ha sido utilizar para generar más muestras de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
 
                     \end{enumerate}
 
@@ -274,11 +267,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \item Algoritmo Genético
 
-            Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado. En este proyecto es necesario optmizar los hiperparámetros del algoritmo \glsentryshort{XGBoost}.\\
+            Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado. En este proyecto es necesario optmizar los hiperparámetros del algoritmo \glsentryshort{xgboost}.\\
 
             Para ello se ha hecho uso de algoritmos genéticos \cite{GAXGBoostCode}, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas \cite{GAXGBoostPaper}.
 
-            Debido al coste computacional que tendría optimizar todos los parámetros debido al espacio de búsqueda y al no ser necesario tener en cuenta todos, se han seleccionado aquellos que más influencia tienen en el entrenamiento del modelo. Los hiperparámetros de los que consta cada individuo de la población son:
+            Debido al coste computacional que tendría optimizar todos los parámetros por la magnitud del espacio de búsqueda y al no ser necesario tener en cuenta todos, se han seleccionado aquellos que más influencia tienen en el entrenamiento del modelo. Los hiperparámetros de los que consta cada individuo de la población son:
 
             \begin{enumerate}
 
@@ -290,107 +283,236 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
             \end{enumerate}
 
-            Una vez inicializados aleatoriamente los 100 individuos especificados en la población, 50 de ellos se seleccionarán y se cruzarán entre sí. Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no se tomen valores extremos.
+            La inicialización y mutación de los valores de los individuos viene dada por una limitación mínima y máxima que pueden, ya que, si no se contemplase, los valores podrían tomar valores extremos reduciendo el rendimiento de entrenamiento y resultados. Por lo tanto los individuos variarán sus parámetros tomando un valor aleatorio de estos rangos.  Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no tomen valores extremos. La tabla \cite{InitAndMutationLimitsHyperparamsTable} muestra los límites de los hiperparámetros.
 
-            En el proceso de evaluación, se entrenarán 100 modelos XGBoost instanciados con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará \glsentryshort{XGBoost} será el conjunto de entrenamiento una vez aplicado \textit{undersampling}, de tal forma que entrenará con el mismo número de muestras para cada clase.
-
-            La función fitness a optimizar será el \textit{macro f1-score} sobre el conjunto de validación: EXPLICAR
-
-            En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación
-
-            \begin{figure}[h]
+            \begin{table}[H]
                 \centering
-                \includesvg[width = 550pt]{archivos/GA/EvolucionHiperparametros}
-                \caption{CAMBIAR POR LA QUE CORRESPONDA!!! Evolución de hiperparámetros a lo largo de las iteraciones.}
+                    \begin{tabular}{ |c|c|c| } 
+                    \hline
+                    Hiperparámetro & Inicialización & Mutación\\
+                    \hline
+                        Profundidad Máxima & [1, 25] & [-6, 6]\\ 
+                        Peso mínimo de los hijos & [0.01, 20.0] & [-7, 7] \\ 
+                        ETA & [0.01, 1] &  [-0.3, 0.3] \\ 
+                    \hline
+
+                    \end{tabular}
+
+                \caption{Límites de inicialización y mutación de los hiperparámetros de los individuos.}
+                \label{InitAndMutationLimitsHyperparamsTable}
+            \end{table}
+
+            Una vez inicializados aleatoriamente los TODO:X individuos especificados en la población, éstos se evaluarán instanciando TODO:X modelos \glsentryshort{xgboost}con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará cada instancia \glsentryshort{xgboost} será el conjunto de entrenamiento TODO:XX. La función \textit{fitness} que evaluará cada individuo será la métrica TODO:F1-X aplicada sobre el conjunto de test obtenido en el proceso de separación de datos.
+
+            \textbf{TODO: No se redactará más hasta tener claro cuál es la mejor forma de entrenar el \glsentryshort{xgboost} (función de validación y datos de entrenamiento)}
+
+            En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación.
+
+            \begin{figure}[H]
+                \centering
+                \includesvg[scale=0.4]{archivos/GA/EvolucionHiperparametros}
+                \caption{Evolución de hiperparámetros a lo largo de las iteraciones.}
                 \label{EvolucionHiperparametrosImage}
              \end{figure}
 
-            \begin{figure}[h]
+            \begin{figure}[H]
                 \centering
-                \includesvg[width = 550pt]{archivos/GA/EvolucionF1Score}
-                \caption{CAMBIAR POR LA QUE CORRESPONDA!!! Evolución del macro F1 score a lo largo de las iteraciones.}
+                \includesvg[scale=0.4]{archivos/GA/EvolucionF1Score}
+                \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
                 \label{EvolucionF1ScoreImage}
              \end{figure}
-            El conjunto de validación de tal forma que la función \textit{fitness} será 
+             
+            En la tabla \ref{BestGASolutionTable} se pueden observar el mejor individuo obtenido después de \textit{TODO: X} generaciones.
 
-            SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
-            SE TESTA CON VALIDACION
+            \begin{table}[H]
+                \centering
+                    \begin{tabular}{ |c|c| } 
+                        \hline
+                        Hiperparámetro & Valor\\
+                        \hline
+                            Profundidad Máxima & TODO \\ 
+                            Peso mínimo de los hijos & TODO \\ 
+                            ETA & TODO \\ 
+                        \hline
 
-            Para la 
+                    \end{tabular}
+                \caption{Mejores parámetros de KNN tras aplicar GridSearch.}
+                \label{BestGASolutionTable}
+            \end{table}
+
+            %SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
+            %SE TESTA CON VALIDACION
 
         \item XGBoost
 
 
-            Una vez se han optimizados los hiperparámetros del \glsentryshort{XGBOOST}, se calcula la importancia de cada clase mediante el cálculo de los pesos.
+            Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se calcula la importancia de cada clase mediante el cálculo de los pesos.
 
 
-            \begin{figure}[h]
+            \begin{figure}[H]
                 \centering
-                \includesvg[width = 550pt]{archivos/GA/EvolucionF1Score}
-                \caption{CAMBIAR POR LA QUE CORRESPONDA!!! Peso asignado por XGboost a las características.}
+                \includesvg[scale = 0.6]{archivos/XGBoost/FeatureWeights}
+                \caption{Pesos asignados por XGboost a las características.}
                 \label{FeatureWeightsImage}
              \end{figure}
 
         \item Construcción de imágenes
 
 
-            El siguiente paso es transferir cada muestra a una imagen donde a cada característica se le asignará una posición.
+            Debido a que las \glsentryshort{cnn} aprenden patrones sobre la entrada de datos como imágenes, es importante que éstas estén construidas de tal forma que maximice la representación de la información, es decir, es necesario aplicar técnicas que posicionen cada característica en un pixel de la matriz maximizando la representación de los accidentes (TODO: \textbf{relamente no entiendo muy bien la motivación que ha seguido la gente de TASPCNN a la hora de construir las imágenes, falta entender por qué lo hacen así, no lo he encontrado en el paper.})
 
-            La técnica a aplicar es posicionar de forma estratégica las características en función del peso asignado de por \glsentryshort{XGBOOST} y a una jerarquía predefinida
-            Gracias al cálculo de pesos de \glsentryshort{XGBOOST} \ \cite{TASPCNN}
+            Por lo tanto, el siguiente paso será transferir cada una de las muestras tabulares de los accidentes a una imagen en escala de grises, donde a cada característica se le asignará una posición de la matriz (\textit{5 x 5}), de tal forma que éstas sean la entrada a las \textit{CNN}.
 
+            Para este objetivo se aplicará el algoritmo FV2GI propuesto en el artículo \cite{TASPCNN}, que asigna las características de una muestra en representación tabular en función de la importancia que éstas presenten en una jerarquía.
 
-            Inicialmente las matrices de imágenes son inicializadas a cero.
-
-            La importancia de un padre viene dada por ĺa suma de los pesos de las características hijas.
-
-            Cada padre irá posicionado en una fila de la matriz, de forma que las características hijas irán ocupando las posiciones del vector resultante de dicha fila.
-
-            La asignación de filas por parte de los padres viene dada por la regla XXX donde aquel padre que más importancia tenga irá posicionado en la fila central de la matriz, el segundo padre irá posicionado por encima de éste y el tercero por debajo, así sucesivamente, de tal forma que se irán intercalando entre las filas.
+            Tal y como se propone en \cite{JerarquiaImagenes} las características que provocan un accidente de tráfico pueden englobarse en una serie de elementos o categorías principales, concretamente: \textit{características del conductor, el estado de la carretera, características propias del vehículo y condiciones del ambiente}. Se muestra en la tabla \ref{JerarquiaCaracteristicasTabla} las asignaciones de las variables explicativas del conjunto de datos en función de esta jerarquía.
 
 
-            Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
+            \begin{table}[H]
+              \centering
+              \begin{tabular}{ |c|c| }
+                   \toprule
+                   \textbf{Categoría} & \textbf{Variable}\\
+
+                   \midrule
+                   \multirow{4}{*}{Accidente}            & Coordenada X.\\
+                                                         & Coordenada Y.\\
+                                                         & Hora.\\
+                                                         & Vehículos implicados.\\
+
+                   \midrule
+                   \multirow{1}{*}{Ambiente}             & Estado meteorológico.\\
+
+                   \midrule
+                   \multirow{2}{*}{Carretera}            & TODO: ESTO NO DEBERIA ESTAR AQUI Tipo de accidente\\
+                                                         & Distrito\\
+
+                   \midrule
+                   \multirow{4}{*}{Conductor}            & Tipo Persona.\\
+                                                         & Sexo.\\
+                                                         & Rango Edad.\\
+                                                         & Positivo.\\
+
+                   \bottomrule
+              \end{tabular}
+              \caption{Transformaciones aplicadas a los datos.}
+              \label{JerarquiaCaracteristicasTabla}
+            \end{table}
+
+
+
+            Una vez definida la jerarquía de características y los pesos asociados a cada una de ellas gracias al algoritmo \glsentryshort{xgboost} se construyen las imágenes de acuerdo al criterio \textit{FV2GI}. Este proceso consta de los siguientes pasos:
+
+            \begin{enumerate}
+
+                \item Generación de \textit{n} imágenes inicializadas a 0, donde \textit{n} es el número de muestras tabulares en el dataset.
+                \item Asignación de una fila a cada padre en función de su peso.
+                \item Asignacíón de la la posición de cada característica hija en función de su peso dentro de la fila de su padre.
+            
+            \end{enumerate}
+
+            Se deben tomar las siguientes consideraciones a la hora de aplicar \textit{FV2GI}:
+
+            \begin{enumerate}
+
+                \item La importancia de un padre viene dada por ĺa suma de los pesos de las características hijas.
+
+                \item La asignación de las filas de los padres se realiza de forma intercalada en función de su peso. Aquel padre que más importancia tenga irá posicionado en la fila central de la matriz, el segundo padre irá posicionado por encima de éste y el tercero por debajo y así sucesivamente, de tal forma que se irá creando una estructura en la que dichos padres se interpolan entre las filas en función de su peso.
+
+                \item Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
+
+
+            \end{enumerate}
+
+            El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
+
+            \begin{figure}[H]
+                \centering
+                \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_0}
+                \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_1}
+                \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_2}
+                \caption{Representación de las muestras de accidentes en forma de matriz de grises.}
+
+                \label{SampledImagesExampleImage}
+            \end{figure}
 
         \item Implementación de Modelos
 
             En esta sección analizaremos los modelos utilizados en este proyecto con el objetivo de realizar un estudio comparativo entre las arquitecturas.
 
-            
 
             \begin{enumerate}
 
                 \item KNN
 
-                    El método \glsentryshort{knn} servirá como referencia para testar el rendimiento del resto de modelos. Al ser un método que se aplica sobre un conjunto de datos tabular, no hará uso de las imágenes generadas.
+                    El método \glsentryshort{knn} servirá como referencia para testar el rendimiento del resto de modelos. Al ser un método que se aplica sobre un conjunto de datos tabular original, no hará uso de las imágenes generadas.
 
-                    Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary} búsqueda de hiperparámetros ese ha aplicado sobre los datos en formato tabular, es decir, compa
-                    leaf_size = list(range(1,10, 2))
-                    n_neighbors = list(range(1,25, 5))
+                    Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary}. Esta técnica permite la optimización de los valores de los hiperparámetros mediante una búsqueda exhaustiva en un espacio de búsqueda definido por el usuario, probando distintas combinaciones hasta cubrirlo por completo. 
 
-                \item Peso mínimo de los hijos: es el mínimo peso que se establece a la hora de crear un nuevo nodo en el árbol. Cuando se entrena un árbol de decisión éste genera nuevos nodos en base a máxima separabilidad de los datos de entrenamiento en cada nivel. Con el límite de peso de los hijos establecemos un umbral mínimo de muestras que deben pertenecer a un nodo para realizar la separación. Un valor bajo en este parámetro permitirá crear nodos con menos muestras y por lo tanto el modelo tenderá al \textit{overfitting}.
 
-                \item ETA: tamaño de paso utilizado para aplicar descenso por gradiente para minimizar la pérdida de los árboles anteriores.
+                    Se puede observar en la tabla \ref{BestParamsKNNGridSearchTable} los mejores parámetros para \textit{KNN} después de haber ejecutado \textit{Grid Search} sobre el conjunto de entrenamiento.\\
+
+                    \begin{table}[H]
+                        \centering
+                        \begin{tabular}{ |c|c| }
+                            \hline
+                            Atributo & Valor\\
+                            \hline
+                                Número de vecinos & 21 \\ 
+                                Tipo de distancia & Minkowski \\ 
+                            \hline
+                        \end{tabular}
+                        \caption{Mejores parámetros de KNN tras aplicar GridSearch.}
+                        \label{BestParamsKNNGridSearchTable}
+                    \end{table}
+
+
+                \item CNN
+
+                    En este apartado definiremos implementación de la la arquitectura de las redes neuronales convolucionales. Esta arquitectura es común a ambas pero aplicando filtros unidimensionales o bidimensionales según sea el caso correspondiente.
+
+                    Esta arquitectura constra de cuatro capas convolucionales con tamaños de kernel (\textit{1x3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3x3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarás en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada una de las se aplica un proceso de \glsentryshort{batchnormalization}.
+
+                    El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplícarán añadiendo ceros en los ĺímites de las imágenes, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
+
+                    A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. Esta función de activación tiene como beneficios reducir la probabilidad de aparición del gradiente evanescente \cite{GradientVanishingRelu}.
+                    One major benefit is the reduced likelihood of the gradient to vanish. 
+
+                    \begin{center}
+                        $f(x) = \left\{
+                                       \begin{array}{lr}
+                                         0 & \text{if } x<=0\\
+                                         x & \text{if } x>0
+                                       \end{array}
+                                \right.$
+                    \end{center}
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=10cm]{archivos/CNN/RELUImage}
+                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
+                        \label{RELUImage}
+                     \end{figure}
+
+                    La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5x5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
+
+
+                    Para ejemplificar la arquitectura de las \glsentryshort{nn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
+
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=15cm]{archivos/CNN/2D/TASCNN}
+                        \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
+                        \label{TASPCNNIMAGE}
+                     \end{figure}
+
 
             \end{enumerate}
-            !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
-            En el caso de este proyecto, se utilizará la función de activación \textit{Rectified Linear Unit (ReLU)} a la salida de cada capa de convolución, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}.
 
-            \begin{center}
-                $f(x) = \left\{
-                               \begin{array}{lr}
-                                 0 & \text{if } x<=0\\
-                                 x & \text{if } x>0
-                               \end{array}
-                        \right.$
-            \end{center}
 
-            \begin{figure}[h]
-                \centering
-                \includegraphics[width=10cm]{archivos/CNN/RELUImage}
-                \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
-                \label{RELUImage}
-             \end{figure}
-            !!!!!!!!!!FIN DE LA REVISION!!!!!!!!!!
+
+
 
             !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
             Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a su dimensionalidad.
@@ -401,6 +523,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
     \end{enumerate}
 
 \newpage
+
+
+
 \section{Inserción de figuras}
 
 

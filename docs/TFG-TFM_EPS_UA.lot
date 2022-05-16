@@ -8,9 +8,13 @@
 \contentsline {table}{\numberline {3.4}{\ignorespaces Ejemplo 2\relax }}{16}{table.caption.15}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Descripción de los datos.\relax }}{32}{table.caption.30}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{41}{table.caption.31}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Esta es una tabla con múltiples imágenes. Útil cuando se deben mostrar varias juntas.\relax }}{48}{table.caption.42}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Descripción de los datos.\relax }}{35}{table.caption.30}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{37}{table.caption.31}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Límites de inicialización y mutación de los hiperparámetros de los individuos.\relax }}{43}{table.caption.36}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Mejores parámetros de KNN tras aplicar GridSearch.\relax }}{44}{table.caption.39}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{46}{table.caption.41}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Mejores parámetros de KNN tras aplicar GridSearch.\relax }}{47}{table.caption.43}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Esta es una tabla con múltiples imágenes. Útil cuando se deben mostrar varias juntas.\relax }}{51}{table.caption.48}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

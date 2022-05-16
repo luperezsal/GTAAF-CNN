@@ -1,0 +1,78 @@
+%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'TASCNN_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{540.37807647bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.36448925)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{TASCNN_svg-tex.pdf}}%
+    \put(0.34975512,0.00501871){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}256 Feature Maps (3x3)\end{tabular}}}}%
+    \put(0.11519712,0.00363079){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}n Imágenes de entrada\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{TASCNN_svg-tex.pdf}}%
+    \put(0.63684579,0.2339834){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}256 Kernels (3x3)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{TASCNN_svg-tex.pdf}}%
+    \put(0.22970029,0.15213793){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1ª Conv\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{TASCNN_svg-tex.pdf}}%
+    \put(0.14364943,0.24096462){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}256 Kernels (3x3)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{TASCNN_svg-tex.pdf}}%
+    \put(0.47258579,0.15213793){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2ª Conv\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{TASCNN_svg-tex.pdf}}%
+    \put(0.39243357,0.23986817){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}256 Kernels (3x3)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{TASCNN_svg-tex.pdf}}%
+    \put(0.72241088,0.15213793){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}3ª Conv\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{TASCNN_svg-tex.pdf}}%
+    \put(0.87394366,0.23877171){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}256 Kernels (3x3)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{TASCNN_svg-tex.pdf}}%
+    \put(0.97223596,0.15213793){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}4ª Conv\end{tabular}}}}%
+    \put(0.60756073,0.00501871){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}256 Feature Maps (3x3)\end{tabular}}}}%
+    \put(0.85669186,0.00501871){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}256 Feature Maps (3x3)\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
