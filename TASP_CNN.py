@@ -47,9 +47,9 @@ MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'auto_ml']
 
 REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
-laptop = True
-calculate_weights = True
-train_nn = False
+laptop = False
+calculate_weights = False
+train_nn = True
 
 leeds  = True
 madrid = True
