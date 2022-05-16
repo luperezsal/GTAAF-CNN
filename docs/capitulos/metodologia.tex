@@ -37,103 +37,172 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \item Datos
 
-            El conjunto de datos con el que se ha trabajado en este proyecto describe accidentes de tráfico de la ciudad de Madrid en un periodo concreto, desde el año 2019 hasta el 2022. Este dataset ha sido obtenido desde la fuente del portal de datos abiertos de Madrid \cite{DatasetMadrid}, donde es posible encontrar conjuntos de datos de distinta naturaleza relativos a la ciudad de Madrid.
+            El conjunto de datos con el que se ha trabajado en este proyecto describe accidentes de tráfico de la ciudad de Madrid en un periodo concreto, desde el año 2019 hasta el 2022. Este dataset ha sido obtenido desde \cite{DatasetMadrid}, repositorio donde es posible encontrar distintos datasets relativos a la Comunidad de Madrid.
 
             El número total de registros en este periodo de tiempo es de 60.966 instancias, cada una de las cuales consta de 17 características que se describirán en la tabla \ref{DescripcionDatosTabla}:
 
+            \renewcommand{\arraystretch}{1.5}
             \begin{table}[H]
                 \centering
-                    \begin{tabular}{p{0.35\linewidth} | p{0.6\linewidth}}
-                        Atributo&Descripción\\
-                        \hline
-                        \texttt Número de expediente&Identificador del incidente, si varios registros tienen el mismo un número de expediente se consideran como un mismo incidente y cada registro representa distintas personas involucradas en el incidente (Conductor, Pasajero o Peatón).\\
-                        \texttt Fecha&Día mes y año en el que se ha producido el incidente.\\
-                        \texttt Hora&Hora y minuto del día.\\
-                        \texttt Localización&Nombre de la calle.\\
-                        \texttt Número&Número de la calle.\\
-                        \texttt Distrito&Nombre del distrito de Madrid.\\
-                        \texttt Tipo de accidente&Tipología de accidente (Colisión doble, Colisión múltiple, Alcance, Choque contra obstáculo, Atropello, Vuelco, Caída, Otras causas)\\
-                        \texttt Estado meteorológico&Condiciones climatológicas en el momento del incidente (Despejado, Nublado, Lluvia débil, Lluvia intensa, Granizado o Nevando)\\
-                        \texttt Tipo de vehículo&TODO\\
-                        \texttt Tipo de persona&Persona que ha sido involucrada en el incidente (Conductor, Pasajero o Peatón)\\
-                        \texttt Rango de edad&TODO\\
-                        \texttt Sexo&Sexo de la persona involucrada (Hombre o Mujer)\\
-                        \texttt Lesividad&TODO\\
-                        \texttt Coordenada X&Coordenada X del accidente en formato \textit{UTM}\\
-                        \texttt Coordenada Y&Coordenada Y del accidente en formato \textit{UTM}\\
-                        \texttt Positivo en alcohol&Si la persona implicada ha dado positivo en el control de alcoholemia (S o N)\\
-                        \texttt Positivo en drogas&Si la persona implicada ha dado positivo en el control de alcoholemia (S o N)\\ \hline
-                    \end{tabular}
-                    \caption{Descripción de los datos.}
-                    \label{DescripcionDatosTabla}
+                \begin{tabular}{|c|L{0.7\textwidth}|}
+                    \hline
+                    \textbf{Atributo}&\textbf{Descripción}\\
+                    \hline
+                    \texttt Número de expediente &
+                    Identificador del incidente, si varios registros tienen el mismo un número de expediente se consideran como un mismo accidente y cada registro representa cada una de las distintas personas involucradas en él (Conductor, Pasajero o Peatón).\\
+                    
+                    \hline
+                    \texttt Fecha &
+                    Día mes y año en el que se ha producido el incidente.\\
+                    
+                    \hline
+                    \texttt Hora &
+                    Hora y minuto del día.\\
+
+                    \hline
+                    \texttt Localización &
+                    Nombre de la calle (si procede).\\
+
+                    \hline
+                    \texttt Número &
+                    Número de la calle donde ha ocurrido el incidiente (si procede).\\
+
+                    \hline
+                    \texttt Distrito &
+                    Nombre del distrito de Madrid donde ha ocurrido el incidente.\\
+
+                    \hline
+                    \texttt Tipo de accidente &
+                    Tipología de accidente, puede ser de diversos tipos (Colisión doble, Colisión múltiple, Alcance, Choque contra obstáculo, Atropello, Vuelco, Caída, Otras causas).\\
+
+                    \hline
+                    \texttt Estado meteorológico &
+                    Condiciones climatológicas en el momento del incidente (Despejado, Nublado, Lluvia débil, Lluvia intensa, Granizado o Nevando)\\
+
+                    \hline
+                    \texttt Tipo de vehículo &
+                    Clasificación en función del tipo de vehículos, p.e. motocicleta, turismo, cuadriciclo, etc.\\
+
+                    \hline
+                    \texttt Tipo de persona &
+                    Rol de la persona involucrada (Conductor, Pasajero o Peatón)\\
+
+                    \hline
+                    \texttt Rango de edad &
+                    Intervalo de edad la persona implicada.\\
+
+                    \hline
+                    \texttt Sexo &
+                    Sexo de la persona implicada (Hombre o Mujer).\\
+
+                    \hline
+                    \texttt Lesividad &
+                    Consecuencias físicas de la persona implicada, si ha necesitado asistencia sanitaria, si ha sido ingresada o si ha sido mortal.\\
+
+                    \hline
+                    \texttt Coordenada X &
+                    Coordenada X del accidente en formato \textit{UTM}.\\
+
+                    \hline
+                    \texttt Coordenada Y &
+                    Coordenada Y del accidente en formato \textit{UTM}.\\
+
+                    \hline
+                    \texttt Positivo en alcohol &
+                    Si la persona implicada ha dado positivo en el control de alcoholemia (S o N).\\
+
+                    \hline
+                    \texttt Positivo en drogas &
+                    Si la persona implicada ha dado positivo en el control de estupefacientes (S o N).\\
+
+                    \hline
+                \end{tabular}
+                \caption{Descripción de los datos.}
+                \label{DescripcionDatosTabla}
 
             \end{table}
 
 
-            Se pueden consultar los más detalles de las características del dataset descripción del conjunto de datos del portal \textit{Open Data} de Madrid \cite{InfoDatasetMadrid}.\\
+            La variable respuesta de este proyecto es la lesividad, siguiendo la descripción del conjunto de datos, existen una serie de valores asignados a ésta categoría. Cada uno de ellos pertenece al menos a uno de los siguientes casos:
+
+              \begin{itemize}
+                    \item Consecuencias leves: comprende desde aquellas personas que no han resultado heridas hasta aquellas que han necesitado ingresar en un centro hospitalario no más de 24 horas.
+                    \item Consecuencias severas: implicados que han requerido un ingreso hospitalario superior a 24 horas.
+                    \item Consecuencias fatales: víctimas mortales dentro del margen de las 24 horas posteriores al accidente.
+                \end{itemize}
+
+
+            A continuación se muestran los códigos de numeración de la variable respuesta de este proyecto:
+
+              \begin{itemize}
+                    \item Leves:
+                        \begin{itemize}
+                            \item 1: Atención en urgencias sin posterior ingreso.
+                            \item 2: Ingreso inferior o igual a 24 horas.
+                            \item 5: Asistencia sanitaria ambulatoria con posterioridad.
+                            \item 7: Asistencia sanitaria sólo en el lugar del accidente.
+                            \item 14: Sin asistencia sanitaria.
+                        \end{itemize}
+                    \item Severos:
+                        \begin{itemize}
+                            \item 3: Ingreso superior a 24 horas.
+                        \end{itemize}
+                    \item Fatales:
+                        \begin{itemize}
+                            \item 4: Fallecido 24 horas.
+                        \end{itemize}
+                \end{itemize}
+
+
+
+            Se pueden consultar los más detalles de las características del dataset descripción del conjunto de datos del portal \textit{Open Data} de Madrid \cite{InfoDatasetMadrid}.
 
 
             \begin{enumerate}
 
                 \item Limpieza de datos
 
-                    Una vez importados los datos en el proyecto, es requisito hacer una limpieza de éstos (\textit{Data Cleaning}), eligiendo las características que serán utilizadas como variables explicativas en las predicciones atendiendo además a los valores de las instancias, ya que pueden contener valores nulos, valores atípicos (\textit{outliers}) o contener valores erróneos. Esta problemática requiere de distintas estrategias a la hora de tratar estos valores.\\
+                    Una vez importados los datos en el proyecto, es requisito hacer una limpieza de éstos (\textit{Data Cleaning}), eligiendo las características que serán utilizadas como variables explicativas en las predicciones atendiendo además a los valores de las instancias, ya que pueden contener valores nulos, valores atípicos (\textit{outliers}) o contener valores erróneos. Esta problemática requiere de distintas estrategias a la hora de tratar estos valores.
 
-                    En el caso del dataset de accidentes de tráfico de este proyecto se han escogido las siguientes características como variables explicativas \textit{hora, distrito, tipo accidente, estado meteorológico, tipo vehiculo, tipo persona, rango edad, sexo, positivo alcohol, positivo drogas, vehiculos implicados, coordenada x utm, coordenada y utm}.\\
-
-
-                    Una vez que se han obtenido los predictores con los que trabajarán los modelos, se han eliminado aquellos registros duplicados y aquellos que tuvieran algún valor nulo en alguno de sus predictores. Por lo tanto, las dimensiones finales del conjunto de datos pasarán a ser 12 variables y 54.364 registros con respecto a las 17 características y 60966 filas originales.\\
+                    En el caso del dataset de accidentes de tráfico de este proyecto se han escogido las siguientes características como variables explicativas \textit{hora, distrito, tipo accidente, estado meteorológico, tipo vehiculo, tipo persona, rango edad, sexo, positivo alcohol, positivo drogas, vehiculos implicados, coordenada x utm, coordenada y utm}.
 
 
+                    Una vez que se han obtenido los predictores con los que trabajarán los modelos, se han eliminado aquellos registros duplicados y aquellos que tuvieran algún valor nulo en alguno de sus predictores. Por lo tanto, las dimensiones finales del conjunto de datos pasarán a ser 12 variables y 54.364 registros con respecto a las 17 características y 60966 filas originales. 
 
                 \item Transformaciones de datos
 
+                    En esta sección detallaremos las transformaciones sobre los datos que han sido necesarias para que los modelos trabajen con un conjunto de datos bien definido y consistente. Gran parte de los modelos de \glsentryshort{ml} necesitan de datos numéricos para poder ser entrenados debido a la necesidad de normalizar estos valores para una correcta optimización del modelo, por lo tanto se requiere de una serie de transformacíones que conviertan las variables categóricas a variables numéricas.
 
-                    En primer lugar ha sido necesario transformar las columnas \textit{coordenada x utm} y \textit{coordenada y utm} a números enteros para que los modelos los puedan tratar. Inicialmente estos valores estaban establecidos como String, sin seguir un formato de decimales estandarizado, por lo que se ha tenido que crear un proceso que analizase cada casuístca y los tradujese a un formato estandarizado.
+                    En primer lugar ha sido necesario transformar las columnas \textit{coordenada x utm} y \textit{coordenada y utm} a números enteros para que los modelos puedan interpretarlas y normalizarlas, ya que el rango de estas variables es del orden de 7 a 10 dígitos. Inicialmente estos valores estaban establecidos como \textit{String}, evitando cualquier formato de decimales estandarizado (utilizando puntos y comas indistintamente en distintas posiciones de los dígitos), debido a esto ha sido necesario crear un proceso que analizase cada casuístca y los tradujese a un formato estandarizado.
 
+                    Las columnas \textit{positiva alcohol} y \textit{positiva drogas} se han unido en una nueva columna debido a la cantidad de valores nulos que existía en la segunda variable, por lo que se crea una nueva columna que hace referencia a la intoxicacion etílica o de estupefacientes.
+  
 
-                    Las columnas \textit{positiva alcohol} y \textit{positiva drogas} se han unido en una nueva columna debido a la cantidad de valores nulos que existía en la segunda variable, por lo que se crea una nueva columna que hace referencia a la intoxicacion etílica o estupefaciente.
+                    En la tabla \ref{TransformacionDatosTabla} se define el resto de codificaciones aplicadas sobre el resto de variables del modelo para transformar estos campos a formato numérico.
 
-                    Para que una \textit{CNN} pueda entrenarse en base a los datos de entrenamiento estos deben ser numéricos, por lo tanto se requiere de una serie de transformacíones que migren los datos categóricos a valores numéricos con el objetivo de que la \textit{CNN} pueda interpretar los datos de entrada como una imagen.
-
-                    La gravedad del accidente se interpreta según la lesividad de cada una de las personas implicadas, por lo que se han transformado los valores de la característica \textit{lesividad} de acuerdo a su gravedad:
-
-                    \begin{itemize}
-                        \item Accidentes leves: comprenden los accidentes desde los que no ha habido ningún herido hasta aquellos en los que alguno de los implicados ha ingresado en un centro hospitalario no más de 24 horas.
-                        \item Accidentes severos: accidentes que han requerido de un ingreso hospitalario superior a 24 horas de alguna de las personas involucradas en el incidente.
-                        \item Accidentes fatales: accidentes que han provocado víctimas mortales hasta las 24 horas posteriores al incidente.
-                    \end{itemize}
-
-                    En la tabla \ref{TransformacionDatosTabla} se definene las transformaciones aplicadas sobre las variables del modelo para migrar estos datos a formato numérico.
-
-
-
-                    \begin{table}[H]
-                      \centering
-                      \begin{tabular}{ll}
-                           \toprule
+                    \def\arraystretch{1.5}%
+                    \begin{longtable}{|c|L{0.7\textwidth}|}
+                      \caption{Transformaciones aplicadas a los datos.}
+                      \label{TransformacionDatosTabla}
+                        \begin{tabular}{|c|L{0.7\textwidth}|}
+                           \hline
                            \textbf{Característica} & \textbf{Tipado}\\
-                           \midrule
-                           \midrule
-                           \multicolumn{2}{c}{Variable Respuesta}\\
-                           \midrule
+
+                           \hline
 
                            \multirow{3}{*}{Lesividad}            & 0: Accidentes leves (\textit{1, 2, 5, 6, 7, 14}).\\
                                                                  & 1: Accidentes severos (\textit{3}).\\
                                                                  & 2: Accidentes fatales (\textit{4}).\\
 
-                           \midrule
-                           \midrule
-                           \multicolumn{2}{c}{Variables Explicativas}\\
-                           \midrule
+                           \hline
                            \multirow{2}{*}{Hora}                 & 1: Noche (\textit{6 PM - 6 AM}).\\
                                                                  & 2: Día (\textit{6 AM - 6 PM}).\\
-                           \midrule
+                           \hline
                            \multirow{1}{*}{Distrito}             & Numeración en función de orden de aparición.\\
-                           \midrule
+                           \hline
                            \multirow{2}{*}{Tipo Accidente}       & TODO\\
                                                                  & TODO\\
-                           \midrule
+                           \hline
                            \multirow{7}{*}{Estado Meteorológico} & 1: Despejado.\\
                                                                  & 2: Nublado.\\
                                                                  & 3: Lluvia débil.\\
@@ -141,31 +210,43 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                                                                  & 5: Granizando.\\
                                                                  & 6: Nevando.\\
                                                                  & 7: Se desconoce.\\
-                           \midrule
-                           \multirow{2}{*}{Tipo Vehículo}        & TODO\\
-                                                                 & TODO\\
-                           \midrule
+                           \hline
+                           \multirow{2}{*}{Tipo Vehículo}        & 1: Colisión fronto-lateral. \\
+                                                                 & 2: Alcance.\\
+                                                                 & 3: Colisión lateral.\\
+                                                                 & 4: Choque contra obstáculo fijo.\\
+                                                                 & 5: Colisión múltiple.\\
+                                                                 & 6: Caída.\\
+                                                                 & 7: Atropello a persona.\\
+                                                                 & 8: Colisión frontal.\\
+                                                                 & 9: Otro.\\
+                                                                 & 10: Solo salida de la vía.\\
+                                                                 & 11: Vuelco.\\
+                                                                 & 12: Atropello a animal.\\
+                                                                 & 13: Despeñamiento.\\
+
+                           \hline
                            \multirow{3}{*}{Tipo Persona}         & 1: Conductor.\\
                                                                  & 2: Pasajero.\\
                                                                  & 3: Peatón.\\
-                           \midrule
+                           \hline
                            \multirow{5}{*}{Rango Edad}           & 1: Menores de 18 años.\\
                                                                  & 2: De 18 a 25 años.\\
                                                                  & 3: De 25 a 65 años.\\
                                                                  & 4: Mayores de 65 años.\\
                                                                  & 5: Edad desconocida.\\
-                           \midrule
+                           \hline
                            \multirow{3}{*}{Sexo}                 & 1: Hombre.\\
                                                                  & 2: Mujer.\\
                                                                  & 3: Desconocido.\\
-                           \midrule
+                           \hline
                            \multirow{2}{*}{Positivo}             & 1: Sí.\\
                                                                  & 2: No.\\
-                           \bottomrule
+                        \hline
+
                       \end{tabular}
-                      \caption{Transformaciones aplicadas a los datos.}
-                      \label{TransformacionDatosTabla}
-                    \end{table}
+
+                    \end{longtable}
                     
 
 
@@ -469,14 +550,13 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \item CNN
 
-                    En este apartado definiremos implementación de la la arquitectura de las redes neuronales convolucionales. Esta arquitectura es común a ambas pero aplicando filtros unidimensionales o bidimensionales según sea el caso correspondiente.
+                    Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos analizar las arquitecturas de las \textit{CNNs} implementadas que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} (unidimensionales o bidimensionales según sea el caso correspondiente) y la forma en la que éste se desplaza debido a su dimensionalidad, por lo tanto detallaremos ambas arquitecturas de la misma forma.
 
-                    Esta arquitectura constra de cuatro capas convolucionales con tamaños de kernel (\textit{1x3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3x3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarás en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada una de las se aplica un proceso de \glsentryshort{batchnormalization}.
+                    La arquitectura consta de cuatro capas convolucionales con tamaños de kernel (\textit{1 x 3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3 x 3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarán en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada uno de los mapas de características se aplica un proceso de \glsentryshort{batchnormalization}.
 
                     El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplícarán añadiendo ceros en los ĺímites de las imágenes, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
 
-                    A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. Esta función de activación tiene como beneficios reducir la probabilidad de aparición del gradiente evanescente \cite{GradientVanishingRelu}.
-                    One major benefit is the reduced likelihood of the gradient to vanish. 
+                    A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente \cite{GradientVanishingRelu}.
 
                     \begin{center}
                         $f(x) = \left\{
@@ -494,7 +574,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \label{RELUImage}
                      \end{figure}
 
-                    La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5x5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
+                    La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5 x 5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
 
 
                     Para ejemplificar la arquitectura de las \glsentryshort{nn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
@@ -502,21 +582,13 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     \begin{figure}[h]
                         \centering
-                        \includegraphics[width=15cm]{archivos/CNN/2D/TASCNN}
+                        \includegraphics[width=17cm]{archivos/CNN/2D/TASCNN}
                         \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
                         \label{TASPCNNIMAGE}
                      \end{figure}
 
 
             \end{enumerate}
-
-
-
-
-
-            !!!!!!!!!!DE LA REVISION, CAMBIAR DE POSICION AQUI -> Función de activación CNN!!!!!!!!!!
-            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos hacer distinción entre los dos enfoques de \textit{CNNs} que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} y la forma en la que éste se desplaza debido a su dimensionalidad.
-            !!!!!!!!!!FIN DE LA REVISION!!!!!!!!!!
 
             \cite{AutoSklearn}
 
