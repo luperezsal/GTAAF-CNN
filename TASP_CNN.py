@@ -14,7 +14,7 @@
 
 # ## Carga Google Drive
 
-# In[1]:
+# In[114]:
 
 
 # from google.colab import drive
@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[2]:
+# In[115]:
 
 
 from datetime import datetime
@@ -49,6 +49,12 @@ MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'auto_ml']
 REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
 ######## CONFIG ########
+loaded_timestamp = '2022-05-16-19:33:50'
+
+
+# In[ ]:
+
+
 laptop = False
 calculate_weights = False
 tsne = False
@@ -59,18 +65,30 @@ madrid = True
 tree_method = 'auto' if laptop else 'gpu_hist'
 train_nn = not laptop
 
-loaded_timestamp = '2022-05-16-19:33:50'
+
+# In[116]:
+
+
+# laptop = True
+# calculate_weights = True
+# tsne = False
+
+# leeds  = False
+# madrid = True
+
+# tree_method = 'auto' if laptop else 'gpu_hist'
+# train_nn = not laptop
 
 
 # ## Importar Tensorflow
 
-# In[3]:
+# In[117]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[4]:
+# In[118]:
 
 
 import tensorflow as tf
@@ -85,7 +103,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[5]:
+# In[119]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -97,7 +115,7 @@ print('Found GPU at: {}'.format(device_name))
 
 # ## Importador/Exportador JSON
 
-# In[6]:
+# In[120]:
 
 
 import json
@@ -115,7 +133,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[7]:
+# In[121]:
 
 
 import numpy as np
@@ -195,7 +213,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[8]:
+# In[122]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -217,7 +235,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[9]:
+# In[123]:
 
 
 from scipy.stats import zscore
@@ -237,7 +255,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[10]:
+# In[124]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -262,7 +280,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[11]:
+# In[125]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -277,9 +295,34 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ## Algoritmo genético
 
+# In[126]:
+
+
+HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
+                                   'init': [0.01, 1],
+                                   'mutation': [-0.3, 0.3],
+                                   'round': 2
+                                   },
+                           'max_depth': {'type': 'int',
+                                         'init': [1, 25],
+                                         'mutation': [-6, 6],
+                                         'step': 1
+                                   },
+                           'min_child_weight': {'type': 'float',
+                                                'init': [0.01, 20.0],
+                                                'mutation': [-7, 7],
+                                                'round': 1
+                                   }
+                          }
+number_of_individuals = 100
+numberOfParentsMating = 20
+number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
+number_of_generations = 100
+
+
 # ### Inicializar población
 
-# In[12]:
+# In[127]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -315,7 +358,7 @@ def initialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[13]:
+# In[128]:
 
 
 from sklearn.metrics import f1_score
@@ -329,7 +372,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[14]:
+# In[129]:
 
 
 from xgboost import XGBClassifier
@@ -408,7 +451,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[15]:
+# In[130]:
 
 
 # Select parents for mating
@@ -426,7 +469,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[16]:
+# In[131]:
 
 
 '''
@@ -460,7 +503,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[17]:
+# In[132]:
 
 
 def mutation(crossover, hyperparams_to_optimize):
@@ -515,7 +558,7 @@ def mutation(crossover, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[18]:
+# In[133]:
 
 
 # Add one channel
@@ -538,7 +581,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[19]:
+# In[134]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -568,7 +611,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[20]:
+# In[135]:
 
 
 import seaborn as sns
@@ -584,7 +627,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[21]:
+# In[136]:
 
 
 from sklearn.decomposition import PCA
@@ -605,7 +648,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[22]:
+# In[137]:
 
 
 from sklearn.manifold import TSNE
@@ -635,7 +678,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name, title):
 
 # ### Autoencoder
 
-# In[23]:
+# In[138]:
 
 
 def autoencoder ():
@@ -662,7 +705,7 @@ def autoencoder ():
 
 # ## 1D-Convolution
 
-# In[24]:
+# In[139]:
 
 
 import tensorflow_addons as tfa
@@ -692,7 +735,7 @@ convolution_1d.compile(
 
 # ## TASP-CNN
 
-# In[25]:
+# In[140]:
 
 
 lr_init = 0.1
@@ -718,13 +761,13 @@ tasp_cnn.compile(
   )
 
 
-# In[26]:
+# In[141]:
 
 
 tasp_cnn.summary()
 
 
-# In[27]:
+# In[142]:
 
 
 print('Done!')
@@ -734,7 +777,7 @@ print('Done!')
 
 # ### F1-Score History
 
-# In[28]:
+# In[143]:
 
 
 def plot_f1_score_history(f1_score_path, f1_score_name, history):
@@ -754,7 +797,7 @@ def plot_f1_score_history(f1_score_path, f1_score_name, history):
 
 # ### Classification Report
 
-# In[29]:
+# In[144]:
 
 
 from sklearn.metrics import classification_report
@@ -777,7 +820,7 @@ def plot_classification_report(path, file_name, y_true, y_predicted):
 
 # ### Confusion Matrix
 
-# In[30]:
+# In[145]:
 
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -800,13 +843,13 @@ def plot_confusion_matrix(path, file_name, y_true, y_predicted):
 
 # ## Importación de datos
 
-# In[31]:
+# In[ ]:
 
 
 # !conda install pandas --y
 
 
-# In[32]:
+# In[ ]:
 
 
 import pandas as pd
@@ -863,7 +906,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[33]:
+# In[ ]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -1025,13 +1068,13 @@ clean_df
 
 # ## Split de datos
 
-# In[34]:
+# In[ ]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[35]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1048,7 +1091,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[36]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1081,7 +1124,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Ca
 Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
-# In[37]:
+# In[ ]:
 
 
 # fv2gi(feature_vector)
@@ -1103,13 +1146,13 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[38]:
+# In[ ]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[39]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -1128,7 +1171,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[40]:
+# In[ ]:
 
 
 print('********** Train Before OverSampling **********')
@@ -1148,7 +1191,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[41]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -1158,63 +1201,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[42]:
-
-
-HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
-                                   'init': [0.01, 1],
-                                   'mutation': [-0.3, 0.3],
-                                   'round': 2
-                                   },
-                           'max_depth': {'type': 'int',
-                                         'init': [1, 25],
-                                         'mutation': [-6, 6],
-                                         'step': 1
-                                   },
-                           'min_child_weight': {'type': 'float',
-                                                'init': [0.01, 20.0],
-                                                'mutation': [-7, 7],
-                                                'round': 1
-                                   },
-                           # 'n_estimators': {'type': 'int',
-                           #                  'init': [0, 1500],
-                           #                  'mutation': [-150, 150],
-                           #                  'step': 25
-                           #         },
-                           # 'gamma': {'type': 'float',
-                           #                   'init': [0.01, 10.0],
-                           #                   'mutation': [-4, 4],
-                           #                   'round': 2
-                           #         },
-                           # 'subsample': {'type': 'float', ## ATTENTION! SUBSAMPLE OF TRAINING
-                           #               'init': [0.01, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         },
-                           # 'colsample_bytree': {'type': 'float', ## ATENTION!! SUBSAMPLE OF COLUMNS
-                           #               'init': [0.01, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         },
-                           # 'reg_alpha': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
-                           #               'init': [0, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         },
-                           # 'reg_lambda': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
-                           #               'init': [0, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         }
-                          }
-
-number_of_individuals = 100
-numberOfParentsMating = 20
-number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 100
-
-
-# In[44]:
+# In[ ]:
 
 
 import xgboost as xgb
@@ -2231,16 +2218,17 @@ MODEL_NAME = 'auto_ml'
 # 
 # 
 
-# In[ ]:
+# In[223]:
 
 
 loaded_timestamp = '2022-05-17-10:47:49'
 
 
-# In[142]:
+# In[224]:
 
 
 import pandas as pd
+import random
 
 city_name = 'madrid'
 city = madrid
@@ -2286,7 +2274,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[143]:
+# In[225]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -2299,7 +2287,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[144]:
+# In[226]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2317,34 +2305,37 @@ data_frame = data_frame.reset_index(drop=True)
 # # Unclassified
 
 
-# regex = {}
-# regex['paseo_regex'] = 'PASEO|paseo'
-# regex['parque_regex'] = 'PARQUE|PQUE'
-# regex['ronda_regex'] = 'RONDA'
-# regex['puerta_regex'] = 'PUERTA|PTA|Puerta'
-# regex['puente_regex'] = 'PNTE|PUENTE'
-# regex['plaza_regex'] = 'PLAZA|PZA'
-# regex['camino_regex']= 'CMNO|CAMINO'
-# regex['bulevard_regex'] = 'BULE'
-# regex['travesia_regex'] = 'TRVA'
-# regex['cuesta_regex'] = 'CUSTA|CUESTA'
-# regex['rotonda_regex'] = 'GTA|gta|GLORIETA|glorieta|ROTONDA'
-# regex['aeropuerto_regex'] ='AEROPUERTO|AEROP'
-# regex['calzada_regex'] = 'CALZADA'
-# regex['poligono_regex'] ='POLIGONO'
-# regex['highway_regex'] = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
-# regex['road_regex'] = 'CTRA.|CARRETERA|carretera|CRA.' # B
-# regex['avenida_regex'] = 'AVDA|AV|AVENIDA|AVDA|Avda.|avenida'
-# regex['calle_regex']  = 'CALL.|Calle|CALLE|c/|C/|C.|calle'
+regex = {}
+regex['parking'] = 'PK|P.K|parking'
+regex['aeropuerto_regex'] = 'AEROPUERTO|AEROP'
+regex['cuesta_regex'] = 'CUSTA|CUESTA'
+regex['paseo_regex'] = 'PASEO|paseo'
+regex['parque_regex'] = 'PARQUE|PQUE|RETIRO'
+regex['tunel_regex'] = 'TUNEL|TÚNEL'
+regex['poligono_regex'] ='POLIGONO'
+regex['camino_regex']= 'CMNO|CAMINO'
+regex['ronda_regex'] = 'RONDA'
+regex['rotonda_regex'] = 'GTA|gta|GLORIETA|glorieta|ROTONDA|FUENT'
+regex['puerta_regex'] = 'PUERTA|PTA|Puerta'
+regex['puente_regex'] = 'PNTE|PUENTE'
+regex['plaza_regex'] = 'PLAZA|PZA'
+regex['bulevard_regex'] = 'BULE'
+regex['travesia_regex'] = 'TRVA'
+regex['calzada_regex'] = 'CALZADA'
+regex['road_regex'] = 'CTRA.|CARRETERA|carretera|CRA.' # B
+regex['avenida_regex'] = 'AVDA|AV|AVENIDA|AVDA|avenida|Avda.'
+regex['highway_regex'] = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23|KILOMETRO' # A,A(M),Motorway
+regex['calle_regex']  = 'CALL.|Calle|CALLE|c/|C/|C.|calle'
 
-# data_frame['tipo_via'] = 'N/A'
+data_frame['tipo_via'] = 'N/A'
 
-# for index,regex_values in enumerate(regex.values()):
-#     print(regex_values)
-#     regex_indexes = data_frame[data_frame.localizacion.str.contains(regex_values,  case = True, regex=True)].index
-#     print(len(regex_indexes))
-#     data_frame.iloc[regex_indexes, data_frame.columns.get_loc('tipo_via')] = str(index)
-#     data_frame.iloc[regex_indexes, data_frame.columns.get_loc('localizacion')] = str(index)
+for index,regex_values in enumerate(regex.values()):
+    
+    print(regex_values)
+    regex_indexes = data_frame[data_frame.localizacion.str.contains(regex_values,  case = True, regex=True)].index
+    print(len(regex_indexes))
+    data_frame.iloc[regex_indexes, data_frame.columns.get_loc('tipo_via')] = str(index)
+    data_frame.iloc[regex_indexes, data_frame.columns.get_loc('localizacion')] = str(index)
     
     
     
@@ -2373,73 +2364,92 @@ data_frame = data_frame.reset_index(drop=True)
 # data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
 
 # data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
-# # # print(data_frame.localizacion.unique())
 
 
-# In[145]:
+# In[227]:
 
 
-######################### SIGUIENTE CELDA #########################
-
-# Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
-# A, A(M) y Motorway lo mismo?
-# B:            De carácter regional y utilizado para conectar zonas de menor importancia.
-#               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
-#               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
-#               ¿Carretera como tal?
-
-# C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
-#               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
-
-# Unclassified
-street_regex  = ('CALL.|Calle|CALLE|c/|C/|C.|calle|'
-                 'AVDA|AV|AVENIDA|AVDA|avenida|Avda.|'
-                 'PASEO|paseo|'
-                 'PARQUE|PQUE|'
-                 'RONDA|'
-                 'PUERTA|PTA|Puerta|'
-                 'PNTE|PUENTE|'
-                 'PLAZA|PZA|'
-                 'CMNO|CAMINO|'
-                 'BULE|'
-                 'TRVA|'
-                 'CUSTA|CUESTA|'
-                 'GTA|gta|GLORIETA|glorieta|ROTONDA|'
-                 'AEROPUERTO|AEROP'
-)
-
-highway_regex = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
-road_regex = 'CTRA.|CARRETERA|carretera|CRA.|CALZADA|POLIGONO' # B
-
-street_indexes  = data_frame[data_frame.localizacion.str.contains(street_regex,  case = True, regex=True)].index
-highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
-road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
-# avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
-# ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
-
-data_frame['tipo_via'] = 'N/A'
-
-data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
-data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
-data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
-# data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
-# data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+for localizacion in data_frame.localizacion.unique():
+    print(localizacion)
 
 
-data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
-data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
-data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
-# data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
-# data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
-
-# positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
-# data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
-
-data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
-# print(data_frame.localizacion.unique())
+# In[228]:
 
 
-# In[146]:
+index_of_assigned_location_values = data_frame[~data_frame.localizacion.str.isnumeric()].index
+data_frame.loc[index_of_assigned_location_values, 'localizacion'] = 19
+
+
+# In[229]:
+
+
+data_frame.localizacion.value_counts()
+
+
+# In[230]:
+
+
+# ######################### SIGUIENTE CELDA #########################
+
+# # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
+# # A, A(M) y Motorway lo mismo?
+# # B:            De carácter regional y utilizado para conectar zonas de menor importancia.
+# #               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
+# #               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
+# #               ¿Carretera como tal?
+
+# # C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
+# #               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
+
+# # Unclassified
+# street_regex  = ('CALL.|Calle|CALLE|c/|C/|C.|calle|'
+#                  'AVDA|AV|AVENIDA|AVDA|avenida|Avda.|'
+#                  'PASEO|paseo|'
+#                  'PARQUE|PQUE|'
+#                  'RONDA|'
+#                  'PUERTA|PTA|Puerta|'
+#                  'PNTE|PUENTE|'
+#                  'PLAZA|PZA|'
+#                  'CMNO|CAMINO|'
+#                  'BULE|'
+#                  'TRVA|'
+#                  'CUSTA|CUESTA|'
+#                  'GTA|gta|GLORIETA|glorieta|ROTONDA|'
+#                  'AEROPUERTO|AEROP'
+# )
+
+# highway_regex = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
+# road_regex = 'CTRA.|CARRETERA|carretera|CRA.|CALZADA|POLIGONO' # B
+
+# street_indexes  = data_frame[data_frame.localizacion.str.contains(street_regex,  case = True, regex=True)].index
+# highway_indexes = data_frame[data_frame.localizacion.str.contains(highway_regex, case = True, regex=True)].index
+# road_indexes    = data_frame[data_frame.localizacion.str.contains(road_regex, case = True, regex=True)].index
+# # avenue_indexes  = data_frame[data_frame.localizacion.str.contains(avenue_regex,  case = True, regex=True)].index
+# # ride_indexes    = data_frame[data_frame.localizacion.str.contains(ride_regex, case = True, regex=True)].index
+
+# data_frame['tipo_via'] = 'N/A'
+
+# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('tipo_via')] = 'Unclassified'
+# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('tipo_via')] = 'A'
+# data_frame.iloc[road_indexes, data_frame.columns.get_loc('tipo_via')] = 'B'
+# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('tipo_via')] = 'AVENIDA'
+
+
+# data_frame.iloc[highway_indexes, data_frame.columns.get_loc('localizacion')] = 1
+# data_frame.iloc[road_indexes, data_frame.columns.get_loc('localizacion')] = 2
+# data_frame.iloc[street_indexes,  data_frame.columns.get_loc('localizacion')] = 3
+# # data_frame.iloc[avenue_indexes,  data_frame.columns.get_loc('localizacion')] = '3'
+# # data_frame.iloc[ride_indexes, data_frame.columns.get_loc('localizacion')] = '5'
+
+# # positive_drug_indexes = data_frame[data_frame.positiva_droga == 1].index
+# # data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
+
+# data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
+# # print(data_frame.localizacion.unique())
+
+
+# In[231]:
 
 
 data_frame
@@ -2454,7 +2464,7 @@ data_frame
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[147]:
+# In[232]:
 
 
 weather_conditions_replace = {
@@ -2658,7 +2668,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[148]:
+# In[233]:
 
 
 # Todos las comas a puntos
@@ -2747,7 +2757,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[149]:
+# In[234]:
 
 
 # COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2766,13 +2776,13 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[150]:
+# In[235]:
 
 
 data_frame
 
 
-# In[151]:
+# In[236]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2783,7 +2793,7 @@ data_frame
 
 # ## Split de datos
 
-# In[152]:
+# In[237]:
 
 
 import seaborn as sns
@@ -2797,7 +2807,7 @@ sns.histplot(data=data_frame, x="lesividad", stat='count')
 data_frame.lesividad.value_counts()
 
 
-# In[153]:
+# In[238]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2816,7 +2826,7 @@ X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[154]:
+# In[239]:
 
 
 # # FILE_NAME = f"{city_name}_calculated_weights.json"
@@ -2825,7 +2835,7 @@ Y_test = test['lesividad']
 # feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
-# In[155]:
+# In[240]:
 
 
 
@@ -2888,7 +2898,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[156]:
+# In[241]:
 
 
 X_train = X_train.astype(int)
@@ -2903,7 +2913,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[157]:
+# In[242]:
 
 
 print('********** Before OverSampling **********')
@@ -2917,7 +2927,7 @@ X_train, Y_train = oversample_data(X_train, Y_train)
 
 # ## Downsampling de datos
 
-# In[158]:
+# In[243]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2948,7 +2958,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[159]:
+# In[244]:
 
 
 X_train = X_train.astype(int)
@@ -2967,7 +2977,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## XGBoost
 
-# In[160]:
+# In[245]:
 
 
 from xgboost import XGBClassifier
@@ -2977,7 +2987,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[161]:
+# In[246]:
 
 
 # HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -3003,7 +3013,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # }
 
 
-# In[162]:
+# In[247]:
 
 
 if calculate_weights:
@@ -3113,7 +3123,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[163]:
+# In[248]:
 
 
 if calculate_weights and madrid:
@@ -3154,7 +3164,7 @@ if calculate_weights and madrid:
 
 # #### Carga hiperparámetros
 
-# In[164]:
+# In[249]:
 
 
 if not calculate_weights:
@@ -3174,7 +3184,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[165]:
+# In[250]:
 
 
 if calculate_weights and madrid:
@@ -3188,7 +3198,7 @@ if calculate_weights and madrid:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[219]:
+# In[251]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
@@ -3230,7 +3240,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[167]:
+# In[252]:
 
 
 if calculate_weights and madrid:
@@ -3246,7 +3256,7 @@ if calculate_weights and madrid:
 
 # #### Visualización pesos calculados
 
-# In[235]:
+# In[253]:
 
 
 if calculate_weights and madrid:
@@ -3272,7 +3282,7 @@ if calculate_weights and madrid:
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[236]:
+# In[254]:
 
 
 if calculate_weights and madrid:
@@ -3284,9 +3294,15 @@ if calculate_weights and madrid:
     write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
+# In[255]:
+
+
+feature_vector
+
+
 # ### Cálculo índices de matriz
 
-# In[224]:
+# In[256]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -3294,7 +3310,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[225]:
+# In[257]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -3307,7 +3323,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[226]:
+# In[258]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -3320,7 +3336,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[227]:
+# In[259]:
 
 
 plt.gray()
@@ -3332,7 +3348,7 @@ for i in range(100,103):
     plt.show()
 
 
-# In[174]:
+# In[260]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -3343,7 +3359,7 @@ for i in range(100,103):
 
 # ## Visualización de datos
 
-# In[175]:
+# In[261]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -3351,7 +3367,7 @@ for i in range(100,103):
 
 # ### Matriz de correlación
 
-# In[176]:
+# In[262]:
 
 
 # correlation_matrix(data_frame)
@@ -3359,13 +3375,13 @@ for i in range(100,103):
 
 # ### PCA
 
-# In[177]:
+# In[263]:
 
 
 # pca(X_train, X_test)
 
 
-# In[178]:
+# In[264]:
 
 
 MODEL_TIMESTAMP
@@ -3373,7 +3389,7 @@ MODEL_TIMESTAMP
 
 # ### TSNE
 
-# In[228]:
+# In[265]:
 
 
 n_samples = 150
@@ -3382,7 +3398,7 @@ index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
 index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
-# In[229]:
+# In[266]:
 
 
 # Get same number of class samples from SMOTEII
@@ -3399,7 +3415,7 @@ Y_fatal_train_tsne   = Y_train[index_fatal]
 Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
-# In[230]:
+# In[267]:
 
 
 n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
@@ -3409,7 +3425,7 @@ index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].inde
 index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
-# In[231]:
+# In[268]:
 
 
 # Get same number of class samples from original
@@ -3426,7 +3442,7 @@ Y_fatal_clean_tsne   = Y_train_original[index_fatal]
 Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
 
 
-# In[183]:
+# In[269]:
 
 
 if tsne:
@@ -3447,7 +3463,7 @@ if tsne:
 
 # #### Entrenamiento
 
-# In[184]:
+# In[270]:
 
 
 # # input_img = Input(shape=(25,))
@@ -3481,7 +3497,7 @@ if tsne:
 
 # #### Visualización
 
-# In[185]:
+# In[271]:
 
 
 # # create encoder model
@@ -3537,7 +3553,7 @@ if tsne:
 
 # ## One-Hot
 
-# In[186]:
+# In[272]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -3551,7 +3567,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## Models
 
-# In[187]:
+# In[273]:
 
 
 array_train_images = np.asarray(train_images)
@@ -3582,7 +3598,7 @@ pesos = dict(enumerate(pesos))
 
 # ### KNN
 
-# In[188]:
+# In[274]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -3593,7 +3609,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[189]:
+# In[275]:
 
 
 # # leaf_size = list(range(1,10, 2))
@@ -3631,7 +3647,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Escritura del modelo
 
-# In[190]:
+# In[276]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3646,7 +3662,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Carga de modelo pre-entrenado
 
-# In[191]:
+# In[277]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3658,7 +3674,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Resultados
 
-# In[192]:
+# In[278]:
 
 
 # y_predicted = knn.predict(X_test)
@@ -3694,7 +3710,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # ### Convolution 1D
 
-# In[193]:
+# In[279]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -3702,7 +3718,7 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[194]:
+# In[280]:
 
 
 if city and train_nn:
@@ -3717,7 +3733,7 @@ if city and train_nn:
 
 # #### Escritura del modelo
 
-# In[195]:
+# In[281]:
 
 
 if city and train_nn:
@@ -3729,7 +3745,7 @@ if city and train_nn:
 
 # #### Carga de modelo pre-entrenado
 
-# In[196]:
+# In[282]:
 
 
 if city and not train_nn and not laptop:
@@ -3741,7 +3757,7 @@ if city and not train_nn and not laptop:
 
 # #### Resultados
 
-# In[197]:
+# In[283]:
 
 
 if city and not laptop:
@@ -3777,7 +3793,7 @@ if city and not laptop:
 
 # ### Convolution 2D
 
-# In[198]:
+# In[284]:
 
 
 MODEL_NAME = MODELS_NAME[2]
@@ -3785,7 +3801,7 @@ MODEL_NAME = MODELS_NAME[2]
 
 # #### Entrenamiento
 
-# In[199]:
+# In[285]:
 
 
 if city and train_nn:
@@ -3800,7 +3816,7 @@ if city and train_nn:
 
 # #### Escritura del modelo
 
-# In[200]:
+# In[286]:
 
 
 if city and train_nn:
@@ -3812,7 +3828,7 @@ if city and train_nn:
 
 # #### Carga de modelo pre-entrenado
 
-# In[201]:
+# In[287]:
 
 
 if city and not train_nn and not laptop:
@@ -3822,7 +3838,7 @@ if city and not train_nn and not laptop:
     tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
-# In[202]:
+# In[288]:
 
 
 # ## Exportar los kernels
@@ -3847,7 +3863,7 @@ if city and not train_nn and not laptop:
 #         plt.show()
 
 
-# In[203]:
+# In[289]:
 
 
 # # import tf.keras.mo.Model
@@ -3856,7 +3872,7 @@ if city and not train_nn and not laptop:
 # tasp_cnn_feature_maps.predict(array_train_images[:3]).shape
 
 
-# In[204]:
+# In[290]:
 
 
 # feature_maps = tasp_cnn.predict(array_train_images)
@@ -3876,7 +3892,7 @@ if city and not train_nn and not laptop:
 
 # #### Resultados
 
-# In[205]:
+# In[291]:
 
 
 if city and not laptop:
@@ -3916,19 +3932,19 @@ if city and not laptop:
 
 # ## AutoML
 
-# In[206]:
+# In[292]:
 
 
 MODEL_NAME = MODELS_NAME[3]
 
 
-# In[207]:
+# In[293]:
 
 
 # tasp_cnn.save(root_path + 'madrid_model_XGBOOST_predicted.h5')
 
 
-# In[208]:
+# In[294]:
 
 
 # import autokeras as ak
@@ -3961,7 +3977,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Escritura del modelo
 
-# In[209]:
+# In[295]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3972,7 +3988,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Resultados
 
-# In[210]:
+# In[296]:
 
 
 # Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
@@ -4006,7 +4022,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # Data Summary
 
-# In[211]:
+# In[297]:
 
 
 # MODEL_TIMESTAMP

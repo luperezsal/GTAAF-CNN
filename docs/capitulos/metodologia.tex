@@ -15,7 +15,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
     \begin{figure}[H]
         \centering
-        \includesvg[inkscapelatex=false]{archivos/DataflowImage}
+        \includegraphics[width=15cm]{archivos/DataflowImageESP}
         \caption{Flujo de datos del proceso del proyecto.}
         \label{DataflowImage}
     \end{figure}
@@ -220,7 +220,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                                                                 & 6: Nevando.\\
                                                                 & 7: Se desconoce.\\
                         \hline
-                        \multirow{2}{*}{Tipo Vehículo}          & Numeración en función de orden de aparición.\\
+                        \multirow{1}{*}{Tipo Vehículo}          & Numeración en función de orden de aparición.\\
 
                         \hline
                         \multirow{3}{*}{Tipo Persona}           & 1: Conductor.\\
@@ -264,6 +264,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \label{CasualtyClassImage}
                      \end{figure}
 
+                     Analizando la matriz de correlación \ref{CorrelationMatrixImage} se puede observar que la variable \textit{coordenada_x_utm} y la variable \textit {distrito} están relativamente correlacionadas. Por lo que 
 
                     \begin{figure}[H]
                         \centering
@@ -411,7 +412,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 \centering
                     \begin{tabular}{ |c|c|c| } 
                     \hline
-                    Hiperparámetro & Inicialización & Mutación\\
+                    \textbf{Hiperparámetro} & \textbf{Inicialización} & \textbf{Mutación}\\
                     \hline
                         Profundidad Máxima & [1, 25] & [-6, 6]\\ 
                         Peso mínimo de los hijos & [0.01, 20.0] & [-7, 7] \\ 
@@ -450,7 +451,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 \centering
                     \begin{tabular}{ |c|c| } 
                         \hline
-                        Hiperparámetro & Valor\\
+                        \textbf{Hiperparámetro} & \textbf{Valor}\\
                         \hline
                             Profundidad Máxima & TODO \\ 
                             Peso mínimo de los hijos & TODO \\ 
@@ -462,13 +463,15 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 \label{BestGASolutionTable}
             \end{table}
 
+
             %SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
             %SE TESTA CON VALIDACION
 
         \item XGBoost
 
+            \textbf{TODO: Decir que se entrena con los datos train con downsampling si es el mejor resultado al final en los experimentos}\\
 
-            Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se calcula la importancia de cada clase mediante el cálculo de los pesos.
+            Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se calcula la importancia de cada clase mediante el cálculo de los pesos. \cite{XGBoostFeatureWeightsMeaning}
 
 
             \begin{figure}[H]
@@ -477,6 +480,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 \caption{Pesos asignados por XGboost a las características.}
                 \label{FeatureWeightsImage}
              \end{figure}
+
 
         \item Construcción de imágenes
 
@@ -493,29 +497,29 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
             \begin{table}[H]
               \centering
               \begin{tabular}{ |c|c| }
-                   \toprule
+                   \hline
                    \textbf{Categoría} & \textbf{Variable}\\
 
-                   \midrule
+                   \hline
                    \multirow{4}{*}{Accidente}            & Coordenada X.\\
                                                          & Coordenada Y.\\
                                                          & Hora.\\
                                                          & Vehículos implicados.\\
 
-                   \midrule
+                   \hline
                    \multirow{1}{*}{Ambiente}             & Estado meteorológico.\\
 
-                   \midrule
+                   \hline
                    \multirow{2}{*}{Carretera}            & TODO: ESTO NO DEBERIA ESTAR AQUI Tipo de accidente\\
                                                          & Distrito\\
 
-                   \midrule
+                   \hline
                    \multirow{4}{*}{Conductor}            & Tipo Persona.\\
                                                          & Sexo.\\
                                                          & Rango Edad.\\
                                                          & Positivo.\\
 
-                   \bottomrule
+                   \hline
               \end{tabular}
               \caption{Transformaciones aplicadas a los datos.}
               \label{JerarquiaCaracteristicasTabla}
@@ -537,14 +541,44 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
             \begin{enumerate}
 
-                \item La importancia de un padre viene dada por ĺa suma de los pesos de las características hijas.
+                \item La importancia de un padre viene dada por ĺa suma de los pesos de las características hijas, en la tabla \ref{PesosFinalesCaracteristicas} se observa el cálculo de cada característica para las categorías principales.
 
                 \item La asignación de las filas de los padres se realiza de forma intercalada en función de su peso. Aquel padre que más importancia tenga irá posicionado en la fila central de la matriz, el segundo padre irá posicionado por encima de éste y el tercero por debajo y así sucesivamente, de tal forma que se irá creando una estructura en la que dichos padres se interpolan entre las filas en función de su peso.
 
                 \item Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
-
-
             \end{enumerate}
+
+
+            \begin{table}[H]
+              \centering
+              \begin{tabular}{ |c|c|c|c| }
+                   \hline
+                   \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
+
+                   \hline
+                   \multirow{4}{*}{Accidente}   & \multirow{4}{*}{TODO: 1}      & Coordenada X          & TODO: 1\\
+                                                &                               & Coordenada Y          & TODO: 1\\
+                                                &                               & Hora                  & TODO: 1\\
+                                                &                               & Vehículos implicados  & TODO: 1\\
+
+                   \hline
+                   \multirow{1}{*}{Ambiente}    & \multirow{1}{*}{TODO: 1}      & Estado meteorológico  & TODO: 1\\
+
+                   \hline
+                   \multirow{2}{*}{Carretera}   & \multirow{2}{*}{TODO: 1}      & Tipo de accidente     & TODO: 1\\
+                                                &                               & Distrito              & TODO: 1\\
+
+                   \hline
+                   \multirow{4}{*}{Conductor}   & \multirow{4}{*}{TODO: 1}      & Tipo Persona          & TODO: 1\\
+                                                &                               & Sexo                  & TODO: 1\\
+                                                &                               & Rango Edad            & TODO: 1\\
+                                                &                               & Positivo              & TODO: 1\\
+                   \hline
+              \end{tabular}
+              \caption{Cálculo de pesos de características y categorías mediante XGBoost.}
+              \label{PesosFinalesCaracteristicas}
+            \end{table}
+
 
             El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
 
@@ -553,11 +587,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_0}
                 \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_1}
                 \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_2}
-                \caption{Representación de las muestras de accidentes en forma de matriz de grises.}
 
+                \caption{Representación de las muestras de accidentes en forma de matriz de grises.}
                 \label{SampledImagesExampleImage}
             \end{figure}
-
+ 
         \item Implementación de Modelos
 
             En esta sección analizaremos los modelos utilizados en este proyecto con el objetivo de realizar un estudio comparativo entre las arquitecturas.

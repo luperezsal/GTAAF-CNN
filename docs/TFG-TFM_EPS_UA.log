@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  17 MAY 2022 10:09
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  17 MAY 2022 15:42
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2976,24 +2976,12 @@ Package natbib Warning: Citation `Software' on page 29 undefined on input line
 
 ]
 chapter 5.
-File: ./svg-inkscape/DataflowImage_svg-raw.pdf Graphic file (type pdf)
-<use ./svg-inkscape/DataflowImage_svg-raw.pdf>
-
-Overfull \hbox (37.76985pt too wide) in paragraph at lines 18--19
- [][] 
- []
-
+File: archivos/DataflowImageESP.png Graphic file (type bmp)
+<archivos/DataflowImageESP.png>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [31]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [32]
-Overfull \vbox (22.42299pt too high) has occurred while \output is active []
-
-
-[33]
 File: ./svg-inkscape/GranttImage_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/GranttImage_svg-raw.pdf>
 
@@ -3002,21 +2990,25 @@ Overfull \hbox (32.74792pt too wide) in paragraph at lines 27--28
  []
 
 
-Package natbib Warning: Citation `DatasetMadrid' on page 34 undefined on input 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [32]
+
+Package natbib Warning: Citation `DatasetMadrid' on page 33 undefined on input 
 line 40.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [34]
+ [33]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [35]
+ [34]
 
-Package natbib Warning: Citation `InfoDatasetMadrid' on page 36 undefined on in
+Package natbib Warning: Citation `InfoDatasetMadrid' on page 35 undefined on in
 put line 158.
 
-[36] [37]
+[35] [36]
 Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
@@ -3027,12 +3019,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 253--254
  []
 
 
-Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 38 undef
+Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 37 undef
 ined on input line 255.
 
-[38]
+[37]
 
-Package natbib Warning: Citation `ImbalancedDataReview' on page 39 undefined on
+Package natbib Warning: Citation `ImbalancedDataReview' on page 38 undefined on
  input line 257.
 
 Package svg Info: Last page of `./svg-inkscape/CasualtyClass_svg-tex.pdf' is 1 
@@ -3041,549 +3033,7 @@ on input line 262.
 File: ./svg-inkscape/CasualtyClass_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/CasualtyClass_svg-tex.pdf, page 1>
 )
-Package svg Info: Last page of `./svg-inkscape/CorrelationMatrix_svg-tex.pdf' i
-s 1 on input line 270.
-
-(svg-inkscape/CorrelationMatrix_svg-tex.pdf_tex
-File: ./svg-inkscape/CorrelationMatrix_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/CorrelationMatrix_svg-tex.pdf, page 1>
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [39]
-Package svg Info: Last page of `./svg-inkscape/PCAImage_svg-tex.pdf' is 1 on in
-put line 277.
-
-(svg-inkscape/PCAImage_svg-tex.pdf_tex
-File: ./svg-inkscape/PCAImage_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/PCAImage_svg-tex.pdf, page 1>
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [40]
-
-Package natbib Warning: Citation `NormalizationSensitiveModels' on page 41 unde
-fined on input line 287.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
-
- []
-
-
-Package natbib Warning: Citation `DataNormalizationInvestigation' on page 41 un
-defined on input line 290.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 290--291
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--294
-
- []
-
-[41]
-Underfull \hbox (badness 10000) in paragraph at lines 307--308
-
- []
-
-File: archivos/Datos/DataSplit.png Graphic file (type bmp)
-<archivos/Datos/DataSplit.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--316
-[][][]|\TU/lmr/m/n/10 https://towardsdatascience.com/train-test-split-and-cross
--validation-in-python-
- []
-
-
-Underfull \hbox (badness 1320) in paragraph at lines 316--316
-\TU/lmr/m/n/10 80b61beca4b6. División de un conjunto de datos en datos de entre
-namiento y
- []
-
-
-Package natbib Warning: Citation `Downsampling' on page 42 undefined on input l
-ine 332.
-
-[42]
-
-Package natbib Warning: Citation `SMOTEII' on page 43 undefined on input line 3
-37.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 337--338
-
- []
-
-
-Package natbib Warning: Citation `TSNEPaper' on page 43 undefined on input line
- 344.
-
-Package svg Info: Last page of `./svg-inkscape/2d_tsne_clean_svg-tex.pdf' is 1 
-on input line 356.
-(svg-inkscape/2d_tsne_clean_svg-tex.pdf_tex
-File: ./svg-inkscape/2d_tsne_clean_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/2d_tsne_clean_svg-tex.pdf, page 1>
-)
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 356--357
- [][] 
- []
-
-Package svg Info: Last page of `./svg-inkscape/2d_tsne_train_svg-tex.pdf' is 1 
-on input line 363.
-(svg-inkscape/2d_tsne_train_svg-tex.pdf_tex
-File: ./svg-inkscape/2d_tsne_train_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/2d_tsne_train_svg-tex.pdf, page 1>
-)
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 363--364
- [][] 
- []
-
-Package svg Info: Last page of `./svg-inkscape/3d_tsne_clean_svg-tex.pdf' is 1 
-on input line 370.
-(svg-inkscape/3d_tsne_clean_svg-tex.pdf_tex
-File: ./svg-inkscape/3d_tsne_clean_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/3d_tsne_clean_svg-tex.pdf, page 1>
-)
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 370--371
- [][] 
- []
-
-Package svg Info: Last page of `./svg-inkscape/3d_tsne_train_svg-tex.pdf' is 1 
-on input line 376.
-(svg-inkscape/3d_tsne_train_svg-tex.pdf_tex
-File: ./svg-inkscape/3d_tsne_train_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/3d_tsne_train_svg-tex.pdf, page 1>
-)
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 376--377
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 392--393
-
- []
-
-
-Package natbib Warning: Citation `GAXGBoostCode' on page 43 undefined on input 
-line 394.
-
-
-Package natbib Warning: Citation `GAXGBoostPaper' on page 43 undefined on input
- line 394.
-
-[43] [44]
-
-Package natbib Warning: Citation `InitAndMutationLimitsHyperparamsTable' on pag
-e 45 undefined on input line 408.
-
-Package svg Info: Last page of `./svg-inkscape/EvolucionHiperparametros_svg-tex
-.pdf' is 1 on input line 435.
-(svg-inkscape/EvolucionHiperparametros_svg-tex.pdf_tex
-File: ./svg-inkscape/EvolucionHiperparametros_svg-tex.pdf Graphic file (type pd
-f)
-<use ./svg-inkscape/EvolucionHiperparametros_svg-tex.pdf, page 1>
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [45]
-Package svg Info: Last page of `./svg-inkscape/EvolucionF1Score_svg-tex.pdf' is
- 1 on input line 442.
-
-(svg-inkscape/EvolucionF1Score_svg-tex.pdf_tex
-File: ./svg-inkscape/EvolucionF1Score_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/EvolucionF1Score_svg-tex.pdf, page 1>
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [46]
-Package svg Info: Last page of `./svg-inkscape/FeatureWeights_svg-tex.pdf' is 1
- on input line 476.
-
-(svg-inkscape/FeatureWeights_svg-tex.pdf_tex
-File: ./svg-inkscape/FeatureWeights_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/FeatureWeights_svg-tex.pdf, page 1>
-)
-Overfull \hbox (22.5867pt too wide) in paragraph at lines 476--477
- [][] 
- []
-
-
-Package natbib Warning: Citation `TASPCNN' on page 47 undefined on input line 4
-88.
-
-[47]
-
-Package natbib Warning: Citation `JerarquiaImagenes' on page 48 undefined on in
-put line 490.
-
-[48]
-Package svg Info: Last page of `./svg-inkscape/madrid_image_example_0_svg-tex.p
-df' is 1 on input line 553.
- (svg-inkscape/madrid_image_example_0_svg-tex.pdf_tex
-File: ./svg-inkscape/madrid_image_example_0_svg-tex.pdf Graphic file (type pdf)
-
-<use ./svg-inkscape/madrid_image_example_0_svg-tex.pdf, page 1>
-)
-Package svg Info: Last page of `./svg-inkscape/madrid_image_example_1_svg-tex.p
-df' is 1 on input line 554.
-
-(svg-inkscape/madrid_image_example_1_svg-tex.pdf_tex
-File: ./svg-inkscape/madrid_image_example_1_svg-tex.pdf Graphic file (type pdf)
-
-<use ./svg-inkscape/madrid_image_example_1_svg-tex.pdf, page 1>
-)
-Package svg Info: Last page of `./svg-inkscape/madrid_image_example_2_svg-tex.p
-df' is 1 on input line 555.
-
-(svg-inkscape/madrid_image_example_2_svg-tex.pdf_tex
-File: ./svg-inkscape/madrid_image_example_2_svg-tex.pdf Graphic file (type pdf)
-
-<use ./svg-inkscape/madrid_image_example_2_svg-tex.pdf, page 1>
-)
-
-Package natbib Warning: Citation `GridSearchSklearnLibrary' on page 49 undefine
-d on input line 572.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 575--576
-
- []
-
-
-Underfull \vbox (badness 4217) has occurred while \output is active []
-
- [49]
-
-Package natbib Warning: Citation `GradientVanishingRelu' on page 50 undefined o
-n input line 600.
-
-File: archivos/CNN/RELUImage.png Graphic file (type bmp)
-<archivos/CNN/RELUImage.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-File: archivos/CNN/2D/TASCNN.png Graphic file (type bmp)
-<archivos/CNN/2D/TASCNN.png>
-
-Overfull \hbox (42.67911pt too wide) in paragraph at lines 626--627
- [][] 
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Package natbib Warning: Citation `AutoSklearn' on page 50 undefined on input li
-ne 634.
-
-[50] [51]
-File: archivos/subs-sin.png Graphic file (type bmp)
-<archivos/subs-sin.png>
-File: archivos/subs-con.png Graphic file (type bmp)
-<archivos/subs-con.png>
-File: archivos/subs-sin.png Graphic file (type bmp)
-<archivos/subs-sin.png>
-File: archivos/subs-con.png Graphic file (type bmp)
-<archivos/subs-con.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-File: archivos/130.png Graphic file (type bmp)
-<archivos/130.png>
-File: archivos/160.png Graphic file (type bmp)
-<archivos/160.png>
-File: archivos/190.png Graphic file (type bmp)
-<archivos/190.png>
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-File: archivos/230.png Graphic file (type bmp)
-<archivos/230.png>
-File: archivos/260.png Graphic file (type bmp)
-<archivos/260.png>
-File: archivos/290.png Graphic file (type bmp)
-<archivos/290.png>
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-File: archivos/330.png Graphic file (type bmp)
-<archivos/330.png>
-File: archivos/360.png Graphic file (type bmp)
-<archivos/360.png>
-File: archivos/390.png Graphic file (type bmp)
-<archivos/390.png>
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) (capitulos/desarrollo.tex [52] [53] [54
-
-
-]
-chapter 6.
-
-Underfull \hbox (badness 10000) in paragraph at lines 14--16
-
- []
-
-(/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-(/home/luis/.miktex/texmfs/install/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 31.
- [55]
-(/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-(/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2020/03/24 1.8d listings language file
-) [56]
-(/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-) [57]
-(/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-) [58]
-[59] (/home/luis/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-(archivos/ejemplos/holamundo.cpp) (archivos/ejemplos/holamundo.py)
-(archivos/ejemplos/holamundo.m)) (capitulos/resultados.tex [60]
-chapter 7.
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--15
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--17
-
- []
-
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0.pdf>
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf>
-[61
-
-
-]
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf>
-[62] (archivos/ejemplos/perjudicialesopticacentro.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf>
-) [63]
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4.pdf>
-(archivos/ejemplos/polarnorm.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5.pdf>
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [64]
-Overfull \hbox (47.22083pt too wide) in paragraph at lines 227--229
-[]\TU/lmr/m/n/10.95 Gracias a la herramienta \TU/lmr/m/it/10.95 matlab2tikz \TU
-/lmr/m/n/10.95 ([]$[][][][][] [][][] [][] [] [][][][][][][][][][] [] [][][][] [
-] [][][][][][][][][][][][][] [] [][][][][][][][][][][][] []
- []
-
-(archivos/ejemplos/ParedFina.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf>
-) [65] (archivos/ejemplos/2D-3314hz.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7.pdf>
-)
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8.pdf>
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf>
-[66]) (capitulos/conclusiones.tex [67] [68
-
-
-]
-chapter 8.
-[69]
-Overfull \hbox (10.95pt too wide) in paragraph at lines 92--99
-[]\TU/lmr/m/n/10.95 donde:[] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--99
-
- []
-
-[70]) [71]
-No file TFG-TFM_EPS_UA.bbl.
-No file TFG-TFM_EPS_UA.acr.
-(anexos/anexo_I.tex [72]
-chapter A.
-) (anexos/anexo_2.tex [73
-
-
-] [74
-
-
-]
-chapter B.
-
-Underfull \hbox (badness 10000) in paragraph at lines 14--15
-
- []
-
-[75]
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
-
- []
-
-[76
-
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 23--24
-
- []
-
-[77
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 29--30
-
- []
-
-) (anexos/anexo_3.tex [78
-
-
-]
-chapter C.
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-[79
-
-
-]
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
- [80])
-
-Package natbib Warning: There were undefined citations.
-
-The property list \polyglossia@langsetup contains the pairs (without outer
-braces):
->  {latex/script}  =>  {latin}
->  {latex/lcscript}  =>  {latin}
->  {latex/scripttag}  =>  {}
->  {latex/language}  =>  {Latex}
->  {latex/langtag}  =>  {ENG}
->  {latex/bcp47}  =>  {}
->  {latex/hyphennames}  =>  {english}
->  {latex/direction}  =>  {LR}
->  {latex/hyphenmins}  =>  {2,3}
->  {latex/frenchspacing}  =>  {false}
->  {latex/indentfirst}  =>  {false}
->  {latex/fontsetup}  =>  {true}
->  {latex/envname}  =>  {latex}
->  {latex/babelname}  =>  {latex}
->  {latex/localnumeral}  =>  {polyglossia@C@localnumeral}
->  {latex/Localnumeral}  =>  {polyglossia@C@localnumeral}
->  {latex/DefineCommandsCmd}  =>  {use_none:n}
->  {spanish/script}  =>  {latin}
->  {spanish/lcscript}  =>  {latin}
->  {spanish/scripttag}  =>  {}
->  {spanish/language}  =>  {Spanish}
->  {spanish/langtag}  =>  {ESP}
->  {spanish/bcp47}  =>  {es-ES}
->  {spanish/hyphennames}  =>  {spanish}
->  {spanish/direction}  =>  {LR}
->  {spanish/hyphenmins}  =>  {2,2}
->  {spanish/frenchspacing}  =>  {true}
->  {spanish/indentfirst}  =>  {true}
->  {spanish/fontsetup}  =>  {true}
->  {spanish/envname}  =>  {spanish}
->  {spanish/babelname}  =>  {spanish}
->  {spanish/localnumeral}  =>  {polyglossia@C@localnumeral}
->  {spanish/Localnumeral}  =>  {polyglossia@C@localnumeral}
->  {spanish/DefineCommandsCmd}  =>  {xpg_define_language_commands:e}
->  {spanish/totalhyphenmin}  =>  {5}.
-The property list \__xpg_alias contains the pairs (without outer braces):
->  {latex/target}  =>  {latex}
->  {spanish/target}  =>  {spanish}
->  {es/target}  =>  {spanish}
->  {es-MX/target}  =>  {spanish}
->  {es-MX/variant}  =>  {mexican}
->  {es-MX/options}  =>  {variant=mexican}
->  {es-ES/target}  =>  {spanish}
->  {es-ES/variant}  =>  {spanish}
->  {es-ES/options}  =>  {variant=spanish}
->  {spanishmx/target}  =>  {spanish}
->  {spanishmx/variant}  =>  {mexican}
->  {spanishmx/options}  =>  {variant=mexican}.
-(TFG-TFM_EPS_UA.aux
-LaTeX Info: Redefining \rmfamily on input line 29.
-LaTeX Info: Redefining \sffamily on input line 29.
-LaTeX Info: Redefining \ttfamily on input line 29.
-)
-Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
- ) 
-Here is how much of TeX's memory you used:
- 67087 strings out of 410931
- 1542191 string characters out of 2825211
- 2822999 words of memory out of 3000000
- 86559 multiletter control sequences out of 15000+600000
- 504987 words of font info for 213 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 113i,21n,150p,10708b,3029s stack positions out of 10000i,1000n,20000p,200000b,80000s
-
-Output written on TFG-TFM_EPS_UA.pdf (100 pages).
+! Missing $ inserted.
+<inserted text> 
+                $
+l.267 ...que la variable \textit{coord
