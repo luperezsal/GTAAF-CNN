@@ -4058,19 +4058,27 @@ if madrid:
 
 for index, measure_type in enumerate(MEASURE_TYPES):
 
+    # Si son dos ciudades el plot es bidimensional.
+    if len(cities) > 1:
+        axis_leeds = axs[index, 0]
+        axis_madrid = axs[index, 1]
+    else:
+        axis_leeds = axis_madrid = axs[index]
+
     if leeds:
         ax = sns.barplot(x = 'accident_type',
                          y = measure_type,
                          hue = 'model',
                          data = leeds_reports_summary.loc[ACCIDENT_TYPES],
-                         ax = axs[index, 0]).set(title = f"{measure_type} Leeds")
+                         ax = axis_leeds).set(title = f"{measure_type} Leeds")
+        i += 1
 
     if madrid:
         ax = sns.barplot(x = 'accident_type',
                          y = measure_type,
                          hue = 'model',
                          data = madrid_reports_summary.loc[ACCIDENT_TYPES],
-                         ax = axs[index, 1]).set(title = f"{measure_type} Madrid")
+                         ax = axis_madrid).set(title = f"{measure_type} Madrid")
 
 SAVE_PATH = f"{REPORTS_SUMMARY_PATH}{MODEL_TIMESTAMP}.png"
 
