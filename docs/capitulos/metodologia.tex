@@ -13,6 +13,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
 \section{Diagrama de flujo}
 
+    En primer lugar se define el flujo de ejecución del proyecto como se muestra en la figura \ref{DataflowImage}, donde se han dividido las etapas del proyecto en seis bloques claramente diferenciados. Cada uno de estos está orientado a una disciplina distinta en proyectos de \textit{Ciencia de Datos} y por lo tanto serán detallados en cada una de las subsecciones posteriores.
+
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=15cm]{archivos/DataflowImageESP}
@@ -33,9 +36,10 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
     En esta sección describiremos cada uno de los pasos que ha seguido el desarrollo del proyecto, desde la búsqueda inicial de datos hasta la implementación final de los algoritmos:
 
-    \begin{enumerate}
+    \subsection{Datos}
 
-        \item Datos
+
+            Como en cualquier proyecto de \textit{Ciencia de Datos} el primer paso contempla la obtención, preparación y estudio de los datos. Este es el proceso en el que más tiempo se invierte en el ciclo de vida de un proyecto, algunos estudios apuntan que alrededor del 80 por ciento del tiempo en un proyecto se destina a esta tarea \cite{LifecycleDataScienceProjectsTimes}, por lo que es extremadamente importante aplicar buenas prácticas a la hora de llevar a cabo esta fase.
 
             El conjunto de datos con el que se ha trabajado en este proyecto describe accidentes de tráfico de la ciudad de Madrid en un periodo concreto, desde el año 2019 hasta el 2022. Este dataset ha sido obtenido desde \cite{DatasetMadrid}, repositorio donde es posible encontrar distintos datasets relativos a la Comunidad de Madrid.
 
@@ -264,7 +268,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \label{CasualtyClassImage}
                      \end{figure}
 
-                     Analizando la matriz de correlación \ref{CorrelationMatrixImage} se puede observar que la variable \textit{coordenada_x_utm} y la variable \textit {distrito} están relativamente correlacionadas. Por lo que 
+                     Analizando la matriz de correlación \ref{CorrelationMatrixImage} se puede observar que la variable \textit{coordenada x utm} y la variable \textit{distrito} están relativamente correlacionadas. Por lo que 
 
                     \begin{figure}[H]
                         \centering
@@ -318,356 +322,365 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \label{DataSplitImage}
                      \end{figure}
 
-
-                \item Remuestreo
-
-
-                    Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias. En este proyecto se han hecho uso de las siguientes técnicas de remuestreo:
-
-                    
-                    \begin{enumerate}
-
-                        \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras igualando el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite. 
-                        
-                        
-                        \cite{Downsampling}
-
-                        \textbf{No se redactará más hasta que se compruebe en los experimentos que esa técnica nos sirve}
-                        
-
-                        \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Se ha hecho uso de la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Esta técnica selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
-
-                        \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
-
-                    \end{enumerate}
-
-
-                    Una vez aplicadas las técnicas de remuestreo al conjunto de datos para balancearlo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} con respecto a los datos originales mediante \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} es una técnica que permite visualizar datos multidimensionales proyectando cada muetra en un espacio bidimensional o tridimensional. Este método es una variante simplificada y optimizada del algoritmo \glsentryfull{sne}.
-
-                    Mientras que \glsentryshort{sne} convierte las distancias Euclídeas entre las muestras a probabilidades condicionales que presenten similaridades entre sí mediante probabilidades Gaussianas, \glsentryshort{tsne} modifica su función de coste de tal forma que utiliza una distribución t-Student, permitiendo además trabajar con gradientes simplificados.
-
-
-                    En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}.
-
-
-                    \begin{figure}
-                        \centering
-                        \begin{subfigure}[b]{0.4\textwidth}
-                            \centering
-                            \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_clean}
-                            \caption{TSNE de 2 componentes aplicado a los datos originales.}
-                            \label{TSNEImages:Clean2D}
-                        \end{subfigure}
-                        % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
-                        \begin{subfigure}[b]{0.4\textwidth}
-                            \centering
-                            \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_train}
-                            \caption{TSNE de 2 componentes aplicado a los datos generados por SMOTE-II.}
-                            \label{TSNEImages:Train2D}
-
-                        \end{subfigure}
-                        \begin{subfigure}[b]{0.4\textwidth}
-                            \centering
-                            \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_clean}
-                            \caption{TSNE de 3 componentes aplicado a los datos originales.}
-                            \label{TSNEImages:Clean3D}
-                        \end{subfigure}
-                        \begin{subfigure}[b]{0.4\textwidth}
-                            \centering
-                            \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_train}
-                            \caption{TSNE de 3 componentes aplicado a los datos generados por SMOTE-II.}
-                            \label{TSNEImages:Train3D}
-                        \end{subfigure}
-                        \caption{TSNE de 2 y 3 componentes aplicado a los datos originales y a los generados sintéticamente (\glsentryshort{smoteii}).}
-                        \label{TSNEImages}
-                     \end{figure}
-
             \end{enumerate}
 
 
 
+        \subsection{Remuestreo}
 
 
-        \item Algoritmo Genético
+            Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias. En este proyecto se han hecho uso de las siguientes técnicas de remuestreo:
 
-            Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado. En este proyecto es necesario optmizar los hiperparámetros del algoritmo \glsentryshort{xgboost}.\\
-
-            Para ello se ha hecho uso de algoritmos genéticos \cite{GAXGBoostCode}, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas \cite{GAXGBoostPaper}.
-
-            Debido al coste computacional que tendría optimizar todos los parámetros por la magnitud del espacio de búsqueda y al no ser necesario tener en cuenta todos, se han seleccionado aquellos que más influencia tienen en el entrenamiento del modelo. Los hiperparámetros de los que consta cada individuo de la población son:
-
-            \begin{enumerate}
-
-                \item Profundidad máxima: es la máxima altura que puede tomar el árbol. Si el árbol de decisión alcanza demasiada profundidad tenderá al \textit{overfitting} ya que aprenderá relaciones complejas entre los datos que pueden deberse a ruido en los datos de entrenamiento.
-
-                \item Peso mínimo de los hijos: es el mínimo peso que se establece a la hora de crear un nuevo nodo en el árbol. Cuando se entrena un árbol de decisión éste genera nuevos nodos en base a máxima separabilidad de los datos de entrenamiento en cada nivel. Con el límite de peso de los hijos establecemos un umbral mínimo de muestras que deben pertenecer a un nodo para realizar la separación. Un valor bajo en este parámetro permitirá crear nodos con menos muestras y por lo tanto el modelo tenderá al \textit{overfitting}.
-
-                \item ETA: tamaño de paso utilizado para aplicar descenso por gradiente para minimizar la pérdida de los árboles anteriores.
-
-            \end{enumerate}
-
-            La inicialización y mutación de los valores de los individuos viene dada por una limitación mínima y máxima que pueden, ya que, si no se contemplase, los valores podrían tomar valores extremos reduciendo el rendimiento de entrenamiento y resultados. Por lo tanto los individuos variarán sus parámetros tomando un valor aleatorio de estos rangos.  Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no tomen valores extremos. La tabla \cite{InitAndMutationLimitsHyperparamsTable} muestra los límites de los hiperparámetros.
-
-            \begin{table}[H]
-                \centering
-                    \begin{tabular}{ |c|c|c| } 
-                    \hline
-                    \textbf{Hiperparámetro} & \textbf{Inicialización} & \textbf{Mutación}\\
-                    \hline
-                        Profundidad Máxima & [1, 25] & [-6, 6]\\ 
-                        Peso mínimo de los hijos & [0.01, 20.0] & [-7, 7] \\ 
-                        ETA & [0.01, 1] &  [-0.3, 0.3] \\ 
-                    \hline
-
-                    \end{tabular}
-
-                \caption{Límites de inicialización y mutación de los hiperparámetros de los individuos.}
-                \label{InitAndMutationLimitsHyperparamsTable}
-            \end{table}
-
-            Una vez inicializados aleatoriamente los TODO:X individuos especificados en la población, éstos se evaluarán instanciando TODO:X modelos \glsentryshort{xgboost}con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará cada instancia \glsentryshort{xgboost} será el conjunto de entrenamiento TODO:XX. La función \textit{fitness} que evaluará cada individuo será la métrica TODO:F1-X aplicada sobre el conjunto de test obtenido en el proceso de separación de datos.
-
-            \textbf{TODO: No se redactará más hasta tener claro cuál es la mejor forma de entrenar el \glsentryshort{xgboost} (función de validación y datos de entrenamiento)}
-
-            En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación.
-
-            \begin{figure}[H]
-                \centering
-                \includesvg[scale=0.4]{archivos/GA/EvolucionHiperparametros}
-                \caption{Evolución de hiperparámetros a lo largo de las iteraciones.}
-                \label{EvolucionHiperparametrosImage}
-             \end{figure}
-
-            \begin{figure}[H]
-                \centering
-                \includesvg[scale=0.4]{archivos/GA/EvolucionF1Score}
-                \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
-                \label{EvolucionF1ScoreImage}
-             \end{figure}
-             
-            En la tabla \ref{BestGASolutionTable} se pueden observar el mejor individuo obtenido después de \textit{TODO: X} generaciones.
-
-            \begin{table}[H]
-                \centering
-                    \begin{tabular}{ |c|c| } 
-                        \hline
-                        \textbf{Hiperparámetro} & \textbf{Valor}\\
-                        \hline
-                            Profundidad Máxima & TODO \\ 
-                            Peso mínimo de los hijos & TODO \\ 
-                            ETA & TODO \\ 
-                        \hline
-
-                    \end{tabular}
-                \caption{Mejores parámetros de XGBoost tras aplicar el algoritmo genético.}
-                \label{BestGASolutionTable}
-            \end{table}
-
-
-            %SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
-            %SE TESTA CON VALIDACION
-
-        \item XGBoost
-
-            \textbf{TODO: Decir que se entrena con los datos train con downsampling si es el mejor resultado al final en los experimentos}\\
-
-            Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se calcula la importancia de cada clase mediante el cálculo de los pesos. \cite{XGBoostFeatureWeightsMeaning}
-
-
-            \begin{figure}[H]
-                \centering
-                \includesvg[scale = 0.6]{archivos/XGBoost/FeatureWeights}
-                \caption{Pesos asignados por XGboost a las características.}
-                \label{FeatureWeightsImage}
-             \end{figure}
-
-
-        \item Construcción de imágenes
-
-
-            Debido a que las \glsentryshort{cnn} aprenden patrones sobre la entrada de datos como imágenes, es importante que éstas estén construidas de tal forma que maximice la representación de la información, es decir, es necesario aplicar técnicas que posicionen cada característica en un pixel de la matriz maximizando la representación de los accidentes (TODO: \textbf{relamente no entiendo muy bien la motivación que ha seguido la gente de TASPCNN a la hora de construir las imágenes, falta entender por qué lo hacen así, no lo he encontrado en el paper.})
-
-            Por lo tanto, el siguiente paso será transferir cada una de las muestras tabulares de los accidentes a una imagen en escala de grises, donde a cada característica se le asignará una posición de la matriz (\textit{5 x 5}), de tal forma que éstas sean la entrada a las \textit{CNN}.
-
-            Para este objetivo se aplicará el algoritmo FV2GI propuesto en el artículo \cite{TASPCNN}, que asigna las características de una muestra en representación tabular en función de la importancia que éstas presenten en una jerarquía.
-
-            Tal y como se propone en \cite{JerarquiaImagenes} las características que provocan un accidente de tráfico pueden englobarse en una serie de elementos o categorías principales, concretamente: \textit{características del conductor, el estado de la carretera, características propias del vehículo y condiciones del ambiente}. Se muestra en la tabla \ref{JerarquiaCaracteristicasTabla} las asignaciones de las variables explicativas del conjunto de datos en función de esta jerarquía.
-
-
-            \begin{table}[H]
-              \centering
-              \begin{tabular}{ |c|c| }
-                   \hline
-                   \textbf{Categoría} & \textbf{Variable}\\
-
-                   \hline
-                   \multirow{4}{*}{Accidente}            & Coordenada X.\\
-                                                         & Coordenada Y.\\
-                                                         & Hora.\\
-                                                         & Vehículos implicados.\\
-
-                   \hline
-                   \multirow{1}{*}{Ambiente}             & Estado meteorológico.\\
-
-                   \hline
-                   \multirow{2}{*}{Carretera}            & TODO: ESTO NO DEBERIA ESTAR AQUI Tipo de accidente\\
-                                                         & Distrito\\
-
-                   \hline
-                   \multirow{4}{*}{Conductor}            & Tipo Persona.\\
-                                                         & Sexo.\\
-                                                         & Rango Edad.\\
-                                                         & Positivo.\\
-
-                   \hline
-              \end{tabular}
-              \caption{Transformaciones aplicadas a los datos.}
-              \label{JerarquiaCaracteristicasTabla}
-            \end{table}
-
-
-
-            Una vez definida la jerarquía de características y los pesos asociados a cada una de ellas gracias al algoritmo \glsentryshort{xgboost} se construyen las imágenes de acuerdo al criterio \textit{FV2GI}. Este proceso consta de los siguientes pasos:
-
-            \begin{enumerate}
-
-                \item Generación de \textit{n} imágenes inicializadas a 0, donde \textit{n} es el número de muestras tabulares en el dataset.
-                \item Asignación de una fila a cada padre en función de su peso.
-                \item Asignacíón de la la posición de cada característica hija en función de su peso dentro de la fila de su padre.
             
-            \end{enumerate}
-
-            Se deben tomar las siguientes consideraciones a la hora de aplicar \textit{FV2GI}:
-
             \begin{enumerate}
 
-                \item La importancia de un padre viene dada por ĺa suma de los pesos de las características hijas, en la tabla \ref{PesosFinalesCaracteristicas} se observa el cálculo de cada característica para las categorías principales.
+                \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras igualando el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite. 
+                
+                
+                \cite{Downsampling}
 
-                \item La asignación de las filas de los padres se realiza de forma intercalada en función de su peso. Aquel padre que más importancia tenga irá posicionado en la fila central de la matriz, el segundo padre irá posicionado por encima de éste y el tercero por debajo y así sucesivamente, de tal forma que se irá creando una estructura en la que dichos padres se interpolan entre las filas en función de su peso.
+                \textbf{No se redactará más hasta que se compruebe en los experimentos que esa técnica nos sirve}
+                
 
-                \item Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
+                \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Se ha hecho uso de la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Esta técnica selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
+
+                \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
+
             \end{enumerate}
 
 
-            \begin{table}[H]
-              \centering
-              \begin{tabular}{ |c|c|c|c| }
-                   \hline
-                   \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
+            Una vez aplicadas las técnicas de remuestreo al conjunto de datos para balancearlo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} con respecto a los datos originales mediante \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} es una técnica que permite visualizar datos multidimensionales proyectando cada muetra en un espacio bidimensional o tridimensional. Este método es una variante simplificada y optimizada del algoritmo \glsentryfull{sne}.
 
-                   \hline
-                   \multirow{4}{*}{Accidente}   & \multirow{4}{*}{TODO: 1}      & Coordenada X          & TODO: 1\\
-                                                &                               & Coordenada Y          & TODO: 1\\
-                                                &                               & Hora                  & TODO: 1\\
-                                                &                               & Vehículos implicados  & TODO: 1\\
-
-                   \hline
-                   \multirow{1}{*}{Ambiente}    & \multirow{1}{*}{TODO: 1}      & Estado meteorológico  & TODO: 1\\
-
-                   \hline
-                   \multirow{2}{*}{Carretera}   & \multirow{2}{*}{TODO: 1}      & Tipo de accidente     & TODO: 1\\
-                                                &                               & Distrito              & TODO: 1\\
-
-                   \hline
-                   \multirow{4}{*}{Conductor}   & \multirow{4}{*}{TODO: 1}      & Tipo Persona          & TODO: 1\\
-                                                &                               & Sexo                  & TODO: 1\\
-                                                &                               & Rango Edad            & TODO: 1\\
-                                                &                               & Positivo              & TODO: 1\\
-                   \hline
-              \end{tabular}
-              \caption{Cálculo de pesos de características y categorías mediante XGBoost.}
-              \label{PesosFinalesCaracteristicas}
-            \end{table}
+            Mientras que \glsentryshort{sne} convierte las distancias Euclídeas entre las muestras a probabilidades condicionales que presenten similaridades entre sí mediante probabilidades Gaussianas, \glsentryshort{tsne} modifica su función de coste de tal forma que utiliza una distribución t-Student, permitiendo además trabajar con gradientes simplificados.
 
 
-            El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
+            En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}.
 
-            \begin{figure}[H]
+
+            \begin{figure}
                 \centering
-                \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_0}
-                \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_1}
-                \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_2}
+                \begin{subfigure}[b]{0.4\textwidth}
+                    \centering
+                    \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_clean}
+                    \caption{TSNE de 2 componentes aplicado a los datos originales.}
+                    \label{TSNEImages:Clean2D}
+                \end{subfigure}
+                % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
+                \begin{subfigure}[b]{0.4\textwidth}
+                    \centering
+                    \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_train}
+                    \caption{TSNE de 2 componentes aplicado a los datos generados por SMOTE-II.}
+                    \label{TSNEImages:Train2D}
 
-                \caption{Representación de las muestras de accidentes en forma de matriz de grises.}
-                \label{SampledImagesExampleImage}
-            \end{figure}
- 
-        \item Implementación de Modelos
-
-            En esta sección analizaremos los modelos utilizados en este proyecto con el objetivo de realizar un estudio comparativo entre las arquitecturas.
-
-
-            \begin{enumerate}
-
-                \item KNN
-
-                    El método \glsentryshort{knn} servirá como referencia para testar el rendimiento del resto de modelos. Al ser un método que se aplica sobre un conjunto de datos tabular original, no hará uso de las imágenes generadas.
-
-                    Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary}. Esta técnica permite la optimización de los valores de los hiperparámetros mediante una búsqueda exhaustiva en un espacio de búsqueda definido por el usuario, probando distintas combinaciones hasta cubrirlo por completo. 
-
-
-                    Se puede observar en la tabla \ref{BestParamsKNNGridSearchTable} los mejores parámetros para \textit{KNN} después de haber ejecutado \textit{Grid Search} sobre el conjunto de entrenamiento.\\
-
-                    \begin{table}[H]
-                        \centering
-                        \begin{tabular}{ |c|c| }
-                            \hline
-                            Atributo & Valor\\
-                            \hline
-                                Número de vecinos & 21 \\ 
-                                Tipo de distancia & Minkowski \\ 
-                            \hline
-                        \end{tabular}
-                        \caption{Mejores parámetros de KNN tras aplicar GridSearch.}
-                        \label{BestParamsKNNGridSearchTable}
-                    \end{table}
+                \end{subfigure}
+                \begin{subfigure}[b]{0.4\textwidth}
+                    \centering
+                    \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_clean}
+                    \caption{TSNE de 3 componentes aplicado a los datos originales.}
+                    \label{TSNEImages:Clean3D}
+                \end{subfigure}
+                \begin{subfigure}[b]{0.4\textwidth}
+                    \centering
+                    \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_train}
+                    \caption{TSNE de 3 componentes aplicado a los datos generados por SMOTE-II.}
+                    \label{TSNEImages:Train3D}
+                \end{subfigure}
+                \caption{TSNE de 2 y 3 componentes aplicado a los datos originales y a los generados sintéticamente (\glsentryshort{smoteii}).}
+                \label{TSNEImages}
+             \end{figure}
 
 
-                \item CNN
-
-                    Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos analizar las arquitecturas de las \textit{CNNs} implementadas que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} (unidimensionales o bidimensionales según sea el caso correspondiente) y la forma en la que éste se desplaza debido a su dimensionalidad, por lo tanto detallaremos ambas arquitecturas de la misma forma.
-
-                    La arquitectura consta de cuatro capas convolucionales con tamaños de kernel (\textit{1 x 3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3 x 3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarán en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada uno de los mapas de características se aplica un proceso de \glsentryshort{batchnormalization}.
-
-                    El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplícarán añadiendo ceros en los ĺímites de las imágenes, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
-
-                    A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente \cite{GradientVanishingRelu}.
-
-                    \begin{center}
-                        $f(x) = \left\{
-                                       \begin{array}{lr}
-                                         0 & \text{if } x<=0\\
-                                         x & \text{if } x>0
-                                       \end{array}
-                                \right.$
-                    \end{center}
-
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=10cm]{archivos/CNN/RELUImage}
-                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
-                        \label{RELUImage}
-                     \end{figure}
-
-                    La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5 x 5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
+    \subsection{Algoritmo Genético}
 
 
-                    Para ejemplificar la arquitectura de las \glsentryshort{nn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
+        Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado. En este proyecto es necesario optmizar los hiperparámetros del algoritmo \glsentryshort{xgboost}.\\
+
+        Para ello se ha hecho uso de algoritmos genéticos \cite{GAXGBoostCode}, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas \cite{GAXGBoostPaper}.
+
+        Debido al coste computacional que tendría optimizar todos los parámetros por la magnitud del espacio de búsqueda y al no ser necesario tener en cuenta todos, se han seleccionado aquellos que más influencia tienen en el entrenamiento del modelo. Los hiperparámetros de los que consta cada individuo de la población son:
+
+        \begin{enumerate}
+
+            \item Profundidad máxima: es la máxima altura que puede tomar el árbol. Si el árbol de decisión alcanza demasiada profundidad tenderá al \textit{overfitting} ya que aprenderá relaciones complejas entre los datos que pueden deberse a ruido en los datos de entrenamiento.
+
+            \item Peso mínimo de los hijos: es el mínimo peso que se establece a la hora de crear un nuevo nodo en el árbol. Cuando se entrena un árbol de decisión éste genera nuevos nodos en base a máxima separabilidad de los datos de entrenamiento en cada nivel. Con el límite de peso de los hijos establecemos un umbral mínimo de muestras que deben pertenecer a un nodo para realizar la separación. Un valor bajo en este parámetro permitirá crear nodos con menos muestras y por lo tanto el modelo tenderá al \textit{overfitting}.
+
+            \item ETA: tamaño de paso utilizado para aplicar descenso por gradiente para minimizar la pérdida de los árboles anteriores.
+
+        \end{enumerate}
+
+        La inicialización y mutación de los valores de los individuos viene dada por una limitación mínima y máxima que pueden, ya que, si no se contemplase, los valores podrían tomar valores extremos reduciendo el rendimiento de entrenamiento y resultados. Por lo tanto los individuos variarán sus parámetros tomando un valor aleatorio de estos rangos.  Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no tomen valores extremos. La tabla \cite{InitAndMutationLimitsHyperparamsTable} muestra los límites de los hiperparámetros.
+
+        \begin{table}[H]
+            \centering
+                \begin{tabular}{ |c|c|c| } 
+                \hline
+                \textbf{Hiperparámetro} & \textbf{Inicialización} & \textbf{Mutación}\\
+                \hline
+                    Profundidad Máxima & [1, 25] & [-6, 6]\\ 
+                    Peso mínimo de los hijos & [0.01, 20.0] & [-7, 7] \\ 
+                    ETA & [0.01, 1] &  [-0.3, 0.3] \\ 
+                \hline
+
+                \end{tabular}
+
+            \caption{Límites de inicialización y mutación de los hiperparámetros de los individuos.}
+            \label{InitAndMutationLimitsHyperparamsTable}
+        \end{table}
+
+        Una vez inicializados aleatoriamente los TODO:X individuos especificados en la población, éstos se evaluarán instanciando TODO:X modelos \glsentryshort{xgboost}con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará cada instancia \glsentryshort{xgboost} será el conjunto de entrenamiento TODO:XX. La función \textit{fitness} que evaluará cada individuo será la métrica TODO:F1-X aplicada sobre el conjunto de test obtenido en el proceso de separación de datos.
+
+        \textbf{TODO: No se redactará más hasta tener claro cuál es la mejor forma de entrenar el \glsentryshort{xgboost} (función de validación y datos de entrenamiento)}
+
+        En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación.
+
+        \begin{figure}[H]
+            \centering
+            \includesvg[scale=0.4]{archivos/GA/EvolucionHiperparametros}
+            \caption{Evolución de hiperparámetros a lo largo de las iteraciones.}
+            \label{EvolucionHiperparametrosImage}
+         \end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includesvg[scale=0.4]{archivos/GA/EvolucionF1Score}
+            \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
+            \label{EvolucionF1ScoreImage}
+         \end{figure}
+         
+        En la tabla \ref{BestGASolutionTable} se pueden observar el mejor individuo obtenido después de \textit{TODO: X} generaciones.
+
+        \begin{table}[H]
+            \centering
+                \begin{tabular}{ |c|c| } 
+                    \hline
+                    \textbf{Hiperparámetro} & \textbf{Valor}\\
+                    \hline
+                        Profundidad Máxima & TODO \\ 
+                        Peso mínimo de los hijos & TODO \\ 
+                        ETA & TODO \\ 
+                    \hline
+
+                \end{tabular}
+            \caption{Mejores parámetros de XGBoost tras aplicar el algoritmo genético.}
+            \label{BestGASolutionTable}
+        \end{table}
 
 
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=17cm]{archivos/CNN/2D/TASCNN}
-                        \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
-                        \label{TASPCNNIMAGE}
-                     \end{figure}
+        %SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
+        %SE TESTA CON VALIDACION
+
+    \subsection{XGBoost}
 
 
-            \end{enumerate}
+        \textbf{TODO: Decir que se entrena con los datos train con downsampling si es el mejor resultado al final en los experimentos}\\
 
-            \cite{AutoSklearn}
+        Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se obtiene la importancia de cada clase mediante el cálculo de los pesos. \cite{XGBoostFeatureWeightsMeaning}. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol. Aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
 
-    \end{enumerate}
+        Los pesos son asignados para cada característica del conjunto de datos con el que ha sido entrenado \glsentryshort{xgboost} de tal forma que permite realizar un análisis comparativo de los atributos.
+
+
+        Generally, importance provides a score that indicates how useful or valuable each feature was in the construction of the boosted decision trees within the model. The more an attribute is used to make key decisions with decision trees, the higher its relative importance.
+
+        This importance is calculated explicitly for each attribute in the dataset, allowing attributes to be ranked and compared to each other.
+
+        Importance is calculated for a single decision tree by the amount that each attribute split point improves the performance measure, weighted by the number of observations the node is responsible for. The performance measure may be the purity (Gini index) used to select the split points or another more specific error function.
+
+        The feature importances are then averaged across all of the the decision trees within the model.
+
+        \begin{figure}[H]
+            \centering
+            \includesvg[scale = 0.6]{archivos/XGBoost/FeatureWeights}
+            \caption{Pesos asignados por XGboost a las características.}
+            \label{FeatureWeightsImage}
+         \end{figure}
+
+
+    \subsection{Imágenes}
+
+
+        Debido a que las \glsentryshort{cnn} aprenden patrones sobre la entrada de datos como imágenes, es importante que éstas estén construidas de tal forma que maximice la representación de la información, es decir, es necesario aplicar técnicas que posicionen cada característica en un pixel de la matriz maximizando la representación de los accidentes (TODO: \textbf{relamente no entiendo muy bien la motivación que ha seguido la gente de TASPCNN a la hora de construir las imágenes, falta entender por qué lo hacen así, no lo he encontrado en el paper.})
+
+        Por lo tanto, el siguiente paso será transferir cada una de las muestras tabulares de los accidentes a una imagen en escala de grises, donde a cada característica se le asignará una posición de la matriz (\textit{5 x 5}), de tal forma que éstas sean la entrada a las \textit{CNN}.
+
+        Para este objetivo se aplicará el algoritmo FV2GI propuesto en el artículo \cite{TASPCNN}, que asigna las características de una muestra en representación tabular en función de la importancia que éstas presenten en una jerarquía.
+
+        Tal y como se propone en \cite{JerarquiaImagenes} las características que provocan un accidente de tráfico pueden englobarse en una serie de elementos o categorías principales, concretamente: \textit{características del conductor, el estado de la carretera, características propias del vehículo y condiciones del ambiente}. Se muestra en la tabla \ref{JerarquiaCaracteristicasTabla} las asignaciones de las variables explicativas del conjunto de datos en función de esta jerarquía.
+
+
+        \begin{table}[H]
+          \centering
+          \begin{tabular}{ |c|c| }
+               \hline
+               \textbf{Categoría} & \textbf{Variable}\\
+
+               \hline
+               \multirow{4}{*}{Accidente}            & Coordenada X.\\
+                                                     & Coordenada Y.\\
+                                                     & Hora.\\
+                                                     & Vehículos implicados.\\
+
+               \hline
+               \multirow{1}{*}{Ambiente}             & Estado meteorológico.\\
+
+               \hline
+               \multirow{2}{*}{Carretera}            & TODO: ESTO NO DEBERIA ESTAR AQUI Tipo de accidente\\
+                                                     & Distrito\\
+
+               \hline
+               \multirow{4}{*}{Conductor}            & Tipo Persona.\\
+                                                     & Sexo.\\
+                                                     & Rango Edad.\\
+                                                     & Positivo.\\
+
+               \hline
+          \end{tabular}
+          \caption{Transformaciones aplicadas a los datos.}
+          \label{JerarquiaCaracteristicasTabla}
+        \end{table}
+
+
+
+        Una vez definida la jerarquía de características y los pesos asociados a cada una de ellas gracias al algoritmo \glsentryshort{xgboost} se construyen las imágenes de acuerdo al criterio \textit{FV2GI}. Este proceso consta de los siguientes pasos:
+
+        \begin{enumerate}
+
+            \item Generación de \textit{n} imágenes inicializadas a 0, donde \textit{n} es el número de muestras tabulares en el dataset.
+            \item Asignación de una fila a cada padre en función de su peso.
+            \item Asignacíón de la la posición de cada característica hija en función de su peso dentro de la fila de su padre.
+        
+        \end{enumerate}
+
+        Se deben tomar las siguientes consideraciones a la hora de aplicar \textit{FV2GI}:
+
+        \begin{enumerate}
+
+            \item La importancia de un padre viene dada por ĺa suma de los pesos de las características hijas, en la tabla \ref{PesosFinalesCaracteristicas} se observa el cálculo de cada característica para las categorías principales.
+
+            \item La asignación de las filas de los padres se realiza de forma intercalada en función de su peso. Aquel padre que más importancia tenga irá posicionado en la fila central de la matriz, el segundo padre irá posicionado por encima de éste y el tercero por debajo y así sucesivamente, de tal forma que se irá creando una estructura en la que dichos padres se interpolan entre las filas en función de su peso.
+
+            \item Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
+        \end{enumerate}
+
+
+        \begin{table}[H]
+          \centering
+          \begin{tabular}{ |c|c|c|c| }
+               \hline
+               \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
+
+               \hline
+               \multirow{4}{*}{Accidente}   & \multirow{4}{*}{TODO: 1}      & Coordenada X          & TODO: 1\\
+                                            &                               & Coordenada Y          & TODO: 1\\
+                                            &                               & Hora                  & TODO: 1\\
+                                            &                               & Vehículos implicados  & TODO: 1\\
+
+               \hline
+               \multirow{1}{*}{Ambiente}    & \multirow{1}{*}{TODO: 1}      & Estado meteorológico  & TODO: 1\\
+
+               \hline
+               \multirow{2}{*}{Carretera}   & \multirow{2}{*}{TODO: 1}      & Tipo de accidente     & TODO: 1\\
+                                            &                               & Distrito              & TODO: 1\\
+
+               \hline
+               \multirow{4}{*}{Conductor}   & \multirow{4}{*}{TODO: 1}      & Tipo Persona          & TODO: 1\\
+                                            &                               & Sexo                  & TODO: 1\\
+                                            &                               & Rango Edad            & TODO: 1\\
+                                            &                               & Positivo              & TODO: 1\\
+               \hline
+          \end{tabular}
+          \caption{Cálculo de pesos de características y categorías mediante XGBoost.}
+          \label{PesosFinalesCaracteristicas}
+        \end{table}
+
+
+        El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
+
+        \begin{figure}[H]
+            \centering
+            \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_0}
+            \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_1}
+            \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_2}
+
+            \caption{Representación de las muestras de accidentes en forma de matriz de grises.}
+            \label{SampledImagesExampleImage}
+        \end{figure}
+
+    \subsection{Imágenes}
+
+
+        En esta sección analizaremos los modelos utilizados en este proyecto con el objetivo de realizar un estudio comparativo entre las arquitecturas.
+
+
+        \begin{enumerate}
+
+            \item KNN
+
+                El método \glsentryshort{knn} servirá como referencia para testar el rendimiento del resto de modelos. Al ser un método que se aplica sobre un conjunto de datos tabular original, no hará uso de las imágenes generadas.
+
+                Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary}. Esta técnica permite la optimización de los valores de los hiperparámetros mediante una búsqueda exhaustiva en un espacio de búsqueda definido por el usuario, probando distintas combinaciones hasta cubrirlo por completo. 
+
+
+                Se puede observar en la tabla \ref{BestParamsKNNGridSearchTable} los mejores parámetros para \textit{KNN} después de haber ejecutado \textit{Grid Search} sobre el conjunto de entrenamiento.\\
+
+                \begin{table}[H]
+                    \centering
+                    \begin{tabular}{ |c|c| }
+                        \hline
+                        Atributo & Valor\\
+                        \hline
+                            Número de vecinos & 21 \\ 
+                            Tipo de distancia & Minkowski \\ 
+                        \hline
+                    \end{tabular}
+                    \caption{Mejores parámetros de KNN tras aplicar GridSearch.}
+                    \label{BestParamsKNNGridSearchTable}
+                \end{table}
+
+
+            \item CNN
+
+                Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos analizar las arquitecturas de las \textit{CNNs} implementadas que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} (unidimensionales o bidimensionales según sea el caso correspondiente) y la forma en la que éste se desplaza debido a su dimensionalidad, por lo tanto detallaremos ambas arquitecturas de la misma forma.
+
+                La arquitectura consta de cuatro capas convolucionales con tamaños de kernel (\textit{1 x 3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3 x 3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarán en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada uno de los mapas de características se aplica un proceso de \glsentryshort{batchnormalization}.
+
+                El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplícarán añadiendo ceros en los ĺímites de las imágenes, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
+
+                A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente \cite{GradientVanishingRelu}.
+
+                \begin{center}
+                    $f(x) = \left\{
+                                   \begin{array}{lr}
+                                     0 & \text{if } x<=0\\
+                                     x & \text{if } x>0
+                                   \end{array}
+                            \right.$
+                \end{center}
+
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=10cm]{archivos/CNN/RELUImage}
+                    \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
+                    \label{RELUImage}
+                 \end{figure}
+
+                La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5 x 5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
+
+
+                Para ejemplificar la arquitectura de las \glsentryshort{nn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
+
+
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=17cm]{archivos/CNN/2D/TASCNN}
+                    \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
+                    \label{TASPCNNIMAGE}
+                 \end{figure}
+
+
+        \end{enumerate}
+
+        \cite{AutoSklearn}
 
 \newpage
 

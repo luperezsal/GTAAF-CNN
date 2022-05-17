@@ -16,17 +16,69 @@
 
   En primer lugar
 
+  \begin{figure}[h]
+      \centering
+      \includegraphics[width=10cm]{archivos/Resultados/Comparativa}
+      \caption{Comparativa de las métricas predicciones de los modelos.}
+      \label{ResultsImage}
+   \end{figure}
+
+
+  \begin{figure}[h]
+      \centering
+      \includesvg[scale=0.3]{archivos/Resultados/1D/F1Score1D}
+      \caption{Comparación de TODO(tipo) F1 score en validación y test CNN-1D.}
+      \label{F1Score1DImage}
+   \end{figure}
+
+
+  \begin{figure}[h]
+      \centering
+      \includesvg[scale=0.3]{archivos/Resultados/2D/F1Score2D}
+      \caption{Comparación de TODO(tipo) F1 score en validación y test CNN-2D.}
+      \label{F1Score2DImage}
+   \end{figure}                      
+
+
+  \begin{table}[H]
+    \centering
+    \csvautotabular{archivos/Resultados/1D/1DCassificationReport.csv}
+  \end{table}
+  
 
 
 
+  \begin{figure}
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+          \centering
+          \includesvg[scale=0.4]{archivos/Resultados/1D/1DConfussionMatrix}
+          \caption{Matriz de correlación CNN-1D.}
+          \label{ConfussionMatrixImages:1D}
+      \end{subfigure}
+      % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
+      \begin{subfigure}[b]{0.4\textwidth}
+          \centering
+          \includesvg[scale=0.4]{archivos/Resultados/2D/2DConfussionMatrix}
+          \caption{Matriz de correlación CNN-2D.} 
+          \label{ConfussionMatrixImages:2D}
 
-
-
-
-
-
-
-
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+          \centering
+          \includesvg[scale=0.4]{archivos/Resultados/NB/NBConfussionMatrix}
+          \caption{Matriz de correlación NB.}
+          \label{ConfussionMatrixImages:NB}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+          \centering
+          \includesvg[scale=0.4]{archivos/Resultados/SVC/SVCConfussionMatrix}
+          \caption{Matriz de correlación SVC.}
+          \label{ConfussionMatrixImages:SVC}
+      \end{subfigure}
+      \caption{Matriz de correlación sobre el conjunto de test sobre los modelos aplicados.}
+      \label{ConfussionMatrixImages}
+   \end{figure}
 
 
 \section{Diagramas}

@@ -1,0 +1,25 @@
+\selectlanguage *{spanish}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Ejemplo de tabla.\relax }}{13}{table.caption.11}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Parámetros optativos de los entornos flotantes\relax }}{14}{table.caption.12}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Parámetros de los altavoces elegidos de la marca Beyma\textsuperscript {\relax \fontsize {6}{7}\selectfont \textregistered }.\relax }}{15}{table.caption.14}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Ejemplo 2\relax }}{16}{table.caption.15}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Descripción de los datos.\relax }}{34}{table.caption.30}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{37}{table.5.2}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Límites de inicialización y mutación de los hiperparámetros de los individuos.\relax }}{44}{table.caption.36}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Mejores parámetros de XGBoost tras aplicar el algoritmo genético.\relax }}{46}{table.caption.39}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{48}{table.caption.41}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Cálculo de pesos de características y categorías mediante XGBoost.\relax }}{49}{table.caption.42}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Mejores parámetros de KNN tras aplicar GridSearch.\relax }}{50}{table.caption.44}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Esta es una tabla con múltiples imágenes. Útil cuando se deben mostrar varias juntas.\relax }}{55}{table.caption.49}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
