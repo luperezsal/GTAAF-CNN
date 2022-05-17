@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Tecnologías}
-\label{tecnologias}
+\label{3.Tecnologias}
 
     Una vez definido el problema a tratar, los objetivos generales y específios del proyecto, la solución propuesta y los requisitos a implementar hay que analizar las herramientas y tecnologías a utilizar. Para esto habrá que plantearse diferentes modelos y tecnologías disponibles para el desarrollo y optar por aquellos que aporten estabilidad y buen rendimiento.
 
@@ -28,7 +28,7 @@
 
                         \begin{figure}[h]
                             \centering
-                            \includesvg[inkscapelatex=false]{archivos/GA/InitialPopulation}
+                            \includesvg[inkscapelatex=false]{archivos/3.Tecnologias/GA/InitialPopulation}
                             \caption{Inicialización de la población. Cada individuo está constituido por n parámetros del XGBoost a optimizar.}
                             \label{InitialPopulation}
                         \end{figure}
@@ -43,7 +43,7 @@
 
                         \begin{figure}[h]
                             \centering
-                            \includesvg[inkscapelatex=false]{archivos/GA/FitnessFunction}
+                            \includesvg[inkscapelatex=false]{archivos/3.Tecnologias/GA/FitnessFunction}
                             \caption{Selección de padres candidatos.}
                             \label{FitnessFunction}
                         \end{figure}
@@ -54,7 +54,7 @@
 
                         \begin{figure}[h]
                             \centering
-                            \includesvg[inkscapelatex=false]{archivos/GA/ParentsMatingMutation}
+                            \includesvg[inkscapelatex=false]{archivos/3.Tecnologias/GA/ParentsMatingMutation}
                             \caption{Mutación de hijos.}
                             \label{ParentsMatingMutationImage}
                         \end{figure}
@@ -102,7 +102,7 @@
 
             \begin{figure}[h]
                 \centering
-                \includegraphics[width=10cm]{archivos/XGBoostFlowImage}
+                \includegraphics[width=10cm]{archivos/3.Tecnologias/XGBoost/XGBoostFlowImage}
                 \caption{Proceso de optimización de XGBoost.}
                 \label{XGBoostFlowImage}
              \end{figure}
@@ -123,7 +123,7 @@
 
             \begin{figure}[h]
                 \centering
-                \includegraphics[width=10cm]{archivos/NNImage}
+                \includegraphics[width=10cm]{archivos/3.Tecnologias/RedesNeuronales/NNImage}
                 \caption{https://www.v7labs.com/blog/neural-networks-activation-functions. Arquitectura de una Red Neuronal.}
                 \label{NNImage}
              \end{figure}
@@ -180,7 +180,7 @@
 
                     \begin{figure}[h]
                         \centering
-                        \includegraphics[width=7cm]{archivos/CNN/CrossEntropy}
+                        \includegraphics[width=7cm]{archivos/3.Tecnologias/RedesNeuronales/CrossEntropy}
                         \caption{https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdadera (derecha).}
                         \label{CrossEntropyImage}
                      \end{figure}
@@ -212,121 +212,118 @@
 
             \end{itemize}
 
-            !!!!!!!!!!!!!!!!!!!!!!!CNN!!!!!!!!!!!!!!!!!!!!!!!
+            \subsubsection{Convolucionales}
 
-            A contiuación definiremos los parámetros específicos aplicados a las \textit{CNNs}:
+                A contiuación definiremos los parámetros específicos aplicados a las \textit{CNNs}:
 
-            \begin{itemize}
+                \begin{itemize}
 
-                \item Kernels:
+                    \item Kernels:
 
-                    Son las estructuras que se encargan de realizar la convolución. Los kernels son matrices de pesos unidimensionales ($1 \times n$) o bidimensionales ($n \times m$) dependiendo del tipo de convolución que se esté aplicando (Convolución 1-D o Convolución 2-D), y se encargan de inferir patrones en la matriz de entrada gracias a la actualización de sus pesos. En función de la profundidad de la capa, los kernels podrán encontrar patrones más simples o más complejos debido a que la entrada a cada capa es una convolución (aplicación del filtro) de las capas anteriores.
+                        Son las estructuras que se encargan de realizar la convolución. Los kernels son matrices de pesos unidimensionales ($1 \times n$) o bidimensionales ($n \times m$) dependiendo del tipo de convolución que se esté aplicando (Convolución 1-D o Convolución 2-D), y se encargan de inferir patrones en la matriz de entrada gracias a la actualización de sus pesos. En función de la profundidad de la capa, los kernels podrán encontrar patrones más simples o más complejos debido a que la entrada a cada capa es una convolución (aplicación del filtro) de las capas anteriores.
 
-                    Un kernel realiza el producto escalar de sus pesos con respecto a las posiciones de la matriz de entrada (imagen o \textit{feature map}) que colisionen en ese momento con el kernel, generando un nuevo \textit{feature map} de menor dimensión, a menos que se utilice la técnica de \textit{Padding} \cite{Kernels}.
-                     
-                \item Filtros:
+                        Un kernel realiza el producto escalar de sus pesos con respecto a las posiciones de la matriz de entrada (imagen o \textit{feature map}) que colisionen en ese momento con el kernel, generando un nuevo \textit{feature map} de menor dimensión, a menos que se utilice la técnica de \textit{Padding} \cite{Kernels}.
+                         
+                    \item Filtros:
 
-                    Un filtro no es más que una agrupación de kernels, siempre tendrán una dimensión mayor que la definida para el kernel. Por ejemplo, si disponemos de un kernel unidimensional ($1 \times n$), el filtro contendrá $k$ kernels de ($1 \times n$) en la capa convolucional definida \cite{FiltersFeatureMaps}
+                        Un filtro no es más que una agrupación de kernels, siempre tendrán una dimensión mayor que la definida para el kernel. Por ejemplo, si disponemos de un kernel unidimensional ($1 \times n$), el filtro contendrá $k$ kernels de ($1 \times n$) en la capa convolucional definida \cite{FiltersFeatureMaps}
 
-                \item Strides:
+                    \item Strides:
 
-                    Son los saltos producidos por un kernel en cada etapa de la convolución, dependiendo si la convolución es dimensional o bidimensional, el stride constará de una dimensión ($i$), es decir, los pasos hacia la derecha en la imagen, o de dos dimensiones ($i, j$), los pasos hacia la derecha y hacia abajo en la imagen.
+                        Son los saltos producidos por un kernel en cada etapa de la convolución, dependiendo si la convolución es dimensional o bidimensional, el stride constará de una dimensión ($i$), es decir, los pasos hacia la derecha en la imagen, o de dos dimensiones ($i, j$), los pasos hacia la derecha y hacia abajo en la imagen.
 
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=10cm]{archivos/CNN/Stride}
-                        \caption{http://makeyourownneuralnetwork.blogspot.com/2020/02/calculating-output-size-of-convolutions.html}
-                        \label{StrideImage}
-                     \end{figure}
+                        \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=10cm]{archivos/3.Tecnologias/RedesNeuronales/Stride}
+                            \caption{http://makeyourownneuralnetwork.blogspot.com/2020/02/calculating-output-size-of-convolutions.html}
+                            \label{StrideImage}
+                         \end{figure}
 
-                \item Padding:
+                    \item Padding:
 
-                    El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución.\\
+                        El padding es un método utilizado para incrementar la dimensionalidad de la entrada de la capa debido el desvanecimiento de los valores posicionados en zonas comprometedoras una vez aplicada la convolución.\\
 
-                    El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.\\
+                        El \textit{padding} es el proceso de generar celdas artificiales inicializadas con valor \textit{0} que permiten que el filtro convolucional sea aplicado en su totalidad en la posición de estas zonas comprometedoras, manteniendo la información de los límites de la imagen. De otra forma ĺos valores de estos extremos se desvanecerían a medida se incrementa la profundidad de la red (número de capas) con respecto al resto de valores de la matriz.\\
 
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=10cm]{archivos/CNN/padding}
-                        \caption{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}
-                        \label{PaddingImage}
-                     \end{figure}
-
-
-                \item Función de activación:
+                        \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=10cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/padding}
+                            \caption{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}
+                            \label{PaddingImage}
+                         \end{figure}
 
 
-                    En el caso de las redes neuronales convolucionales, la función de activación se aplica a cada casilla proyectada por cada kernel sobre la matriz de entrada, de tal forma que cambia el valor a $0$ sobre aquellos valores que resulten negativos de la convolución.\\
-
-                    En la figura \ref{CNNRELUImage} se puede apreciar cómo se aplica la función de activación \textit{ReLU} para cada casilla de la proyección de un \textit{kernel} bidimensinoal sobre una \textit{red convolucional de dos dimensiones}.
+                    \item Función de activación:
 
 
+                        En el caso de las redes neuronales convolucionales, la función de activación se aplica a cada casilla proyectada por cada kernel sobre la matriz de entrada, de tal forma que cambia el valor a $0$ sobre aquellos valores que resulten negativos de la convolución.\\
 
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=10cm]{archivos/CNN/CNNRELUImage}
-                        \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Ejemplo de ReLU aplicado a una convolución de dos dimensiones.}
-                        \label{CNNRELUImage}
-                     \end{figure}
-
-            \end{itemize}
-
-            En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida.\\
+                        En la figura \ref{CNNRELUImage} se puede apreciar cómo se aplica la función de activación \textit{ReLU} para cada casilla de la proyección de un \textit{kernel} bidimensinoal sobre una \textit{red convolucional de dos dimensiones}.
 
 
 
-            \subsubsection{Unidimensionales}
-            
-                Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
+                        \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=10cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/CNNRELUImage}
+                            \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Ejemplo de ReLU aplicado a una convolución de dos dimensiones.}
+                            \label{CNNRELUImage}
+                         \end{figure}
 
-                Las complejidad computacional de las \textit{CNN-1D} es mucho más simple que las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
+                \end{itemize}
+
+                En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida.\\
 
 
-                El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
+                \paragraph{Unidimensionales}
                 
+                    Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
+
+                    Las complejidad computacional de las \textit{CNN-1D} es mucho más simple que las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
+
+
+                    El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
+                    
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=15cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1CNNArchImage}
+                        \caption{https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png}
+                        \label{1CNNArchImage}
+                    \end{figure}
+
+
+                    Al ser una arquitectura unidimensional, el \textit{kernel} tendrá que tener un tamaño ($1 \times n$).
+
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[width=7cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1DConvolution}
+                        \caption{https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).}
+                        \label{1DConvolutionImage}
+                    \end{figure}
+
+                    
+                \paragraph{Bidimensionales}
+                    Otra de las técnicas convolucionales implementadas en este proyecto son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}, sin embargo, en este caso \textit{kernel} será de bidimensional al ser una convolución de dos dimensiones, por lo que es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
+
+            \subsection {KNN}
+
+                El algoritmo \textit{K vecinos más próximos}, o \glsentryfull{knn} \cite{KNN}, es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.\\
+
+                El algoritmo \textit{KNN} asume que muestras con características parecidas deben pertenecer a la misma clase. O lo que es lo mismo, muestras parecidas deben estar cercanas en el espacio dimensional.\\
+
+                Esta técnica se basa en representar las muestras de un conjunto de datos en base a sus características en un espacio n-dimensional y clasificar la muestra correspondiente como la clase mayoritaria al calcular la distancia de dicha muestra a los $k$ vecinos más próximos. Normalmente la distancia empleada es la \textit{Euclídea}, aunque es posible calcular otras distancias como \textit{Manhattan} o \textit{Chebyshev}.\\
+                
+                A medida que se incrementan las dimensiones del espacio resulta más costoso computacionalmente calcular distancias entre los puntos.\\
+
+
+                Por lo tanto, el único parámetro a configurar es el número de vecinos más cercanos que se calculará en base al punto que queramos clasificar, en la figura \ref{KNNImage} se muestra un ejemplo de un problema de clasificacíón aplicando distintos valores al parámetros $k$.
 
                 \begin{figure}[h]
                     \centering
-                    \includegraphics[width=15cm]{archivos/CNN/1D/1CNNArchImage}
-                    \caption{https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png}
-                    \label{1CNNArchImage}
+                    \includegraphics[width=10cm]{archivos/3.Tecnologias/KNN/KNNImage}
+                    \caption{https://forum.huawei.com/enterprise/es/data/attachment/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png KNN aplicado con distintos valores de $k$}
+                    \label{KNNImage}
                 \end{figure}
-
-
-                Al ser una arquitectura unidimensional, el \textit{kernel} tendrá que tener un tamaño ($1 \times n$).
-
-                \begin{figure}[h]
-                    \centering
-                    \includegraphics[width=7cm]{archivos/CNN/1D/1DConvolution}
-                    \caption{https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).}
-                    \label{1DConvolutionImage}
-                \end{figure}
-
-                
-            \subsubsection {Bidimensionales}
-                Otra de las técnicas convolucionales implementadas en este proyecto son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}, sin embargo, en este caso \textit{kernel} será de bidimensional al ser una convolución de dos dimensiones, por lo que es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
-
-                \textit{}
-
-        \subsection {KNN}
-
-            El algoritmo \textit{K vecinos más próximos}, o \glsentryfull{knn} \cite{KNN}, es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.\\
-
-            El algoritmo \textit{KNN} asume que muestras con características parecidas deben pertenecer a la misma clase. O lo que es lo mismo, muestras parecidas deben estar cercanas en el espacio dimensional.\\
-
-            Esta técnica se basa en representar las muestras de un conjunto de datos en base a sus características en un espacio n-dimensional y clasificar la muestra correspondiente como la clase mayoritaria al calcular la distancia de dicha muestra a los $k$ vecinos más próximos. Normalmente la distancia empleada es la \textit{Euclídea}, aunque es posible calcular otras distancias como \textit{Manhattan} o \textit{Chebyshev}.\\
-            
-            A medida que se incrementan las dimensiones del espacio resulta más costoso computacionalmente calcular distancias entre los puntos.\\
-
-
-            Por lo tanto, el único parámetro a configurar es el número de vecinos más cercanos que se calculará en base al punto que queramos clasificar, en la figura \ref{KNNImage} se muestra un ejemplo de un problema de clasificacíón aplicando distintos valores al parámetros $k$.
-
-            \begin{figure}[h]
-                \centering
-                \includegraphics[width=10cm]{archivos/CNN/KNN/KNNImage}
-                \caption{https://forum.huawei.com/enterprise/es/data/attachment/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png KNN aplicado con distintos valores de $k$}
-                \label{KNNImage}
-            \end{figure}
 
             
 

@@ -10,6 +10,15 @@
 
 El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{Software} como el ciclo de vida de proyectos de \textit{Ciencia de Datos}, por lo que se ha dividido en varias fases acontecidas que definiremos a continuación en base a la planificación mediante un \textit{Diagrama de Gantt}:
 
+\section{Diagrama de Gantt}
+
+    \begin{figure}[H]
+        \centering
+        \includesvg[inkscapelatex=false]{archivos/4.Metodologia/GranttImage}
+        \caption{Diagrama de Gantt de la planificación del proyecto.}
+        \label{GranttImage}
+    \end{figure}
+
 
 \section{Diagrama de flujo}
 
@@ -18,19 +27,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=15cm]{archivos/DataflowImageESP}
+        \includegraphics[width=15cm]{archivos/4.Metodologia/DataflowImageESP}
         \caption{Flujo de datos del proceso del proyecto.}
         \label{DataflowImage}
     \end{figure}
 
-\section{Diagrama de Gantt}
-
-    \begin{figure}[H]
-        \centering
-        \includesvg[inkscapelatex=false]{archivos/GranttImage}
-        \caption{Diagrama de Gantt de la planificación del proyecto.}
-        \label{GranttImage}
-    \end{figure}
 
 \section{Proceso}
 
@@ -263,7 +264,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     \begin{figure}[H]
                         \centering
-                        \includesvg[scale=0.3]{archivos/Datos/CasualtyClass}
+                        \includesvg[scale=0.3]{archivos/4.Metodologia/Datos/Analisis/CasualtyClass}
                         \caption{Histograma de tipo de accidente.}
                         \label{CasualtyClassImage}
                      \end{figure}
@@ -272,14 +273,14 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     \begin{figure}[H]
                         \centering
-                        \includesvg[scale=0.3]{archivos/Datos/CorrelationMatrix}
+                        \includesvg[scale=0.3]{archivos/4.Metodologia/Datos/Analisis/CorrelationMatrix}
                         \caption{Matriz de correlación para los predictores escogidos del dataset.}
                         \label{CorrelationMatrixImage}
                      \end{figure}
 
                     \begin{figure}[H]
                         \centering
-                        \includesvg[width=15cm]{archivos/Datos/PCAImage}
+                        \includesvg[width=15cm]{archivos/4.Metodologia/Datos/Analisis/PCAImage}
                         \caption{PCA aplicado a los datos.}
                         \label{PCAImage}
                      \end{figure}
@@ -317,7 +318,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     \begin{figure}[h]
                         \centering
-                        \includegraphics[width=7cm]{archivos/Datos/DataSplit}
+                        \includegraphics[width=7cm]{archivos/4.Metodologia/Datos/Separacion/DataSplit}
                         \caption{https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.}
                         \label{DataSplitImage}
                      \end{figure}
@@ -361,27 +362,27 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 \centering
                 \begin{subfigure}[b]{0.4\textwidth}
                     \centering
-                    \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_clean}
+                    \includesvg[scale=0.4]{archivos/4.Metodologia/Datos/Resampling/TSNE/2d_tsne_clean}
                     \caption{TSNE de 2 componentes aplicado a los datos originales.}
                     \label{TSNEImages:Clean2D}
                 \end{subfigure}
                 % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
                 \begin{subfigure}[b]{0.4\textwidth}
                     \centering
-                    \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_train}
+                    \includesvg[scale=0.4]{archivos/4.Metodologia/Datos/Resampling/TSNE/2d_tsne_train}
                     \caption{TSNE de 2 componentes aplicado a los datos generados por SMOTE-II.}
                     \label{TSNEImages:Train2D}
 
                 \end{subfigure}
                 \begin{subfigure}[b]{0.4\textwidth}
                     \centering
-                    \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_clean}
+                    \includesvg[scale=0.4]{archivos/4.Metodologia/Datos/Resampling/TSNE/3d_tsne_clean}
                     \caption{TSNE de 3 componentes aplicado a los datos originales.}
                     \label{TSNEImages:Clean3D}
                 \end{subfigure}
                 \begin{subfigure}[b]{0.4\textwidth}
                     \centering
-                    \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_train}
+                    \includesvg[scale=0.4]{archivos/4.Metodologia/Datos/Resampling/TSNE/3d_tsne_train}
                     \caption{TSNE de 3 componentes aplicado a los datos generados por SMOTE-II.}
                     \label{TSNEImages:Train3D}
                 \end{subfigure}
@@ -432,18 +433,20 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \textbf{TODO: No se redactará más hasta tener claro cuál es la mejor forma de entrenar el \glsentryshort{xgboost} (función de validación y datos de entrenamiento)}
 
+
+        \textbf{TODO: Las siguientes dos figuras irían mejor en Resultados?}
         En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación.
 
         \begin{figure}[H]
             \centering
-            \includesvg[scale=0.4]{archivos/GA/EvolucionHiperparametros}
+            \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionHiperparametros}
             \caption{Evolución de hiperparámetros a lo largo de las iteraciones.}
             \label{EvolucionHiperparametrosImage}
          \end{figure}
 
         \begin{figure}[H]
             \centering
-            \includesvg[scale=0.4]{archivos/GA/EvolucionF1Score}
+            \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionF1Score}
             \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
             \label{EvolucionF1ScoreImage}
          \end{figure}
@@ -488,12 +491,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         The feature importances are then averaged across all of the the decision trees within the model.
 
-        \begin{figure}[H]
-            \centering
-            \includesvg[scale = 0.6]{archivos/XGBoost/FeatureWeights}
-            \caption{Pesos asignados por XGboost a las características.}
-            \label{FeatureWeightsImage}
-         \end{figure}
+
 
 
     \subsection{Imágenes}
@@ -598,9 +596,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \begin{figure}[H]
             \centering
-            \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_0}
-            \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_1}
-            \includesvg[scale=0.5]{archivos/SampledImagesExample/madrid_image_example_2}
+            \includesvg[scale=0.5]{archivos/4.Metodologia/Imagenes/GrayImages/madrid_image_example_0}
+            \includesvg[scale=0.5]{archivos/4.Metodologia/Imagenes/GrayImages/madrid_image_example_1}
+            \includesvg[scale=0.5]{archivos/4.Metodologia/Imagenes/GrayImages/madrid_image_example_2}
 
             \caption{Representación de las muestras de accidentes en forma de matriz de grises.}
             \label{SampledImagesExampleImage}
@@ -659,7 +657,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \begin{figure}[h]
                     \centering
-                    \includegraphics[width=10cm]{archivos/CNN/RELUImage}
+                    \includegraphics[width=10cm]{archivos/4.Metodologia/Modelos/CNN/RELUImage}
                     \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
                     \label{RELUImage}
                  \end{figure}
@@ -672,7 +670,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \begin{figure}[h]
                     \centering
-                    \includegraphics[width=17cm]{archivos/CNN/2D/TASCNN}
+                    \includegraphics[width=17cm]{archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN}
                     \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
                     \label{TASPCNNIMAGE}
                  \end{figure}

@@ -19,7 +19,33 @@
 
   \textbf{NOTA} Ponemos aquí las figuras \ref{EvolucionHiperparametrosImage} y \ref{EvolucionF1ScoreImage} de evolución de hiperparámetros además de tabla de resultados \ref{BestGASolutionTable} en lugar de en metodologías?
 
+  En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación.
+
+  \begin{figure}[H]
+      \centering
+      \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionHiperparametros}
+      \caption{Evolución de hiperparámetros a lo largo de las iteraciones.}
+      \label{EvolucionHiperparametrosImage}
+   \end{figure}
+
+  \begin{figure}[H]
+      \centering
+      \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionF1Score}
+      \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
+      \label{EvolucionF1ScoreImage}
+   \end{figure}
+   
+  En la tabla \ref{BestGASolutionTable} se pueden observar el mejor individuo obtenido después de \textit{TODO: X} generaciones.
+
 \section{XGBoost}
+
+  \begin{figure}[H]
+      \centering
+      \includesvg[scale = 0.6]{archivos/5.Resultados/XGBoost/FeatureWeights}
+      \caption{Pesos asignados por XGboost a las características.}
+      \label{FeatureWeightsImage}
+   \end{figure}
+
   \textbf{NOTA} Ponemos aquí las figuras de los pesos calculados \ref{FeatureWeightsImage} y la tabla de cáclulo de características \ref{PesosFinalesCaracteristicas}?
 
 \section{Entrenamiento de modelos}
@@ -32,7 +58,7 @@
 
     \begin{figure}[h]
         \centering
-        \includesvg[scale=0.3]{archivos/Resultados/1D/F1Score1D}
+        \includesvg[scale=0.3]{archivos/5.Resultados/CNN/1D/F1Score1D}
         \caption{Comparación de TODO(tipo) F1 score en validación y test CNN-1D.}
         \label{F1Score1DImage}
      \end{figure}
@@ -40,7 +66,7 @@
 
     \begin{figure}[h]
         \centering
-        \includesvg[scale=0.3]{archivos/Resultados/2D/F1Score2D}
+        \includesvg[scale=0.3]{archivos/5.Resultados/CNN/2D/F1Score2D}
         \caption{Comparación de TODO(tipo) F1 score en validación y test CNN-2D.}
         \label{F1Score2DImage}
      \end{figure}
@@ -52,28 +78,28 @@
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/Resultados/1D/1DCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/CNN/1D/1DCassificationReport.csv}
         \caption{Métricas CNN-1D.}
         \label{CNN1DMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/Resultados/NB/NBCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/NB/NBCassificationReport.csv}
         \caption{Métricas Naive Bayes.}
         \label{NBMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/Resultados/SVC/SVCCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReport.csv}
         \caption{Métricas SVC.}
         \label{SVCDMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/Resultados/2D/2DCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/CNN/2D/2DCassificationReport.csv}
         \caption{Métricas CNN-2D.}
         \label{CNN2DMetrics}
       \end{table}
@@ -87,27 +113,27 @@
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/1D/1DConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfussionMatrix}
             \caption{Matriz de correlación CNN-1D.}
             \label{ConfussionMatrixImages:1D}
         \end{subfigure}
         % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/2D/2DConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfussionMatrix}
             \caption{Matriz de correlación CNN-2D.} 
             \label{ConfussionMatrixImages:2D}
 
         \end{subfigure}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/NB/NBConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfussionMatrix}
             \caption{Matriz de correlación NB.}
             \label{ConfussionMatrixImages:NB}
         \end{subfigure}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/SVC/SVCConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfussionMatrix}
             \caption{Matriz de correlación SVC.}
             \label{ConfussionMatrixImages:SVC}
         \end{subfigure}
@@ -122,7 +148,7 @@
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=10cm]{archivos/Resultados/Comparativa}
+        \includegraphics[width=10cm]{archivos/5.Resultados/Comparativa}
         \caption{Comparativa de las métricas predicciones de los modelos.}
         \label{ResultsImage}
      \end{figure}
@@ -137,28 +163,28 @@
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/Resultados/1D/1DCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/CNN/1D/1DCassificationReport.csv}
       \caption{Métricas CNN-1D.}
       \label{CNN1DMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/Resultados/NB/NBCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/NB/NBCassificationReport.csv}
       \caption{Métricas Naive Bayes.}
       \label{NBMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/Resultados/SVC/SVCCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReport.csv}
       \caption{Métricas SVC.}
       \label{SVCDMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/Resultados/2D/2DCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/CNN/2D/2DCassificationReport.csv}
       \caption{Métricas CNN-2D.}
       \label{CNN2DMetrics}
     \end{table}
@@ -171,27 +197,27 @@
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/1D/1DConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfussionMatrix}
             \caption{Matriz de confusión CNN-1D.}
             \label{ConfussionMatrixImages:1D}
         \end{subfigure}
         % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/2D/2DConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfussionMatrix}
             \caption{Matriz de confusión CNN-2D.} 
             \label{ConfussionMatrixImages:2D}
 
         \end{subfigure}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/NB/NBConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfussionMatrix}
             \caption{Matriz de confusión NB.}
             \label{ConfussionMatrixImages:NB}
         \end{subfigure}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/Resultados/SVC/SVCConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfussionMatrix}
             \caption{Matriz de confusión SVC.}
             \label{ConfussionMatrixImages:SVC}
         \end{subfigure}
@@ -207,7 +233,7 @@
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=10cm]{archivos/Resultados/Comparativa}
+        \includegraphics[width=10cm]{archivos/5.Resultados/Comparativa}
         \caption{Comparativa de las métricas predicciones de los modelos.}
         \label{ResultsImage}
      \end{figure}
