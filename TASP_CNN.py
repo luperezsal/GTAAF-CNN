@@ -2221,7 +2221,7 @@ MODEL_NAME = 'auto_ml'
 # In[223]:
 
 
-loaded_timestamp = '2022-05-17-11:58:56'
+loaded_timestamp = '2022-05-17-15:35:33'
 
 
 # In[224]:
