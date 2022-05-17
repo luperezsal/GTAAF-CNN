@@ -3656,13 +3656,13 @@ if city and not train_nn and other_models:
 # In[ ]:
 
 
-if city and not train_nn and other_models:
+if city:
     Y_predicted = gnb.predict(X_test)
 
     print("[INFO] evaluating model...")
 
     REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{t}.csv"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
     plot_classification_report(path = REPORT_PATH,
                                file_name = REPORT_NAME,
@@ -3739,7 +3739,7 @@ if city:
     print("[INFO] evaluating model...")
 
     REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{t}.csv"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
     plot_classification_report(path = REPORT_PATH,
                                file_name = REPORT_NAME,
@@ -3846,7 +3846,7 @@ if city:
     print("[INFO] evaluating model...")
 
     REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{t}.csv"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
     plot_classification_report(path = REPORT_PATH,
                                file_name = REPORT_NAME,
