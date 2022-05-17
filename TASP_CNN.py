@@ -705,8 +705,10 @@ tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', paddi
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
+tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Flatten())
-tasp_cnn.add(layers.Dense(units=64))
+tasp_cnn.add(layers.Dense(units=128))
 tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 
 tasp_cnn.compile(
@@ -4047,24 +4049,28 @@ ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
 fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,20))
 
-leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
-madrid_reports_summary = reports_summary[reports_summary['city'] == 'madrid']
+if leeds:
+    leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
+if madrid:
+    madrid_reports_summary = reports_summary[reports_summary['city'] == 'madrid']
 
 # print(leeds_reports_summary.loc[ACCIDENT_TYPES])
 
 for index, measure_type in enumerate(MEASURE_TYPES):
 
-    ax = sns.barplot(x = 'accident_type',
-                     y = measure_type,
-                     hue = 'model',
-                     data = leeds_reports_summary.loc[ACCIDENT_TYPES],
-                     ax = axs[index, 0]).set(title = f"{measure_type} Leeds")
+    if leeds:
+        ax = sns.barplot(x = 'accident_type',
+                         y = measure_type,
+                         hue = 'model',
+                         data = leeds_reports_summary.loc[ACCIDENT_TYPES],
+                         ax = axs[index, 0]).set(title = f"{measure_type} Leeds")
 
-    ax = sns.barplot(x = 'accident_type',
-                     y = measure_type,
-                     hue = 'model',
-                     data = madrid_reports_summary.loc[ACCIDENT_TYPES],
-                     ax = axs[index, 1]).set(title = f"{measure_type} Madrid")
+    if madrid:
+        ax = sns.barplot(x = 'accident_type',
+                         y = measure_type,
+                         hue = 'model',
+                         data = madrid_reports_summary.loc[ACCIDENT_TYPES],
+                         ax = axs[index, 1]).set(title = f"{measure_type} Madrid")
 
 SAVE_PATH = f"{REPORTS_SUMMARY_PATH}{MODEL_TIMESTAMP}.png"
 
