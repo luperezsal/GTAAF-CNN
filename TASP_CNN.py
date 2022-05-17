@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[2]:
+# In[127]:
 
 
 from datetime import datetime
@@ -44,7 +44,7 @@ CONFUSIONS_MATRIX_PATH = 'confusion_matrix/'
 TSNE_PATH = 'tsne/'
 
 ###### MODELS ######
-MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'auto_ml']
+MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'nb', 'svc', 'auto_ml']
 
 REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 
@@ -63,7 +63,9 @@ leeds  = False
 madrid = True
 
 tree_method = 'auto' if laptop else 'gpu_hist'
+
 train_nn = not laptop
+other_models = True
 
 
 # In[4]:
@@ -3596,6 +3598,164 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
+# In[ ]:
+
+
+import pickle
+from joblib import dump, load
+
+
+# ### NB
+
+# #### Entrenamiento
+
+# In[ ]:
+
+
+from sklearn.naive_bayes import GaussianNB
+
+MODEL_NAME = MODELS_NAME[3]
+
+if city and train_nn and other_models:
+
+    gnb = GaussianNB()
+    gnb = gnb.fit(X_train, Y_train)
+
+    print(f"Done! {MODEL_NAME}")
+
+
+# #### Escritura del modelo
+
+# In[ ]:
+
+
+if city and train_nn and other_models:
+
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+
+    dump(gnb, MODEL_PATH + MODEL_FILE_NAME) 
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[ ]:
+
+
+if city and not train_nn and other_models:
+
+    version = 'X'
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{version}.joblib"
+
+    gnb = load(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+if city and not train_nn and other_models:
+    Y_predicted = gnb.predict(X_test)
+
+    print("[INFO] evaluating model...")
+
+    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{t}.csv"
+
+    plot_classification_report(path = REPORT_PATH,
+                               file_name = REPORT_NAME,
+                               y_true = Y_test,
+                               y_predicted = Y_predicted)
+
+
+    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
+
+    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                          file_name = CONFUSION_MATRIX_NAME,
+                          y_true = Y_test,
+                          y_predicted = Y_predicted)
+
+
+# ### SVC
+
+# In[131]:
+
+
+import numpy as np
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+
+MODEL_NAME = MODELS_NAME[4]
+
+
+from sklearn.svm import SVC
+if city and train_nn and other_models:
+
+    clf = SVC(gamma='auto')
+    clf.fit(X_train, Y_train)
+
+    print(f"Done! {MODEL_NAME}")
+
+
+# #### Escritura del modelo
+
+# In[ ]:
+
+
+if city and train_nn and other_models:
+
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+
+    dump(clf, MODEL_PATH + MODEL_FILE_NAME) 
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[ ]:
+
+
+if city and not train_nn and other_models:
+
+    version = 'X'
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{version}.joblib"
+
+    clf = load(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+if city and not train_nn and other_models:
+
+    Y_predicted = clf.predict(X_test)
+
+    print("[INFO] evaluating model...")
+
+    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{t}.csv"
+
+    plot_classification_report(path = REPORT_PATH,
+                               file_name = REPORT_NAME,
+                               y_true = Y_test,
+                               y_predicted = Y_predicted)
+
+
+    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
+
+    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                          file_name = CONFUSION_MATRIX_NAME,
+                          y_true = Y_test,
+                          y_predicted = Y_predicted)
+
+
 # ### KNN
 
 # In[85]:
@@ -3609,7 +3769,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[86]:
+# In[ ]:
 
 
 # # leaf_size = list(range(1,10, 2))
@@ -3647,7 +3807,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Escritura del modelo
 
-# In[87]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3662,7 +3822,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Carga de modelo pre-entrenado
 
-# In[88]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -3672,12 +3832,11 @@ MODEL_NAME = MODELS_NAME[0]
 # 2022-04-27-21:50:26.pklloaded_model = pickle.load(open(MODEL_PATH + MODEL_FILE_NAME, 'rb'))
 
 
-# In[114]:
+# In[ ]:
 
 
-knn = KNeighborsClassifier(leaf_size = 1,
-                           n_neighbors = 16)
-knn.fit(X_train, Y_train)
+# knn = KNeighborsClassifier(leaf_size = 1, n_neighbors = 16)
+# knn.fit(X_train, Y_train)
 
 
 # #### Resultados
@@ -4031,7 +4190,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # Data Summary
 
-# In[108]:
+# In[124]:
 
 
 # MODEL_TIMESTAMP
@@ -4062,7 +4221,9 @@ cities.append('madrid') if madrid else None
 
 models_renaming = {'knn': 'KNN',
                    'convolution_1d': '1D-convolution',
-                   'convolution_2d': '2D-convolution'}
+                   'convolution_2d': '2D-convolution',
+                   'nb': 'NB',
+                   'svc': 'SVC'}
                    # 'auto_ml': 'AutoML'}
 
 for model_name in MODELS_NAME:
