@@ -180,74 +180,70 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     En la tabla \ref{TransformacionDatosTabla} se define el resto de codificaciones aplicadas sobre el resto de variables del modelo para transformar estos campos a formato numérico.
 
-                    \def\arraystretch{1.5}%
-                    \begin{longtable}{|c|L{0.7\textwidth}|}
-                      \caption{Transformaciones aplicadas a los datos.}
-                      \label{TransformacionDatosTabla}
-                        \begin{tabular}{|c|L{0.7\textwidth}|}
-                           \hline
-                           \textbf{Característica} & \textbf{Tipado}\\
+                    \def\arraystretch{1.2}%
+                    \begin{longtable}{|c|L{0.7\textwidth}|}\\
 
-                           \hline
+                        \hline
+                        \textbf{Característica} & \textbf{Tipado}\\
 
-                           \multirow{3}{*}{Lesividad}            & 0: Accidentes leves (\textit{1, 2, 5, 6, 7, 14}).\\
-                                                                 & 1: Accidentes severos (\textit{3}).\\
-                                                                 & 2: Accidentes fatales (\textit{4}).\\
+                        \hline
+                        \multirow{3}{*}{Lesividad}              & 0: Accidentes leves (\textit{1, 2, 5, 6, 7, 14}).\\
+                                                                & 1: Accidentes severos (\textit{3}).\\
+                                                                & 2: Accidentes fatales (\textit{4}).\\
 
-                           \hline
-                           \multirow{2}{*}{Hora}                 & 1: Noche (\textit{6 PM - 6 AM}).\\
-                                                                 & 2: Día (\textit{6 AM - 6 PM}).\\
-                           \hline
-                           \multirow{1}{*}{Distrito}             & Numeración en función de orden de aparición.\\
-                           \hline
-                           \multirow{2}{*}{Tipo Accidente}       & TODO\\
-                                                                 & TODO\\
-                           \hline
-                           \multirow{7}{*}{Estado Meteorológico} & 1: Despejado.\\
-                                                                 & 2: Nublado.\\
-                                                                 & 3: Lluvia débil.\\
-                                                                 & 4: Lluvia intensa.\\
-                                                                 & 5: Granizando.\\
-                                                                 & 6: Nevando.\\
-                                                                 & 7: Se desconoce.\\
-                           \hline
-                           \multirow{2}{*}{Tipo Vehículo}        & 1: Colisión fronto-lateral. \\
-                                                                 & 2: Alcance.\\
-                                                                 & 3: Colisión lateral.\\
-                                                                 & 4: Choque contra obstáculo fijo.\\
-                                                                 & 5: Colisión múltiple.\\
-                                                                 & 6: Caída.\\
-                                                                 & 7: Atropello a persona.\\
-                                                                 & 8: Colisión frontal.\\
-                                                                 & 9: Otro.\\
-                                                                 & 10: Solo salida de la vía.\\
-                                                                 & 11: Vuelco.\\
-                                                                 & 12: Atropello a animal.\\
-                                                                 & 13: Despeñamiento.\\
+                        \hline
+                        \multirow{2}{*}{Hora}                   & 1: Noche (\textit{6 PM - 6 AM}).\\
+                                                                & 2: Día (\textit{6 AM - 6 PM}).\\
+                        \hline
+                        \multirow{1}{*}{Distrito}               & Numeración en función de orden de aparición.\\
 
-                           \hline
-                           \multirow{3}{*}{Tipo Persona}         & 1: Conductor.\\
-                                                                 & 2: Pasajero.\\
-                                                                 & 3: Peatón.\\
-                           \hline
-                           \multirow{5}{*}{Rango Edad}           & 1: Menores de 18 años.\\
-                                                                 & 2: De 18 a 25 años.\\
-                                                                 & 3: De 25 a 65 años.\\
-                                                                 & 4: Mayores de 65 años.\\
-                                                                 & 5: Edad desconocida.\\
-                           \hline
-                           \multirow{3}{*}{Sexo}                 & 1: Hombre.\\
-                                                                 & 2: Mujer.\\
-                                                                 & 3: Desconocido.\\
-                           \hline
-                           \multirow{2}{*}{Positivo}             & 1: Sí.\\
-                                                                 & 2: No.\\
+                        \hline
+                        \multirow{2}{*}{Tipo Accidente}         & 1: Colisión fronto-lateral. \\
+                                                                & 2: Alcance.\\
+                                                                & 3: Colisión lateral.\\
+                                                                & 4: Choque contra obstáculo fijo.\\
+                                                                & 5: Colisión múltiple.\\
+                                                                & 6: Caída.\\
+                                                                & 7: Atropello a persona.\\
+                                                                & 8: Colisión frontal.\\
+                                                                & 9: Otro.\\
+                                                                & 10: Solo salida de la vía.\\
+                                                                & 11: Vuelco.\\
+                                                                & 12: Atropello a animal.\\
+                                                                & 13: Despeñamiento.\\
+                        \hline
+                        \multirow{7}{*}{Estado Meteorológico}   & 1: Despejado.\\
+                                                                & 2: Nublado.\\
+                                                                & 3: Lluvia débil.\\
+                                                                & 4: Lluvia intensa.\\
+                                                                & 5: Granizando.\\
+                                                                & 6: Nevando.\\
+                                                                & 7: Se desconoce.\\
+                        \hline
+                        \multirow{2}{*}{Tipo Vehículo}          & Numeración en función de orden de aparición.\\
+
+                        \hline
+                        \multirow{3}{*}{Tipo Persona}           & 1: Conductor.\\
+                                                                & 2: Pasajero.\\
+                                                                & 3: Peatón.\\
+                        \hline
+                        \multirow{5}{*}{Rango Edad}             & 1: Menores de 18 años.\\
+                                                                & 2: De 18 a 25 años.\\
+                                                                & 3: De 25 a 65 años.\\
+                                                                & 4: Mayores de 65 años.\\
+                                                                & 5: Edad desconocida.\\
+                        \hline
+                        \multirow{3}{*}{Sexo}                   & 1: Hombre.\\
+                                                                & 2: Mujer.\\
+                                                                & 3: Desconocido.\\
+                        \hline
+                        \multirow{2}{*}{Positivo}               & 1: Sí.\\
+                                                                & 2: No.\\
                         \hline
 
-                      \end{tabular}
-
+                    \caption{Transformaciones aplicadas a los datos.}
+                    \label{TransformacionDatosTabla}\\
                     \end{longtable}
-                    
 
 
                 \item Análisis de datos
@@ -256,7 +252,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     Comenzaremos analizando los datos que correspondan a cada una de las tres posibles clases (leves, severos y fatales) realizando un histograma \ref{CasualtyClassImage}. Como podemos observar, nos encontramos ante un dataset claramente desbalanceado con respecto a la variable respuesta, contando con 53.009 accidentes leves, 1.271 severos y 84 fatales.\\
 
-                    Un conjunto de datos desbalanceado se define como aquel que contiene un número de instancias mucho mayor de determinadas clases con respecto al resto \cite{WhyImbalancedDataIsAProblem}. Esto se convierte en un problema para los modelos de clasificación ya que estos modelos tenderán a predecir las muestras como aquellas que pertenecen a las mayoritarias sobre el conjunto de test debido a que las reglas de classificación de las clases menos numerosas tienden a ser ignoradas.\\
+                    Un conjunto de datos desbalanceado se define como aquel que contiene un número de instancias mucho mayor de determinadas clases con respecto al resto \cite{WhyImbalancedDataIsAProblem}. Esto se convierte en un problema para los modelos de clasificación ya que estos modelos tenderán a predecir las muestras como aquellas que pertenecen a las mayoritarias sobre el conjunto de test debido a que las reglas de classificación de las clases menos numerosas tienden a ser ignoradas.
 
                     El desbalanceo de datos es un problema ampliamente estudiado a lo largo de los años y existen numerosos métodos orientados a tratar este problema mediante distintas técnicas de muestreo \cite{ImbalancedDataReview}, por lo que será necesario aplicar distintas técnicas sobre el conjunto de datos.
 
@@ -282,6 +278,8 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \caption{PCA aplicado a los datos.}
                         \label{PCAImage}
                      \end{figure}
+
+
 
                 \item Normalización de datos
 
@@ -309,10 +307,10 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                     La siguiente fase en cualquier modelo de \glsentryshort{ML} es la separación de datos (\textit{split}). Esta fase consiste en dividir el conjunto total de datos en al menos dos subconjuntos, uno de entrenamiento y otro de test. El modelo se entrenará en base a los datos de entrenamiento y se evaluará con los datos de test, los resultados sobre este conjunto permitirán comparar los modelos en base a las predicciones sobre las muestras que nunca han visto.\\
 
 
-                    Comúnmente la proporción de datos de entrenamiento y test está establecida en un 0.8, en la figura \ref{DataSplitImage} se muestra una representación visual de esta división.
+                    Comúnmente la proporción de datos de entrenamiento y test está establecida en \textit{0.8} y \textit{0.2} respectivamente, en la figura \ref{DataSplitImage} se muestra una representación visual de esta división.
 
 
-                    \begin{figure}[H]
+                    \begin{figure}[h]
                         \centering
                         \includegraphics[width=10cm]{archivos/Datos/DataSplit}
                         \caption{https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.}
@@ -336,13 +334,56 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \textbf{No se redactará más hasta que se compruebe en los experimentos que esa técnica nos sirve}
                         
 
-                        \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Para la realización de este proyecto se ha hecho uso de la tećnica \glsentryfull{smoteii} \ref{smoteii}. Selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
+                        \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Se ha hecho uso de la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Esta técnica selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
 
-                        \glsentryshort{smoteii} ha sido utilizar para generar más muestras de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
+                        \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
 
                     \end{enumerate}
 
+
+                    Una vez aplicadas las técnicas de remuestreo al conjunto de datos para balancearlo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} con respecto a los datos originales mediante \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} es una técnica que permite visualizar datos multidimensionales proyectando cada muetra en un espacio bidimensional o tridimensional. Este método es una variante simplificada y optimizada del algoritmo \glsentryfull{sne}.
+
+                    Mientras que \glsentryshort{sne} convierte las distancias Euclídeas entre las muestras a probabilidades condicionales que presenten similaridades entre sí mediante probabilidades Gaussianas, \glsentryshort{tsne} modifica su función de coste de tal forma que utiliza una distribución t-Student, permitiendo además trabajar con gradientes simplificados.
+
+
+                    En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}.
+
+
+                    \begin{figure}
+                        \centering
+                        \begin{subfigure}[b]{0.4\textwidth}
+                            \centering
+                            \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_clean}
+                            \caption{TSNE de 2 componentes aplicado a los datos originales.}
+                            \label{TSNEImages:Clean2D}
+                        \end{subfigure}
+                        % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
+                        \begin{subfigure}[b]{0.4\textwidth}
+                            \centering
+                            \includesvg[scale=0.4]{archivos/Datos/TSNE/2d_tsne_train}
+                            \caption{TSNE de 2 componentes aplicado a los datos generados por SMOTE-II.}
+                            \label{TSNEImages:Train2D}
+
+                        \end{subfigure}
+                        \begin{subfigure}[b]{0.4\textwidth}
+                            \centering
+                            \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_clean}
+                            \caption{TSNE de 3 componentes aplicado a los datos originales.}
+                            \label{TSNEImages:Clean3D}
+                        \end{subfigure}
+                        \begin{subfigure}[b]{0.4\textwidth}
+                            \centering
+                            \includesvg[scale=0.4]{archivos/Datos/TSNE/3d_tsne_train}
+                            \caption{TSNE de 3 componentes aplicado a los datos generados por SMOTE-II.}
+                            \label{TSNEImages:Train3D}
+                        \end{subfigure}
+                        \caption{TSNE de 2 y 3 componentes aplicado a los datos originales y a los generados sintéticamente (\glsentryshort{smoteii}).}
+                        \label{TSNEImages}
+                     \end{figure}
+
             \end{enumerate}
+
+
 
 
 
@@ -417,7 +458,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \hline
 
                     \end{tabular}
-                \caption{Mejores parámetros de KNN tras aplicar GridSearch.}
+                \caption{Mejores parámetros de XGBoost tras aplicar el algoritmo genético.}
                 \label{BestGASolutionTable}
             \end{table}
 

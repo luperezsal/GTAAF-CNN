@@ -18,28 +18,29 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Flujo de datos del proceso del proyecto.\relax }}{33}{figure.caption.28}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Diagrama de Gantt de la planificación del proyecto.\relax }}{34}{figure.caption.29}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Histograma de tipo de accidente.\relax }}{38}{figure.caption.32}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{39}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces PCA aplicado a los datos.\relax }}{40}{figure.caption.34}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.\relax }}{41}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{43}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Evolución del macro F1 score a lo largo de las iteraciones.\relax }}{44}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{45}{figure.caption.40}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Representación de las muestras de accidentes en forma de matriz de grises.\relax }}{47}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU\relax }}{48}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Arquitectura de la CNN-2D mostrando una kernels aprendidos durante el entrenamiento.\relax }}{49}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Ejemplo de subfiguras\relax }}{50}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Ejemplo de subfiguras vertical\relax }}{50}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Histograma de tipo de accidente.\relax }}{39}{figure.caption.31}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{40}{figure.caption.32}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces PCA aplicado a los datos.\relax }}{41}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.\relax }}{42}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces TSNE de 2 y 3 componentes aplicado a los datos originales y a los generados sintéticamente.\relax }}{44}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{46}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Evolución del macro F1 score a lo largo de las iteraciones.\relax }}{46}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{47}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Representación de las muestras de accidentes en forma de matriz de grises.\relax }}{49}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU\relax }}{51}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Arquitectura de la CNN-2D mostrando una kernels aprendidos durante el entrenamiento.\relax }}{51}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Ejemplo de subfiguras\relax }}{52}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Ejemplo de subfiguras vertical\relax }}{53}{figure.caption.47}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Diagrama realizado en latex con Tikz.\relax }}{60}{figure.caption.50}%
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Gráfica sencilla.\relax }}{61}{figure.caption.51}%
-\contentsline {figure}{\numberline {7.3}{\ignorespaces OP/S003\relax }}{61}{figure.caption.52}%
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Gráfica barras.\relax }}{62}{figure.caption.53}%
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Directividad normalizada del altavoz (0 dBV en el eje).\relax }}{63}{figure.caption.54}%
-\contentsline {figure}{\numberline {7.6}{\ignorespaces Ejemplo de gráfica obtenida con matlab2tikz.\relax }}{64}{figure.caption.55}%
-\contentsline {figure}{\numberline {7.7}{\ignorespaces Amplitud de la aceleración en el modo número 8.\relax }}{64}{figure.caption.56}%
-\contentsline {figure}{\numberline {7.8}{\ignorespaces Señal realizada con Tikz, sin imágenes.\relax }}{65}{figure.caption.57}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Diagrama realizado en latex con Tikz.\relax }}{62}{figure.caption.50}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Gráfica sencilla.\relax }}{63}{figure.caption.51}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces OP/S003\relax }}{63}{figure.caption.52}%
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Gráfica barras.\relax }}{64}{figure.caption.53}%
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Directividad normalizada del altavoz (0 dBV en el eje).\relax }}{65}{figure.caption.54}%
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Ejemplo de gráfica obtenida con matlab2tikz.\relax }}{66}{figure.caption.55}%
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Amplitud de la aceleración en el modo número 8.\relax }}{66}{figure.caption.56}%
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Señal realizada con Tikz, sin imágenes.\relax }}{67}{figure.caption.57}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
