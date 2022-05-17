@@ -3732,7 +3732,7 @@ if city and not train_nn and other_models:
 # In[ ]:
 
 
-if city and not train_nn and other_models:
+if city:
 
     Y_predicted = clf.predict(X_test)
 
@@ -3772,37 +3772,39 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# # leaf_size = list(range(1,10, 2))
-# # n_neighbors = list(range(1,100, 10))
-# # p = [1, 2]
+leaf_size = list(range(1,10, 2))
+n_neighbors = list(range(1,100, 10))
+p = [1, 2]
 
-# # Create new KNN object
-# hyperparameters = dict(leaf_size = leaf_size,
-#                        n_neighbors = n_neighbors)
+if city and train_nn and other_models:
 
-# # Use GridSearch
-# knn_2 = KNeighborsClassifier()
+    # Create new KNN object
+    hyperparameters = dict(leaf_size = leaf_size,
+                           n_neighbors = n_neighbors)
 
-# # Fit the model
-# clf = GridSearchCV(knn_2,
-#                    hyperparameters,
-#                    cv = 4)
+    # Use GridSearch
+    knn_2 = KNeighborsClassifier()
 
-# knn = clf.fit(X_train, Y_train)
+    # Fit the model
+    clf = GridSearchCV(knn_2,
+                       hyperparameters,
+                       cv = 4)
 
-# # Print The value of best Hyperparameters
+    knn = clf.fit(X_train, Y_train)
 
-# best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
-# best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
+    # Print The value of best Hyperparameters
 
-# print('Best leaf_size:', best_leaf_size)
-# print('Best n_neighbors:', best_n_neighbors)
+    best_leaf_size  = knn.best_estimator_.get_params()['leaf_size']
+    best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
 
-# df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
+    print('Best leaf_size:', best_leaf_size)
+    print('Best n_neighbors:', best_n_neighbors)
 
-# FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
+    df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
 
-# df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
+    FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
+
+    df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
 
 # #### Escritura del modelo
@@ -3810,14 +3812,12 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.pkl"
+if city and train_nn and other_models:
 
-# # Its important to use binary mode 
-# knnPickle = open(MODEL_PATH + MODEL_FILE_NAME, 'wb') 
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
 
-# # source, destination 
-# pickle.dump(knn, knnPickle)
+    dump(knn, MODEL_PATH + MODEL_FILE_NAME) 
 
 
 # #### Carga de modelo pre-entrenado
@@ -3825,18 +3825,13 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_2022-04-27-21:50:26.pkl"
+if city and not train_nn and other_models:
 
-# # load the model from disk
-# 2022-04-27-21:50:26.pklloaded_model = pickle.load(open(MODEL_PATH + MODEL_FILE_NAME, 'rb'))
+    version = 'X'
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{version}.joblib"
 
-
-# In[ ]:
-
-
-# knn = KNeighborsClassifier(leaf_size = 1, n_neighbors = 16)
-# knn.fit(X_train, Y_train)
+    knn = load(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -3844,36 +3839,28 @@ MODEL_NAME = MODELS_NAME[0]
 # In[113]:
 
 
+if city:
 
-y_predicted = knn.predict(X_test)
+    Y_predicted = knn.predict(X_test)
 
-Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+    print("[INFO] evaluating model...")
 
-F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
+    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{t}.csv"
 
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
-
-print("[INFO] evaluating network...")
-
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
-
-plot_classification_report(path = REPORT_PATH,
-                           file_name = REPORT_NAME,
-                           y_true = Y_test,
-                           y_predicted = Y_predicted)
+    plot_classification_report(path = REPORT_PATH,
+                               file_name = REPORT_NAME,
+                               y_true = Y_test,
+                               y_predicted = Y_predicted)
 
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
+    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
 
-plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                      file_name = CONFUSION_MATRIX_NAME,
-                      y_true = Y_test,
-                      y_predicted = Y_predicted)
+    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                          file_name = CONFUSION_MATRIX_NAME,
+                          y_true = Y_test,
+                          y_predicted = Y_predicted)
 
 
 # ### Convolution 1D
