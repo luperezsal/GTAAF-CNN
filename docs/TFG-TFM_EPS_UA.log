@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  16 MAY 2022 20:33
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.9)  16 MAY 2022 21:30
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2439,7 +2439,7 @@ Overfull \hbox (8.03072pt too wide) in paragraph at lines 24--24
  []
 
 
-Overfull \hbox (24.40822pt too wide) in paragraph at lines 30--30
+Overfull \hbox (24.40822pt too wide) in paragraph at lines 29--29
  [][] [][]\TU/lmr/m/n/10.95 https://www.researchgate.net/journal/Transport-in-P
 orous-Media-1573-1634. Fun- 
  []
@@ -3241,17 +3241,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 453--454
  []
 
 [47]
+
+Package natbib Warning: Citation `GradientVanishingRelu' on page 48 undefined o
+n input line 478.
+
 File: archivos/CNN/RELUImage.png Graphic file (type bmp)
 <archivos/CNN/RELUImage.png>
 File: archivos/CNN/2D/TASCNN.png Graphic file (type bmp)
 <archivos/CNN/2D/TASCNN.png>
+
+Overfull \hbox (42.67911pt too wide) in paragraph at lines 505--506
+ [][] 
+ []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 Package natbib Warning: Citation `AutoSklearn' on page 48 undefined on input li
-ne 520.
+ne 521.
 
 [48]
 File: archivos/subs-sin.png Graphic file (type bmp)
@@ -3554,16 +3562,13 @@ LaTeX Info: Redefining \ttfamily on input line 29.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
  66955 strings out of 410931
  1538464 string characters out of 2825211
- 2820859 words of memory out of 3000000
+ 2820921 words of memory out of 3000000
  86444 multiletter control sequences out of 15000+600000
  504987 words of font info for 213 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
