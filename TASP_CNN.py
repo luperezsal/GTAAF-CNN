@@ -3669,43 +3669,52 @@ MODEL_NAME = MODELS_NAME[0]
 # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_2022-04-27-21:50:26.pkl"
 
 # # load the model from disk
-# loaded_model = pickle.load(open(MODEL_PATH + MODEL_FILE_NAME, 'rb'))
+# 2022-04-27-21:50:26.pklloaded_model = pickle.load(open(MODEL_PATH + MODEL_FILE_NAME, 'rb'))
+
+
+# In[114]:
+
+
+knn = KNeighborsClassifier(leaf_size = 1,
+                           n_neighbors = 16)
+knn.fit(X_train, Y_train)
 
 
 # #### Resultados
 
-# In[89]:
+# In[113]:
 
 
-# y_predicted = knn.predict(X_test)
 
-# Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+y_predicted = knn.predict(X_test)
 
-# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
+Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-# # plot_f1_score(f1_score_path = F1_SCORE_PATH,
-# #               f1_score_name = F1_SCORE_NAME,
-# #               history = history)
+F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-# print("[INFO] evaluating network...")
+# plot_f1_score(f1_score_path = F1_SCORE_PATH,
+#               f1_score_name = F1_SCORE_NAME,
+#               history = history)
 
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+print("[INFO] evaluating network...")
 
-# plot_classification_report(path = REPORT_PATH,
-#                            file_name = REPORT_NAME,
-#                            y_true = Y_test,
-#                            y_predicted = Y_predicted)
+REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+
+plot_classification_report(path = REPORT_PATH,
+                           file_name = REPORT_NAME,
+                           y_true = Y_test,
+                           y_predicted = Y_predicted)
 
 
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
+CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
 
-# plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-#                       file_name = CONFUSION_MATRIX_NAME,
-#                       y_true = Y_test,
-#                       y_predicted = Y_predicted)
+plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                      file_name = CONFUSION_MATRIX_NAME,
+                      y_true = Y_test,
+                      y_predicted = Y_predicted)
 
 
 # ### Convolution 1D
