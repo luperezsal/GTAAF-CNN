@@ -3819,6 +3819,14 @@ MODEL_NAME = MODELS_NAME[0]
 
 knn = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
 
+start = time.time()
+
+knn.fit(X_train, Y_train)
+
+end = time.time()
+
+model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+times = times.append(model_time)
 
 # leaf_size = list(range(1,10, 2))
 # n_neighbors = list(range(1,100, 10))
@@ -4263,7 +4271,7 @@ palette = itertools.cycle(sns.color_palette('deep'))
 ax = sns.barplot(x = 'time',
                  y = 'model',
                  palette='deep',
-                 data = times).set(title = f"Models Time")
+                 data = times).set(title = f"Models Fitting Time (s)")
 plt.xlabel("Time (s)")
 
 
