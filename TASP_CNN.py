@@ -4185,7 +4185,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # Data Summary
 
-# In[228]:
+# In[229]:
 
 
 # MODEL_TIMESTAMP
@@ -4225,7 +4225,7 @@ splits = ['train', 'test']
 for split in splits:
     for model_name in MODELS_NAME:
 
-        REPORT_PATH = f"{REPORTS_PATH}{model_name}/{split/}"
+        REPORT_PATH = f"{REPORTS_PATH}{model_name}/{split}"
 
         for city in cities:
             REPORT_NAME  = f"{city}_{model_name}_report_{MODEL_TIMESTAMP}.csv"
