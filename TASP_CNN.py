@@ -4288,14 +4288,7 @@ MODEL_NAME = MODELS_NAME[3]
 # In[ ]:
 
 
-import itertools
-palette = itertools.cycle(sns.color_palette('deep'))
-
-
-# In[ ]:
-
-
-times
+times = times.sort_values('time')
 
 
 # ## Models times plot
