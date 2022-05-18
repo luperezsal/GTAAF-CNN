@@ -34,8 +34,24 @@
       \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
       \label{EvolucionF1ScoreImage}
    \end{figure}
-   
+
   En la tabla \ref{BestGASolutionTable} se pueden observar el mejor individuo obtenido después de \textit{TODO: X} generaciones.
+
+  \begin{table}[H]
+      \centering
+          \begin{tabular}{ |c|c| } 
+              \hline
+              \textbf{Hiperparámetro} & \textbf{Valor}\\
+              \hline
+                  Profundidad Máxima & TODO \\ 
+                  Peso mínimo de los hijos & TODO \\ 
+                  ETA & TODO \\ 
+              \hline
+
+          \end{tabular}
+      \caption{Mejores parámetros de XGBoost tras aplicar el algoritmo genético.}
+      \label{BestGASolutionTable}
+  \end{table}
 
 \section{XGBoost}
 
@@ -48,9 +64,46 @@
 
   \textbf{NOTA} Ponemos aquí las figuras de los pesos calculados \ref{FeatureWeightsImage} y la tabla de cáclulo de características \ref{PesosFinalesCaracteristicas}?
 
+        \begin{table}[H]
+          \centering
+          \begin{tabular}{ |c|c|c|c| }
+               \hline
+               \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
+
+               \hline
+               \multirow{4}{*}{Accidente}   & \multirow{4}{*}{TODO: 1}      & Coordenada X          & TODO: 1\\
+                                            &                               & Coordenada Y          & TODO: 1\\
+                                            &                               & Hora                  & TODO: 1\\
+                                            &                               & Vehículos implicados  & TODO: 1\\
+
+               \hline
+               \multirow{1}{*}{Ambiente}    & \multirow{1}{*}{TODO: 1}      & Estado meteorológico  & TODO: 1\\
+
+               \hline
+               \multirow{2}{*}{Carretera}   & \multirow{2}{*}{TODO: 1}      & Tipo de accidente     & TODO: 1\\
+                                            &                               & Distrito              & TODO: 1\\
+
+               \hline
+               \multirow{4}{*}{Conductor}   & \multirow{4}{*}{TODO: 1}      & Tipo Persona          & TODO: 1\\
+                                            &                               & Sexo                  & TODO: 1\\
+                                            &                               & Rango Edad            & TODO: 1\\
+                                            &                               & Positivo              & TODO: 1\\
+               \hline
+          \end{tabular}
+
+          \caption{Cálculo de pesos de características y categorías mediante XGBoost.}
+          \label{PesosFinalesCaracteristicas}
+        \end{table}
+
+
+        El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
+
 \section{Entrenamiento de modelos}
 
-  
+  \subsection{Tiempo de entrenamiento}
+
+  \textbf{El KNN no necesita entrenamiento, el tiempo obtenido es el de la optimización de hiperparámetros mediante Grid Search, por lo que no incluiría el tiempo en la gráfica.}
+
   \subsection{Gráficas de entrenamiento}
 
     Explicar las gráficas de evolución F1-score de las redes neuronales.
@@ -85,14 +138,21 @@
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/5.Resultados/NB/NBCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/NB/NBCassificationReportTrain.csv}
         \caption{Métricas Naive Bayes.}
         \label{NBMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReportTrain.csv}
+        \caption{Métricas SVC.}
+        \label{SVCDMetrics}
+      \end{table}
+
+      \begin{table}[H]
+        \centering
+        \csvautotabular{archivos/5.Resultados/KNN/KNNCassificationReportTrain.csv}
         \caption{Métricas SVC.}
         \label{SVCDMetrics}
       \end{table}
@@ -105,6 +165,7 @@
       \end{table}
 
 
+
   \subsection{Matrices de confusión}
 
     Explicar las matrices de confusión con datos de \textbf{ENTRENAMIENTO.}
@@ -113,32 +174,41 @@
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfussionMatrix}
-            \caption{Matriz de correlación CNN-1D.}
-            \label{ConfussionMatrixImages:1D}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTrain}
+            \caption{Matriz de confusión CNN-1D.}
+            \label{ConfusionMatrixTrainImages:1D}
         \end{subfigure}
         % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfussionMatrix}
-            \caption{Matriz de correlación CNN-2D.} 
-            \label{ConfussionMatrixImages:2D}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTrain}
+            \caption{Matriz de confusión CNN-2D.} 
+            \label{ConfusionMatrixTrainImages:2D}
 
         \end{subfigure}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfussionMatrix}
-            \caption{Matriz de correlación NB.}
-            \label{ConfussionMatrixImages:NB}
+            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfusionMatrixTrain}
+            \caption{Matriz de confusión NB.}
+            \label{ConfusionMatrixTrainImages:NB}
         \end{subfigure}
+
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfussionMatrix}
-            \caption{Matriz de correlación SVC.}
-            \label{ConfussionMatrixImages:SVC}
+            \includesvg[scale=0.4]{archivos/5.Resultados/KNN/KNNConfusionMatrixTrain}
+            \caption{Matriz de confusión KNN.}
+            \label{ConfusionMatrixTrainImages:KNN}
         \end{subfigure}
-        \caption{Matriz de correlación sobre el conjunto de test sobre los modelos aplicados.}
-        \label{ConfussionMatrixImages}
+
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfusionMatrixTrain}
+            \caption{Matriz de confusión SVC.}
+            \label{ConfusionMatrixTrainImages:SVC}
+        \end{subfigure}
+
+        \caption{Matrices de confusión de los modelos sobre el conjunto de entrenamiento.}
+        \label{ConfusionMatrixTrainImages}
      \end{figure}
 
   \subsection{Comparativa entre modelos}
@@ -170,14 +240,21 @@
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/5.Resultados/NB/NBCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/NB/NBCassificationReportTest.csv}
       \caption{Métricas Naive Bayes.}
       \label{NBMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReportTest.csv}
+      \caption{Métricas SVC.}
+      \label{SVCDMetrics}
+    \end{table}
+
+    \begin{table}[H]
+      \centering
+      \csvautotabular{archivos/5.Resultados/KNN/KNNCassificationReportTest.csv}
       \caption{Métricas SVC.}
       \label{SVCDMetrics}
     \end{table}
@@ -197,33 +274,41 @@
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTest}
             \caption{Matriz de confusión CNN-1D.}
-            \label{ConfussionMatrixImages:1D}
+            \label{ConfusionMatrixTestImages:1D}
         \end{subfigure}
         % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTest}
             \caption{Matriz de confusión CNN-2D.} 
-            \label{ConfussionMatrixImages:2D}
+            \label{ConfusionMatrixTestImages:2D}
 
         \end{subfigure}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfusionMatrixTest}
             \caption{Matriz de confusión NB.}
-            \label{ConfussionMatrixImages:NB}
+            \label{ConfusionMatrixTestImages:NB}
         \end{subfigure}
+
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfussionMatrix}
+            \includesvg[scale=0.4]{archivos/5.Resultados/KNN/KNNConfusionMatrixTest}
+            \caption{Matriz de confusión KNN.}
+            \label{ConfusionMatrixTestImages:KNN}
+        \end{subfigure}
+
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfusionMatrixTest}
             \caption{Matriz de confusión SVC.}
-            \label{ConfussionMatrixImages:SVC}
+            \label{ConfusionMatrixTestImages:SVC}
         \end{subfigure}
 
         \caption{Matrices de confusión de los modelos sobre el conjunto de entrenamiento.}
-        \label{ConfussionMatrixImages}
+        \label{ConfusionMatrixTestImages}
      \end{figure}
 
   \subsection{Comparativa entre modelos}
@@ -238,3 +323,7 @@
         \label{ResultsImage}
      \end{figure}
 
+
+
+Como podemos observar, los modelos entrenados predicen bien sus muestras de enrenamiento sin embargo inguno de los modelos aplicados es capaz de generalizar bien sore el conjunto de datos de test sin smote
+esto es debido a la naturaleza de los datos, de la informacio que tenemos y de el tipo de limpieza que se ha hecho. Se ppodria hacer un estudio del valor numerico que se le asigna a cada variable en la limpieza, ya que seguramente al estar nosotros haciendolo aleatoriamente seguramente se esté creando algún patrón de jerarquía dentro de una columna o se le da mas importancia a un todoterreno que a un avion porque el todoterrento al tener un valor asignado más alto sera mas negro y por lo tanto la red predicira lo que sea

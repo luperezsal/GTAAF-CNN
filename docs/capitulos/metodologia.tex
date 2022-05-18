@@ -14,7 +14,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
     \begin{figure}[H]
         \centering
-        \includesvg[inkscapelatex=false]{archivos/4.Metodologia/GranttImage}
+        \includegraphics[width=15cm]{archivos/4.Metodologia/GranttImage}
         \caption{Diagrama de Gantt de la planificación del proyecto.}
         \label{GranttImage}
     \end{figure}
@@ -176,13 +176,33 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \item Transformaciones de datos
 
-                    En esta sección detallaremos las transformaciones sobre los datos que han sido necesarias para que los modelos trabajen con un conjunto de datos bien definido y consistente. Gran parte de los modelos de \glsentryshort{ml} necesitan de datos numéricos para poder ser entrenados debido a la necesidad de normalizar estos valores para una correcta optimización del modelo, por lo tanto se requiere de una serie de transformacíones que conviertan las variables categóricas a variables numéricas.
+                    En esta sección detallaremos las transformaciones sobre los datos que han sido necesarias para que los modelos trabajen con un conjunto de datos bien definido y consistente. Gran parte de los modelos de \glsentryshort{ml} necesitan de datos numéricos para poder comprenderlos, además existe la necesidad de normalizar estos valores para un correcto entrenamiento de los mismos, por lo tanto se requiere de una serie de transformacíones que conviertan las variables categóricas a variables numéricas.
 
                     En primer lugar ha sido necesario transformar las columnas \textit{coordenada x utm} y \textit{coordenada y utm} a números enteros para que los modelos puedan interpretarlas y normalizarlas, ya que el rango de estas variables es del orden de 7 a 10 dígitos. Inicialmente estos valores estaban establecidos como \textit{String}, evitando cualquier formato de decimales estandarizado (utilizando puntos y comas indistintamente en distintas posiciones de los dígitos), debido a esto ha sido necesario crear un proceso que analizase cada casuístca y los tradujese a un formato estandarizado.
 
                     Las columnas \textit{positiva alcohol} y \textit{positiva drogas} se han unido en una nueva columna debido a la cantidad de valores nulos que existía en la segunda variable, por lo que se crea una nueva columna que hace referencia a la intoxicacion etílica o de estupefacientes.
   
 
+                    La variable \textit{localización} ha sido transformada a \textit{tipo de carretera}, con el objetivo de definir un criterio para clasificar el tipo de vía donde se ha producido el incidente, como por ejemplo una carretera, una autovía, glorieta, etc. Al no existir un servicio que ofrezca la tipología de la calle dado el nombre de la vía o las coordenadas UTM, ha sido necesario tratar esta problema desde otro punto de vista mediante expresiones regulares.
+
+                    El término \textit{expresión regular} debe su origen a la teoría de las matemáticas y ciencias de computación, reflejan la propiedad de \textit{regularidad} que caracterizan a las expresiones matemáticas \cite{RegeXBook}. Una expresión regular es un tipo de patrón utilizado para encontrar una combinación de caracteres en una cadena de texto. Para clasificar el tipo de carreteras en este proyecto se han diseñado una serie de expresiones regulares que coinciden con ciertos criterios respecto a los valores de la variable \textit{localizacion} con el fin de distinguir distintos tipos de vía.
+
+
+                    \textbf{NOTA: Ponemos una tabla con todas las RegEx que se han utilizado? Es sin duda la peor parte y menos científica del proyecto, y es lo único que no me gustaría mostrar, aunque ha llevado mucho tiempo me daría un poco de vergüenza poner esto en un proyecto de Ciencia de datos la verdad}
+
+
+                    Las tipologías de ta \textit{Parking, Aeropuerto, Cuesta, Paseo, Parque, Túnel, Polígono, Camino, Glorieta, Puerta, Puente, Plaza, Bulevar, Travesía, Calzada, Carretera, Avenida, Autovía} y \textit{Calle}
+
+
+                    No obstante, la aplicación de las expresiones regulares generalmente no son una solución empírica a un problema. En este proyecto su aplicación conlleva una serie de inconvenientes. Debido a las necesidades del problema están diseñadas jerárquicamente, de tal forma que aquellos valores de la variable \textit{localizacion} que coincidan con el primer patrón definido de la expresión regular serán asignados a esta categoría. Esto supone un impedimento a tener en cuenta. Muchos de los accidentes se producen en intersecciones, carriles de aceleración que conectan dos vías, vías cuyo nombre contiene el tipo de otra vía, etc. Si se da el caso de que haya algún patrón que no se ha definido como expresión regular, provocará que estas localizaciones se asignen con respecto al primer patrón definido encontrado, llegando a clasificar erróneamente el tipo de vía. Como consecuencia, el orden de la definición de las expresiones es un punto crítico porque se busca maximizar la clasificación de aquellos tipos de vía con menor número de apariciones, como es el caso de parking o aeropuerto, mientras se busca minimizar el error en la clasificación.
+
+
+                    Para solucionar esto herramientas como Open Refine \cite{OpenRefine} que utilizan técnicas de clustering nominal para detectar semejanzas entre nombres podría ser una solución.
+
+                    Por otra parte hay que tratar aquellos valores que no hayan coincidido con los patrones definidos (TODO: poner el número), sin embargo, al ser una cantidad de registros se han poido revisar manualmente coincidiendo todas con nombres de calles al que no se les ha asignado la palabra \textit{"calle"}.
+
+
+                    En la variable \textit{hora} al ser una variable continua es necesario discretizar, distinguiendo entre noche y día en función de la hora en la que se ha producido el incidente (18:6 noche)
                     En la tabla \ref{TransformacionDatosTabla} se define el resto de codificaciones aplicadas sobre el resto de variables del modelo para transformar estos campos a formato numérico.
 
                     \def\arraystretch{1.2}%
@@ -269,7 +289,10 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \label{CasualtyClassImage}
                      \end{figure}
 
-                     Analizando la matriz de correlación \ref{CorrelationMatrixImage} se puede observar que la variable \textit{coordenada x utm} y la variable \textit{distrito} están relativamente correlacionadas. Por lo que 
+
+                    En la figura \ref{CorrelationMatrixImage} podemos observar la matriz de correlación de las variables explicativas del conjunto de datos del proyecto. Esta matriz muestra las relaciones existentes entre las variables indicando el grado de correlación para cada par de variables. Estos valores están acotados entre [-1, 1] en base al coeficiente de correlación de \textit{Pearson} \cite{PearsonCoefficientCorrelationMatrix}, que indica la relación entre la variación de una variable y otra, de tal forma es posible saber tanto el grado como la proporcionalidad de esta variación.
+
+                    Analizando la matriz se puede comprobar las únicas variables que están medianamente correlacionadas son \textit{coordenada x utm} y la variable \textit{distrito}, con una correlación positiva de 0.44, sin embargo no es un valor tan alto como para eliminar alguna de las dos las características.
 
                     \begin{figure}[H]
                         \centering
@@ -277,14 +300,6 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                         \caption{Matriz de correlación para los predictores escogidos del dataset.}
                         \label{CorrelationMatrixImage}
                      \end{figure}
-
-                    \begin{figure}[H]
-                        \centering
-                        \includesvg[width=15cm]{archivos/4.Metodologia/Datos/Analisis/PCAImage}
-                        \caption{PCA aplicado a los datos.}
-                        \label{PCAImage}
-                     \end{figure}
-
 
 
                 \item Normalización de datos
@@ -434,40 +449,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
         \textbf{TODO: No se redactará más hasta tener claro cuál es la mejor forma de entrenar el \glsentryshort{xgboost} (función de validación y datos de entrenamiento)}
 
 
-        \textbf{TODO: Las siguientes dos figuras irían mejor en Resultados?}
-        En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los parámetros del mejor individuo en cada generación.
 
-        \begin{figure}[H]
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionHiperparametros}
-            \caption{Evolución de hiperparámetros a lo largo de las iteraciones.}
-            \label{EvolucionHiperparametrosImage}
-         \end{figure}
-
-        \begin{figure}[H]
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionF1Score}
-            \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
-            \label{EvolucionF1ScoreImage}
-         \end{figure}
-         
-        En la tabla \ref{BestGASolutionTable} se pueden observar el mejor individuo obtenido después de \textit{TODO: X} generaciones.
-
-        \begin{table}[H]
-            \centering
-                \begin{tabular}{ |c|c| } 
-                    \hline
-                    \textbf{Hiperparámetro} & \textbf{Valor}\\
-                    \hline
-                        Profundidad Máxima & TODO \\ 
-                        Peso mínimo de los hijos & TODO \\ 
-                        ETA & TODO \\ 
-                    \hline
-
-                \end{tabular}
-            \caption{Mejores parámetros de XGBoost tras aplicar el algoritmo genético.}
-            \label{BestGASolutionTable}
-        \end{table}
 
 
         %SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
@@ -478,20 +460,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \textbf{TODO: Decir que se entrena con los datos train con downsampling si es el mejor resultado al final en los experimentos}\\
 
-        Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se obtiene la importancia de cada clase mediante el cálculo de los pesos. \cite{XGBoostFeatureWeightsMeaning}. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol. Aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
+        Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se entrena un nuevo modelo con los hiperparámetros calculados sobre el conjunto de entrenamiento remuestreado. Con este nuevo modelo \glsentryshort{xgboost} entrenado, se obtiene la importancia de cada clase mediante el cálculo de los pesos. \cite{XGBoostFeatureWeightsMeaning}. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol. Aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
 
         Los pesos son asignados para cada característica del conjunto de datos con el que ha sido entrenado \glsentryshort{xgboost} de tal forma que permite realizar un análisis comparativo de los atributos.
-
-
-        Generally, importance provides a score that indicates how useful or valuable each feature was in the construction of the boosted decision trees within the model. The more an attribute is used to make key decisions with decision trees, the higher its relative importance.
-
-        This importance is calculated explicitly for each attribute in the dataset, allowing attributes to be ranked and compared to each other.
-
-        Importance is calculated for a single decision tree by the amount that each attribute split point improves the performance measure, weighted by the number of observations the node is responsible for. The performance measure may be the purity (Gini index) used to select the split points or another more specific error function.
-
-        The feature importances are then averaged across all of the the decision trees within the model.
-
-
 
 
     \subsection{Imágenes}
@@ -561,38 +532,6 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
         \end{enumerate}
 
 
-        \begin{table}[H]
-          \centering
-          \begin{tabular}{ |c|c|c|c| }
-               \hline
-               \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
-
-               \hline
-               \multirow{4}{*}{Accidente}   & \multirow{4}{*}{TODO: 1}      & Coordenada X          & TODO: 1\\
-                                            &                               & Coordenada Y          & TODO: 1\\
-                                            &                               & Hora                  & TODO: 1\\
-                                            &                               & Vehículos implicados  & TODO: 1\\
-
-               \hline
-               \multirow{1}{*}{Ambiente}    & \multirow{1}{*}{TODO: 1}      & Estado meteorológico  & TODO: 1\\
-
-               \hline
-               \multirow{2}{*}{Carretera}   & \multirow{2}{*}{TODO: 1}      & Tipo de accidente     & TODO: 1\\
-                                            &                               & Distrito              & TODO: 1\\
-
-               \hline
-               \multirow{4}{*}{Conductor}   & \multirow{4}{*}{TODO: 1}      & Tipo Persona          & TODO: 1\\
-                                            &                               & Sexo                  & TODO: 1\\
-                                            &                               & Rango Edad            & TODO: 1\\
-                                            &                               & Positivo              & TODO: 1\\
-               \hline
-          \end{tabular}
-          \caption{Cálculo de pesos de características y categorías mediante XGBoost.}
-          \label{PesosFinalesCaracteristicas}
-        \end{table}
-
-
-        El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
 
         \begin{figure}[H]
             \centering
