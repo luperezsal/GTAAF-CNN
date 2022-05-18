@@ -1,0 +1,7 @@
+,c_m,city,model,precision,recall,f1-score,support
+Slight,madrid_SVC,madrid,SVC,0.983,0.645,0.779,10640.0
+Serious,madrid_SVC,madrid,SVC,0.041,0.478,0.076,247.0
+Fatal,madrid_SVC,madrid,SVC,0.001,0.071,0.002,14.0
+accuracy,madrid_SVC,madrid,SVC,0.641,0.641,0.641,0.641
+macro avg,madrid_SVC,madrid,SVC,0.342,0.398,0.286,10901.0
+weighted avg,madrid_SVC,madrid,SVC,0.96,0.641,0.762,10901.0
