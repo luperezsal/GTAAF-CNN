@@ -840,6 +840,31 @@ def plot_confusion_matrix(path, file_name, y_true, y_predicted):
     plt.savefig(path + file_name, dpi = 150)
 
 
+# In[208]:
+
+
+def save_classification_report_and_confussion_matrix(model_name, model_timestamp, y_true, y_predicted, data):
+    
+    
+    report_path = f"{REPORTS_PATH}{model_name}/{data}/"
+    report_name = f"{city_name}_{MODEL_NAME}_report_{model_timestamp}.csv"
+
+
+    plot_classification_report(path = report_path,
+                               file_name = report_name,
+                               y_true = y_true,
+                               y_predicted = y_predicted)
+
+
+    confussion_matrix_path = f"{CONFUSIONS_MATRIX_PATH}{model_name}/{data}/"
+    confussion_matrix_name = f"{city_name}_{MODEL_NAME}_confusion_matrix_{model_timestamp}.svg"
+
+    plot_confusion_matrix(path = confussion_matrix_path,
+                          file_name = confussion_matrix_name,
+                          y_true = y_true,
+                          y_predicted = y_predicted)
+
+
 # # Leeds Data
 
 # ## Importación de datos
@@ -1082,7 +1107,7 @@ from sklearn.model_selection import train_test_split
 
 Y = clean_df['Casualty Severity']
 
-train, test = train_test_split(clean_df, test_size=0.2)
+train, test = train_test_split(clean_df, test_size=0.2, random_state = 1)
 X_train = X_train_original = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
 Y_train = Y_train_original = train['Casualty Severity']
 
@@ -3663,26 +3688,21 @@ if city and not train_nn and other_models:
 
 
 if city:
+    print("[INFO] evaluating model...")
+    if train_nn:
+        Y_train_predicted = gnb.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
     Y_predicted = gnb.predict(X_test)
 
-    print("[INFO] evaluating model...")
-
-    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
-
-    plot_classification_report(path = REPORT_PATH,
-                               file_name = REPORT_NAME,
-                               y_true = Y_test,
-                               y_predicted = Y_predicted)
-
-
-    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                          file_name = CONFUSION_MATRIX_NAME,
-                          y_true = Y_test,
-                          y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### SVC
@@ -3726,7 +3746,6 @@ if city and train_nn and other_models:
 
 if city and not train_nn and other_models:
 
-    version = 'X'
     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{model_version}.joblib"
 
@@ -3735,31 +3754,27 @@ if city and not train_nn and other_models:
 
 # #### Resultados
 
-# In[ ]:
+# In[209]:
 
 
 if city:
+    print("[INFO] evaluating model...")
+
+    if train_nn:
+        Y_train_predicted = clf.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
 
     Y_predicted = clf.predict(X_test)
 
-    print("[INFO] evaluating model...")
-
-    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
-
-    plot_classification_report(path = REPORT_PATH,
-                               file_name = REPORT_NAME,
-                               y_true = Y_test,
-                               y_predicted = Y_predicted)
-
-
-    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                          file_name = CONFUSION_MATRIX_NAME,
-                          y_true = Y_test,
-                          y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### KNN
@@ -3846,27 +3861,22 @@ if city and not train_nn and other_models:
 
 
 if city:
-
-    Y_predicted = knn.predict(X_test)
-
     print("[INFO] evaluating model...")
 
-    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+    if train_nn:
+        Y_train_predicted = knn.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+    Y_predicted = knn.predict(X_test)
 
-    plot_classification_report(path = REPORT_PATH,
-                               file_name = REPORT_NAME,
-                               y_true = Y_test,
-                               y_predicted = Y_predicted)
-
-
-    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                          file_name = CONFUSION_MATRIX_NAME,
-                          y_true = Y_test,
-                          y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### Convolution 1D
@@ -3922,7 +3932,10 @@ if city and not train_nn and not laptop:
 
 
 if city and not laptop:
-    Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+
+    print("[INFO] evaluating network...")
+
+    Y_predicted = convolution1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
     if train_nn:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
@@ -3932,24 +3945,19 @@ if city and not laptop:
                               f1_score_name = F1_SCORE_NAME,
                               history = history)
 
-    print("[INFO] evaluating network...")
+        Y_train_predicted = convolution1d.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
 
-    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
 
-    plot_classification_report(path = REPORT_PATH,
-                               file_name = REPORT_NAME,
-                               y_true = Y_test,
-                               y_predicted = Y_predicted)
-
-
-    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                          file_name = CONFUSION_MATRIX_NAME,
-                          y_true = Y_test,
-                          y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### Convolution 2D
@@ -4058,10 +4066,9 @@ if city and not train_nn and not laptop:
 
 if city and not laptop:
 
-    Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+    print("[INFO] evaluating network...")
 
-    F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-    F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
+    Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
     if train_nn:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
@@ -4071,24 +4078,19 @@ if city and not laptop:
                               f1_score_name = F1_SCORE_NAME,
                               history = history)
 
-    print("[INFO] evaluating network...")
+        Y_train_predicted = tasp_cnn.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
 
-    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
 
-    plot_classification_report(path = REPORT_PATH,
-                               file_name = REPORT_NAME,
-                               y_true = Y_test,
-                               y_predicted = Y_predicted)
-
-
-    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                          file_name = CONFUSION_MATRIX_NAME,
-                          y_true = Y_test,
-                          y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ## AutoML
@@ -4183,7 +4185,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # Data Summary
 
-# In[ ]:
+# In[228]:
 
 
 # MODEL_TIMESTAMP
@@ -4218,36 +4220,61 @@ models_renaming = {'knn': 'KNN',
                    'nb': 'NB',
                    'svc': 'SVC'}
                    # 'auto_ml': 'AutoML'}
+splits = ['train', 'test']
 
-for model_name in MODELS_NAME:
+for split in splits:
+    for model_name in MODELS_NAME:
+
+        REPORT_PATH = f"{REPORTS_PATH}{model_name}/{split/}"
+
+        for city in cities:
+            REPORT_NAME  = f"{city}_{model_name}_report_{MODEL_TIMESTAMP}.csv"
+
+            if exists(REPORT_PATH + REPORT_NAME):
+                report = pd.read_csv(REPORT_PATH + REPORT_NAME, index_col=[0])
+                report.insert(0, 'city', city)
+                report.insert(1, 'model', models_renaming[model_name])
+
+                reports_summary = pd.concat([reports_summary, report])
+
+    reports_summary = reports_summary.sort_values(['city', 'model'], ascending = [True, True])
+
+    c_m = reports_summary['city'] + '_' + reports_summary['model']
+    reports_summary.insert(0, 'c_m', c_m)
+
+    # reports_summary.drop(['city', 'model'], axis=1, inplace = True)
+
+    SAVE_PATH =  f"{REPORTS_SUMMARY_PATH}/{split}/{MODEL_TIMESTAMP}.csv"
     
-    REPORT_PATH = f"{REPORTS_PATH}{model_name}/"
+    reports_summary.to_csv(SAVE_PATH, index= True)
 
-    for city in cities:
-        REPORT_NAME  = f"{city}_{model_name}_report_{MODEL_TIMESTAMP}.csv"
-
-        if exists(REPORT_PATH + REPORT_NAME):
-            report = pd.read_csv(REPORT_PATH + REPORT_NAME, index_col=[0])
-            report.insert(0, 'city', city)
-            report.insert(1, 'model', models_renaming[model_name])
-            
-            reports_summary = pd.concat([reports_summary, report])
-
-reports_summary = reports_summary.sort_values(['city', 'model'], ascending = [True, True])
-
-c_m = reports_summary['city'] + '_' + reports_summary['model']
-reports_summary.insert(0, 'c_m', c_m)
-
-# reports_summary.drop(['city', 'model'], axis=1, inplace = True)
-
-SAVE_PATH =  f"{REPORTS_SUMMARY_PATH}{MODEL_TIMESTAMP}.csv"
-
-reports_summary.to_csv(SAVE_PATH, index= True)
-
-reports_summary.insert(0, 'accident_type', reports_summary.index)
+    reports_summary.insert(0, 'accident_type', reports_summary.index)
 
 
-# In[ ]:
+# In[211]:
+
+
+# cities = []
+
+# cities.append('leeds')  if leeds else None
+# cities.append('madrid') if madrid else None
+
+# models_renaming = {'knn': 'KNN',
+#                    'convolution_1d': '1D-convolution',
+#                    'convolution_2d': '2D-convolution',
+#                    'nb': 'NB',
+#                    'svc': 'SVC'}
+#                    # 'auto_ml': 'AutoML'}
+# splits = ['train', 'test']
+
+
+# In[227]:
+
+
+madrid_reports_summary
+
+
+# In[226]:
 
 
 import seaborn as sns
@@ -4257,6 +4284,8 @@ ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
 fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,20))
 
+
+reports_summary = pd.read_csv( f"{REPORTS_SUMMARY_PATH}/2022-05-17-11:58:56.csv")
 if leeds:
     leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
 if madrid:
