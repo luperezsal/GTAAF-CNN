@@ -3817,7 +3817,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 
 
-knn_2 = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
+knn = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
 
 
 # leaf_size = list(range(1,10, 2))
