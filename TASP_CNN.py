@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[52]:
+# In[153]:
 
 
 from datetime import datetime
@@ -54,7 +54,7 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 loaded_timestamp = '2022-05-16-19:33:50'
 
 
-# In[ ]:
+# In[154]:
 
 
 laptop = False
@@ -2246,14 +2246,14 @@ MODEL_NAME = 'auto_ml'
 # 
 # 
 
-# In[ ]:
+# In[151]:
 
 
 loaded_timestamp = '2022-05-17-15:55:19'
 model_version = '2022-05-17-20:07:36'
 
 
-# In[ ]:
+# In[152]:
 
 
 import pandas as pd
@@ -3813,52 +3813,56 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[155]:
 
 
-leaf_size = list(range(1,10, 2))
-n_neighbors = list(range(1,100, 10))
-p = [1, 2]
 
-if city and train_nn and other_models:
-
-    start = time.time()
-
-    # Create new KNN object
-    hyperparameters = dict(leaf_size = leaf_size,
-                           n_neighbors = n_neighbors)
-
-    # Use GridSearch
-    knn_2 = KNeighborsClassifier()
-
-    # Fit the model
-    clf = GridSearchCV(knn_2,
-                       hyperparameters,
-                       cv = 4)
-
-    knn = clf.fit(X_train, Y_train)
-
-    end = time.time()
-
-    ellapsed_time = round(end - start, 2)
+knn_2 = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
 
 
-    model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
-    times = times.append(model_time)
+# leaf_size = list(range(1,10, 2))
+# n_neighbors = list(range(1,100, 10))
+# p = [1, 2]
 
-    # Print The value of best Hyperparameters
+# if city and train_nn and other_models:
 
-    best_leaf_size  = knn.best_estimator_.get_params()['leaf_size']
-    best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
+#     start = time.time()
 
-    print('Best leaf_size:', best_leaf_size)
-    print('Best n_neighbors:', best_n_neighbors)
+#     # Create new KNN object
+#     hyperparameters = dict(leaf_size = leaf_size,
+#                            n_neighbors = n_neighbors)
 
-    df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
+#     # Use GridSearch
+#     knn_2 = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
 
-    FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
+#     # Fit the model
+#     clf = GridSearchCV(knn_2,
+#                        hyperparameters,
+#                        cv = 4)
 
-    df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
+#     knn = clf.fit(X_train, Y_train)
+
+#     end = time.time()
+
+#     ellapsed_time = round(end - start, 2)
+
+
+#     model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+#     times = times.append(model_time)
+
+#     # Print The value of best Hyperparameters
+
+#     best_leaf_size  = knn.best_estimator_.get_params()['leaf_size']
+#     best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
+
+#     print('Best leaf_size:', best_leaf_size)
+#     print('Best n_neighbors:', best_n_neighbors)
+
+#     df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
+
+#     FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
+
+#     df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
 
 # #### Escritura del modelo
@@ -3866,12 +3870,12 @@ if city and train_nn and other_models:
 # In[ ]:
 
 
-if city and train_nn and other_models:
+# if city and train_nn and other_models:
 
-    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+#     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+#     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
 
-    dump(knn, MODEL_PATH + MODEL_FILE_NAME) 
+#     dump(knn, MODEL_PATH + MODEL_FILE_NAME) 
 
 
 # #### Carga de modelo pre-entrenado
@@ -3879,18 +3883,18 @@ if city and train_nn and other_models:
 # In[ ]:
 
 
-if city and not train_nn and other_models:
+# if city and not train_nn and other_models:
 
-    version = 'X'
-    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{model_version}.joblib"
+#     version = 'X'
+#     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+#     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{model_version}.joblib"
 
-    knn = load(MODEL_PATH + MODEL_FILE_NAME)
+#     knn = load(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
 
-# In[ ]:
+# In[156]:
 
 
 if city:
@@ -4034,6 +4038,9 @@ if city and train_nn:
 
     ellapsed_time = round(end - start, 2)
 
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
     times = times.append(model_time)    
 
     history
