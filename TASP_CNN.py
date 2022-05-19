@@ -2256,7 +2256,7 @@ MODEL_NAME = 'auto_ml'
 # In[36]:
 
 
-loaded_timestamp = '2022-05-17-15:55:19'
+loaded_timestamp = '022-05-19-00:26:52'
 model_version = '2022-05-17-20:07:36'
 
 
@@ -3052,7 +3052,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[ ]:
+# In[61]:
 
 
 if calculate_weights:
@@ -3162,7 +3162,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[ ]:
+# In[62]:
 
 
 if calculate_weights and madrid:
@@ -3203,7 +3203,7 @@ if calculate_weights and madrid:
 
 # #### Carga hiperparámetros
 
-# In[ ]:
+# In[63]:
 
 
 if not calculate_weights:
@@ -3223,7 +3223,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[ ]:
+# In[64]:
 
 
 if calculate_weights and madrid:
@@ -3237,7 +3237,7 @@ if calculate_weights and madrid:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[65]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
@@ -3279,7 +3279,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[ ]:
+# In[66]:
 
 
 if calculate_weights and madrid:
@@ -3295,7 +3295,7 @@ if calculate_weights and madrid:
 
 # #### Visualización pesos calculados
 
-# In[ ]:
+# In[67]:
 
 
 if calculate_weights and madrid:
@@ -3321,7 +3321,7 @@ if calculate_weights and madrid:
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[ ]:
+# In[68]:
 
 
 if calculate_weights and madrid:
@@ -3333,7 +3333,7 @@ if calculate_weights and madrid:
     write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
-# In[ ]:
+# In[69]:
 
 
 feature_vector
@@ -3341,7 +3341,7 @@ feature_vector
 
 # ### Cálculo índices de matriz
 
-# In[ ]:
+# In[70]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -3349,7 +3349,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[71]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -3362,7 +3362,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[72]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -3375,7 +3375,7 @@ test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[ ]:
+# In[73]:
 
 
 plt.gray()
@@ -3387,7 +3387,7 @@ for i in range(100,103):
     plt.show()
 
 
-# In[ ]:
+# In[74]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -3398,7 +3398,7 @@ for i in range(100,103):
 
 # ## Visualización de datos
 
-# In[ ]:
+# In[75]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -3406,7 +3406,7 @@ for i in range(100,103):
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[76]:
 
 
 # correlation_matrix(data_frame)
@@ -3414,13 +3414,13 @@ for i in range(100,103):
 
 # ### PCA
 
-# In[ ]:
+# In[77]:
 
 
 # pca(X_train, X_test)
 
 
-# In[ ]:
+# In[78]:
 
 
 MODEL_TIMESTAMP
@@ -3428,7 +3428,7 @@ MODEL_TIMESTAMP
 
 # ### TSNE
 
-# In[ ]:
+# In[79]:
 
 
 n_samples = 150
@@ -3437,7 +3437,7 @@ index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
 index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
-# In[ ]:
+# In[80]:
 
 
 # Get same number of class samples from SMOTEII
@@ -3454,7 +3454,7 @@ Y_fatal_train_tsne   = Y_train[index_fatal]
 Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
-# In[ ]:
+# In[81]:
 
 
 n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
@@ -3464,7 +3464,7 @@ index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].inde
 index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
-# In[ ]:
+# In[82]:
 
 
 # Get same number of class samples from original
@@ -3481,7 +3481,7 @@ Y_fatal_clean_tsne   = Y_train_original[index_fatal]
 Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
 
 
-# In[ ]:
+# In[83]:
 
 
 if tsne:
@@ -3502,7 +3502,7 @@ if tsne:
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[84]:
 
 
 # # input_img = Input(shape=(25,))
@@ -3536,7 +3536,7 @@ if tsne:
 
 # #### Visualización
 
-# In[ ]:
+# In[85]:
 
 
 # # create encoder model
@@ -3592,7 +3592,7 @@ if tsne:
 
 # ## One-Hot
 
-# In[ ]:
+# In[86]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -3606,7 +3606,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## Models
 
-# In[ ]:
+# In[87]:
 
 
 array_train_images = np.asarray(train_images)
@@ -3635,7 +3635,7 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
-# In[ ]:
+# In[88]:
 
 
 import pickle
@@ -3646,8 +3646,10 @@ times = pd.DataFrame()
 
 # ### NB
 
-# In[ ]:
+# In[90]:
 
+
+MODEL_NAME = MODELS_NAME[3]
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
 MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
@@ -3655,12 +3657,10 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[91]:
 
 
 from sklearn.naive_bayes import GaussianNB
-
-MODEL_NAME = MODELS_NAME[3]
 
 if city and train_nn and other_models:
     start = time.time()
@@ -3687,12 +3687,6 @@ if city and train_nn and other_models:
 if city and train_nn and other_models:
 
     dump(gnb, MODEL_PATH + MODEL_FILE_NAME) 
-
-
-# In[ ]:
-
-
-MODEL_PATH + MODEL_FILE_NAME
 
 
 # #### Carga de modelo pre-entrenado
@@ -3730,7 +3724,7 @@ if city:
 
 # ### SVC
 
-# In[ ]:
+# In[94]:
 
 
 from sklearn.pipeline import make_pipeline
@@ -3774,7 +3768,7 @@ if city and train_nn and other_models:
 
 # #### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[95]:
 
 
 if city and not train_nn and other_models:
@@ -4034,7 +4028,7 @@ if city and not laptop:
 MODEL_NAME = MODELS_NAME[2]
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-15-21 25 47.h5'
+MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-18-19:50:16.h5'
 
 
 # #### Entrenamiento
