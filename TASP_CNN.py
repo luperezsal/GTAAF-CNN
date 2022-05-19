@@ -3162,7 +3162,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[62]:
+# In[96]:
 
 
 if calculate_weights and madrid:
@@ -3378,6 +3378,7 @@ test_images  = shape_images(X_data = X_test,
 # In[73]:
 
 
+sns.set_theme(style="whitegrid")
 plt.gray()
 for i in range(100,103):
     plt.figure(figsize=(3, 3))
