@@ -73,15 +73,15 @@ other_models = True
 # In[4]:
 
 
-laptop = True
-calculate_weights = True
-tsne = False
+# laptop = True
+# calculate_weights = True
+# tsne = False
 
-leeds  = False
-madrid = True
+# leeds  = False
+# madrid = True
 
-tree_method = 'auto' if laptop else 'gpu_hist'
-train_nn = not laptop
+# tree_method = 'auto' if laptop else 'gpu_hist'
+# train_nn = not laptop
 
 
 # In[5]:
