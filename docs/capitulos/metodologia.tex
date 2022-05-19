@@ -12,12 +12,31 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
 \section{Diagrama de Gantt}
 
+    Un diagrama de Gantt es una herramienta que ayuda a visualizar las fases de evolución de un proyecto. Genera una vista global de cada una de las fases desarrolladas y su estimación temporal. A continuación se muestra el diagrama de Gantt realizado respecto a cada una de las fases de este proyecto \ref{GranttImage}.
     \begin{figure}[H]
         \centering
         \includegraphics[width=15cm]{archivos/4.Metodologia/GranttImage}
         \caption{Diagrama de Gantt de la planificación del proyecto.}
         \label{GranttImage}
     \end{figure}
+
+    La búsqueda de información incluye la investigación de todo lo referente al proyecto, desde qué es una red neuronal hasta cómo diseñar sus arquitecturas. Por este motivo esta fase es la primera en el desarrollo y ha  sido  un  proceso que se ha prolongado durante casi toda la evolución del trabajo.
+
+    El análisis del proyecto consiste en estudiar la viabilidad del mismo, buscando fuentes de información desde las que poder obtener los datos además de explorarlos. Es una de las fases más críticas en un proyecto \textit{Data Science} ya que si las conclusiones del estudio de viabilidad no son sólidas, se podría cometer el riesgo de empezar un proyecto que no es factible para el cubrir los objetivos.
+
+    La obtención de datos consiste en la búsqueda de repositorios donde encontrar datos que contengan la información requerida para abarcar los objetivos del proyecto, se ha realizado visitando distintos portales de datos abiertos nacionales 
+
+    La exploración de datos abarca la fase de análisis de datos, esto se realiza utilizando métodos visuales para entender las características propias del dataset, además de hacer una valoración de la calidad de los mismos. Las primeras etapas de esta fase se complementan con el análisis del proyecto.
+
+    El siguiente paso ha sido la limpieza de datos, gracias a la exploración se comprenden la naturaleza de los datos y se decide qué tecnicas usar para el tratamiento de valores atípicos del conjunto de datos para su posterior transfomación.
+
+    Una de las tareas más importantes en el ciclo de vida de desarrollo Software que garantizan la calidad del producto es la documentación de código. Tiene como fin
+    clarificar conceptos y explicar el funcionamiento de los métodos que componen el desarrollo. Es una fase que se prolonga desde el inicio de la codificación en la limpieza de datos hasta poco tiempo después de terminar de implementar los modelos.
+
+    La última fase de este proyecto a nivel funcional de este proyecto ha sido la realización de experimentos, comienza poco antes que la implementación de los modelos y consiste en testar las distintas implementaciones, tanto de limpieza de datos como el funcionamiento de los modelos.
+
+    La última etapa consiste en la redacción de este documento, plasmando toda la información obtenida durante la evolución del proyecto en esta memoria.
+
 
 
 \section{Diagrama de flujo}
@@ -468,7 +487,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
     \subsection{XGBoost}
 
 
-        \textbf{TODO: Decir que se entrena con los datos train con downsampling si es el mejor resultado al final en los experimentos}\\
+        \textbf{TODO: Decir si se entrena con downsampled o smote-ii en función de los experimentos cuando acabemos}\\
 
         Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se entrena un nuevo modelo con los pq4m354ow calculados sobre el conjunto de entrenamiento remuestreado. Con este nuevo modelo \glsentryshort{xgboost} entrenado se obtiene la importancia de cada clase mediante la ponderación de sus pesos. \cite{XGBoostFeatureWeightsMeaning}. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol, por lo tanto, aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
 
