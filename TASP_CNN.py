@@ -2256,7 +2256,7 @@ MODEL_NAME = 'auto_ml'
 # In[36]:
 
 
-loaded_timestamp = '2022-05-19-00:26:52'
+loaded_timestamp = '2022-05-18-22:29:16'
 model_version = '2022-05-17-20:07:36'
 
 
@@ -3773,6 +3773,7 @@ if city and train_nn and other_models:
 
 
 if city and not train_nn and other_models:
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
 
     clf = load(MODEL_PATH + MODEL_FILE_NAME)
 
@@ -3982,7 +3983,8 @@ if city and train_nn:
 
 
 if city and not train_nn and not laptop:
-    MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-18-19:50:16.h5'
+    # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+    MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-19-06:33:55.h5'
 
     convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
@@ -4029,7 +4031,7 @@ if city and not laptop:
 MODEL_NAME = MODELS_NAME[2]
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-18-19:50:16.h5'
+MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 
 
 # #### Entrenamiento
@@ -4078,6 +4080,7 @@ if city and train_nn:
 
 
 if city and not train_nn and not laptop:
+    # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
     MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-18-19:50:16.h5'
 
     tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
