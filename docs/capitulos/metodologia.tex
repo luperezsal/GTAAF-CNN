@@ -194,7 +194,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                     Las tipologías de ta \textit{Parking, Aeropuerto, Cuesta, Paseo, Parque, Túnel, Polígono, Camino, Glorieta, Puerta, Puente, Plaza, Bulevar, Travesía, Calzada, Carretera, Avenida, Autovía} y \textit{Calle}
 
 
-                    No obstante, la aplicación de las expresiones regulares generalmente no son una solución empírica a un problema. En este proyecto su aplicación conlleva una serie de inconvenientes. Debido a las necesidades del problema están diseñadas jerárquicamente, de tal forma que aquellos valores de la variable \textit{localizacion} que coincidan con el primer patrón definido de la expresión regular serán asignados a esta categoría. Esto supone un impedimento a tener en cuenta. Muchos de los accidentes se producen en intersecciones, carriles de aceleración que conectan dos vías, vías cuyo nombre contiene el tipo de otra vía, etc. Si se da el caso de que haya algún patrón que no se ha definido como expresión regular, provocará que estas localizaciones se asignen con respecto al primer patrón definido encontrado, llegando a clasificar erróneamente el tipo de vía. Como consecuencia, el orden de la definición de las expresiones es un punto crítico porque se busca maximizar la clasificación de aquellos tipos de vía con menor número de apariciones, como es el caso de parking o aeropuerto, mientras se busca minimizar el error en la clasificación.
+                    No obstante, la aplicación de las expresiones regulares generalmente no son una solución empírica a un problema y en este proyecto su aplicación conlleva una serie de inconvenientes. Debido a las necesidades del problema están diseñadas jerárquicamente, de tal forma que aquellos valores de la variable \textit{localizacion} que coincidan con el primer patrón definido de la expresión regular serán asignados a esta categoría. Esto supone un impedimento a tener en cuenta, ya que muchos de los accidentes se producen en intersecciones, carriles de aceleración que conectan dos vías, vías cuyo nombre contiene el tipo de otra vía, etc. Si se da el caso de que haya algún patrón que no se ha definido como expresión regular, provocará que estas localizaciones se asignen con respecto al primer patrón definido encontrado, llegando a clasificar erróneamente el tipo de vía. Como consecuencia, el orden de la definición de las expresiones es un punto crítico porque se busca maximizar la clasificación de aquellos tipos de vía con menor número de apariciones, como es el caso de parking o aeropuerto, mientras se busca minimizar el error en la clasificación.
 
 
                     Para solucionar esto herramientas como Open Refine \cite{OpenRefine} que utilizan técnicas de clustering nominal para detectar semejanzas entre nombres podría ser una solución.
@@ -275,7 +275,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     Una de las fases más importantes antes de comenzar el modelado en cualquier proyecto \textit{Data Science} es el análisis de datos. Este proceso tiene como objetivo la descripción de los datos, identificación de \textit{outliers}, valores erróneos y tendencias que se puedan dar en ellos.\\
 
-                    Comenzaremos analizando los datos que correspondan a cada una de las tres posibles clases (leves, severos y fatales) realizando un histograma \ref{CasualtyClassImage}. Como podemos observar, nos encontramos ante un dataset claramente desbalanceado con respecto a la variable respuesta, contando con 53.009 accidentes leves, 1.271 severos y 84 fatales.\\
+                    Comenzaremos analizando los datos que correspondan a cada una de las tres posibles clases (leves, severos y fatales) realizando un histograma \ref{OriginalDataHistogramImage}. Como podemos observar, nos encontramos ante un dataset claramente desbalanceado con respecto a la variable respuesta, contando con 53.009 accidentes leves, 1.271 severos y 84 fatales.\\
 
                     Un conjunto de datos desbalanceado se define como aquel que contiene un número de instancias mucho mayor de determinadas clases con respecto al resto \cite{WhyImbalancedDataIsAProblem}. Esto se convierte en un problema para los modelos de clasificación ya que estos modelos tenderán a predecir las muestras como aquellas que pertenecen a las mayoritarias sobre el conjunto de test debido a que las reglas de classificación de las clases menos numerosas tienden a ser ignoradas.
 
@@ -284,9 +284,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     \begin{figure}[H]
                         \centering
-                        \includesvg[scale=0.3]{archivos/4.Metodologia/Datos/Analisis/CasualtyClass}
-                        \caption{Histograma de tipo de accidente.}
-                        \label{CasualtyClassImage}
+                        \includesvg[scale=0.3]{archivos/4.Metodologia/Datos/Analisis/OriginalDataHistogram}
+                        \caption{Histograma de clases de accidente en el conjunto de datos original.}
+                        \label{OriginalDataHistogramImage}
                      \end{figure}
 
 
@@ -345,32 +345,41 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
         \subsection{Remuestreo}
 
 
-            Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias. En este proyecto se han hecho uso de las siguientes técnicas de remuestreo:
+            Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias. Estas técnicas de forma general se aplican únicamente al conjunto de entrenamiento, ya que la intención  es influir sobre el entrenamiento del modelo para aumentar el rendimiento sobre el conjunto de test, si aplicásemos remuestremo sobre este último conjunto estaríamos falseando los resultados de las predicciones.
+
+
+            En este proyecto se han hecho uso de las siguientes técnicas de remuestreo:
 
             
             \begin{enumerate}
 
-                \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras igualando el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite. 
-                
-                
-                \cite{Downsampling}
 
-                \textbf{No se redactará más hasta que se compruebe en los experimentos que esa técnica nos sirve}
+
+                \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras igualando el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite \cite{Downsampling}. \textbf{NOTA: Aún no se sabe si se va a aplicar Downsampling o no, sigo con los experimentos, de momento lo dejaré así a la espera de ver más resultados, queda pendiente para revisión}
                 
 
                 \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Se ha hecho uso de la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Esta técnica selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
 
-                \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}).
+                \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}). Este nuevo conjunto de datos servirá como entrenamiento para los modelos, evitando que tiendan al sobreajuste. En la figura \ref{SMOTEIIDataHistogramImage} se aprecia el histograma tras haber aplicado \glsentryshort{smoteii}, contando ahora con 42508 muestras de cada una de las clases de accidentes.
+
+                \begin{figure}[H]
+                    \centering
+                    \includesvg[scale=0.3]{archivos/4.Metodologia/Datos/Analisis/SMOTEIIDataHistogram}
+                    \caption{Histograma de clases de accidente del conjunto de entrenamiento tras aplicar SMOTE-II.}
+                    \label{SMOTEIIDataHistogramImage}
+                 \end{figure}
 
             \end{enumerate}
 
 
-            Una vez aplicadas las técnicas de remuestreo al conjunto de datos para balancearlo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} con respecto a los datos originales mediante \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} es una técnica que permite visualizar datos multidimensionales proyectando cada muetra en un espacio bidimensional o tridimensional. Este método es una variante simplificada y optimizada del algoritmo \glsentryfull{sne}.
+            Una vez aplicadas las técnicas de remuestreo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} en deferencia a los datos originales mediante el método \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} permite visualizar las proyecciones de datos multidimensionales en espacios bidimensionales o tridimensionales. Este modelo tiene su origen en el algoritmo \glsentryfull{sne}, siendo una versión optmizada de éste.
 
-            Mientras que \glsentryshort{sne} convierte las distancias Euclídeas entre las muestras a probabilidades condicionales que presenten similaridades entre sí mediante probabilidades Gaussianas, \glsentryshort{tsne} modifica su función de coste de tal forma que utiliza una distribución t-Student, permitiendo además trabajar con gradientes simplificados.
+            Mientras que \glsentryshort{sne} proyecta los datos conviritiendo las distancias Euclídeas entre las muestras a probabilidades condicionales sean similares entre sí siguiendo probabilidades normales, el \glsentryshort{tsne} modifica la función de coste para proyectarlos mediante una distribución t-Student, permitiendo además trabajar con gradientes simplificados.
 
 
-            En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}.
+            En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}. Como se puede apreciar, la proyección bidimensional en dos dimensiones sobre el conjunto de datos generados por \ \ref{TSNEImages:Train2D}
+
+            El \glsentryshort{tsne} de 2D aplicado sobre los datos generados por \glsentryshort{smoteii} \ref{TSNEImages:Train2D} nos permite observar cómo se han generado las muestras con respecto a los datos originales \ref{TSNEImages:Clean2D} en una proyección bidimensional. Se observa cómo se han generado las nuevas muestras de los accidentes graves (azul) calculando la cercanía de los puntos en base a las fronteras de división. \textbf{Nota: Realmente yo no veo nada}.
 
 
             \begin{figure}
@@ -406,10 +415,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
              \end{figure}
 
 
+
     \subsection{Algoritmo Genético}
 
 
-        Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado. En este proyecto es necesario optmizar los hiperparámetros del algoritmo \glsentryshort{xgboost}.\\
+        Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado, y en este proyecto se aplicará para los hiperparámetros del algoritmo \glsentryshort{xgboost}.\\
 
         Para ello se ha hecho uso de algoritmos genéticos \cite{GAXGBoostCode}, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas \cite{GAXGBoostPaper}.
 
@@ -460,21 +470,21 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \textbf{TODO: Decir que se entrena con los datos train con downsampling si es el mejor resultado al final en los experimentos}\\
 
-        Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se entrena un nuevo modelo con los hiperparámetros calculados sobre el conjunto de entrenamiento remuestreado. Con este nuevo modelo \glsentryshort{xgboost} entrenado, se obtiene la importancia de cada clase mediante el cálculo de los pesos. \cite{XGBoostFeatureWeightsMeaning}. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol. Aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
+        Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se entrena un nuevo modelo con los pq4m354ow calculados sobre el conjunto de entrenamiento remuestreado. Con este nuevo modelo \glsentryshort{xgboost} entrenado se obtiene la importancia de cada clase mediante la ponderación de sus pesos. \cite{XGBoostFeatureWeightsMeaning}. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol, por lo tanto, aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
 
-        Los pesos son asignados para cada característica del conjunto de datos con el que ha sido entrenado \glsentryshort{xgboost} de tal forma que permite realizar un análisis comparativo de los atributos.
+        Los pesos son asignados para cada característica del conjunto de datos con el que ha sido entrenado \glsentryshort{xgboost} de tal forma que permite realizar un análisis comparativo de los atributos y saber qué predictores son más importantes.
 
 
     \subsection{Imágenes}
 
 
-        Debido a que las \glsentryshort{cnn} aprenden patrones sobre la entrada de datos como imágenes, es importante que éstas estén construidas de tal forma que maximice la representación de la información, es decir, es necesario aplicar técnicas que posicionen cada característica en un pixel de la matriz maximizando la representación de los accidentes (TODO: \textbf{relamente no entiendo muy bien la motivación que ha seguido la gente de TASPCNN a la hora de construir las imágenes, falta entender por qué lo hacen así, no lo he encontrado en el paper.})
+        Las \glsentryshort{cnn} aprenden patrones sobre la entrada de datos como imágenes, esto implica que éstas estén construidas de tal forma que se maximice la representación de la información, es decir, es necesario aplicar técnicas que posicionen cada característica en un pixel de la matriz maximizando la representación de los accidentes (TODO: \textbf{relamente no entiendo muy bien la motivación que ha seguido la gente de TASPCNN a la hora de construir las imágenes, falta entender por qué lo hacen así, no lo he encontrado en el paper.})
 
-        Por lo tanto, el siguiente paso será transferir cada una de las muestras tabulares de los accidentes a una imagen en escala de grises, donde a cada característica se le asignará una posición de la matriz (\textit{5 x 5}), de tal forma que éstas sean la entrada a las \textit{CNN}.
+        Por lo tanto, una vez se tienen los datos normalizados y muestreados, el siguiente paso será transferir cada una de las muestras tabulares de los accidentes a una imagen en escala de grises, donde a cada característica se le asignará una posición de la matriz (\textit{5 x 5}), de tal forma que éstas sean la entrada a las \textit{CNN}.
 
         Para este objetivo se aplicará el algoritmo FV2GI propuesto en el artículo \cite{TASPCNN}, que asigna las características de una muestra en representación tabular en función de la importancia que éstas presenten en una jerarquía.
 
-        Tal y como se propone en \cite{JerarquiaImagenes} las características que provocan un accidente de tráfico pueden englobarse en una serie de elementos o categorías principales, concretamente: \textit{características del conductor, el estado de la carretera, características propias del vehículo y condiciones del ambiente}. Se muestra en la tabla \ref{JerarquiaCaracteristicasTabla} las asignaciones de las variables explicativas del conjunto de datos en función de esta jerarquía.
+        Tal y como se propone en \cite{JerarquiaImagenes} las características que provocan un accidente de tráfico pueden englobarse en una serie de elementos o categorías principales, concretamente: \textit{características del conductor, el estado de la carretera, características propias del vehículo y condiciones del ambiente}. Por este motivo se realizará una asignación de cada característica del dataset en una de estas categorías, se muestra en la tabla \ref{JerarquiaCaracteristicasTabla} las asignaciones de las variables explicativas del conjunto de datos en función de esta jerarquía.
 
 
         \begin{table}[H]
@@ -488,13 +498,14 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                                                      & Coordenada Y.\\
                                                      & Hora.\\
                                                      & Vehículos implicados.\\
+                                                     & Tipo de accidente.\\
 
                \hline
                \multirow{1}{*}{Ambiente}             & Estado meteorológico.\\
 
                \hline
-               \multirow{2}{*}{Carretera}            & TODO: ESTO NO DEBERIA ESTAR AQUI Tipo de accidente\\
-                                                     & Distrito\\
+               \multirow{2}{*}{Carretera}            & Tipo Carretera.\\
+                                                     & Distrito.\\
 
                \hline
                \multirow{4}{*}{Conductor}            & Tipo Persona.\\
@@ -510,7 +521,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
 
 
-        Una vez definida la jerarquía de características y los pesos asociados a cada una de ellas gracias al algoritmo \glsentryshort{xgboost} se construyen las imágenes de acuerdo al criterio \textit{FV2GI}. Este proceso consta de los siguientes pasos:
+        Una vez definida la jerarquía de características y los pesos asociados a cada una de ellas gracias al algoritmo \glsentryshort{xgboost}, se construyen las imágenes de acuerdo al criterio \textit{FV2GI}. Este proceso consta de los siguientes pasos:
 
         \begin{enumerate}
 
@@ -531,7 +542,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
             \item Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
         \end{enumerate}
 
+        \textbf{Nota: No estoy contento con la explicación, creo que estaría bien meter una fórmula matemática o pseudocódigo y cambiar la redacción}
 
+        Como resultado de este proceso se obtienen las imágenes con un único canal gris \ref{SampledImagesExampleImage}, que serán la entrada de las \glsentryshort{cnn} en forma de representaciones matriciales.
 
         \begin{figure}[H]
             \centering
@@ -558,21 +571,6 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary}. Esta técnica permite la optimización de los valores de los hiperparámetros mediante una búsqueda exhaustiva en un espacio de búsqueda definido por el usuario, probando distintas combinaciones hasta cubrirlo por completo. 
 
 
-                Se puede observar en la tabla \ref{BestParamsKNNGridSearchTable} los mejores parámetros para \textit{KNN} después de haber ejecutado \textit{Grid Search} sobre el conjunto de entrenamiento.\\
-
-                \begin{table}[H]
-                    \centering
-                    \begin{tabular}{ |c|c| }
-                        \hline
-                        Atributo & Valor\\
-                        \hline
-                            Número de vecinos & 21 \\ 
-                            Tipo de distancia & Minkowski \\ 
-                        \hline
-                    \end{tabular}
-                    \caption{Mejores parámetros de KNN tras aplicar GridSearch.}
-                    \label{BestParamsKNNGridSearchTable}
-                \end{table}
 
 
             \item CNN

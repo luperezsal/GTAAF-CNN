@@ -4,22 +4,22 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Descripción de los datos.\relax }}{22}{table.caption.23}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{25}{table.4.2}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{26}{table.4.2}%
 \contentsline {table}{\numberline {4.3}{\ignorespaces Límites de inicialización y mutación de los hiperparámetros de los individuos.\relax }}{32}{table.caption.29}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Mejores parámetros de XGBoost tras aplicar el algoritmo genético.\relax }}{34}{table.caption.32}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{35}{table.caption.33}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Mejores parámetros de KNN tras aplicar GridSearch.\relax }}{37}{table.caption.35}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{34}{table.caption.30}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Cálculo de pesos de características y categorías mediante XGBoost.\relax }}{41}{table.caption.41}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Métricas CNN-1D.\relax }}{42}{table.caption.44}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Métricas Naive Bayes.\relax }}{43}{table.caption.45}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Métricas SVC.\relax }}{44}{table.caption.46}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Métricas SVC.\relax }}{44}{table.caption.47}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Métricas CNN-2D.\relax }}{44}{table.caption.48}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Métricas CNN-1D.\relax }}{47}{table.caption.51}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Métricas Naive Bayes.\relax }}{47}{table.caption.52}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Métricas SVC.\relax }}{47}{table.caption.53}%
-\contentsline {table}{\numberline {5.10}{\ignorespaces Métricas SVC.\relax }}{48}{table.caption.54}%
-\contentsline {table}{\numberline {5.11}{\ignorespaces Métricas CNN-2D.\relax }}{48}{table.caption.55}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Mejores parámetros de XGBoost tras aplicar el algoritmo genético.\relax }}{40}{table.caption.36}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Mejores parámetros de KNN tras aplicar GridSearch.\relax }}{41}{table.caption.38}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Cálculo de pesos de características y categorías mediante XGBoost.\relax }}{42}{table.caption.39}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Métricas CNN-1D.\relax }}{43}{table.caption.42}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Métricas Naive Bayes.\relax }}{44}{table.caption.43}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Métricas SVC.\relax }}{45}{table.caption.44}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Métricas SVC.\relax }}{45}{table.caption.45}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Métricas CNN-2D.\relax }}{45}{table.caption.46}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Métricas CNN-1D.\relax }}{48}{table.caption.49}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Métricas Naive Bayes.\relax }}{48}{table.caption.50}%
+\contentsline {table}{\numberline {5.11}{\ignorespaces Métricas SVC.\relax }}{48}{table.caption.51}%
+\contentsline {table}{\numberline {5.12}{\ignorespaces Métricas SVC.\relax }}{49}{table.caption.52}%
+\contentsline {table}{\numberline {5.13}{\ignorespaces Métricas CNN-2D.\relax }}{49}{table.caption.53}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

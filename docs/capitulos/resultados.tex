@@ -62,48 +62,72 @@
       \label{FeatureWeightsImage}
    \end{figure}
 
-  \textbf{NOTA} Ponemos aquí las figuras de los pesos calculados \ref{FeatureWeightsImage} y la tabla de cáclulo de características \ref{PesosFinalesCaracteristicas}?
+\section{KNN}
+  Se puede observar en la tabla \ref{BestParamsKNNGridSearchTable} los mejores parámetros para \textit{KNN} después de haber ejecutado \textit{Grid Search} sobre el conjunto de entrenamiento.\\
 
-        \begin{table}[H]
-          \centering
-          \begin{tabular}{ |c|c|c|c| }
-               \hline
-               \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
-
-               \hline
-               \multirow{4}{*}{Accidente}   & \multirow{4}{*}{TODO: 1}      & Coordenada X          & TODO: 1\\
-                                            &                               & Coordenada Y          & TODO: 1\\
-                                            &                               & Hora                  & TODO: 1\\
-                                            &                               & Vehículos implicados  & TODO: 1\\
-
-               \hline
-               \multirow{1}{*}{Ambiente}    & \multirow{1}{*}{TODO: 1}      & Estado meteorológico  & TODO: 1\\
-
-               \hline
-               \multirow{2}{*}{Carretera}   & \multirow{2}{*}{TODO: 1}      & Tipo de accidente     & TODO: 1\\
-                                            &                               & Distrito              & TODO: 1\\
-
-               \hline
-               \multirow{4}{*}{Conductor}   & \multirow{4}{*}{TODO: 1}      & Tipo Persona          & TODO: 1\\
-                                            &                               & Sexo                  & TODO: 1\\
-                                            &                               & Rango Edad            & TODO: 1\\
-                                            &                               & Positivo              & TODO: 1\\
-               \hline
-          \end{tabular}
-
-          \caption{Cálculo de pesos de características y categorías mediante XGBoost.}
-          \label{PesosFinalesCaracteristicas}
-        \end{table}
+  \begin{table}[H]
+      \centering
+      \begin{tabular}{ |c|c| }
+          \hline
+          Atributo & Valor\\
+          \hline
+              Número de vecinos & 21 \\ 
+              Tipo de distancia & Minkowski \\ 
+          \hline
+      \end{tabular}
+      \caption{Mejores parámetros de KNN tras aplicar GridSearch.}
+      \label{BestParamsKNNGridSearchTable}
+  \end{table}
 
 
-        El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{ |c|c|c|c| }
+         \hline
+         \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
+
+         \hline
+         \multirow{4}{*}{Accidente}   & \multirow{4}{*}{TODO: 1}      & Coordenada X          & TODO: 1\\
+                                      &                               & Coordenada Y          & TODO: 1\\
+                                      &                               & Hora                  & TODO: 1\\
+                                      &                               & Vehículos implicados  & TODO: 1\\
+
+         \hline
+         \multirow{1}{*}{Ambiente}    & \multirow{1}{*}{TODO: 1}      & Estado meteorológico  & TODO: 1\\
+
+         \hline
+         \multirow{2}{*}{Carretera}   & \multirow{2}{*}{TODO: 1}      & Tipo de accidente     & TODO: 1\\
+                                      &                               & Distrito              & TODO: 1\\
+
+         \hline
+         \multirow{4}{*}{Conductor}   & \multirow{4}{*}{TODO: 1}      & Tipo Persona          & TODO: 1\\
+                                      &                               & Sexo                  & TODO: 1\\
+                                      &                               & Rango Edad            & TODO: 1\\
+                                      &                               & Positivo              & TODO: 1\\
+         \hline
+    \end{tabular}
+
+    \caption{Cálculo de pesos de características y categorías mediante XGBoost.}
+    \label{PesosFinalesCaracteristicas}
+  \end{table}
+
+
+  El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
 
 \section{Entrenamiento de modelos}
 
-  \subsection{Tiempo de entrenamiento}
+  \subsection{Tiempos de entrenamiento}
 
-  \textbf{El KNN no necesita entrenamiento, el tiempo obtenido es el de la optimización de hiperparámetros mediante Grid Search, por lo que no incluiría el tiempo en la gráfica.}
+    \textbf{El KNN no necesita entrenamiento, el tiempo obtenido es el de la optimización de hiperparámetros mediante Grid Search, por lo que no incluiría el tiempo en la gráfica.}
 
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=16cm]{archivos/5.Resultados/TiemposEntrenamiento}
+      \caption{Comparación entre los tiempos de entrenamiento de los modelos.}
+      \label{TiemposEntrenamientoImage}
+    \end{figure}
+
+  
   \subsection{Gráficas de entrenamiento}
 
     Explicar las gráficas de evolución F1-score de las redes neuronales.
@@ -131,35 +155,35 @@
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/5.Resultados/CNN/1D/1DCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/CNN/1D/1DClassificationReportTrain.csv}
         \caption{Métricas CNN-1D.}
         \label{CNN1DMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/5.Resultados/NB/NBCassificationReportTrain.csv}
+        \csvautotabular{archivos/5.Resultados/NB/NBClassificationReportTrain.csv}
         \caption{Métricas Naive Bayes.}
         \label{NBMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReportTrain.csv}
+        \csvautotabular{archivos/5.Resultados/SVC/SVCClassificationReportTrain.csv}
         \caption{Métricas SVC.}
         \label{SVCDMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/5.Resultados/KNN/KNNCassificationReportTrain.csv}
+        \csvautotabular{archivos/5.Resultados/KNN/KNNClassificationReportTrain.csv}
         \caption{Métricas SVC.}
         \label{SVCDMetrics}
       \end{table}
 
       \begin{table}[H]
         \centering
-        \csvautotabular{archivos/5.Resultados/CNN/2D/2DCassificationReport.csv}
+        \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTrain.csv}
         \caption{Métricas CNN-2D.}
         \label{CNN2DMetrics}
       \end{table}
@@ -218,9 +242,9 @@
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=10cm]{archivos/5.Resultados/Comparativa}
-        \caption{Comparativa de las métricas predicciones de los modelos.}
-        \label{ResultsImage}
+        \includegraphics[width=16cm]{archivos/5.Resultados/ComparativaTrain}
+        \caption{Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.}
+        \label{ResultsTrainImage}
      \end{figure}
 
 
@@ -233,35 +257,35 @@
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/5.Resultados/CNN/1D/1DCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/CNN/1D/1DClassificationReportTest.csv}
       \caption{Métricas CNN-1D.}
       \label{CNN1DMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/5.Resultados/NB/NBCassificationReportTest.csv}
+      \csvautotabular{archivos/5.Resultados/NB/NBClassificationReportTest.csv}
       \caption{Métricas Naive Bayes.}
       \label{NBMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/5.Resultados/SVC/SVCCassificationReportTest.csv}
+      \csvautotabular{archivos/5.Resultados/SVC/SVCClassificationReportTest.csv}
       \caption{Métricas SVC.}
       \label{SVCDMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/5.Resultados/KNN/KNNCassificationReportTest.csv}
+      \csvautotabular{archivos/5.Resultados/KNN/KNNClassificationReportTest.csv}
       \caption{Métricas SVC.}
       \label{SVCDMetrics}
     \end{table}
 
     \begin{table}[H]
       \centering
-      \csvautotabular{archivos/5.Resultados/CNN/2D/2DCassificationReport.csv}
+      \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTest.csv}
       \caption{Métricas CNN-2D.}
       \label{CNN2DMetrics}
     \end{table}
@@ -318,9 +342,9 @@
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=10cm]{archivos/5.Resultados/Comparativa}
-        \caption{Comparativa de las métricas predicciones de los modelos.}
-        \label{ResultsImage}
+        \includegraphics[width=16cm]{archivos/5.Resultados/ComparativaTest}
+        \caption{Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.}
+        \label{ResultsTestImage}
      \end{figure}
 
 

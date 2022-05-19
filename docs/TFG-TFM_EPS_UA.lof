@@ -17,25 +17,23 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Diagrama de Gantt de la planificación del proyecto.\relax }}{19}{figure.caption.21}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Flujo de datos del proceso del proyecto.\relax }}{20}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Histograma de tipo de accidente.\relax }}{26}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{27}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces PCA aplicado a los datos.\relax }}{28}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.\relax }}{29}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Histograma de clases de accidente en el conjunto de datos original.\relax }}{27}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{28}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6. División de un conjunto de datos en datos de entrenamiento y test.\relax }}{29}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Histograma de clases de accidente del conjunto de entrenamiento tras aplicar SMOTE-II.\relax }}{30}{figure.caption.27}%
 \contentsline {figure}{\numberline {4.7}{\ignorespaces TSNE de 2 y 3 componentes aplicado a los datos originales y a los generados sintéticamente (SMOTE-II).\relax }}{31}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{33}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Evolución del macro F1 score a lo largo de las iteraciones.\relax }}{33}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Representación de las muestras de accidentes en forma de matriz de grises.\relax }}{36}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU\relax }}{38}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Arquitectura de la CNN-2D mostrando una kernels aprendidos durante el entrenamiento.\relax }}{38}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Representación de las muestras de accidentes en forma de matriz de grises.\relax }}{35}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU\relax }}{36}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Arquitectura de la CNN-2D mostrando una kernels aprendidos durante el entrenamiento.\relax }}{37}{figure.caption.33}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{39}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Evolución del macro F1 score a lo largo de las iteraciones.\relax }}{40}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{40}{figure.caption.40}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Comparación de TODO(tipo) F1 score en validación y test CNN-1D.\relax }}{42}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparación de TODO(tipo) F1 score en validación y test CNN-2D.\relax }}{43}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{45}{figure.caption.49}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Comparativa de las métricas predicciones de los modelos.\relax }}{46}{figure.caption.50}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{49}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Comparativa de las métricas predicciones de los modelos.\relax }}{50}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{39}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Evolución del macro F1 score a lo largo de las iteraciones.\relax }}{40}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{41}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Comparación de TODO(tipo) F1 score en validación y test CNN-1D.\relax }}{43}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparación de TODO(tipo) F1 score en validación y test CNN-2D.\relax }}{44}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{46}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.\relax }}{47}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{50}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.\relax }}{51}{figure.caption.55}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

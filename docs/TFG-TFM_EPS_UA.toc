@@ -23,21 +23,24 @@
 \contentsline {section}{\numberline {4.3}Proceso}{20}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Datos}{21}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Remuestreo}{29}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Algoritmo Genético}{30}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}XGBoost}{34}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Imágenes}{34}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}Modelos}{36}{subsection.4.3.6}%
+\contentsline {subsection}{\numberline {4.3.3}Algoritmo Genético}{31}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}XGBoost}{33}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Imágenes}{33}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Modelos}{35}{subsection.4.3.6}%
 \contentsline {chapter}{\numberline {5}Resultados}{39}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Algoritmo Genético}{39}{section.5.1}%
-\contentsline {section}{\numberline {5.2}XGBoost}{40}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Entrenamiento de modelos}{41}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Gráficas de entrenamiento}{41}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Reportes de clasificación}{41}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Matrices de confusión}{44}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Comparativa entre modelos}{46}{subsection.5.3.4}%
-\contentsline {section}{\numberline {5.4}Predicciones de modelos}{46}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Reportes de clasificación}{46}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Matrices de confusión}{48}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Comparativa entre modelos}{48}{subsection.5.4.3}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{51}{chapter.6}%
+\contentsline {section}{\numberline {5.2}XGBoost}{41}{section.5.2}%
+\contentsline {section}{\numberline {5.3}KNN}{41}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Entrenamiento de modelos}{42}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Tiempo de entrenamiento}{42}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Gráficas de entrenamiento}{42}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Reportes de clasificación}{42}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Matrices de confusión}{45}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Comparativa entre modelos}{47}{subsection.5.4.5}%
+\contentsline {section}{\numberline {5.5}Predicciones de modelos}{47}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Reportes de clasificación}{47}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Matrices de confusión}{49}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Comparativa entre modelos}{49}{subsection.5.5.3}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{53}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Trabajos para futuro}{53}{section.6.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
