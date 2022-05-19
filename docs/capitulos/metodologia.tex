@@ -24,7 +24,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
     El análisis del proyecto consiste en estudiar la viabilidad del mismo, buscando fuentes de información desde las que poder obtener los datos además de explorarlos. Es una de las fases más críticas en un proyecto \textit{Data Science} ya que si las conclusiones del estudio de viabilidad no son sólidas, se podría cometer el riesgo de empezar un proyecto que no es factible para el cubrir los objetivos.
 
-    La obtención de datos consiste en la búsqueda de repositorios donde encontrar datos que contengan la información requerida para abarcar los objetivos del proyecto, se ha realizado visitando distintos portales de datos abiertos nacionales 
+    La obtención de datos consiste en la búsqueda de repositorios donde encontrar datos que contengan la información requerida para abarcar los objetivos del proyecto, se ha realizado visitando distintos portales de datos abiertos nacionales hasta encontrar un conjunto de datos que encajase con los objetivos, en esta fase también se involucra la exploración inicial de los datos.
 
     La exploración de datos abarca la fase de análisis de datos, esto se realiza utilizando métodos visuales para entender las características propias del dataset, además de hacer una valoración de la calidad de los mismos. Las primeras etapas de esta fase se complementan con el análisis del proyecto.
 
@@ -147,19 +147,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
             \end{table}
 
 
-            La variable respuesta de este proyecto es la lesividad, siguiendo la descripción del conjunto de datos, existen una serie de valores asignados a ésta categoría. Cada uno de ellos pertenece al menos a uno de los siguientes casos:
+            La variable respuesta de este proyecto es la lesividad, siguiendo la descripción del conjunto de datos existen una serie de valores asignados a ésta categoría. Cada uno de ellos pertenece al menos a uno de los siguientes casos:
 
               \begin{itemize}
-                    \item Consecuencias leves: comprende desde aquellas personas que no han resultado heridas hasta aquellas que han necesitado ingresar en un centro hospitalario no más de 24 horas.
-                    \item Consecuencias severas: implicados que han requerido un ingreso hospitalario superior a 24 horas.
-                    \item Consecuencias fatales: víctimas mortales dentro del margen de las 24 horas posteriores al accidente.
-                \end{itemize}
+                    \item Consecuencias leves: comprende desde aquellas personas que no han resultado heridas hasta aquellas que han necesitado ingresar en un centro hospitalario no más de 24 horas, el tipado numérico de estas casuísticas es el siguiente:
 
-
-            A continuación se muestran los códigos de numeración de la variable respuesta de este proyecto:
-
-              \begin{itemize}
-                    \item Leves:
                         \begin{itemize}
                             \item 1: Atención en urgencias sin posterior ingreso.
                             \item 2: Ingreso inferior o igual a 24 horas.
@@ -167,26 +159,30 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                             \item 7: Asistencia sanitaria sólo en el lugar del accidente.
                             \item 14: Sin asistencia sanitaria.
                         \end{itemize}
-                    \item Severos:
+
+                    \item Consecuencias severas: implicados que han requerido un ingreso hospitalario superior a 24 horas, el tipado numérico del conjunto de datos corresponde al siguiente caso:
+
                         \begin{itemize}
                             \item 3: Ingreso superior a 24 horas.
                         \end{itemize}
-                    \item Fatales:
+
+                    \item Consecuencias fatales: víctimas mortales dentro del margen de las 24 horas posteriores al accidente, la asignación numérica a este campo es:
+
                         \begin{itemize}
                             \item 4: Fallecido 24 horas.
                         \end{itemize}
+
                 \end{itemize}
 
 
-
-            Se pueden consultar los más detalles de las características del dataset descripción del conjunto de datos del portal \textit{Open Data} de Madrid \cite{InfoDatasetMadrid}.
+            Se pueden consultar más detalles de las características del dataset descripción del conjunto de datos del portal \textit{Open Data} de Madrid \cite{InfoDatasetMadrid}.
 
 
             \begin{enumerate}
 
                 \item Limpieza de datos
 
-                    Una vez importados los datos en el proyecto, es requisito hacer una limpieza de éstos (\textit{Data Cleaning}), eligiendo las características que serán utilizadas como variables explicativas en las predicciones atendiendo además a los valores de las instancias, ya que pueden contener valores nulos, valores atípicos (\textit{outliers}) o contener valores erróneos. Esta problemática requiere de distintas estrategias a la hora de tratar estos valores.
+                    Una vez importados los datos en el proyecto, es requisito hacer una limpieza de éstos (\textit{Data Cleaning}), eligiendo las características que serán utilizadas como variables explicativas en las predicciones atendiendo además a los valores de las instancias, ya que pueden contener valores nulos, valores atípicos (\textit{outliers}) o contener valores erróneos. Esta problemática requiere de la aplicación de distintas fases de análisis.
 
                     En el caso del dataset de accidentes de tráfico de este proyecto se han escogido las siguientes características como variables explicativas \textit{hora, distrito, tipo accidente, estado meteorológico, tipo vehiculo, tipo persona, rango edad, sexo, positivo alcohol, positivo drogas, vehiculos implicados, coordenada x utm, coordenada y utm}.
 
@@ -195,9 +191,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \item Transformaciones de datos
 
-                    En esta sección detallaremos las transformaciones sobre los datos que han sido necesarias para que los modelos trabajen con un conjunto de datos bien definido y consistente. Gran parte de los modelos de \glsentryshort{ml} necesitan de datos numéricos para poder comprenderlos, además existe la necesidad de normalizar estos valores para un correcto entrenamiento de los mismos, por lo tanto se requiere de una serie de transformacíones que conviertan las variables categóricas a variables numéricas.
+                    En esta sección detallaremos las transformaciones sobre los datos que han sido necesarias para que los modelos trabajen con un conjunto de datos bien definido y consistente. Gran parte de los modelos de \glsentryshort{ml} necesitan de datos de entrada numéricos para poder comprenderlos, además existe la necesidad de normalizar estos valores para que estén en la misma escala y el entrenamiento sea exitoso, por lo tanto se requiere de una serie de transformacíones que conviertan las variables categóricas a variables numéricas.
 
-                    En primer lugar ha sido necesario transformar las columnas \textit{coordenada x utm} y \textit{coordenada y utm} a números enteros para que los modelos puedan interpretarlas y normalizarlas, ya que el rango de estas variables es del orden de 7 a 10 dígitos. Inicialmente estos valores estaban establecidos como \textit{String}, evitando cualquier formato de decimales estandarizado (utilizando puntos y comas indistintamente en distintas posiciones de los dígitos), debido a esto ha sido necesario crear un proceso que analizase cada casuístca y los tradujese a un formato estandarizado.
+                    En primer lugar ha sido necesario transformar las columnas \textit{coordenada x utm} y \textit{coordenada y utm} a números enteros, ya que estas variables eran inicialmente de tipo \textit{String}. Además, se da el caso de que el rango de estas variables es del orden de 7 a 10 dígitos, evitando cualquier formato de decimales estandarizado (utilizando puntos y comas indistintamente en distintas posiciones de los mismos), debido a esto ha sido necesario crear un proceso que analizase cada casuístca y los tradujese a un formato estandarizado.
 
                     Las columnas \textit{positiva alcohol} y \textit{positiva drogas} se han unido en una nueva columna debido a la cantidad de valores nulos que existía en la segunda variable, por lo que se crea una nueva columna que hace referencia a la intoxicacion etílica o de estupefacientes.
   
@@ -210,18 +206,20 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                     \textbf{NOTA: Ponemos una tabla con todas las RegEx que se han utilizado? Es sin duda la peor parte y menos científica del proyecto, y es lo único que no me gustaría mostrar, aunque ha llevado mucho tiempo me daría un poco de vergüenza poner esto en un proyecto de Ciencia de datos la verdad}
 
 
-                    Las tipologías de ta \textit{Parking, Aeropuerto, Cuesta, Paseo, Parque, Túnel, Polígono, Camino, Glorieta, Puerta, Puente, Plaza, Bulevar, Travesía, Calzada, Carretera, Avenida, Autovía} y \textit{Calle}
+                    Las tipologías de clases de carreteras son \textit{Parking, Aeropuerto, Cuesta, Paseo, Parque, Túnel, Polígono, Camino, Glorieta, Puerta, Puente, Plaza, Bulevar, Travesía, Calzada, Carretera, Avenida, Autovía} y \textit{Calle}
 
 
-                    No obstante, la aplicación de las expresiones regulares generalmente no son una solución empírica a un problema y en este proyecto su aplicación conlleva una serie de inconvenientes. Debido a las necesidades del problema están diseñadas jerárquicamente, de tal forma que aquellos valores de la variable \textit{localizacion} que coincidan con el primer patrón definido de la expresión regular serán asignados a esta categoría. Esto supone un impedimento a tener en cuenta, ya que muchos de los accidentes se producen en intersecciones, carriles de aceleración que conectan dos vías, vías cuyo nombre contiene el tipo de otra vía, etc. Si se da el caso de que haya algún patrón que no se ha definido como expresión regular, provocará que estas localizaciones se asignen con respecto al primer patrón definido encontrado, llegando a clasificar erróneamente el tipo de vía. Como consecuencia, el orden de la definición de las expresiones es un punto crítico porque se busca maximizar la clasificación de aquellos tipos de vía con menor número de apariciones, como es el caso de parking o aeropuerto, mientras se busca minimizar el error en la clasificación.
+                    No obstante, la aplicación de las expresiones regulares generalmente no son una solución empírica a un problema, ya que hay casos que se pueden ser no contemplados al diseñar estos patrones manualmente, y en el caso de este proyecto su aplicación conlleva una serie de inconvenientes. Debido a las necesidades del problema están diseñadas jerárquicamente, de tal forma que aquellos valores de la variable \textit{localizacion} que coincidan con el primer patrón definido de la expresión regular serán asignados a esta categoría. Esto supone un impedimento a tener en cuenta, ya que muchos de los accidentes se producen en intersecciones, carriles de aceleración que conectan dos vías, vías cuyo nombre contiene el tipo de otra vía, etc. Si se da el caso de que haya algún patrón que no se ha definido como expresión regular, provocará que estas localizaciones se asignen con respecto al primer patrón definido encontrado, llegando a clasificar erróneamente el tipo de vía. Como consecuencia, el orden de la definición de las expresiones es un punto crítico porque se busca maximizar la clasificación de aquellos tipos de vía con menor número de apariciones, como es el caso de parking o aeropuerto, mientras se busca minimizar el error en la clasificación.
 
 
                     Para solucionar esto herramientas como Open Refine \cite{OpenRefine} que utilizan técnicas de clustering nominal para detectar semejanzas entre nombres podría ser una solución.
 
-                    Por otra parte hay que tratar aquellos valores que no hayan coincidido con los patrones definidos (TODO: poner el número), sin embargo, al ser una cantidad de registros se han poido revisar manualmente coincidiendo todas con nombres de calles al que no se les ha asignado la palabra \textit{"calle"}.
+                    Por otra parte hay que tratar aquellos valores que no hayan coincidido con los patrones definidos (TODO: poner el número), sin embargo, al ser una cantidad de registros se han podido revisar manualmente coincidiendo todas con nombres de calles al que no se les ha asignado la palabra \textit{"calle"}.
 
 
-                    En la variable \textit{hora} al ser una variable continua es necesario discretizar, distinguiendo entre noche y día en función de la hora en la que se ha producido el incidente (18:6 noche)
+                    En la variable \textit{hora}, al ser un campo continuo ha sido necesario discretizarla según intervalos, distinguiendo entre noche y día en función de la hora en la que se ha producido el incidente.
+
+
                     En la tabla \ref{TransformacionDatosTabla} se define el resto de codificaciones aplicadas sobre el resto de variables del modelo para transformar estos campos a formato numérico.
 
                     \def\arraystretch{1.2}%
@@ -298,7 +296,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                     Un conjunto de datos desbalanceado se define como aquel que contiene un número de instancias mucho mayor de determinadas clases con respecto al resto \cite{WhyImbalancedDataIsAProblem}. Esto se convierte en un problema para los modelos de clasificación ya que estos modelos tenderán a predecir las muestras como aquellas que pertenecen a las mayoritarias sobre el conjunto de test debido a que las reglas de classificación de las clases menos numerosas tienden a ser ignoradas.
 
-                    El desbalanceo de datos es un problema ampliamente estudiado a lo largo de los años y existen numerosos métodos orientados a tratar este problema mediante distintas técnicas de muestreo \cite{ImbalancedDataReview}, por lo que será necesario aplicar distintas técnicas sobre el conjunto de datos.
+                    El desbalanceo de datos es un problema ampliamente estudiado a lo largo de los años y existen numerosos métodos orientados a solventarlo mediante distintas técnicas de muestreo \cite{ImbalancedDataReview}, por lo que será necesario aplicar distintas técnicas sobre el conjunto de datos.
 
 
                     \begin{figure}[H]
@@ -309,9 +307,9 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                      \end{figure}
 
 
-                    En la figura \ref{CorrelationMatrixImage} podemos observar la matriz de correlación de las variables explicativas del conjunto de datos del proyecto. Esta matriz muestra las relaciones existentes entre las variables indicando el grado de correlación para cada par de variables. Estos valores están acotados entre [-1, 1] en base al coeficiente de correlación de \textit{Pearson} \cite{PearsonCoefficientCorrelationMatrix}, que indica la relación entre la variación de una variable y otra, de tal forma es posible saber tanto el grado como la proporcionalidad de esta variación.
+                    En la figura \ref{CorrelationMatrixImage} podemos observar la matriz de correlación de las variables explicativas del conjunto de datos del proyecto. Esta matriz muestra las relaciones existentes entre las variables indicando el grado de correlación entre ellas. Estos valores están acotados entre [-1, 1] en base al coeficiente de correlación de \textit{Pearson} \cite{PearsonCoefficientCorrelationMatrix}, que indica la relación entre pares de campos, de tal forma es posible saber tanto el grado como la proporcionalidad de esta variación.
 
-                    Analizando la matriz se puede comprobar las únicas variables que están medianamente correlacionadas son \textit{coordenada x utm} y la variable \textit{distrito}, con una correlación positiva de 0.44, sin embargo no es un valor tan alto como para eliminar alguna de las dos las características.
+                    Analizando la matriz se puede comprobar que las únicas variables que están medianamente correlacionadas son \textit{coordenada x utm} y \textit{distrito}, con una correlación positiva de 0.44, sin embargo no es un valor tan alto como para eliminar alguna de las dos las características.
 
                     \begin{figure}[H]
                         \centering
@@ -323,9 +321,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \item Normalización de datos
 
-
-                    La normalización de datos es un proceso necesario a la hora de obtener buenos resultados en los modelos predictivos de \glsentryshort{ml}. Cuando un modelo es entrenado, es bastante probable existan características en distintas escalas. En consecuencia, las características que contengan un rango de valores numérico más alto, ya sea por la naturaleza de la variable o porque se encuentren en otra escala, dominarán a aquellas características que contengan un rango menor a la hora de aplicar modelos \glsentryshort{ml} que sean sensibles a la desnormalización de datos, como por ejemplo \glsentryshort{ml} o \glsentryshort{knn} \cite{NormalizationSensitiveModels}.\\
-
+                    La normalización de datos es un proceso necesario a la hora de obtener buenos resultados en los modelos predictivos de \glsentryshort{ml}. Cuando un modelo es entrenado, es bastante probable existan características representadas en distintas escalas. En consecuencia, las características que contengan un rango de valores numérico más alto, ya sea por la naturaleza de la variable o porque se encuentren en otro rango, dominarán a aquellas características que contengan un rango menor, influenciando negativamente a los modelos \glsentryshort{ml}, que normalmente son muy sensibles a la desnormalización de datos, como por ejemplo las \glsentryshort{cnn} o \glsentryshort{knn} \cite{NormalizationSensitiveModels}.\\
 
                     El proceso de normalización tiene como objetivo minimizar el \textit{bias} de aquellas características cuya contribución sea mayor a la hora de encontrar patrones entre los datos. Existen distintas técnicas de normalización como por ejemplo \glsentryfull{mc}, \glsentryfull{vss} o \glsentryfull{mmn} entre otras \cite{DataNormalizationInvestigation}.\\
 
@@ -344,7 +340,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 \item Separación de datos
 
-                    La siguiente fase en cualquier modelo de \glsentryshort{ML} es la separación de datos (\textit{split}). Esta fase consiste en dividir el conjunto total de datos en al menos dos subconjuntos, uno de entrenamiento y otro de test. El modelo se entrenará en base a los datos de entrenamiento y se evaluará con los datos de test, los resultados sobre este conjunto permitirán comparar los modelos en base a las predicciones sobre las muestras que nunca han visto.\\
+                    La siguiente fase en cualquier modelo de \glsentryshort{ml} es la separación de datos (\textit{split}). Esta fase consiste en dividir el conjunto total de registros en al menos dos subconjuntos, uno de entrenamiento y otro de test. El modelo se entrenará en base al conjunto de entrenamiento y se evaluará con el de test, los resultados sobre este conjunto permitirán comparar los modelos en base a las predicciones sobre las muestras que nunca han visto.\\
 
 
                     Comúnmente la proporción de datos de entrenamiento y test está establecida en \textit{0.8} y \textit{0.2} respectivamente, en la figura \ref{DataSplitImage} se muestra una representación visual de esta división.
@@ -364,7 +360,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
         \subsection{Remuestreo}
 
 
-            Estas técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias. Estas técnicas de forma general se aplican únicamente al conjunto de entrenamiento, ya que la intención  es influir sobre el entrenamiento del modelo para aumentar el rendimiento sobre el conjunto de test, si aplicásemos remuestremo sobre este último conjunto estaríamos falseando los resultados de las predicciones.
+            Son técnicas permiten operar sobre el conjunto de datos para balancearlo, con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias. Estas técnicas de forma general se aplican únicamente al conjunto de entrenamiento, ya que la intención  es influir sobre el aprendizaje del modelo para aumentar el rendimiento de las predicciones sobre el conjunto de test, si aplicásemos remuestreo sobre este último conjunto estaríamos falseando los resultados de las predicciones.
 
 
             En este proyecto se han hecho uso de las siguientes técnicas de remuestreo:
@@ -391,14 +387,14 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
             \end{enumerate}
 
 
-            Una vez aplicadas las técnicas de remuestreo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} en deferencia a los datos originales mediante el método \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} permite visualizar las proyecciones de datos multidimensionales en espacios bidimensionales o tridimensionales. Este modelo tiene su origen en el algoritmo \glsentryfull{sne}, siendo una versión optmizada de éste.
+            Una vez aplicadas las técnicas de remuestreo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} en deferencia a los datos originales mediante el método \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} es un algoritmo que permite visualizar las proyecciones de datos multidimensionales en espacios bidimensionales o tridimensionales. Este modelo debe su origen a su antecesor \glsentryfull{sne}, siendo una versión optmizada de éste.
 
             Mientras que \glsentryshort{sne} proyecta los datos conviritiendo las distancias Euclídeas entre las muestras a probabilidades condicionales sean similares entre sí siguiendo probabilidades normales, el \glsentryshort{tsne} modifica la función de coste para proyectarlos mediante una distribución t-Student, permitiendo además trabajar con gradientes simplificados.
 
 
-            En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}. Como se puede apreciar, la proyección bidimensional en dos dimensiones sobre el conjunto de datos generados por \ \ref{TSNEImages:Train2D}
+            En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}.
 
-            El \glsentryshort{tsne} de 2D aplicado sobre los datos generados por \glsentryshort{smoteii} \ref{TSNEImages:Train2D} nos permite observar cómo se han generado las muestras con respecto a los datos originales \ref{TSNEImages:Clean2D} en una proyección bidimensional. Se observa cómo se han generado las nuevas muestras de los accidentes graves (azul) calculando la cercanía de los puntos en base a las fronteras de división. \textbf{Nota: Realmente yo no veo nada}.
+            El \glsentryshort{tsne} de 2D aplicado sobre los datos generados por \glsentryshort{smoteii} \ref{TSNEImages:Train2D} nos permite observar cómo se han generado las muestras con respecto a los datos originales \ref{TSNEImages:Clean2D} en una proyección bidimensional. Se aprecia cómo se han producido las nuevas muestras de los accidentes graves (azul) calculando la cercanía de los puntos en base a las fronteras de división. \textbf{Nota: Realmente yo no veo nada}.
 
 
             \begin{figure}
@@ -438,11 +434,11 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
     \subsection{Algoritmo Genético}
 
 
-        Para una correcto entrenamiento de un modelo predictivo es necesario optimizar los hiperparámetros con los que el modelo será entrenado, y en este proyecto se aplicará para los hiperparámetros del algoritmo \glsentryshort{xgboost}.\\
+        Para un ideal entrenamiento de un modelo predictivo es conveniente optimizar los hiperparámetros con los que el modelo será entrenado, en este proyecto se aplicarán los algoritmos genéticos para optimizar hiperparámetros del algoritmo \glsentryshort{xgboost}.\\
 
         Para ello se ha hecho uso de algoritmos genéticos \cite{GAXGBoostCode}, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas \cite{GAXGBoostPaper}.
 
-        Debido al coste computacional que tendría optimizar todos los parámetros por la magnitud del espacio de búsqueda y al no ser necesario tener en cuenta todos, se han seleccionado aquellos que más influencia tienen en el entrenamiento del modelo. Los hiperparámetros de los que consta cada individuo de la población son:
+        Debido al coste computacional que tendría optimizar todos los parámetros por la magnitud del espacio de búsqueda y al no ser necesario tener en cuenta todos ellos, se ha seleccionado un subcojunto de aquellos que más influencia tienen en el entrenamiento del modelo. Los hiperparámetros de los que consta cada individuo de la población son:
 
         \begin{enumerate}
 
@@ -454,7 +450,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
         \end{enumerate}
 
-        La inicialización y mutación de los valores de los individuos viene dada por una limitación mínima y máxima que pueden, ya que, si no se contemplase, los valores podrían tomar valores extremos reduciendo el rendimiento de entrenamiento y resultados. Por lo tanto los individuos variarán sus parámetros tomando un valor aleatorio de estos rangos.  Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no tomen valores extremos. La tabla \cite{InitAndMutationLimitsHyperparamsTable} muestra los límites de los hiperparámetros.
+        La inicialización y mutación de los valores de los individuos viene dada por una limitación mínima y máxima que pueden, ya que, si no se contemplase, los hiperparámetros podrían tomar valores extremos, reduciendo así el rendimiento de entrenamiento y el de las predicciones. Por lo tanto los individuos variarán sus parámetros tomando un valor aleatorio dentro de estos rangos definidos.  Los parámetros de las nuevas soluciones mutarán dentro de unos límites específicos para cada parámetro establecidos como máximos y mínimos para que no tomen valores extremos. La tabla \cite{InitAndMutationLimitsHyperparamsTable} muestra los límites de los hiperparámetros.
 
         \begin{table}[H]
             \centering
@@ -473,7 +469,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
             \label{InitAndMutationLimitsHyperparamsTable}
         \end{table}
 
-        Una vez inicializados aleatoriamente los TODO:X individuos especificados en la población, éstos se evaluarán instanciando TODO:X modelos \glsentryshort{xgboost}con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará cada instancia \glsentryshort{xgboost} será el conjunto de entrenamiento TODO:XX. La función \textit{fitness} que evaluará cada individuo será la métrica TODO:F1-X aplicada sobre el conjunto de test obtenido en el proceso de separación de datos.
+        Una vez inicializados aleatoriamente los TODO:X individuos especificados en la población, éstos se evaluarán instanciando TODO:X modelos \glsentryshort{xgboost} con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará cada instancia \glsentryshort{xgboost} será el conjunto de entrenamiento TODO:XX. La función \textit{fitness} que evaluará cada individuo será la métrica TODO:F1-X aplicada sobre el conjunto de test obtenido en el proceso de separación de datos.
 
         \textbf{TODO: No se redactará más hasta tener claro cuál es la mejor forma de entrenar el \glsentryshort{xgboost} (función de validación y datos de entrenamiento)}
 
@@ -558,7 +554,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
             \item La asignación de las filas de los padres se realiza de forma intercalada en función de su peso. Aquel padre que más importancia tenga irá posicionado en la fila central de la matriz, el segundo padre irá posicionado por encima de éste y el tercero por debajo y así sucesivamente, de tal forma que se irá creando una estructura en la que dichos padres se interpolan entre las filas en función de su peso.
 
-            \item Una vez se han asignado los padres a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Donde la característica que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
+            \item Una vez se han asignado las categorías padre a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Estas características se asignarán en una posición dentro de la fila de su categoría padre, donde aquella que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
         \end{enumerate}
 
         \textbf{Nota: No estoy contento con la explicación, creo que estaría bien meter una fórmula matemática o pseudocódigo y cambiar la redacción}
@@ -589,7 +585,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary}. Esta técnica permite la optimización de los valores de los hiperparámetros mediante una búsqueda exhaustiva en un espacio de búsqueda definido por el usuario, probando distintas combinaciones hasta cubrirlo por completo. 
 
-
+                \glsentryshort{knn} construirá el espacio de proyecciones mediante los datos de entrenamineto remuestreados por \glsentryshort{xgboost}, y clasificará las muestras del conjunto de test en base a la cercanía de los vecinos proyectados del conjunto de entrenamiento.
 
 
             \item CNN
@@ -598,7 +594,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
 
                 La arquitectura consta de cuatro capas convolucionales con tamaños de kernel (\textit{1 x 3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3 x 3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarán en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada uno de los mapas de características se aplica un proceso de \glsentryshort{batchnormalization}.
 
-                El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplícarán añadiendo ceros en los ĺímites de las imágenes, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
+                El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplicarán añadiendo ceros en los límites de las imágenes, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
 
                 A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente \cite{GradientVanishingRelu}.
 
@@ -621,7 +617,7 @@ El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{So
                 La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5 x 5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
 
 
-                Para ejemplificar la arquitectura de las \glsentryshort{nn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
+                Para ejemplificar la arquitectura de las \glsentryshort{cnn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
 
 
                 \begin{figure}[h]
