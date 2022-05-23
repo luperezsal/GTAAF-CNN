@@ -159,7 +159,7 @@
 
           \csvautotabular{archivos/5.Resultados/CNN/1D/1DClassificationReportTrain.csv}
           \caption{Métricas de clasificación del conjunto de entrenamiento CNN-1D.}
-          \label{CNN1DMetrics}
+          \label{CNN1DTrainMetrics}
         \end{subtable}
         \hspace{17em}
         \begin{subtable}{.2\textwidth}
@@ -167,7 +167,7 @@
 
           \csvautotabular{archivos/5.Resultados/NB/NBClassificationReportTrain.csv}
           \caption{Métricas clasificación del conjunto de entrenamiento Naive Bayes.}
-          \label{NBMetrics}
+          \label{NBTrainMetrics}
         \end{subtable}
         \vskip\baselineskip
 
@@ -177,7 +177,7 @@
 
           \csvautotabular{archivos/5.Resultados/SVC/SVCClassificationReportTrain.csv}
           \caption{Métricas clasificación del conjunto de entrenamiento SVC.}
-          \label{SVCDMetrics}
+          \label{SVCTrainDMetrics}
         \end{subtable}
         \hspace{17em}
         \begin{subtable}{.2\textwidth}
@@ -185,7 +185,7 @@
 
           \csvautotabular{archivos/5.Resultados/KNN/KNNClassificationReportTrain.csv}
           \caption{Métricas clasificación del conjunto de entrenamiento KNN.}
-          \label{KNNMetrics}
+          \label{KNNTrainMetrics}
         \end{subtable}
 
         \begin{subtable}{.2\textwidth}
@@ -194,7 +194,7 @@
 
           \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTrain.csv}
           \caption{Métricas clasificación del conjunto de entrenamiento CNN-2D.}
-          \label{CNN2DMetrics}
+          \label{CNN2DTrainMetrics}
         \end{subtable}
     \end{table}
 
@@ -202,47 +202,47 @@
 
     Explicar las matrices de confusión con datos de \textbf{ENTRENAMIENTO.}
 
-    \begin{figure}
+    \begin{figure*}
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTrain}
-            \caption{Matriz de confusión sobre el conjunto de datos de entrenamiento CNN-1D.}
+            \caption{Matriz de confusión de CNN-1D sobre entrenamiento.}
             \label{ConfusionMatrixTrainImages:1D}
         \end{subfigure}
+        \hspace{3em}
         % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTrain}
-            \caption{Matriz de confusión sobre el conjunto de datos de entrenamiento CNN-2D.} 
+            \caption{Matriz de confusión de CNN-2D sobre entrenamiento.} 
             \label{ConfusionMatrixTrainImages:2D}
-
         \end{subfigure}
+        \vskip\baselineskip
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfusionMatrixTrain}
-            \caption{Matriz de confusión sobre el conjunto de datos de entrenamiento NB.}
+            \caption{Matriz de confusión de NB sobre entrenamiento.}
             \label{ConfusionMatrixTrainImages:NB}
         \end{subfigure}
-
+        \hspace{3em}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/KNN/KNNConfusionMatrixTrain}
-            \caption{Matriz de confusión sobre el conjunto de datos de entrenamiento KNN.}
+            \caption{Matriz de confusión de KNN sobre entrenamiento.}
             \label{ConfusionMatrixTrainImages:KNN}
         \end{subfigure}
-
+        \vskip\baselineskip
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfusionMatrixTrain}
-            \caption{Matriz de confusión sobre el conjunto de datos de entrenamiento SVC.}
+            \caption{Matriz de confusión de SVC sobre entrenamiento.}
             \label{ConfusionMatrixTrainImages:SVC}
         \end{subfigure}
 
         \caption{Matrices de confusión de los modelos sobre el conjunto de entrenamiento.}
         \label{ConfusionMatrixTrainImages}
-     \end{figure}
-
+     \end{figure*}
   \subsection{Comparativa entre modelos}
 
     Explicar la comparativa de modelos con datos de \textbf{ENTRENAMIENTO.}
@@ -263,39 +263,51 @@
 
     Explicar los reportes de clasificación con datos de \textbf{TEST.}
 
-    \begin{table}[H]
-      \centering
-      \csvautotabular{archivos/5.Resultados/CNN/1D/1DClassificationReportTest.csv}
-      \caption{Métricas CNN-1D.}
-      \label{CNN1DMetrics}
-    \end{table}
+    \begin{table}
+        \scriptsize
 
-    \begin{table}[H]
-      \centering
-      \csvautotabular{archivos/5.Resultados/NB/NBClassificationReportTest.csv}
-      \caption{Métricas Naive Bayes.}
-      \label{NBMetrics}
-    \end{table}
+        \begin{subtable}{.2\textwidth}
+          \renewcommand{\arraystretch}{1.2}
 
-    \begin{table}[H]
-      \centering
-      \csvautotabular{archivos/5.Resultados/SVC/SVCClassificationReportTest.csv}
-      \caption{Métricas SVC.}
-      \label{SVCDMetrics}
-    \end{table}
+          \csvautotabular{archivos/5.Resultados/CNN/1D/1DClassificationReportTest.csv}
+          \caption{Métricas de clasificación de test CNN-1D.}
+          \label{CNN1DTestMetrics}
+        \end{subtable}
+        \hspace{17em}
+        \begin{subtable}{.2\textwidth}
+          \renewcommand{\arraystretch}{1.2}
 
-    \begin{table}[H]
-      \centering
-      \csvautotabular{archivos/5.Resultados/KNN/KNNClassificationReportTest.csv}
-      \caption{Métricas SVC.}
-      \label{SVCDMetrics}
-    \end{table}
+          \csvautotabular{archivos/5.Resultados/NB/NBClassificationReportTest.csv}
+          \caption{Métricas clasificación de test Naive Bayes.}
+          \label{NBTestMetrics}
+        \end{subtable}
+        \vskip\baselineskip
 
-    \begin{table}[H]
-      \centering
-      \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTest.csv}
-      \caption{Métricas CNN-2D.}
-      \label{CNN2DMetrics}
+        \begin{subtable}{.2\textwidth}
+          \centering
+          \renewcommand{\arraystretch}{1.2}
+
+          \csvautotabular{archivos/5.Resultados/SVC/SVCClassificationReportTest.csv}
+          \caption{Métricas clasificación de test SVC.}
+          \label{SVCDTestMetrics}
+        \end{subtable}
+        \hspace{17em}
+        \begin{subtable}{.2\textwidth}
+          \renewcommand{\arraystretch}{1.2}
+
+          \csvautotabular{archivos/5.Resultados/KNN/KNNClassificationReportTest.csv}
+          \caption{Métricas clasificación de test KNN.}
+          \label{KNNTestMetrics}
+        \end{subtable}
+
+        \begin{subtable}{.2\textwidth}
+          \centering
+          \renewcommand{\arraystretch}{1.2}
+
+          \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTest.csv}
+          \caption{Métricas clasificación de test CNN-2D.}
+          \label{CNN2DTestMetrics}
+        \end{subtable}
     \end{table}
 
   \subsection{Matrices de confusión}
@@ -308,7 +320,7 @@
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTest}
-            \caption{Matriz de confusión CNN-1D.}
+            \caption{Matriz de confusión de CNN-1D sobre test.}
             \label{ConfusionMatrixTestImages:1D}
         \end{subfigure}
         \hspace{3em}
@@ -316,7 +328,7 @@
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTest}
-            \caption{Matriz de confusión CNN-2D.} 
+            \caption{Matriz de confusión de CNN-2D sobre test.} 
             \label{ConfusionMatrixTestImages:2D}
 
         \end{subfigure}
@@ -324,25 +336,25 @@
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfusionMatrixTest}
-            \caption{Matriz de confusión NB.}
+            \caption{Matriz de confusión de NB sobre test.}
             \label{ConfusionMatrixTestImages:NB}
         \end{subfigure}
         \hspace{3em}
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/KNN/KNNConfusionMatrixTest}
-            \caption{Matriz de confusión KNN.}
+            \caption{Matriz de confusión de KNN sobre test.}
             \label{ConfusionMatrixTestImages:KNN}
         \end{subfigure}
         \vskip\baselineskip
         \begin{subfigure}[b]{0.4\textwidth}
             \centering
             \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfusionMatrixTest}
-            \caption{Matriz de confusión SVC.}
+            \caption{Matriz de confusión de SVC sobre test.}
             \label{ConfusionMatrixTestImages:SVC}
         \end{subfigure}
 
-        \caption{Matrices de confusión de los modelos sobre el conjunto de entrenamiento.}
+        \caption{Matrices de confusión de los modelos sobre el conjunto de test.}
         \label{ConfusionMatrixTestImages}
      \end{figure*}
 

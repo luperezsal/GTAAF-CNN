@@ -17,7 +17,7 @@
         \subsection {Algoritmos Genéticos}
             Un \textit{Algoritmo Genético} \cite{GA}, es un modelo que imita la evolución de las especies en el ámbito de la biología, con el objetivo de encontrar una solución potencialmente óptima a un problema. El planteamiento de estos modelos consiste en evaluar los individuos pertenecientes a la población de la generación correspondiente para tomar el subconjunto de aquellas soluciones que mejor calidad ofrezcan mediante una función heurística denominada \textit{función fitness} que aproxima soluciones ideales a un problema.\\
 
-            Las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar éste espacio.\\
+            Hay que remarcar que las funciones heurísticas son funciones aproximadas a una solución ideal del problema, debido a que todas las posibles combinaciones de los parámetros a optimizar genera un espacio de búsqueda exponencial (problema NP-hard), es necesario crear una aproximación mediante la función heurística para acotar éste espacio.\\
 
             Para comprender el funcionamiento de los algoritmos genéticos es necesario analizar cada una de las fases que lo constituyen:
             
@@ -73,13 +73,9 @@
             \begin{itemize}
 
 
-                \item Probabilidad de cruce:
+                \item Probabilidad de cruce: probabilidad con la que dos padres intercambian su información entre sí para dar lugar a un nuevo individuo hijo.
 
-                Probabilidad con la que dos padres intercambian su información entre sí para dar lugar a un nuevo individuo hijo.
-
-                \item Probabilidad de mutación:
-
-                Indica la probabilidad con la que cada hiperparámetro puede variar su valor.
+                \item Probabilidad de mutación: indica la probabilidad con la que cada hiperparámetro puede variar su valor.
 
             \end{itemize}
 
@@ -87,7 +83,7 @@
         \subsection {XGBoost}
 
             
-            \textit{Extreme Gradient Boosting Algortihm} (\textit{XGBoost}) es una libería open-source que implementa algoritmos \textit{ML Ensembles de tipo Boosting}. Se trata de uno de los algoritmos más importantes de los últimos años, logrando un rendimiento diez veces mayor a otras soluciones populares en una misma máquina y llegando a las primeras posiciones en numerosos retos propuestos en \textit{Kaggle} \cite{XGBoostTutorial}.\\
+            \textit{Extreme Gradient Boosting Algortihm} (\textit{XGBoost}) es una libería open-source que implementa algoritmos \textit{ML Ensembles de tipo Boosting}. Se trata unos algoritmos muy utilizado en los últimos años, logrando un rendimiento diez veces mayor a otras soluciones populares en una misma máquina y llegando a las primeras posiciones en numerosos retos propuestos en \textit{Kaggle} \cite{XGBoostTutorial}.\\
 
             XGBoost se basa en los modelos \textit{Ensemble Boosting} de los algoritmos de \textit{ML}, de ahí su nombre \textit{Gradient Boosting}. La técnica \textit{Boosting} se basa en construir un modelo robusto (\textit{strong learner}) combinando una serie de modelos débiles (\textit{weak learners}) \cite{NvidiaXGBoost}.\\
 
@@ -135,16 +131,12 @@
 
             \begin{itemize}
 
-                \item Función de activación:
-
-                    Las funciones de activación son las encargadas de decidir si una neurona es activada o no en función de la entrada a esta función. Esta función suele situarse en la salida de cada capa de la red para decidir si una determinada neurona de la siguiente capa se activa o no.
+                \item Función de activación: las funciones de activación son las encargadas de decidir si una neurona es activada o no en función de la entrada a esta función. Esta función suele situarse en la salida de cada capa de la red para decidir si una determinada neurona de la siguiente capa se activa o no.
 
                     Existen distintos enfoques en lo que respecta a las funciones de activación, como la función logística, tangente hiperbólica y \textit{softmax} entre otras.
 
 
-                \item Entropía:
-
-                    La entropía sobre una varible aleatoria $X$ es el grado de incertidumbre producido en base a los posibles valores que puede tomar como respuesta. Se calcula en base a la siguiente fórmula:
+                \item Entropía: la entropía sobre una varible aleatoria $X$ es el grado de incertidumbre producido en base a los posibles valores que puede tomar como respuesta. Se calcula en base a la siguiente fórmula:
 
                     \begin{center}
                         $H(X) = -\sum_{i = 1}^n p(x_i) \log_2 p(x_i)$
@@ -153,9 +145,7 @@
                     Donde $x_i$ es cada uno de los posibles valores que puede tomar la variable como respuesta y $p(x_i)$ es la probabilidad de obtener dicho valor. 
 
 
-                \item Softmax:
-
-                    Se trata de la generalización en forma multidimensional de la función logística o \textit{logistic function}. \textit{Softmax} es una función que permite la transformación de un vector de números reales a una distribución de probabilidad. Esta función se suele aplicar como capa de activación en el último nivel en las \textit{NN}, representando la probabilidad de que la salida de la red pertenezca a cada una de las $K$ clases posibles en el modelo \cite{Softmax}. 
+                \item Softmax: se trata de la generalización en forma multidimensional de la función logística o \textit{logistic function}. \textit{Softmax} es una función que permite la transformación de un vector de números reales a una distribución de probabilidad. Esta función se suele aplicar como capa de activación en el último nivel en las \textit{NN}, representando la probabilidad de que la salida de la red pertenezca a cada una de las $K$ clases posibles en el modelo \cite{Softmax}. 
 
                     Esto es necesario debido a que normalmente los componentes de la salida de la última capa de una red neuronal (\textit{logits}) son el resultado de la predicción en forma de números reales no normalizados, por lo tanto pueden ser mayores que $1$ e incluso negativos. La función permite calcular la distribución de probabilidad en base a estos \textit{logits} y calcular la probabilidad de pertenencia de la muestra a cada una de las $K$ clases que componen el modelo mediante la siguiente fórmula:
 
@@ -168,9 +158,7 @@
                     Esta función es continua y diferenciable, por lo que es posible aplicar el método \textit{GD} para actualizar los valores de los pesos de la red neuronal en las capas anteriores gracias a estas propiedades que permiten la derivabilidad de la función.
 
 
-                \item Cross-Entropy:
-
-                    El objetivo de cross-entropy es minimizar la función de pérdida (\textit{log loss}) comparando la probabilidad de la clase predicha con respecto a su valor verdadero. Al aplicar una penalización logarítmica, las probabilidades de las clases que más disten respecto a su valor verdadero se verán más acentuadas \cite{Cross-Entropy}.
+                \item Cross-Entropy: el objetivo de cross-entropy es minimizar la función de pérdida (\textit{log loss}) comparando la probabilidad de la clase predicha con respecto a su valor verdadero. Al aplicar una penalización logarítmica, las probabilidades de las clases que más disten respecto a su valor verdadero se verán más acentuadas \cite{Cross-Entropy}.
 
                     \begin{center}
                         $L_{CE} = -\sum_{i = 1}^n y_i \log_2(p_i)$
@@ -185,15 +173,11 @@
                         \label{CrossEntropyImage}
                      \end{figure}
 
-                \item Back Propagation:
-
-                    En el proceso de entrenamiento de la \textit{NN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza un algoritmo de optimización que maximiza el valor de una función \textit{GD}.
+                \item Back Propagation: en el proceso de entrenamiento de la \textit{NN} es necesario actualizar los pesos de las capas ocultas con el objetivo de minimizar la cross-entropy total del modelo. Para minimizar este valor se utiliza un algoritmo de optimización que maximiza el valor de una función \textit{GD}.
 
                     Gracias a las propiedades de la función \textit{Softmax} es posible utilizar descenso por gradiente para calcular la derivada de la función de pérdida respecto de cada uno de los pesos de las capas intermedias de la red y actualizar cada uno de ellos con el objetivo de minimizar la función de pérdida.
 
-                \item Learning Rate:
-
-                    La \textit{tasa de aprendizaje}, o \textit{learning rate} define el tamaño de paso que se aplicará a a la hora de optimizar los pesos de la red. El valor del \textit{learning rate} se comprende en el intervalo $[0,1]$, de tal forma que a menor valor de la tasa de aprendizaje menor será el cambio que se produce en los pesos de las neuronas del modelo, el caso contrario ocurre cuando adopta un valor alto.\\
+                \item Learning Rate: la \textit{tasa de aprendizaje}, o \textit{learning rate} define el tamaño de paso que se aplicará a a la hora de optimizar los pesos de la red. El valor del \textit{learning rate} se comprende en el intervalo $[0,1]$, de tal forma que a menor valor de la tasa de aprendizaje menor será el cambio que se produce en los pesos de las neuronas del modelo, el caso contrario ocurre cuando adopta un valor alto.\\
 
 
 
@@ -203,9 +187,7 @@
 
 
 
-                \item Batch Normalization:
-
-                    El proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época.\\
+                \item Batch Normalization: el proceso de entrenamiento de una red neuronal puede ser costoso, ya que existen una gran cantidad de parámetros para cada capa que son optimizados durante el proceso de entrenamiento. Esto hace que este proceso sea demasiado sensible a los parámetros inicializados en el inicio del entrenamiento de la red, como es el ejemplo de establecer una tasa de aprendizaje \textit{learning rate} muy baja para poder converger. Esto hace que el entrenamiento sea muy lento, por lo que es necesario normalizar las entradas para cada mini-batch (subconjuntos de datos de entrenamiento con el que se entrena la red en cada época.\\
 
 
                     El método \textit{Batch Normalization} \cite{BatchNormalization} normaliza los datos de tal forma que permite utilizar tasas de aprendizaje mayores además de actuar como regularizador, reduciendo así el número de capas \textit{Dropout} que pudieran existir en la arquitectura.
@@ -214,7 +196,7 @@
 
             \subsubsection{Convolucionales}
 
-                A contiuación definiremos los parámetros específicos aplicados a las \textit{CNNs}:
+                A contiuación definiremos los parámetros específicos aplicados a las \glsentryfull{cnn2d}:
 
                 \begin{itemize}
 
@@ -278,7 +260,7 @@
                 
                     Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
 
-                    Las complejidad computacional de las \textit{CNN-1D} es mucho más simple que las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
+                    Las complejidad computacional de las \textit{CNN-1D} es menor que la de las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
 
 
                     El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
@@ -307,7 +289,7 @@
 
             \subsection {KNN}
 
-                El algoritmo \textit{K vecinos más próximos}, o \glsentryfull{knn} \cite{KNN}, es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.\\
+                El algoritmo \textit{K vecinos más próximos}, o \glsentryfull{knn} [\cite{KNN}], es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.\\
 
                 El algoritmo \textit{KNN} asume que muestras con características parecidas deben pertenecer a la misma clase. O lo que es lo mismo, muestras parecidas deben estar cercanas en el espacio dimensional.\\
 
@@ -367,7 +349,7 @@
 
             \end{description}
 
-            Como sistema de control de versiones se ha utilizado Github \cite{Github}, repositorio donde es posible subir versiones evolutivas del proyecto imprescincible en los proyectos de desarrollo \cite{Software}.
+            Como sistema de control de versiones se ha utilizado \cite{Github}, repositorio donde es posible subir versiones evolutivas del proyecto imprescincible en los proyectos de desarrollo \cite{Software}.
 
         \subsection{Especificaciones del servidor}
             La mayor parte de los experimentos realizados en este trabajo se han ejecutado bajo un servidor con CPU \textit{Dual AMD Rome 7742} (128 cores) y contando con una GPU \textit{DGX NVIDIA A100} de  40 GigaBytes (\textit{GB}).

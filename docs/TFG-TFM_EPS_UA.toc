@@ -10,23 +10,22 @@
 \contentsline {subsection}{\numberline {3.1.1}Algoritmos Genéticos}{5}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}XGBoost}{7}{subsection.3.1.2}%
 \contentsline {subsection}{\numberline {3.1.3}Redes Neuronales}{8}{subsection.3.1.3}%
-\contentsline {subsubsection}{\numberline {3.1.3.1}Convolucionales}{12}{subsubsection.3.1.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.3.1}Convolucionales}{11}{subsubsection.3.1.3.1}%
 \contentsline {paragraph}{\numberline {3.1.3.1.1}Unidimensionales}{13}{paragraph.3.1.3.1.1}%
-\contentsline {paragraph}{\numberline {3.1.3.1.2}Bidimensionales}{15}{paragraph.3.1.3.1.2}%
+\contentsline {paragraph}{\numberline {3.1.3.1.2}Bidimensionales}{14}{paragraph.3.1.3.1.2}%
 \contentsline {subsection}{\numberline {3.1.4}KNN}{15}{subsection.3.1.4}%
 \contentsline {section}{\numberline {3.2}Especificaciones técnicas}{15}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Herramientas utilizadas}{16}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.1}Herramientas utilizadas}{15}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Especificaciones del servidor}{17}{subsection.3.2.2}%
 \contentsline {chapter}{\numberline {4}Metodología}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Diagrama de Gantt}{19}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Diagrama de flujo}{20}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Proceso}{21}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Datos}{22}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Remuestreo}{30}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Algoritmo Genético}{32}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}XGBoost}{34}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Imágenes}{34}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}Modelos}{36}{subsection.4.3.6}%
+\contentsline {section}{\numberline {4.1}Proceso}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Proceso}{21}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Datos}{21}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Remuestreo}{30}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Algoritmo Genético}{31}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}XGBoost}{33}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Matrices}{34}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Modelos}{36}{subsection.4.2.6}%
 \contentsline {chapter}{\numberline {5}Resultados}{39}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Algoritmo Genético}{39}{section.5.1}%
 \contentsline {section}{\numberline {5.2}XGBoost}{41}{section.5.2}%
@@ -39,8 +38,8 @@
 \contentsline {subsection}{\numberline {5.4.5}Comparativa entre modelos}{42}{subsection.5.4.5}%
 \contentsline {section}{\numberline {5.5}Predicciones de modelos}{44}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Reportes de clasificación}{44}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Matrices de confusión}{48}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Comparativa entre modelos}{49}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.2}Matrices de confusión}{44}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Comparativa entre modelos}{44}{subsection.5.5.3}%
 \contentsline {chapter}{\numberline {6}Conclusiones}{53}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Trabajos para futuro}{53}{section.6.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
