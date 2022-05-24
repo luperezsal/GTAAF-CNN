@@ -3944,7 +3944,7 @@ if city and train_nn:
     history = convolution_1d.fit(array_train_images, Y_train_onehot,
                                  # class_weight = pesos,
                                  batch_size = 128,
-                                 epochs = 100,
+                                 epochs = 500,
                                  shuffle = True,
                                  validation_data = (array_val_images, Y_val_onehot))
     end = time.time()
@@ -4039,7 +4039,7 @@ if city and train_nn:
     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                            # class_weight = pesos,
                            batch_size = 128,
-                           epochs = 100,
+                           epochs = 500,
                            shuffle = True,
                            validation_data = (array_val_images, Y_val_onehot))
 
