@@ -3407,12 +3407,6 @@ for i in range(100,103):
 # pca(X_train, X_test)
 
 
-# In[166]:
-
-
-MODEL_TIMESTAMP
-
-
 # ### TSNE
 
 # In[167]:
@@ -3584,10 +3578,12 @@ if tsne:
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
 Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
+Y_val_onehot   = casualty_to_one_hot(Y_val)
 Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 array_train_images = np.asarray(train_images)
 array_train_original_images = np.asarray(train_original_images)
+array_val_images   = np.asarray(val_images)
 array_test_images  = np.asarray(test_images)
 
 
@@ -3597,12 +3593,15 @@ array_test_images  = np.asarray(test_images)
 
 
 array_train_images = np.asarray(train_images)
+array_val_images   = np.asarray(val_images)
 array_test_images  = np.asarray(test_images)
 
 input_train_shape = (len(array_train_images), 5, 5, 1)
+input_val_shape = (len(array_train_images), 5, 5, 1)
 input_test_shape  = (len(array_test_images), 5, 5, 1)
 
 array_train_images = array_train_images.reshape(input_train_shape)
+array_val_images   = array_val_images.reshape(input_val_shape)
 array_test_images  = array_test_images.reshape(input_test_shape)
 
 Y_test_labels = one_hot_to_casualty(Y_test)
