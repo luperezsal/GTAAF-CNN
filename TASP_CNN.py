@@ -2227,14 +2227,14 @@ MODEL_NAME = 'auto_ml'
 # 
 # 
 
-# In[44]:
+# In[123]:
 
 
-loaded_timestamp = '2022-05-19-14:52:51'
+loaded_timestamp = '2022-05-24-11:01:39'
 model_version = '2022-05-17-20:07:36'
 
 
-# In[45]:
+# In[124]:
 
 
 import pandas as pd
@@ -2285,7 +2285,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[46]:
+# In[125]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -2298,7 +2298,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[47]:
+# In[126]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2377,20 +2377,20 @@ for index,regex_values in enumerate(regex.values()):
 # data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 
 
-# In[48]:
+# In[127]:
 
 
 index_of_assigned_location_values = data_frame[~data_frame.localizacion.str.isnumeric()].index
 data_frame.loc[index_of_assigned_location_values, 'localizacion'] = 19
 
 
-# In[49]:
+# In[128]:
 
 
 data_frame.localizacion.value_counts()
 
 
-# In[50]:
+# In[129]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2453,7 +2453,7 @@ data_frame.localizacion.value_counts()
 # # print(data_frame.localizacion.unique())
 
 
-# In[51]:
+# In[130]:
 
 
 data_frame
@@ -2468,7 +2468,7 @@ data_frame
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[52]:
+# In[131]:
 
 
 weather_conditions_replace = {
@@ -2672,7 +2672,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[53]:
+# In[132]:
 
 
 # Todos las comas a puntos
@@ -2761,7 +2761,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[54]:
+# In[133]:
 
 
 # COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2780,13 +2780,13 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[55]:
+# In[134]:
 
 
 data_frame
 
 
-# In[56]:
+# In[135]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2799,7 +2799,7 @@ data_frame
 
 # Histograma de desbalanceo
 
-# In[57]:
+# In[136]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2818,7 +2818,7 @@ X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[58]:
+# In[137]:
 
 
 plt.figure(figsize=(20, 10))
@@ -2829,13 +2829,13 @@ plt.savefig('histograms_images/original.svg')
 one_hot_to_casualty(Y_train).value_counts()
 
 
-# In[59]:
+# In[138]:
 
 
 Y_test.value_counts()
 
 
-# In[60]:
+# In[139]:
 
 
 # # FILE_NAME = f"{city_name}_calculated_weights.json"
@@ -2844,7 +2844,7 @@ Y_test.value_counts()
 # feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
-# In[61]:
+# In[140]:
 
 
 
@@ -2907,7 +2907,7 @@ Y_test.value_counts()
 
 # ## Normalización de datos
 
-# In[62]:
+# In[141]:
 
 
 X_train = X_train.astype(int)
@@ -2922,7 +2922,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[63]:
+# In[142]:
 
 
 print('********** Before OverSampling **********')
@@ -2934,7 +2934,7 @@ print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 X_train, Y_train = oversample_data(X_train, Y_train)
 
 
-# In[64]:
+# In[143]:
 
 
 plt.figure(figsize=(20, 10))
@@ -2947,7 +2947,7 @@ Y_train.value_counts()
 
 # ## Downsampling de datos
 
-# In[65]:
+# In[144]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2978,7 +2978,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[66]:
+# In[145]:
 
 
 # plt.figure(figsize=(20, 10))
@@ -2997,7 +2997,7 @@ Y_test_downsampled = downsampled_test['lesividad']
 # Y_train_downsampled.value_counts()
 
 
-# In[67]:
+# In[146]:
 
 
 X_train = X_train.astype(int)
@@ -3014,9 +3014,15 @@ X_train_downsampled = normalize_data(X_train_downsampled)
 X_test_downsampled  = normalize_data(X_test_downsampled)
 
 
+# In[147]:
+
+
+X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.2, random_state = 2)
+
+
 # ## XGBoost
 
-# In[68]:
+# In[148]:
 
 
 from xgboost import XGBClassifier
@@ -3026,17 +3032,19 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[69]:
+# In[149]:
 
 
 if calculate_weights:
     Y_train_downsampled_copy = Y_train_downsampled.copy()
     Y_test_downsampled_copy  = Y_test_downsampled.copy()
     Y_test_copy = Y_test.copy()
+    Y_val_copy  = Y_val.copy()
     Y_train_copy = Y_train.copy()
 
     Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled_copy)
     Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled_copy)
+    Y_val_onehot  = casualty_to_one_hot(Y_val_copy)
     Y_test_onehot  = casualty_to_one_hot(Y_test_copy)
     Y_train_onehot  = casualty_to_one_hot(Y_train_copy)
 
@@ -3053,8 +3061,8 @@ if calculate_weights:
     dtrain = xgb.DMatrix(data  = X_train,
                          label = Y_train_copy)
 
-    dtest  = xgb.DMatrix(data  = X_test, 
-                         label = Y_test_copy)
+    dtest  = xgb.DMatrix(data  = X_val, 
+                         label = Y_val_copy)
 
     for generation in range(number_of_generations):
 
@@ -3083,7 +3091,7 @@ if calculate_weights:
                                         hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
                                         dMatrixTrain = dtrain,
                                         dMatrixTest = dtest,
-                                        Y_test = Y_test_copy)
+                                        Y_test = Y_val_copy)
 
         fitnessHistory[generation,:] = fitnessValue
 
@@ -3125,7 +3133,7 @@ if calculate_weights:
                                hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
                                dMatrixTrain = dtrain,
                                dMatrixTest = dtest,
-                               Y_test = Y_test_copy)
+                               Y_test = Y_val_copy)
 
     fitnessHistory[generation+1, :] = fitness # index of the best solution
     bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
@@ -3136,7 +3144,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[70]:
+# In[ ]:
 
 
 if calculate_weights and madrid:
@@ -3177,7 +3185,7 @@ if calculate_weights and madrid:
 
 # #### Carga hiperparámetros
 
-# In[71]:
+# In[151]:
 
 
 if not calculate_weights:
@@ -3197,7 +3205,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[72]:
+# In[181]:
 
 
 if calculate_weights and madrid:
@@ -3211,7 +3219,7 @@ if calculate_weights and madrid:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[73]:
+# In[153]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
@@ -3253,7 +3261,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[74]:
+# In[182]:
 
 
 if calculate_weights and madrid:
@@ -3269,7 +3277,7 @@ if calculate_weights and madrid:
 
 # #### Visualización pesos calculados
 
-# In[75]:
+# In[183]:
 
 
 if calculate_weights and madrid:
@@ -3295,7 +3303,7 @@ if calculate_weights and madrid:
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[76]:
+# In[184]:
 
 
 if calculate_weights and madrid:
@@ -3307,7 +3315,7 @@ if calculate_weights and madrid:
     write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
-# In[77]:
+# In[185]:
 
 
 feature_vector
@@ -3315,7 +3323,7 @@ feature_vector
 
 # ### Cálculo índices de matriz
 
-# In[78]:
+# In[158]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -3323,12 +3331,13 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[79]:
+# In[159]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
 train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
 
+val_bgi =  build_gray_images(X_val, 5, matrix_indexes)
 test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
 
 pd.DataFrame(train_bgi[:,:,1057])
@@ -3336,7 +3345,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[80]:
+# In[160]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -3345,11 +3354,14 @@ train_images = shape_images(X_data = X_train,
 train_original_images = shape_images(X_data = X_train_original,
                                      gray_images = train_original_bgi)
 
+val_images  = shape_images(X_data = X_val,
+                           gray_images = val_bgi)
+
 test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
 
-# In[99]:
+# In[161]:
 
 
 sns.set_theme(style="whitegrid")
@@ -3362,7 +3374,7 @@ for i in range(100,103):
     plt.show()
 
 
-# In[82]:
+# In[162]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -3373,7 +3385,7 @@ for i in range(100,103):
 
 # ## Visualización de datos
 
-# In[83]:
+# In[163]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -3381,7 +3393,7 @@ for i in range(100,103):
 
 # ### Matriz de correlación
 
-# In[84]:
+# In[164]:
 
 
 # correlation_matrix(data_frame)
@@ -3389,13 +3401,13 @@ for i in range(100,103):
 
 # ### PCA
 
-# In[85]:
+# In[165]:
 
 
 # pca(X_train, X_test)
 
 
-# In[86]:
+# In[166]:
 
 
 MODEL_TIMESTAMP
@@ -3403,7 +3415,7 @@ MODEL_TIMESTAMP
 
 # ### TSNE
 
-# In[87]:
+# In[167]:
 
 
 n_samples = 150
@@ -3412,7 +3424,7 @@ index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
 index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
-# In[88]:
+# In[168]:
 
 
 # Get same number of class samples from SMOTEII
@@ -3429,7 +3441,7 @@ Y_fatal_train_tsne   = Y_train[index_fatal]
 Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
-# In[89]:
+# In[169]:
 
 
 n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
@@ -3439,7 +3451,7 @@ index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].inde
 index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
-# In[90]:
+# In[170]:
 
 
 # Get same number of class samples from original
@@ -3456,7 +3468,7 @@ Y_fatal_clean_tsne   = Y_train_original[index_fatal]
 Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
 
 
-# In[91]:
+# In[171]:
 
 
 if tsne:
@@ -3477,7 +3489,7 @@ if tsne:
 
 # #### Entrenamiento
 
-# In[92]:
+# In[172]:
 
 
 # # input_img = Input(shape=(25,))
@@ -3511,7 +3523,7 @@ if tsne:
 
 # #### Visualización
 
-# In[93]:
+# In[173]:
 
 
 # # create encoder model
@@ -3567,7 +3579,7 @@ if tsne:
 
 # ## One-Hot
 
-# In[94]:
+# In[174]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -3581,7 +3593,7 @@ array_test_images  = np.asarray(test_images)
 
 # ## Models
 
-# In[95]:
+# In[175]:
 
 
 array_train_images = np.asarray(train_images)
@@ -3610,7 +3622,7 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
-# In[103]:
+# In[176]:
 
 
 import pickle
@@ -3621,7 +3633,7 @@ times = pd.DataFrame()
 
 # ### NB
 
-# In[104]:
+# In[177]:
 
 
 MODEL_NAME = MODELS_NAME[3]
@@ -3634,7 +3646,7 @@ sns.reset_defaults()
 
 # #### Entrenamiento
 
-# In[105]:
+# In[178]:
 
 
 from sklearn.naive_bayes import GaussianNB
@@ -3658,7 +3670,7 @@ if city and train_nn and other_models:
 
 # #### Escritura del modelo
 
-# In[106]:
+# In[179]:
 
 
 if city and train_nn and other_models:
@@ -3668,7 +3680,7 @@ if city and train_nn and other_models:
 
 # #### Carga de modelo pre-entrenado
 
-# In[107]:
+# In[180]:
 
 
 if city and not train_nn and other_models:
@@ -3678,7 +3690,7 @@ if city and not train_nn and other_models:
 
 # #### Resultados
 
-# In[112]:
+# In[ ]:
 
 
 
@@ -3702,7 +3714,7 @@ if city:
 
 # ### SVC
 
-# In[39]:
+# In[ ]:
 
 
 from sklearn.pipeline import make_pipeline
@@ -3918,7 +3930,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
 # #### Entrenamiento
 
-# In[98]:
+# In[ ]:
 
 
 if city and train_nn:
@@ -3929,7 +3941,7 @@ if city and train_nn:
                                  batch_size = 128,
                                  epochs = 100,
                                  shuffle = True,
-                                 validation_split = 0.1)
+                                 validation_data=(X_val, Y_val))
 
     end = time.time()
 
@@ -4025,7 +4037,7 @@ if city and train_nn:
                        batch_size = 128,
                        epochs = 100,
                        shuffle = True,
-                       validation_split = 0.1)
+                       validation_data=(X_val, Y_val))
 
     end = time.time()
 
