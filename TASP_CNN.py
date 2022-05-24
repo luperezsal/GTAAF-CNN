@@ -3946,7 +3946,7 @@ if city and train_nn:
                                  batch_size = 128,
                                  epochs = 500,
                                  shuffle = True,
-                                 validation_data = (array_val_images, Y_val_onehot))
+                                 validation_data = (array_test_images, Y_test_onehot))
     end = time.time()
 
     ellapsed_time = round(end - start, 2)
@@ -4041,7 +4041,7 @@ if city and train_nn:
                            batch_size = 128,
                            epochs = 500,
                            shuffle = True,
-                           validation_data = (array_val_images, Y_val_onehot))
+                           validation_data = (array_test_images, Y_test_onehot))
 
     end = time.time()
 
