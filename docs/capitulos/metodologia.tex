@@ -37,7 +37,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
 
 
-\section{Proceso}
+\section{Fases}
 
     \textbf{Nota: No me ha quedado del todo claro si el siguiente párrafo se posiciona aquí o hay que eliminarlo}
     En esta sección describiremos cada uno de los pasos que ha seguido el desarrollo del proyecto, desde la búsqueda inicial de datos hasta la implementación final de los algoritmos.
@@ -51,9 +51,6 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
         \caption{Flujo de datos del proceso del proyecto.}
         \label{DataflowImage}
     \end{figure}
-
-
-\section{Proceso}
 
 
 
@@ -200,9 +197,6 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
   
 
                     La variable \textit{localización} ha sido transformada a \textit{tipo de carretera}, con el objetivo de definir un criterio para clasificar el tipo de vía donde se ha producido el incidente, como por ejemplo una carretera, una autovía, glorieta, etc. Al no existir un servicio que ofrezca la tipología de la calle dado el nombre de la vía o las coordenadas, ha sido necesario tratar esta problema desde otro punto de vista mediante expresiones regulares. El término \textit{expresión regular} debe su origen a la teoría de las matemáticas y ciencias de computación, reflejan la propiedad de \textit{regularidad} que caracterizan a las expresiones matemáticas \cite{RegeXBook}. Una expresión regular es un tipo de patrón utilizado para encontrar una combinación de caracteres en una cadena de texto. Para clasificar el tipo de carreteras en este proyecto se han diseñado una serie de expresiones regulares que coinciden con ciertos criterios respecto a los valores de la variable \textit{localizacion} con el fin de distinguir distintos tipos de vía.
-
-
-                    \textbf{NOTA: Ponemos una tabla con todas las RegEx que se han utilizado? Es sin duda la peor parte y menos científica del proyecto, y es lo único que no me gustaría mostrar, aunque ha llevado mucho tiempo me daría un poco de vergüenza poner esto en un proyecto de Ciencia de datos la verdad}
 
 
                     Las tipologías de clases de carreteras son \textit{Parking, Aeropuerto, Cuesta, Paseo, Parque, Túnel, Polígono, Camino, Glorieta, Puerta, Puente, Plaza, Bulevar, Travesía, Calzada, Carretera, Avenida, Autovía} y \textit{Calle}
@@ -506,11 +500,15 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
                                                      & Tipo de accidente.\\
 
                \hline
+               \multirow{2}{*}{Carretera}            & Distrito.\\
+                                                     & Tipo Carretera.\\
+
+
+               \hline
                \multirow{1}{*}{Ambiente}             & Estado meteorológico.\\
 
                \hline
-               \multirow{2}{*}{Carretera}            & Tipo Carretera.\\
-                                                     & Distrito.\\
+               \multirow{1}{*}{Vehículo}             & Tipo de vehículo.\\
 
                \hline
                \multirow{4}{*}{Conductor}            & Tipo Persona.\\
@@ -526,7 +524,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
 
 
-        Una vez definida la jerarquía de características y los pesos asociados a cada una de ellas gracias al algoritmo \glsentryshort{xgboost}, se construyen las matrices de acuerdo al criterio \textit{FV2GI}. Este proceso consta de los siguientes pasos:
+        Una vez definida la jerarquía de características y los pesos asociados a cada una de ellas gracias al algoritmo \glsentryshort{xgboost}, se construyen las matrices de acuerdo a los siguientes pasos:
 
         \begin{enumerate}
 
@@ -536,7 +534,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
         
         \end{enumerate}
 
-        Se deben tomar las siguientes consideraciones a la hora de aplicar el algoritmo:
+        Se deben tomar las siguientes consideraciones a la hora de construir las matrices:
 
         \begin{enumerate}
 
@@ -547,8 +545,10 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             \item Una vez se han asignado las categorías padre a las filas se realiza el mismo procedimiento con las características hijas a nivel de columna. Estas características se asignarán en una posición dentro de la fila de su categoría padre, donde aquella que más importancia tenga irá posicionada en el centro, la segunda irá posicionada a su izquierda, la tercera a la derecha y así sucesivamente.
         \end{enumerate}
 
-        \textbf{Nota: No estoy contento con la explicación, creo que estaría bien meter una fórmula matemática o pseudocódigo y cambiar la redacción}
 
+        \textbf{NOTA: Poner por qué se posicioinan así, porque los filtros 3x3 pasan más veces.....}
+
+        Un ejemplo de la construcción de estas matrices se ve reflejado en la figura \cite{FV2IExampleImage}.
 
         \begin{figure}[H]
             \centering
@@ -557,7 +557,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             \label{FV2IExampleImage}
         \end{figure}
 
-        Como resultado de este proceso se obtienen las matrices que serán la entrada de las \glsentryshort{cnn}.
+        \textcolor{red}{Una vez obtenidos los índices de las matrices se posicionará cada característica de los datos en la posición asignada dentro cada matriz. Cabe recordar que estas características están normalizadas bajo \glsentryfull{zsn}, por lo que la matriz contendrá los valores de cada característica normalizados. Como resultado de este proceso se obtienen las matrices que serán la entrada de las \glsentryshort{cnn}.}
 
         \begin{figure}[H]
             \centering
@@ -572,62 +572,116 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
     \subsection{Modelos}
 
 
-        En esta sección analizaremos los modelos utilizados en este proyecto para la realización de un estudio comparativo entre las arquitecturas.
+        En esta sección analizaremos los modelos utilizados en este proyecto para la realización de un estudio comparativo entre las arquitecturas. \textcolor{red}{En primer lugar definiremos aquellos modelos que trabajan con observaciones tabulares normalizadas, es decir, aquellos que tienen como entrada un conjunto de datos de tipo real, como son \glsentryshort{gnb}, \glsentryshort{knn} y \glsentryshort{svc}. Posteriormente detallaremos las implementaciones de las \glsentryshort{cnn}, que son las que trabajarán con los datos en forma de matrices mediante la transformación definida anteriormente.}
 
+        \subsubsection{Gaussian Naive Bayes}
+
+            \textcolor{red}{El modelo \glsentryshort{gnb} asumirá que cada una de las 12 variables pertenecientes al dataset son independientes. En la instanciación de este modelo no especificaremos ninguna probabilidad a priori, por lo que el molelo las calculará en función del número de muestras pertenecientes a cada clase en función del resto.}
+
+
+        \subsubsection{SVC}
+
+            \textcolor{red}{Para implementar el modelo \glsentryshort{svc} ha sido necesario fijar el valor de regularización $C$, que representa la tolerancia a que ciertas observaciones puedan sobrepasar los márgenes del hiperplano separador con la finalidad de generalizar el modelo, este parámetro se ha establecido a 1. Por otro lado es necesario especificar el tipo de kernel con el que entrenará el modelo, en nuestro caso se ha utilizado un kernel radial, que medirá la distancia entre los puntos en función de la similaridad que presenten.}
+
+            \textcolor{red}{Las distancias que mide el kernel radial se definen en la siguiente fórmula:}
+
+            \begin{center}
+                $K(X_1, X_2) = exp (- \frac{||X_1 - X_2||^2}{2 \sigma^2})$
+            \end{center}
+
+            \textcolor{red}{Donde $X_1$ y $X_2$ son los puntos que se medirán en base al kernel $K$, $||X_1 - X_2||$ es la distancia euclídea (norma $L_2$) y $\sigma$ es la varianza.}
+
+            \textcolor{red}{\glsentryshort{svc} Ha sido entrenado en base a los datos de entrenamiento tabulares remuestrados por \glsentryshort{smoteii}.}
+        \subsubsection{KNN}
+
+            El método \glsentryshort{knn} servirá como referencia para testar el rendimiento del resto de modelos. Al ser un método que se aplica sbre un conjunto de datos tabular original, no hará uso de las matrices generadas.
+
+            Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary}. Esta técnica permite la optimización de los valores de los hiperparámetros mediante una búsqueda exhaustiva en un espacio de búsqueda definido por el usuario, probando distintas combinaciones hasta cubrirlo por completo. 
+
+            \glsentryshort{knn} construirá el espacio de proyecciones mediante los datos de entrenamineto remuestreados por \glsentryshort{xgboost}, y clasificará las muestras del conjunto de test en base a la cercanía de los vecinos proyectados del conjunto de entrenamiento.
+
+
+        \subsubsection{CNN}
+
+            Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos analizar las arquitecturas de las \textit{CNNs} implementadas que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} (unidimensionales o bidimensionales según sea el caso correspondiente) y la forma en la que éste se desplaza debido a su dimensionalidad, por lo tanto detallaremos ambas arquitecturas de la misma forma.
+
+            La arquitectura consta de cuatro capas convolucionales con tamaños de kernel (\textit{1 x 3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3 x 3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarán en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada uno de los mapas de características se aplica un proceso de \glsentryshort{batchnormalization}.
+
+            El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplicarán añadiendo ceros en los límites de las matrices, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
+
+            A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente [\cite{GradientVanishingRelu}].
+
+            \begin{center}
+                $f(x) = \left\{
+                               \begin{array}{lr}
+                                 0 & \text{if } x<=0\\
+                                 x & \text{if } x>0
+                               \end{array}
+                        \right.$
+            \end{center}
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=10cm]{archivos/4.Metodologia/Modelos/CNN/RELUImage}
+                \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
+                \label{RELUImage}
+             \end{figure}
+
+            La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5 x 5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
+
+
+            Para ejemplificar la arquitectura de las \glsentryshort{cnn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
+
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=17cm]{archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN}
+                \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
+                \label{TASPCNNIMAGE}
+             \end{figure}
+
+
+    \section{Métricas}
+
+        \textcolor{red}{A continuación definiremos las métricas comúnmente utilizadas para evaluar la calidad de las clasificaciones de los modelos.}
+
+        \subsection{Reporte de clasificación}
 
         \begin{enumerate}
 
-            \item KNN
-
-                El método \glsentryshort{knn} servirá como referencia para testar el rendimiento del resto de modelos. Al ser un método que se aplica sobre un conjunto de datos tabular original, no hará uso de las matrices generadas.
-
-                Es necesario optimizar los parámetros de este algoritmo para conseguir un buen rendimiento, por lo que aplicaremos la técnica \textit{Grid Search} \cite{GridSearchSklearnLibrary}. Esta técnica permite la optimización de los valores de los hiperparámetros mediante una búsqueda exhaustiva en un espacio de búsqueda definido por el usuario, probando distintas combinaciones hasta cubrirlo por completo. 
-
-                \glsentryshort{knn} construirá el espacio de proyecciones mediante los datos de entrenamineto remuestreados por \glsentryshort{xgboost}, y clasificará las muestras del conjunto de test en base a la cercanía de los vecinos proyectados del conjunto de entrenamiento.
-
-
-            \item CNN
-
-                Una vez definidos los pasos que sigue el entrenamiento de una \textit{NN} y las características propias de las \textit{CNNs}, podemos analizar las arquitecturas de las \textit{CNNs} implementadas que se han aplicado en este proyecto. Cabe mencionar que el funcionamiento de ambas \textit{CNNs} únicamente difiere en el tamaño del \textit{kernel} (unidimensionales o bidimensionales según sea el caso correspondiente) y la forma en la que éste se desplaza debido a su dimensionalidad, por lo tanto detallaremos ambas arquitecturas de la misma forma.
-
-                La arquitectura consta de cuatro capas convolucionales con tamaños de kernel (\textit{1 x 3}) en caso de las \glsentryshort{cnn1d} y de tamaño (\textit{3 x 3}) para las \glsentryshort{cnn2d}. Estos kernels se proyectarán en \textit{256} canales para formar el filtro convolucional asociado a cada capa. A la salida de cada uno de los mapas de características se aplica un proceso de \glsentryshort{batchnormalization}.
-
-                El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplicarán añadiendo ceros en los límites de las matrices, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
-
-                A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente [\cite{GradientVanishingRelu}].
+            \item Precisión: \textcolor{red}{se trata el porcentaje de acierto al clasificar una clase. En el caso de este proyecto representará el porcentaje de accidentes correctos de una clase con respecto al total de accidentes predichos como dicha clase. Por ejemplo, de todos los accidentes identificados como leves, el porcentaje de los que eran leves realmente. Esta métrica se calcula dividiendo el total de verdaderos positivos respecto a la suma de verdaderos positvos y los falsos positivos.}
 
                 \begin{center}
-                    $f(x) = \left\{
-                                   \begin{array}{lr}
-                                     0 & \text{if } x<=0\\
-                                     x & \text{if } x>0
-                                   \end{array}
-                            \right.$
+                    $Precision = \frac{TP}{TP + FP}$
                 \end{center}
 
-                \begin{figure}[h]
-                    \centering
-                    \includegraphics[width=10cm]{archivos/4.Metodologia/Modelos/CNN/RELUImage}
-                    \caption{https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU}
-                    \label{RELUImage}
-                 \end{figure}
+            \item Exhaustividad: \textcolor{red}{se trata el porcentaje de identificaciones totales del modelo para una clase. Para este proyecto la exhaustividad representa el porcentaje identificaciones correctas para una clase de accidente. Por ejemplo, del total de accidentes leves, qué porcentaje de identificaciones correctas han sido predecidas por el modelo. El cálculo de esta métrica se basa en la división de verdaderos positivos con respecto a la suma de verdaderos positivos más los falsos negativos.}
 
-                La salida de la última capa de la convolución transformará el mapa de características de tamaño (\textit{5 x 5}) generada a una capa Flatten, que aplanará la matriz de tal forma que la convertirá en un vector unidimensional de (\textit{1 x 25}). A continuación se aplicará una capa densa que conectará cada uno de los \textit{25} nodos de la capa \textit{Flatten} con los \textit{128} nodos de la capa densa, que generará los logits antes de aplicar la última función de activación \textit{Softmax} que devolverá la clase predicha.
+                \begin{center}
+                    $Exhaustividad = \frac{TP}{TP + FN}$
+                \end{center}
 
+            \item F1-Score: \textcolor{red}{es una métrica que resume la precisión y exhaustividad en un solo valor para mostrar cómo de bien se realiza la clasificación de verdaderos positivos con respecto al coste de falsos negativos que esto conlleva.}
 
-                Para ejemplificar la arquitectura de las \glsentryshort{cnn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \ref{TASPCNNIMAGE}
-
-
-                \begin{figure}[h]
-                    \centering
-                    \includegraphics[width=17cm]{archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN}
-                    \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
-                    \label{TASPCNNIMAGE}
-                 \end{figure}
-
+                \begin{center}
+                    $F_{1} = 2 \cdot \frac{\text{Precision} \cdot \text{Exhaustividad}} {\text{Precisión} + \text{Exhaustividad}}$
+                \end{center}
 
         \end{enumerate}
 
-        \cite{AutoSklearn}
+        \textcolor{red}{Estas métricas se aplican para cada una de las clases a predecir, por lo que existirán tantos valores como clases se encuentren en el problema.}
+
+        \subsection{Matriz de confusión}
+
+        \textcolor{red}{Una matriz de confusión es una técnica que permite evaluar la eficacia de un modelo respecto a la predicción de cada una de las clases objetivo. En el eje de las $X$ se muestran las etiquetas predecidas por el modelo y en el de las $Y$ las etiquetas de las clases verdaderas. De esta forma la matriz de confusión permite visualizar cómo clasifica el modelo cada una de las clases y observar a qué etiquetas asigna cada muestra sobre cualquier conjunto de datos.}\\
+
+        \textcolor{red}{En la figura \ref{MatrizConfusionExampleImage} se puede observar el esquema que sigue una matriz de confusión en base a dos posibles valores a predecir (verdadero y negativo). Las muestras clasificadas erróneamente se considerarán falsos positivos o falsos negativos en función de cómo el modelo clasifica las observaciones.}
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=10cm]{archivos/4.Metodologia/Metricas/MatrizConfusion}
+            \caption{https://rpubs.com/chzelada/275494. Ejemplo de matriz de confusión.}
+            \label{MatrizConfusionExampleImage}
+         \end{figure}
 
 \newpage

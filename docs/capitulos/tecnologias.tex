@@ -107,6 +107,42 @@
             Además, \textit{XGBoost} aplica técnicas de regularización en su función de pérdida, de tal forma que reduce la influencia individual de cada árbol generado y de sus hojas para poder dar lugar a posteriores árboles que consigan mejorar el modelo, evitando de esta manera el sobreajuste u \textit{overfitting}.
 
 
+        \subsection {Gaussian Naive Bayes}
+
+        \textcolor{red}{El clasificador probabilístico \glsentryfull{nb} es un modelo que se basa en el \textit{Teorema de Bayes}, este clasificador asume ciertas suposiciones de independencia sobre los predictores para realizar las clasificaciones. Se asume que la presencia o ausencia de cualquier predictor no está condicionada por la inclusión o exclusión de cualquier otro en el conjunto de datos, es decir, cualquier característica de las observaciones es independiente del resto. Asumiendo esta independencia entre los predictores la complejidad computacional del modelo se reduce considerablemente, haciendo de este modelo uno de los más eficientes en aprendizaje estadístico.}
+
+        \textcolor{red}{Para utilizar Naive Bayes con valores reales se asume la distribución Gaussiana de las características, a esta adaptación se le denomina como \glsentryfull{gnb}. Este enfoque es más simple que el anterior ya que únicamente es necesario calcular la media y la desviación típica de las variables de entrada para resumir dichas distribuciones, que se utilizarán para calcular la probabilidad de pertenencia a una clase en función de estas distribuciones normales gracias a la media y a la desviación típica de cada variable.}
+
+        \textcolor{red}{El primer paso será calcular la denominada probabilidad a priori, que es la probabilidad de que una nueva muestra pertenezca a alguna de las clases del conjunto de entrenamiento, este cálculo serviŕá para determinar la predicción final de las observaciones.}
+
+        \textcolor{red}{Posteriormente se calculará, para cada una de las variables de la muestra, la probabilidad de pertenecer a cada clase del conjunto de entrenamiento en función del grado de pertenencia a la distribución Gaussiana correspondiente a la variable. Después se aplicará esta multiplicación de probabilidades a la probabilidad a priori inicial definida a dicha clase.}
+
+        \textcolor{red}{En la siguiente fórmula se define la probabilidad de pertenencia a una clase $c$ del conjunto $Y$ en base a la característica $X$.}
+
+        \begin{center}
+            $ P(X|Y = c) = \frac{1}{\sqrt{2 \pi \sigma^{2}_{c}}} e^{\frac{- (x - \mu_c)^2}{2 \sigma^{2}_{c}}}$
+        \end{center}
+
+        \textcolor{red}{Donde $\sigma$ es la varianza y $\mu$ es la media de la variable $X$ perteneciente a la clase $c$ del conjunto de clases posibles $Y$.}
+
+        \subsection {SVC}
+
+
+             \textcolor{red}{Los \glsentryfull{svc}, también denominados como \textit{Soft Margin Classifier}, son modelos orientados a clasificación múltiple \cite{SVM}. Se basan en proyectar los datos de entrada en un espacio multidimensional buscando la separabilidad las estas muestras en este espacio determinando hiperplanos.}\\
+
+            \textcolor{red}{Los \glsentryshort{svc} construyen estos hiperplanos en base a la máxima separabilidad de las clases utilizando únicamente aquellas observaciones que se encuentren en la fronteras que maximizan la distancia en el plano entre las clases. La ventaja de esta técnica es que es necesario un conjunto muy pequeño de muestras de entrenamiento para sostener los hiperplanos que forman las fronteras de decisión, estos puntos se denominan \textit{vectores de soporte}.}\\
+
+            \textcolor{red}{La distancia entre los vectores de soporte y el hiperplano definido es denominado \textit{margen}, y es en este punto donde entra en juego la flexibilidad de los \glsentryshort{svc}. Estos modelos aplican el denominado \textit{margen blando}, que se basa en permitir que ciertas observaciones se encuentren en un lado erróneo del margen o incluso del hiperplano, haciendo que el modelo sea más robusto permitiendo mayor generalización a costa de clasificar erróneamente alguna de las observaciones mediante un parámetro de tolerancia $C$. A un mayor valor de $C$ se permite que un mayor número de muestras violen el margen \citep{ISLR2}}.\\
+
+
+            \textcolor{red}{En la figura \cite{SVCExampleImage} se muestra un ejemplo aplicado de \glsentryshort{svc}, donde se observan los hiperplanos definidos que maximiza la separabilidad de ambas clases y los vectores de soporte definidos en función de distintos valores de tolerancia $C$.}
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=10cm]{archivos/3.Tecnologias/SVC/SVCExample}
+                \caption{ISLR2. Ejemplo de SVC con distintos valores de C.}
+                \label{SVCExampleImage}
+             \end{figure}
 
         \subsection {Redes Neuronales}
 
@@ -256,36 +292,34 @@
                 En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida.\\
 
 
-                \paragraph{Unidimensionales}
+                                
+                Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
+
+                Las complejidad computacional de las \textit{CNN-1D} es menor que la de las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
+
+
+                El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
                 
-                    Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
 
-                    Las complejidad computacional de las \textit{CNN-1D} es menor que la de las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
-
-
-                    El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
-                    
-
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=15cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1CNNArchImage}
-                        \caption{https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png}
-                        \label{1CNNArchImage}
-                    \end{figure}
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=15cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1CNNArchImage}
+                    \caption{https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png}
+                    \label{1CNNArchImage}
+                \end{figure}
 
 
-                    Al ser una arquitectura unidimensional, el \textit{kernel} tendrá que tener un tamaño ($1 \times n$).
+                Al ser una arquitectura unidimensional, el \textit{kernel} tendrá que tener un tamaño ($1 \times n$).
 
-                    \begin{figure}[h]
-                        \centering
-                        \includegraphics[width=7cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1DConvolution}
-                        \caption{https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).}
-                        \label{1DConvolutionImage}
-                    \end{figure}
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=7cm]{archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1DConvolution}
+                    \caption{https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).}
+                    \label{1DConvolutionImage}
+                \end{figure}
 
                     
-                \paragraph{Bidimensionales}
-                    Otra de las técnicas convolucionales implementadas en este proyecto son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}, sin embargo, en este caso \textit{kernel} será de bidimensional al ser una convolución de dos dimensiones, por lo que es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
+                Otra de las técnicas convolucionales implementadas en este proyecto son las \textit{Redes Neuronales Convolucionales de 2 Dimensiones}, o \textit{Convolutional Neural Networks 2-Dimensional (CNN-2D)}. Al igual que en el caso de las \textit{CNN-1D}, el filtro se aplica sobre el input de la capa, resultando en \textit{feature maps}, sin embargo, en este caso \textit{kernel} será de bidimensional al ser una convolución de dos dimensiones, por lo que es necesario especificar el tamaño de la matriz que recorrerá la matriz pasada como input a la capa correspondiente.
 
             \subsection {KNN}
 

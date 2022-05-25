@@ -31,7 +31,7 @@
 \definecolor{moviles}{RGB}{121,11,21}		% Aplicaciones Móviles
 \definecolor{masterquimica}{RGB}{41,199,255}	% Quimica
 \definecolor{ciberseguridad}{RGB}{9,111,192}	% Ciberseguridad
-
+\definecolor{mastercienciadatos}{RGB}{50,120,50}	% Ciberseguridad
 % Logotipos comunes de todas las titulaciones
 \newcommand{\logoFacultad}{include/logos-universidad/LogoEPSBlanco-eps-converted-to}
 \newcommand{\logoUniversidad}{include/logos-universidad/LogoEPSBlanco-eps-converted-to}
@@ -268,8 +268,19 @@
 		\newcommand{\colorgrado}{ciberseguridad}
 		\newcommand{\colortexto}{blanco}
 
+	\else \if\IDtitulo M % Ciberseguridad
+		% Logos
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco-eps-converted-to}
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoMasterCienciaDeDatos-eps-converted-to}
+		\newcommand{\logoGrado}{include/logos-titulaciones/LogoMasterCienciaDeDatos-eps-converted-to}
+		% Texto
+		\newcommand{\miGrado}{Máster Universitario en Ciencia de Datos}
+		\newcommand{\tipotrabajo}{Trabajo Fin de Máster}
+		% Color
+		\newcommand{\colorgrado}{mastercienciadatos}
+		\newcommand{\colortexto}{blanco}
 
-	\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi
+	\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 % ¿COMO AÑADIR MÁS TITULACIONES?
@@ -290,7 +301,3 @@
 %	
 % Por último añadir a la linea que tiene muchos '\fi', otro '\fi'. Listo, ya podrás usar la nueva ID con la configuración añadida.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-
-
-
-

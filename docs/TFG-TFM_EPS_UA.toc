@@ -9,37 +9,44 @@
 \contentsline {section}{\numberline {3.1}Modelos}{5}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Algoritmos Genéticos}{5}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}XGBoost}{7}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Redes Neuronales}{8}{subsection.3.1.3}%
-\contentsline {subsubsection}{\numberline {3.1.3.1}Convolucionales}{11}{subsubsection.3.1.3.1}%
-\contentsline {paragraph}{\numberline {3.1.3.1.1}Unidimensionales}{13}{paragraph.3.1.3.1.1}%
-\contentsline {paragraph}{\numberline {3.1.3.1.2}Bidimensionales}{14}{paragraph.3.1.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.4}KNN}{15}{subsection.3.1.4}%
-\contentsline {section}{\numberline {3.2}Especificaciones técnicas}{15}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Herramientas utilizadas}{15}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Especificaciones del servidor}{17}{subsection.3.2.2}%
-\contentsline {chapter}{\numberline {4}Metodología}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Proceso}{20}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Proceso}{21}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Datos}{21}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Remuestreo}{30}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Algoritmo Genético}{31}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}XGBoost}{33}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Matrices}{34}{subsection.4.2.5}%
-\contentsline {subsection}{\numberline {4.2.6}Modelos}{36}{subsection.4.2.6}%
-\contentsline {chapter}{\numberline {5}Resultados}{39}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Algoritmo Genético}{39}{section.5.1}%
-\contentsline {section}{\numberline {5.2}XGBoost}{41}{section.5.2}%
-\contentsline {section}{\numberline {5.3}KNN}{41}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Entrenamiento de modelos}{42}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Tiempos de entrenamiento}{42}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Gráficas de entrenamiento}{42}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Reportes de clasificación}{42}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}Matrices de confusión}{42}{subsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.4.5}Comparativa entre modelos}{42}{subsection.5.4.5}%
-\contentsline {section}{\numberline {5.5}Predicciones de modelos}{44}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Reportes de clasificación}{44}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Matrices de confusión}{44}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Comparativa entre modelos}{44}{subsection.5.5.3}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{53}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Trabajos para futuro}{53}{section.6.1}%
+\contentsline {subsection}{\numberline {3.1.3}Gaussian Naive Bayes}{8}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}SVC}{9}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Redes Neuronales}{10}{subsection.3.1.5}%
+\contentsline {subsubsection}{\numberline {3.1.5.1}Convolucionales}{13}{subsubsection.3.1.5.1}%
+\contentsline {subsection}{\numberline {3.1.6}KNN}{16}{subsection.3.1.6}%
+\contentsline {section}{\numberline {3.2}Especificaciones técnicas}{18}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Herramientas utilizadas}{18}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Especificaciones del servidor}{19}{subsection.3.2.2}%
+\contentsline {chapter}{\numberline {4}Metodología}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Fases}{22}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Datos}{23}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Remuestreo}{32}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Algoritmo Genético}{33}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}XGBoost}{35}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Matrices}{36}{subsection.4.1.5}%
+\contentsline {subsection}{\numberline {4.1.6}Modelos}{38}{subsection.4.1.6}%
+\contentsline {subsubsection}{\numberline {4.1.6.1}Gaussian Naive Bayes}{39}{subsubsection.4.1.6.1}%
+\contentsline {subsubsection}{\numberline {4.1.6.2}SVC}{39}{subsubsection.4.1.6.2}%
+\contentsline {subsubsection}{\numberline {4.1.6.3}KNN}{39}{subsubsection.4.1.6.3}%
+\contentsline {subsubsection}{\numberline {4.1.6.4}CNN}{40}{subsubsection.4.1.6.4}%
+\contentsline {section}{\numberline {4.2}Métricas}{40}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Reporte de clasificación}{41}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Matriz de confusión}{42}{subsection.4.2.2}%
+\contentsline {chapter}{\numberline {5}Resultados}{43}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Algoritmo Genético}{43}{section.5.1}%
+\contentsline {section}{\numberline {5.2}XGBoost}{44}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Matrices}{46}{section.5.3}%
+\contentsline {section}{\numberline {5.4}KNN}{47}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Entrenamiento de modelos}{47}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Tiempos de entrenamiento}{47}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Gráficas de entrenamiento}{48}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Reportes de clasificación}{48}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Matrices de confusión}{50}{subsection.5.5.4}%
+\contentsline {subsection}{\numberline {5.5.5}Comparativa entre modelos}{50}{subsection.5.5.5}%
+\contentsline {section}{\numberline {5.6}Predicciones de modelos}{50}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Reportes de clasificación}{50}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Matrices de confusión}{50}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Comparativa entre modelos}{50}{subsection.5.6.3}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{57}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Trabajos para futuro}{57}{section.6.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
