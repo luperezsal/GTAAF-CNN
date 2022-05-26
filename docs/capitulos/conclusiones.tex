@@ -10,17 +10,31 @@
 
 
 
-\section{Trabajos para futuro}
+\section{Líneas de investigación}
+
+
+	Teniendo en cuenta los resultados de los experimentos, existen múltiples líneas de investigación en las que seguir desarrollando el proyecto de cara a obtener un mejor rendimiento:
 
 	\begin{enumerate}
-		\item Utilizar NAS para encontrar la mejor estructura de la red para un problema, debe ser más \textbf{simple} de las que ha construido Autokeras.
-		\item Hay que añadir más parametros del XGBoost el coste computacional es muy alto y hay que lanzarlo con mejores procesadores.
-		\item formar de otra forma la matriz
+
+
+		\item Las transformaciones sobre las variables del dataset son un punto crítico, por lo que es necesario realizar un estudio de las mismas para probar si otras tipificaciones sobre las variables tienen un efecto positivo en el rendimiento de las clasificaciones. Un ejemplo de este caso es la variable \textit{hora}, que puede ser transformada de acuerdo a otro rango de horas para declarar si un accidente se ha producido de día o de noche o modificar la tipificación del rango de edad. Estos cambios afectaría notablemente a los árboles de decisión producidos por \glsentryshort{xgboost}.
+
+		\item Se propone también usar herramientas como \textit{Open Refine} \cite{OpenRefine} que permitan realizar clústers nominales sobre la localización de los accidentes para obtener una tipificación más sólida del tipo de carretera.
+
+		\item Otra de las líneas a investigar es el añadido de características provenientes de otros datasets localizados en el portal de datos abiertos de la ciudad de Madrid. Dichos datasets proveen de información tal como la velocidad media de los tramos, la densidad de tráfico o la temperatura ambiente. Estos posibles futuros predictores pueden ser claves para la clasificación, como por ejemplo las bajas temperaturas que afectan al agarre de los neumáticos.
+
+		\item Como siguiente opción se propone aumentar el número de características del dataset en base a las propias variables del conjunto de datos original, realizando más transformaciones que permitan obtener más predictores. Por ejemplo el mes, día y estación del año en el que se ha producido el accidente en base a la hora.
+
+		\item En lo que respecta a los algoritmos sería conveniente ampliar los hiperparámetros a utilizar por \glsentryshort{xgboost}, optimizándolos además mediante le algoritmo genético. En este proyecto se optimizan tres de ellos debido a las limitaciones computacionales, mientras que existen otros como \textit{gamma} (parámetro de reducción mínima) \textit{hojas máximas} (parámetro de regularización) o la \textit{política de crecimiento} (controla la forma en la que los nuevos nodos se añaden al árbol) entre otros.
+
+		\item Otro enfoque consistiría estudiar alguna otra técnica para formar matrices en base a representaciones tabulares de datos, maximizando la información de los accidentes en base a la posición de las características.
+
 		\item Utilizar metaaprendizaje para entrenar modelos que averiguen los mejores hiperparametros para otros modelos
-		\item Añadir más características al dataset como la velocidad para aumentar el rendimiento, esto se puede hacer con otro dataset de Madrid que hay velocidades medias por tramos.
-		\item Usar OpenRefine para clusterizar nombres de tipos de via
-		\item Las transformaciones sobre las variables del dataset son un punto crítico, por ejemplo la variable día/noche podría tener otro rango de horas, que afectaría notablemente a los árboles de decisión de XGBoost.
-		\item Otra opción es aumentar la complejidad del dataset en base a los datos que hay, como por ejemplo añadir la estación del año, añadir la temperatura ambiente (tal vez las temperaturas más frías de la carretera minimicen el agarre de los neumáticos)
-		\item Probar a hacer resampling de otra forma (reduciendo el número de muestras artificiales por ejemplo)
-		\item Rango de edad por ejemplo, acotar de otra forma o utilizar los que vienen por defecto.
+
+		\item En lo que respecta al remuestreo de datos sería conveniente a analizar distintos métodos de remuestreo además de \textit{Undersampling, Oversampling y SMOTE} ya estudiados. Existen numerosos parámetros de \glsentryshort{smoteii} que pueden ser configurados, entrenando los modelos con este nuevo remuestreo de datos sería posible aumentar el rendimiento de los mismos.
+
+		\item Utilizar técnicas de \textit{Automated Machine Learning} como \glsentryfull{nas} como AutoKeras \cite{AutoKeras} para encontrar la mejor estructura de la red para el problema. Las \glsentryshort{nas} buscan encontrar una arquitectura neuronal óptima basándose en ensayo y error. Este tipo de técnias requiere grandes recursos computacionales, por lo que para poder llevarla a cabo es necesario disponer de sistema con grandes capacidades de cómputo en \textit{GPU}.
+
+
 	\end{enumerate}

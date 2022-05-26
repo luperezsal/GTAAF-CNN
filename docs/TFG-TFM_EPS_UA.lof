@@ -14,7 +14,7 @@
 \contentsline {figure}{\numberline {3.10}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Ejemplo de ReLU aplicado a una convolución de dos dimensiones.\relax }}{15}{figure.caption.18}%
 \contentsline {figure}{\numberline {3.11}{\ignorespaces https://www.researchgate.net/publication/329201018/figure/fig2/AS:697400008138753@1543284527161/The-architecture-of-our-1D-CNN-model-This-model-consists-of-two-convolutional-layers.png\relax }}{16}{figure.caption.19}%
 \contentsline {figure}{\numberline {3.12}{\ignorespaces https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/blocks/1d-convolution Observamos la entrada de la red (izquierda) a la que se le aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha).\relax }}{16}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.13}{\ignorespaces https://forum.huawei.com/enterprise/es/data/attachment/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png KNN aplicado con distintos valores de $k$\relax }}{17}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces https://forum.huawei.com/enterprise/es/data/attachment/forum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png KNN aplicado con distintos valores de $k$\relax }}{18}{figure.caption.21}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Diagrama de Gantt de la planificación del proyecto.\relax }}{21}{figure.caption.22}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Flujo de datos del proceso del proyecto.\relax }}{23}{figure.caption.23}%
@@ -26,19 +26,19 @@
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Representación de las muestras de accidentes en forma de matriz.\relax }}{38}{figure.caption.32}%
 \contentsline {figure}{\numberline {4.9}{\ignorespaces https://www.researchgate.net/journal/Transport-in-Porous-Media-1573-1634. Función ReLU\relax }}{41}{figure.caption.33}%
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Arquitectura de la CNN-2D mostrando una kernels aprendidos durante el entrenamiento.\relax }}{41}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces https://rpubs.com/chzelada/275494. Ejemplo de matriz de confusión.\relax }}{42}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces https://rpubs.com/chzelada/275494. Ejemplo de matriz de confusión.\relax }}{43}{figure.caption.35}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{43}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Evolución del macro F1 score a lo largo de las iteraciones.\relax }}{44}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{45}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Proceso que sigue una muestra del conjunto de datos tipificada hasta llegar a una matriz.\relax }}{46}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Tres clases de accidentes convertidos a matrices.\relax }}{47}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Comparación entre los tiempos de entrenamiento de los modelos.\relax }}{48}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-1D.\relax }}{50}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-2D.\relax }}{52}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{53}{figure.caption.48}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.\relax }}{54}{figure.caption.49}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de test.\relax }}{55}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.\relax }}{56}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{45}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Evolución del macro F1 score a lo largo de las iteraciones.\relax }}{46}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{47}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Proceso que sigue una muestra del conjunto de datos tipificada hasta llegar a una matriz.\relax }}{48}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Tres clases de accidentes convertidos a matrices.\relax }}{49}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Comparación entre los tiempos de entrenamiento de los modelos.\relax }}{50}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-1D.\relax }}{52}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-2D.\relax }}{54}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{55}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.\relax }}{56}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de test.\relax }}{57}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.\relax }}{58}{figure.caption.52}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

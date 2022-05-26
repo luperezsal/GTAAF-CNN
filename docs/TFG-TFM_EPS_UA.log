@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  26 MAY 2022 01:05
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  27 MAY 2022 00:25
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2373,6 +2373,9 @@ e 12.
 LaTeX Info: Redefining \rmfamily on input line 1.
 LaTeX Info: Redefining \sffamily on input line 1.
 LaTeX Info: Redefining \ttfamily on input line 1.
+
+Underfull \vbox (badness 1616) has occurred while \output is active []
+
  [13
 
 
@@ -2380,8 +2383,8 @@ LaTeX Info: Redefining \ttfamily on input line 1.
 \tf@toc=\write9
 \openout9 = `TFG-TFM_EPS_UA.toc'.
 
- [14]
-(TFG-TFM_EPS_UA.lof
+
+[14] (TFG-TFM_EPS_UA.lof
 LaTeX Info: Redefining \rmfamily on input line 1.
 LaTeX Info: Redefining \sffamily on input line 1.
 LaTeX Info: Redefining \ttfamily on input line 1.
@@ -2504,15 +2507,15 @@ chapter 2.
 ]
 chapter 3.
 
-Package natbib Warning: Citation `GA' on page 5 undefined on input line 18.
+Package natbib Warning: Citation `GA' on page 5 undefined on input line 20.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 18--19
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
  []
 
@@ -2524,21 +2527,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [5]
 File: ./svg-inkscape/FitnessFunction_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/FitnessFunction_svg-raw.pdf>
+ [6]
 File: ./svg-inkscape/ParentsMatingMutation_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/ParentsMatingMutation_svg-raw.pdf>
- [6]
+
 
 Package natbib Warning: Citation `XGBoostTutorial' on page 7 undefined on input
- line 86.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 86--87
-
- []
-
-
-Package natbib Warning: Citation `NvidiaXGBoost' on page 7 undefined on input l
-ine 88.
+ line 88.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 88--89
@@ -2546,7 +2541,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 88--89
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
+
+Package natbib Warning: Citation `NvidiaXGBoost' on page 8 undefined on input l
+ine 90.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
 
@@ -2556,30 +2556,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 93--94
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
 
  []
 
 File: archivos/3.Tecnologias/XGBoost/XGBoostFlowImage.png Graphic file (type bm
 p)
 <archivos/3.Tecnologias/XGBoost/XGBoostFlowImage.png>
-[8]
 
-Package natbib Warning: Citation `SVM' on page 9 undefined on input line 131.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+ [8]
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
-
- []
+Package natbib Warning: Citation `SVC' on page 9 undefined on input line 133.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
-
-
-Package natbib Warning: Citation `ISLR2' on page 9 undefined on input line 135.
-
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 135--136
@@ -2588,19 +2587,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
 [9]
 
-Package natbib Warning: Citation `SVCExampleImage' on page 10 undefined on inpu
-t line 138.
+Package natbib Warning: Citation `ISLR2' on page 10 undefined on input line 137
+.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+
+ []
 
 File: archivos/3.Tecnologias/SVC/SVCExample.png Graphic file (type bmp)
 <archivos/3.Tecnologias/SVC/SVCExample.png>
 
 Package natbib Warning: Citation `NNReview' on page 10 undefined on input line 
-149.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
-
- []
+151.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 151--152
@@ -2608,82 +2607,81 @@ Underfull \hbox (badness 10000) in paragraph at lines 151--152
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 154--155
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
 
  []
 
 [10]
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
+
+ []
+
 File: archivos/3.Tecnologias/RedesNeuronales/NNImage.jpg Graphic file (type bmp
 )
 <archivos/3.Tecnologias/RedesNeuronales/NNImage.jpg>
 
-Underfull \hbox (badness 4556) in paragraph at lines 159--159
+Underfull \hbox (badness 4556) in paragraph at lines 161--161
 [][][]|\TU/lmr/m/n/10 https://www.v7labs.com/blog/neural-networks-activation-fu
 nctions. Arquitectura de
  []
 
-
-Package natbib Warning: Citation `Softmax' on page 11 undefined on input line 1
-84.
-
 [11]
 
+Package natbib Warning: Citation `Softmax' on page 12 undefined on input line 1
+86.
+
+
 Package natbib Warning: Citation `Cross-Entropy' on page 12 undefined on input 
-line 197.
+line 199.
 
 File: archivos/3.Tecnologias/RedesNeuronales/CrossEntropy.jpeg Graphic file (ty
 pe bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CrossEntropy.jpeg>
 
-Underfull \hbox (badness 10000) in paragraph at lines 208--208
+Underfull \hbox (badness 10000) in paragraph at lines 210--210
 [][][]|\TU/lmr/m/n/10 https://towardsdatascience.com/cross-entropy-loss-functio
 n-f38c4ec8643e Cross-
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 216--217
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
 
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 220--221
+
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
 
  []
 
 
 Package natbib Warning: Citation `LearningRate' on page 13 undefined on input l
-ine 222.
+ine 224.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 226--227
+Underfull \hbox (badness 10000) in paragraph at lines 228--229
 
  []
 
 
 Package natbib Warning: Citation `BatchNormalization' on page 13 undefined on i
-nput line 229.
-
-
-Package natbib Warning: Citation `Kernels' on page 13 undefined on input line 2
-43.
+nput line 231.
 
 [13]
 
+Package natbib Warning: Citation `Kernels' on page 14 undefined on input line 2
+45.
+
+
 Package natbib Warning: Citation `FiltersFeatureMaps' on page 14 undefined on i
-nput line 247.
+nput line 249.
 
 File: archivos/3.Tecnologias/RedesNeuronales/Stride.png Graphic file (type bmp)
 
 <archivos/3.Tecnologias/RedesNeuronales/Stride.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--256
+Underfull \hbox (badness 10000) in paragraph at lines 258--258
 [][][]|\TU/lmr/m/n/10 http://makeyourownneuralnetwork.blogspot.com/2020/02/calc
 ulating-output-size-of-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--263
-
  []
 
 
@@ -2691,11 +2689,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 264--265
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--267
+
+ []
+
 File: archivos/3.Tecnologias/RedesNeuronales/CNN/padding.png Graphic file (type
  bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/padding.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 269--269
+Underfull \hbox (badness 10000) in paragraph at lines 271--271
 [][][]|\TU/lmr/m/n/10 https://indoml.com/2018/03/07/student-notes-convolutional
 -neural-networks-cnn-
  []
@@ -2703,56 +2706,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 269--269
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 277--278
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
-[14]
 File: archivos/3.Tecnologias/RedesNeuronales/CNN/CNNRELUImage.png Graphic file 
 (type bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/CNNRELUImage.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--286
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
 [][][]|\TU/lmr/m/n/10 https://www.researchgate.net/journal/Transport-in-Porous-
 Media-1573-1634. Ejem-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
 
  []
 
 
 Package natbib Warning: Citation `Conv1D_Survey' on page 15 undefined on input 
-line 298.
+line 299.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 298--299
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
 
  []
 
 [15]
 
 Package natbib Warning: Citation `FiltersFeatureMaps' on page 16 undefined on i
-nput line 301.
+nput line 302.
 
 File: archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1CNNArchImage.png Graphic f
 ile (type bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1CNNArchImage.png>
 
-Overfull \hbox (101.45229pt too wide) in paragraph at lines 307--307
+Overfull \hbox (101.45229pt too wide) in paragraph at lines 308--308
 [][][]|\TU/lmr/m/n/10 https://www.researchgate.net/publication/329201018/figure
 /fig2/AS:697400008138753@1543284527161/The-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 307--307
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 \TU/lmr/m/n/10 architecture-of-our-1D-CNN-model-This-model-consists-of-two-conv
 olutional-
  []
@@ -2761,105 +2763,106 @@ File: archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1DConvolution.png Graphic f
 ile (type bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1DConvolution.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--317
+Underfull \hbox (badness 10000) in paragraph at lines 318--318
 [][][]|\TU/lmr/m/n/10 https://peltarion.com/knowledge-center/documentation/mode
 ling-view/build-an-ai-
  []
 
 
-Package natbib Warning: Citation `KNN' on page 16 undefined on input line 326.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+
+Package natbib Warning: Citation `KNN' on page 17 undefined on input line 327.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
-
- []
-
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 330--331
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 332--333
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
 
  []
 
 File: archivos/3.Tecnologias/KNN/KNNImage.png Graphic file (type bmp)
 <archivos/3.Tecnologias/KNN/KNNImage.png>
 
-Overfull \hbox (145.71227pt too wide) in paragraph at lines 340--340
+Overfull \hbox (145.71227pt too wide) in paragraph at lines 341--341
 [][][]|\TU/lmr/m/n/10 https://forum.huawei.com/enterprise/es/data/attachment/fo
 rum/202108/20/150033de3l4nyvmcbozh14.png?KNN3.png
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [17]
-
-Package natbib Warning: Citation `Python' on page 18 undefined on input line 35
-2.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `Pandas' on page 18 undefined on input line 35
-8.
+Package natbib Warning: Citation `Python' on page 17 undefined on input line 35
+3.
 
 
-Package natbib Warning: Citation `Tensorflow' on page 18 undefined on input lin
-e 360.
+Package natbib Warning: Citation `Pandas' on page 17 undefined on input line 35
+9.
 
 
-Package natbib Warning: Citation `Scikit-Learn' on page 18 undefined on input l
-ine 362.
+Package natbib Warning: Citation `Tensorflow' on page 17 undefined on input lin
+e 361.
 
 
-Overfull \hbox (8.84596pt too wide) in paragraph at lines 362--363
+Package natbib Warning: Citation `Scikit-Learn' on page 17 undefined on input l
+ine 363.
+
+
+Overfull \hbox (8.84596pt too wide) in paragraph at lines 363--364
 []\TU/lmr/m/n/10.95 Sklearn: librería que contiene múltiples modelos predictivo
 s implementados, basado en NumPy,
  []
 
 
-Package natbib Warning: Citation `XGBoostLibrary' on page 18 undefined on input
- line 364.
+Package natbib Warning: Citation `XGBoostLibrary' on page 17 undefined on input
+ line 365.
 
+[17]
 
-Package natbib Warning: Citation `CUDA' on page 18 undefined on input line 372.
+Package natbib Warning: Citation `CUDA' on page 18 undefined on input line 373.
 
 
 
 Package natbib Warning: Citation `Anaconda' on page 18 undefined on input line 
-374.
+375.
 
 
 Package natbib Warning: Citation `JupyterNotebook' on page 18 undefined on inpu
-t line 376.
+t line 377.
 
 
 Package natbib Warning: Citation `JupyterLab' on page 18 undefined on input lin
-e 378.
+e 379.
 
 
 Package natbib Warning: Citation `DiagramsNet' on page 18 undefined on input li
-ne 380.
+ne 381.
+
+[18]
+
+Package natbib Warning: Citation `GoogleMeet' on page 19 undefined on input lin
+e 383.
 
 
-Package natbib Warning: Citation `GoogleMeet' on page 18 undefined on input lin
-e 382.
+Package natbib Warning: Citation `Github' on page 19 undefined on input line 38
+7.
 
-
-Package natbib Warning: Citation `Github' on page 18 undefined on input line 38
-6.
-
-
-Package natbib Warning: Citation `Software' on page 18 undefined on input line 
-386.
-
-[18]) (capitulos/metodologia.tex [19] [20
+) (capitulos/metodologia.tex [19] [20
 
 
 ]
@@ -2875,12 +2878,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [22]
 
 Package natbib Warning: Citation `LifecycleDataScienceProjectsTimes' on page 23
- undefined on input line 60.
+ undefined on input line 59.
 
 [23]
 
 Package natbib Warning: Citation `DatasetMadrid' on page 24 undefined on input 
-line 62.
+line 61.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2891,48 +2894,48 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [25]
 
 Package natbib Warning: Citation `InfoDatasetMadrid' on page 26 undefined on in
-put line 176.
+put line 175.
 
 [26]
 
 Package natbib Warning: Citation `RegeXBook' on page 27 undefined on input line
- 199.
+ 198.
 
 
 Package natbib Warning: Citation `OpenRefine' on page 27 undefined on input lin
-e 208.
+e 207.
 
 [27] [28]
-Underfull \hbox (badness 10000) in paragraph at lines 286--287
+Underfull \hbox (badness 10000) in paragraph at lines 285--286
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 288--289
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
 
  []
 
 
 Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 29 undef
-ined on input line 290.
+ined on input line 289.
 
 
 Package natbib Warning: Citation `ImbalancedDataReview' on page 29 undefined on
- input line 292.
+ input line 291.
 
 [29]
 Package svg Info: Last page of `./svg-inkscape/OriginalDataHistogram_svg-tex.pd
-f' is 1 on input line 297.
+f' is 1 on input line 296.
  (svg-inkscape/OriginalDataHistogram_svg-tex.pdf_tex
 File: ./svg-inkscape/OriginalDataHistogram_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/OriginalDataHistogram_svg-tex.pdf, page 1>
 )
 
 Package natbib Warning: Citation `PearsonCoefficientCorrelationMatrix' on page 
-30 undefined on input line 302.
+30 undefined on input line 301.
 
 Package svg Info: Last page of `./svg-inkscape/CorrelationMatrix_svg-tex.pdf' i
-s 1 on input line 308.
+s 1 on input line 307.
 (svg-inkscape/CorrelationMatrix_svg-tex.pdf_tex
 File: ./svg-inkscape/CorrelationMatrix_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/CorrelationMatrix_svg-tex.pdf, page 1>
@@ -2942,29 +2945,29 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [30]
 
 Package natbib Warning: Citation `NormalizationSensitiveModels' on page 31 unde
-fined on input line 316.
+fined on input line 315.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
+Underfull \hbox (badness 10000) in paragraph at lines 315--316
 
  []
 
 
 Package natbib Warning: Citation `DataNormalizationInvestigation' on page 31 un
-defined on input line 318.
+defined on input line 317.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 318--319
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 321--322
+Underfull \hbox (badness 10000) in paragraph at lines 320--321
 
  []
 
 [31]
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
 
  []
 
@@ -2972,126 +2975,110 @@ File: archivos/4.Metodologia/Datos/Separacion/DataSplit.png Graphic file (type
 bmp)
 <archivos/4.Metodologia/Datos/Separacion/DataSplit.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 343--343
+Underfull \hbox (badness 10000) in paragraph at lines 342--342
 [][][]|\TU/lmr/m/n/10 https://towardsdatascience.com/train-test-split-and-cross
 -validation-in-python-
  []
 
 
-Underfull \hbox (badness 1320) in paragraph at lines 343--343
+Underfull \hbox (badness 1320) in paragraph at lines 342--342
 \TU/lmr/m/n/10 80b61beca4b6. División de un conjunto de datos en datos de entre
 namiento y
  []
 
 
-Package natbib Warning: Citation `Downsampling' on page 32 undefined on input l
-ine 364.
-
-[32]
-
-Package natbib Warning: Citation `SMOTEII' on page 33 undefined on input line 3
-67.
+Package natbib Warning: Citation `SMOTEII' on page 32 undefined on input line 3
+56.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--368
+Underfull \hbox (badness 10000) in paragraph at lines 356--357
 
  []
 
-
-LaTeX Warning: Reference `SMOTEIIDataHistogramImage' on page 33 undefined on in
-put line 369.
-
+[32]
 
 Package natbib Warning: Citation `TSNEPaper' on page 33 undefined on input line
- 374.
+ 361.
 
 Package svg Info: Last page of `./svg-inkscape/2d_tsne_clean_svg-tex.pdf' is 1 
-on input line 388.
+on input line 375.
 (svg-inkscape/2d_tsne_clean_svg-tex.pdf_tex
 File: ./svg-inkscape/2d_tsne_clean_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/2d_tsne_clean_svg-tex.pdf, page 1>
 )
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 388--389
+Overfull \hbox (25.94852pt too wide) in paragraph at lines 375--376
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/2d_tsne_train_svg-tex.pdf' is 1 
-on input line 395.
+on input line 382.
 (svg-inkscape/2d_tsne_train_svg-tex.pdf_tex
 File: ./svg-inkscape/2d_tsne_train_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/2d_tsne_train_svg-tex.pdf, page 1>
+)
+Overfull \hbox (25.94852pt too wide) in paragraph at lines 382--383
+ [][] 
+ []
+
+Package svg Info: Last page of `./svg-inkscape/3d_tsne_clean_svg-tex.pdf' is 1 
+on input line 389.
+(svg-inkscape/3d_tsne_clean_svg-tex.pdf_tex
+File: ./svg-inkscape/3d_tsne_clean_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/3d_tsne_clean_svg-tex.pdf, page 1>
+)
+Overfull \hbox (25.94852pt too wide) in paragraph at lines 389--390
+ [][] 
+ []
+
+Package svg Info: Last page of `./svg-inkscape/3d_tsne_train_svg-tex.pdf' is 1 
+on input line 395.
+(svg-inkscape/3d_tsne_train_svg-tex.pdf_tex
+File: ./svg-inkscape/3d_tsne_train_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/3d_tsne_train_svg-tex.pdf, page 1>
 )
 Overfull \hbox (25.94852pt too wide) in paragraph at lines 395--396
  [][] 
  []
 
-Package svg Info: Last page of `./svg-inkscape/3d_tsne_clean_svg-tex.pdf' is 1 
-on input line 402.
-(svg-inkscape/3d_tsne_clean_svg-tex.pdf_tex
-File: ./svg-inkscape/3d_tsne_clean_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/3d_tsne_clean_svg-tex.pdf, page 1>
-)
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 402--403
- [][] 
- []
 
-Package svg Info: Last page of `./svg-inkscape/3d_tsne_train_svg-tex.pdf' is 1 
-on input line 408.
-(svg-inkscape/3d_tsne_train_svg-tex.pdf_tex
-File: ./svg-inkscape/3d_tsne_train_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/3d_tsne_train_svg-tex.pdf, page 1>
-)
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 408--409
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 421--422
+Underfull \hbox (badness 10000) in paragraph at lines 408--409
 
  []
 
 
 Package natbib Warning: Citation `GAXGBoostPaper' on page 33 undefined on input
- line 423.
+ line 410.
 
 [33] [34]
-Underfull \hbox (badness 10000) in paragraph at lines 470--471
 
- []
+Package natbib Warning: Citation `XGBoostFeatureWeightsMeaning' on page 35 unde
+fined on input line 451.
 
 [35]
 
-Package natbib Warning: Citation `XGBoostFeatureWeightsMeaning' on page 36 unde
-fined on input line 472.
-
-
 Package natbib Warning: Citation `TASPCNN' on page 36 undefined on input line 4
-84.
+63.
 
 
 Package natbib Warning: Citation `JerarquiaImagenes' on page 36 undefined on in
-put line 486.
+put line 465.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [36]
 [37]
-
-Package natbib Warning: Citation `FV2IExampleImage' on page 38 undefined on inp
-ut line 551.
-
 File: archivos/4.Metodologia/Matrices/FV2I.png Graphic file (type bmp)
 <archivos/4.Metodologia/Matrices/FV2I.png>
 Package svg Info: Last page of `./svg-inkscape/madrid_image_example_0_svg-tex.p
-df' is 1 on input line 564.
-(svg-inkscape/madrid_image_example_0_svg-tex.pdf_tex
+df' is 1 on input line 543.
+ (svg-inkscape/madrid_image_example_0_svg-tex.pdf_tex
 File: ./svg-inkscape/madrid_image_example_0_svg-tex.pdf Graphic file (type pdf)
 
 <use ./svg-inkscape/madrid_image_example_0_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/madrid_image_example_1_svg-tex.p
-df' is 1 on input line 565.
+df' is 1 on input line 544.
 
 (svg-inkscape/madrid_image_example_1_svg-tex.pdf_tex
 File: ./svg-inkscape/madrid_image_example_1_svg-tex.pdf Graphic file (type pdf)
@@ -3099,26 +3086,29 @@ File: ./svg-inkscape/madrid_image_example_1_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/madrid_image_example_1_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/madrid_image_example_2_svg-tex.p
-df' is 1 on input line 566.
+df' is 1 on input line 545.
 
 (svg-inkscape/madrid_image_example_2_svg-tex.pdf_tex
 File: ./svg-inkscape/madrid_image_example_2_svg-tex.pdf Graphic file (type pdf)
 
 <use ./svg-inkscape/madrid_image_example_2_svg-tex.pdf, page 1>
-) [38]
+)
+Underfull \vbox (badness 4217) has occurred while \output is active []
+
+ [38]
 
 Package natbib Warning: Citation `GridSearchSklearnLibrary' on page 39 undefine
-d on input line 599.
+d on input line 578.
 
 [39]
 
 Package natbib Warning: Citation `GradientVanishingRelu' on page 40 undefined o
-n input line 612.
+n input line 591.
 
 File: archivos/4.Metodologia/Modelos/CNN/RELUImage.png Graphic file (type bmp)
 <archivos/4.Metodologia/Modelos/CNN/RELUImage.png>
 
-Underfull \hbox (badness 3492) in paragraph at lines 626--626
+Underfull \hbox (badness 3492) in paragraph at lines 605--605
 [][][]|\TU/lmr/m/n/10 https://www.researchgate.net/journal/Transport-in-Porous-
 Media-1573-1634. Función
  []
@@ -3130,7 +3120,7 @@ File: archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN.png Graphic file (type bmp)
 
 <archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN.png>
 
-Overfull \hbox (42.67911pt too wide) in paragraph at lines 638--639
+Overfull \hbox (42.67911pt too wide) in paragraph at lines 617--618
  [][] 
  []
 
@@ -3138,14 +3128,18 @@ Overfull \hbox (42.67911pt too wide) in paragraph at lines 638--639
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [40] [41]
-Underfull \hbox (badness 10000) in paragraph at lines 676--677
+Underfull \hbox (badness 10000) in paragraph at lines 672--673
 
  []
 
+[42]
 File: archivos/4.Metodologia/Metricas/MatrizConfusion.png Graphic file (type bm
 p)
 <archivos/4.Metodologia/Metricas/MatrizConfusion.png>
-[42]) (capitulos/resultados.tex
+ [43]) (capitulos/resultados.tex [44
+
+
+]
 chapter 5.
 Package svg Info: Last page of `./svg-inkscape/EvolucionHiperparametros_svg-tex
 .pdf' is 1 on input line 22.
@@ -3163,12 +3157,9 @@ File: ./svg-inkscape/EvolucionF1Score_svg-tex.pdf Graphic file (type pdf)
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [43
+ [45]
 
-
-]
-
-Package natbib Warning: Citation `FeatureWeightsImage' on page 44 undefined on 
+Package natbib Warning: Citation `FeatureWeightsImage' on page 46 undefined on 
 input line 54.
 
 Package svg Info: Last page of `./svg-inkscape/FeatureWeights_svg-tex.pdf' is 1
@@ -3184,10 +3175,10 @@ Overfull \hbox (22.5867pt too wide) in paragraph at lines 58--59
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [44]
+ [46]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [45]
+ [47]
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
 (subcaption)                 on input line 110.
@@ -3246,11 +3237,9 @@ Package svg Info: Last page of `./svg-inkscape/accidente_fatal_svg-tex.pdf' is
 File: ./svg-inkscape/accidente_fatal_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/accidente_fatal_svg-tex.pdf, page 1>
 )
-
-LaTeX Warning: Reference `' on page 46 undefined on input line 149.
-
 Package svg Info: Last page of `./svg-inkscape/accidente_leve_svg-tex.pdf' is 1
  on input line 155.
+
 (svg-inkscape/accidente_leve_svg-tex.pdf_tex
 File: ./svg-inkscape/accidente_leve_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/accidente_leve_svg-tex.pdf, page 1>
@@ -3271,12 +3260,12 @@ File: ./svg-inkscape/accidente_fatal_svg-tex.pdf Graphic file (type pdf)
 )
 Underfull \vbox (badness 4765) has occurred while \output is active []
 
- [46]
+ [48]
 Underfull \hbox (badness 10000) in paragraph at lines 180--181
 
  []
 
-[47]
+[49]
 File: archivos/5.Resultados/TiemposEntrenamiento.png Graphic file (type bmp)
 <archivos/5.Resultados/TiemposEntrenamiento.png>
 Package svg Info: Last page of `./svg-inkscape/F1Score1D_svg-tex.pdf' is 1 on i
@@ -3392,7 +3381,7 @@ Overfull \hbox (8.60397pt too wide) in paragraph at lines 335--336
  [][] 
  []
 
-[48] [49]
+[50] [51]
 File: archivos/5.Resultados/ComparativaTrain.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaTrain.png>
 
@@ -3523,16 +3512,25 @@ Overfull \hbox (14.22635pt too wide) in paragraph at lines 468--469
 
 LaTeX Warning: Float too large for page by 11.21584pt on input line 471.
 
-[50] [51]
+[52] [53]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (capitulos/conclusiones.tex [52] [53] [54] [55] [56]
+) (capitulos/conclusiones.tex [54] [55] [56] [57] [58]
 chapter 6.
-) [57
+
+Package natbib Warning: Citation `OpenRefine' on page 59 undefined on input lin
+e 23.
+
+[59
 
 
 ]
+
+Package natbib Warning: Citation `AutoKeras' on page 60 undefined on input line
+ 37.
+
+) [60]
 No file TFG-TFM_EPS_UA.bbl.
 No file TFG-TFM_EPS_UA.acr.
 
@@ -3592,24 +3590,21 @@ The property list \__xpg_alias contains the pairs (without outer braces):
 Package caption Warning: Unused \captionsetup[lstlisting] on input line 74.
 See the caption package documentation for explanation.
 
-[58] (TFG-TFM_EPS_UA.aux
+[61] (TFG-TFM_EPS_UA.aux
 LaTeX Info: Redefining \rmfamily on input line 26.
 LaTeX Info: Redefining \sffamily on input line 26.
 LaTeX Info: Redefining \ttfamily on input line 26.
 )
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 62100 strings out of 410921
- 1491200 string characters out of 2824905
- 2180361 words of memory out of 3000000
- 81607 multiletter control sequences out of 15000+600000
+ 62128 strings out of 410921
+ 1491589 string characters out of 2824905
+ 2180766 words of memory out of 3000000
+ 81635 multiletter control sequences out of 15000+600000
  496130 words of font info for 166 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  113i,21n,134p,10708b,912s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
-Output written on TFG-TFM_EPS_UA.pdf (78 pages).
+Output written on TFG-TFM_EPS_UA.pdf (81 pages).

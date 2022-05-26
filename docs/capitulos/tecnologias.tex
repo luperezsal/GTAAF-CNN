@@ -10,6 +10,8 @@
 
     Una vez definido el problema a tratar, los objetivos generales y específios del proyecto, la solución propuesta y los requisitos a implementar hay que analizar las herramientas y tecnologías a utilizar. Para esto habrá que plantearse diferentes modelos y tecnologías disponibles para el desarrollo y optar por aquellos que aporten estabilidad y buen rendimiento.
 
+    \textcolor{red}{Cabe resaltar que el código implementado en este proyecto es completamente escalable y reusable. Esto permite que para adaptar este proyecto a otro problema distinto únicamente sea necesario realizar la limpieza correspondiente del conjunto de datos específico y definir las jerarquías de categorías padre y características hijas correspondientes, el resto del proceso se realiza de forma autónoma sin necesidad de modificar el código. \textbf{NOTA: Realmente el lector aún no sabe nada de las jerarquías no?}}
+
     \section{Modelos}
 
         En primer lugar analizaremos los modelos utilizados durante la realización del proyecto.
@@ -128,14 +130,14 @@
         \subsection {SVC}
 
 
-             \textcolor{red}{Los \glsentryfull{svc}, también denominados como \textit{Soft Margin Classifier}, son modelos orientados a clasificación múltiple \cite{SVM}. Se basan en proyectar los datos de entrada en un espacio multidimensional buscando la separabilidad las estas muestras en este espacio determinando hiperplanos.}\\
+             \textcolor{red}{Los \glsentryfull{svc}, también denominados como \textit{Soft Margin Classifier}, son modelos orientados a clasificación múltiple \cite{SVC}. Se basan en proyectar los datos de entrada en un espacio multidimensional buscando la separabilidad las estas muestras en este espacio determinando hiperplanos.}\\
 
             \textcolor{red}{Los \glsentryshort{svc} construyen estos hiperplanos en base a la máxima separabilidad de las clases utilizando únicamente aquellas observaciones que se encuentren en la fronteras que maximizan la distancia en el plano entre las clases. La ventaja de esta técnica es que es necesario un conjunto muy pequeño de muestras de entrenamiento para sostener los hiperplanos que forman las fronteras de decisión, estos puntos se denominan \textit{vectores de soporte}.}\\
 
             \textcolor{red}{La distancia entre los vectores de soporte y el hiperplano definido es denominado \textit{margen}, y es en este punto donde entra en juego la flexibilidad de los \glsentryshort{svc}. Estos modelos aplican el denominado \textit{margen blando}, que se basa en permitir que ciertas observaciones se encuentren en un lado erróneo del margen o incluso del hiperplano, haciendo que el modelo sea más robusto permitiendo mayor generalización a costa de clasificar erróneamente alguna de las observaciones mediante un parámetro de tolerancia $C$. A un mayor valor de $C$ se permite que un mayor número de muestras violen el margen \citep{ISLR2}}.\\
 
 
-            \textcolor{red}{En la figura \cite{SVCExampleImage} se muestra un ejemplo aplicado de \glsentryshort{svc}, donde se observan los hiperplanos definidos que maximiza la separabilidad de ambas clases y los vectores de soporte definidos en función de distintos valores de tolerancia $C$.}
+            \textcolor{red}{En la figura [\ref{SVCExampleImage}] se muestra un ejemplo aplicado de \glsentryshort{svc}, donde se observan los hiperplanos definidos que maximiza la separabilidad de ambas clases y los vectores de soporte definidos en función de distintos valores de tolerancia $C$.}
 
             \begin{figure}[h]
                 \centering
@@ -291,11 +293,10 @@
 
                 En el proceso de entrenamiento de las \textit{CNNs} cada uno de los valores de los kernels son optimizados mediante el método \textit{GD}, de tal forma que los pesos de cada capa son actualizados gracias a la derivabilidad de la función de pérdida.\\
 
-
                                 
                 Una \textit{Red Neuronal Convolucional de 1 Dimensión}, o \textit{Convolutional Neural Network 1-Dimensional (CNN-1D)}, es un tipo de red convolucional que utiliza kernels \textit{(filters)} que son aplicados a las imágenes de entrada con el objetivo encontrar ciertas características en ellas.\\
 
-                Las complejidad computacional de las \textit{CNN-1D} es menor que la de las \textit{CNN-2D}, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de esta arquitectura la hace atractiva para aplicarla en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
+                Las complejidad computacional de las \textit{CNN-1D} puede ser mayor que la de las \textit{CNN-2D} debido a que necsitan desplazarse con un kernel generalmente más pequeño por la entrada de la red, además, estas redes se han demostrado ser más efectivas en distintos campos con respecto a las \textit{CNN-2D}, como en técnicas de análisis de señales. La baja carga computacional de estas arquitectura las hacen atractivas para aplicarlas en tiempo real en dispositivos con pocos recursos como teléfonos móviles \cite{Conv1D_Survey}.\\
 
 
                 El resultado de este proceso es la proyección del filtro sobre un espacio dimensional denominado mapa de caracerísticas \textit{(feature maps)}. Este filtro se utiliza para convolucionar los feature maps de la capa anterior \cite{FiltersFeatureMaps} o de la imagen de entrada si se trata de la primera capa de la red.
@@ -323,7 +324,7 @@
 
             \subsection {KNN}
 
-                El algoritmo \textit{K vecinos más próximos}, o \glsentryfull{knn} [\cite{KNN}], es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.\\
+                El algoritmo \textit{K vecinos más próximos}, o \glsentryfull{knn} \cite{KNN}, es una técnica de aprendizaje supervisado ampliamente utilizada para tareas de clasificación y regresión, es uno de los algoritmos más básicos de \textit{ML} y tiene una gran importancia en el campo de la \textit{Ciencia de Datos} debido a su simplicidad de implementación y a su interpretabilidad.\\
 
                 El algoritmo \textit{KNN} asume que muestras con características parecidas deben pertenecer a la misma clase. O lo que es lo mismo, muestras parecidas deben estar cercanas en el espacio dimensional.\\
 
@@ -383,7 +384,7 @@
 
             \end{description}
 
-            Como sistema de control de versiones se ha utilizado \cite{Github}, repositorio donde es posible subir versiones evolutivas del proyecto imprescincible en los proyectos de desarrollo \cite{Software}.
+            Como sistema de control de versiones se ha utilizado \cite{Github}, repositorio donde es posible subir versiones evolutivas del proyecto imprescincible en los proyectos de desarrollo \textit{Software}.
 
         \subsection{Especificaciones del servidor}
             La mayor parte de los experimentos realizados en este trabajo se han ejecutado bajo un servidor con CPU \textit{Dual AMD Rome 7742} (128 cores) y contando con una GPU \textit{DGX NVIDIA A100} de  40 GigaBytes (\textit{GB}).

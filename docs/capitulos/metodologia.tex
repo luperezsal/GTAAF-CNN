@@ -39,7 +39,6 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
 \section{Fases}
 
-    \textbf{Nota: No me ha quedado del todo claro si el siguiente párrafo se posiciona aquí o hay que eliminarlo}
     En esta sección describiremos cada uno de los pasos que ha seguido el desarrollo del proyecto, desde la búsqueda inicial de datos hasta la implementación final de los algoritmos.
 
     Un aspecto muy importante en un TFM es el diagrama de flujo de la metodología. En este diagrama se define el flujo de ejecución del proyecto y, como se puede observar en la figura \ref{DataflowImage}, se han dividido las etapas del proyecto en seis bloques claramente diferenciados. Cada uno de estos está orientado a una disciplina distinta en proyectos de \textit{Ciencia de Datos} y por lo tanto serán detallados en cada una de las subsecciones posteriores.
@@ -199,7 +198,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
                     La variable \textit{localización} ha sido transformada a \textit{tipo de carretera}, con el objetivo de definir un criterio para clasificar el tipo de vía donde se ha producido el incidente, como por ejemplo una carretera, una autovía, glorieta, etc. Al no existir un servicio que ofrezca la tipología de la calle dado el nombre de la vía o las coordenadas, ha sido necesario tratar esta problema desde otro punto de vista mediante expresiones regulares. El término \textit{expresión regular} debe su origen a la teoría de las matemáticas y ciencias de computación, reflejan la propiedad de \textit{regularidad} que caracterizan a las expresiones matemáticas \cite{RegeXBook}. Una expresión regular es un tipo de patrón utilizado para encontrar una combinación de caracteres en una cadena de texto. Para clasificar el tipo de carreteras en este proyecto se han diseñado una serie de expresiones regulares que coinciden con ciertos criterios respecto a los valores de la variable \textit{localizacion} con el fin de distinguir distintos tipos de vía.
 
 
-                    Las tipologías de clases de carreteras son \textit{Parking, Aeropuerto, Cuesta, Paseo, Parque, Túnel, Polígono, Camino, Glorieta, Puerta, Puente, Plaza, Bulevar, Travesía, Calzada, Carretera, Avenida, Autovía} y \textit{Calle}
+                    Las tipologías de clases de carreteras son \textit{Parking, Aeropuerto, Cuesta, Paseo, Parque, Túnel, Polígono, Camino, Glorieta, Puerta, Puente, Plaza, Bulevar, Travesía, Calzada, Carretera, Avenida, Autovía} y \textit{Calle}.
 
 
                     No obstante, la aplicación de las expresiones regulares generalmente no son una solución empírica a un problema, ya que hay casos que pueden ser no contemplarse al diseñar estos patrones manualmente. En el caso de este proyecto su aplicación conlleva una serie de inconvenientes. Aśí, debido a las necesidades del problema, estas expresiones regulares están diseñadas jerárquicamente, de forma que aquellos valores de la variable \textit{localizacion} que coincidan con el primer patrón definido de la expresión regular serán asignados a esta categoría. Esto supone un impedimento a tener en cuenta, ya que muchos de los accidentes se producen en intersecciones, carriles de aceleración que conectan dos vías, vías cuyo nombre contiene el tipo de otra vía, etc. Por ejemplo si se da el caso de que exista algún patrón no definido como expresión regular, esto provocará que estas localizaciones se asignen con respecto al primer patrón definido encontrado, llegando a clasificar erróneamente el tipo de vía. Como consecuencia, la jerarquía de la definición de las expresiones regulares es un punto crítico ya que se busca maximizar la clasificación de aquellos tipos de vía con menor número de apariciones, como es el caso de parking o aeropuerto, mientras se minimiza el error en la clasificación.
@@ -207,7 +206,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
                     Para solucionar esto, existen herramientas como Open Refine \cite{OpenRefine} que utilizan técnicas de clustering nominal para detectar semejanzas entre caracteres. Debido a las limitaciones de tiempo, esta técnica no se ha podido aplicar, aunque se propone como trabajos para futuro con el objetivo de aumentar el rendimiento de los modelos aplicados.
 
-                    Por otro lado hay que tratar aquellos valores que no hayan coincidido con los patrones definidos (TODO: poner el número), sin embargo, al ser una cantidad de registros se han podido revisar manualmente coincidiendo todas con nombres de calles al que no se les ha asignado la palabra \textit{"calle"}.
+                    Por otro lado hay que tratar aquellos valores que no hayan coincidido con los patrones definidos, sin embargo, al ser una cantidad de registros se han podido revisar manualmente coincidiendo todas con nombres de calles al que no se les ha asignado la palabra \textit{"calle"}.
 
                     En la variable \textit{hora}, al ser un campo continuo, ha sido necesario discretizarla según intervalos, distinguiendo entre noche y día en función de la hora en la que se ha producido el incidente.
 
@@ -315,7 +314,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
                     La normalización de datos es un proceso necesario a la hora de obtener buenos resultados en los modelos predictivos de \glsentryshort{ml}. Cuando un modelo es entrenado, existen características representadas en distintas escalas, y las que contienen un rango de valores numérico más alto, ya sea por la naturaleza de la variable o porque se encuentren en otro rango, dominan a las que se encuentren en un rango menor, influenciando negativamente en los modelos \glsentryshort{ml}, como por ejemplo las \glsentryshort{cnn} o \glsentryshort{knn} \cite{NormalizationSensitiveModels}.\\
 
-                    Así pues, el proceso de normalización tiene como objetivo minimizar el sesgo de aquellas características cuya contribución sea mayor a la hora de encontrar patrones entre los datos. Existen distintas técnicas de normalización como por ejemplo \glsentryfull{mc}, \glsentryfull{vss} o \glsentryfull{mmn} entre otras [\cite{DataNormalizationInvestigation}].\\
+                    Así pues, el proceso de normalización tiene como objetivo minimizar el sesgo de aquellas características cuya contribución sea mayor a la hora de encontrar patrones entre los datos. Existen distintas técnicas de normalización como por ejemplo \glsentryfull{mc}, \glsentryfull{vss} o \glsentryfull{mmn} entre otras \cite{DataNormalizationInvestigation}.\\
 
 
                     En este proyecto se ha utilizado la normalización \glsentryfull{zsn} debido a que consigue representaciones de acuerdo a una distribución normal. Para ello, se utiliza la media y la desviación típica para reescalar los datos de tal forma que la distribución de ellos esté definida por una media de cero y una desviación típica unitaria.\\
@@ -334,7 +333,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
                     La siguiente fase en cualquier modelo de \glsentryshort{ml} es la separación de datos (\textit{split}). Esta fase consiste en dividir el conjunto total de registros en al menos dos subconjuntos, uno de entrenamiento y otro de test. El modelo se entrenará en base al conjunto de entrenamiento y se evaluará con el de test, los resultados sobre este conjunto permitirán comparar los modelos en base a las predicciones sobre las muestras que nunca han visto.\\
 
 
-                    Comúnmente la proporción de datos de entrenamiento y test está establecida en \textit{0.8} y \textit{0.2} respectivamente, y  en nuestro caso hemos elegido un valor de \textbf{TODO: X por ciento} para el entrenamiento y el resto para el conjunto de test.
+                    Comúnmente la proporción de datos de entrenamiento y test está establecida en \textit{0.8} y \textit{0.2} respectivamente, y en nuestro caso hemos elegido un valor de \textit{80} por ciento para el entrenamiento y \textit{20} por ciento restante para el conjunto de test, por lo que tendremos un total de \textit{43.603} muestras para el conjunto de entrenamiento y \textit{10.901} para el de test.
 
 
                     \begin{figure}[h]
@@ -354,31 +353,19 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             Con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias se hace necesaria la utilización de técnicas de remuestreo. Estas técnicas permiten operar sobre un conjunto de datos para balancearlos, y se aplican únicamente al conjunto de entrenamiento, ya que la intención  es influir sobre el aprendizaje del modelo para aumentar el rendimiento de las predicciones sobre el conjunto de test, si aplicásemos remuestreo sobre este último conjunto estaríamos falseando los resultados de las predicciones.
 
 
-            En este proyecto se han hecho uso de las siguientes técnicas de remuestreo:
+            \textcolor{red}{En este proyecto se ha hecho uso de la generación de datos sintéticos como método de remuestreo. Estos procedimientos permiten generar datos artificiales en base a los límites que separan unas clases de otras}. Para esto se ha hecho uso de la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Este método selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
 
-            
-            \begin{enumerate}
-
-
-
-                \item Downsampling: tiene como objetivo balancear el conjunto de datos para que todas las clases tengan el mismo número de muestras. Para ello se iguala el número de muestras de las clases mayoritarias a aquellas clases que contienen menos muestras, descartando aquellas que sobrepasen este límite \cite{Downsampling}. \textbf{NOTA: Aún no se sabe si se va a aplicar Downsampling o no, sigo con los experimentos, de momento lo dejaré así a la espera de ver más resultados, queda pendiente para revisión}
-                
-
-                \item Generación de datos sintéticos: técnica que permite generar datos artificiales en base a los límites que separan unas clases de otras. Se ha hecho uso de la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Esta técnica selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
-
-                \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}). Este nuevo conjunto de datos servirá como entrenamiento para los modelos, evitando que tiendan al sobreajuste. En la figura \ref{SMOTEIIDataHistogramImage} se aprecia el histograma tras haber aplicado \glsentryshort{smoteii}, contando ahora con 42508 muestras de cada una de las clases de accidentes.
+            \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}). Este nuevo conjunto de datos servirá como entrenamiento para los modelos, evitando que tiendan al sobreajuste. Una vez aplicado \glsentryshort{smoteii} se obtienen 42508 muestras de cada una de las clases de accidentes.
     
-            \end{enumerate}
 
-
-            Una vez aplicadas las técnicas de remuestreo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} en deferencia a los datos originales mediante el método \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} es un algoritmo que permite visualizar las proyecciones de datos multidimensionales en espacios bidimensionales o tridimensionales. Este modelo debe su origen a su antecesor \glsentryfull{sne}, siendo una versión optmizada de éste.
+            Una vez aplicada la técnica de remuestreo, es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} en deferencia a los datos originales mediante el método \glsentryfull{tsne} \cite{TSNEPaper}. \glsentryshort{tsne} es un algoritmo que permite visualizar las proyecciones de datos multidimensionales en espacios bidimensionales o tridimensionales. Este modelo debe su origen a su antecesor \glsentryfull{sne}, siendo una versión optmizada de éste.
 
             Mientras que \glsentryshort{sne} proyecta los datos convirtiendo las distancias Euclídeas entre las muestras a probabilidades condicionales, el \glsentryshort{tsne} modifica la función de coste para proyectarlos mediante una distribución t-Student, permitiendo además trabajar con gradientes simplificados.
 
 
             En la figura \ref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}.
 
-            El \glsentryshort{tsne} de 2D aplicado sobre los datos generados por \glsentryshort{smoteii} \ref{TSNEImages:Train2D} nos permite observar cómo se han generado las muestras con respecto a los datos originales \ref{TSNEImages:Clean2D} en una proyección bidimensional. Se aprecia cómo se han producido las nuevas muestras de los accidentes graves (azul) calculando la cercanía de los puntos en base a las fronteras de división. \textbf{Nota: Realmente yo no veo nada}.
+            El \glsentryshort{tsne} de 2D aplicado sobre los datos generados por \glsentryshort{smoteii} \ref{TSNEImages:Train2D} nos permite observar cómo se han generado las muestras con respecto a los datos originales \ref{TSNEImages:Clean2D} en una proyección bidimensional. Se aprecia cómo se han producido las nuevas muestras de los accidentes graves (azul) calculando la cercanía de los puntos en base a las fronteras de división.
 
 
             \begin{figure}
@@ -420,7 +407,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
         Para entrenar el modelo haremos uso del algoritmo \glsentryshort{xgboost}. Y para que este entrenamiento sea adecuado es importante optimizar los hiperparámetros del mismo.\\
 
-        Para ello se ha hecho uso de algoritmos genéticos, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas [\cite{GAXGBoostPaper}].
+        Para ello se ha hecho uso de algoritmos genéticos, donde cada individuo perteneciente a la población de una generación está formado por una configuración de hiperparámetros específica, de tal forma que a lo largo de las iteraciones los individuos evolucionarán mediante el cruce y la mutación para dar lugar a nuevas configuraciones de hiperparámetros optimizadas \cite{GAXGBoostPaper}.
 
         Debido al coste computacional que tendría optimizar todos los parámetros por la magnitud del espacio de búsqueda y al no ser necesario tener en cuenta todos ellos, se ha seleccionado un subcojunto de aquellos que más influencia tienen en el entrenamiento del modelo. Estos hiperparámetros de los que consta cada individuo de la población son:
 
@@ -453,23 +440,15 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             \label{InitAndMutationLimitsHyperparamsTable}
         \end{table}
 
-        Una vez inicializados aleatoriamente los TODO:X individuos especificados en la población, éstos se evaluarán instanciando TODO:X modelos \glsentryshort{xgboost} con los valores de cada individuo en la población. El conjunto de datos sobre el que entrenará cada instancia \glsentryshort{xgboost} será el conjunto de entrenamiento TODO:XX. La función \textit{fitness} que evaluará cada individuo será la métrica TODO:F1-X aplicada sobre el conjunto de test obtenido en el proceso de separación de datos.
+        \textcolor{red}{Una vez inicializados aleatoriamente los \textit{50} individuos especificados en la población, éstos se evaluarán instanciando los \textit{50} modelos \glsentryshort{xgboost} correspondientes. El conjunto de datos sobre el que entrenará cada instancia \glsentryshort{xgboost} será el conjunto de entrenamiento remuestreado por \glsentryshort{smoteii}. La función \textit{fitness} que evaluará cada individuo será la métrica Micro F1-score aplicada sobre el conjunto de test obtenido en el proceso de separación de datos, de tal forma que en cada una de las \textit{50} generaciones definidas se comprobará si existe algún individuo de la población en ese momento que logre superar el Micro F1-score del mejor individuo hasta el momento.}
 
-        \textbf{TODO: No se redactará más hasta tener claro cuál es la mejor forma de entrenar el \glsentryshort{xgboost} (función de validación y datos de entrenamiento)}
+        \textcolor{red}{Una vez evaluados los individuos de una generación se ha especificado que los \textit{15} mejores de ellos sean los que se crucen para dar luegar a nuevos hijos, que tendrán una probabilidad de mutación de \textit{0.4} para cada una de sus \textit{3} características. En el momento de que existan individuos repetidos en la población, estos serán eliminados para dar lugar a nuevas inicializaciones aleatorias favoreciendo así la diversidad de la población. Los parámetros del mejor individuo al cabo de las \textit{50} generaciones serán con los que se entrenará el algoritmo \glsentryshort{xgboost}.}
 
-
-
-
-
-        %SE HACE CON EL CONJUNTO DE ENTRENAMIENTO DOWNSAMPLED
-        %SE TESTA CON VALIDACION
 
     \subsection{XGBoost}
 
 
-        \textbf{TODO: Decir si se entrena con downsampled o smote-ii en función de los experimentos cuando acabemos}\\
-
-        Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se entrena un nuevo modelo con los pq4m354ow calculados sobre el conjunto de entrenamiento remuestreado. Con este nuevo modelo \glsentryshort{xgboost} entrenado se obtiene la importancia de cada clase mediante la ponderación de sus pesos [\cite{XGBoostFeatureWeightsMeaning}]. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol, por lo tanto, aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
+        Una vez se han optimizados los hiperparámetros del \glsentryshort{xgboost}, se entrena un nuevo modelo con los pesos calculados sobre el conjunto de entrenamiento remuestreado. Con este nuevo modelo \glsentryshort{xgboost} entrenado se obtiene la importancia de cada clase mediante la ponderación de sus pesos \cite{XGBoostFeatureWeightsMeaning}. Estos pesos son calculados por \glsentryshort{xgboost}, e indican el grado de importancia que ha tenido cada característica del conjunto de datos a la hora de entrenar el árbol, por lo tanto, aquellas caracerísticas a las que se les asigne más peso habrán sido aquellas que han jugado un papel clave en las decisiones de los árboles.
 
         Los pesos son asignados para cada característica del conjunto de datos con el que ha sido entrenado \glsentryshort{xgboost} de tal forma que permite realizar un análisis comparativo de los atributos y saber qué predictores son más importantes.
 
@@ -477,11 +456,11 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
     \subsection{Matrices}
 
 
-        Las \glsentryshort{cnn} aprenden patrones sobre la entrada de datos como matrices, esto implica que estén construidas de tal forma que se maximice la representación de la información, es decir, es necesario aplicar técnicas que posicionen cada característica en un elemento de la matriz maximizando la información de los accidentes (TODO: \textbf{relamente no entiendo muy bien la motivación que ha seguido la gente de TASPCNN a la hora de construir las imágenes, falta entender por qué lo hacen así, no lo he encontrado en el paper.})
+        Las \glsentryshort{cnn} aprenden patrones sobre la entrada de datos como matrices, esto implica que estén construidas de tal forma que se maximice la representación de la información, es decir, es necesario aplicar técnicas que posicionen cada característica en un elemento de la matriz maximizando la información de los accidentes.
 
         Por lo tanto, una vez se tienen los datos normalizados y muestreados, el siguiente paso será transferir cada una de las muestras tabulares de los accidentes a una matriz (\textit{5 x 5}), donde a cada característica se le asignará un elemento de la matriz, de tal forma que éstas sean la entrada a las \textit{CNN}.
 
-        Para este objetivo se va a aplicar el algoritmo \textit{FV2GI} propuesto en el artículo [\cite{TASPCNN}], que asigna las características de una muestra en representación tabular en función de la importancia que éstas presenten en una jerarquía.
+        Para este objetivo se va a aplicar el algoritmo \textit{FV2GI} propuesto en el artículo \cite{TASPCNN}, que asigna las características de una muestra en representación tabular en función de la importancia que éstas presenten en una jerarquía.
 
         Tal y como se propone en \cite{JerarquiaImagenes} las características que provocan un accidente de tráfico pueden englobarse en una serie de elementos o categorías principales, concretamente: \textit{características del conductor, el estado de la carretera, características propias del vehículo y condiciones del ambiente}. Basándonos en esto se realizará una asignación de cada característica del dataset en una de estas categorías. La tabla \ref{JerarquiaCaracteristicasTabla} muestra las asignaciones de las variables explicativas del conjunto de datos en función de esta jerarquía.
 
@@ -546,9 +525,9 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
         \end{enumerate}
 
 
-        \textbf{NOTA: Poner por qué se posicioinan así, porque los filtros 3x3 pasan más veces.....}
+        \textcolor{red}{La finalidad de posicionar las características más influyentes en las zonas centrales de la matriz se debe a que las \glsentryshort{cnn} utilizan los kernels para recorrer la imagen en base a un desplazamiento, por lo tanto, estos kernels convolucionarán más veces estas posiciones donde se encuentran las caracerísticas más influyentes respecto a si se sitúan en los extremos de la matriz.}
 
-        Un ejemplo de la construcción de estas matrices se ve reflejado en la figura \cite{FV2IExampleImage}.
+        Un ejemplo de la construcción de estas matrices se ve reflejado en la figura \ref{FV2IExampleImage}.
 
         \begin{figure}[H]
             \centering
@@ -557,7 +536,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             \label{FV2IExampleImage}
         \end{figure}
 
-        \textcolor{red}{Una vez obtenidos los índices de las matrices se posicionará cada característica de los datos en la posición asignada dentro cada matriz. Cabe recordar que estas características están normalizadas bajo \glsentryfull{zsn}, por lo que la matriz contendrá los valores de cada característica normalizados. Como resultado de este proceso se obtienen las matrices que serán la entrada de las \glsentryshort{cnn}.}
+        \textcolor{red}{Una vez obtenidos los índices de las matrices se posicionará cada característica de los datos en la posición asignada dentro cada matriz. Cabe recordar que estas características están normalizadas bajo \glsentryshort{zsn}, por lo que la matriz contendrá los valores de cada característica normalizados. Como resultado de este proceso se obtienen las matrices que serán la entrada de las \glsentryshort{cnn}.}
 
         \begin{figure}[H]
             \centering
@@ -609,7 +588,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
             El \textit{padding} del kernel se ha establecido en 1 para ambos tipos de redes, de tal forma que las convoluciones se aplicarán añadiendo ceros en los límites de las matrices, y los \textit{strides} en (\textit{1}) para las \glsentryshort{cnn1d} y (\textit{1, 1}) para las \glsentryshort{cnn2d}, por lo tanto el desplazamiento de los kernels se hará píxel a píxel tanto en las \glsentryshort{cnn1d} como en las \glsentryshort{cnn2d}.
 
-            A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente [\cite{GradientVanishingRelu}].
+            A la salida de cada capa convolucional se aplica la función de activación \glsentryfull{relu}, que se comporta devolviendo el valor $0$ para aquellas entradas que sean negativas y el valor original para aquellas que sean positivas, se puede apreciar el comportamiento en la figura \ref{RELUImage}. El rendimiento de esta función de activación en el campo de las imágenes está ampliamente extendido, además, evita la probabilidad de aparición del gradiente evanescente \cite{GradientVanishingRelu}.
 
             \begin{center}
                 $f(x) = \left\{
@@ -645,6 +624,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
         \textcolor{red}{A continuación definiremos las métricas comúnmente utilizadas para evaluar la calidad de las clasificaciones de los modelos.}
 
+
         \subsection{Reporte de clasificación}
 
         \begin{enumerate}
@@ -670,6 +650,22 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
         \end{enumerate}
 
         \textcolor{red}{Estas métricas se aplican para cada una de las clases a predecir, por lo que existirán tantos valores como clases se encuentren en el problema.}
+
+        \subsection{Métrica de optimización}
+
+            \textcolor{red}{Debido al desbalanceo de datos sobre el conjunto de test es necesario aplicar una función de pérdida que optimice el modelo sin tener en cuenta dicho desbalanceo. Las funciones de pérdida más comunes como la precisión total del modelo están orientadas a minimizar el error de clasificación del número total de clases, por lo que en este proyecto se usará la métrica Micro F1-score, que mide el rendimiento del modelo en función del total de clases en el conjunto de datos. En las siguientes ecuaciones mostraremos cómo se calcula esta métrica en base a la micro precisión y la micro exhaustividad:}
+
+                \begin{center}
+                    Micro Precision =  $\frac{ \sum_{n=1} ^ {clases} TP_i} {\sum_{n = 1} ^ {clases} TP_i + \sum_{n = 1} ^ {clases} FP_i}$
+                \end{center}
+
+                \begin{center}
+                    Micro Exhaustividad = $\frac{ \sum_{n=1} ^ {clases} TP_i} {\sum_{n = 1} ^ {clases} TP_i + \sum_{n = 1} ^ {clases} FN_i}$
+                \end{center}
+
+                \begin{center}
+                    Micro F1-score =  2 $\cdot \frac{\text{Micro Precision} \cdot \text{Micro Exhaustividad}} {\text{Micro Precisión} + \text{Micro Exhaustividad}}$
+                \end{center}
 
         \subsection{Matriz de confusión}
 

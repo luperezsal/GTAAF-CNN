@@ -15,7 +15,7 @@
 
 \section{Algoritmo Genético}
 
-  En primer lugar analizaremos la evolución de los hiperparámetros del \glsentryshort{xgboost} gracias al algoritmo genético. En la figura [\ref{EvolucionHiperparametrosImage}] se pueden visualizar la evolución de los hiperparámetros del mejor individuo en cada generación a través del número de generaciones. Se puede observar cómo el mejor individuo de cada generación va variando los tres hiperparámetros probando distintos valores hasta converger aproximadamente en la iteración \textit{21}.
+  En primer lugar analizaremos la evolución de los hiperparámetros del \glsentryshort{xgboost} gracias al algoritmo genético. En la figura \ref{EvolucionHiperparametrosImage} se pueden visualizar la evolución de los hiperparámetros del mejor individuo en cada generación a través del transcurso de interaciones. Se puede observar cómo el mejor individuo de cada generación va variando los tres hiperparámetros probando distintos valores hasta converger aproximadamente en la iteración \textit{21}.
 
   \begin{figure}[H]
       \centering
@@ -31,7 +31,7 @@
       \label{EvolucionF1ScoreImage}
    \end{figure}
 
-  En la tabla \ref{BestGASolutionTable} se puede observar el mejor individuo obtenido después de \textit{100} generaciones.
+  En la tabla \ref{BestGASolutionTable} se puede observar el mejor individuo obtenido después de \textit{50} generaciones.
 
   \begin{table}[H]
       \centering
@@ -203,11 +203,11 @@
 
 \section{Entrenamiento de modelos}
 
-  A continuación se detallará una comparativa desde distintos puntos de vista de los resultados de los modelos. A nivel de rendimiento computacional se mostrarán los tiempos de entrenamiento, en lo que respecta a los resultados de predicción se analizarán las métricas de clasificación y matrices de confusión para los conjuntos de dato de entrenamiento y test. Para las redes neuronales además se mostrará la gráfica de evolución de la función de pérdida en base al Micro-F1Score para los datos de entrenamiento y \textbf{TODO: validación o test?}.
+  A continuación se detallará una comparativa desde distintos puntos de vista de los resultados de los modelos. A nivel de rendimiento computacional se mostrarán los tiempos de entrenamiento. En lo que respecta a los resultados de predicción se analizarán las métricas de clasificación y matrices de confusión para los conjuntos de dato de entrenamiento y test. Para las redes neuronales además se mostrará la gráfica de evolución de la función de pérdida en base al Micro-F1Score para los datos de entrenamiento y test.
 
   \subsection{Tiempos de entrenamiento}
 
-    En la figura \ref{TiemposEntrenamientoImage} se muestran los tiempos de entrenamiento empleados por los modelos. Hay que recalcar que el método \glsentryshort{knn}, al proyectar las muestras de entrenamiento en un espacio n-dimensional no conlleva un entrenamiento como tal. Observando la gráfica se puede apreciar que el modelo que más tiempo de entrenamiento emplea es el \glsentryshort{svc} con 593 segundos, seguido de las red convolucionales de una y dos dimensiones con 287 y 259 segundos respectivamente y por último el clasificador  \glsentryshort{gnb}, que debido a su naturaleza es el que menos tiempo emplea en entenar con 0.02 segundos. 
+    En la figura \ref{TiemposEntrenamientoImage} se muestran los tiempos de entrenamiento empleados por los modelos. Hay que recalcar que el método \glsentryshort{knn}, al proyectar las muestras de entrenamiento en un espacio n-dimensional, no conlleva un entrenamiento como tal. Observando la gráfica se puede apreciar que el modelo que más tiempo de entrenamiento emplea es el \glsentryshort{svc} con 593 segundos, seguido de las red convolucionales de una y dos dimensiones con 287 y 259 segundos respectivamente y por último el clasificador \glsentryshort{gnb}, que debido a su naturaleza es el que menos tiempo emplea en entrenar con 0.02 segundos. 
 
 
     \begin{figure}[h]
