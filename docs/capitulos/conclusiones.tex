@@ -9,11 +9,14 @@
 \label{conclusiones}
 
 
+Como hemos podido observar en los experimentos de este proyecto, el problema a resolver que se ha propuesto no tiene una solución trivial con los datos que se disponen y las transformaciones aplicadas sobre ellos. Por este motivo, ninguno de los métodos aplicados es capaz de identificar con un rendimiento aceptable las distintas consecuencias de los accidentes.\\
+
+No obstante, de entre todos los modelos propuestos, se observa que aquellos que han ofrecido un mejor rendimiento han sido la convolucional de una dimensión para los accidentes fatales, y la convolucional de dos dimensiones para los accidentes leves y serios, llegando en ocasiones a duplicar el rendimiento del segundo mejor modelo \glsentryshort{knn}.\\
 
 \section{Líneas de investigación}
 
 
-	Teniendo en cuenta los resultados de los experimentos, existen múltiples líneas de investigación en las que seguir desarrollando el proyecto de cara a obtener un mejor rendimiento:
+	Existen múltiples líneas de investigación en las que seguir desarrollando el proyecto de cara a obtener un mejor rendimiento:
 
 	\begin{enumerate}
 
@@ -35,6 +38,5 @@
 		\item En lo que respecta al remuestreo de datos sería conveniente a analizar distintos métodos de remuestreo además de \textit{Undersampling, Oversampling y SMOTE} ya estudiados. Existen numerosos parámetros de \glsentryshort{smoteii} que pueden ser configurados, entrenando los modelos con este nuevo remuestreo de datos sería posible aumentar el rendimiento de los mismos.
 
 		\item Utilizar técnicas de \textit{Automated Machine Learning} como \glsentryfull{nas} como AutoKeras \cite{AutoKeras} para encontrar la mejor estructura de la red para el problema. Las \glsentryshort{nas} buscan encontrar una arquitectura neuronal óptima basándose en ensayo y error. Este tipo de técnias requiere grandes recursos computacionales, por lo que para poder llevarla a cabo es necesario disponer de sistema con grandes capacidades de cómputo en \textit{GPU}.
-
 
 	\end{enumerate}

@@ -8,14 +8,11 @@
 \chapter{Resultados}
 \label{resultados}
 
-
-
   En esta sección se detallarán los resultados de cada una de las etapas del proyecto y los experimentos finales para realizar un análisis comparativo entre ellos.
-
 
 \section{Algoritmo Genético}
 
-  En primer lugar analizaremos la evolución de los hiperparámetros del \glsentryshort{xgboost} gracias al algoritmo genético. En la figura \ref{EvolucionHiperparametrosImage} se pueden visualizar la evolución de los hiperparámetros del mejor individuo en cada generación a través del transcurso de interaciones. Se puede observar cómo el mejor individuo de cada generación va variando los tres hiperparámetros probando distintos valores hasta converger aproximadamente en la iteración \textit{21}.
+  En primer lugar analizaremos la evolución de los hiperparámetros del \glsentryshort{xgboost} gracias al algoritmo genético. En la figura \eqref{EvolucionHiperparametrosImage} se pueden visualizar la evolución de los hiperparámetros del mejor individuo en cada generación a través del transcurso de las iteraciones. Se puede observar cómo el mejor individuo de cada generación va variando los tres hiperparámetros probando distintos valores hasta converger aproximadamente en la iteración \textit{21}.
 
   \begin{figure}[H]
       \centering
@@ -24,14 +21,14 @@
       \label{EvolucionHiperparametrosImage}
    \end{figure}
 
-  \begin{figure}[H]
+  \begin{figure}
       \centering
       \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionF1Score}
       \caption{Evolución del macro F1 score a lo largo de las iteraciones.}
       \label{EvolucionF1ScoreImage}
    \end{figure}
 
-  En la tabla \ref{BestGASolutionTable} se puede observar el mejor individuo obtenido después de \textit{50} generaciones.
+  En la tabla \eqref{BestGASolutionTable} se puede observar el mejor individuo obtenido después de \textit{50} generaciones.
 
   \begin{table}[H]
       \centering
@@ -51,7 +48,7 @@
 
 \section{XGBoost}
 
-  A continuación se mostrará la importancia de las clases calculada por \glsentryshort{xgboost} mediante los hiperparámetros obtenidos en la ejecución del algoritmo genético. En la figura \cite{FeatureWeightsImage} se puede observar un diagrama de barras en el que las características \textit{tipo de persona}, \textit{tipo de carretera} y \textit{sexo} son las que más han influido a la hora de entrenar el modelo \glsentryshort{xgboost}, obteniendo un peso de \textit{0.177}, \textit{0.127} y \textit{0.111} respectivamente. Se pueden consultar los pesos calculados de todas las características en la tabla \ref{PesosFinalesCaracteristicas}, en la que los pesos de las categorías padres es la suma de cada una de las características hijas.
+  A continuación se mostrará la importancia de las clases calculada por \glsentryshort{xgboost} mediante los hiperparámetros obtenidos en la ejecución del algoritmo genético. En la figura \eqref{FeatureWeightsImage} se puede observar un diagrama de barras en el que las características \textit{tipo de persona}, \textit{tipo de carretera} y \textit{sexo} son las que más han influido a la hora de entrenar el modelo \glsentryshort{xgboost}, obteniendo un peso de \textit{0.177}, \textit{0.127} y \textit{0.111} respectivamente. Se pueden consultar los pesos calculados de todas las características en la tabla \eqref{PesosFinalesCaracteristicas}, en la que los pesos de las categorías padres es la suma de cada una de las características hijas.
 
   \begin{figure}[H]
       \centering
@@ -101,43 +98,43 @@
 
 \section{Matrices}
 
-  En esta sección se mostrará el proceso que sigue una observación del dataset original tipificada hasta llegar a una matriz de características \ref{ProcesoMatriz}. En primer lugar, los valores de la muestra original \ref{ProcesoMatriz:MuestraTipificada} se normalizan según el criterio \glsentryshort{zsn} para pasar a ser una observación cuyos valores estan acotados en un rango en función de la distribución normal de cada característica en el dataset \ref{ProcesoMatriz:MuestraNormalizada}. El siguiente paso será posicionar cada uno de los valores de la muestra en la posición correspondiente de la matriz de acuerdo a los índices calculados en el paso anterior, de tal forma que servirán como entradas a las redes neuronales convolucionales \ref{ProcesoMatriz:Array}.
+  En esta sección se mostrará el proceso que sigue una observación del dataset original tipificada hasta llegar a una matriz de características \eqref{ProcesoMatriz}. En primer lugar, los valores de la muestra original \eqref{ProcesoMatriz:MuestraTipificada} se normalizan según el criterio \glsentryshort{zsn} para pasar a ser una observación cuyos valores estan acotados en un rango en función de la distribución normal de cada característica en el dataset \eqref{ProcesoMatriz:MuestraNormalizada}. El siguiente paso será posicionar cada uno de los valores de la muestra en la posición correspondiente de la matriz de acuerdo a los índices calculados en el paso anterior, de tal forma que servirán como entradas a las redes neuronales convolucionales \eqref{ProcesoMatriz:Array}.
 
-    \begin{figure}
-        \centering
+    \begin{figure}[H]
         \scriptsize
+        \centering
+        \renewcommand{\arraystretch}{1.4}
 
-        \begin{subtable}{.2\textwidth}
+        \captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
+
+        \begin{subtable}{.4\textwidth}
           \centering
-          \renewcommand{\arraystretch}{1.4}
-
           \csvautotabular{archivos/5.Resultados/Matrices/fatal_original.csv}
+
+          \captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
           \caption{Muestra de accidente tipificada.}
           \label{ProcesoMatriz:MuestraTipificada}
         \end{subtable}
-        \hspace{13em}
-        \begin{subtable}{.2\textwidth}
-          \centering
-          \renewcommand{\arraystretch}{1.4}
-
+        \hspace{20mm}
+        \renewcommand{\arraystretch}{1.4}
+        \begin{subtable}{.4\textwidth}
           \csvautotabular{archivos/5.Resultados/Matrices/fatal_normalized.csv}
           \caption{Muestra de accidente normalizada.}
           \label{ProcesoMatriz:MuestraNormalizada}
         \end{subtable}
         \vskip\baselineskip
-        \begin{subtable}{.2\textwidth}
+        \begin{subtable}{.4\textwidth}
           \centering
-          \captionsetup{width=0.8\textwidth}
-          \renewcommand{\arraystretch}{1.1}
+          \renewcommand{\arraystretch}{.9}
 
           \csvautotabular{archivos/5.Resultados/Matrices/fatal_matrix.csv}
-          \caption{Muestra transformada en matriz de valores.}
+          \caption{Representación visual de la matriz de características.}
           \label{ProcesoMatriz:Array}
         \end{subtable}
-        \hspace{17em}
-        \begin{subfigure}[b]{0.4\textwidth}
+        \hspace{5em}
+        \begin{subfigure}{0.4\textwidth}
           \centering
-          \includesvg[scale=0.6]{archivos/5.Resultados/Matrices/accidente_fatal}
+          \includesvg[scale=0.4]{archivos/5.Resultados/Matrices/accidente_fatal}
           \caption{Muestra transformada en matriz de grises.}
           \label{ProcesoMatriz:VisualizacionDeMatriz}
         \end{subfigure}
@@ -146,7 +143,7 @@
       \end{figure}
 
 
-  A modo de ejemplo se muestra en la figura \ref{TresClasesAccidentesMatrices} un accidente de cada clase transformados a su matriz correspondiente.
+  A modo de ejemplo se muestra en la figura \eqref{TresClasesAccidentesMatrices} un accidente de cada clase transformados a su matriz correspondiente.
 
   \begin{figure}[H]
       \centering
@@ -177,7 +174,7 @@
 
 \section{KNN}
 
-  Se puede observar en la tabla \ref{BestParamsKNNGridSearchTable} los mejores parámetros para \textit{KNN} después de haber ejecutado \textit{Grid Search} sobre el conjunto de entrenamiento.\\
+  Se puede observar en la tabla \eqref{BestParamsKNNGridSearchTable} los mejores parámetros para \textit{KNN} después de haber ejecutado \textit{Grid Search} sobre el conjunto de entrenamiento.\\
 
   \begin{table}[H]
       \centering
@@ -194,20 +191,13 @@
   \end{table}
 
 
-
-
-
-  El resultado de aplicar ambas técnicas da lugar a la representación en forma matricial de los accidentes, como se puede observar en la figura \ref{SampledImagesExampleImage}.
-
-
-
 \section{Entrenamiento de modelos}
 
-  A continuación se detallará una comparativa desde distintos puntos de vista de los resultados de los modelos. A nivel de rendimiento computacional se mostrarán los tiempos de entrenamiento. En lo que respecta a los resultados de predicción se analizarán las métricas de clasificación y matrices de confusión para los conjuntos de dato de entrenamiento y test. Para las redes neuronales además se mostrará la gráfica de evolución de la función de pérdida en base al Micro-F1Score para los datos de entrenamiento y test.
+  A continuación se detallará una comparativa desde distintos puntos de vista de los resultados de los modelos. A nivel de rendimiento computacional se mostrarán los tiempos de entrenamiento. Para las redes neuronales, además, se mostrará la gráfica de evolución de la función de pérdida en base al Micro F1-score sobre los datos de entrenamiento y validación. En lo que respecta a los resultados de predicción se analizarán las métricas de clasificación y matrices de confusión para el conjunto de datos de entrenamiento. Cabe resaltar que las métricas de clasificación para la predicción de los modelos sobre el conjunto de entrenamiento no son concluyentes, esta primera clasificación es útil para hacerse a la idea de cómo han evaluado los modelos las muestras. Sin embargo, unos resultados prometedores sobre este conjunto no implican un buen rendimiento, un modelo que prediga a la perfección su conjunto de entrenamiento es síntoma de que está sobreentrenado y como consecuencia conllevará una pobre generalización sobre el conjunto de test o validación.  El objetivo es la predicción de datos futuros lleguen al modelo, por lo tanto, comprobaremos la calidad mediante los datos de test. En esta sección se analizarán los resultados sobre el conjunto de entrenamiento para mostrar a modo orientativo cómo han entrenado los modelos.
 
   \subsection{Tiempos de entrenamiento}
 
-    En la figura \ref{TiemposEntrenamientoImage} se muestran los tiempos de entrenamiento empleados por los modelos. Hay que recalcar que el método \glsentryshort{knn}, al proyectar las muestras de entrenamiento en un espacio n-dimensional, no conlleva un entrenamiento como tal. Observando la gráfica se puede apreciar que el modelo que más tiempo de entrenamiento emplea es el \glsentryshort{svc} con 593 segundos, seguido de las red convolucionales de una y dos dimensiones con 287 y 259 segundos respectivamente y por último el clasificador \glsentryshort{gnb}, que debido a su naturaleza es el que menos tiempo emplea en entrenar con 0.02 segundos. 
+    En la figura \eqref{TiemposEntrenamientoImage} se muestran los tiempos de entrenamiento. Hay que recalcar que el método \glsentryshort{knn}, al proyectar las muestras de entrenamiento en un espacio n-dimensional, no conlleva un entrenamiento como tal. Observando la gráfica se puede apreciar que el modelo que más tiempo de entrenamiento emplea es el \glsentryshort{svc} con \textit{593} segundos, seguido de las redes convolucionales de una y dos dimensiones con \textit{287} y \textit{259} segundos respectivamente y, por último, el clasificador \glsentryshort{gnb}, que debido a su naturaleza es el que menos tiempo emplea en entrenar con \textit{0.02} segundos. 
 
 
     \begin{figure}[h]
@@ -222,135 +212,125 @@
   \subsection{Gráficas de entrenamiento}
 
 
-    En las figuras \ref{F1Score1DImage} y \ref{F1Score2DImage} podemos observar la evolución de la métrica definida a minimizar (Micro F1-score) en función de las 100 épocas que se ejecutarán para las redes convolucionales.
+    En las figuras \eqref{F1ScoreEvolution:1D} y \eqref{F1ScoreEvolution:2D} podemos observar la evolución de la métrica definida a maximizar (Micro F1-score) a lo largo de las 100 épocas que se han ejecutado para las redes convolucionales.\\
 
 
-    Visualizando la gráfica de la convolucional de una dimensión \ref{F1Score1DImage} se puede comprobar que el Micro F1-score de entrenamiento va aumentando ligeramente a lo largo de las épocas sufriendo altibajos a medida que el modelo es entrenado, partiendo inicialmente desde \textbf{TODO: valor incial del Micro F1-score} hasta \textbf{TODO: valor final del Micro F1-score}. Observamos que los datos de validación \textbf{TODO: Describir en función de si entrenamos con los datos de validación smote-ii o con los de test}.
+    Visualizando la gráfica de la convolucional de una dimensión \eqref{F1ScoreEvolution:1D} se puede comprobar que el Micro F1-score de entrenamiento va aumentando ligeramente a lo largo de las épocas sufriendo altibajos a medida que el modelo es entrenado, partiendo inicialmente desde un valor de entrenamiento menor a \textit{0.58} y llegando hasta \textit{0.68}. Observamos que los datos de validación sufren continuamente variaciones sin llegar a obtener una tendencia estable. Esto es debido a que, con la complejidad del problema, estos datos se asignan casi aleatoriamente entre las épocas.\\
 
-    \begin{figure}[h]
+
+    \begin{figure}[H]
+      \centering
+      \begin{subfigure}[b]{1\textwidth}
         \centering
         \includesvg[scale=0.3]{archivos/5.Resultados/CNN/1D/F1Score1D}
         \caption{Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-1D.}
-        \label{F1Score1DImage}
-     \end{figure}
-
-    En la siguiente figura \ref{F1Score2DImage} se puede apreciar que la tendencia del Micro F1-score \textbf{TODO: es más pronunciada....} con respecto a la convolución de una dimensión. Esto es debido a que ....... 
-
-    \begin{figure}[h]
+        \label{F1ScoreEvolution:1D}
+      \end{subfigure}
+      \vspace{1mm}
+      \begin{subfigure}[b]{1\textwidth}
         \centering
         \includesvg[scale=0.3]{archivos/5.Resultados/CNN/2D/F1Score2D}
         \caption{Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-2D.}
-        \label{F1Score2DImage}
+        \label{F1ScoreEvolution:2D}
+      \end{subfigure}
+        \caption{Evolución de Micro F1-score de las redes neuronales convolucionales.}
+        \label{F1ScoreEvolution}
      \end{figure}
 
+    En la figura \eqref{F1ScoreEvolution:2D} se puede apreciar la gráfica de entrenamiento y validación de la red convolucional de dos dimensiones. Observando que la tendencia de la función de pérdida sobre el conjunto de datos de entrenamiento es más estable respecto a la convolucional de una dimensión. Se aprecia cómo la red en la primera época comienza con un Micro F1-score de \textit {0.62} hasta llegar a \textit{0.78} en la época \textit{100}, por lo que se puede deducir que esta red consigue un mejor rendimiento sobre el conjunto de entrenamiento respecto a la red convolucional de una dimensión. Respecto a los datos de validación nos encontramos frente al mismo caso que la anterior figura, en cada epoch muchos de los datos son clasificados aleatoriamente debido a la complejidad del problema.
 
   \subsection{Reportes de clasificación}
-       
-    A continuación se mostrarán los reportes de clasificación resultantes de predecir los datos de entrenamiento con los que han aprendido los modelos. Este proceso es útil para entender qué han aprendido los modelos tras su ejecución, con la finalidad de observar cómo se clasifican cada una de las clases para cada uno. Como se puede observar, el modelo que peor resultados nos da visualizando el F1 score \textbf{TODO: el modelo}
 
-    \begin{table}
+    En la figura \eqref{TrainClassificationReport} se muestran los reportes de clasificación resultantes de predecir los datos de entrenamiento con los que han aprendido los modelos. Este análisis es útil para comprender qué han aprendido durante su entrenamiento, con la finalidad de observar cómo clasifican cada una de las clases. Como se puede observar, el modelo que mejores métricas de entrenamiento ofrece basándonos en el F1-score es el \glsentryshort{svc} \eqref{TrainClassificationReport:SVC}, que consigue un valor medio de \textit{0.841}. En segundo y tercer lugar, nos encontramos con dos modelos que, dependiendo de la clase a predecir, se intercalan en rendimiento, éstos son la red neuronal convolucional de una dimensión \eqref{TrainClassificationReport:CNN1D} y \glsentryshort{knn} \eqref{TrainClassificationReport:KNN}, que obtienen una media F1-score de \textit {0.721} y \textit {0.724} respectivamente. El cuarto lugar se posiciona la red neuronal convolucional de dos dimensiones \eqref{TrainClassificationReport:CNN2D}, consiguiendo un F1-score medio de \textit{0.599}, no llegando a superar en ninguna clase el rendimiento de las anteriores. Por último, el modelo que peor resultados ofrece sobre el conjunto de entrenamiento es el \textit{Gaussian Naive Bayes} \eqref{TrainClassificationReport:GNB}, que obtiene los valores más bajos de los cinco modelos entrenados con un valor medio F1-score de \textit{0.432}.
+
+    \begin{table}[H]
         \scriptsize
-
-        \begin{subtable}{.2\textwidth}
-          \renewcommand{\arraystretch}{1.2}
-
+        %\captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
+        \renewcommand{\arraystretch}{1.1}
+        \begin{subtable}{.5\textwidth}        
           \csvautotabular{archivos/5.Resultados/CNN/1D/1DClassificationReportTrain.csv}
-          \caption{Métricas de clasificación del conjunto de entrenamiento CNN-1D.}
-          \label{CNN1DTrainMetrics}
+          \caption{CNN-1D.}
+          \label{TrainClassificationReport:CNN1D}
         \end{subtable}
-        \hspace{17em}
-        \begin{subtable}{.2\textwidth}
-          \renewcommand{\arraystretch}{1.2}
-
+        \hspace{1em}
+        \begin{subtable}{.5\textwidth}
           \csvautotabular{archivos/5.Resultados/NB/NBClassificationReportTrain.csv}
-          \caption{Métricas clasificación del conjunto de entrenamiento Naive Bayes.}
-          \label{NBTrainMetrics}
+          \caption{GNB.}
+          \label{TrainClassificationReport:GNB}
         \end{subtable}
-        \vskip\baselineskip
-
-        \begin{subtable}{.2\textwidth}
+        \vspace*{2mm}
+        \begin{subtable}{.5\textwidth}  
           \centering
-          \renewcommand{\arraystretch}{1.2}
-
           \csvautotabular{archivos/5.Resultados/SVC/SVCClassificationReportTrain.csv}
-          \caption{Métricas clasificación del conjunto de entrenamiento SVC.}
-          \label{SVCTrainDMetrics}
+          \caption{SVC.}
+          \label{TrainClassificationReport:SVC}
         \end{subtable}
-        \hspace{17em}
-        \begin{subtable}{.2\textwidth}
-          \renewcommand{\arraystretch}{1.2}
-
+        \hspace{1em}
+        \begin{subtable}{.5\textwidth}
           \csvautotabular{archivos/5.Resultados/KNN/KNNClassificationReportTrain.csv}
-          \caption{Métricas clasificación del conjunto de entrenamiento KNN.}
-          \label{KNNTrainMetrics}
+          \caption{KNN.}
+          \label{TrainClassificationReport:KNN}
         \end{subtable}
-
-        \begin{subtable}{.2\textwidth}
+        \vspace*{2mm}
+        %\captionsetup{justification=centering}
+        \begin{subtable}{1\textwidth}
           \centering
-          \renewcommand{\arraystretch}{1.2}
-
           \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTrain.csv}
-          \caption{Métricas clasificación del conjunto de entrenamiento CNN-2D.}
-          \label{CNN2DTrainMetrics}
+          \caption{CNN-2D.}
+          \label{TrainClassificationReport:CNN2D}
         \end{subtable}
+        \caption{Métricas clasificación para el conjunto de entrenamiento.}
+        \label{TrainClassificationReport}
     \end{table}
 
   \subsection{Matrices de confusión}
 
-    Explicar las matrices de confusión con datos de \textbf{ENTRENAMIENTO.}
+    En este apartado analizaremos las matrices de confusión de los experimentos con los datos de entrenamiento. A simple vista se observa que \glsentryshort{gnb} \eqref{ConfusionMatrixTrainImages:GNB} tiende a predecir un gran número de muestras como accidentes fatales, lo que significa que debido a la simplicidad de este modelo no se consiguen predecir el resto de accidentes correctamente. Por otro lado, los modelos que mayor número de muestras de entrenamiento consiguen clasificar correctamente son el \glsentryshort{svc} \eqref{ConfusionMatrixTrainImages:SVC}, \glsentryshort{knn} \eqref{ConfusionMatrixTrainImages:KNN} y \glsentryshort{cnn1d} \eqref{ConfusionMatrixTrainImages:1D}. En una situación intermedia se encuentra la \glsentryshort{cnn1d} \eqref{ConfusionMatrixTrainImages:2D}, que ha clasificado un número de considerable de accidentes serios como leves.
 
-    \begin{figure*}
+    \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTrain}
-            \caption{Matriz de confusión de CNN-1D sobre entrenamiento.}
+        \begin{subfigure}{0.4\textwidth}
+            \includesvg[scale=0.35]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTrain}
+            \caption{CNN-1D.}
             \label{ConfusionMatrixTrainImages:1D}
         \end{subfigure}
-        \hspace{3em}
-        % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTrain}
-            \caption{Matriz de confusión de CNN-2D sobre entrenamiento.} 
+        \hspace{1mm}
+        \begin{subfigure}{0.4\textwidth}
+            \includesvg[scale=0.35]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTrain}
+            \caption{CNN-2D.} 
             \label{ConfusionMatrixTrainImages:2D}
         \end{subfigure}
-        \vskip\baselineskip
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfusionMatrixTrain}
-            \caption{Matriz de confusión de NB sobre entrenamiento.}
-            \label{ConfusionMatrixTrainImages:NB}
+        \vspace*{0.1 mm}
+        \begin{subfigure}{0.4\textwidth}
+            \includesvg[scale=0.35]{archivos/5.Resultados/NB/NBConfusionMatrixTrain}
+            \caption{GNB.}
+            \label{ConfusionMatrixTrainImages:GNB}
         \end{subfigure}
-        \hspace{3em}
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/KNN/KNNConfusionMatrixTrain}
-            \caption{Matriz de confusión de KNN sobre entrenamiento.}
+        \hspace{1mm}
+        \begin{subfigure}{0.4\textwidth}
+            \includesvg[scale=0.35]{archivos/5.Resultados/KNN/KNNConfusionMatrixTrain}
+            \caption{KNN.}
             \label{ConfusionMatrixTrainImages:KNN}
         \end{subfigure}
-        \vskip\baselineskip
-        \begin{subfigure}[b]{0.4\textwidth}
+        \vspace*{0.1 mm}
+        \begin{subfigure}{1\textwidth}
             \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfusionMatrixTrain}
-            \caption{Matriz de confusión de SVC sobre entrenamiento.}
+            \includesvg[scale=0.35]{archivos/5.Resultados/SVC/SVCConfusionMatrixTrain}
+            \caption{SVC.}
             \label{ConfusionMatrixTrainImages:SVC}
         \end{subfigure}
-
         \caption{Matrices de confusión de los modelos sobre el conjunto de entrenamiento.}
         \label{ConfusionMatrixTrainImages}
-     \end{figure*}
+     \end{figure}
 
 
   \subsection{Comparativa entre modelos}
 
-  En la figura \ref{ResultsTrainImage} se muestra gráficamente el rendimiento de cada modelo sobre el conjunto de entrenamiento, las métricas utilizadas son la precisión, sensitividad y el F1-score.
+  En la figura \eqref{ResultsTrainImage} se muestra gráficamente el rendimiento de cada modelo sobre el conjunto de entrenamiento, las métricas utilizadas son la precisión, exhaustividad y el F1-score.
 
-  Como podemos observar, los modelos predicen bien los datos de con los que han sido entrenados, esta primera clasificación nos da una idea de cómo han evaluado los modelos las muestras. Sin embargo, unos resultados prometedores sobre este conjunto no implican un buen rendimiento, el objetivo es la predicción de datos futuros que puedan llegar al modelo, por lo tanto, comprobaremos la calidad mediante el conjunto de test.
-
-  \begin{figure}[h]
+  \begin{figure}[H]
       \centering
-      \includegraphics[width=16cm]{archivos/5.Resultados/ComparativaTrain}
+      \includegraphics[width=13cm]{archivos/5.Resultados/ComparativaTrain}
       \caption{Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.}
       \label{ResultsTrainImage}
    \end{figure}
@@ -361,128 +341,98 @@
 
   \subsection{Reportes de clasificación}
 
-    Explicar los reportes de clasificación con datos de \textbf{TEST.}
+    En esta sección se analizarán las métricas de clasificación mostradas en la tabla \eqref{TestClassificationReport} para cada una de las clases predecidas sobre el  conjunto de test. Estos reportes muestran la información con la que evaluaremos definitivamente los modelos, ya que explica cómo se comportan respecto a datos que nunca ha visto. Analizando el F1-score de los reportes se puede observar que el rendimiento de los modelos no se asemeja mucho a los resultados sobre el conjunto de entrenamiento. El modelo que mejor media F1-score presenta para las clases leves es la red convolucional de dos dimensiones \eqref{TestClassificationReport:CNN2D}, llegando a un \textit{0.949}, muy por encima del siguiente modelo \glsentryshort{knn} que ofrece un valor de \textit{0.81}. Además, la \glsentryshort{cnn2d} también ofrece la mejor métrica para los accidentes severos \textit{0.149}, llegando al doble de rendimiento respecto al modelo que le sigue, de nuevo el \glsentryshort{knn} con \textit{0.076}. En lo que respecta a los accidentes fatales, el modelo que mejor se adapta a esta clasificación es la red neuronal convolucional de una dimensión \eqref{TestClassificationReport:CNN1D}, obteniendo un \textit{0.004}, el doble que el \glsentryshort{knn} \eqref{TestClassificationReport:KNN}, que es de nuevo el siguiente mejor modelo en esta clase con \textit{0.002}.
 
-    \begin{table}
+
+    \begin{table}[H]
         \scriptsize
+        \renewcommand{\arraystretch}{1.1}
 
-        \begin{subtable}{.2\textwidth}
-          \renewcommand{\arraystretch}{1.2}
-
+        \begin{subtable}{.5\textwidth}     
           \csvautotabular{archivos/5.Resultados/CNN/1D/1DClassificationReportTest.csv}
-          \caption{Métricas de clasificación de test CNN-1D.}
-          \label{CNN1DTestMetrics}
+          \caption{CNN-1D.}
+          \label{TestClassificationReport:CNN1D}
         \end{subtable}
-        \hspace{17em}
-        \begin{subtable}{.2\textwidth}
-          \renewcommand{\arraystretch}{1.2}
-
+        \hspace{1em}
+        \begin{subtable}{.5\textwidth}
           \csvautotabular{archivos/5.Resultados/NB/NBClassificationReportTest.csv}
-          \caption{Métricas clasificación de test Naive Bayes.}
-          \label{NBTestMetrics}
+          \caption{GNB.}
+          \label{TestClassificationReport:GNB}
         \end{subtable}
-        \vskip\baselineskip
-
-        \begin{subtable}{.2\textwidth}
+        \vspace*{0.5 cm}
+        \begin{subtable}{.5\textwidth}     
           \centering
-          \renewcommand{\arraystretch}{1.2}
-
           \csvautotabular{archivos/5.Resultados/SVC/SVCClassificationReportTest.csv}
-          \caption{Métricas clasificación de test SVC.}
-          \label{SVCDTestMetrics}
+          \caption{SVC.}
+          \label{TestClassificationReport:SVC}
         \end{subtable}
-        \hspace{17em}
-        \begin{subtable}{.2\textwidth}
-          \renewcommand{\arraystretch}{1.2}
-
+        \hspace{1em}
+        \begin{subtable}{.5\textwidth}     
           \csvautotabular{archivos/5.Resultados/KNN/KNNClassificationReportTest.csv}
-          \caption{Métricas clasificación de test KNN.}
-          \label{KNNTestMetrics}
+          \caption{KNN.}
+          \label{TestClassificationReport:KNN}
         \end{subtable}
-
-        \begin{subtable}{.2\textwidth}
+        \vspace*{0.5 cm}
+        \begin{subtable}{1\textwidth}     
           \centering
-          \renewcommand{\arraystretch}{1.2}
-
           \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTest.csv}
-          \caption{Métricas clasificación de test CNN-2D.}
-          \label{CNN2DTestMetrics}
+          \caption{CNN-2D.}
+          \label{TestClassificationReport:CNN2D}
         \end{subtable}
+
+      \caption{Métricas clasificación para el conjunto de test.}
+      \label{TestClassificationReport}
     \end{table}
+
 
   \subsection{Matrices de confusión}
 
-    
-    \ref{ConfusionMatrixTestImages}
+    En la figura \eqref{ConfusionMatrixTestImages} se muestran las matrices de confusión aplicadas al conjunto de test, se observa una representación visual de los reportes de clasificación. Esto nos permite atender a que los modelos \glsentryshort{gnb} \eqref{CConfusionMatrixTestImages:GNB}, \glsentryshort{svc} \eqref{ConfusionMatrixTestImages:SVC} y \glsentryshort{cnn2d} \eqref{ConfusionMatrixTestImages:2D} no clasifican correctamente ninguna de las observaciones de accidentes fatales, mientras que \glsentryshort{knn} \eqref{ConfusionMatrixTestImages:KNN} clasifica uno y \glsentryshort{cnn1d} \eqref{ConfusionMatrixTestImages:1D} clasifica cinco a costa de clasificar bastantes accidentes leves como fatales. En lo que respecta a los accdientes leves el modelo \glsentryshort{cnn2d} \eqref{ConfusionMatrixTestImages:2D} es el que mayor número clasifica correctamente, al igual que los accidentes serios.
 
-    \begin{figure*}
+    \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTest}
-            \caption{Matriz de confusión de CNN-1D sobre test.}
+        \begin{subfigure}{0.4\textwidth}
+            \includesvg[scale=0.35]{archivos/5.Resultados/CNN/1D/1DConfusionMatrixTest}
+            \caption{CNN-1D.}
             \label{ConfusionMatrixTestImages:1D}
         \end{subfigure}
         \hspace{3em}
         % Añadir el espacio deseado, si se deja la linea en blanco la siguiente subfigura ira en una nueva linea
         \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTest}
-            \caption{Matriz de confusión de CNN-2D sobre test.} 
+            \includesvg[scale=0.35]{archivos/5.Resultados/CNN/2D/2DConfusionMatrixTest}
+            \caption{CNN-2D.} 
             \label{ConfusionMatrixTestImages:2D}
-
         \end{subfigure}
-        \vskip\baselineskip
+        \vspace*{0.5 cm}
         \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/NB/NBConfusionMatrixTest}
-            \caption{Matriz de confusión de NB sobre test.}
-            \label{ConfusionMatrixTestImages:NB}
+            \includesvg[scale=0.35]{archivos/5.Resultados/NB/NBConfusionMatrixTest}
+            \caption{GNB.}
+            \label{ConfusionMatrixTestImages:GNB}
         \end{subfigure}
         \hspace{3em}
         \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/KNN/KNNConfusionMatrixTest}
-            \caption{Matriz de confusión de KNN sobre test.}
+            \includesvg[scale=0.35]{archivos/5.Resultados/KNN/KNNConfusionMatrixTest}
+            \caption{KNN.}
             \label{ConfusionMatrixTestImages:KNN}
         \end{subfigure}
-        \vskip\baselineskip
+        \vspace*{0.5 cm}
         \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includesvg[scale=0.4]{archivos/5.Resultados/SVC/SVCConfusionMatrixTest}
-            \caption{Matriz de confusión de SVC sobre test.}
+            \includesvg[scale=0.35]{archivos/5.Resultados/SVC/SVCConfusionMatrixTest}
+            \caption{SVC.}
             \label{ConfusionMatrixTestImages:SVC}
         \end{subfigure}
 
         \caption{Matrices de confusión de los modelos sobre el conjunto de test.}
         \label{ConfusionMatrixTestImages}
-     \end{figure*}
+     \end{figure}
 
   \subsection{Comparativa entre modelos}
 
-    Explicar la comparativa de modelos con datos de \textbf{ENTRENAMIENTO.}
+    A continuación se puede observar una representación visual \eqref{ResultsTestImage} de las métricas analizadas en el apartado anterior, donde se muestra la precisión, exhaustividad y f1-score para cada modelo respecto al conjunto de datos de test.
 
-ninguno de los modelos aplicados es capaz de generalizar bien sore el conjunto de datos de test sin smote
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
-        \includegraphics[width=16cm]{archivos/5.Resultados/ComparativaTest}
+        \includegraphics[width=13cm]{archivos/5.Resultados/ComparativaTest}
         \caption{Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.}
         \label{ResultsTestImage}
      \end{figure}
-
-
-
-
-
-ya sea porque el modelo está sobreajustado o por
-
-
-Es importante recalcar que los resultados de estas predicciones están muy condicionados al tratamiento y las transformaciones de los datos.
-
-
-
-
- de la informacio que tenemos y de el tipo de limpieza que se ha hecho. Se ppodria hacer un estudio del valor numerico que se le asigna a cada variable en la limpieza, ya que seguramente al estar nosotros haciendolo aleatoriamente seguramente se esté creando algún patrón de jerarquía dentro de una columna o se le da mas importancia a un todoterreno que a un avion porque el todoterrento al tener un valor asignado más alto sera mas negro y por lo tanto la red predicira lo que sea
-
-
-

@@ -34,11 +34,10 @@
 \contentsline {figure}{\numberline {5.4}{\ignorespaces Proceso que sigue una muestra del conjunto de datos tipificada hasta llegar a una matriz.\relax }}{48}{figure.caption.41}%
 \contentsline {figure}{\numberline {5.5}{\ignorespaces Tres clases de accidentes convertidos a matrices.\relax }}{49}{figure.caption.42}%
 \contentsline {figure}{\numberline {5.6}{\ignorespaces Comparación entre los tiempos de entrenamiento de los modelos.\relax }}{50}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-1D.\relax }}{52}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-2D.\relax }}{54}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{55}{figure.caption.48}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.\relax }}{56}{figure.caption.49}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de test.\relax }}{57}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.\relax }}{58}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Evolución de Micro F1-score de las redes neuronales convolucionales.\relax }}{51}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{53}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.\relax }}{54}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de test.\relax }}{56}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.\relax }}{57}{figure.caption.51}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
