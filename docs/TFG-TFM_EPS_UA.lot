@@ -3,15 +3,15 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Descripción de los datos.\relax }}{25}{table.caption.24}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{29}{table.4.2}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Límites de inicialización y mutación de los hiperparámetros de los individuos.\relax }}{35}{table.caption.29}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{37}{table.caption.30}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Descripción de los datos.\relax }}{22}{table.caption.24}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{25}{table.caption.25}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Límites de inicialización y mutación de los hiperparámetros de los individuos.\relax }}{31}{table.caption.30}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Jerarquía de categorías y características.\relax }}{32}{table.caption.31}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Mejores parámetros de XGBoost tras aplicar el algoritmo genético.\relax }}{46}{table.caption.38}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Cálculo de pesos de características y categorías mediante XGBoost (los valores se han redondeado en base a tres decimales).\relax }}{47}{table.caption.40}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Mejores parámetros de KNN tras aplicar GridSearch.\relax }}{49}{table.caption.43}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Métricas clasificación para el conjunto de entrenamiento.\relax }}{52}{table.caption.46}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Métricas clasificación para el conjunto de test.\relax }}{55}{table.caption.49}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Mejores parámetros de XGBoost tras aplicar el algoritmo genético.\relax }}{40}{table.caption.37}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Cálculo de pesos de características y categorías mediante XGBoost (los valores se han redondeado en base a tres decimales).\relax }}{41}{table.caption.39}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Métricas de clasificación para las redes neuronales convolucionales.\relax }}{46}{table.caption.45}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Métricas clasificación para el conjunto de entrenamiento.\relax }}{50}{table.caption.49}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Métricas clasificación para el conjunto de test.\relax }}{53}{table.caption.52}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

@@ -9,34 +9,34 @@
 \label{conclusiones}
 
 
-Como hemos podido observar en los experimentos de este proyecto, el problema a resolver que se ha propuesto no tiene una solución trivial con los datos que se disponen y las transformaciones aplicadas sobre ellos. Por este motivo, ninguno de los métodos aplicados es capaz de identificar con un rendimiento aceptable las distintas consecuencias de los accidentes.\\
+Como hemos podido observar en los experimentos de este proyecto, el problema a resolver que se ha propuesto no tiene una solución trivial, debido principalmente a los datos de los que se disponen y a las transformaciones aplicadas sobre ellos.\\
+
+Una de las ventajas de la arquitectura propuesta y el flujo de ejecución es que es completamente escalable, pudiendo aplicarse a otros conjuntos de datos sin necesidad de realizar grandes cambios sobre el código implementado, únicamente se debe definir la jerarquía de categorías y características para poder experimentar con otros problemas.
 
 No obstante, de entre todos los modelos propuestos, se observa que aquellos que han ofrecido un mejor rendimiento han sido la convolucional de una dimensión para los accidentes fatales, y la convolucional de dos dimensiones para los accidentes leves y serios, llegando en ocasiones a duplicar el rendimiento del segundo mejor modelo \glsentryshort{knn}.\\
 
-\section{Líneas de investigación}
+\section{Líneas futuras de investigación}
 
 
-	Existen múltiples líneas de investigación en las que seguir desarrollando el proyecto de cara a obtener un mejor rendimiento:
+	Debido a la complejidad del trabajo presentado, existen múltiples líneas de investigación en las que seguir desarrollando el proyecto:
 
 	\begin{enumerate}
 
 
 		\item Las transformaciones sobre las variables del dataset son un punto crítico, por lo que es necesario realizar un estudio de las mismas para probar si otras tipificaciones sobre las variables tienen un efecto positivo en el rendimiento de las clasificaciones. Un ejemplo de este caso es la variable \textit{hora}, que puede ser transformada de acuerdo a otro rango de horas para declarar si un accidente se ha producido de día o de noche o modificar la tipificación del rango de edad. Estos cambios afectaría notablemente a los árboles de decisión producidos por \glsentryshort{xgboost}.
 
-		\item Se propone también usar herramientas como \textit{Open Refine} \cite{OpenRefine} que permitan realizar clústers nominales sobre la localización de los accidentes para obtener una tipificación más sólida del tipo de carretera.
+		\item Se propone también usar herramientas como \textit{Open Refine} \cite{OpenRefine} que permitan realizar clústers nominales sobre la localización de los accidentes para obtener una tipificación más sólida en la variable \textit{tipo de carretera}.
 
-		\item Otra de las líneas a investigar es el añadido de características provenientes de otros datasets localizados en el portal de datos abiertos de la ciudad de Madrid. Dichos datasets proveen de información tal como la velocidad media de los tramos, la densidad de tráfico o la temperatura ambiente. Estos posibles futuros predictores pueden ser claves para la clasificación, como por ejemplo las bajas temperaturas que afectan al agarre de los neumáticos.
+		\item También se puede estudiar el añadido de características provenientes de otros datasets localizados en el portal de datos abiertos de la ciudad de Madrid. Dichos datasets proveen de información tal como la velocidad media de los tramos, la densidad de tráfico o la temperatura ambiente. Estos posibles futuros predictores pueden ser claves para la clasificación, como por ejemplo las bajas temperaturas que afectan al agarre de los neumáticos.
 
 		\item Como siguiente opción se propone aumentar el número de características del dataset en base a las propias variables del conjunto de datos original, realizando más transformaciones que permitan obtener más predictores. Por ejemplo el mes, día y estación del año en el que se ha producido el accidente en base a la hora.
 
-		\item En lo que respecta a los algoritmos sería conveniente ampliar los hiperparámetros a utilizar por \glsentryshort{xgboost}, optimizándolos además mediante le algoritmo genético. En este proyecto se optimizan tres de ellos debido a las limitaciones computacionales, mientras que existen otros como \textit{gamma} (parámetro de reducción mínima) \textit{hojas máximas} (parámetro de regularización) o la \textit{política de crecimiento} (controla la forma en la que los nuevos nodos se añaden al árbol) entre otros.
+		\item En lo que respecta a los algoritmos sería conveniente ampliar los hiperparámetros a utilizar por \glsentryshort{xgboost}, optimizándolos además mediante le algoritmo genético. En este proyecto se optimizan tres de ellos debido a las limitaciones computacionales, mientras que existen otros como \textit{gamma} (parámetro de reducción mínima), \textit{hojas máximas} (parámetro de regularización) o la \textit{política de crecimiento} (controla la forma en la que los nuevos nodos se añaden al árbol) entre otros.
 
 		\item Otro enfoque consistiría estudiar alguna otra técnica para formar matrices en base a representaciones tabulares de datos, maximizando la información de los accidentes en base a la posición de las características.
 
-		\item Utilizar metaaprendizaje para entrenar modelos que averiguen los mejores hiperparametros para otros modelos
-
 		\item En lo que respecta al remuestreo de datos sería conveniente a analizar distintos métodos de remuestreo además de \textit{Undersampling, Oversampling y SMOTE} ya estudiados. Existen numerosos parámetros de \glsentryshort{smoteii} que pueden ser configurados, entrenando los modelos con este nuevo remuestreo de datos sería posible aumentar el rendimiento de los mismos.
 
-		\item Utilizar técnicas de \textit{Automated Machine Learning} como \glsentryfull{nas} como AutoKeras \cite{AutoKeras} para encontrar la mejor estructura de la red para el problema. Las \glsentryshort{nas} buscan encontrar una arquitectura neuronal óptima basándose en ensayo y error. Este tipo de técnias requiere grandes recursos computacionales, por lo que para poder llevarla a cabo es necesario disponer de sistema con grandes capacidades de cómputo en \textit{GPU}.
+		\item Utilizar técnicas de \textit{Automated Machine Learning} como \glsentryfull{nas} de AutoKeras \cite{AutoKeras} para encontrar la mejor estructura de la red para el problema.
 
 	\end{enumerate}

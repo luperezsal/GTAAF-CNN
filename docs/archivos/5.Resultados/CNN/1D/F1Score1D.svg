@@ -252,7 +252,7 @@
      </g>
     </g>
     <g id="text_14">
-     <!-- F1 score value -->
+     <!-- Micro F1 score value -->
      <g transform="translate(151.017188 399.925781)rotate(-90)scale(0.1 -0.1)">
       <defs>
        <path id="DejaVuSans-46" d="M 628 4666  L 3309 4666  L 3309 4134  L 1259 4134  L 1259 2759  L 3109 2759  L 3109 2228  L 1259 2228  L 1259 0  L 628 0  L 628 4666  z " transform="scale(0.015625)"/>
