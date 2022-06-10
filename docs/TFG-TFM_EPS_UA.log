@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  6 JUN 2022 14:19
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  11 JUN 2022 00:17
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2357,101 +2357,75 @@ Overfull \hbox (20.35634pt too wide) in paragraph at lines 65--85
 
 [3
 
-]) (capitulos/preliminaresconagradecimientos.tex [4
+]) [4
 
 
 
-]
-
-Package natbib Warning: Citation `UNE50136:97' on page v undefined on input lin
-e 12.
-
-[5] [6
-
-
-] [7
-
-
-] [8
-
-
-] [9
-
-
-] [10
-
-
-] [11
-
-
-] [12
-
-
-]) (TFG-TFM_EPS_UA.toc
+] (TFG-TFM_EPS_UA.toc
 LaTeX Info: Redefining \rmfamily on input line 1.
 LaTeX Info: Redefining \sffamily on input line 1.
 LaTeX Info: Redefining \ttfamily on input line 1.
- [13
-
-
-])
+ [5])
 \tf@toc=\write9
 \openout9 = `TFG-TFM_EPS_UA.toc'.
 
- [14]
-(TFG-TFM_EPS_UA.lof
+ [6] (TFG-TFM_EPS_UA.lof
 LaTeX Info: Redefining \rmfamily on input line 1.
 LaTeX Info: Redefining \sffamily on input line 1.
 LaTeX Info: Redefining \ttfamily on input line 1.
 
 
-Package natbib Warning: Citation `ReferenciaImagenNN' on page xv undefined on i
-nput line 10.
+Package natbib Warning: Citation `ReferenciaImagenNN' on page vii undefined on 
+input line 10.
 
 
-Package natbib Warning: Citation `Cross-Entropy' on page xv undefined on input 
-line 11.
+Package natbib Warning: Citation `Cross-Entropy' on page vii undefined on input
+ line 11.
 
 
-Package natbib Warning: Citation `ReferenciaImagenStrides' on page xv undefined
- on input line 12.
+Package natbib Warning: Citation `ReferenciaImagenStrides' on page vii undefine
+d on input line 12.
 
 
-Package natbib Warning: Citation `ReferenciaImagenKernelFiltro' on page xv unde
-fined on input line 13.
+Package natbib Warning: Citation `ReferenciaImagenKernelFiltro' on page vii und
+efined on input line 13.
 
 
-Package natbib Warning: Citation `CNNReLUImage' on page xv undefined on input l
-ine 14.
+Package natbib Warning: Citation `CNNReLUImage' on page vii undefined on input 
+line 14.
 
 
-Package natbib Warning: Citation `CNN1DArchitectureImage' on page xv undefined 
-on input line 15.
+Package natbib Warning: Citation `CNN1DArchitectureImage' on page vii undefined
+ on input line 15.
 
 
-Package natbib Warning: Citation `CNN1DImage' on page xv undefined on input lin
-e 16.
+Package natbib Warning: Citation `CNN1DImage' on page vii undefined on input li
+ne 16.
 
 
-Package natbib Warning: Citation `ReferenciaKNNImagen' on page xv undefined on 
-input line 17.
+Package natbib Warning: Citation `ReferenciaKNNImagen' on page vii undefined on
+ input line 17.
 
 
-Package natbib Warning: Citation `TrainTestSplitImage' on page xv undefined on 
-input line 23.
+Package natbib Warning: Citation `TrainTestSplitImage' on page vii undefined on
+ input line 23.
 
 
-Package natbib Warning: Citation `CNNReLUImage' on page xv undefined on input l
-ine 26.
+Package natbib Warning: Citation `CNNReLUImage' on page vii undefined on input 
+line 26.
 
-[15
+
+Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page vii 
+undefined on input line 28.
+
+[7
 
 
 ])
 \tf@lof=\write10
 \openout10 = `TFG-TFM_EPS_UA.lof'.
 
- [16] (TFG-TFM_EPS_UA.lot
+ [8] (TFG-TFM_EPS_UA.lot
 LaTeX Info: Redefining \rmfamily on input line 1.
 LaTeX Info: Redefining \sffamily on input line 1.
 LaTeX Info: Redefining \ttfamily on input line 1.
@@ -2459,21 +2433,13 @@ LaTeX Info: Redefining \ttfamily on input line 1.
 \tf@lot=\write11
 \openout11 = `TFG-TFM_EPS_UA.lot'.
 
- [17
+ [9
 
 
-] [18
+] [10
 
 
-] (TFG-TFM_EPS_UA.lol)
-\tf@lol=\write12
-\openout12 = `TFG-TFM_EPS_UA.lol'.
-
- [19] [20
-
-
-]
-(capitulos/Introduccion.tex
+] (capitulos/Introduccion.tex
 chapter 1.
 
 Package natbib Warning: Citation `TASPCNN' on page 1 undefined on input line 19
@@ -2484,10 +2450,66 @@ Package natbib Warning: Citation `TASPCNN' on page 1 undefined on input line 19
 
 ]) (capitulos/marcoteorico.tex [2]
 chapter 2.
-) (capitulos/tecnologias.tex [3
+
+Package natbib Warning: Citation `FactoresQueInfluyen2003' on page 3 undefined 
+on input line 30.
 
 
-] [4
+Package natbib Warning: Citation `MotorcycleCrashesMultinominalStatistic' on pa
+ge 3 undefined on input line 30.
+
+
+Package natbib Warning: Citation `MetodosEstadisticosComparacionSVMOP' on page 
+3 undefined on input line 30.
+
+[3
+
+
+]
+
+Package natbib Warning: Citation `ArbolDecisionSeveridadDeAccidentes' on page 4
+ undefined on input line 33.
+
+
+Package natbib Warning: Citation `LogisticRegressionPrediccionAccidentes' on pa
+ge 4 undefined on input line 33.
+
+
+Package natbib Warning: Citation `NSGAIIAccidentPrediction' on page 4 undefined
+ on input line 35.
+
+
+Package natbib Warning: Citation `GeneticProgrammingAccidents' on page 4 undefi
+ned on input line 35.
+
+
+Package natbib Warning: Citation `RedNeuronalAutopistaAccidentes' on page 4 und
+efined on input line 37.
+
+
+Package natbib Warning: Citation `OtraPrediccionConCNNs' on page 4 undefined on
+ input line 37.
+
+
+Package natbib Warning: Citation `DeteccionDeAccidentesPorTweets' on page 4 und
+efined on input line 37.
+
+
+Package natbib Warning: Citation `RNNAccidentSeverityPrediction' on page 4 unde
+fined on input line 37.
+
+
+Package natbib Warning: Citation `ImportanciaDeBajaCalidadActualmenteDeDatasets
+' on page 4 undefined on input line 40.
+
+
+Package natbib Warning: Citation `ItalianoMetricasDesbalanceo' on page 4 undefi
+ned on input line 40.
+
+
+Package natbib Warning: Citation `MIT' on page 4 undefined on input line 44.
+
+) (capitulos/tecnologias.tex [4] [5] [6
 
 
 ]
@@ -2498,7 +2520,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--12
  []
 
 
-Package natbib Warning: Citation `GA' on page 5 undefined on input line 20.
+Package natbib Warning: Citation `GA' on page 7 undefined on input line 20.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 20--21
@@ -2515,19 +2537,19 @@ File: archivos/3.Tecnologias/GA/InitialPopulation.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5]
+[7]
 File: archivos/3.Tecnologias/GA/FitnessFunction.png Graphic file (type bmp)
 <archivos/3.Tecnologias/GA/FitnessFunction.png>
 File: archivos/3.Tecnologias/GA/ParentsMatingMutation.png Graphic file (type bm
 p)
 <archivos/3.Tecnologias/GA/ParentsMatingMutation.png>
- [6]
+ [8]
 
-Package natbib Warning: Citation `XGBoostTutorial' on page 7 undefined on input
+Package natbib Warning: Citation `XGBoostTutorial' on page 9 undefined on input
  line 91.
 
 
-Package natbib Warning: Citation `NvidiaXGBoost' on page 7 undefined on input l
+Package natbib Warning: Citation `NvidiaXGBoost' on page 9 undefined on input l
 ine 91.
 
 
@@ -2535,7 +2557,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 91--92
 
  []
 
-[7]
+[9]
 Underfull \hbox (badness 10000) in paragraph at lines 93--94
 
  []
@@ -2558,9 +2580,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
-[8]
+[10]
 
-Package natbib Warning: Citation `SVC' on page 9 undefined on input line 121.
+Package natbib Warning: Citation `SVC' on page 11 undefined on input line 121.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 121--122
@@ -2573,8 +2595,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--124
  []
 
 
-Package natbib Warning: Citation `ISLR2' on page 9 undefined on input line 125.
-
+Package natbib Warning: Citation `ISLR2' on page 11 undefined on input line 125
+.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 125--126
@@ -2587,8 +2609,8 @@ File: archivos/3.Tecnologias/SVC/SVCExample.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `NNReview' on page 9 undefined on input line 1
-38.
+Package natbib Warning: Citation `NNReview' on page 11 undefined on input line 
+138.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 138--139
@@ -2600,72 +2622,72 @@ Underfull \hbox (badness 10000) in paragraph at lines 140--141
 
  []
 
-[9]
+[11]
 File: archivos/3.Tecnologias/RedesNeuronales/NNImage.jpg Graphic file (type bmp
 )
 <archivos/3.Tecnologias/RedesNeuronales/NNImage.jpg>
 
 
-Package natbib Warning: Citation `ReferenciaImagenNN' on page 10 undefined on i
+Package natbib Warning: Citation `ReferenciaImagenNN' on page 12 undefined on i
 nput line 145.
 
 
-Package natbib Warning: Citation `ReferenciaImagenNN' on page 10 undefined on i
+Package natbib Warning: Citation `ReferenciaImagenNN' on page 12 undefined on i
 nput line 145.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10]
+[12]
 
-Package natbib Warning: Citation `Softmax' on page 11 undefined on input line 1
+Package natbib Warning: Citation `Softmax' on page 13 undefined on input line 1
 67.
 
 
-Package natbib Warning: Citation `Cross-Entropy' on page 11 undefined on input 
+Package natbib Warning: Citation `Cross-Entropy' on page 13 undefined on input 
 line 171.
 
 File: archivos/3.Tecnologias/RedesNeuronales/CrossEntropy.jpeg Graphic file (ty
 pe bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CrossEntropy.jpeg>
 
-Package natbib Warning: Citation `Cross-Entropy' on page 11 undefined on input 
+Package natbib Warning: Citation `Cross-Entropy' on page 13 undefined on input 
 line 177.
 
 
-Package natbib Warning: Citation `Cross-Entropy' on page 11 undefined on input 
+Package natbib Warning: Citation `Cross-Entropy' on page 13 undefined on input 
 line 177.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[11]
+[13]
 
-Package natbib Warning: Citation `LearningRate' on page 12 undefined on input l
+Package natbib Warning: Citation `LearningRate' on page 14 undefined on input l
 ine 185.
 
 
-Package natbib Warning: Citation `BatchNormalization' on page 12 undefined on i
+Package natbib Warning: Citation `BatchNormalization' on page 14 undefined on i
 nput line 187.
 
-[12]
+[14]
 
-Package natbib Warning: Citation `Kernels' on page 13 undefined on input line 1
+Package natbib Warning: Citation `Kernels' on page 15 undefined on input line 1
 99.
 
 
-Package natbib Warning: Citation `FiltersFeatureMaps' on page 13 undefined on i
+Package natbib Warning: Citation `FiltersFeatureMaps' on page 15 undefined on i
 nput line 203.
 
 File: archivos/3.Tecnologias/RedesNeuronales/Stride.png Graphic file (type bmp)
 
 <archivos/3.Tecnologias/RedesNeuronales/Stride.png>
 
-Package natbib Warning: Citation `ReferenciaImagenStrides' on page 13 undefined
+Package natbib Warning: Citation `ReferenciaImagenStrides' on page 15 undefined
  on input line 213.
 
 
-Package natbib Warning: Citation `ReferenciaImagenStrides' on page 13 undefined
+Package natbib Warning: Citation `ReferenciaImagenStrides' on page 15 undefined
  on input line 213.
 
 
@@ -2677,27 +2699,27 @@ File: archivos/3.Tecnologias/RedesNeuronales/CNN/padding.png Graphic file (type
  bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/padding.png>
 
-Package natbib Warning: Citation `ReferenciaImagenKernelFiltro' on page 13 unde
+Package natbib Warning: Citation `ReferenciaImagenKernelFiltro' on page 15 unde
 fined on input line 225.
 
 
-Package natbib Warning: Citation `ReferenciaImagenKernelFiltro' on page 13 unde
+Package natbib Warning: Citation `ReferenciaImagenKernelFiltro' on page 15 unde
 fined on input line 225.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[13]
+[15]
 File: archivos/3.Tecnologias/RedesNeuronales/CNN/CNNRELUImage.png Graphic file 
 (type bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/CNNRELUImage.png>
 
 
-Package natbib Warning: Citation `CNNReLUImage' on page 14 undefined on input l
+Package natbib Warning: Citation `CNNReLUImage' on page 16 undefined on input l
 ine 240.
 
 
-Package natbib Warning: Citation `CNNReLUImage' on page 14 undefined on input l
+Package natbib Warning: Citation `CNNReLUImage' on page 16 undefined on input l
 ine 240.
 
 
@@ -2711,38 +2733,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 248--249
  []
 
 
-Package natbib Warning: Citation `Conv1D_Survey' on page 14 undefined on input 
+Package natbib Warning: Citation `Conv1D_Survey' on page 16 undefined on input 
 line 250.
 
-[14]
+[16]
 
-Package natbib Warning: Citation `FiltersFeatureMaps' on page 15 undefined on i
+Package natbib Warning: Citation `FiltersFeatureMaps' on page 17 undefined on i
 nput line 252.
 
 File: archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1CNNArchImage.png Graphic f
 ile (type bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1CNNArchImage.png>
 
-Package natbib Warning: Citation `CNN1DArchitectureImage' on page 15 undefined 
+Package natbib Warning: Citation `CNN1DArchitectureImage' on page 17 undefined 
 on input line 259.
 
 
-Package natbib Warning: Citation `CNN1DArchitectureImage' on page 15 undefined 
+Package natbib Warning: Citation `CNN1DArchitectureImage' on page 17 undefined 
 on input line 259.
 
 File: archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1DConvolution.png Graphic f
 ile (type bmp)
 <archivos/3.Tecnologias/RedesNeuronales/CNN/1D/1DConvolution.png>
 
-Package natbib Warning: Citation `CNN1DImage' on page 15 undefined on input lin
+Package natbib Warning: Citation `CNN1DImage' on page 17 undefined on input lin
 e 270.
 
 
-Package natbib Warning: Citation `CNN1DImage' on page 15 undefined on input lin
+Package natbib Warning: Citation `CNN1DImage' on page 17 undefined on input lin
 e 270.
 
 
-Package natbib Warning: Citation `KNN' on page 15 undefined on input line 279.
+Package natbib Warning: Citation `KNN' on page 17 undefined on input line 279.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 279--280
@@ -2752,7 +2774,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]
+ [17]
 Underfull \hbox (badness 10000) in paragraph at lines 281--282
 
  []
@@ -2760,70 +2782,70 @@ Underfull \hbox (badness 10000) in paragraph at lines 281--282
 File: archivos/3.Tecnologias/KNN/KNNImage.png Graphic file (type bmp)
 <archivos/3.Tecnologias/KNN/KNNImage.png>
 
-Package natbib Warning: Citation `ReferenciaKNNImagen' on page 16 undefined on 
+Package natbib Warning: Citation `ReferenciaKNNImagen' on page 18 undefined on 
 input line 290.
 
 
-Package natbib Warning: Citation `ReferenciaKNNImagen' on page 16 undefined on 
+Package natbib Warning: Citation `ReferenciaKNNImagen' on page 18 undefined on 
 input line 290.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [16]
+ [18]
 
-Package natbib Warning: Citation `Python' on page 17 undefined on input line 30
+Package natbib Warning: Citation `Python' on page 19 undefined on input line 30
 2.
 
 
-Package natbib Warning: Citation `Pandas' on page 17 undefined on input line 30
+Package natbib Warning: Citation `Pandas' on page 19 undefined on input line 30
 6.
 
 
-Package natbib Warning: Citation `Tensorflow' on page 17 undefined on input lin
+Package natbib Warning: Citation `Tensorflow' on page 19 undefined on input lin
 e 308.
 
 
-Package natbib Warning: Citation `Scikit-Learn' on page 17 undefined on input l
+Package natbib Warning: Citation `Scikit-Learn' on page 19 undefined on input l
 ine 310.
 
 
-Package natbib Warning: Citation `XGBoostLibrary' on page 17 undefined on input
+Package natbib Warning: Citation `XGBoostLibrary' on page 19 undefined on input
  line 312.
 
 
-Package natbib Warning: Citation `CUDA' on page 17 undefined on input line 320.
+Package natbib Warning: Citation `CUDA' on page 19 undefined on input line 320.
 
 
 
-Package natbib Warning: Citation `Anaconda' on page 17 undefined on input line 
+Package natbib Warning: Citation `Anaconda' on page 19 undefined on input line 
 322.
 
 
-Package natbib Warning: Citation `JupyterNotebook' on page 17 undefined on inpu
+Package natbib Warning: Citation `JupyterNotebook' on page 19 undefined on inpu
 t line 324.
 
 
-Package natbib Warning: Citation `JupyterLab' on page 17 undefined on input lin
+Package natbib Warning: Citation `JupyterLab' on page 19 undefined on input lin
 e 326.
 
 
-Package natbib Warning: Citation `DiagramsNet' on page 17 undefined on input li
+Package natbib Warning: Citation `DiagramsNet' on page 19 undefined on input li
 ne 328.
 
 
-Package natbib Warning: Citation `GoogleMeet' on page 17 undefined on input lin
+Package natbib Warning: Citation `GoogleMeet' on page 19 undefined on input lin
 e 330.
 
 
-Package natbib Warning: Citation `Github' on page 17 undefined on input line 33
+Package natbib Warning: Citation `Github' on page 19 undefined on input line 33
 4.
 
-[17]) (capitulos/metodologia.tex [18]
+[19]) (capitulos/metodologia.tex [20]
 chapter 4.
 File: archivos/4.Metodologia/GranttImage.png Graphic file (type bmp)
 <archivos/4.Metodologia/GranttImage.png>
-[19
+[21
 
 
 ]
@@ -2832,30 +2854,30 @@ File: archivos/4.Metodologia/DataflowImageESP.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [20]
+ [22]
 
-Package natbib Warning: Citation `LifecycleDataScienceProjectsTimes' on page 21
+Package natbib Warning: Citation `LifecycleDataScienceProjectsTimes' on page 23
  undefined on input line 57.
 
-[21]
+[23]
 
-Package natbib Warning: Citation `DatasetMadrid' on page 22 undefined on input 
+Package natbib Warning: Citation `DatasetMadrid' on page 24 undefined on input 
 line 59.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [22]
+ [24]
 
-Package natbib Warning: Citation `InfoDatasetMadrid' on page 23 undefined on in
+Package natbib Warning: Citation `InfoDatasetMadrid' on page 25 undefined on in
 put line 174.
 
-[23]
+[25]
 
-Package natbib Warning: Citation `RegeXBook' on page 24 undefined on input line
+Package natbib Warning: Citation `RegeXBook' on page 26 undefined on input line
  197.
 
-[24]
+[26]
 Overfull \hbox (54.01965pt too wide) in paragraph at lines 218--262
 [][] 
  []
@@ -2865,13 +2887,13 @@ Overfull \hbox (54.89964pt too wide) in paragraph at lines 264--309
 [][] 
  []
 
-[25]
+[27]
 Underfull \hbox (badness 10000) in paragraph at lines 319--320
 
  []
 
 
-Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 26 undef
+Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 28 undef
 ined on input line 321.
 
 
@@ -2880,7 +2902,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 321--322
  []
 
 
-Package natbib Warning: Citation `ImbalancedDataReview' on page 26 undefined on
+Package natbib Warning: Citation `ImbalancedDataReview' on page 28 undefined on
  input line 323.
 
 Package svg Info: Last page of `./svg-inkscape/OriginalDataHistogram_svg-tex.pd
@@ -2891,9 +2913,9 @@ File: ./svg-inkscape/OriginalDataHistogram_svg-tex.pdf Graphic file (type pdf)
 )
 
 Package natbib Warning: Citation `PearsonCoefficientCorrelationMatrix' on page 
-26 undefined on input line 333.
+28 undefined on input line 333.
 
-[26]
+[28]
 Package svg Info: Last page of `./svg-inkscape/CorrelationMatrix_svg-tex.pdf' i
 s 1 on input line 339.
  (svg-inkscape/CorrelationMatrix_svg-tex.pdf_tex
@@ -2901,7 +2923,7 @@ File: ./svg-inkscape/CorrelationMatrix_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/CorrelationMatrix_svg-tex.pdf, page 1>
 )
 
-Package natbib Warning: Citation `NormalizationSensitiveModels' on page 27 unde
+Package natbib Warning: Citation `NormalizationSensitiveModels' on page 29 unde
 fined on input line 347.
 
 
@@ -2909,9 +2931,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 347--348
 
  []
 
-[27]
+[29]
 
-Package natbib Warning: Citation `DataNormalizationInvestigation' on page 28 un
+Package natbib Warning: Citation `DataNormalizationInvestigation' on page 30 un
 defined on input line 349.
 
 
@@ -2923,16 +2945,16 @@ File: archivos/4.Metodologia/Datos/Separacion/DataSplit.png Graphic file (type
 bmp)
 <archivos/4.Metodologia/Datos/Separacion/DataSplit.png>
 
-Package natbib Warning: Citation `TrainTestSplitImage' on page 28 undefined on 
+Package natbib Warning: Citation `TrainTestSplitImage' on page 30 undefined on 
 input line 364.
 
 
-Package natbib Warning: Citation `TrainTestSplitImage' on page 28 undefined on 
+Package natbib Warning: Citation `TrainTestSplitImage' on page 30 undefined on 
 input line 364.
 
-[28]
+[30]
 
-Package natbib Warning: Citation `SMOTEII' on page 29 undefined on input line 3
+Package natbib Warning: Citation `SMOTEII' on page 31 undefined on input line 3
 78.
 
 
@@ -2941,7 +2963,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 378--379
  []
 
 
-Package natbib Warning: Citation `TSNEPaper' on page 29 undefined on input line
+Package natbib Warning: Citation `TSNEPaper' on page 31 undefined on input line
  380.
 
 Package svg Info: Last page of `./svg-inkscape/2d_tsne_clean_svg-tex.pdf' is 1 
@@ -2987,37 +3009,37 @@ Overfull \hbox (25.94852pt too wide) in paragraph at lines 409--410
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [29]
+ [31]
 Underfull \hbox (badness 10000) in paragraph at lines 422--423
 
  []
 
 
-Package natbib Warning: Citation `GAXGBoostPaper' on page 30 undefined on input
+Package natbib Warning: Citation `GAXGBoostPaper' on page 32 undefined on input
  line 424.
 
-[30]
+[32]
 Missing character: There is no ṕ in font [lmroman10-regular]:mapping=tex-text;!
 
-Package natbib Warning: Citation `XGBoostFeatureWeightsMeaning' on page 31 unde
+Package natbib Warning: Citation `XGBoostFeatureWeightsMeaning' on page 33 unde
 fined on input line 466.
 
-[31]
+[33]
 
-Package natbib Warning: Citation `TASPCNN' on page 32 undefined on input line 4
+Package natbib Warning: Citation `TASPCNN' on page 34 undefined on input line 4
 72.
 
 
-Package natbib Warning: Citation `JerarquiaImagenes' on page 32 undefined on in
+Package natbib Warning: Citation `JerarquiaImagenes' on page 34 undefined on in
 put line 474.
 
-[32]
+[34]
 File: archivos/4.Metodologia/Matrices/FV2I.png Graphic file (type bmp)
 <archivos/4.Metodologia/Matrices/FV2I.png>
 
 Underfull \vbox (badness 7415) has occurred while \output is active []
 
- [33]
+ [35]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\glsspace' on input line 556.
@@ -3026,29 +3048,29 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\glsspace' on input line 561.
 
-[34]
+[36]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\glsspace' on input line 575.
 
 
-Package natbib Warning: Citation `GridSearchSklearnLibrary' on page 35 undefine
+Package natbib Warning: Citation `GridSearchSklearnLibrary' on page 37 undefine
 d on input line 579.
 
 
-Package natbib Warning: Citation `GradientVanishingRelu' on page 35 undefined o
+Package natbib Warning: Citation `GradientVanishingRelu' on page 37 undefined o
 n input line 592.
 
-[35]
+[37]
 File: archivos/4.Metodologia/Modelos/CNN/RELUImage.png Graphic file (type bmp)
 <archivos/4.Metodologia/Modelos/CNN/RELUImage.png>
 
 
-Package natbib Warning: Citation `CNNReLUImage' on page 36 undefined on input l
+Package natbib Warning: Citation `CNNReLUImage' on page 38 undefined on input l
 ine 606.
 
 
-Package natbib Warning: Citation `CNNReLUImage' on page 36 undefined on input l
+Package natbib Warning: Citation `CNNReLUImage' on page 38 undefined on input l
 ine 606.
 
 File: archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN.png Graphic file (type bmp)
@@ -3060,9 +3082,10 @@ Overfull \hbox (42.67911pt too wide) in paragraph at lines 618--619
  []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[36] [37]
+ [38]
+[39]
 Underfull \hbox (badness 10000) in paragraph at lines 673--674
 
  []
@@ -3071,14 +3094,14 @@ File: archivos/4.Metodologia/Metricas/MatrizConfusion.png Graphic file (type bm
 p)
 <archivos/4.Metodologia/Metricas/MatrizConfusion.png>
 
-Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 38 u
+Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 40 u
 ndefined on input line 680.
 
 
-Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 38 u
+Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 40 u
 ndefined on input line 680.
 
-[38]) (capitulos/resultados.tex
+[40]) (capitulos/resultados.tex
 chapter 5.
 Package svg Info: Last page of `./svg-inkscape/EvolucionHiperparametros_svg-tex
 .pdf' is 1 on input line 19.
@@ -3089,7 +3112,7 @@ f)
 )
 Underfull \vbox (badness 2050) has occurred while \output is active []
 
- [39
+ [41
 
 
 ]
@@ -3107,7 +3130,7 @@ Overfull \hbox (22.5867pt too wide) in paragraph at lines 50--51
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [40]
+ [42]
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
 (subcaption)                 on input line 106.
@@ -3133,7 +3156,7 @@ File: ./svg-inkscape/accidente_fatal_svg-tex.pdf Graphic file (type pdf)
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [41]
+ [43]
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
 (subcaption)                 on input line 158.
@@ -3181,8 +3204,8 @@ File: ./svg-inkscape/accidente_fatal_svg-tex.pdf Graphic file (type pdf)
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [42]
-[43]
+ [44]
+[45]
 File: archivos/5.Resultados/only_cnns_times.png Graphic file (type bmp)
 <archivos/5.Resultados/only_cnns_times.png>
 
@@ -3205,10 +3228,10 @@ File: ./svg-inkscape/F1Score2D_svg-tex.pdf Graphic file (type pdf)
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [44]
+ [46]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [45]
+ [47]
 Overfull \hbox (2.72319pt too wide) in paragraph at lines 293--294
 [][] 
  []
@@ -3259,7 +3282,7 @@ File: ./svg-inkscape/2DConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [46]
+ [48]
 File: archivos/5.Resultados/ComparativaCNNTrain.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaCNNTrain.png>
 
@@ -3277,8 +3300,8 @@ Overfull \hbox (79.67041pt too wide) in paragraph at lines 369--370
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [47]
-[48]
+ [49]
+[50]
 File: archivos/5.Resultados/TiemposEntrenamiento.png Graphic file (type bmp)
 <archivos/5.Resultados/TiemposEntrenamiento.png>
 
@@ -3311,7 +3334,7 @@ Overfull \hbox (11.776pt too wide) in paragraph at lines 412--444
 []   []
  []
 
-[49]
+[51]
 Package svg Info: Last page of `./svg-inkscape/1DConfusionMatrixTrain_svg-tex.p
 df' is 1 on input line 455.
  (svg-inkscape/1DConfusionMatrixTrain_svg-tex.pdf_tex
@@ -3353,14 +3376,14 @@ File: ./svg-inkscape/SVCConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [50]
+ [52]
 File: archivos/5.Resultados/ComparativaTrain.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaTrain.png>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [51]
-[52]
+ [53]
+[54]
 Overfull \hbox (11.776pt too wide) in paragraph at lines 515--546
 [][]   []
  []
@@ -3370,7 +3393,7 @@ Overfull \hbox (11.776pt too wide) in paragraph at lines 515--546
 []   []
  []
 
-[53]
+[55]
 Package svg Info: Last page of `./svg-inkscape/1DConfusionMatrixTest_svg-tex.pd
 f' is 1 on input line 559.
  (svg-inkscape/1DConfusionMatrixTest_svg-tex.pdf_tex
@@ -3407,13 +3430,17 @@ File: ./svg-inkscape/SVCConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 
 <use ./svg-inkscape/SVCConfusionMatrixTest_svg-tex.pdf, page 1>
 )
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [56]
 File: archivos/5.Resultados/ComparativaTest.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaTest.png>
 )
-(capitulos/conclusiones.tex [54] [55] [56
+(capitulos/conclusiones.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-]
+ [57]
+[58]
 chapter 6.
 
 Underfull \hbox (badness 10000) in paragraph at lines 12--13
@@ -3426,19 +3453,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
  []
 
 
-Package natbib Warning: Citation `OpenRefine' on page 57 undefined on input lin
+Package natbib Warning: Citation `OpenRefine' on page 59 undefined on input lin
 e 28.
 
-[57]
+[59
 
-Package natbib Warning: Citation `AutoKeras' on page 58 undefined on input line
+
+]
+
+Package natbib Warning: Citation `AutoKeras' on page 60 undefined on input line
  40.
 
-
-Package natbib Warning: Citation `OpenRefine' on page 58 undefined on input lin
-e 47.
-
-) [58]
+) [60]
 No file TFG-TFM_EPS_UA.bbl.
 No file TFG-TFM_EPS_UA.acr.
 
@@ -3498,7 +3524,7 @@ The property list \__xpg_alias contains the pairs (without outer braces):
 Package caption Warning: Unused \captionsetup[lstlisting] on input line 74.
 See the caption package documentation for explanation.
 
-[59] (TFG-TFM_EPS_UA.aux
+[61] (TFG-TFM_EPS_UA.aux
 LaTeX Info: Redefining \rmfamily on input line 26.
 LaTeX Info: Redefining \sffamily on input line 26.
 LaTeX Info: Redefining \ttfamily on input line 26.
@@ -3510,12 +3536,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 62191 strings out of 410921
- 1493805 string characters out of 2824905
- 2180359 words of memory out of 3000000
- 81699 multiletter control sequences out of 15000+600000
- 496154 words of font info for 169 fonts, out of 8000000 for 9000
+ 62196 strings out of 410921
+ 1493691 string characters out of 2824905
+ 2181465 words of memory out of 3000000
+ 81724 multiletter control sequences out of 15000+600000
+ 484484 words of font info for 123 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  113i,21n,134p,10708b,928s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
-Output written on TFG-TFM_EPS_UA.pdf (79 pages).
+Output written on TFG-TFM_EPS_UA.pdf (71 pages).

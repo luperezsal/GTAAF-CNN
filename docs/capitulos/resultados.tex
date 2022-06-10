@@ -229,7 +229,7 @@
     \label{TresClasesAccidentesMatrices}
   \end{figure}
 
-  Una vez convertidos los accidentes en matrices, estos actúan como entrada a las redes neuronales convolucionales.
+  Una vez convertidos los accidentes en matrices, estas actúan como entrada a las redes neuronales convolucionales.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -551,7 +551,7 @@
 
   \subsubsection{Comparativa de matrices de confusión}
 
-    En la figura \eqref{ConfusionMatrixTestImages} se muestran las matrices de confusión aplicadas al conjunto de test, se observa una representación visual de las métricas de clasificación. Esto permite atender a que los modelos \glsentryshort{gnb} \eqref{ConfusionMatrixTestImages:GNB}, \glsentryshort{svc} \eqref{ConfusionMatrixTestImages:SVC} y \glsentryshort{cnn2d} \eqref{ConfusionMatrixTestImages:2D} no clasifican correctamente ninguna de las observaciones de accidentes fatales, mientras que \glsentryshort{knn} \eqref{ConfusionMatrixTestImages:KNN} clasifica uno y \glsentryshort{cnn1d} \eqref{ConfusionMatrixTestImages:1D} clasifica cinco. En lo que respecta a los accidentes leves el modelo \glsentryshort{cnn2d} \eqref{ConfusionMatrixTestImages:2D} es el que mayor número clasifica correctamente, al igual que los accidentes serios.
+    En la figura \eqref{ConfusionMatrixTestImages} se muestran las matrices de confusión aplicadas al conjunto de test, se observa una representación visual de las métricas de clasificación. Esto permite atender a que los modelos \glsentryshort{gnb} \eqref{ConfusionMatrixTestImages:GNB}, \glsentryshort{svc} \eqref{ConfusionMatrixTestImages:SVC} y \glsentryshort{cnn2d} \eqref{ConfusionMatrixTestImages:2D} no clasifican correctamente ninguna de las observaciones de accidentes fatales, mientras que \glsentryshort{knn} \eqref{ConfusionMatrixTestImages:KNN} clasifica uno y \glsentryshort{cnn1d} \eqref{ConfusionMatrixTestImages:1D} clasifica cinco. En lo que respecta a los accidentes leves el modelo \glsentryshort{cnn2d} \eqref{ConfusionMatrixTestImages:2D} es el que mayor número clasifica correctamente, al igual que los accidentes serios. Esto se debe a la naturaleza de las redes aplicada a la complejidad del problema, cada una de ellas encuentra patrones diferentes dependiendo de los mapas de características resultantes de las convoluciones de cada red.
 
     \begin{figure}[H]
         \centering
@@ -600,3 +600,5 @@
         \caption{Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.}
         \label{ResultsTestImage}
      \end{figure}
+
+     Como se puede comprobar en los resultados de los experimentos, las dos arquitecturas convolucionales propuestas superan en rendimiento al resto de modelos de referencia para cada una de las clases de accidentes (leve, severo y fatal). La ventaja de disponer de estas dos nuevas arquitecturas es que cada una de ellas funciona mejor dependiendo del tipo de clase a predecir. Esto permite diseñar un sistema Ensemble en el que se utilicen las dos redes entrenadas para combinar sus resultados, de tal forma que se utilizaría la red \glsentryshort{cnn1d} para predecir accidentes de carácter leve y fatal mientras que la red \glsentryshort{cnn2d} clasificaría los accidentes serios.
