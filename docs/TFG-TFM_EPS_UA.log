@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  11 JUN 2022 16:49
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  11 JUN 2022 18:49
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2456,15 +2456,15 @@ Package natbib Warning: Citation `TASPCNN' on page 1 undefined on input line 19
 chapter 2.
 
 Package natbib Warning: Citation `FactoresQueInfluyen2003' on page 3 undefined 
-on input line 30.
+on input line 23.
 
 
 Package natbib Warning: Citation `MotorcycleCrashesMultinominalStatistic' on pa
-ge 3 undefined on input line 30.
+ge 3 undefined on input line 23.
 
 
 Package natbib Warning: Citation `MetodosEstadisticosComparacionSVMOP' on page 
-3 undefined on input line 30.
+3 undefined on input line 23.
 
 [3
 
@@ -2472,87 +2472,87 @@ Package natbib Warning: Citation `MetodosEstadisticosComparacionSVMOP' on page
 ]
 
 Package natbib Warning: Citation `ArbolDecisionSeveridadDeAccidentes' on page 4
- undefined on input line 33.
+ undefined on input line 26.
 
 
 Package natbib Warning: Citation `LogisticRegressionPrediccionAccidentes' on pa
-ge 4 undefined on input line 33.
+ge 4 undefined on input line 26.
 
 
 Package natbib Warning: Citation `NSGAIIAccidentPrediction' on page 4 undefined
- on input line 35.
+ on input line 28.
 
 
 Package natbib Warning: Citation `GeneticProgrammingAccidents' on page 4 undefi
-ned on input line 35.
+ned on input line 28.
 
 
 Package natbib Warning: Citation `GAPSMLPANNAccidents' on page 4 undefined on i
-nput line 35.
+nput line 28.
 
 
 Package natbib Warning: Citation `SVMPSOAccidents' on page 4 undefined on input
- line 35.
+ line 28.
 
 
 Package natbib Warning: Citation `RedNeuronalAutopistaAccidentes' on page 4 und
-efined on input line 38.
+efined on input line 31.
 
 
 Package natbib Warning: Citation `ImageSegmentationCNNEA' on page 4 undefined o
-n input line 38.
+n input line 31.
 
 
 Package natbib Warning: Citation `ImageClassificationCNNEA' on page 4 undefined
- on input line 38.
+ on input line 31.
 
 
 Package natbib Warning: Citation `LanguageRecognitionCNNEA' on page 4 undefined
- on input line 38.
+ on input line 31.
 
 
 Package natbib Warning: Citation `OtraPrediccionConCNNs' on page 4 undefined on
- input line 38.
+ input line 31.
 
 
 Package natbib Warning: Citation `DeepInsight' on page 4 undefined on input lin
-e 38.
+e 31.
 
 
-Package natbib Warning: Citation `TASPCNN' on page 4 undefined on input line 38
+Package natbib Warning: Citation `TASPCNN' on page 4 undefined on input line 31
 .
 
 
 Package natbib Warning: Citation `CNNReviews' on page 4 undefined on input line
- 38.
+ 31.
 
 
 Package natbib Warning: Citation `MotorFailureCNN1D' on page 4 undefined on inp
-ut line 38.
+ut line 31.
 
 
 Package natbib Warning: Citation `CNN1DMedicalSignalEA' on page 4 undefined on 
-input line 38.
+input line 31.
 
 
 Package natbib Warning: Citation `ElectricSystemFailureCNN1D' on page 4 undefin
-ed on input line 38.
+ed on input line 31.
 
 
 Package natbib Warning: Citation `Conv1D_Survey' on page 4 undefined on input l
-ine 38.
+ine 31.
 
 
 Package natbib Warning: Citation `FaceRecognitionCNN2EA' on page 4 undefined on
- input line 38.
+ input line 31.
 
 
 Package natbib Warning: Citation `DocumentAnalysisCNN2DEA' on page 4 undefined 
-on input line 38.
+on input line 31.
 
 
 Package natbib Warning: Citation `WeatherClimateCNN2DEA' on page 4 undefined on
- input line 38.
+ input line 31.
 
 
 Underfull \vbox (badness 2173) has occurred while \output is active []
@@ -2560,38 +2560,34 @@ Underfull \vbox (badness 2173) has occurred while \output is active []
  [4]
 
 Package natbib Warning: Citation `DeteccionDeAccidentesPorTweets' on page 5 und
-efined on input line 40.
+efined on input line 33.
 
 
 Package natbib Warning: Citation `RNNAccidentSeverityPrediction' on page 5 unde
-fined on input line 40.
+fined on input line 33.
 
 File: archivos/2.EstadoArte/CNNExample.png Graphic file (type bmp)
 <archivos/2.EstadoArte/CNNExample.png>
 
 Package natbib Warning: Citation `CNNExampleEAImage' on page 5 undefined on inp
-ut line 46.
+ut line 39.
 
 
 Package natbib Warning: Citation `CNNExampleEAImage' on page 5 undefined on inp
-ut line 46.
+ut line 39.
 
 
 Package natbib Warning: Citation `ImportanciaDeBajaCalidadActualmenteDeDatasets
-' on page 5 undefined on input line 51.
+' on page 5 undefined on input line 44.
 
 
 Package natbib Warning: Citation `ItalianoMetricasDesbalanceo' on page 5 undefi
-ned on input line 51.
+ned on input line 44.
 
 
-Underfull \vbox (badness 2261) has occurred while \output is active []
+Package natbib Warning: Citation `MIT' on page 5 undefined on input line 48.
 
- [5]
-
-Package natbib Warning: Citation `MIT' on page 6 undefined on input line 55.
-
-) (capitulos/tecnologias.tex [6]
+) (capitulos/tecnologias.tex [5] [6]
 chapter 3.
 
 Underfull \hbox (badness 10000) in paragraph at lines 11--12
@@ -3175,7 +3171,8 @@ ndefined on input line 683.
 Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 39 u
 ndefined on input line 683.
 
-) (capitulos/resultados.tex [39] [40
+[39]) (capitulos/resultados.tex [40
+
 
 
 
@@ -3527,27 +3524,26 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [57] [58
 
 
-
 ]
 chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 15--16
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
 
  []
 
 
 Package natbib Warning: Citation `OpenRefine' on page 59 undefined on input lin
-e 31.
+e 29.
 
 [59]
 
 Package natbib Warning: Citation `AutoKeras' on page 60 undefined on input line
- 43.
+ 41.
 
 ) [60]
 No file TFG-TFM_EPS_UA.bbl.
