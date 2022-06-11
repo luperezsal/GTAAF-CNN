@@ -17,6 +17,10 @@
 \glossaryentry{SEA?\glossentry{sea}|setentrycounter[]{page}"\glsignore}{61}
 \glossaryentry{ML?\glossentry{ml}|setentrycounter[]{page}"\glsignore}{61}
 \glossaryentry{NSGA-II?\glossentry{nsgaii}|setentrycounter[]{page}"\glsignore}{61}
+\glossaryentry{PS?\glossentry{ps}|setentrycounter[]{page}"\glsignore}{61}
+\glossaryentry{MLP?\glossentry{mlp}|setentrycounter[]{page}"\glsignore}{61}
+\glossaryentry{ANN?\glossentry{ann}|setentrycounter[]{page}"\glsignore}{61}
+\glossaryentry{PSO?\glossentry{pso}|setentrycounter[]{page}"\glsignore}{61}
 \glossaryentry{LSTM?\glossentry{lstm}|setentrycounter[]{page}"\glsignore}{61}
 \glossaryentry{RNN?\glossentry{rnn}|setentrycounter[]{page}"\glsignore}{61}
 \glossaryentry{XGBoost?\glossentry{xgboost}|setentrycounter[]{page}"\glsignore}{61}

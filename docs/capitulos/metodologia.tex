@@ -11,6 +11,7 @@
 El desarrollo de este proyecto respeta tanto el proceso de desarrollo \textit{Software} como el ciclo de vida de proyectos de \textit{Ciencia de Datos}, por lo que se ha dividido en varias fases acontecidas que definiremos a continuación en base a la planificación mediante un \textit{Diagrama de Gantt}:
 
 Este diagrama proporciona una visión de las fases de un proyecto y su estimación temporal, figura \eqref{GranttImage}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{archivos/4.Metodologia/GranttImage}
@@ -36,15 +37,16 @@ A nivel funcional, la última fase de este proyecto ha sido la realización de e
 Finalmente hay que redactar la memoria, plasmando toda la información obtenida durante la evolución del proyecto.
 
 
+\clearpage
 
 \section{Fases}
 
-    En esta sección describiremos cada uno de los pasos que ha seguido el desarrollo del proyecto, desde la búsqueda inicial de datos hasta la implementación final de los algoritmos. Para ello, un aspecto muy importante en un TFM es el diagrama de flujo de la metodología. En este diagrama se define el flujo de ejecución del proyecto y, como se puede observar en la figura \eqref{DataflowImage}, se han dividido las etapas del proyecto en seis bloques claramente diferenciados. Cada uno de estos está orientado a una disciplina distinta en proyectos de \textit{Ciencia de Datos} y por lo tanto serán detallados en cada una de las subsecciones posteriores.
+    En esta sección describiremos cada uno de los pasos que ha seguido el desarrollo del proyecto, desde la búsqueda inicial de datos hasta la implementación final de los algoritmos. Para ello, un aspecto muy importante en un TFM es el diagrama de flujo de la metodología. En este diagrama se define el flujo de ejecución del proyecto y, como se puede observar en la figura \eqref{DataflowImage}, se han dividido las etapas del proyecto en seis bloques claramente diferenciados. Cada uno de estos está orientado a una disciplina distinta en proyectos de \textit{Ciencia de Datos} y por lo tanto serán detallados en cada una de las subsecciones posteriores.\\
 
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=15cm]{archivos/4.Metodologia/DataflowImageESP}
+        \includegraphics[width=13cm]{archivos/4.Metodologia/DataflowImageESP}
         \caption{Flujo de datos del proceso del proyecto.}
         \label{DataflowImage}
     \end{figure}
@@ -58,10 +60,10 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
             El conjunto de datos con el que se ha trabajado en este proyecto describe accidentes de tráfico de la ciudad de Madrid en un periodo concreto, desde el año 2019 hasta el 2022. Este dataset ha sido obtenido desde la web \cite{DatasetMadrid}, repositorio donde es posible encontrar distintos datasets relativos a la Comunidad de Madrid.
 
-            El número total de registros en este periodo de tiempo es de 60.966 instancias, cada una de las cuales consta de 17 características que se describirán en la tabla \eqref{DescripcionDatosTabla}:
+            El número total de registros en este periodo de tiempo es de 60.966 instancias, cada una de las cuales consta de 17 características que se describirán en la tabla \eqref{DescripcionDatosTabla}.
 
-            \renewcommand{\arraystretch}{1.5}
-            \begin{table}[H]
+            \renewcommand{\arraystretch}{1.2}
+            \begin{table}[h]
                 \small
                 \centering
                 \begin{tabular}{|c|L{0.7\textwidth}|}
@@ -375,7 +377,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             Con el objetivo de que el modelo no se vea muy afectado debido a la diferencia de las clases mayoritarias respecto a las minoritarias se hace necesaria la utilización de técnicas de remuestreo. Estas técnicas permiten operar sobre un conjunto de datos para balancearlos, y se aplican únicamente al conjunto de entrenamiento, ya que la intención  es influir sobre el aprendizaje del modelo para aumentar el rendimiento de las predicciones sobre el conjunto de test, si aplicásemos remuestreo sobre este último conjunto estaríamos falseando los resultados de las predicciones.
 
 
-            En este proyecto se ha hecho uso de la generación de datos sintéticos como método de remuestreo. Estos procedimientos permiten generar datos artificiales en base a los límites que separan unas clases de otras. Más concretamente, se ha utilizado la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Este método selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.\\
+            En este proyecto se ha hecho uso de la generación de datos sintéticos como método de remuestreo. Estos procedimientos permiten generar datos artificiales en base a los límites que separan unas clases de otras. Más concretamente, se ha utilizado la tećnica \glsentryfull{smoteii} \cite{SMOTEII}. Este método selecciona los vecinos más cercanos de la misma clase y genera nuevas muestras en base al espacio entre la clase minoritaria y sus vecinos más cercanos.
 
             \glsentryshort{smoteii} ha sido utilizado para generar más muestras artificiales de los accidentes pertenecientes a las clases minoritarias (\textit{severos} y \textit{graves}). Este nuevo conjunto de datos servirá como entrenamiento para los modelos, evitando que tiendan al sobreajuste. Una vez aplicado \glsentryshort{smoteii} se obtienen 42.508 muestras de cada una de las clases de accidentes. Es útil observar cuál es la representación espacial de los datos sintéticos generados por \glsentryshort{smoteii} en deferencia a los datos originales. Para esto, se ha utilizado el método \glsentryfull{tsne} \cite{TSNEPaper}, que permite visualizar las proyecciones de datos multidimensionales en espacios bidimensionales o tridimensionales. Este modelo debe su origen a su antecesor \glsentryfull{sne}, siendo una versión optmizada de éste. Mientras que \glsentryshort{sne} proyecta los datos convirtiendo las distancias Euclídeas, entre las muestras, a probabilidades condicionales, el \glsentryshort{tsne} modifica la función de coste para proyectarlos mediante una distribución t-Student, permitiendo trabajar con gradientes simplificados. En la figura \eqref{TSNEImages} se muestran las proyecciones de \glsentryshort{tsne} (tanto la representación bidimensional como la tridimensional) sobre el conjunto de datos de entrenamiento original y aquellos que han sido generados artificialmente por \glsentryshort{smoteii}.
 
@@ -398,6 +400,9 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
                     \label{TSNEImages:Train2D}
 
                 \end{subfigure}
+            \end{figure}%
+            \begin{figure}[H]\ContinuedFloat
+                \centering
                 \begin{subfigure}[b]{0.4\textwidth}
                     \centering
                     \includesvg[scale=0.4]{archivos/4.Metodologia/Datos/Resampling/TSNE/3d_tsne_clean}
@@ -568,9 +573,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
                 $K(X_1, X_2) = exp (- \frac{||X_1 - X_2||^2}{2 \sigma^2})$
             \end{center}
 
-            Donde $X_1$ y $X_2$ son los puntos que se medirán en base al kernel $K$, $||X_1 - X_2||$ es la distancia euclídea y $\sigma$ es la varianza.
-
-            \glsentryshort{svc} Ha sido entrenado en base a los datos de entrenamiento tabulares remuestrados por \glsentryshort{smoteii}.
+            Donde $X_1$ y $X_2$ son los puntos que se medirán en base al kernel $K$, $||X_1 - X_2||$ es la distancia euclídea y $\sigma$ es la varianza. \glsentryshort{svc} ha sido entrenado en base a los datos de entrenamiento tabulares remuestrados por \glsentryshort{smoteii}.
 
         \subsubsection{\glsentryfull{knn}}
 
@@ -613,7 +616,7 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             Para ejemplificar la arquitectura de las \glsentryshort{cnn} propuestas se muestra el caso de la \glsentryshort{cnn2d} en la figura \eqref{TASPCNNIMAGE}
 
 
-            \begin{figure}[h]
+            \begin{figure}[H]
                 \centering
                 \includegraphics[width=17cm]{archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN}
                 \caption{Arquitectura de la CNN-2D mostrando una  kernels aprendidos durante el entrenamiento.}
@@ -633,19 +636,19 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             \item Precisión: se trata el porcentaje de acierto al clasificar una clase. En el caso de este proyecto representa el porcentaje de accidentes correctos de una clase con respecto al total de accidentes predichos como dicha clase. Por ejemplo, de todos los accidentes identificados como leves, el porcentaje de los que eran leves realmente. Esta métrica se calcula dividiendo el total de verdaderos positivos respecto a la suma de verdaderos positvos y los falsos positivos.
 
                 \begin{center}
-                    $Precision = \frac{TP}{TP + FP}$
+                    Precision = $\frac{TP}{TP + FP}$
                 \end{center}
 
             \item Exhaustividad: se trata el porcentaje de identificaciones totales del modelo para una clase. Para este proyecto la exhaustividad representa el porcentaje identificaciones correctas para una clase de accidente. Por ejemplo, del total de accidentes leves, qué porcentaje de identificaciones correctas han sido predecidas por el modelo. El cálculo de esta métrica se basa en la división de verdaderos positivos con respecto a la suma de verdaderos positivos más los falsos negativos.
 
                 \begin{center}
-                    $Exhaustividad = \frac{TP}{TP + FN}$
+                    Exhaustividad = $\frac{TP}{TP + FN}$
                 \end{center}
 
             \item F1-Score: es una métrica que resume la precisión y exhaustividad en un solo valor para mostrar cómo de bien se realiza la clasificación de verdaderos positivos con respecto al coste de falsos negativos que esto conlleva. Es la métrica de clasificación más utilizada.
 
                 \begin{center}
-                    $F_{1} = 2 \cdot \frac{\text{Precision} \cdot \text{Exhaustividad}} {\text{Precisión} + \text{Exhaustividad}}$
+                    F1 Score = 2 $\cdot \frac{\text{Precision} \cdot \text{Exhaustividad}} {\text{Precisión} + \text{Exhaustividad}}$
                 \end{center}
 
         \end{enumerate}
@@ -657,11 +660,11 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
             Debido al desbalanceo de datos sobre el conjunto de test es necesario aplicar una función de pérdida que optimice el modelo sin tener en cuenta dicho desbalanceo. Las funciones de pérdida más comunes como la precisión total del modelo están orientadas a minimizar el error de clasificación del número total de clases. En este proyecto se usa la métrica Micro F1-score, que mide el rendimiento del modelo en función del total de clases en el conjunto de datos. En las siguientes ecuaciones se muestra cómo se calcula esta métrica en base a la micro precisión y la micro exhaustividad:
 
                 \begin{center}
-                    Micro Precision =  $\frac{ \sum_{n=1} ^ {clases} TP_i} {\sum_{n = 1} ^ {clases} TP_i + \sum_{n = 1} ^ {clases} FP_i}$
+                    Micro Precision =  $\frac{ \sum_{i=1} ^ {n} TP_i} {\sum_{i = 1} ^ {n} TP_i + \sum_{i = 1} ^ {n} FP_i}$
                 \end{center}
 
                 \begin{center}
-                    Micro Exhaustividad = $\frac{ \sum_{n=1} ^ {clases} TP_i} {\sum_{n = 1} ^ {clases} TP_i + \sum_{n = 1} ^ {clases} FN_i}$
+                    Micro Exhaustividad = $\frac{ \sum_{i=1} ^ {n} TP_i} {\sum_{i = 1} ^ {n} TP_i + \sum_{i = 1} ^ {n} FN_i}$
                 \end{center}
 
                 \begin{center}
@@ -674,11 +677,9 @@ Finalmente hay que redactar la memoria, plasmando toda la información obtenida 
 
         En la figura \eqref{MatrizConfusionExampleImage} se puede observar el esquema que sigue una matriz de confusión en base a dos posibles valores a predecir (verdadero y negativo). Las muestras clasificadas erróneamente se considerarán falsos positivos o falsos negativos en función de cómo el modelo clasifica las observaciones.
 
-        \begin{figure}[h]
+        \begin{figure}[H]
             \centering
             \includegraphics[width=8cm]{archivos/4.Metodologia/Metricas/MatrizConfusion}
             \caption{Ejemplo de matriz de confusión \cite{MatrizConfusionReferenciaImagen}.}
             \label{MatrizConfusionExampleImage}
          \end{figure}
-
-\newpage

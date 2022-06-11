@@ -1,45 +1,47 @@
 \selectlanguage *{spanish}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Ejemplo de una red neuronal convolucional para una tarea de clasificación \cite {CNNExampleEAImage}.\relax }}{5}{figure.caption.4}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Inicialización de la población. Cada individuo está constituido por n variables.\relax }}{8}{figure.caption.4}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Selección de padres candidatos.\relax }}{8}{figure.caption.5}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Procesos de cruce y mutación.\relax }}{9}{figure.caption.6}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Proceso de optimización de XGBoost.\relax }}{10}{figure.caption.7}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces ISLR2. Ejemplo de SVC con distintos valores de C.\relax }}{12}{figure.caption.8}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Arquitectura de una Red Neuronal \cite {ReferenciaImagenNN}.\relax }}{13}{figure.caption.9}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdadera (derecha) \cite {Cross-Entropy}.\relax }}{14}{figure.caption.10}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Aplicación de un kernel de dimensión 2x2 a una matriz con stride = 1 \cite {ReferenciaImagenStrides}.\relax }}{15}{figure.caption.11}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Proceso de convolucion de un kernel 3x3 sobre una entrada de 6x6 aplicando padding \cite {ReferenciaImagenKernelFiltro}.\relax }}{16}{figure.caption.12}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Ejemplo de ReLU aplicado a una convolución de dos dimensiones \cite {CNNReLUImage}.\relax }}{16}{figure.caption.13}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Arquitectura de una red convolucional de una dimensión con dos capas convolucionales y una salida \cite {CNN1DArchitectureImage}.\relax }}{17}{figure.caption.14}%
-\contentsline {figure}{\numberline {3.12}{\ignorespaces A la entrada de la red (izquierda) se aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha) \cite {CNN1DImage}.\relax }}{17}{figure.caption.15}%
-\contentsline {figure}{\numberline {3.13}{\ignorespaces KNN aplicado con distintos valores de $k$ \cite {ReferenciaKNNImagen}.\relax }}{18}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Inicialización de la población. Cada individuo está constituido por n variables.\relax }}{8}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Selección de padres candidatos.\relax }}{8}{figure.caption.6}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Procesos de cruce y mutación.\relax }}{9}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Proceso de optimización de XGBoost.\relax }}{10}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces ISLR2. Ejemplo de SVC con distintos valores de C.\relax }}{12}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Arquitectura de una Red Neuronal \cite {ReferenciaImagenNN}.\relax }}{13}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Cross-Entropy entre la función Softmax (izquierda) y el valor de la clase verdadera (derecha) \cite {Cross-Entropy}.\relax }}{14}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Aplicación de un kernel de dimensión 2x2 a una matriz con stride = 1 \cite {ReferenciaImagenStrides}.\relax }}{15}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Proceso de convolucion de un kernel 3x3 sobre una entrada de 6x6 aplicando padding \cite {ReferenciaImagenKernelFiltro}.\relax }}{16}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Ejemplo de ReLU aplicado a una convolución de dos dimensiones \cite {CNNReLUImage}.\relax }}{16}{figure.caption.14}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Arquitectura de una red convolucional de una dimensión con dos capas convolucionales y una salida \cite {CNN1DArchitectureImage}.\relax }}{17}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces A la entrada de la red (izquierda) se aplica un kernel (en el centro) que resulta en la convolución de un mapa de características (derecha) \cite {CNN1DImage}.\relax }}{17}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces KNN aplicado con distintos valores de $k$ \cite {ReferenciaKNNImagen}.\relax }}{18}{figure.caption.17}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Diagrama de Gantt de la planificación del proyecto.\relax }}{21}{figure.caption.17}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Flujo de datos del proceso del proyecto.\relax }}{23}{figure.caption.18}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Histograma de clases de accidente en el conjunto de datos original.\relax }}{28}{figure.caption.21}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{29}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces División de un conjunto de datos en datos de entrenamiento y test \cite {TrainTestSplitImage}.\relax }}{30}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces T-SNE de 2 y 3 componentes aplicado a los datos originales y a los generados sintéticamente (SMOTE-II).\relax }}{32}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Ejemplo de posicionamiento de los elementos en una matriz. A las características se les asignan las filas en función de su peso y a las categorías hijas una columna dentro de la categoría correspondiente en función de su peso.\relax }}{36}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Función ReLU \cite {CNNReLUImage}.\relax }}{38}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Arquitectura de la CNN-2D mostrando una kernels aprendidos durante el entrenamiento.\relax }}{38}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Ejemplo de matriz de confusión \cite {MatrizConfusionReferenciaImagen}.\relax }}{40}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Diagrama de Gantt de la planificación del proyecto.\relax }}{21}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Flujo de datos del proceso del proyecto.\relax }}{23}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Histograma de clases de accidente en el conjunto de datos original.\relax }}{28}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Matriz de correlación para los predictores escogidos del dataset.\relax }}{29}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces División de un conjunto de datos en datos de entrenamiento y test \cite {TrainTestSplitImage}.\relax }}{30}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces T-SNE de 2 y 3 componentes aplicado a los datos originales y a los generados sintéticamente (SMOTE-II).\relax }}{32}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Ejemplo de posicionamiento de los elementos en una matriz. A las características se les asignan las filas en función de su peso y a las categorías hijas una columna dentro de la categoría correspondiente en función de su peso.\relax }}{35}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Función ReLU \cite {CNNReLUImage}.\relax }}{37}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Arquitectura de la CNN-2D mostrando una kernels aprendidos durante el entrenamiento.\relax }}{38}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Ejemplo de matriz de confusión \cite {MatrizConfusionReferenciaImagen}.\relax }}{39}{figure.caption.32}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{41}{figure.caption.31}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{42}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Proceso que sigue una muestra del conjunto de datos tipificada hasta llegar a una matriz (a $\rightarrow $ b $\rightarrow $ c $\rightarrow $ d).\relax }}{44}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Tres matrices de accidentes representadas como imágenes.\relax }}{45}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparación de tiempo de entrenamiento entre las redes neuronales convolucionales.\relax }}{46}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-1D.\relax }}{47}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-2D.\relax }}{47}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Matrices de confusión para las redes neuronales convolucionales.\relax }}{49}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento y test de los modelos.\relax }}{50}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparación entre los tiempos de entrenamiento de los modelos.\relax }}{51}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{53}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.\relax }}{54}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de test.\relax }}{56}{figure.caption.48}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.\relax }}{57}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Evolución de hiperparámetros a lo largo de las iteraciones.\relax }}{41}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Pesos asignados por XGboost a las características.\relax }}{42}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Proceso que sigue una muestra del conjunto de datos tipificada hasta llegar a una matriz (a $\rightarrow $ b $\rightarrow $ c $\rightarrow $ d).\relax }}{44}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Tres matrices de accidentes representadas como imágenes.\relax }}{44}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparación de tiempo de entrenamiento entre las redes neuronales convolucionales.\relax }}{45}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-1D.\relax }}{46}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Evolución de Micro F1-score sobre el conjunto de entrenamiento y validación CNN-2D.\relax }}{46}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Métricas de clasificación para las redes neuronales convolucionales.\relax }}{47}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Matrices de confusión para las redes neuronales convolucionales.\relax }}{48}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento y test de los modelos.\relax }}{49}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Comparación entre los tiempos de entrenamiento de los modelos.\relax }}{50}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de entrenamiento.\relax }}{52}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de entrenamiento de los modelos.\relax }}{53}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Matrices de confusión de los modelos sobre el conjunto de test.\relax }}{55}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Comparativa de las métricas de las predicciones sobre el conjunto de test de los modelos.\relax }}{56}{figure.caption.53}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

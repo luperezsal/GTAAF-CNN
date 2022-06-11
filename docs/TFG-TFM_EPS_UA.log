@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  11 JUN 2022 00:17
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.5.19)  11 JUN 2022 16:49
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2375,48 +2375,52 @@ LaTeX Info: Redefining \sffamily on input line 1.
 LaTeX Info: Redefining \ttfamily on input line 1.
 
 
+Package natbib Warning: Citation `CNNExampleEAImage' on page vii undefined on i
+nput line 4.
+
+
 Package natbib Warning: Citation `ReferenciaImagenNN' on page vii undefined on 
-input line 10.
+input line 11.
 
 
 Package natbib Warning: Citation `Cross-Entropy' on page vii undefined on input
- line 11.
+ line 12.
 
 
 Package natbib Warning: Citation `ReferenciaImagenStrides' on page vii undefine
-d on input line 12.
+d on input line 13.
 
 
 Package natbib Warning: Citation `ReferenciaImagenKernelFiltro' on page vii und
-efined on input line 13.
+efined on input line 14.
 
 
 Package natbib Warning: Citation `CNNReLUImage' on page vii undefined on input 
-line 14.
+line 15.
 
 
 Package natbib Warning: Citation `CNN1DArchitectureImage' on page vii undefined
- on input line 15.
+ on input line 16.
 
 
 Package natbib Warning: Citation `CNN1DImage' on page vii undefined on input li
-ne 16.
+ne 17.
 
 
 Package natbib Warning: Citation `ReferenciaKNNImagen' on page vii undefined on
- input line 17.
+ input line 18.
 
 
 Package natbib Warning: Citation `TrainTestSplitImage' on page vii undefined on
- input line 23.
+ input line 24.
 
 
 Package natbib Warning: Citation `CNNReLUImage' on page vii undefined on input 
-line 26.
+line 27.
 
 
 Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page vii 
-undefined on input line 28.
+undefined on input line 29.
 
 [7
 
@@ -2483,36 +2487,111 @@ Package natbib Warning: Citation `GeneticProgrammingAccidents' on page 4 undefi
 ned on input line 35.
 
 
+Package natbib Warning: Citation `GAPSMLPANNAccidents' on page 4 undefined on i
+nput line 35.
+
+
+Package natbib Warning: Citation `SVMPSOAccidents' on page 4 undefined on input
+ line 35.
+
+
 Package natbib Warning: Citation `RedNeuronalAutopistaAccidentes' on page 4 und
-efined on input line 37.
+efined on input line 38.
+
+
+Package natbib Warning: Citation `ImageSegmentationCNNEA' on page 4 undefined o
+n input line 38.
+
+
+Package natbib Warning: Citation `ImageClassificationCNNEA' on page 4 undefined
+ on input line 38.
+
+
+Package natbib Warning: Citation `LanguageRecognitionCNNEA' on page 4 undefined
+ on input line 38.
 
 
 Package natbib Warning: Citation `OtraPrediccionConCNNs' on page 4 undefined on
- input line 37.
+ input line 38.
 
 
-Package natbib Warning: Citation `DeteccionDeAccidentesPorTweets' on page 4 und
-efined on input line 37.
+Package natbib Warning: Citation `DeepInsight' on page 4 undefined on input lin
+e 38.
 
 
-Package natbib Warning: Citation `RNNAccidentSeverityPrediction' on page 4 unde
-fined on input line 37.
+Package natbib Warning: Citation `TASPCNN' on page 4 undefined on input line 38
+.
+
+
+Package natbib Warning: Citation `CNNReviews' on page 4 undefined on input line
+ 38.
+
+
+Package natbib Warning: Citation `MotorFailureCNN1D' on page 4 undefined on inp
+ut line 38.
+
+
+Package natbib Warning: Citation `CNN1DMedicalSignalEA' on page 4 undefined on 
+input line 38.
+
+
+Package natbib Warning: Citation `ElectricSystemFailureCNN1D' on page 4 undefin
+ed on input line 38.
+
+
+Package natbib Warning: Citation `Conv1D_Survey' on page 4 undefined on input l
+ine 38.
+
+
+Package natbib Warning: Citation `FaceRecognitionCNN2EA' on page 4 undefined on
+ input line 38.
+
+
+Package natbib Warning: Citation `DocumentAnalysisCNN2DEA' on page 4 undefined 
+on input line 38.
+
+
+Package natbib Warning: Citation `WeatherClimateCNN2DEA' on page 4 undefined on
+ input line 38.
+
+
+Underfull \vbox (badness 2173) has occurred while \output is active []
+
+ [4]
+
+Package natbib Warning: Citation `DeteccionDeAccidentesPorTweets' on page 5 und
+efined on input line 40.
+
+
+Package natbib Warning: Citation `RNNAccidentSeverityPrediction' on page 5 unde
+fined on input line 40.
+
+File: archivos/2.EstadoArte/CNNExample.png Graphic file (type bmp)
+<archivos/2.EstadoArte/CNNExample.png>
+
+Package natbib Warning: Citation `CNNExampleEAImage' on page 5 undefined on inp
+ut line 46.
+
+
+Package natbib Warning: Citation `CNNExampleEAImage' on page 5 undefined on inp
+ut line 46.
 
 
 Package natbib Warning: Citation `ImportanciaDeBajaCalidadActualmenteDeDatasets
-' on page 4 undefined on input line 40.
+' on page 5 undefined on input line 51.
 
 
-Package natbib Warning: Citation `ItalianoMetricasDesbalanceo' on page 4 undefi
-ned on input line 40.
+Package natbib Warning: Citation `ItalianoMetricasDesbalanceo' on page 5 undefi
+ned on input line 51.
 
 
-Package natbib Warning: Citation `MIT' on page 4 undefined on input line 44.
+Underfull \vbox (badness 2261) has occurred while \output is active []
 
-) (capitulos/tecnologias.tex [4] [5] [6
+ [5]
 
+Package natbib Warning: Citation `MIT' on page 6 undefined on input line 55.
 
-]
+) (capitulos/tecnologias.tex [6]
 chapter 3.
 
 Underfull \hbox (badness 10000) in paragraph at lines 11--12
@@ -2537,7 +2616,10 @@ File: archivos/3.Tecnologias/GA/InitialPopulation.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7]
+[7
+
+
+]
 File: archivos/3.Tecnologias/GA/FitnessFunction.png Graphic file (type bmp)
 <archivos/3.Tecnologias/GA/FitnessFunction.png>
 File: archivos/3.Tecnologias/GA/ParentsMatingMutation.png Graphic file (type bm
@@ -2848,21 +2930,23 @@ File: archivos/4.Metodologia/GranttImage.png Graphic file (type bmp)
 [21
 
 
-]
+] [22]
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+
+ []
+
 File: archivos/4.Metodologia/DataflowImageESP.png Graphic file (type bmp)
 <archivos/4.Metodologia/DataflowImageESP.png>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [22]
-
 Package natbib Warning: Citation `LifecycleDataScienceProjectsTimes' on page 23
- undefined on input line 57.
+ undefined on input line 59.
 
-[23]
+[23
+
+]
 
 Package natbib Warning: Citation `DatasetMadrid' on page 24 undefined on input 
-line 59.
+line 61.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2870,74 +2954,74 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [24]
 
 Package natbib Warning: Citation `InfoDatasetMadrid' on page 25 undefined on in
-put line 174.
+put line 176.
 
 [25]
 
 Package natbib Warning: Citation `RegeXBook' on page 26 undefined on input line
- 197.
+ 199.
 
 [26]
-Overfull \hbox (54.01965pt too wide) in paragraph at lines 218--262
+Overfull \hbox (54.01965pt too wide) in paragraph at lines 220--264
 [][] 
  []
 
 
-Overfull \hbox (54.89964pt too wide) in paragraph at lines 264--309
+Overfull \hbox (54.89964pt too wide) in paragraph at lines 266--311
 [][] 
  []
 
 [27]
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
-
- []
-
-
-Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 28 undef
-ined on input line 321.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 321--322
 
  []
 
 
+Package natbib Warning: Citation `WhyImbalancedDataIsAProblem' on page 28 undef
+ined on input line 323.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 323--324
+
+ []
+
+
 Package natbib Warning: Citation `ImbalancedDataReview' on page 28 undefined on
- input line 323.
+ input line 325.
 
 Package svg Info: Last page of `./svg-inkscape/OriginalDataHistogram_svg-tex.pd
-f' is 1 on input line 328.
+f' is 1 on input line 330.
 (svg-inkscape/OriginalDataHistogram_svg-tex.pdf_tex
 File: ./svg-inkscape/OriginalDataHistogram_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/OriginalDataHistogram_svg-tex.pdf, page 1>
 )
 
 Package natbib Warning: Citation `PearsonCoefficientCorrelationMatrix' on page 
-28 undefined on input line 333.
+28 undefined on input line 335.
 
 [28]
 Package svg Info: Last page of `./svg-inkscape/CorrelationMatrix_svg-tex.pdf' i
-s 1 on input line 339.
+s 1 on input line 341.
  (svg-inkscape/CorrelationMatrix_svg-tex.pdf_tex
 File: ./svg-inkscape/CorrelationMatrix_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/CorrelationMatrix_svg-tex.pdf, page 1>
 )
 
 Package natbib Warning: Citation `NormalizationSensitiveModels' on page 29 unde
-fined on input line 347.
+fined on input line 349.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 349--350
 
  []
 
 [29]
 
 Package natbib Warning: Citation `DataNormalizationInvestigation' on page 30 un
-defined on input line 349.
+defined on input line 351.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 355--356
+Underfull \hbox (badness 10000) in paragraph at lines 357--358
 
  []
 
@@ -2946,63 +3030,58 @@ bmp)
 <archivos/4.Metodologia/Datos/Separacion/DataSplit.png>
 
 Package natbib Warning: Citation `TrainTestSplitImage' on page 30 undefined on 
-input line 364.
+input line 366.
 
 
 Package natbib Warning: Citation `TrainTestSplitImage' on page 30 undefined on 
-input line 364.
+input line 366.
 
 [30]
 
 Package natbib Warning: Citation `SMOTEII' on page 31 undefined on input line 3
-78.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
-
- []
+80.
 
 
 Package natbib Warning: Citation `TSNEPaper' on page 31 undefined on input line
- 380.
+ 382.
 
 Package svg Info: Last page of `./svg-inkscape/2d_tsne_clean_svg-tex.pdf' is 1 
-on input line 389.
+on input line 391.
 (svg-inkscape/2d_tsne_clean_svg-tex.pdf_tex
 File: ./svg-inkscape/2d_tsne_clean_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/2d_tsne_clean_svg-tex.pdf, page 1>
 )
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 389--390
+Overfull \hbox (25.94852pt too wide) in paragraph at lines 391--392
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/2d_tsne_train_svg-tex.pdf' is 1 
-on input line 396.
+on input line 398.
 (svg-inkscape/2d_tsne_train_svg-tex.pdf_tex
 File: ./svg-inkscape/2d_tsne_train_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/2d_tsne_train_svg-tex.pdf, page 1>
 )
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 396--397
+Overfull \hbox (25.94852pt too wide) in paragraph at lines 398--399
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/3d_tsne_clean_svg-tex.pdf' is 1 
-on input line 403.
+on input line 408.
 (svg-inkscape/3d_tsne_clean_svg-tex.pdf_tex
 File: ./svg-inkscape/3d_tsne_clean_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/3d_tsne_clean_svg-tex.pdf, page 1>
 )
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 403--404
+Overfull \hbox (25.94852pt too wide) in paragraph at lines 408--409
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/3d_tsne_train_svg-tex.pdf' is 1 
-on input line 409.
+on input line 414.
 (svg-inkscape/3d_tsne_train_svg-tex.pdf_tex
 File: ./svg-inkscape/3d_tsne_train_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/3d_tsne_train_svg-tex.pdf, page 1>
 )
-Overfull \hbox (25.94852pt too wide) in paragraph at lines 409--410
+Overfull \hbox (25.94852pt too wide) in paragraph at lines 414--415
  [][] 
  []
 
@@ -3010,83 +3089,78 @@ Overfull \hbox (25.94852pt too wide) in paragraph at lines 409--410
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [31]
-Underfull \hbox (badness 10000) in paragraph at lines 422--423
+Underfull \hbox (badness 10000) in paragraph at lines 427--428
 
  []
 
 
 Package natbib Warning: Citation `GAXGBoostPaper' on page 32 undefined on input
- line 424.
+ line 429.
 
 [32]
 Missing character: There is no ṕ in font [lmroman10-regular]:mapping=tex-text;!
 
 Package natbib Warning: Citation `XGBoostFeatureWeightsMeaning' on page 33 unde
-fined on input line 466.
+fined on input line 471.
+
+
+Package natbib Warning: Citation `TASPCNN' on page 33 undefined on input line 4
+77.
 
 [33]
 
-Package natbib Warning: Citation `TASPCNN' on page 34 undefined on input line 4
-72.
-
-
 Package natbib Warning: Citation `JerarquiaImagenes' on page 34 undefined on in
-put line 474.
+put line 479.
 
 [34]
 File: archivos/4.Metodologia/Matrices/FV2I.png Graphic file (type bmp)
 <archivos/4.Metodologia/Matrices/FV2I.png>
-
-Underfull \vbox (badness 7415) has occurred while \output is active []
-
  [35]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\glsspace' on input line 556.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\glsspace' on input line 561.
 
-[36]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\glsspace' on input line 575.
+(hyperref)                removing `\glsspace' on input line 566.
 
 
-Package natbib Warning: Citation `GridSearchSklearnLibrary' on page 37 undefine
-d on input line 579.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\glsspace' on input line 578.
 
+
+Package natbib Warning: Citation `GridSearchSklearnLibrary' on page 36 undefine
+d on input line 582.
+
+[36]
 
 Package natbib Warning: Citation `GradientVanishingRelu' on page 37 undefined o
-n input line 592.
+n input line 595.
 
-[37]
 File: archivos/4.Metodologia/Modelos/CNN/RELUImage.png Graphic file (type bmp)
 <archivos/4.Metodologia/Modelos/CNN/RELUImage.png>
 
+Package natbib Warning: Citation `CNNReLUImage' on page 37 undefined on input l
+ine 609.
 
-Package natbib Warning: Citation `CNNReLUImage' on page 38 undefined on input l
-ine 606.
 
-
-Package natbib Warning: Citation `CNNReLUImage' on page 38 undefined on input l
-ine 606.
+Package natbib Warning: Citation `CNNReLUImage' on page 37 undefined on input l
+ine 609.
 
 File: archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN.png Graphic file (type bmp)
 
 <archivos/4.Metodologia/Modelos/CNN/2D/TASPCNN.png>
 
-Overfull \hbox (42.67911pt too wide) in paragraph at lines 618--619
+Overfull \hbox (42.67911pt too wide) in paragraph at lines 621--622
  [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 8113) has occurred while \output is active []
 
- [38]
-[39]
-Underfull \hbox (badness 10000) in paragraph at lines 673--674
+ [37]
+[38]
+Underfull \hbox (badness 10000) in paragraph at lines 676--677
 
  []
 
@@ -3094,62 +3168,62 @@ File: archivos/4.Metodologia/Metricas/MatrizConfusion.png Graphic file (type bm
 p)
 <archivos/4.Metodologia/Metricas/MatrizConfusion.png>
 
-Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 40 u
-ndefined on input line 680.
+Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 39 u
+ndefined on input line 683.
 
 
-Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 40 u
-ndefined on input line 680.
+Package natbib Warning: Citation `MatrizConfusionReferenciaImagen' on page 39 u
+ndefined on input line 683.
 
-[40]) (capitulos/resultados.tex
+) (capitulos/resultados.tex [39] [40
+
+
+
+]
 chapter 5.
 Package svg Info: Last page of `./svg-inkscape/EvolucionHiperparametros_svg-tex
-.pdf' is 1 on input line 19.
+.pdf' is 1 on input line 21.
 (svg-inkscape/EvolucionHiperparametros_svg-tex.pdf_tex
 File: ./svg-inkscape/EvolucionHiperparametros_svg-tex.pdf Graphic file (type pd
 f)
 <use ./svg-inkscape/EvolucionHiperparametros_svg-tex.pdf, page 1>
 )
-Underfull \vbox (badness 2050) has occurred while \output is active []
 
- [41
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [41]
 Package svg Info: Last page of `./svg-inkscape/FeatureWeights_svg-tex.pdf' is 1
- on input line 50.
+ on input line 55.
 
 (svg-inkscape/FeatureWeights_svg-tex.pdf_tex
 File: ./svg-inkscape/FeatureWeights_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/FeatureWeights_svg-tex.pdf, page 1>
 )
-Overfull \hbox (22.5867pt too wide) in paragraph at lines 50--51
- [][] 
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [42]
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
-(subcaption)                 on input line 106.
+(subcaption)                 on input line 120.
 
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
-(subcaption)                 on input line 117.
+(subcaption)                 on input line 131.
 
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
-(subcaption)                 on input line 124.
+(subcaption)                 on input line 142.
 
 
-Overfull \hbox (15.32368pt too wide) in paragraph at lines 135--137
+Overfull \hbox (15.32368pt too wide) in paragraph at lines 153--155
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/accidente_fatal_svg-tex.pdf' is 
-1 on input line 143.
+1 on input line 161.
 (svg-inkscape/accidente_fatal_svg-tex.pdf_tex
 File: ./svg-inkscape/accidente_fatal_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/accidente_fatal_svg-tex.pdf, page 1>
@@ -3159,68 +3233,64 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [43]
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
-(subcaption)                 on input line 158.
+(subcaption)                 on input line 177.
 
 
-Overfull \hbox (15.32368pt too wide) in paragraph at lines 169--170
+Overfull \hbox (15.32368pt too wide) in paragraph at lines 188--189
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/accidente_leve_svg-tex.pdf' is 1
- on input line 176.
+ on input line 195.
 (svg-inkscape/accidente_leve_svg-tex.pdf_tex
 File: ./svg-inkscape/accidente_leve_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/accidente_leve_svg-tex.pdf, page 1>
 )
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
-(subcaption)                 on input line 181.
+(subcaption)                 on input line 200.
 
 
-Overfull \hbox (15.32368pt too wide) in paragraph at lines 192--193
+Overfull \hbox (15.32368pt too wide) in paragraph at lines 211--212
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/accidente_severo_svg-tex.pdf' is
- 1 on input line 199.
+ 1 on input line 218.
 (svg-inkscape/accidente_severo_svg-tex.pdf_tex
 File: ./svg-inkscape/accidente_severo_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/accidente_severo_svg-tex.pdf, page 1>
 )
 
 Package subcaption Warning: `subtable' is treated as `subfigure'
-(subcaption)                 on input line 204.
+(subcaption)                 on input line 223.
 
 
-Overfull \hbox (15.32368pt too wide) in paragraph at lines 215--216
+Overfull \hbox (15.32368pt too wide) in paragraph at lines 234--235
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/accidente_fatal_svg-tex.pdf' is 
-1 on input line 222.
+1 on input line 241.
 (svg-inkscape/accidente_fatal_svg-tex.pdf_tex
 File: ./svg-inkscape/accidente_fatal_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/accidente_fatal_svg-tex.pdf, page 1>
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [44]
-[45]
+) [44]
 File: archivos/5.Resultados/only_cnns_times.png Graphic file (type bmp)
 <archivos/5.Resultados/only_cnns_times.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
+Underfull \hbox (badness 10000) in paragraph at lines 284--285
 
  []
 
 Package svg Info: Last page of `./svg-inkscape/F1Score1D_svg-tex.pdf' is 1 on i
-nput line 270.
+nput line 289.
 (svg-inkscape/F1Score1D_svg-tex.pdf_tex
 File: ./svg-inkscape/F1Score1D_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/F1Score1D_svg-tex.pdf, page 1>
-)
+) [45]
 Package svg Info: Last page of `./svg-inkscape/F1Score2D_svg-tex.pdf' is 1 on i
-nput line 276.
+nput line 295.
 
 (svg-inkscape/F1Score2D_svg-tex.pdf_tex
 File: ./svg-inkscape/F1Score2D_svg-tex.pdf Graphic file (type pdf)
@@ -3229,37 +3299,51 @@ File: ./svg-inkscape/F1Score2D_svg-tex.pdf Graphic file (type pdf)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [46]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [47]
-Overfull \hbox (2.72319pt too wide) in paragraph at lines 293--294
+Package subcaption Warning: `subtable' is treated as `subfigure'
+(subcaption)                 on input line 311.
+
+
+Overfull \hbox (2.72319pt too wide) in paragraph at lines 312--313
 [][] 
  []
 
 
-Overfull \hbox (2.72319pt too wide) in paragraph at lines 300--301
+Package subcaption Warning: `subtable' is treated as `subfigure'
+(subcaption)                 on input line 317.
+
+
+Overfull \hbox (2.72319pt too wide) in paragraph at lines 319--320
  [][] 
  []
 
 
-Overfull \hbox (11.776pt too wide) in paragraph at lines 292--317
+Package subcaption Warning: `subtable' is treated as `subfigure'
+(subcaption)                 on input line 324.
+
+
+Package subcaption Warning: `subtable' is treated as `subfigure'
+(subcaption)                 on input line 330.
+
+
+Overfull \hbox (11.776pt too wide) in paragraph at lines 311--336
 [][]   []
  []
 
 
-Overfull \hbox (9.776pt too wide) in paragraph at lines 292--317
+Overfull \hbox (9.776pt too wide) in paragraph at lines 311--336
 []   [] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/1DConfusionMatrixTrain_svg-tex.p
-df' is 1 on input line 329.
+df' is 1 on input line 348.
 (svg-inkscape/1DConfusionMatrixTrain_svg-tex.pdf_tex
 File: ./svg-inkscape/1DConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
 
 <use ./svg-inkscape/1DConfusionMatrixTrain_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/2DConfusionMatrixTrain_svg-tex.p
-df' is 1 on input line 335.
+df' is 1 on input line 354.
 
 (svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf_tex
 File: ./svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
@@ -3267,14 +3351,14 @@ File: ./svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/1DConfusionMatrixTest_svg-tex.pd
-f' is 1 on input line 341.
+f' is 1 on input line 360.
 
 (svg-inkscape/1DConfusionMatrixTest_svg-tex.pdf_tex
 File: ./svg-inkscape/1DConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/1DConfusionMatrixTest_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/2DConfusionMatrixTest_svg-tex.pd
-f' is 1 on input line 348.
+f' is 1 on input line 367.
 
 (svg-inkscape/2DConfusionMatrixTest_svg-tex.pdf_tex
 File: ./svg-inkscape/2DConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
@@ -3282,68 +3366,67 @@ File: ./svg-inkscape/2DConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [48]
+ [47]
+[48]
 File: archivos/5.Resultados/ComparativaCNNTrain.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaCNNTrain.png>
 
-Overfull \hbox (79.67041pt too wide) in paragraph at lines 362--363
+Overfull \hbox (79.67041pt too wide) in paragraph at lines 384--386
 [][] 
  []
 
 File: archivos/5.Resultados/ComparativaCNNTest.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaCNNTest.png>
 
-Overfull \hbox (79.67041pt too wide) in paragraph at lines 369--370
+Overfull \hbox (79.67041pt too wide) in paragraph at lines 392--393
  [][] 
  []
 
+[49
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [49]
-[50]
+]
 File: archivos/5.Resultados/TiemposEntrenamiento.png Graphic file (type bmp)
 <archivos/5.Resultados/TiemposEntrenamiento.png>
-
-Overfull \hbox (2.72319pt too wide) in paragraph at lines 413--414
+ [50]
+Overfull \hbox (2.72319pt too wide) in paragraph at lines 436--437
 [][] 
  []
 
 
-Overfull \hbox (2.72319pt too wide) in paragraph at lines 419--420
+Overfull \hbox (2.72319pt too wide) in paragraph at lines 442--443
 [][] 
  []
 
 
-Overfull \hbox (2.72319pt too wide) in paragraph at lines 426--427
+Overfull \hbox (2.72319pt too wide) in paragraph at lines 449--450
  [][] 
  []
 
 
-Overfull \hbox (2.72319pt too wide) in paragraph at lines 432--433
+Overfull \hbox (2.72319pt too wide) in paragraph at lines 455--456
 [][] 
  []
 
 
-Overfull \hbox (11.776pt too wide) in paragraph at lines 412--444
+Overfull \hbox (11.776pt too wide) in paragraph at lines 435--467
 [][]   []
  []
 
 
-Overfull \hbox (11.776pt too wide) in paragraph at lines 412--444
+Overfull \hbox (11.776pt too wide) in paragraph at lines 435--467
 []   []
  []
 
 [51]
 Package svg Info: Last page of `./svg-inkscape/1DConfusionMatrixTrain_svg-tex.p
-df' is 1 on input line 455.
+df' is 1 on input line 480.
  (svg-inkscape/1DConfusionMatrixTrain_svg-tex.pdf_tex
 File: ./svg-inkscape/1DConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
 
 <use ./svg-inkscape/1DConfusionMatrixTrain_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/2DConfusionMatrixTrain_svg-tex.p
-df' is 1 on input line 461.
+df' is 1 on input line 486.
 
 (svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf_tex
 File: ./svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
@@ -3351,7 +3434,7 @@ File: ./svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/2DConfusionMatrixTrain_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/NBConfusionMatrixTrain_svg-tex.p
-df' is 1 on input line 467.
+df' is 1 on input line 492.
 
 (svg-inkscape/NBConfusionMatrixTrain_svg-tex.pdf_tex
 File: ./svg-inkscape/NBConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
@@ -3359,7 +3442,7 @@ File: ./svg-inkscape/NBConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/NBConfusionMatrixTrain_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/KNNConfusionMatrixTrain_svg-tex.
-pdf' is 1 on input line 473.
+pdf' is 1 on input line 498.
 
 (svg-inkscape/KNNConfusionMatrixTrain_svg-tex.pdf_tex
 File: ./svg-inkscape/KNNConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf
@@ -3367,55 +3450,56 @@ File: ./svg-inkscape/KNNConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf
 <use ./svg-inkscape/KNNConfusionMatrixTrain_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/SVCConfusionMatrixTrain_svg-tex.
-pdf' is 1 on input line 480.
+pdf' is 1 on input line 505.
 
 (svg-inkscape/SVCConfusionMatrixTrain_svg-tex.pdf_tex
 File: ./svg-inkscape/SVCConfusionMatrixTrain_svg-tex.pdf Graphic file (type pdf
 )
 <use ./svg-inkscape/SVCConfusionMatrixTrain_svg-tex.pdf, page 1>
 )
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [52]
 File: archivos/5.Resultados/ComparativaTrain.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaTrain.png>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+ [52
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [53]
-[54]
-Overfull \hbox (11.776pt too wide) in paragraph at lines 515--546
+Overfull \hbox (11.776pt too wide) in paragraph at lines 540--571
 [][]   []
  []
 
 
-Overfull \hbox (11.776pt too wide) in paragraph at lines 515--546
+Overfull \hbox (11.776pt too wide) in paragraph at lines 540--571
 []   []
  []
 
-[55]
+[54]
 Package svg Info: Last page of `./svg-inkscape/1DConfusionMatrixTest_svg-tex.pd
-f' is 1 on input line 559.
+f' is 1 on input line 584.
  (svg-inkscape/1DConfusionMatrixTest_svg-tex.pdf_tex
 File: ./svg-inkscape/1DConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/1DConfusionMatrixTest_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/2DConfusionMatrixTest_svg-tex.pd
-f' is 1 on input line 566.
+f' is 1 on input line 591.
 
 (svg-inkscape/2DConfusionMatrixTest_svg-tex.pdf_tex
 File: ./svg-inkscape/2DConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/2DConfusionMatrixTest_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/NBConfusionMatrixTest_svg-tex.pd
-f' is 1 on input line 572.
+f' is 1 on input line 597.
 
 (svg-inkscape/NBConfusionMatrixTest_svg-tex.pdf_tex
 File: ./svg-inkscape/NBConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/NBConfusionMatrixTest_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/KNNConfusionMatrixTest_svg-tex.p
-df' is 1 on input line 578.
+df' is 1 on input line 603.
 
 (svg-inkscape/KNNConfusionMatrixTest_svg-tex.pdf_tex
 File: ./svg-inkscape/KNNConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
@@ -3423,46 +3507,47 @@ File: ./svg-inkscape/KNNConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/KNNConfusionMatrixTest_svg-tex.pdf, page 1>
 )
 Package svg Info: Last page of `./svg-inkscape/SVCConfusionMatrixTest_svg-tex.p
-df' is 1 on input line 584.
+df' is 1 on input line 610.
 
 (svg-inkscape/SVCConfusionMatrixTest_svg-tex.pdf_tex
 File: ./svg-inkscape/SVCConfusionMatrixTest_svg-tex.pdf Graphic file (type pdf)
 
 <use ./svg-inkscape/SVCConfusionMatrixTest_svg-tex.pdf, page 1>
 )
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 2237) has occurred while \output is active []
 
- [56]
+ [55]
 File: archivos/5.Resultados/ComparativaTest.png Graphic file (type bmp)
 <archivos/5.Resultados/ComparativaTest.png>
 )
 (capitulos/conclusiones.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [57]
-[58]
+ [56]
+[57] [58
+
+
+
+]
 chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--17
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
 
 Package natbib Warning: Citation `OpenRefine' on page 59 undefined on input lin
-e 28.
+e 31.
 
-[59
-
-
-]
+[59]
 
 Package natbib Warning: Citation `AutoKeras' on page 60 undefined on input line
- 40.
+ 43.
 
 ) [60]
 No file TFG-TFM_EPS_UA.bbl.
@@ -3536,12 +3621,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 62196 strings out of 410921
- 1493691 string characters out of 2824905
- 2181465 words of memory out of 3000000
- 81724 multiletter control sequences out of 15000+600000
+ 62343 strings out of 410921
+ 1496397 string characters out of 2824905
+ 2183745 words of memory out of 3000000
+ 81869 multiletter control sequences out of 15000+600000
  484484 words of font info for 123 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 113i,21n,134p,10708b,928s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 113i,21n,134p,10708b,917s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
 Output written on TFG-TFM_EPS_UA.pdf (71 pages).

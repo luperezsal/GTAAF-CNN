@@ -4,7 +4,9 @@
 % Realizado por: Jose Manuel Requena Plens
 % Contacto: info@jmrplens.com / Telegram:@jmrplens
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 
+\thispagestyle{plain}
 \chapter{Resultados}
 \label{resultados}
 
@@ -14,16 +16,18 @@
 
   En primer lugar analizaremos la optimización de los hiperparámetros del \glsentryshort{xgboost} gracias al algoritmo genético. En la figura \eqref{EvolucionHiperparametrosImage} se pueden visualizar la evolución de los hiperparámetros del mejor individuo en cada generación a través del transcurso de las iteraciones. Se puede observar cómo el mejor individuo de cada generación va variando los hiperparámetros probando distintos valores hasta converger aproximadamente en la iteración \textit{21}.
 
-  \begin{figure}[H]
+  \begin{figure}[h]
       \centering
-      \includesvg[scale=0.4]{archivos/5.Resultados/GA/EvolucionHiperparametros}
+      \includesvg[scale=0.35]{archivos/5.Resultados/GA/EvolucionHiperparametros}
       \caption{Evolución de hiperparámetros a lo largo de las iteraciones.}
       \label{EvolucionHiperparametrosImage}
    \end{figure}
 
+
+
   Como el mejor individuo obtenido en la ejecución de un algoritmo genético depende en gran medida de la inicialización de la población, se han realizado 50 ejecuciones del algoritmo con sus distintas inicializaciones. Nótese que un individuo del algoritmo genético está formado por 3 variables que representan los hiperparámetros. Así, el mejor individuo obtenido, de entre todas las ejecuciones, se puede observar en la tabla \eqref{BestGASolutionTable}.
 
-  \begin{table}[H]
+  \begin{table}[h]
       \small
       \centering
           \begin{tabular}{ |c|c| } 
@@ -40,14 +44,15 @@
       \label{BestGASolutionTable}
   \end{table}
 
+
 \section{Ejecución del modelo XGBoost}
 
   Una vez obtenidos los principales hiperparámetros óptimos, es el turno de aplicar el algoritmo \glsentryshort{xgboost} para calcular los pesos de las variables. En la figura \eqref{FeatureWeightsImage} se puede observar un diagrama de barras en el que las características \textit{tipo de persona}, \textit{tipo de carretera} y \textit{sexo} son las que más han influido a la hora de entrenar el modelo \glsentryshort{xgboost}, obteniendo unos pesos de \textit{0.177}, \textit{0.127} y \textit{0.111} respectivamente. Los resultados obtenidos por este algoritmo se han obtenido estableciendo una semilla sobre la división de los datos de entrenamiento y test, para poder reproducir los valores de los pesos en experimentos posteriores. Se pueden consultar los pesos calculados de todas las características en la tabla \eqref{PesosFinalesCaracteristicas}, en la que los pesos de las categorías padres es la suma de cada una de las características hijas.
 
 
-  \begin{figure}[H]
+  \begin{figure}[h]
       \centering
-      \includesvg[scale = 0.6]{archivos/5.Resultados/XGBoost/FeatureWeights}
+      \includesvg[scale = 0.55]{archivos/5.Resultados/XGBoost/FeatureWeights}
       \caption{Pesos asignados por XGboost a las características.}
       \label{FeatureWeightsImage}
    \end{figure}
@@ -66,8 +71,18 @@
                                       &                               & Hora                  & 0.055\\
                                       &                               & Vehículos implicados  & 0.051\\
                                       &                               & Tipo de accidente     & 0.057\\
-
          \hline
+
+    \end{tabular}
+  \end{table}
+  \begin{table}[H]
+    \small
+    \centering                            
+    \begin{tabular}{ |c|c|c|c| }
+         \hline
+         \textbf{Categoría} & \textbf{Peso Categoría} & \textbf{Característica} & \textbf{Peso Característica}\\
+         \hline
+
          \multirow{2}{*}{Carretera}   & \multirow{2}{*}{0.187}        & Distrito              & 0.059\\      
                                       &                               & Tipo carretera        & 0.127\\
 
@@ -90,7 +105,6 @@
     \caption{Cálculo de pesos de características y categorías mediante XGBoost (los valores se han redondeado en base a tres decimales).}
     \label{PesosFinalesCaracteristicas}
   \end{table}
-
 
 \section{Matrices}
 
@@ -120,6 +134,10 @@
           \caption{Muestra de accidente normalizada.}
           \label{ProcesoMatriz:MuestraNormalizada}
         \end{subtable}
+    \end{figure}%
+    \begin{figure}[H]\ContinuedFloat
+        \scriptsize
+        \centering
         \vskip\baselineskip
         \begin{subtable}{.4\textwidth}
           \centering
@@ -148,6 +166,7 @@
       \caption{Proceso que sigue una muestra del conjunto de datos tipificada hasta llegar a una matriz (a $\rightarrow$ b $\rightarrow$ c $\rightarrow$ d).}
       \label{ProcesoMatriz}
       \end{figure}
+
 
 
   A modo de ejemplo se muestra en la figura \eqref{TresClasesAccidentesMatrices} un accidente de cada clase transformados a su matriz correspondiente.
@@ -252,7 +271,7 @@
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=9cm]{archivos/5.Resultados/only_cnns_times}
+      \includegraphics[width=8cm]{archivos/5.Resultados/only_cnns_times}
       \caption{Comparación de tiempo de entrenamiento entre las redes neuronales convolucionales.}
       \label{TiemposEntrenamientoCNNImage}
     \end{figure}
@@ -285,7 +304,7 @@
 
     En la tabla \eqref{ClassificationReportCNN} se detallan las métricas resultantes de la clasificación de las redes para sus conjuntos de entrenamiento y test. Se observa que para el conjunto de entrenamiento el modelo \glsentryshort{cnn1d} \eqref{ClassificationReportCNN:TrainCNN1D} obtiene un mejor F1-score sobre la clasificación de todas las clases de accidentes respecto a la red \glsentryshort{cnn2d} \eqref{ClassificationReportCNN:TrainCNN2D}. Sin embargo, si se analizan las métricas de los datos de test, el modelo que mejor F1-score presenta para los accidentes leves y severos es la \glsentryshort{cnn2d} \eqref{ClassificationReportCNN:TestCNN1D}, con \textit{0.949} y \textit{0.149} respectivamente, mientras que la \glsentryshort{cnn1d} obtiene una mejor clasificación sobre los fatales \eqref{ClassificationReportCNN:TestCNN2D} \textit{0.004}.
 
-    \begin{table}[H]
+    \begin{figure}[H]
         \scriptsize
         %\captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
         \renewcommand{\arraystretch}{1.1}
@@ -316,7 +335,7 @@
         \end{subtable}
         \caption{Métricas de clasificación para las redes neuronales convolucionales.}
         \label{ClassificationReportCNN}
-    \end{table}
+    \end{figure}
   
 
   \subsection{Matrices de confusión}
@@ -353,17 +372,21 @@
       \label{ConfusionMatrixCNNImages}
     \end{figure}
 
+\clearpage
+
   \subsection{Gráficas de clasificación}
 
     En la figura \eqref{ResultsCNNImage} se muestra una representación visual, en forma de diagrama de barras, las métricas de clasificación para el conjunto de entrenamiento de ambos modelos \eqref{ResultsCNNImage:Train} al igual que para el conjunto de validación \eqref{ResultsCNNImage:Test}.
 
     \begin{figure}[H]
+      \hspace{-2em}
       \begin{subfigure}{0.4\textwidth}        
         \includegraphics[width=9cm]{archivos/5.Resultados/ComparativaCNNTrain}
+        \captionsetup{singlelinecheck = false, justification=centering, font=footnotesize}
         \caption{Entrenamiento.}
         \label{ResultsCNNImage:Train}
       \end{subfigure}
-      \hspace{10mm}
+      \hspace{8mm}
       \begin{subfigure}{0.4\textwidth}        
         \centering
         \includegraphics[width=9cm]{archivos/5.Resultados/ComparativaCNNTest}
@@ -395,7 +418,7 @@
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=12cm]{archivos/5.Resultados/TiemposEntrenamiento}
+      \includegraphics[width=8cm]{archivos/5.Resultados/TiemposEntrenamiento}
       \caption{Comparación entre los tiempos de entrenamiento de los modelos.}
       \label{TiemposEntrenamientoImage}
     \end{figure}
@@ -444,6 +467,8 @@
         \caption{Métricas clasificación para el conjunto de entrenamiento.}
         \label{TrainClassificationReport}
     \end{table}
+
+\clearpage
 
   \subsubsection{Comparativa de matrices de confusión}
 
@@ -536,7 +561,7 @@
           \caption{KNN.}
           \label{TestClassificationReport:KNN}
         \end{subtable}
-        \vspace*{0.5 cm}
+        %\vspace*{0.5 cm}
         \begin{subtable}{1\textwidth}     
           \centering
           \csvautotabular{archivos/5.Resultados/CNN/2D/2DClassificationReportTest.csv}
@@ -579,7 +604,8 @@
             \caption{KNN.}
             \label{ConfusionMatrixTestImages:KNN}
         \end{subfigure}
-        \vspace*{0.5 cm}
+        %\vspace*{0.5 cm}
+
         \begin{subfigure}[b]{0.4\textwidth}
             \includesvg[scale=0.35]{archivos/5.Resultados/SVC/SVCConfusionMatrixTest}
             \caption{SVC.}
@@ -601,4 +627,4 @@
         \label{ResultsTestImage}
      \end{figure}
 
-     Como se puede comprobar en los resultados de los experimentos, las dos arquitecturas convolucionales propuestas superan en rendimiento al resto de modelos de referencia para cada una de las clases de accidentes (leve, severo y fatal). La ventaja de disponer de estas dos nuevas arquitecturas es que cada una de ellas funciona mejor dependiendo del tipo de clase a predecir. Esto permite diseñar un sistema Ensemble en el que se utilicen las dos redes entrenadas para combinar sus resultados, de tal forma que se utilizaría la red \glsentryshort{cnn1d} para predecir accidentes de carácter leve y fatal mientras que la red \glsentryshort{cnn2d} clasificaría los accidentes serios.
+    Como se puede comprobar en los resultados de los experimentos, las dos arquitecturas convolucionales propuestas superan en rendimiento al resto de modelos de referencia para cada una de las clases de accidentes (leve, severo y fatal). La ventaja de disponer de estas dos nuevas arquitecturas es que cada una de ellas funciona mejor dependiendo del tipo de clase a predecir. Esto permite diseñar un sistema Ensemble en el que se utilicen las dos redes entrenadas para combinar sus resultados, de tal forma que se utilizaría la red \glsentryshort{cnn1d} para predecir accidentes de carácter leve y fatal mientras que la red \glsentryshort{cnn2d} clasificaría los accidentes serios.
