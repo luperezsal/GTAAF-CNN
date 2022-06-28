@@ -14,7 +14,7 @@
 
 # ## Carga Google Drive
 
-# In[1]:
+# In[186]:
 
 
 # from google.colab import drive
@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[2]:
+# In[187]:
 
 
 from datetime import datetime
@@ -41,22 +41,58 @@ HYPERPARAMS_PATH = './hyperparams/'
 HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution/'
 FINAL_POPULATION_PATH  = './population/'
 CONFUSIONS_MATRIX_PATH = 'confusion_matrix/'
+TSNE_PATH = 'tsne/'
+
+REPORTS_TIMES_PATH = 'times/'
+
 
 ###### MODELS ######
-MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'auto_ml']
+MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d', 'nb', 'svc', 'auto_ml']
 
 REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
+######## CONFIG ########
+loaded_timestamp = '2022-05-16-19:33:50'
+
+
+# In[188]:
+
+
+laptop = False
+calculate_weights = False
+tsne = False
+
+leeds  = False
+madrid = True
+
+tree_method = 'auto' if laptop else 'gpu_hist'
+
+train_nn = not laptop
+other_models = True
+
+
+# In[189]:
+
+
+# laptop = True
+# calculate_weights = True
+# tsne = False
+
+# leeds  = False
+# madrid = True
+
+# tree_method = 'auto' if laptop else 'gpu_hist'
+# train_nn = not laptop
 
 
 # ## Importar Tensorflow
 
-# In[3]:
+# In[190]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[4]:
+# In[191]:
 
 
 import tensorflow as tf
@@ -71,7 +107,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[5]:
+# In[192]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -83,7 +119,7 @@ print('Found GPU at: {}'.format(device_name))
 
 # ## Importador/Exportador JSON
 
-# In[6]:
+# In[193]:
 
 
 import json
@@ -101,7 +137,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[7]:
+# In[194]:
 
 
 import numpy as np
@@ -181,7 +217,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[8]:
+# In[195]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -203,7 +239,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[9]:
+# In[196]:
 
 
 from scipy.stats import zscore
@@ -223,7 +259,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[10]:
+# In[197]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -232,7 +268,7 @@ from imblearn.over_sampling import KMeansSMOTE
 
 def oversample_data(X_data, Y_labels):
 
-    oversampler = BorderlineSMOTE(kind='borderline-2')
+    oversampler = BorderlineSMOTE(kind='borderline-2', random_state = 3)
     # oversampler = RandomOverSampler()
     # oversampler = KMeansSMOTE()
     X_oversampled, Y_oversampled = oversampler.fit_resample(X_data, Y_labels)
@@ -248,7 +284,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[11]:
+# In[198]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -263,9 +299,34 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ## Algoritmo genético
 
+# In[199]:
+
+
+HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
+                                   'init': [0.01, 1],
+                                   'mutation': [-0.3, 0.3],
+                                   'round': 2
+                                   },
+                           'max_depth': {'type': 'int',
+                                         'init': [1, 25],
+                                         'mutation': [-6, 6],
+                                         'step': 1
+                                   },
+                           'min_child_weight': {'type': 'float',
+                                                'init': [0.01, 20.0],
+                                                'mutation': [-7, 7],
+                                                'round': 1
+                                   }
+                          }
+number_of_individuals = 50
+numberOfParentsMating = 15
+number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
+number_of_generations = 50
+
+
 # ### Inicializar población
 
-# In[12]:
+# In[200]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -289,7 +350,7 @@ def generate_individual(hyperparams_to_optimize):
     
     return individual
 
-def initilialize_population(number_of_individuals, hyperparams_to_optimize):
+def initialize_population(number_of_individuals, hyperparams_to_optimize):
     population = []
 
     for i in range(number_of_individuals):
@@ -301,7 +362,7 @@ def initilialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[13]:
+# In[201]:
 
 
 from sklearn.metrics import f1_score
@@ -315,18 +376,21 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[14]:
+# In[202]:
 
 
 from xgboost import XGBClassifier
 import xgboost as xgb
 import time
 
+
+
 def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixTest, Y_test):
+
     fScore = []
     
     params = {'objective':'multi:softprob',
-               'tree_method': 'gpu_hist',
+               'tree_method': tree_method,
                'single_precision_histogram': True,
                'num_class': 3
              }
@@ -345,14 +409,14 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
         
         params.update(hyperparams)
 
-        num_round = params['n_estimators']
+        # num_round = params['n_estimators']
         
         start = time.time()
 
+
         xgb.set_config(verbosity=0)
         bst = xgb.train(params,
-                        dMatrixTrain,
-                        num_round)
+                        dMatrixTrain)
 
         end = time.time()
 
@@ -372,7 +436,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[15]:
+# In[203]:
 
 
 # Select parents for mating
@@ -390,7 +454,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[16]:
+# In[204]:
 
 
 '''
@@ -424,86 +488,14 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[17]:
-
-
-# def mutation(crossover, numberOfParameters):
-#     # Define minimum and maximum values allowed for each parameterminMaxValue = np.zeros((numberOfParameters, 2))
-#     minMaxValue = np.zeros((numberOfParameters, 2))
-
-#     minMaxValue[0:]  = [0.01, 1.0]  # min/max learning rate
-#     minMaxValue[1,:] = [10, 2000]   # min/max n_estimator
-#     minMaxValue[2,:] = [1, 20]      # min/max depth
-#     minMaxValue[3,:] = [0, 10.0]    # min/max child_weight
-#     minMaxValue[4,:] = [0.01, 10.0] # min/max gamma
-#     minMaxValue[5,:] = [0.01, 1.0]  # min/max subsample
-#     minMaxValue[6,:] = [0.01, 1.0]  # min/max colsample_bytree
-#     minMaxValue[7,:] = [40.0,180.0] # min/max reg_alpha
-#     minMaxValue[8,:] = [0.0, 1.0]   # min/max reg_lambda
- 
-#     # Mutation changes a single gene in each offspring randomly.
-#     mutationValue = 0
-#     parameterSelect = np.random.randint(0, numberOfParameters, 1)
-
-#     print(parameterSelect)
-# #             if parameterSelect == 0: # learning_rate
-# #                 # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
-# #                 mutationValue = round(random.uniform(-0.3, 0.3), 2)
-# #             if parameterSelect == 1: # max_depth
-# #                 # mutationValue = np.random.randint(-3, 3, 1)
-# #                 mutationValue = int(random.randrange(-4, 4, step= 1))
-# #             if parameterSelect == 2: # min_child_weight
-# #                 # mutationValue = round(np.random.uniform(5, 5), 2)
-# #                 mutationValue = round(random.uniform(-5, 5), 1)
-#     if parameterSelect == 0: # learning_rate
-#         # mutationValue = round(np.random.uniform(-0.2, 0.2), 2)
-#         mutationValue = round(random.uniform(-0.2, 0.2), 2)
-#     if parameterSelect == 1: # n_estimators
-#         mutationValue = np.random.randint(-150, 150, 1)
-#         # mutationValue = random.randrange(100, 2000, step = 150)
-#     if parameterSelect == 2: # max_depth
-#         mutationValue = np.random.randint(-4, 4, 1)
-#         # mutationValue = int(random.randrange(1, 20, step= 1))
-#     if parameterSelect == 3: # min_child_weight
-#         # mutationValue = round(np.random.uniform(5, 5), 2)
-#         mutationValue = round(random.uniform(-5, 5), 1)
-#     if parameterSelect == 4: #gamma
-#         # mutationValue = round(np.random.uniform(-2, 2), 2)
-#         mutationValue = round(random.uniform(0.01, 10.0), 2)
-#     if parameterSelect == 5: # subsample
-#         # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-#         mutationValue = round(random.uniform(0.01, 1.0), 2)
-#     if parameterSelect == 6: # colsample
-#         # mutationValue = round(np.random.uniform(-0.5, 0.5), 2)
-#         mutationValue = round(random.uniform(0.5, 1.0), 2)
-#     if parameterSelect == 7: # reg_alpha
-#         # mutationValue = round(np.random.uniform(-20,20), 1)
-#         mutationValue = round(random.uniform(40,180), 1)
-#     if parameterSelect == 8: # reg_lambda
-#         # mutationValue = round(np.random.uniform(-0.2,0.2), 3)
-#         mutationValue = round(random.uniform(0,1), 3)
-  
-#     # Introduce mutation by changing one parameter, and set to max or min if it goes out of range
-#     for idx in range(crossover.shape[0]):
-#         crossover[idx, parameterSelect] = crossover[idx, parameterSelect] + mutationValue
-
-#         if(crossover[idx, parameterSelect] > minMaxValue[parameterSelect, 1]):
-#             crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 1]
-
-#         if(crossover[idx, parameterSelect] < minMaxValue[parameterSelect, 0]):
-#             crossover[idx, parameterSelect] = minMaxValue[parameterSelect, 0]
-
-#     return crossover
-
-
-# In[18]:
+# In[205]:
 
 
 def mutation(crossover, hyperparams_to_optimize):
     
     # MUTATION_PROBABILITY = 1/numberOfParameters
     
-    MUTATION_PROBABILITY = 0.2
+    MUTATION_PROBABILITY = 0.4
     number_of_parameters = len(hyperparams_to_optimize)
 
     for idx in range(crossover.shape[0]):
@@ -533,7 +525,7 @@ def mutation(crossover, hyperparams_to_optimize):
                 round_to = hyperparams_to_optimize[hyperparam_selected_name]['round']
                 mutationValue = round(random.uniform(min_mutation_value, max_mutation_value), round_to)
                 
-            print(idx, hyperparam_selected_name, mutationValue)
+            # print(idx, hyperparam_selected_name, mutationValue)
 
             crossover[idx, hyperparam_selected_index] = crossover[idx,hyperparam_selected_index] + mutationValue
 
@@ -551,7 +543,7 @@ def mutation(crossover, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[19]:
+# In[206]:
 
 
 # Add one channel
@@ -574,7 +566,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[20]:
+# In[207]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -604,7 +596,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[21]:
+# In[208]:
 
 
 import seaborn as sns
@@ -620,7 +612,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[22]:
+# In[209]:
 
 
 from sklearn.decomposition import PCA
@@ -641,34 +633,37 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[23]:
+# In[210]:
 
 
 from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 
-def plot_TSNE(X_data, Y_data, n_components, output_file_name = None):
+def plot_TSNE(X_data, Y_data, n_components, output_file_name, title):
 
-    X_data_scaled = StandardScaler().fit_transform(X_data)
-    z_data = TSNE(n_components = n_components).fit_transform(X_data_scaled)
+    # X_data_scaled = StandardScaler().fit_transform(X_data)
+    z_data = TSNE(n_components = n_components).fit_transform(X_data)
 
     # X_test_scaled = StandardScaler().fit_transform(X_test),
     # z_test = TSNE(n_components=2).fit_transform(X_test_scaled),
 
     palette = sns.color_palette('husl', 3)
-    fig,ax  = plt.subplots(1, 1, figsize=(15,10))
+    fig,ax  = plt.subplots(1, 1, figsize=(7,4))
     sns.scatterplot(x = z_data[:,0],
                     y = z_data[:,1],
                     hue = Y_data,
                     palette = palette,
-                    legend = 'full')
+                    legend = 'full'
+                   ).set(title = title)
+    plt.xlabel('Dimension 1', weight = 'bold').set_fontsize('10')
+    plt.ylabel('Dimension 1', weight = 'bold').set_fontsize('10')
 
-    if (output_file_name): plt.savefig('./Out/' + output_file_name)
+    if (output_file_name): plt.savefig(output_file_name)
 
 
 # ### Autoencoder
 
-# In[24]:
+# In[211]:
 
 
 def autoencoder ():
@@ -686,14 +681,16 @@ def autoencoder ():
     autoencoder = tf.keras.Model(inputs=input_img, outputs=decoder2)
     autoencoder.summary()
 
-    autoencoder.compile(optimizer='adam', loss='binary_crossentropy') #se usan estos dos en estas arquitecturas
+    autoencoder.compile(optimizer='adam',
+                        loss='categorical_crossentropy',
+                        metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)],) #se usan estos dos en estas arquitecturas
     
     return autoencoder
 
 
 # ## 1D-Convolution
 
-# In[25]:
+# In[357]:
 
 
 import tensorflow_addons as tfa
@@ -702,7 +699,7 @@ lr_init = 0.1
 num_classes = 3
 
 convolution_1d = models.Sequential()
-convolution_1d.add(layers.Conv1D(256, 3,strides = 1, activation='relu', padding='same', input_shape=(5, 5, 1)))
+convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(5, 5, 1)))
 convolution_1d.add(layers.BatchNormalization())
 convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
 convolution_1d.add(layers.BatchNormalization())
@@ -723,7 +720,7 @@ convolution_1d.compile(
 
 # ## TASP-CNN
 
-# In[80]:
+# In[213]:
 
 
 lr_init = 0.1
@@ -732,16 +729,12 @@ num_classes = 3
 tasp_cnn = models.Sequential()
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
 tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
-tasp_cnn.add(layers.BatchNormalization())  
-tasp_cnn.add(MaxPooling2D(pool_size=(2, 2)))
+tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Flatten())
 tasp_cnn.add(layers.Dense(units=128))
 tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
@@ -753,13 +746,13 @@ tasp_cnn.compile(
   )
 
 
-# In[27]:
+# In[214]:
 
 
 tasp_cnn.summary()
 
 
-# In[28]:
+# In[215]:
 
 
 print('Done!')
@@ -769,7 +762,7 @@ print('Done!')
 
 # ### F1-Score History
 
-# In[29]:
+# In[216]:
 
 
 def plot_f1_score_history(f1_score_path, f1_score_name, history):
@@ -789,7 +782,7 @@ def plot_f1_score_history(f1_score_path, f1_score_name, history):
 
 # ### Classification Report
 
-# In[30]:
+# In[217]:
 
 
 from sklearn.metrics import classification_report
@@ -803,8 +796,7 @@ def plot_classification_report(path, file_name, y_true, y_predicted):
                                    target_names = labels.unique(),
                                    output_dict  = True)
 
-
-    report_df = pd.DataFrame(report).transpose()
+    report_df = pd.DataFrame(report).transpose().round(3)
     report_df.to_csv(path + file_name, index = True)
 
     print(report_df)
@@ -812,7 +804,7 @@ def plot_classification_report(path, file_name, y_true, y_predicted):
 
 # ### Confusion Matrix
 
-# In[31]:
+# In[218]:
 
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -831,17 +823,42 @@ def plot_confusion_matrix(path, file_name, y_true, y_predicted):
     plt.savefig(path + file_name, dpi = 150)
 
 
+# In[219]:
+
+
+def save_classification_report_and_confussion_matrix(model_name, model_timestamp, y_true, y_predicted, data):
+    
+    
+    report_path = f"{REPORTS_PATH}{model_name}/{data}/"
+    report_name = f"{city_name}_{MODEL_NAME}_report_{model_timestamp}.csv"
+
+
+    plot_classification_report(path = report_path,
+                               file_name = report_name,
+                               y_true = y_true,
+                               y_predicted = y_predicted)
+
+
+    confussion_matrix_path = f"{CONFUSIONS_MATRIX_PATH}{model_name}/{data}/"
+    confussion_matrix_name = f"{city_name}_{MODEL_NAME}_confusion_matrix_{model_timestamp}.svg"
+
+    plot_confusion_matrix(path = confussion_matrix_path,
+                          file_name = confussion_matrix_name,
+                          y_true = y_true,
+                          y_predicted = y_predicted)
+
+
 # # Leeds Data
 
 # ## Importación de datos
 
-# In[32]:
+# In[ ]:
 
 
 # !conda install pandas --y
 
 
-# In[33]:
+# In[ ]:
 
 
 import pandas as pd
@@ -849,6 +866,7 @@ import pandas as pd
 # root_path = '/content/drive/Othercomputers/Mi portátil/Drive/Master UA/TFM/TFM_DATA/'
 
 city_name = 'leeds'
+city = leeds
 
 root_path = './Data/Leeds/'
 
@@ -897,7 +915,7 @@ a = pd.concat([a, file_2016])
 
 # ## Limpieza de datos
 
-# In[34]:
+# In[ ]:
 
 
 ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -1059,20 +1077,20 @@ clean_df
 
 # ## Split de datos
 
-# In[35]:
+# In[ ]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[36]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
 
 Y = clean_df['Casualty Severity']
 
-train, test = train_test_split(clean_df, test_size=0.2)
+train, test = train_test_split(clean_df, test_size=0.2, random_state = 1)
 X_train = X_train_original = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
 Y_train = Y_train_original = train['Casualty Severity']
 
@@ -1082,7 +1100,7 @@ Y_test = test['Casualty Severity']
 
 # ### Downsampling
 
-# In[37]:
+# In[ ]:
 
 
 from sklearn.model_selection import train_test_split
@@ -1105,7 +1123,7 @@ X_serious_downsampled = resample(serious_data,
 
 downsampled_dataset = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
 
-downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.3)
+downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
 
 
 X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['Casualty Severity'])]
@@ -1115,7 +1133,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Ca
 Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
-# In[38]:
+# In[ ]:
 
 
 # fv2gi(feature_vector)
@@ -1137,13 +1155,13 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 
 # ## Normalización de datos
 
-# In[39]:
+# In[ ]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[40]:
+# In[ ]:
 
 
 X_train = X_train.astype(int)
@@ -1162,7 +1180,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[79]:
+# In[ ]:
 
 
 print('********** Train Before OverSampling **********')
@@ -1182,7 +1200,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[42]:
+# In[ ]:
 
 
 from xgboost import XGBClassifier
@@ -1192,212 +1210,182 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[43]:
+# In[ ]:
 
 
-HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
-                                   'init': [0.01, 1],
-                                   'mutation': [-0.3, 0.3],
-                                   'round': 2
-                                   },
-                           'max_depth': {'type': 'int',
-                                         'init': [1, 25],
-                                         'mutation': [-6, 6],
-                                         'step': 1
-                                   },
-                           'min_child_weight': {'type': 'float',
-                                                'init': [0.01, 20.0],
-                                                'mutation': [-7, 7],
-                                                'round': 1
-                                   },
-                           'n_estimators': {'type': 'int',
-                                            'init': [0, 1500],
-                                            'mutation': [-150, 150],
-                                            'step': 25
-                                   },
-                           # 'gamma': {'type': 'float',
-                           #                   'init': [0.01, 10.0],
-                           #                   'mutation': [-4, 4],
-                           #                   'round': 2
-                           #         },
-                           # 'subsample': {'type': 'float', ## ATTENTION! SUBSAMPLE OF TRAINING
-                           #               'init': [0.01, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         },
-                           # 'colsample_bytree': {'type': 'float', ## ATENTION!! SUBSAMPLE OF COLUMNS
-                           #               'init': [0.01, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         },
-                           # 'reg_alpha': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
-                           #               'init': [0, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         },
-                           # 'reg_lambda': {'type': 'float', ## ATENTION!! MODEL MORE CONSERVATIVE!
-                           #               'init': [0, 1],
-                           #               'mutation': [-0.4, 0.4],
-                           #               'round': 2
-                           #         }
-                          }
+import xgboost as xgb
+import random
+
+if calculate_weights:
+    Y_train_downsampled_copy = Y_train_downsampled.copy()
+    Y_test_downsampled_copy  = Y_test_downsampled.copy()
+    Y_test_copy = Y_test.copy()
+    Y_train_copy = Y_train.copy()
+
+    Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled_copy)
+    Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled_copy)
+    Y_test_onehot  = casualty_to_one_hot(Y_test_copy)
+    Y_train_onehot  = casualty_to_one_hot(Y_train_copy)
+
+    populationSize = (number_of_individuals, number_of_hyperparams)
+    population = initialize_population(number_of_individuals   = number_of_individuals,
+                                       hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+
+    fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
+    populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
+
+    best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
+    populationHistory[0:number_of_individuals,:] = population
 
 
-# In[44]:
+#     if not laptop:
+
+#         import dask.array as da
+#         import dask.distributed
+
+#         if __name__ == "__main__":
+
+#             # X and y must be Dask dataframes or arrays
+#             X = X_train
+#             y = Y_train
+
+#             dtrain = xgb.dask.DaskDMatrix(client, X_train, Y_train)
+#             dtest  = xgb.dask.DaskDMatrix(client, X_test, Y_test)
+
+#     else:
+
+    dtrain = xgb.DMatrix(data  = X_train_downsampled,
+                         label = Y_train_downsampled_copy)
+
+    dtest  = xgb.DMatrix(data  = X_test_downsampled, 
+                         label = Y_test_downsampled_copy)
+
+    for generation in range(number_of_generations):
+
+        print("This is number %s generation" % (generation))
+
+        new_population = []
+
+        unique_individuals = np.unique(population, axis=0)
+
+        new_individuals_to_create = number_of_individuals - len(unique_individuals)
+
+        for i in range(new_individuals_to_create):
+            new_individual = generate_individual(hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+            new_population.append(new_individual)
+
+        new_population = np.array(new_population)
+
+        if (new_individuals_to_create):
+            population = np.concatenate((unique_individuals, new_population), axis=0)
+
+        # print(f'Current population is {population}')
+        print(f'New population is {len(new_population)}')
+
+        # Train the dataset and obtain fitness
+        fitnessValue = train_population(population = population,
+                                        hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                                        dMatrixTrain = dtrain,
+                                        dMatrixTest = dtest,
+                                        Y_test = Y_test_downsampled_copy)
+
+        fitnessHistory[generation,:] = fitnessValue
+
+        # Best score in the current iteration
+        max_score_index = np.argmax(fitnessHistory[generation,:])
+        max_score_value = np.max(fitnessHistory[generation,:])
+        max_score_solution = population[max_score_index]
+
+        max_solution_with_score = []
+        max_solution_with_score = np.append(max_score_solution, max_score_value)
+        best_solution_history[generation] = max_solution_with_score
+
+        print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
+
+        parents = new_parents_selection(population = population,
+                                        fitness = fitnessValue,
+                                        numParents = numberOfParentsMating)
+
+        # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
+        children = crossover_uniform(parents = parents,
+                                     childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
+
+        # Add mutation to create genetic diversity
+        children_mutated = mutation(children,
+                                    hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+
+        '''
+        We will create new population, which will contain parents that where selected previously based on the
+        fitness score and rest of them  will be children
+        '''
+        population[0:parents.shape[0], :] = parents # Fittest parents
+        population[parents.shape[0]:, :]  = children_mutated # Children
+
+        populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
+
+    #Best solution from the final iteration
+
+    fitness = train_population(population = population,
+                               hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                               dMatrixTrain = dtrain,
+                               dMatrixTest = dtest,
+                               Y_test = Y_test_downsampled_copy)
+
+    fitnessHistory[generation+1, :] = fitness # index of the best solution
+    bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
 
-# import xgboost as xgb
-# import random
-
-# Y_train_onehot = casualty_to_one_hot(Y_train)
-# Y_test_onehot  = casualty_to_one_hot(Y_test)
-
-# Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
-# Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
+    best_hyperparams = {}
+    for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
+        best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# number_of_individuals = 100
-# numberOfParentsMating = 35
-# number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-# number_of_generations = 100
-
-# populationSize = (number_of_individuals, number_of_hyperparams)
-# population = initilialize_population(number_of_individuals   = number_of_individuals,
-#                                      hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
-
-# fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
-# populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
-
-# best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
-# populationHistory[0:number_of_individuals,:] = population
+# In[ ]:
 
 
-# xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
-#                               label = Y_train_downsampled)
+if calculate_weights and leeds:
+    #### PLOT FITNESS EVOLUTION ####
+    x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
-# xgbDMatrixTest  = xgb.DMatrix(data  = X_test_downsampled, 
-#                               label = Y_test_downsampled)
+    FILE_NAME = f"{city_name}_ga_{MODEL_TIMESTAMP}.svg"
 
-# for generation in range(number_of_generations):
+    plt.figure(figsize=(15, 8))
+    plt.ylabel('F1-Score')
+    plt.xlabel('Iterations')
+    plt.plot(np.arange(len(x_fitness)), x_fitness)
+    plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
-#     print("This is number %s generation" % (generation))
+    #### PLOT HYPERPARAMS EVOLUTION ####
+    FILE_NAME = f"{city_name}_ga_hyperparams_evolution_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.svg"
 
-#     new_population = []
-    
-#     unique_individuals = np.unique(population, axis=0)
-    
-#     new_individuals_to_create = number_of_individuals - len(unique_individuals)
-    
-#     for i in range(new_individuals_to_create):
-#         new_individual = generate_individual(hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
-#         new_population.append(new_individual)
-    
-#     new_population = np.array(new_population)
+    LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
 
-#     if (new_individuals_to_create):
-#         population = np.concatenate((unique_individuals, new_population), axis=0)
+    plt.figure(figsize=(15, 8))
+    best_solution_history_aux = best_solution_history
+    best_solution_history_aux[:,1] = best_solution_history[:,1]/2
+    best_solution_history_aux[:,3] = best_solution_history[:,3]/100
+    plt.plot(best_solution_history_aux[:,:3])
+    plt.ylabel('Factor')
+    plt.xlabel('Iterations')
+    plt.legend(LEGEND_LABELS)
+    plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME, dpi=300)
 
-#     # print(f'Current population is {population}')
-#     print(f'New population is {len(new_population)}')
-    
-#     # Train the dataset and obtain fitness
-#     fitnessValue = train_population(population = population,
-#                                     hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-#                                     dMatrixTrain = xgbDMatrixTrain,
-#                                     dMatrixTest = xgbDMatrixTest,
-#                                     Y_test = Y_test_downsampled)
- 
-#     fitnessHistory[generation,:] = fitnessValue
+    FILE_NAME = f"{city_name}_population_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.txt"
 
-#     # Best score in the current iteration
-#     max_score_index = np.argmax(fitnessHistory[generation,:])
-#     max_score_value = np.max(fitnessHistory[generation,:])
-#     max_score_solution = population[max_score_index]
-
-#     max_solution_with_score = []
-#     max_solution_with_score = np.append(max_score_solution, max_score_value)
-#     best_solution_history[generation] = max_solution_with_score
-
-#     print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
-    
-#     parents = new_parents_selection(population = population,
-#                                     fitness = fitnessValue,
-#                                     numParents = numberOfParentsMating)
-    
-#     # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
-#     children = crossover_uniform(parents = parents,
-#                                  childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
-    
-#     # Add mutation to create genetic diversity
-#     children_mutated = mutation(children,
-#                                 hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
-    
-#     '''
-#     We will create new population, which will contain parents that where selected previously based on the
-#     fitness score and rest of them  will be children
-#     '''
-#     population[0:parents.shape[0], :] = parents # Fittest parents
-#     population[parents.shape[0]:, :]  = children_mutated # Children
-    
-#     populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
-    
-# #Best solution from the final iteration
-
-# fitness = train_population(population = population,
-#                            hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-#                            dMatrixTrain = xgbDMatrixTrain,
-#                            dMatrixTest = xgbDMatrixTest,
-#                            Y_test = Y_test_downsampled)
-
-# fitnessHistory[generation+1, :] = fitness # index of the best solution
-# bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
-
-
-# best_hyperparams = {}
-# for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
-#     best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
-
-
-# In[45]:
-
-
-# #### PLOT FITNESS EVOLUTION ####
-# x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
-
-# FILE_NAME = 'leeds_ga_' + MODEL_TIMESTAMP  + '.jpg'
-
-# plt.figure(figsize=(10, 5))
-# plt.plot(np.arange(len(x_fitness)), x_fitness)
-# plt.savefig(GA_SCORES_PATH + FILE_NAME)
-
-# #### PLOT HYPERPARAMS EVOLUTION ####
-# FILE_NAME = f"leeds_ga_hyperparams_evolution_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.jpg"
-
-# LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
-
-# plt.figure(figsize=(15, 8))
-# best_solution_history_aux = best_solution_history
-# best_solution_history_aux[:,1] = best_solution_history[:,1]/2
-# best_solution_history_aux[:,3] = best_solution_history[:,3]/100
-# plt.plot(best_solution_history_aux)
-# plt.legend(LEGEND_LABELS)
-# plt.savefig(HYPERPARAMS_EVOLUTON_PATH +  'TEST.jpg', dpi=300)
-
-# FILE_NAME = f"leeds_population_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.txt"
-
-# np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
+    np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
 # ### Hiperparámetros
 
 # #### Carga hiperparámetros
 
-# In[46]:
+# In[ ]:
 
 
-FILE_NAME = 'leeds_hyperparams_2022-04-28-19:07:55.json'
+if not calculate_weights:
+    FILE_NAME = f"{city_name}_hyperparams_{loaded_timestamp}.json"
 
-best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
+    best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # # # 0.04 2 6.5 --> 0.778
 # best_hyperparams = {}
@@ -1411,7 +1399,7 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Cálculo de Hiperparámetros
 
-# In[47]:
+# In[ ]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -1461,79 +1449,78 @@ best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
 # #### Escritura hiperparámetros
 
-# In[48]:
+# In[ ]:
 
 
-# FILE_NAME = f"leeds_hyperparams_{MODEL_TIMESTAMP}.json"
+if calculate_weights and leeds:
+    FILE_NAME = f"{city_name}_hyperparams_{MODEL_TIMESTAMP}.json"
 
-# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+    write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
 
 
 # ### Pesos de características
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[49]:
+# In[ ]:
 
 
 # FILE_NAME = 'leeds_calculated_weights.json'
-FILE_NAME = 'leeds_weights2022-04-14-10:55:09.json'
+FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[50]:
+# In[ ]:
 
 
-# from numpy import loadtxt
-# from xgboost import XGBClassifier,XGBRanker
-# from matplotlib import pyplot
-# from xgboost import plot_importance
+if calculate_weights and leeds:
+    xgboost = XGBClassifier(best_hyperparams,
+                            tree_method = tree_method,
+                            single_precision_histogram =  True)
 
-# xgboost = XGBClassifier(best_hyperparams,
-#                         tree_method = 'gpu_hist',
-#                         single_precision_histogram =  True)
+    xgboost.fit(X_train, Y_train)
 
-# xgboost.fit(X_train, Y_train)
-
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
+    child_weights  = np.array(xgboost.feature_importances_)
+    feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Visualización pesos calculados
 
-# In[51]:
+# In[ ]:
 
 
-# FILE_NAME = f"leeds_figure_weights_{MODEL_TIMESTAMP}.jpg"
+if calculate_weights and leeds:
+    FILE_NAME = f"{city_name}_figure_weights_{MODEL_TIMESTAMP}.svg"
 
-# print(xgboost.get_booster().get_score(importance_type= 'weight'))
-# plt.figure(figsize=(10, 5))
-# plt.barh(X_train.columns, xgboost.feature_importances_)
-# plt.savefig(WEIGHTS_PATH + FILE_NAME)
+    print(xgboost.get_booster().get_score(importance_type= 'weight'))
+    plt.figure(figsize=(10, 5))
+    plt.barh(X_train.columns, xgboost.feature_importances_)
+    plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
-# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-#   print(column, weight)
+    for column, weight in zip(X_train.columns,xgboost.feature_importances_):
+      print(column, weight)
 
 
 # #### Escritura de pesos de características
 
-# In[52]:
+# In[ ]:
 
 
-# matrix_indexes = fv2gi(feature_vector)
+if calculate_weights and leeds:    
+    matrix_indexes = fv2gi(feature_vector)
 
-# FILE_NAME = f"leeds_weights_{MODEL_TIMESTAMP}.json"
-# # FILE_NAME = 'leeds_default_weights.json'
+    FILE_NAME = f"{city_name}_weights_{MODEL_TIMESTAMP}.json"
+    # FILE_NAME = 'leeds_default_weights.json'
 
-# write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
+    write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
 # ### Cálculo índices de matriz
 
-# In[53]:
+# In[ ]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -1541,7 +1528,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[54]:
+# In[ ]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -1555,7 +1542,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[55]:
+# In[ ]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -1568,23 +1555,33 @@ train_original_images = shape_images(X_data = X_train_original,
                             gray_images = train_original_bgi)
 
 
-# In[56]:
+# In[ ]:
 
 
 plt.gray()
 for i in range(0,3):
     plt.figure(figsize=(3, 3))
     plt.imshow(train_bgi[:,:,i])
+    # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
     plt.show()
 
 
-# In[57]:
+# In[ ]:
+
+
+# image = train_bgi[:,:,0]
+# plt.figure(figsize=(6, 6))
+# plt.imshow([image.flatten()])
+# plt.savefig(f"test.svg",transparent=True, dpi=150)
+
+
+# In[ ]:
 
 
 # !conda install scikit-image
 
 
-# In[58]:
+# In[ ]:
 
 
 # input_shape = (5, 5)
@@ -1595,32 +1592,22 @@ array_test_images  = np.asarray(test_images)
 array_train_original_images = np.asarray(train_original_images)
 
 
-# In[59]:
+# In[ ]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[60]:
+# In[ ]:
 
 
 ######### EN TERMINAL #########
 # !pip install tensorflow-addons
 
 
-# ## One-Hot
-
-# In[61]:
-
-
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
-
-
 # ## Visualización de datos
 
-# In[62]:
+# In[ ]:
 
 
 # !conda install seaborn
@@ -1628,7 +1615,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### Matriz de correlación
 
-# In[63]:
+# In[ ]:
 
 
 # correlation_matrix(X_test)
@@ -1636,7 +1623,7 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### PCA
 
-# In[64]:
+# In[ ]:
 
 
 # pca(X_train, X_test)
@@ -1644,47 +1631,101 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ### TSNE
 
-# In[65]:
+# In[ ]:
 
 
-# output_file_name = './2d_test_tsne.jpg'
-# plot_TSNE(X_test, Y_test, n_components=2)
+n_samples = 150
+index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
+index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
+index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
-# output_file_name = './2d_train_tsne.jpg'
-# plot_TSNE(X_train, Y_train, n_components=2)
 
-# output_file_name = './3d_test_tsne.jpg'
-# plot_TSNE(X_test, Y_test, n_components=3)
+# In[ ]:
 
-# output_file_name = './3d_train_tsne.jpg'
-# plot_TSNE(X_train, Y_train, n_components=3)
+
+# Get same number of class samples from SMOTEII
+X_slight_train_tsne  = X_train.loc[index_slight]
+X_serious_train_tsne = X_train.loc[index_serious]
+X_fatal_train_tsne   = X_train.loc[index_fatal]
+
+X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
+
+Y_slight_train_tsne  = Y_train[index_slight]
+Y_serious_train_tsne = Y_train[index_serious]
+Y_fatal_train_tsne   = Y_train[index_fatal]
+
+Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
+
+
+# In[ ]:
+
+
+n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
+
+index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
+index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
+index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
+
+
+# In[ ]:
+
+
+# Get same number of class samples from original
+X_slight_clean_tsne  = X_train_original.loc[index_slight]
+X_serious_clean_tsne = X_train_original.loc[index_serious]
+X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
+
+X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
+
+Y_slight_clean_tsne  = Y_train_original[index_slight]
+Y_serious_clean_tsne = Y_train_original[index_serious]
+Y_fatal_clean_tsne   = Y_train_original[index_fatal]
+
+Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
+
+
+# In[ ]:
+
+
+if tsne:
+    FILE_NAME = f"{TSNE_PATH}{city_name}/2d_{MODEL_TIMESTAMP}.svg"
+    plot_TSNE(X_clean_tsne, Y_clean_tsne, n_components = 2, output_file_name = FILE_NAME, title = 'Muestras originales 2 Componentes')
+
+    FILE_NAME = f"{TSNE_PATH}{city_name}/3d_tsne_test_{MODEL_TIMESTAMP}.svg"
+    plot_TSNE(X_clean_tsne, Y_clean_tsne, n_components = 3, output_file_name = FILE_NAME, title = 'Muestras originales 3 Componentes')
+
+    FILE_NAME = f"{TSNE_PATH}{city_name}/2d_tsne_train_{MODEL_TIMESTAMP}.svg"
+    plot_TSNE(X_train_tsne, Y_train_tsne, n_components = 2, output_file_name = FILE_NAME, title = 'Muestras SMOTE-II 2 Componentes')
+
+    FILE_NAME = f"{TSNE_PATH}{city_name}/3d_tsne_train_{MODEL_TIMESTAMP}.svg"
+    plot_TSNE(X_train_tsne, Y_train_tsne, n_components = 3, output_file_name = FILE_NAME, title = 'Muestras SMOTE-II 3 Componentes')
 
 
 # ### Autoencoder
 
 # #### Entrenamiento
 
-# In[66]:
+# In[ ]:
 
 
-X_train = array_train_images
-X_test = array_test_images
-X_train_original = array_train_original_images
+# X_train = array_train_images
+# X_test = array_test_images
+# X_train_original = array_train_original_images
 
-X_train = X_train.reshape(len(array_train_images), 25)
-X_train_original = X_train_original.reshape(len(array_train_original_images), 25)
-X_test  = X_test.reshape(len(X_test), 25)
+# X_train = X_train.reshape(len(array_train_images), 25)
+# X_train_original = X_train_original.reshape(len(array_train_original_images), 25)
+# X_test  = X_test.reshape(len(X_test), 25)
 
-# autoencoder().fit(X_train, X_train,
-#                 epochs=15,
-#                 batch_size=32,
-#                 shuffle=True,
-#                 validation_data=(X_test, X_test))
+# autoencoder = autoencoder().fit(X_train, X_train,
+#                                 epochs = 100,
+#                                 batch_size = 128,
+#                                 shuffle = True,
+#                                 validation_data = (X_test, X_test))
 
 
 # #### Visualización
 
-# In[67]:
+# In[ ]:
 
 
 # # create encoder model
@@ -1702,8 +1743,8 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # # get latent vector for visualization
 # latent_vector = encoder.predict(X_test)
-# # get decoder output to visualize reconstructed image
-# reconstructed_imgs = decoder.predict(latent_vector)
+# # # get decoder output to visualize reconstructed image
+# # reconstructed_imgs = decoder.predict(latent_vector)
 
 
 # # visualize in 3D plot
@@ -1729,7 +1770,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 # ax.set_ylim(ys.min(), ys.max())
 # ax.set_zlim(zs.min(), zs.max())
 
-# # plt.show()
+# plt.show()
 
 # # X_test_encoded = encoder.predict(X_test, batch_size=32)
 # # plt.figure(figsize=(6, 6))
@@ -1738,44 +1779,19 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
-# In[68]:
+# ## One-Hot
+
+# In[ ]:
 
 
-from sklearn.manifold import TSNE
-from sklearn.preprocessing import StandardScaler
-
-def plot_TSNE(X_data, Y_data, n_components, output_file_name=None):
-    X_data_scaled = StandardScaler().fit_transform(X_data)
-    z_data = TSNE(n_components=n_components).fit_transform(X_data_scaled)
-    # X_test_scaled = StandardScaler().fit_transform(X_test)
-    # z_test = TSNE(n_components=2).fit_transform(X_test_scaled)
-
-    palette = sns.color_palette("hls", 3)
-    fig,ax  = plt.subplots(1,1,figsize=(15,10))
-    sns.scatterplot(x = z_data[:,0],
-                    y = z_data[:,1],
-                    hue = Y_data,
-                    palette = palette,
-                    legend = 'full')
-
-    if (output_file_name): plt.savefig('./Out/' + output_file_name)
-
-# output_file_name = './2d_test_tsne.jpg'
-# plot_TSNE(X_test, Y_test, n_components=2)
-
-# output_file_name = './2d_train_tsne.jpg'
-# plot_TSNE(X_train, Y_train, n_components=2)
-
-# output_file_name = './3d_test_tsne.jpg'
-# plot_TSNE(X_test, Y_test, n_components=3)
-
-# output_file_name = './3d_train_tsne.jpg'
-# plot_TSNE(X_train, Y_train, n_components=3)
+Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
+Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 
 # ## Models
 
-# In[69]:
+# In[ ]:
 
 
 Y_test_labels = one_hot_to_casualty(Y_test)
@@ -1795,7 +1811,7 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
-# In[70]:
+# In[ ]:
 
 
 import pickle
@@ -1803,7 +1819,7 @@ import pickle
 
 # ### KNN
 
-# In[71]:
+# In[ ]:
 
 
 # from sklearn.neighbors import NearestNeighbors
@@ -1815,14 +1831,14 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[72]:
+# In[ ]:
 
 
 leaf_size = list(range(1,10, 2))
 n_neighbors = list(range(1,25, 5))
 
 
-# In[73]:
+# In[ ]:
 
 
 # # Create new KNN object
@@ -1856,7 +1872,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Escritura del modelo
 
-# In[74]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1871,7 +1887,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Carga de modelo pre-entrenado
 
-# In[75]:
+# In[ ]:
 
 
 # MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
@@ -1883,7 +1899,7 @@ n_neighbors = list(range(1,25, 5))
 
 # #### Resultados
 
-# In[76]:
+# In[ ]:
 
 
 # y_true = tf.argmax(Y_test_onehot, axis=1)
@@ -1906,7 +1922,7 @@ n_neighbors = list(range(1,25, 5))
 # ############## SAVE CONFUSION MATRIX ##############
 
 # CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+# CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
 
 # cm = confusion_matrix(y_true,
 #                       y_predicted,
@@ -1920,7 +1936,7 @@ n_neighbors = list(range(1,25, 5))
 
 # ### Convolution 1D
 
-# In[77]:
+# In[ ]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -1928,16 +1944,34 @@ MODEL_NAME = MODELS_NAME[1]
 
 # #### Entrenamiento
 
-# In[78]:
+# In[ ]:
 
 
-history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                             class_weight = pesos,
-                             batch_size = 128,
-                             epochs = 100,
-                             shuffle = True,
-                             validation_data = (array_test_images, Y_test_onehot))
-history
+from keras.callbacks import ModelCheckpoint
+
+if city and train_nn:
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    file_name = '_epoch{epoch:02d}-loss{val_loss:.2f}'
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_{file_name}.hdf5"
+    
+    checkpoint = ModelCheckpoint(filepath= MODEL_PATH + MODEL_FILE_NAME, 
+                                 monitor = 'val_loss',
+                                 verbose = 1, 
+                                 save_best_only = True,
+                                 mode = 'min')
+    callbacks = [checkpoint]
+
+    history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                                 # class_weight = pesos,
+                                 batch_size = 128,
+                                 epochs = 100,
+                                 shuffle = True,
+                                 validation_data = (array_test_images, Y_test_onehot))
+                                 # callbacks = callbacks)
+
+    # convolution_1d.load_weights(MODEL_FILE_NAME)
+
+    history
 
 
 # #### Escritura del modelo
@@ -1945,10 +1979,11 @@ history
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+if city and train_nn:
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-# tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+    tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -1956,10 +1991,11 @@ history
 # In[ ]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'leeds_convolution_1d_2022-05-11-08:53:52.h5'
+if not city and not train_nn and not laptop:
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = 'leeds_convolution_1d_2022-05-11-08:53:52.h5'
 
-convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+    convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -1967,33 +2003,35 @@ convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+if city and not laptop:
+    Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+    if train_nn:
+        F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+        F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                      f1_score_name = F1_SCORE_NAME,
-                      history = history)
+        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                              f1_score_name = F1_SCORE_NAME,
+                              history = history)
 
-print("[INFO] evaluating network...")
+    print("[INFO] evaluating network...")
 
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
 
-plot_classification_report(path = REPORT_PATH,
-                           file_name = REPORT_NAME,
-                           y_true = Y_test,
-                           y_predicted = Y_predicted)
+    plot_classification_report(path = REPORT_PATH,
+                               file_name = REPORT_NAME,
+                               y_true = Y_test,
+                               y_predicted = Y_predicted)
 
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
 
-plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                      file_name = CONFUSION_MATRIX_NAME,
-                      y_true = Y_test,
-                      y_predicted = Y_predicted)
+    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                          file_name = CONFUSION_MATRIX_NAME,
+                          y_true = Y_test,
+                          y_predicted = Y_predicted)
 
 
 # ### Convolution 2D
@@ -2009,14 +2047,15 @@ MODEL_NAME = MODELS_NAME[2]
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                       class_weight = pesos,
-                       batch_size = 128,
-                       epochs = 100,
-                       shuffle = True,
-                       validation_data = (array_test_images, Y_test_onehot))
+if city and train_nn:
+    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                           # class_weight = pesos,
+                           batch_size = 128,
+                           epochs = 100,
+                           shuffle = True,
+                           validation_data = (array_test_images, Y_test_onehot))
 
-history
+    history
 
 
 # #### Escritura del modelo
@@ -2024,10 +2063,11 @@ history
 # In[ ]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+if city and train_nn:
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+    tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -2035,11 +2075,12 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = 'leeds_convolution_2d_2022-05-11-08:53:52.h5'
-# # MODEL_NAME = 'leeds_2022-04-25-08:30:33.h5'
+if city and not train_nn and not laptop:
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = 'leeds_convolution_2d_2022-05-11-08:53:52.h5'
+    # MODEL_NAME = 'leeds_2022-04-25-08:30:33.h5'
 
-# tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+    tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -2047,33 +2088,36 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+if city and not laptop:
 
-F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+    Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                      f1_score_name = F1_SCORE_NAME,
-                      history = history)
+    if train_nn:
+        F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+        F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-print("[INFO] evaluating network...")
+        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                              f1_score_name = F1_SCORE_NAME,
+                              history = history)
 
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+    print("[INFO] evaluating network...")
 
-plot_classification_report(path = REPORT_PATH,
-                           file_name = REPORT_NAME,
-                           y_true = Y_test,
-                           y_predicted = Y_predicted)
+    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
+    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+
+    plot_classification_report(path = REPORT_PATH,
+                               file_name = REPORT_NAME,
+                               y_true = Y_test,
+                               y_predicted = Y_predicted)
 
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
+    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
 
-plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                      file_name = CONFUSION_MATRIX_NAME,
-                      y_true = Y_test,
-                      y_predicted = Y_predicted)
+    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
+                          file_name = CONFUSION_MATRIX_NAME,
+                          y_true = Y_test,
+                          y_predicted = Y_predicted)
 
 
 # ## AutoML
@@ -2147,7 +2191,7 @@ MODEL_NAME = 'auto_ml'
 # Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
 # F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
 # plot_f1_score(f1_score_path = F1_SCORE_PATH,
 #               f1_score_name = F1_SCORE_NAME,
@@ -2165,7 +2209,7 @@ MODEL_NAME = 'auto_ml'
 
 
 # CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
 
 # plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
 #                       file_name = CONFUSION_MATRIX_NAME,
@@ -2183,12 +2227,22 @@ MODEL_NAME = 'auto_ml'
 # 
 # 
 
-# In[ ]:
+# In[289]:
+
+
+loaded_timestamp = '2022-05-24-11:01:39'
+model_version = '2022-05-17-20:07:36'
+
+
+# In[290]:
 
 
 import pandas as pd
+import random
+import seaborn as sns
 
 city_name = 'madrid'
+city = madrid
 
 # root_path = '/content/drive/Othercomputers/Mi portátil/Drive/Master UA/TFM/Incidentes de Trafico/Datasets/Madrid/'
 
@@ -2227,17 +2281,11 @@ data_frame.lesividad = data_frame.lesividad.replace(' ', 14).astype(int)
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[ ]:
-
-
-data_frame
-
-
 # ### Calcular Vehículos implicados
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[ ]:
+# In[291]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -2250,7 +2298,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[ ]:
+# In[292]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2268,34 +2316,37 @@ data_frame = data_frame.reset_index(drop=True)
 # # Unclassified
 
 
-# regex = {}
-# regex['paseo_regex'] = 'PASEO|paseo'
-# regex['parque_regex'] = 'PARQUE|PQUE'
-# regex['ronda_regex'] = 'RONDA'
-# regex['puerta_regex'] = 'PUERTA|PTA|Puerta'
-# regex['puente_regex'] = 'PNTE|PUENTE'
-# regex['plaza_regex'] = 'PLAZA|PZA'
-# regex['camino_regex']= 'CMNO|CAMINO'
-# regex['bulevard_regex'] = 'BULE'
-# regex['travesia_regex'] = 'TRVA'
-# regex['cuesta_regex'] = 'CUSTA|CUESTA'
-# regex['rotonda_regex'] = 'GTA|gta|GLORIETA|glorieta|ROTONDA'
-# regex['aeropuerto_regex'] ='AEROPUERTO|AEROP'
-# regex['calzada_regex'] = 'CALZADA'
-# regex['poligono_regex'] ='POLIGONO'
-# regex['highway_regex'] = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23' # A,A(M),Motorway
-# regex['road_regex'] = 'CTRA.|CARRETERA|carretera|CRA.' # B
-# regex['avenida_regex'] = 'AVDA|AV|AVENIDA|AVDA|Avda.|avenida'
-# regex['calle_regex']  = 'CALL.|Calle|CALLE|c/|C/|C.|calle'
+regex = {}
+regex['parking'] = 'PK|P.K|parking'
+regex['aeropuerto_regex'] = 'AEROPUERTO|AEROP'
+regex['cuesta_regex'] = 'CUSTA|CUESTA'
+regex['paseo_regex'] = 'PASEO|paseo'
+regex['parque_regex'] = 'PARQUE|PQUE|RETIRO'
+regex['tunel_regex'] = 'TUNEL|TÚNEL'
+regex['poligono_regex'] ='POLIGONO'
+regex['camino_regex']= 'CMNO|CAMINO'
+regex['ronda_regex'] = 'RONDA'
+regex['rotonda_regex'] = 'GTA|gta|GLORIETA|glorieta|ROTONDA|FUENT'
+regex['puerta_regex'] = 'PUERTA|PTA|Puerta'
+regex['puente_regex'] = 'PNTE|PUENTE'
+regex['plaza_regex'] = 'PLAZA|PZA'
+regex['bulevard_regex'] = 'BULE'
+regex['travesia_regex'] = 'TRVA'
+regex['calzada_regex'] = 'CALZADA'
+regex['road_regex'] = 'CTRA.|CARRETERA|carretera|CRA.' # B
+regex['avenida_regex'] = 'AVDA|AV|AVENIDA|AVDA|avenida|Avda.'
+regex['highway_regex'] = 'AUTOV.|autovia|A-|M-|M 30|m 30|A\\d|M 23|M23|KILOMETRO' # A,A(M),Motorway
+regex['calle_regex']  = 'CALL.|Calle|CALLE|c/|C/|C.|calle'
 
-# data_frame['tipo_via'] = 'N/A'
+data_frame['tipo_via'] = 'N/A'
 
-# for index,regex_values in enumerate(regex.values()):
-#     print(regex_values)
-#     regex_indexes = data_frame[data_frame.localizacion.str.contains(regex_values,  case = True, regex=True)].index
-#     print(len(regex_indexes))
-#     data_frame.iloc[regex_indexes, data_frame.columns.get_loc('tipo_via')] = str(index)
-#     data_frame.iloc[regex_indexes, data_frame.columns.get_loc('localizacion')] = str(index)
+for index,regex_values in enumerate(regex.values()):
+    
+    print(regex_values)
+    regex_indexes = data_frame[data_frame.localizacion.str.contains(regex_values,  case = True, regex=True)].index
+    print(len(regex_indexes))
+    data_frame.iloc[regex_indexes, data_frame.columns.get_loc('tipo_via')] = str(index)
+    data_frame.iloc[regex_indexes, data_frame.columns.get_loc('localizacion')] = str(index)
     
     
     
@@ -2324,10 +2375,22 @@ data_frame = data_frame.reset_index(drop=True)
 # data_frame.iloc[positive_drug_indexes, data_frame.columns.get_loc('positiva_alcohol')] = 'S'
 
 # data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
-# # # print(data_frame.localizacion.unique())
 
 
-# In[ ]:
+# In[293]:
+
+
+index_of_assigned_location_values = data_frame[~data_frame.localizacion.str.isnumeric()].index
+data_frame.loc[index_of_assigned_location_values, 'localizacion'] = 19
+
+
+# In[294]:
+
+
+data_frame.localizacion.value_counts()
+
+
+# In[295]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2390,6 +2453,12 @@ data_frame = data_frame.reset_index(drop=True)
 # # print(data_frame.localizacion.unique())
 
 
+# In[296]:
+
+
+data_frame
+
+
 # Consideraciones:
 # 
 # - Los patinetes se han considerado como ciclomotres de menos de 50cc.
@@ -2399,7 +2468,7 @@ data_frame = data_frame.reset_index(drop=True)
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[ ]:
+# In[297]:
 
 
 weather_conditions_replace = {
@@ -2476,13 +2545,13 @@ accident_type_replace = {
     'Choque contra obstáculo fijo': 4,
     'Colisión múltiple': 5,
     'Caída': 5,
-    'Atropello a persona': 6,
-    'Colisión frontal': 7,
-    'Otro': 8,
-    'Solo salida de la vía': 9,
-    'Vuelco': 10,
-    'Atropello a animal': 11,
-    'Despeñamiento': 12
+    'Atropello a persona': 7,
+    'Colisión frontal': 8,
+    'Otro': 9,
+    'Solo salida de la vía': 10,
+    'Vuelco': 11,
+    'Atropello a animal': 12,
+    'Despeñamiento': 13
 }
 
 alcohol_replace = {
@@ -2603,7 +2672,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[ ]:
+# In[298]:
 
 
 # Todos las comas a puntos
@@ -2692,15 +2761,16 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[ ]:
+# In[299]:
 
 
 # COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
-COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'localizacion', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
+# SIN LOCALIZACION COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'localizacion', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
+COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm']
 
 data_frame = data_frame.loc[:, ~data_frame.columns.isin(COLUMNS_TO_REMOVE)]
 
-# data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
+data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_x_utm": "coordenada_x_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"processed_y_utm": "coordenada_y_utm"}, errors="raise", inplace=True)
 data_frame.rename(columns={"positiva_alcohol": "drogas_alcohol_positivo"}, errors="raise", inplace=True)
@@ -2710,27 +2780,13 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[ ]:
+# In[300]:
 
 
-data_frame.columns
+data_frame
 
 
-# In[ ]:
-
-
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-plt.figure(figsize=(20, 10))
-
-sns.set_theme(style="whitegrid")
-sns.histplot(data=data_frame, x="lesividad", stat='count')
-plt.savefig('saving-a-seaborn-plot-as-eps-file.svg')
-data_frame.lesividad.value_counts()
-
-
-# In[ ]:
+# In[301]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2741,26 +2797,15 @@ data_frame.lesividad.value_counts()
 
 # ## Split de datos
 
-# In[ ]:
+# Histograma de desbalanceo
 
-
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-plt.figure(figsize=(20, 10))
-
-sns.set_theme(style="whitegrid")
-sns.histplot(data=data_frame, x="lesividad", stat='count')
-# plt.savefig('saving-a-seaborn-plot-as-eps-file.svg')
-data_frame.lesividad.value_counts()
-
-
-# In[ ]:
+# In[302]:
 
 
 from sklearn.model_selection import train_test_split
 
-train, test = train_test_split(data_frame, test_size=0.2)
+
+train, test = train_test_split(data_frame, test_size=0.2, random_state = 2)
 X_train = X_train_original = train.loc[:, ~train.columns.isin(['lesividad'])]
 
 X_train = X_train.astype(int)
@@ -2773,7 +2818,24 @@ X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[ ]:
+# In[303]:
+
+
+plt.figure(figsize=(20, 10))
+
+sns.set_theme(style="whitegrid")
+sns.histplot(data=one_hot_to_casualty(Y_train),stat='count')
+plt.savefig('histograms_images/original.svg')
+one_hot_to_casualty(Y_train).value_counts()
+
+
+# In[304]:
+
+
+Y_test.value_counts()
+
+
+# In[305]:
 
 
 # # FILE_NAME = f"{city_name}_calculated_weights.json"
@@ -2782,7 +2844,7 @@ Y_test = test['lesividad']
 # feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
-# In[ ]:
+# In[306]:
 
 
 
@@ -2845,7 +2907,7 @@ Y_test = test['lesividad']
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[307]:
 
 
 X_train = X_train.astype(int)
@@ -2860,7 +2922,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[ ]:
+# In[308]:
 
 
 print('********** Before OverSampling **********')
@@ -2872,9 +2934,20 @@ print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 X_train, Y_train = oversample_data(X_train, Y_train)
 
 
+# In[309]:
+
+
+plt.figure(figsize=(20, 10))
+
+sns.set_theme(style="whitegrid")
+sns.histplot(data=one_hot_to_casualty(Y_train),stat='count')
+plt.savefig('histograms_images/smote-ii.svg')
+Y_train.value_counts()
+
+
 # ## Downsampling de datos
 
-# In[ ]:
+# In[310]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2896,7 +2969,7 @@ X_serious_downsampled = resample(serious_data,
 
 downsampled_dataset = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
 
-downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.3)
+downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
 
 X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['lesividad'])]
 Y_train_downsampled = downsampled_train['lesividad']
@@ -2905,7 +2978,26 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[ ]:
+# In[311]:
+
+
+# plt.figure(figsize=(20, 10))
+
+# sns.set_theme(style="whitegrid")
+# sns.histplot(data=one_hot_to_casualty(Y_test_downsampled),stat='count')
+# plt.savefig('histograms_images/downsampled-test.svg')
+# Y_test_downsampled.value_counts()
+
+
+# plt.figure(figsize=(20, 10))
+
+# sns.set_theme(style="whitegrid")
+# sns.histplot(data=one_hot_to_casualty(Y_train_downsampled),stat='count')
+# plt.savefig('histograms_images/downsampled-train.svg')
+# Y_train_downsampled.value_counts()
+
+
+# In[312]:
 
 
 X_train = X_train.astype(int)
@@ -2922,9 +3014,15 @@ X_train_downsampled = normalize_data(X_train_downsampled)
 X_test_downsampled  = normalize_data(X_test_downsampled)
 
 
+# In[313]:
+
+
+X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.2, random_state = 2)
+
+
 # ## XGBoost
 
-# In[ ]:
+# In[314]:
 
 
 from xgboost import XGBClassifier
@@ -2934,168 +3032,151 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[ ]:
+# In[315]:
 
 
-# HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
-#                                    'init': [0.01, 1],
-#                                    'mutation': [-0.3, 0.3],
-#                                    'round': 2
-#                                    },
-#                            'max_depth': {'type': 'int',
-#                                          'init': [1, 20],
-#                                          'mutation': [-4, 4],
-#                                          'step': 1
-#                                    },
-#                            'min_child_weight': {'type': 'float',
-#                                                 'init': [0.1, 15.0],
-#                                                 'mutation': [-5, 5],
-#                                                 'round': 1
-#                                    },
-#                            'n_estimators': {'type': 'int',
-#                                             'init': [0, 2000],
-#                                             'mutation': [-200, 200],
-#                                             'step': 150
-#                                    },
-# }
+if calculate_weights:
+    Y_train_downsampled_copy = Y_train_downsampled.copy()
+    Y_test_downsampled_copy  = Y_test_downsampled.copy()
+    Y_test_copy = Y_test.copy()
+    Y_val_copy  = Y_val.copy()
+    Y_train_copy = Y_train.copy()
+
+    Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled_copy)
+    Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled_copy)
+    Y_val_onehot  = casualty_to_one_hot(Y_val_copy)
+    Y_test_onehot  = casualty_to_one_hot(Y_test_copy)
+    Y_train_onehot  = casualty_to_one_hot(Y_train_copy)
+
+    populationSize = (number_of_individuals, number_of_hyperparams)
+    population = initialize_population(number_of_individuals   = number_of_individuals,
+                                       hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+
+    fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
+    populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
+
+    best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
+    populationHistory[0:number_of_individuals,:] = population
+
+    dtrain = xgb.DMatrix(data  = X_train,
+                         label = Y_train_copy)
+
+    dtest  = xgb.DMatrix(data  = X_val, 
+                         label = Y_val_copy)
+
+    for generation in range(number_of_generations):
+
+        print("This is number %s generation" % (generation))
+
+        new_population = []
+
+        unique_individuals = np.unique(population, axis=0)
+
+        new_individuals_to_create = number_of_individuals - len(unique_individuals)
+
+        for i in range(new_individuals_to_create):
+            new_individual = generate_individual(hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+            new_population.append(new_individual)
+
+        new_population = np.array(new_population)
+
+        if (new_individuals_to_create):
+            population = np.concatenate((unique_individuals, new_population), axis=0)
+
+        # print(f'Current population is {population}')
+        print(f'New population is {len(new_population)}')
+
+        # Train the dataset and obtain fitness
+        fitnessValue = train_population(population = population,
+                                        hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                                        dMatrixTrain = dtrain,
+                                        dMatrixTest = dtest,
+                                        Y_test = Y_val_copy)
+
+        fitnessHistory[generation,:] = fitnessValue
+
+        # Best score in the current iteration
+        max_score_index = np.argmax(fitnessHistory[generation,:])
+        max_score_value = np.max(fitnessHistory[generation,:])
+        max_score_solution = population[max_score_index]
+
+        max_solution_with_score = []
+        max_solution_with_score = np.append(max_score_solution, max_score_value)
+        best_solution_history[generation] = max_solution_with_score
+
+        print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
+
+        parents = new_parents_selection(population = population,
+                                        fitness = fitnessValue,
+                                        numParents = numberOfParentsMating)
+
+        # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
+        children = crossover_uniform(parents = parents,
+                                     childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
+
+        # Add mutation to create genetic diversity
+        children_mutated = mutation(children,
+                                    hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+
+        '''
+        We will create new population, which will contain parents that where selected previously based on the
+        fitness score and rest of them  will be children
+        '''
+        population[0:parents.shape[0], :] = parents # Fittest parents
+        population[parents.shape[0]:, :]  = children_mutated # Children
+
+        populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
+
+    #Best solution from the final iteration
+
+    fitness = train_population(population = population,
+                               hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
+                               dMatrixTrain = dtrain,
+                               dMatrixTest = dtest,
+                               Y_test = Y_val_copy)
+
+    fitnessHistory[generation+1, :] = fitness # index of the best solution
+    bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
 
 
-# In[ ]:
+    best_hyperparams = {}
+    for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
+        best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# import xgboost as xgb
-# import random
-
-# Y_train_onehot = casualty_to_one_hot(Y_train)
-# Y_test_onehot  = casualty_to_one_hot(Y_test)
-
-# Y_train_downsampled_onehot = casualty_to_one_hot(Y_train_downsampled)
-# Y_test_downsampled_onehot  = casualty_to_one_hot(Y_test_downsampled)
+# In[316]:
 
 
-# # number_of_individuals = 60
-# # numberOfParentsMating = 15
-# # number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-# # number_of_generations = 100
+if calculate_weights and madrid:
+    #### PLOT FITNESS EVOLUTION ####
+    x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
-# populationSize = (number_of_individuals, number_of_hyperparams)
-# population = initilialize_population(number_of_individuals   = number_of_individuals,
-#                                      hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
+    FILE_NAME = f"{city_name}_ga_{MODEL_TIMESTAMP}.svg"
 
-# fitnessHistory = np.empty([number_of_generations+1, number_of_individuals]) # Define an array to store the value of each parameter for each parent and generation
-# populationHistory = np.empty([(number_of_generations+1)*number_of_individuals, number_of_hyperparams]) # Insert the value of initial parameters in history
+    plt.figure(figsize=(15, 8))
+    plt.ylabel('F1-Score')
+    plt.xlabel('Iterations')
+    plt.plot(np.arange(len(x_fitness)), x_fitness)
+    plt.savefig(GA_SCORES_PATH + FILE_NAME)
 
-# best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
-# populationHistory[0:number_of_individuals,:] = population
+    #### PLOT HYPERPARAMS EVOLUTION ####
+    FILE_NAME = f"{city_name}_ga_hyperparams_evolution_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.svg"
 
+    LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
 
-# xgbDMatrixTrain = xgb.DMatrix(data  = X_train_downsampled,
-#                               label = Y_train_downsampled)
+    plt.figure(figsize=(15, 8))
+    best_solution_history_aux = best_solution_history
+    best_solution_history_aux[:,1] = best_solution_history[:,1]/2
+    best_solution_history_aux[:,3] = best_solution_history[:,3]/100
+    plt.plot(best_solution_history_aux[:,:3])
+    plt.ylabel('Factor')
+    plt.xlabel('Iterations')
+    plt.legend(LEGEND_LABELS)
+    plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME, dpi=300)
 
-# xgbDMatrixTest  = xgb.DMatrix(data  = X_test_downsampled, 
-#                               label = Y_test_downsampled)
+    FILE_NAME = f"{city_name}_population_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.txt"
 
-# for generation in range(number_of_generations):
-
-#     print("This is number %s generation" % (generation))
-
-#     new_population = []
-    
-#     unique_individuals = np.unique(population, axis=0)
-    
-#     new_individuals_to_create = number_of_individuals - len(unique_individuals)
-    
-#     for i in range(new_individuals_to_create):
-#         new_individual = generate_individual(hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
-#         new_population.append(new_individual)
-    
-#     new_population = np.array(new_population)
-
-#     if (new_individuals_to_create):
-#         population = np.concatenate((unique_individuals, new_population), axis=0)
-
-#     # print(f'Current population is {population}')
-#     print(f'New population is {len(new_population)}')
-    
-#     # Train the dataset and obtain fitness
-#     fitnessValue = train_population(population = population,
-#                                     hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-#                                     dMatrixTrain = xgbDMatrixTrain,
-#                                     dMatrixTest = xgbDMatrixTest,
-#                                     Y_test = Y_test_downsampled)
- 
-#     fitnessHistory[generation,:] = fitnessValue
-
-#     # Best score in the current iteration
-#     max_score_index = np.argmax(fitnessHistory[generation,:])
-#     max_score_value = np.max(fitnessHistory[generation,:])
-#     max_score_solution = population[max_score_index]
-
-#     max_solution_with_score = []
-#     max_solution_with_score = np.append(max_score_solution, max_score_value)
-#     best_solution_history[generation] = max_solution_with_score
-
-#     print(f"Best F1 score in the this iteration = {max_score_value}, best solution {max_score_solution}") # Survival of the fittest - take the top parents, based on the fitness value and number of parents needed to be selected
-    
-#     parents = new_parents_selection(population = population,
-#                                     fitness = fitnessValue,
-#                                     numParents = numberOfParentsMating)
-    
-#     # Mate these parents to create children having parameters from these parents (we are using uniform crossover)
-#     children = crossover_uniform(parents = parents,
-#                                  childrenSize = (populationSize[0] - parents.shape[0], number_of_hyperparams))
-    
-#     # Add mutation to create genetic diversity
-#     children_mutated = mutation(children,
-#                                 hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE)
-    
-#     '''
-#     We will create new population, which will contain parents that where selected previously based on the
-#     fitness score and rest of them  will be children
-#     '''
-#     population[0:parents.shape[0], :] = parents # Fittest parents
-#     population[parents.shape[0]:, :]  = children_mutated # Children
-    
-#     populationHistory[(generation+1)*number_of_individuals : (generation+1)*number_of_individuals + number_of_individuals , :] = population # Store parent information
-    
-# #Best solution from the final iteration
-
-# fitness = train_population(population = population,
-#                            hyperparams_to_optimize = HYPERPARAMS_TO_OPTIMIZE,
-#                            dMatrixTrain = xgbDMatrixTrain,
-#                            dMatrixTest = xgbDMatrixTest,
-#                            Y_test = Y_test_downsampled)
-
-# fitnessHistory[generation+1, :] = fitness # index of the best solution
-# bestFitnessIndex = np.where(fitness == np.max(fitness))[0][0]
-
-
-# best_hyperparams = {}
-# for n_param, hyperparam in enumerate(HYPERPARAMS_TO_OPTIMIZE):
-#     best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
-
-# #### PLOT FITNESS EVOLUTION ####
-# x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
-
-# FILE_NAME = 'madrid_ga_' + MODEL_TIMESTAMP  + '.jpg'
-
-# plt.figure(figsize=(10, 5))
-# plt.plot(np.arange(len(x_fitness)), x_fitness)
-# plt.savefig(GA_SCORES_PATH + FILE_NAME)
-
-# #### PLOT HYPERPARAMS EVOLUTION ####
-# FILE_NAME = f"madrid_ga_hyperparams_evolution_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.jpg"
-
-# LEGEND_LABELS = HYPERPARAMS_TO_OPTIMIZE.keys()
-
-# plt.figure(figsize=(15, 8))
-# plt.plot(best_solution_history)
-# plt.legend(LEGEND_LABELS)
-# plt.savefig(HYPERPARAMS_EVOLUTON_PATH + FILE_NAME, dpi=300)
-
-# FILE_NAME = f"madrid_population_p{number_of_individuals}_c{numberOfParentsMating}_{MODEL_TIMESTAMP}.txt"
-
-# np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
+    np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
 # ### Hiperparámetros
@@ -3104,132 +3185,116 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # #### Carga hiperparámetros
 
-# In[ ]:
+# In[317]:
 
 
-FILE_NAME = 'madrid_hyperparams2022-04-28-19:07:55.json'
+if not calculate_weights:
 
-best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
+    FILE_NAME = f"{city_name}_hyperparams{loaded_timestamp}.json"
 
-# 0.875 GA
-# 0.04, 1, 3.9, 900
-# best_hyperparams = {}
-# best_hyperparams['eta'] = 0.04
-# best_hyperparams['max_depth'] = 1
-# best_hyperparams['min_child_weight'] = 3.9
-# best_hyperparams['n_estimators'] = 900
+    best_hyperparams = load_json(HYPERPARAMS_PATH, FILE_NAME)
 
-
-# #### Cálculo de Hiperparámetros
-
-# In[ ]:
-
-
-# Y_train_onehot = casualty_to_one_hot(Y_train)
-# Y_test_onehot  = casualty_to_one_hot(Y_test)
-
-# space={'max_depth': hp.quniform("max_depth", 3, 20, 1),
-#         'gamma': hp.uniform ('gamma', 1,8),
-#         'reg_alpha' : hp.quniform('reg_alpha', 40, 150, 1),
-#         'reg_lambda' : hp.uniform('reg_lambda', 0,1),
-#         'colsample_bytree' : hp.uniform('colsample_bytree', 0.5,1),
-#         'min_child_weight' : hp.quniform('min_child_weight', 0, 15, 1),
-#         'n_estimators': hp.quniform('n_estimators', 100, 200, 100),
-#         'tree_method': 'gpu_hist'
-#     }
-
-# def objective(space):
-#     clf = XGBClassifier(n_estimators = int(space['n_estimators']),
-#                         max_depth = int(space['max_depth']),
-#                         gamma = space['gamma'],
-#                         reg_alpha = int(space['reg_alpha']),
-#                         min_child_weight = int(space['min_child_weight']),
-#                         colsample_bytree = int(space['colsample_bytree']),
-#                         tree_method = space['tree_method']
-#                        )
-    
-#     evaluation = [(X_train, Y_train), (X_test, Y_test)]
-    
-#     clf.fit(X_train, Y_train,
-#             eval_set = evaluation, eval_metric = "auc",
-#             early_stopping_rounds = 10, verbose = False)
-            
-    
-#     pred = clf.predict(X_test)
-#     accuracy = accuracy_score(Y_test, pred>0.5)
-#     print ("SCORE:", accuracy)
-#     return {'loss': -accuracy, 'status': STATUS_OK }
-
-
-# trials = Trials()
-
-# best_hyperparams = fmin(fn = objective,
-#                         space = space,
-#                         algo = tpe.suggest,
-#                         max_evals = 200,
-#                         trials = trials)
+# # # 0.875 GA
+# # # 0.04, 1, 3.9, 900
+# # # best_hyperparams = {}
+# # # best_hyperparams['eta'] = 0.04
+# # # best_hyperparams['max_depth'] = 1
+# # # best_hyperparams['min_child_weight'] = 3.9
+# # # best_hyperparams['n_estimators'] = 900
 
 
 # #### Escritura hiperparámetros
 
-# In[ ]:
+# In[318]:
 
 
-# FILE_NAME = 'madrid_hyperparams' + MODEL_TIMESTAMP + '.json'
+if calculate_weights and madrid:
+    FILE_NAME = f"{city_name}_hyperparams{MODEL_TIMESTAMP}.json"
 
-# write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
-# print(best_hyperparams)
+    write_json(best_hyperparams, HYPERPARAMS_PATH, FILE_NAME)
+    print(best_hyperparams)
 
 
 # ### Pesos de características
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[319]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
-FILE_NAME = 'madrid_weights_no_roadClass.json'
-# FILE_NAME = 'madrid_weights2022-04-14-11:16:13.json'
+# # FILE_NAME = 'madrid_weights_no_roadClass.json'
+FILE_NAME = f"{city_name}_weights{loaded_timestamp}.json"
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
-feature_vector
+
+########## 17-05-2022 ##########
+# Se ha cambiado 1stRoadClass (distrito) a RoadwayFeatures --> EN LEEDS NO ES ASÍ, PERO PARA Mí TIENE SENTIDO
+# Se ha cambiado tipo accidente de RoadwayFeatures a Accident --> EN LEEDS NO EXISTE ESTE CAMPO, PERO PARA Mí TIENE SENTIDO
+# feature_vector = {'Accident Features': {'feature_childs': ['coordenada_x_utm',
+#    'coordenada_y_utm',
+#    'hora',
+#    'vehiculos_implicados',
+#    'tipo_accidente'],
+#   'feature_weights': ['0.03979435',
+#    '0.061120145',
+#    '0.02675103',
+#    '0.083673365',
+#    '0.03753465'],
+#   'wpi': 0.255731688},
+#  'Roadway Features': {'feature_childs': ['distrito', 'tipo_carretera'],
+#   'feature_weights': ['0.044392798', '9999.9'],
+#   'wpi': 0.03753465},
+#  'Environmental Features': {'feature_childs': ['estado_meteorológico'],
+#   'feature_weights': ['0.024665328'],
+#   'wpi': 0.024665328},
+#  'Vehicle Features': {'feature_childs': ['tipo_vehiculo'],
+#   'feature_weights': ['0.048645806'],
+#   'wpi': 0.048645806},
+#  'Casualty Features': {'feature_childs': ['tipo_persona',
+#    'sexo',
+#    'rango_edad',
+#    'drogas_alcohol_positivo'],
+#   'feature_weights': ['0.2764425', '0.2201619', '0.06879471', '0.03230864'],
+#   'wpi': 0.59770775}}
 
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[ ]:
+# In[320]:
 
 
-# xgboost = XGBClassifier(best_hyperparams,
-#                         tree_method = 'gpu_hist',
-#                         single_precision_histogram =  True)
+if calculate_weights and madrid:
+    xgboost = XGBClassifier(best_hyperparams,
+                            tree_method = tree_method,
+                            single_precision_histogram =  True)
 
-# xgboost.fit(X_train, Y_train)
+    xgboost.fit(X_train, Y_train)
 
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
+    child_weights  = np.array(xgboost.feature_importances_)
+    feature_vector = fill_feature_vector(X_train, child_weights)
 
 
 # #### Visualización pesos calculados
 
-# In[ ]:
+# In[321]:
 
 
-# FILE_NAME = f"{city_name}_figure_weights_{MODEL_TIMESTAMP}.jpg"
+if calculate_weights and madrid:
+    FILE_NAME = f"{city_name}_figure_weights_{MODEL_TIMESTAMP}.svg"
 
-# print(xgboost.get_booster().get_score(importance_type= 'weight'))
-# plt.figure(figsize=(10, 5))
-# plt.barh(X_train.columns, xgboost.feature_importances_)
-# plt.savefig(WEIGHTS_PATH + FILE_NAME)
+    print(xgboost.get_booster().get_score(importance_type= 'weight'))
+    plt.figure(figsize=(10, 5))
+    plt.barh(X_train_downsampled.columns, xgboost.feature_importances_)
+    plt.savefig(WEIGHTS_PATH + FILE_NAME)
 
-# print(xgboost.feature_importances_)
+    print(xgboost.feature_importances_)
 
-# for column, weight in zip(X_train.columns,xgboost.feature_importances_):
-#   print(column, weight)
+    for column, weight in zip(X_train_downsampled.columns,xgboost.feature_importances_):
+      print(column, weight)
 
-# child_weights  = np.array(xgboost.feature_importances_)
-# feature_vector = fill_feature_vector(X_train, child_weights)
+    child_weights  = np.array(xgboost.feature_importances_)
+    feature_vector = fill_feature_vector(X_train_downsampled, child_weights)
 
 
 # #### Escritura de pesos de características
@@ -3238,20 +3303,27 @@ feature_vector
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[ ]:
+# In[322]:
 
 
-# matrix_indexes = fv2gi(feature_vector)
+if calculate_weights and madrid:
+    matrix_indexes = fv2gi(feature_vector)
 
-# FILE_NAME = f"{city_name}_weights{MODEL_TIMESTAMP}.json"
-# # FILE_NAME = 'default_calculated_weights.json'
+    FILE_NAME = f"{city_name}_weights{MODEL_TIMESTAMP}.json"
+    # FILE_NAME = 'default_calculated_weights.json'
 
-# write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
+    write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
+
+
+# In[323]:
+
+
+feature_vector
 
 
 # ### Cálculo índices de matriz
 
-# In[ ]:
+# In[324]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -3259,20 +3331,21 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[325]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
 train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
 
-test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
+val_bgi  = build_gray_images(X_val, 5, matrix_indexes)
+test_bgi = build_gray_images(X_test, 5, matrix_indexes)
 
 pd.DataFrame(train_bgi[:,:,1057])
 
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[326]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -3281,17 +3354,27 @@ train_images = shape_images(X_data = X_train,
 train_original_images = shape_images(X_data = X_train_original,
                                      gray_images = train_original_bgi)
 
+val_images  = shape_images(X_data = X_val,
+                           gray_images = val_bgi)
+
 test_images  = shape_images(X_data = X_test,
                             gray_images = test_bgi)
 
+
+# In[327]:
+
+
+sns.set_theme(style="whitegrid")
 plt.gray()
-for i in range(0,3):
+for i in range(100,103):
     plt.figure(figsize=(3, 3))
+    plt.grid(b=None)
     plt.imshow(train_bgi[:,:,i])
+    # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
     plt.show()
 
 
-# In[ ]:
+# In[328]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -3300,23 +3383,9 @@ for i in range(0,3):
 #                             gray_images = test_bgi)
 
 
-# ## One-Hot
-
-# In[ ]:
-
-
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
-
-array_train_images = np.asarray(train_images)
-array_train_original_images = np.asarray(train_original_images)
-array_test_images  = np.asarray(test_images)
-
-
 # ## Visualización de datos
 
-# In[ ]:
+# In[329]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -3324,7 +3393,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[330]:
 
 
 # correlation_matrix(data_frame)
@@ -3332,7 +3401,7 @@ array_test_images  = np.asarray(test_images)
 
 # ### PCA
 
-# In[ ]:
+# In[331]:
 
 
 # pca(X_train, X_test)
@@ -3340,53 +3409,107 @@ array_test_images  = np.asarray(test_images)
 
 # ### TSNE
 
-# In[ ]:
+# In[332]:
 
 
-# output_file_name = './2d_test_tsne.jpg'
-# plot_TSNE(X_test, Y_test, n_components=2)
+n_samples = 150
+index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
+index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
+index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
-# output_file_name = './2d_train_tsne.jpg'
-# plot_TSNE(X_train, Y_train, n_components=2)
 
-# output_file_name = './3d_test_tsne.jpg'
-# plot_TSNE(X_test, Y_test, n_components=3)
+# In[333]:
 
-# output_file_name = './3d_train_tsne.jpg'
-# plot_TSNE(X_train, Y_train, n_components=3)
+
+# Get same number of class samples from SMOTEII
+X_slight_train_tsne  = X_train.loc[index_slight]
+X_serious_train_tsne = X_train.loc[index_serious]
+X_fatal_train_tsne   = X_train.loc[index_fatal]
+
+X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
+
+Y_slight_train_tsne  = Y_train[index_slight]
+Y_serious_train_tsne = Y_train[index_serious]
+Y_fatal_train_tsne   = Y_train[index_fatal]
+
+Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
+
+
+# In[334]:
+
+
+n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
+
+index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
+index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
+index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
+
+
+# In[335]:
+
+
+# Get same number of class samples from original
+X_slight_clean_tsne  = X_train_original.loc[index_slight]
+X_serious_clean_tsne = X_train_original.loc[index_serious]
+X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
+
+X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
+
+Y_slight_clean_tsne  = Y_train_original[index_slight]
+Y_serious_clean_tsne = Y_train_original[index_serious]
+Y_fatal_clean_tsne   = Y_train_original[index_fatal]
+
+Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
+
+
+# In[336]:
+
+
+if tsne:
+    FILE_NAME = f"{TSNE_PATH}{city_name}/2d_tsne_clean.svg"
+    plot_TSNE(X_clean_tsne, Y_clean_tsne, n_components = 2, output_file_name = FILE_NAME, title = 'Muestras originales 2 Componentes')
+
+    FILE_NAME = f"{TSNE_PATH}{city_name}/3d_tsne_clean.svg"
+    plot_TSNE(X_clean_tsne, Y_clean_tsne, n_components = 3, output_file_name = FILE_NAME, title = 'Muestras originales 3 Componentes')
+
+    FILE_NAME = f"{TSNE_PATH}{city_name}/2d_tsne_train.svg"
+    plot_TSNE(X_train_tsne, Y_train_tsne, n_components = 2, output_file_name = FILE_NAME, title = 'Muestras SMOTE-II 2 Componentes')
+
+    FILE_NAME = f"{TSNE_PATH}{city_name}/3d_tsne_train.svg"
+    plot_TSNE(X_train_tsne, Y_train_tsne, n_components = 3, output_file_name = FILE_NAME, title = 'Muestras SMOTE-II 3 Componentes')
 
 
 # ### Autoencoder
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[337]:
 
 
-# input_img = Input(shape=(25,))
+# # input_img = Input(shape=(25,))
 
-# # definimos el encoder, que tendra una entrada de Input_img y una segunda capa con entrada de encoder1 y salida 3
-# encoder1 = layers.Dense(15, activation='sigmoid')(input_img)
-# encoder2 = layers.Dense(3, activation='sigmoid')(encoder1)
+# # # definimos el encoder, que tendra una entrada de Input_img y una segunda capa con entrada de encoder1 y salida 3
+# # encoder1 = layers.Dense(15, activation='sigmoid')(input_img)
+# # encoder2 = layers.Dense(3, activation='sigmoid')(encoder1)
 
-# # definimos el  decoder que tendra una entrada inicial de encoder3 y una salida de 128 y finalmete una capa de salida con los mismos que Input_img
-# decoder1 = layers.Dense(15, activation='sigmoid')(encoder2)
-# decoder2 = layers.Dense(25, activation='sigmoid')(decoder1)
+# # # definimos el  decoder que tendra una entrada inicial de encoder3 y una salida de 128 y finalmete una capa de salida con los mismos que Input_img
+# # decoder1 = layers.Dense(15, activation='sigmoid')(encoder2)
+# # decoder2 = layers.Dense(25, activation='sigmoid')(decoder1)
 
-# # this model maps an input to its reconstruction
-# autoencoder = tf.keras.Model(inputs=input_img, outputs=decoder2)
-# autoencoder.summary()
+# # # this model maps an input to its reconstruction
+# # autoencoder = tf.keras.Model(inputs=input_img, outputs=decoder2)
+# # autoencoder.summary()
 
-# autoencoder.compile(optimizer='adam', loss='binary_crossentropy') #se usan estos dos en estas arquitecturas
+# # autoencoder.compile(optimizer='adam', loss='binary_crossentropy') #se usan estos dos en estas arquitecturas
 
-X_train = array_train_images
-X_test = array_test_images
+# X_train = array_train_images
+# X_test = array_test_images
 
-X_train = X_train.reshape(len(array_train_images), 25)
-X_test  = X_test.reshape(len(X_test), 25)
+# X_train = X_train.reshape(len(array_train_images), 25)
+# X_test  = X_test.reshape(len(X_test), 25)
 
 # autoencoder.fit(X_train, X_train,
-#                 epochs=15,
+#                 epochs=120,
 #                 batch_size=32,
 #                 shuffle=True,
 #                 validation_data=(X_test, X_test))
@@ -3394,7 +3517,7 @@ X_test  = X_test.reshape(len(X_test), 25)
 
 # #### Visualización
 
-# In[ ]:
+# In[338]:
 
 
 # # create encoder model
@@ -3448,18 +3571,43 @@ X_test  = X_test.reshape(len(X_test), 25)
 # # plt.show()
 
 
+# ## One-Hot
+
+# In[339]:
+
+
+Y_train_onehot = casualty_to_one_hot(Y_train)
+Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
+Y_val_onehot   = casualty_to_one_hot(Y_val)
+Y_test_onehot  = casualty_to_one_hot(Y_test)
+
+array_train_images = np.asarray(train_images)
+array_train_original_images = np.asarray(train_original_images)
+array_val_images   = np.asarray(val_images)
+array_test_images  = np.asarray(test_images)
+
+
+# In[344]:
+
+
+array_val_images.shape
+
+
 # ## Models
 
-# In[ ]:
+# In[340]:
 
 
 array_train_images = np.asarray(train_images)
+array_val_images   = np.asarray(val_images)
 array_test_images  = np.asarray(test_images)
 
 input_train_shape = (len(array_train_images), 5, 5, 1)
+input_val_shape = (len(array_val_images), 5, 5, 1)
 input_test_shape  = (len(array_test_images), 5, 5, 1)
 
 array_train_images = array_train_images.reshape(input_train_shape)
+array_val_images   = array_val_images.reshape(input_val_shape)
 array_test_images  = array_test_images.reshape(input_test_shape)
 
 Y_test_labels = one_hot_to_casualty(Y_test)
@@ -3479,6 +3627,176 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
+# In[176]:
+
+
+import pickle
+from joblib import dump, load
+
+times = pd.DataFrame()
+
+
+# ### NB
+
+# In[177]:
+
+
+MODEL_NAME = MODELS_NAME[3]
+
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+
+sns.reset_defaults()
+
+
+# #### Entrenamiento
+
+# In[178]:
+
+
+from sklearn.naive_bayes import GaussianNB
+
+if city and train_nn and other_models:
+    start = time.time()
+
+    gnb = GaussianNB()
+    gnb = gnb.fit(X_train, Y_train)
+
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+    model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+    times = times.append(model_time)
+
+
+    print(f"Done! {MODEL_NAME} in {ellapsed_time} (s)")
+
+
+# #### Escritura del modelo
+
+# In[179]:
+
+
+if city and train_nn and other_models:
+
+    dump(gnb, MODEL_PATH + MODEL_FILE_NAME) 
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[180]:
+
+
+if city and not train_nn and other_models:
+
+    gnb = load(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+
+if city:
+    print("[INFO] evaluating model...")
+    if train_nn:
+        Y_train_predicted = gnb.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+    Y_predicted = gnb.predict(X_test)
+
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
+
+
+# ### SVC
+
+# In[ ]:
+
+
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+MODEL_NAME = MODELS_NAME[4]
+
+
+# In[ ]:
+
+
+if city and train_nn and other_models:
+    start = time.time()
+
+    clf = SVC(gamma='auto')
+    clf.fit(X_train, Y_train)
+
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+
+    model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+    times = times.append(model_time)
+
+    print(f"Done! {MODEL_NAME} in {ellapsed_time} (s)")
+
+
+# #### Escritura del modelo
+
+# In[ ]:
+
+
+if city and train_nn and other_models:
+
+    dump(clf, MODEL_PATH + MODEL_FILE_NAME) 
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[ ]:
+
+
+if city and not train_nn and other_models:
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+
+    clf = load(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+if city:
+    print("[INFO] evaluating model...")
+
+    if train_nn:
+        Y_train_predicted = clf.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+
+    Y_predicted = clf.predict(X_test)
+
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
+
+
 # ### KNN
 
 # In[ ]:
@@ -3495,37 +3813,62 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# # leaf_size = list(range(1,10, 2))
-# # n_neighbors = list(range(1,100, 10))
-# # p = [1, 2]
+knn = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
 
-# # Create new KNN object
-# hyperparameters = dict(leaf_size = leaf_size,
-#                        n_neighbors = n_neighbors)
+start = time.time()
 
-# # Use GridSearch
-# knn_2 = KNeighborsClassifier()
+knn.fit(X_train, Y_train)
 
-# # Fit the model
-# clf = GridSearchCV(knn_2,
-#                    hyperparameters,
-#                    cv = 4)
+end = time.time()
 
-# knn = clf.fit(X_train, Y_train)
+ellapsed_time = round(end - start, 2)
 
-# # Print The value of best Hyperparameters
+model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+times = times.append(model_time)
 
-# best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
-# best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
+# leaf_size = list(range(1,10, 2))
+# n_neighbors = list(range(1,100, 10))
+# p = [1, 2]
 
-# print('Best leaf_size:', best_leaf_size)
-# print('Best n_neighbors:', best_n_neighbors)
+# if city and train_nn and other_models:
 
-# df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
+#     start = time.time()
 
-# FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
+#     # Create new KNN object
+#     hyperparameters = dict(leaf_size = leaf_size,
+#                            n_neighbors = n_neighbors)
 
-# df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
+#     # Use GridSearch
+#     knn_2 = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
+
+#     # Fit the model
+#     clf = GridSearchCV(knn_2,
+#                        hyperparameters,
+#                        cv = 4)
+
+#     knn = clf.fit(X_train, Y_train)
+
+#     end = time.time()
+
+#     ellapsed_time = round(end - start, 2)
+
+
+#     model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+#     times = times.append(model_time)
+
+#     # Print The value of best Hyperparameters
+
+#     best_leaf_size  = knn.best_estimator_.get_params()['leaf_size']
+#     best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
+
+#     print('Best leaf_size:', best_leaf_size)
+#     print('Best n_neighbors:', best_n_neighbors)
+
+#     df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
+
+#     FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
+
+#     df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
 
 # #### Escritura del modelo
@@ -3533,14 +3876,12 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.pkl"
+# if city and train_nn and other_models:
 
-# # Its important to use binary mode 
-# knnPickle = open(MODEL_PATH + MODEL_FILE_NAME, 'wb') 
+#     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+#     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
 
-# # source, destination 
-# pickle.dump(knn, knnPickle)
+#     dump(knn, MODEL_PATH + MODEL_FILE_NAME) 
 
 
 # #### Carga de modelo pre-entrenado
@@ -3548,11 +3889,13 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_2022-04-27-21:50:26.pkl"
+# if city and not train_nn and other_models:
 
-# # load the model from disk
-# loaded_model = pickle.load(open(MODEL_PATH + MODEL_FILE_NAME, 'rb'))
+#     version = 'X'
+#     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+#     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{model_version}.joblib"
+
+#     knn = load(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -3560,57 +3903,61 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-# y_predicted = knn.predict(X_test)
+if city:
+    print("[INFO] evaluating model...")
 
-# Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+    if train_nn:
+        Y_train_predicted = knn.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+    Y_predicted = knn.predict(X_test)
 
-# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
-
-# # plot_f1_score(f1_score_path = F1_SCORE_PATH,
-# #               f1_score_name = F1_SCORE_NAME,
-# #               history = history)
-
-# print("[INFO] evaluating network...")
-
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
-
-# plot_classification_report(path = REPORT_PATH,
-#                            file_name = REPORT_NAME,
-#                            y_true = Y_test,
-#                            y_predicted = Y_predicted)
-
-
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
-
-# plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-#                       file_name = CONFUSION_MATRIX_NAME,
-#                       y_true = Y_test,
-#                       y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### Convolution 1D
 
-# In[ ]:
+# In[273]:
 
 
 MODEL_NAME = MODELS_NAME[1]
 
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[359]:
 
 
-history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                             class_weight = pesos,
-                             batch_size = 128,
-                             epochs = 100,
-                             shuffle = True,
-                             validation_data = (array_test_images, Y_test_onehot))
-history
+if city and train_nn:
+    start = time.time()
+
+    history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                                 # class_weight = pesos,
+                                 batch_size = 128,
+                                 epochs = 500,
+                                 shuffle = True,
+                                 validation_data = (array_test_images, Y_test_onehot))
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
+
+    times = times.append(model_time)
+
+    history
 
 
 # #### Escritura del modelo
@@ -3618,10 +3965,9 @@ history
 # In[ ]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+if city and train_nn:
 
-tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+    convolution_1d.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -3629,10 +3975,11 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-11-08:53:52.h5'
+if city and not train_nn and not laptop:
+    # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+    MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-19-06:33:55.h5'
 
-# convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+    convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -3640,33 +3987,33 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+if city and not laptop:
 
-F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+    print("[INFO] evaluating network...")
 
-plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                      f1_score_name = F1_SCORE_NAME,
-                      history = history)
+    Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-print("[INFO] evaluating network...")
+    if train_nn:
+        F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+        F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                              f1_score_name = F1_SCORE_NAME,
+                              history = history)
 
-plot_classification_report(path = REPORT_PATH,
-                           file_name = REPORT_NAME,
-                           y_true = Y_test,
-                           y_predicted = Y_predicted)
+        Y_train_predicted = convolution_1d.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
 
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
-
-plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                      file_name = CONFUSION_MATRIX_NAME,
-                      y_true = Y_test,
-                      y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### Convolution 2D
@@ -3676,19 +4023,36 @@ plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
 
 MODEL_NAME = MODELS_NAME[2]
 
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
+
 
 # #### Entrenamiento
 
 # In[ ]:
 
 
-history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                       class_weight = pesos,
-                       batch_size = 128,
-                       epochs = 100,
-                       shuffle = True,
-                       validation_data = (array_test_images, Y_test_onehot))
-history
+if city and train_nn:
+
+    start = time.time()
+
+    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                           # class_weight = pesos,
+                           batch_size = 128,
+                           epochs = 500,
+                           shuffle = True,
+                           validation_data = (array_test_images, Y_test_onehot))
+
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
+    times = times.append(model_time)    
+
+    history
 
 
 # #### Escritura del modelo
@@ -3696,10 +4060,11 @@ history
 # In[ ]:
 
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+if city and train_nn:
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
-tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
+    tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Carga de modelo pre-entrenado
@@ -3707,10 +4072,63 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-11-08:53:52.h5'
+if city and not train_nn and not laptop:
+    # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+    MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-18-19:50:16.h5'
 
-# tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+    tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# In[ ]:
+
+
+# ## Exportar los kernels
+
+# n_samples = 3
+# layers = [0, 2, 4, 6]
+
+# for layer_number in layers:
+#     filters, biases = tasp_cnn.layers[layer_number].get_weights()
+    
+#     layer_name = layer_number//2 + 1
+
+#     for i in range(n_samples):
+#         # X,Y, channel, filter_number
+#         current_filter = filters[:,:,0, i]
+
+#         plt.figure(figsize=(3, 3))
+#         plt.grid(b = None)
+#         plt.imshow(current_filter, cmap='gray')
+
+#         # plt.savefig(f"filters/{city_name}_filter_layer_{layer_name}_{i}.svg", transparent=True)
+#         plt.show()
+
+
+# In[ ]:
+
+
+# # import tf.keras.mo.Model
+# tasp_cnn_feature_maps = tf.keras.models.Model(inputs = tasp_cnn.inputs, outputs=tasp_cnn.layers[0].output)
+
+# tasp_cnn_feature_maps.predict(array_train_images[:3]).shape
+
+
+# In[ ]:
+
+
+# feature_maps = tasp_cnn.predict(array_train_images)
+# # plot all 64 maps in an 8x8 squares
+# square = 5
+# ix = 1
+# for _ in range(square):
+#     for _ in range(square):
+#         # specify subplot and turn of axis
+
+#         # plot filter channel in grayscale
+#         plt.imshow(tasp_cnn_feature_maps[ix-1,:,:,:], cmap='gray')
+#         ix += 1
+# # show the figure
+# plt.show()
 
 
 # #### Resultados
@@ -3718,33 +4136,33 @@ tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
 # In[ ]:
 
 
-Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+if city and not laptop:
 
-F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+    print("[INFO] evaluating network...")
 
-plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                      f1_score_name = F1_SCORE_NAME,
-                      history = history)
+    Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
-print("[INFO] evaluating network...")
+    if train_nn:
+        F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+        F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                              f1_score_name = F1_SCORE_NAME,
+                              history = history)
 
-plot_classification_report(path = REPORT_PATH,
-                           file_name = REPORT_NAME,
-                           y_true = Y_test,
-                           y_predicted = Y_predicted)
+        Y_train_predicted = tasp_cnn.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
 
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
 
-CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
-
-plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                      file_name = CONFUSION_MATRIX_NAME,
-                      y_true = Y_test,
-                      y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ## AutoML
@@ -3811,7 +4229,7 @@ MODEL_NAME = MODELS_NAME[3]
 # Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
 # F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.jpg"
+# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
 # # plot_f1_score(f1_score_path = F1_SCORE_PATH,
 # #               f1_score_name = F1_SCORE_NAME,
@@ -3829,7 +4247,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 
 # CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.jpg"
+# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
 
 # plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
 #                       file_name = CONFUSION_MATRIX_NAME,
@@ -3839,64 +4257,100 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # Data Summary
 
+# ## Models times plot
+
+# ### Sort
+
 # In[ ]:
 
 
-# MODEL_TIMESTAMP
+times = times.sort_values('time')
 
-# WEIGHTS_PATH  = './feature_weights/'
-# REPORTS_PATH  = 'Reports/'
-# MODELS_PATH   = 'Models/'
-# F1_SCORES_PATH = 'F1scores/'
-# GA_SCORES_PATH = 'GA_Scores/'
-# HYPERPARAMS_PATH = './hyperparams/'
 
-# HYPERPARAMS_EVOLUTON_PATH = './hyperparams_evolution/'
-# FINAL_POPULATION_PATH = './population/'
-# CONFUSIONS_MATRIX_PATH = 'confusion_matrix/'
+# ### Save csv
 
-# ###### MODELS ######
-# MODELS_NAME = ['knn', 'convolution_1d', 'convolution_2d']
-# DATA_PATHS = [REPORTS_PATH]
+# In[ ]:
+
+
+SAVE_PATH = f"{REPORTS_TIMES_PATH}{MODEL_TIMESTAMP}.csv"
+times.to_csv(SAVE_PATH, index= True)
+
+
+# ### Save fig
+
+# In[ ]:
+
+
+# LOAD_PATH = f"{REPORTS_TIMES_PATH}2022-05-23-15:28:04.csv"
+# times = pd.read_csv(LOAD_PATH)
+
+# ax = sns.barplot(x = 'time',
+#                  y = 'model',
+#                  palette='deep',
+#                  data = times).set(title = f"Models Fitting Time (s)")
+# plt.xlabel("Time (s)")
+
+# SAVE_PATH = f"{REPORTS_TIMES_PATH}{MODEL_TIMESTAMP}.png"
+# plt.savefig(SAVE_PATH)
+
+
+# ## Models metrics file
+
+# In[ ]:
+
 
 from os.path import exists
 
 reports_summary = pd.DataFrame()
 
-cities = ['leeds', 'madrid']
+cities = []
+
+cities.append('leeds')  if leeds else None
+cities.append('madrid') if madrid else None
 
 models_renaming = {'knn': 'KNN',
                    'convolution_1d': '1D-convolution',
-                   'convolution_2d': '2D-convolution'}
+                   'convolution_2d': '2D-convolution',
+                   'nb': 'NB',
+                   'svc': 'SVC'}
                    # 'auto_ml': 'AutoML'}
+splits = ['train', 'test']
 
-for model_name in MODELS_NAME:
-    
-    REPORT_PATH = f"{REPORTS_PATH}{model_name}/"
+sorted_by_time_models_name = times.model
 
-    for city in cities:
-        REPORT_NAME  = f"{city}_{model_name}_report_{MODEL_TIMESTAMP}.csv"
+for split in splits:
+    reports_summary = pd.DataFrame()
 
-        if exists(REPORT_PATH + REPORT_NAME):
-            report = pd.read_csv(REPORT_PATH + REPORT_NAME, index_col=[0])
-            report.insert(0, 'city', city)
-            report.insert(1, 'model', models_renaming[model_name])
-            
-            reports_summary = pd.concat([reports_summary, report])
+    for model_name in sorted_by_time_models_name:
 
-reports_summary = reports_summary.sort_values(['city', 'model'], ascending = [True, True])
+        REPORT_PATH = f"{REPORTS_PATH}{model_name}/{split}/"
 
-c_m = reports_summary['city'] + '_' + reports_summary['model']
-reports_summary.insert(0, 'c_m', c_m)
+        for city_name in cities:
 
-# reports_summary.drop(['city', 'model'], axis=1, inplace = True)
+            REPORT_NAME  = f"{city_name}_{model_name}_report_{MODEL_TIMESTAMP}.csv"
 
-SAVE_PATH =  f"{REPORTS_SUMMARY_PATH}{MODEL_TIMESTAMP}.csv"
+            if exists(REPORT_PATH + REPORT_NAME):
+                print(f"Found: {model_name} for {split}")
+                report = pd.read_csv(REPORT_PATH + REPORT_NAME, index_col=[0])
+                report.insert(0, 'split', split)
+                report.insert(1, 'city', city_name)
+                report.insert(2, 'model', models_renaming[model_name])
 
-reports_summary.to_csv(SAVE_PATH, index= True)
+                reports_summary = pd.concat([reports_summary, report])
 
-reports_summary.insert(0, 'accident_type', reports_summary.index)
+                reports_summary = reports_summary.sort_values(['city', 'model'], ascending = [True, True])
 
+    if not reports_summary.empty:
+        c_m = reports_summary['city'] + '_' + reports_summary['model']
+        reports_summary.insert(0, 'c_m', c_m)
+
+        SAVE_PATH =  f"{REPORTS_SUMMARY_PATH}/{split}/{MODEL_TIMESTAMP}.csv"
+
+        reports_summary.insert(0, 'accident_type', reports_summary.index)
+        reports_summary.to_csv(SAVE_PATH, index= True)
+
+
+# ## Models scores plot
 
 # In[ ]:
 
@@ -3906,29 +4360,58 @@ import seaborn as sns
 MEASURE_TYPES  = ['precision', 'recall', 'f1-score']
 ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
-fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,20))
 
-leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
-madrid_reports_summary = reports_summary[reports_summary['city'] == 'madrid']
+
+if leeds:
+    leeds_reports_summary  = reports_summary[reports_summary['city'] == 'leeds']
+if madrid:
+    madrid_reports_summary = reports_summary[reports_summary['city'] == 'madrid']
 
 # print(leeds_reports_summary.loc[ACCIDENT_TYPES])
 
-for index, measure_type in enumerate(MEASURE_TYPES):
+for split in splits:
+    
+    REPORT_PATH = f"{REPORTS_SUMMARY_PATH}{split}/{MODEL_TIMESTAMP}.csv"
 
-    ax = sns.barplot(x = 'accident_type',
-                     y = measure_type,
-                     hue = 'model',
-                     data = leeds_reports_summary.loc[ACCIDENT_TYPES],
-                     ax = axs[index, 0]).set(title = f"{measure_type} Leeds")
+    if exists(REPORT_PATH):
+        fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,20))
 
-    ax = sns.barplot(x = 'accident_type',
-                     y = measure_type,
-                     hue = 'model',
-                     data = madrid_reports_summary.loc[ACCIDENT_TYPES],
-                     ax = axs[index, 1]).set(title = f"{measure_type} Madrid")
+        print(f"Found: {REPORT_PATH}")
 
-SAVE_PATH = f"{REPORTS_SUMMARY_PATH}{MODEL_TIMESTAMP}.png"
+        report = pd.read_csv(REPORT_PATH, index_col=[0])
 
-fig = fig.get_figure()
-fig.savefig(SAVE_PATH)
+        if leeds:
+            leeds_reports_summary  = report[report['city'] == 'leeds']
+        if madrid:
+            madrid_reports_summary = report[report['city'] == 'madrid']
+
+        for index, measure_type in enumerate(MEASURE_TYPES):
+
+            # Si son dos ciudades el plot es bidimensional.
+            if len(cities) > 1:
+                axis_leeds = axs[index, 0]
+                axis_madrid = axs[index, 1]
+            else:
+                axis_leeds = axis_madrid = axs[index]
+
+            if leeds:
+                ax = sns.barplot(x = 'accident_type',
+                                 y = measure_type,
+                                 hue = 'model',
+                                 palette = 'deep',
+                                 data = leeds_reports_summary.loc[ACCIDENT_TYPES],
+                                 ax = axis_leeds).set(title = f"{measure_type} Leeds")
+
+            if madrid:
+                ax = sns.barplot(x = 'accident_type',
+                                 y = measure_type,
+                                 hue = 'model',
+                                 palette = 'deep',
+                                 data = madrid_reports_summary.loc[ACCIDENT_TYPES],
+                                 ax = axis_madrid).set(title = f"{measure_type} Madrid")
+
+        SAVE_PATH = f"{REPORTS_SUMMARY_PATH}{split}/{MODEL_TIMESTAMP}.png"
+
+        fig = fig.get_figure()
+        fig.savefig(SAVE_PATH)
 

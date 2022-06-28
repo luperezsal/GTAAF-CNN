@@ -1,0 +1,6 @@
+,city,model,time
+0,madrid,nb,0.02
+0,madrid,knn,0.21
+0,madrid,svc,236.0
+0,madrid,convolution_2d,273.12
+0,madrid,convolution_1d,322.34

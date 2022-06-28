@@ -2,19 +2,15 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Ejemplo de tabla.\relax }}{13}{table.caption.11}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Parámetros optativos de los entornos flotantes\relax }}{14}{table.caption.12}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Parámetros de los altavoces elegidos de la marca Beyma\textsuperscript {\relax \fontsize {6}{7}\selectfont \textregistered }.\relax }}{15}{table.caption.14}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Ejemplo 2\relax }}{16}{table.caption.15}%
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Descripción de los datos.\relax }}{24}{table.caption.20}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{27}{table.caption.21}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Límites de inicialización y mutación de los hiperparámetros de los individuos.\relax }}{33}{table.caption.27}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Jerarquía de categorías y características.\relax }}{34}{table.caption.28}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Descripción de los datos.\relax }}{32}{table.caption.30}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Transformaciones aplicadas a los datos.\relax }}{39}{table.caption.31}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Esta es una tabla con múltiples imágenes. Útil cuando se deben mostrar varias juntas.\relax }}{43}{table.caption.39}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Mejores parámetros de XGBoost tras aplicar el algoritmo genético.\relax }}{42}{table.caption.34}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Cálculo de pesos de características y categorías mediante XGBoost (los valores se han redondeado en base a tres decimales).\relax }}{43}{table.caption.37}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Métricas clasificación para el conjunto de entrenamiento.\relax }}{51}{table.caption.48}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Métricas clasificación para el conjunto de test.\relax }}{54}{table.caption.51}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
