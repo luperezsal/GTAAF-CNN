@@ -1367,7 +1367,8 @@ if calculate_weights and leeds:
 
 
 if not calculate_weights:
-    FILE_NAME = f"{city_name}_hyperparams_{loaded_timestamp}.json"
+    # FILE_NAME = f"{city_name}_hyperparams_{loaded_timestamp}.json"
+    FILE_NAME = f"leeds_hyperparams_2022-04-27-12:06:35.json"
 
     best_hyperparams = load_json(f"{HYPERPARAMS_PATH}{city_name}/", FILE_NAME)
 
@@ -3182,7 +3183,8 @@ if calculate_weights and madrid:
 
 if not calculate_weights:
 
-    FILE_NAME = f"{city_name}_hyperparams{loaded_timestamp}.json"
+    # FILE_NAME = f"{city_name}_hyperparams{loaded_timestamp}.json"
+    FILE_NAME = f"{city_name}_hyperparams2022-04-14-11:16:13.json"
 
     best_hyperparams = load_json(f"{HYPERPARAMS_PATH}{city_name}/", FILE_NAME)
 
@@ -3307,7 +3309,7 @@ if calculate_weights and madrid:
     write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
-# In[323]:
+# In[ ]:
 
 
 feature_vector
@@ -4364,7 +4366,7 @@ data_frame.fillna(-1)
 
 
 
-# In[42]:
+# In[ ]:
 
 
 data_frame
