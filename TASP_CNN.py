@@ -4251,6 +4251,12 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # UK
 
+# In[ ]:
+
+
+loaded_timestamp = '2022-07-06-10:47:41'
+
+
 # ## Importación de datos
 
 # In[35]:
