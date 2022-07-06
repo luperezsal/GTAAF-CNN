@@ -4722,7 +4722,7 @@ if calculate_weights and city:
 
 
 if not calculate_weights:
-    FILE_NAME = f"{city_name}_hyperparams_{loaded_timestamp}.json"
+    FILE_NAME = f"{city_name}_hyperparams{loaded_timestamp}.json"
 
     best_hyperparams = load_json(f"{HYPERPARAMS_PATH}{city_name}/", FILE_NAME)
 
