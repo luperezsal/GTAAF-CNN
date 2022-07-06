@@ -1450,8 +1450,8 @@ if calculate_weights and leeds:
 # In[101]:
 
 
-# FILE_NAME = 'leeds_default_weights.json'
-FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
+FILE_NAME = 'leeds_default_weights.json'
+# FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
