@@ -1805,7 +1805,7 @@ if leeds and tsne:
 # In[ ]:
 
 
-if city:
+if leeds:
     Y_train_onehot = casualty_to_one_hot(Y_train)
     Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
     Y_test_onehot  = casualty_to_one_hot(Y_test)
@@ -1818,7 +1818,7 @@ if city:
 
 from sklearn.utils import class_weight
 
-if leeds:
+if city:
     Y_test_labels = one_hot_to_casualty(Y_test)
 
     pesos = class_weight.compute_class_weight('balanced',
