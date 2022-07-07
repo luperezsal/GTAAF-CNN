@@ -868,55 +868,57 @@ print('Done!')
 
 
 import pandas as pd
-# https://datamillnorth.org/dataset/road-traffic-accidents
-# root_path = '/content/drive/Othercomputers/Mi portátil/Drive/Master UA/TFM/TFM_DATA/'
 
-city_name = 'leeds'
-city = leeds
+if leeds:
+    # https://datamillnorth.org/dataset/road-traffic-accidents
+    # root_path = '/content/drive/Othercomputers/Mi portátil/Drive/Master UA/TFM/TFM_DATA/'
 
-root_path = './Data/Leeds/'
+    city_name = 'leeds'
+    city = leeds
+    # 
+    root_path = './Data/Leeds/'
 
-file_path_2009 = './2009.csv'
-file_path_2010 = './2010.csv'
-file_path_2011 = './2011.csv'
-file_path_2012 = './2012.csv'
-file_path_2013 = './2013.csv'
-file_path_2014 = './2014.csv'
-file_path_2015 = './2015.csv'
-file_path_2016 = './2016.csv'
+    file_path_2009 = './2009.csv'
+    file_path_2010 = './2010.csv'
+    file_path_2011 = './2011.csv'
+    file_path_2012 = './2012.csv'
+    file_path_2013 = './2013.csv'
+    file_path_2014 = './2014.csv'
+    file_path_2015 = './2015.csv'
+    file_path_2016 = './2016.csv'
 
-file_2009 = pd.read_csv(root_path + file_path_2009, encoding = 'cp1252')
-file_2010 = pd.read_csv(root_path + file_path_2010, encoding = 'cp1252')
-file_2011 = pd.read_csv(root_path + file_path_2011, encoding = 'cp1252')
-file_2012 = pd.read_csv(root_path + file_path_2012, encoding = 'cp1252')
-file_2013 = pd.read_csv(root_path + file_path_2013, encoding = 'cp1252')
-file_2014 = pd.read_csv(root_path + file_path_2014, encoding = 'cp1252')
-file_2015 = pd.read_csv(root_path + file_path_2015, encoding = 'cp1252')
-file_2016 = pd.read_csv(root_path + file_path_2016, encoding = 'cp1252')
+    file_2009 = pd.read_csv(root_path + file_path_2009, encoding = 'cp1252')
+    file_2010 = pd.read_csv(root_path + file_path_2010, encoding = 'cp1252')
+    file_2011 = pd.read_csv(root_path + file_path_2011, encoding = 'cp1252')
+    file_2012 = pd.read_csv(root_path + file_path_2012, encoding = 'cp1252')
+    file_2013 = pd.read_csv(root_path + file_path_2013, encoding = 'cp1252')
+    file_2014 = pd.read_csv(root_path + file_path_2014, encoding = 'cp1252')
+    # file_2015 = pd.read_csv(root_path + file_path_2015, encoding = 'cp1252')
+    file_2016 = pd.read_csv(root_path + file_path_2016, encoding = 'cp1252')
 
-###################### UNIÓN DE ARCHIVOS ######################
+    ###################### UNIÓN DE ARCHIVOS ######################
 
-a = pd.concat([file_2009,file_2010])
+    a = pd.concat([file_2009,file_2010])
 
-file_2013 = clean_df = file_2013.loc[:, ~file_2013.columns.isin(['Casualty Class'])]
-file_2013.set_axis(a.columns, axis=1, inplace=True)
-                                             
-file_2014 = clean_df = file_2014.loc[:, ~file_2014.columns.isin(['Casualty Class'])]
-file_2014.set_axis(a.columns, axis=1, inplace=True)
+    file_2013 = clean_df = file_2013.loc[:, ~file_2013.columns.isin(['Casualty Class'])]
+    file_2013.set_axis(a.columns, axis=1, inplace=True)
 
-# file_2015 = clean_df = file_2015.loc[:, ~file_2015.columns.isin(['Casualty Class'])]
-file_2015.set_axis(a.columns, axis=1, inplace=True)
-file_2016 = clean_df = file_2016.loc[:, ~file_2016.columns.isin(['Expr1'])]
-file_2016.set_axis(a.columns, axis=1, inplace=True)
+    file_2014 = clean_df = file_2014.loc[:, ~file_2014.columns.isin(['Casualty Class'])]
+    file_2014.set_axis(a.columns, axis=1, inplace=True)
 
-a = pd.concat([a, file_2011])
-a = pd.concat([a, file_2012])
-a = pd.concat([a, file_2013])
-a = pd.concat([a, file_2014])
-a = pd.concat([a, file_2015])
-a = pd.concat([a, file_2016])
+    # file_2015 = clean_df = file_2015.loc[:, ~file_2015.columns.isin(['Casualty Class'])]
+    file_2015.set_axis(a.columns, axis=1, inplace=True)
+    file_2016 = clean_df = file_2016.loc[:, ~file_2016.columns.isin(['Expr1'])]
+    file_2016.set_axis(a.columns, axis=1, inplace=True)
 
-# a['1st Road Class'].value_counts()
+    a = pd.concat([a, file_2011])
+    a = pd.concat([a, file_2012])
+    a = pd.concat([a, file_2013])
+    a = pd.concat([a, file_2014])
+    a = pd.concat([a, file_2015])
+    a = pd.concat([a, file_2016])
+
+    # a['1st Road Class'].value_counts()
 
 
 # ## Limpieza de datos
@@ -924,162 +926,164 @@ a = pd.concat([a, file_2016])
 # In[83]:
 
 
-###################### DICCIONARIOS DE REEMPLAZO ######################
-# Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
-# A, A(M) y Motorway lo mismo?
-# B:            De carácter regional y utilizado para conectar zonas de menor importancia.
-#               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
-#               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
-#               ¿Carretera como tal?
+if leeds:
 
-# C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
-#               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
-road_class_replace = {
-    'Motorway': 1,
-    'A(M)': 2,
-    'A': 3,
-    'B': 4,
-    'C': 5,
-    'Unclassified': 6
-}
+    ###################### DICCIONARIOS DE REEMPLAZO ######################
+    # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
+    # A, A(M) y Motorway lo mismo?
+    # B:            De carácter regional y utilizado para conectar zonas de menor importancia.
+    #               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
+    #               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
+    #               ¿Carretera como tal?
 
-##################################
-accident_date_replace = {
-    'Dry': 1,
-    'Wet / Damp': 2,
-    'Snow': 3,
-    'Frost / Ice': 4,
-    'Flood': 5,
-}
-##################################
+    # C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
+    #               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
+    road_class_replace = {
+        'Motorway': 1,
+        'A(M)': 2,
+        'A': 3,
+        'B': 4,
+        'C': 5,
+        'Unclassified': 6
+    }
 
-road_surface_replace = {
-    'Dry': 1,
-    'Wet / Damp': 2,
-    'Snow': 3,
-    'Frost/ Ice': 4,
-    'Frost / Ice': 4,
-    'Flood': 5,
-    'Flood (surface water over 3cm deep)': 5,
-    '5': 5
-}
+    ##################################
+    accident_date_replace = {
+        'Dry': 1,
+        'Wet / Damp': 2,
+        'Snow': 3,
+        'Frost / Ice': 4,
+        'Flood': 5,
+    }
+    ##################################
 
-# La 5: "Darkness: street lighting unknown" no está presente en el paper, le hemos puesto un 5 porque sí #
-lighting_conditions_replace = {
-    'Daylight: street lights present': 1,
-    'Darkness: no street lighting': 2,
-    'Darkness: street lights present and lit': 3,
-    'Darkness: street lights present but unlit': 4,
-    'Darkness: street lighting unknown': 5,
-    '5': 5
-}
+    road_surface_replace = {
+        'Dry': 1,
+        'Wet / Damp': 2,
+        'Snow': 3,
+        'Frost/ Ice': 4,
+        'Frost / Ice': 4,
+        'Flood': 5,
+        'Flood (surface water over 3cm deep)': 5,
+        '5': 5
+    }
 
-
-# La 8.2: "Unknown" no está presente en el paper, le hemos puesto un 8 porque sí (Other) #
-weather_conditions_replace = {
-    'Fine without high winds': 1,
-    'Raining without high winds': 2,
-    'Snowing without high winds': 3,
-    'Fine with high winds': 4,
-    'Raining with high winds': 5,
-    'Snowing with high winds': 6,
-    'Fog or mist – if hazard': 7,
-    'Other': 8,
-    'Unknown': 8
-}
-
-type_of_vehicle_replace = {
-    'Pedal cycle': 1,
-    'M/cycle 50cc and under': 2,
-    'Motorcycle over 50cc and up to 125cc': 3,
-    'Motorcycle over 125cc and up to 500cc': 4,
-    'Motorcycle over 500cc': 5,
-    'Taxi/Private hire car': 6,
-    'Car': 7,
-    'Minibus (8 – 16 passenger seats)': 8,
-    'Bus or coach (17 or more passenger seats)': 9,
-    'Ridden horse': 10,
-    'Agricultural vehicle (includes diggers etc.)': 11,
-    'Tram / Light rail': 12,
-    'Goods vehicle 3.5 tonnes mgw and under': 13,
-    'Goods vehicle over 3.5 tonnes and under 7.5 tonnes mgw': 14,
-    'Goods vehicle 7.5 tonnes mgw and over': 15,
-    'Mobility Scooter': 16,
-    'Other Vehicle ': 17,
-    'Motorcycle - Unknown CC': 18
-}
-
-casualty_class_replace = {
-    'Driver': 1,
-    'Driver/Rider': 1,
-    'Driver or rider': 1,
-    'Passenger': 2,
-    'Vehicle or pillion passenger': 2,
-    'Pedestrian': 3
-}
+    # La 5: "Darkness: street lighting unknown" no está presente en el paper, le hemos puesto un 5 porque sí #
+    lighting_conditions_replace = {
+        'Daylight: street lights present': 1,
+        'Darkness: no street lighting': 2,
+        'Darkness: street lights present and lit': 3,
+        'Darkness: street lights present but unlit': 4,
+        'Darkness: street lighting unknown': 5,
+        '5': 5
+    }
 
 
-sex_of_casualty_replace = {
-    'Male': 1,
-    'Female': 2
-}
+    # La 8.2: "Unknown" no está presente en el paper, le hemos puesto un 8 porque sí (Other) #
+    weather_conditions_replace = {
+        'Fine without high winds': 1,
+        'Raining without high winds': 2,
+        'Snowing without high winds': 3,
+        'Fine with high winds': 4,
+        'Raining with high winds': 5,
+        'Snowing with high winds': 6,
+        'Fog or mist – if hazard': 7,
+        'Other': 8,
+        'Unknown': 8
+    }
 
-###################### REEMPLAZOS ######################
-clean_df = clean_df.dropna()
+    type_of_vehicle_replace = {
+        'Pedal cycle': 1,
+        'M/cycle 50cc and under': 2,
+        'Motorcycle over 50cc and up to 125cc': 3,
+        'Motorcycle over 125cc and up to 500cc': 4,
+        'Motorcycle over 500cc': 5,
+        'Taxi/Private hire car': 6,
+        'Car': 7,
+        'Minibus (8 – 16 passenger seats)': 8,
+        'Bus or coach (17 or more passenger seats)': 9,
+        'Ridden horse': 10,
+        'Agricultural vehicle (includes diggers etc.)': 11,
+        'Tram / Light rail': 12,
+        'Goods vehicle 3.5 tonnes mgw and under': 13,
+        'Goods vehicle over 3.5 tonnes and under 7.5 tonnes mgw': 14,
+        'Goods vehicle 7.5 tonnes mgw and over': 15,
+        'Mobility Scooter': 16,
+        'Other Vehicle ': 17,
+        'Motorcycle - Unknown CC': 18
+    }
 
-a['1st Road Class'].replace(road_class_replace, inplace = True)
-# print('1st Road Class:', a['1st Road Class'].unique())
+    casualty_class_replace = {
+        'Driver': 1,
+        'Driver/Rider': 1,
+        'Driver or rider': 1,
+        'Passenger': 2,
+        'Vehicle or pillion passenger': 2,
+        'Pedestrian': 3
+    }
 
-##################################
-# a['Accident Date'].replace(accident_date_replace, inplace = True)
-# print('Accident Date:', a['Accident Date'].unique())
-##################################
-a['Road Surface'].replace(road_surface_replace, inplace = True)
-a.dropna(inplace = True)
 
-a['Road Surface'] = a['Road Surface'].astype('int')
-# print('Road Surface:', a['Road Surface'].unique())
+    sex_of_casualty_replace = {
+        'Male': 1,
+        'Female': 2
+    }
 
-a['Lighting Conditions'].replace(lighting_conditions_replace, inplace = True)
-# print('Lighting Conditions:', a['Lighting Conditions'].unique())
+    ###################### REEMPLAZOS ######################
+    clean_df = clean_df.dropna()
 
-a['Weather Conditions'].replace(weather_conditions_replace, inplace = True)
-a = a[a['Weather Conditions'] != 'Darkness: street lighting unknown']
-# print('Weather Conditions:', a['Weather Conditions'].unique())
+    a['1st Road Class'].replace(road_class_replace, inplace = True)
+    # print('1st Road Class:', a['1st Road Class'].unique())
 
-a['Type of Vehicle'].replace(type_of_vehicle_replace, inplace = True)
-# print('Type of Vehicle:', a['Type of Vehicle'].unique())
+    ##################################
+    # a['Accident Date'].replace(accident_date_replace, inplace = True)
+    # print('Accident Date:', a['Accident Date'].unique())
+    ##################################
+    a['Road Surface'].replace(road_surface_replace, inplace = True)
+    a.dropna(inplace = True)
 
-a['Casualty Class'].replace(casualty_class_replace, inplace = True)
-# print('Casualty Class:', a['Casualty Class'].unique())
+    a['Road Surface'] = a['Road Surface'].astype('int')
+    # print('Road Surface:', a['Road Surface'].unique())
 
-a['Sex of Casualty'].replace(sex_of_casualty_replace, inplace = True)
-# print('Sex of Casualty:', a['Sex of Casualty'].unique())
+    a['Lighting Conditions'].replace(lighting_conditions_replace, inplace = True)
+    # print('Lighting Conditions:', a['Lighting Conditions'].unique())
 
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] < 18, 1)
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(18, 25), 2)
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(25, 65), 3)
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] > 65, 4)
-# print('Age of Casualty:', a['Age of Casualty'].unique())
+    a['Weather Conditions'].replace(weather_conditions_replace, inplace = True)
+    a = a[a['Weather Conditions'] != 'Darkness: street lighting unknown']
+    # print('Weather Conditions:', a['Weather Conditions'].unique())
 
-a['Time (24hr)'] = a['Time (24hr)'].mask(a['Time (24hr)'] < 600, 2)
-a['Time (24hr)'] = a['Time (24hr)'].mask(a['Time (24hr)'] > 1800, 2)
-a['Time (24hr)'] = a['Time (24hr)'].mask(a['Time (24hr)'].between(600, 1800), 1)
-# print('Time (24hr):', a['Time (24hr)'].unique())
-a.rename(columns={"Time (24hr)": "Accident Time"}, inplace = True)
+    a['Type of Vehicle'].replace(type_of_vehicle_replace, inplace = True)
+    # print('Type of Vehicle:', a['Type of Vehicle'].unique())
 
-###################### LIMPIEZA DE VALORES NULOS/DUPLICADOS ######################
+    a['Casualty Class'].replace(casualty_class_replace, inplace = True)
+    # print('Casualty Class:', a['Casualty Class'].unique())
 
-clean_df = a.loc[:, ~a.columns.isin(['Accident Date', 'Reference Number'])]
+    a['Sex of Casualty'].replace(sex_of_casualty_replace, inplace = True)
+    # print('Sex of Casualty:', a['Sex of Casualty'].unique())
 
-clean_df['Weather Conditions'] = clean_df['Weather Conditions'].astype('int')
-clean_df['Casualty Class']     = clean_df['Casualty Class'].astype('int')
+    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] < 18, 1)
+    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(18, 25), 2)
+    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(25, 65), 3)
+    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] > 65, 4)
+    # print('Age of Casualty:', a['Age of Casualty'].unique())
 
-clean_df = clean_df.drop_duplicates()
-clean_df = clean_df.dropna()
-clean_df = clean_df.reset_index(drop=True)
+    a['Time (24hr)'] = a['Time (24hr)'].mask(a['Time (24hr)'] < 600, 2)
+    a['Time (24hr)'] = a['Time (24hr)'].mask(a['Time (24hr)'] > 1800, 2)
+    a['Time (24hr)'] = a['Time (24hr)'].mask(a['Time (24hr)'].between(600, 1800), 1)
+    # print('Time (24hr):', a['Time (24hr)'].unique())
+    a.rename(columns={"Time (24hr)": "Accident Time"}, inplace = True)
 
-clean_df
+    ###################### LIMPIEZA DE VALORES NULOS/DUPLICADOS ######################
+
+    clean_df = a.loc[:, ~a.columns.isin(['Accident Date', 'Reference Number'])]
+
+    clean_df['Weather Conditions'] = clean_df['Weather Conditions'].astype('int')
+    clean_df['Casualty Class']     = clean_df['Casualty Class'].astype('int')
+
+    clean_df = clean_df.drop_duplicates()
+    clean_df = clean_df.dropna()
+    clean_df = clean_df.reset_index(drop=True)
+
+    clean_df
 
 
 # ## Split de datos
@@ -1095,14 +1099,15 @@ clean_df
 
 from sklearn.model_selection import train_test_split
 
-Y = clean_df['Casualty Severity']
+if leeds:
+    Y = clean_df['Casualty Severity']
 
-train, test = train_test_split(clean_df, test_size=0.2, random_state = 1)
-X_train = X_train_original = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
-Y_train = Y_train_original = train['Casualty Severity']
+    train, test = train_test_split(clean_df, test_size=0.2, random_state = 1)
+    X_train = X_train_original = train.loc[:, ~train.columns.isin(['Casualty Severity'])]
+    Y_train = Y_train_original = train['Casualty Severity']
 
-X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
-Y_test = test['Casualty Severity']
+    X_test = test.loc[:, ~test.columns.isin(['Casualty Severity'])]
+    Y_test = test['Casualty Severity']
 
 
 # ### Downsampling
@@ -1111,33 +1116,34 @@ Y_test = test['Casualty Severity']
 
 
 from sklearn.model_selection import train_test_split
-
-Y = clean_df['Casualty Severity']
-
 from sklearn.utils import resample
 
-slight_data  = test[test['Casualty Severity'] == 'Slight']
-serious_data = test[test['Casualty Severity'] == 'Serious']
-fatal_data   = test[test['Casualty Severity'] == 'Fatal']
-
-X_slight_downsampled  = resample(slight_data,
-                                 replace = True,
-                                 n_samples = len(fatal_data))
-
-X_serious_downsampled = resample(serious_data,
-                                 replace = True,
-                                 n_samples = len(fatal_data))
-
-downsampled_dataset = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
-
-downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
+if leeds:
+    Y = clean_df['Casualty Severity']
 
 
-X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['Casualty Severity'])]
-Y_train_downsampled = downsampled_train['Casualty Severity']
+    slight_data  = test[test['Casualty Severity'] == 'Slight']
+    serious_data = test[test['Casualty Severity'] == 'Serious']
+    fatal_data   = test[test['Casualty Severity'] == 'Fatal']
 
-X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Casualty Severity'])]
-Y_test_downsampled = downsampled_test['Casualty Severity']
+    X_slight_downsampled  = resample(slight_data,
+                                     replace = True,
+                                     n_samples = len(fatal_data))
+
+    X_serious_downsampled = resample(serious_data,
+                                     replace = True,
+                                     n_samples = len(fatal_data))
+
+    downsampled_dataset = pd.concat([X_slight_downsampled, X_serious_downsampled, fatal_data])
+
+    downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
+
+
+    X_train_downsampled = downsampled_train.loc[:, ~downsampled_train.columns.isin(['Casualty Severity'])]
+    Y_train_downsampled = downsampled_train['Casualty Severity']
+
+    X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['Casualty Severity'])]
+    Y_test_downsampled = downsampled_test['Casualty Severity']
 
 
 # In[87]:
@@ -1171,18 +1177,19 @@ Y_test_downsampled = downsampled_test['Casualty Severity']
 # In[89]:
 
 
-X_train = X_train.astype(int)
-X_test  = X_test.astype(int)
-X_train_downsampled = X_train_downsampled.astype(int)
-X_test_downsampled  = X_test_downsampled.astype(int)
+if leeds:
+    X_train = X_train.astype(int)
+    X_test  = X_test.astype(int)
+    X_train_downsampled = X_train_downsampled.astype(int)
+    X_test_downsampled  = X_test_downsampled.astype(int)
 
-X_train = normalize_data(X_train)
-X_test  = normalize_data(X_test)
-X_train_downsampled = normalize_data(X_train_downsampled)
-X_test_downsampled  = normalize_data(X_test_downsampled)
+    X_train = normalize_data(X_train)
+    X_test  = normalize_data(X_test)
+    X_train_downsampled = normalize_data(X_train_downsampled)
+    X_test_downsampled  = normalize_data(X_test_downsampled)
 
-X_train_original = X_train_original.astype(int)
-X_train_original = normalize_data(X_train_original)
+    X_train_original = X_train_original.astype(int)
+    X_train_original = normalize_data(X_train_original)
 
 
 # ## Oversamplig de datos
@@ -1190,19 +1197,20 @@ X_train_original = normalize_data(X_train_original)
 # In[90]:
 
 
-print('********** Train Before OverSampling **********')
-print('Slight: ', (Y_train == 'Slight').sum())
-print('Serious:', (Y_train == 'Serious').sum())
-print('Fatal:  ', (Y_train == 'Fatal').sum())
-print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
+if leeds:
+    print('********** Train Before OverSampling **********')
+    print('Slight: ', (Y_train == 'Slight').sum())
+    print('Serious:', (Y_train == 'Serious').sum())
+    print('Fatal:  ', (Y_train == 'Fatal').sum())
+    print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 
-X_train, Y_train = oversample_data(X_train, Y_train)
+    X_train, Y_train = oversample_data(X_train, Y_train)
 
-print('********** Test **********')
-print('Slight: ', (Y_test == 'Slight').sum())
-print('Serious:', (Y_test == 'Serious').sum())
-print('Fatal:  ', (Y_test == 'Fatal').sum())
-print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
+    print('********** Test **********')
+    print('Slight: ', (Y_test == 'Slight').sum())
+    print('Serious:', (Y_test == 'Serious').sum())
+    print('Fatal:  ', (Y_test == 'Fatal').sum())
+    print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 
 # ## XGBoost
@@ -1223,7 +1231,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 import xgboost as xgb
 import random
 
-if calculate_weights:
+if leeds and calculate_weights:
     Y_train_downsampled_copy = Y_train_downsampled.copy()
     Y_test_downsampled_copy  = Y_test_downsampled.copy()
     Y_test_copy = Y_test.copy()
@@ -1373,7 +1381,7 @@ if calculate_weights and leeds:
 # In[97]:
 
 
-if not calculate_weights:
+if leeds and not calculate_weights:
     # FILE_NAME = f"{city_name}_hyperparams_{loaded_timestamp}.json"
     FILE_NAME = f"leeds_hyperparams_2022-04-27-12:06:35.json"
 
@@ -1457,10 +1465,12 @@ if calculate_weights and leeds:
 # In[101]:
 
 
-FILE_NAME = 'leeds_default_weights.json'
-# FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
+if leeds:
 
-feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
+    FILE_NAME = 'leeds_default_weights.json'
+    # FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
+
+    feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
 # #### Cálculo de pesos de caracetrísticas
@@ -1523,7 +1533,8 @@ if calculate_weights and leeds:
 # In[ ]:
 
 
-matrix_indexes = fv2gi(feature_vector)
+if leeds:
+    matrix_indexes = fv2gi(feature_vector)
 
 
 # ## Construcción de imágenes
@@ -1531,13 +1542,14 @@ matrix_indexes = fv2gi(feature_vector)
 # In[ ]:
 
 
-train_bgi = build_gray_images(X_train, 5, matrix_indexes)
-train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
+if leeds:
+    train_bgi = build_gray_images(X_train, 5, matrix_indexes)
+    train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
 
-test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
+    test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
 
 
-pd.DataFrame(train_bgi[:,:,1057])
+    pd.DataFrame(train_bgi[:,:,1057])
 
 
 # ## Reshape de imágenes
@@ -1545,25 +1557,27 @@ pd.DataFrame(train_bgi[:,:,1057])
 # In[ ]:
 
 
-train_images = shape_images(X_data = X_train,
-                            gray_images = train_bgi)
-test_images  = shape_images(X_data = X_test,
-                            gray_images = test_bgi)
+if leeds:
+    train_images = shape_images(X_data = X_train,
+                                gray_images = train_bgi)
+    test_images  = shape_images(X_data = X_test,
+                                gray_images = test_bgi)
 
 
-train_original_images = shape_images(X_data = X_train_original,
-                            gray_images = train_original_bgi)
+    train_original_images = shape_images(X_data = X_train_original,
+                                gray_images = train_original_bgi)
 
 
 # In[ ]:
 
 
-plt.gray()
-for i in range(0,3):
-    plt.figure(figsize=(3, 3))
-    plt.imshow(train_bgi[:,:,i])
-    # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
-    plt.show()
+if leeds:
+    plt.gray()
+    for i in range(0,3):
+        plt.figure(figsize=(3, 3))
+        plt.imshow(train_bgi[:,:,i])
+        # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
+        plt.show()
 
 
 # In[ ]:
@@ -1585,11 +1599,12 @@ for i in range(0,3):
 
 
 # input_shape = (5, 5)
+if leeds:
 
-array_train_images = np.asarray(train_images)
-array_test_images  = np.asarray(test_images)
+    array_train_images = np.asarray(train_images)
+    array_test_images  = np.asarray(test_images)
 
-array_train_original_images = np.asarray(train_original_images)
+    array_train_original_images = np.asarray(train_original_images)
 
 
 # In[ ]:
@@ -1634,60 +1649,66 @@ array_train_original_images = np.asarray(train_original_images)
 # In[ ]:
 
 
-n_samples = 150
-index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
-index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
-index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
+if leeds:
+
+    n_samples = 150
+    index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
+    index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
+    index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
 # In[ ]:
 
 
-# Get same number of class samples from SMOTEII
-X_slight_train_tsne  = X_train.loc[index_slight]
-X_serious_train_tsne = X_train.loc[index_serious]
-X_fatal_train_tsne   = X_train.loc[index_fatal]
+if leeds:
+    # Get same number of class samples from SMOTEII
+    X_slight_train_tsne  = X_train.loc[index_slight]
+    X_serious_train_tsne = X_train.loc[index_serious]
+    X_fatal_train_tsne   = X_train.loc[index_fatal]
 
-X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
+    X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
 
-Y_slight_train_tsne  = Y_train[index_slight]
-Y_serious_train_tsne = Y_train[index_serious]
-Y_fatal_train_tsne   = Y_train[index_fatal]
+    Y_slight_train_tsne  = Y_train[index_slight]
+    Y_serious_train_tsne = Y_train[index_serious]
+    Y_fatal_train_tsne   = Y_train[index_fatal]
 
-Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
-
-
-# In[ ]:
-
-
-n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
-
-index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
-index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
-index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
+    Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
 # In[ ]:
 
 
-# Get same number of class samples from original
-X_slight_clean_tsne  = X_train_original.loc[index_slight]
-X_serious_clean_tsne = X_train_original.loc[index_serious]
-X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
+if leeds:
 
-X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
+    n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
 
-Y_slight_clean_tsne  = Y_train_original[index_slight]
-Y_serious_clean_tsne = Y_train_original[index_serious]
-Y_fatal_clean_tsne   = Y_train_original[index_fatal]
-
-Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
+    index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
+    index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
+    index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
 # In[ ]:
 
 
-if tsne:
+if leeds:
+    # Get same number of class samples from original
+    X_slight_clean_tsne  = X_train_original.loc[index_slight]
+    X_serious_clean_tsne = X_train_original.loc[index_serious]
+    X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
+
+    X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
+
+    Y_slight_clean_tsne  = Y_train_original[index_slight]
+    Y_serious_clean_tsne = Y_train_original[index_serious]
+    Y_fatal_clean_tsne   = Y_train_original[index_fatal]
+
+    Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
+
+
+# In[ ]:
+
+
+if leeds and tsne:
     FILE_NAME = f"{TSNE_PATH}{city_name}/2d_{MODEL_TIMESTAMP}.svg"
     plot_TSNE(X_clean_tsne, Y_clean_tsne, n_components = 2, output_file_name = FILE_NAME, title = 'Muestras originales 2 Componentes')
 
@@ -1784,9 +1805,10 @@ if tsne:
 # In[ ]:
 
 
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
+if city:
+    Y_train_onehot = casualty_to_one_hot(Y_train)
+    Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
+    Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 
 # ## Models
@@ -1794,21 +1816,22 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 # In[ ]:
 
 
-Y_test_labels = one_hot_to_casualty(Y_test)
-
 from sklearn.utils import class_weight
 
-pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_original),
-                                          y = Y_train_original)
+if city:
+    Y_test_labels = one_hot_to_casualty(Y_test)
+
+    pesos = class_weight.compute_class_weight('balanced',
+                                              classes = np.unique(Y_train_original),
+                                              y = Y_train_original)
 
 
-print('\nPesos calculados:', pesos, '\n\n')
+    print('\nPesos calculados:', pesos, '\n\n')
 
 
-# Keras espera un diccionario donde la clave sea el número de clase 
-# y el valor sea el peso calculado. 
-pesos = dict(enumerate(pesos))  
+    # Keras espera un diccionario donde la clave sea el número de clase 
+    # y el valor sea el peso calculado. 
+    pesos = dict(enumerate(pesos))  
 
 
 # In[ ]:
@@ -1988,10 +2011,10 @@ if city and train_nn:
 
 # #### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[125]:
 
 
-if not city and not train_nn and not laptop:
+if city and not train_nn and not laptop:
     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
     MODEL_FILE_NAME = 'leeds_convolution_1d_2022-05-11-08:53:52.h5'
 
@@ -4258,15 +4281,15 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # UK
 
-# In[72]:
+# In[120]:
 
 
-loaded_timestamp = '2022-07-07-18:34:23'
+loaded_timestamp = '2022-07-07-20:36:38'
 
 
 # ## Importación de datos
 
-# In[79]:
+# In[136]:
 
 
 import pandas as pd
@@ -4279,44 +4302,54 @@ target_class = 'casualty_severity'
 
 root_path = './Data/UK'
 
-# years = list(range(2016,2021))
-
-# casualty_dataframe = accidents_dataframe = pd.DataFrame()
-
-# for year in years:
-#     aux_dataframe = pd.read_csv(f"{root_path}/{year}/casualty-{year}.csv")
-#     casualty_dataframe = pd.concat([casualty_dataframe, aux_dataframe])
-    
-# for year in years:
-#     aux_dataframe = pd.read_csv(f"{root_path}/{year}/accident-{year}.csv")
-#     accidents_dataframe = pd.concat([accidents_dataframe, aux_dataframe])
-# accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
-# data_frame = pd.merge(casualty_dataframe, accidents_dataframe, on=['accident_index'])
-
 years = list(range(2016,2021))
 
-data_frame = pd.read_csv(f"{root_path}/accident-casualty-2005-2020.csv")
+casualty_dataframe = accidents_dataframe = pd.DataFrame()
 
-data_frame = data_frame[data_frame.accident_year_x.isin(years)]
+for year in years:
+    aux_dataframe = pd.read_csv(f"{root_path}/{year}/casualty-{year}.csv")
+    casualty_dataframe = pd.concat([casualty_dataframe, aux_dataframe])
+    
+for year in years:
+    aux_dataframe = pd.read_csv(f"{root_path}/{year}/accident-{year}.csv")
+    accidents_dataframe = pd.concat([accidents_dataframe, aux_dataframe])
+accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
+data_frame = pd.merge(casualty_dataframe, accidents_dataframe, on=['accident_index'])
 
+# years = list(range(2016,2021))
+# years = list(range(2009,2017))
 
+# data_frame = pd.read_csv(f"{root_path}/accident-casualty-2005-2020.csv")
 # data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2005-2020.csv")
+# data_frame = pd.read_csv(f"{root_path}/leeds-accident-casualty-2005-2020.csv")
+
+# data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 
 
-# In[38]:
+# In[135]:
 
 
-##Código para filtrar el archivo 1979-2020 y escribir en disco el dataframe filtrado 2005-2020
+data_frame
 
-# years = list(range(2005,2021))
 
-## CASUALTY READ, FILTER AND STORE
+# In[137]:
+
+
+# import pandas as pd
+
+# root_path = './Data/UK'
+
+# #Código para filtrar el archivo 1979-2020 y escribir en disco el dataframe filtrado 2005-2020
+
+# years = list(range(2009,2017))
+
+# # CASUALTY READ, FILTER AND STORE
 # casualty_dataframe  = pd.read_csv(f"{root_path}/casualty-1979-2020.csv")
 
 # casualty_dataframe = casualty_dataframe[casualty_dataframe.accident_year.isin(years)]
 # casualty_dataframe.to_csv(f"{root_path}/casualty-2005-2020.csv")
 
-## ACCIDENTS READ, FILTER AND STORE
+# ACCIDENTS READ, FILTER AND STORE
 
 # chunksize = 1000
 
@@ -4331,11 +4364,11 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 # # if you want all the dataframes together, here it is
 # accidents_dataframe = pd.concat(list_of_dataframes)
 # # 300 = Ciudad que queremos
-# accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
+# accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 204]
 # accidents_dataframe.to_csv(f"{root_path}/accident-2005-2020.csv")
 
 
-## MERGED, DROP DUPLICATES AND STORE
+# # MERGED, DROP DUPLICATES AND STORE
 
 # data_frame = pd.merge(casualty_dataframe, accidents_dataframe, on=['accident_index'])
 
@@ -4343,10 +4376,16 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 # data_frame = data_frame.dropna()
 # data_frame = data_frame.reset_index(drop = True)
 
-# data_frame.to_csv(f"{root_path}/accident-casualty-2005-2020.csv")
+# data_frame.to_csv(f"{root_path}/leeds-accident-casualty-2005-2020.csv")
 
 
-# In[39]:
+# In[138]:
+
+
+# casualty_dataframe
+
+
+# In[139]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4355,7 +4394,7 @@ data_frame
 
 # ## Limpieza de datos
 
-# In[40]:
+# In[140]:
 
 
 COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4368,7 +4407,13 @@ COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road
 data_frame = data_frame.loc[:, data_frame.columns.isin(COLUMNS_TO_GET)]
 
 
-# In[41]:
+# In[141]:
+
+
+data_frame
+
+
+# In[142]:
 
 
 print('Before cleaning')
@@ -4379,7 +4424,7 @@ print(f"Light Conditions: {data_frame.light_conditions.value_counts()}")
 print(f"Casualty Type: {data_frame.casualty_type.value_counts()}")
 
 
-# In[42]:
+# In[143]:
 
 
 ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
@@ -4425,13 +4470,13 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop = True)
 
 
-# In[43]:
+# In[144]:
 
 
 data_frame
 
 
-# In[44]:
+# In[145]:
 
 
 print('After cleaning')
@@ -4444,7 +4489,7 @@ print(f"Light Conditions: {data_frame.light_conditions.value_counts()}")
 print(f"Casualty Type: {data_frame.casualty_type.value_counts()}")
 
 
-# In[45]:
+# In[146]:
 
 
 # Quitados:
@@ -4493,13 +4538,13 @@ print(f"Casualty Type: {data_frame.casualty_type.value_counts()}")
 
 # ## Split de datos
 
-# In[46]:
+# In[147]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[47]:
+# In[148]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4516,7 +4561,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[48]:
+# In[149]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4546,13 +4591,13 @@ Y_train_downsampled = downsampled_dataset[target_class]
 # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[49]:
+# In[150]:
 
 
 len(X_slight_downsampled)
 
 
-# In[50]:
+# In[151]:
 
 
 # fv2gi(feature_vector)
@@ -4574,13 +4619,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[51]:
+# In[152]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[52]:
+# In[153]:
 
 
 X_train = X_train.astype(int)
@@ -4599,7 +4644,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[53]:
+# In[154]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4619,7 +4664,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[54]:
+# In[155]:
 
 
 from xgboost import XGBClassifier
@@ -4629,13 +4674,13 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[71]:
+# In[156]:
 
 
 data_frame.describe()
 
 
-# In[55]:
+# In[157]:
 
 
 SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -4646,7 +4691,7 @@ SEVERITY_TYPE_REPLACE = {'Fatal': 0,
 Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[56]:
+# In[159]:
 
 
 import xgboost as xgb
@@ -4753,7 +4798,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[57]:
+# In[160]:
 
 
 if calculate_weights and city:
@@ -4792,7 +4837,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[58]:
+# In[161]:
 
 
 if not calculate_weights:
@@ -4812,7 +4857,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[59]:
+# In[162]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -4862,7 +4907,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[60]:
+# In[163]:
 
 
 if calculate_weights and city:
@@ -4877,7 +4922,7 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[61]:
+# In[164]:
 
 
 # FILE_NAME = 'UK_default_weights.json'
@@ -4888,7 +4933,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[62]:
+# In[165]:
 
 
 if calculate_weights and city:
@@ -4906,7 +4951,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[63]:
+# In[166]:
 
 
 if calculate_weights and city:
@@ -4923,7 +4968,7 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[64]:
+# In[167]:
 
 
 if calculate_weights and city:    
@@ -4937,7 +4982,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[65]:
+# In[168]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -4945,7 +4990,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[66]:
+# In[169]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -4959,7 +5004,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[67]:
+# In[170]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -4972,7 +5017,7 @@ train_original_images = shape_images(X_data = X_train_original,
                             gray_images = train_original_bgi)
 
 
-# In[68]:
+# In[171]:
 
 
 plt.gray()
@@ -4983,13 +5028,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[69]:
+# In[172]:
 
 
 MODEL_TIMESTAMP
 
 
-# In[159]:
+# In[173]:
 
 
 # image = train_bgi[:,:,0]
@@ -4998,13 +5043,13 @@ MODEL_TIMESTAMP
 # plt.savefig(f"test.svg",transparent=True, dpi=150)
 
 
-# In[160]:
+# In[95]:
 
 
 # !conda install scikit-image
 
 
-# In[161]:
+# In[96]:
 
 
 # input_shape = (5, 5)
@@ -5015,13 +5060,13 @@ array_test_images  = np.asarray(test_images)
 array_train_original_images = np.asarray(train_original_images)
 
 
-# In[162]:
+# In[97]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[163]:
+# In[98]:
 
 
 ######### EN TERMINAL #########
@@ -5030,7 +5075,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ## Visualización de datos
 
-# In[164]:
+# In[99]:
 
 
 # !conda install seaborn
@@ -5038,7 +5083,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ### Matriz de correlación
 
-# In[165]:
+# In[100]:
 
 
 # correlation_matrix(X_test)
@@ -5046,7 +5091,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ### PCA
 
-# In[166]:
+# In[101]:
 
 
 # pca(X_train, X_test)
@@ -5054,7 +5099,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ### TSNE
 
-# In[167]:
+# In[102]:
 
 
 n_samples = 150
@@ -5063,7 +5108,7 @@ index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
 index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
-# In[168]:
+# In[103]:
 
 
 # Get same number of class samples from SMOTEII
@@ -5080,7 +5125,7 @@ Y_fatal_train_tsne   = Y_train[index_fatal]
 Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
-# In[169]:
+# In[104]:
 
 
 n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
@@ -5090,7 +5135,7 @@ index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].inde
 index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
-# In[170]:
+# In[105]:
 
 
 # Get same number of class samples from original
@@ -5107,7 +5152,7 @@ Y_fatal_clean_tsne   = Y_train_original[index_fatal]
 Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
 
 
-# In[171]:
+# In[106]:
 
 
 if tsne:
@@ -5128,7 +5173,7 @@ if tsne:
 
 # #### Entrenamiento
 
-# In[172]:
+# In[107]:
 
 
 # X_train = array_train_images
@@ -5148,7 +5193,7 @@ if tsne:
 
 # #### Visualización
 
-# In[173]:
+# In[108]:
 
 
 # # create encoder model
@@ -5204,7 +5249,7 @@ if tsne:
 
 # ## One-Hot
 
-# In[174]:
+# In[109]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
