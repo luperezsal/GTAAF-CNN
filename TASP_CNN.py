@@ -869,12 +869,15 @@ print('Done!')
 
 import pandas as pd
 
+city = leeds
+
+    
 if leeds:
     # https://datamillnorth.org/dataset/road-traffic-accidents
     # root_path = '/content/drive/Othercomputers/Mi portátil/Drive/Master UA/TFM/TFM_DATA/'
 
     city_name = 'leeds'
-    city = leeds
+
     # 
     root_path = './Data/Leeds/'
 
