@@ -1818,7 +1818,7 @@ if city:
 
 from sklearn.utils import class_weight
 
-if city:
+if leeds:
     Y_test_labels = one_hot_to_casualty(Y_test)
 
     pesos = class_weight.compute_class_weight('balanced',
