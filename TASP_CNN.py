@@ -3945,7 +3945,7 @@ if city and train_nn:
     history = convolution_1d.fit(array_train_images, Y_train_onehot,
                                  # class_weight = pesos,
                                  batch_size = 128,
-                                 epochs = 500,
+                                 epochs = 100,
                                  shuffle = True,
                                  validation_data = (array_test_images, Y_test_onehot))
     end = time.time()
@@ -4040,7 +4040,7 @@ if city and train_nn:
     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                            # class_weight = pesos,
                            batch_size = 128,
-                           epochs = 500,
+                           epochs = 100,
                            shuffle = True,
                            validation_data = (array_test_images, Y_test_onehot))
 
@@ -5156,8 +5156,20 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Models
 
-# In[ ]:
+# In[340]:
 
+
+array_train_images = np.asarray(train_images)
+array_val_images   = np.asarray(val_images)
+array_test_images  = np.asarray(test_images)
+
+input_train_shape = (len(array_train_images), 5, 5, 1)
+input_val_shape = (len(array_val_images), 5, 5, 1)
+input_test_shape  = (len(array_test_images), 5, 5, 1)
+
+array_train_images = array_train_images.reshape(input_train_shape)
+array_val_images   = array_val_images.reshape(input_val_shape)
+array_test_images  = array_test_images.reshape(input_test_shape)
 
 Y_test_labels = one_hot_to_casualty(Y_test)
 
@@ -5176,10 +5188,173 @@ print('\nPesos calculados:', pesos, '\n\n')
 pesos = dict(enumerate(pesos))  
 
 
-# In[ ]:
+# In[176]:
 
 
 import pickle
+from joblib import dump, load
+
+times = pd.DataFrame()
+
+
+# ### NB
+
+# In[177]:
+
+
+MODEL_NAME = MODELS_NAME[3]
+
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+
+sns.reset_defaults()
+
+
+# #### Entrenamiento
+
+# In[178]:
+
+
+from sklearn.naive_bayes import GaussianNB
+
+if city and train_nn and other_models:
+    start = time.time()
+
+    gnb = GaussianNB()
+    gnb = gnb.fit(X_train, Y_train)
+
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+    model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+    times = times.append(model_time)
+
+
+    print(f"Done! {MODEL_NAME} in {ellapsed_time} (s)")
+
+
+# #### Escritura del modelo
+
+# In[179]:
+
+
+if city and train_nn and other_models:
+
+    dump(gnb, MODEL_PATH + MODEL_FILE_NAME) 
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[180]:
+
+
+if city and not train_nn and other_models:
+
+    gnb = load(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+if city:
+    print("[INFO] evaluating model...")
+    if train_nn:
+        Y_train_predicted = gnb.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+    Y_predicted = gnb.predict(X_test)
+
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
+
+
+# ### SVC
+
+# In[ ]:
+
+
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+MODEL_NAME = MODELS_NAME[4]
+
+
+# In[ ]:
+
+
+if city and train_nn and other_models:
+    start = time.time()
+
+    clf = SVC(gamma='auto')
+    clf.fit(X_train, Y_train)
+
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+
+    model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+    times = times.append(model_time)
+
+    print(f"Done! {MODEL_NAME} in {ellapsed_time} (s)")
+
+
+# #### Escritura del modelo
+
+# In[ ]:
+
+
+if city and train_nn and other_models:
+
+    dump(clf, MODEL_PATH + MODEL_FILE_NAME) 
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[ ]:
+
+
+if city and not train_nn and other_models:
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+
+    clf = load(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+if city:
+    print("[INFO] evaluating model...")
+
+    if train_nn:
+        Y_train_predicted = clf.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+
+    Y_predicted = clf.predict(X_test)
+
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### KNN
@@ -5187,7 +5362,6 @@ import pickle
 # In[ ]:
 
 
-# from sklearn.neighbors import NearestNeighbors
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
 
@@ -5199,40 +5373,62 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-leaf_size = list(range(1,10, 2))
-n_neighbors = list(range(1,25, 5))
+knn = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
+
+start = time.time()
+
+knn.fit(X_train, Y_train)
+
+end = time.time()
+
+ellapsed_time = round(end - start, 2)
+
+model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+times = times.append(model_time)
+
+# leaf_size = list(range(1,10, 2))
+# n_neighbors = list(range(1,100, 10))
+# p = [1, 2]
+
+# if city and train_nn and other_models:
+
+#     start = time.time()
+
+#     # Create new KNN object
+#     hyperparameters = dict(leaf_size = leaf_size,
+#                            n_neighbors = n_neighbors)
+
+#     # Use GridSearch
+#     knn_2 = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
+
+#     # Fit the model
+#     clf = GridSearchCV(knn_2,
+#                        hyperparameters,
+#                        cv = 4)
+
+#     knn = clf.fit(X_train, Y_train)
+
+#     end = time.time()
+
+#     ellapsed_time = round(end - start, 2)
 
 
-# In[ ]:
+#     model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+#     times = times.append(model_time)
 
+#     # Print The value of best Hyperparameters
 
-# # Create new KNN object
-# hyperparameters = dict(leaf_size = leaf_size,
-#                        n_neighbors = n_neighbors)
+#     best_leaf_size  = knn.best_estimator_.get_params()['leaf_size']
+#     best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
 
-# # Use GridSearch
-# knn_2 = KNeighborsClassifier()
+#     print('Best leaf_size:', best_leaf_size)
+#     print('Best n_neighbors:', best_n_neighbors)
 
-# # Fit the model
-# clf = GridSearchCV(knn_2,
-#                    hyperparameters,
-#                    cv = 5)
+#     df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
 
-# knn = clf.fit(X_train, Y_train)
+#     FILE_NAME = f"{MODEL_NAME}/madrid_{MODEL_TIMESTAMP}.csv"
 
-# # Print The value of best Hyperparameters
-
-# best_leaf_size = knn.best_estimator_.get_params()['leaf_size']
-# best_n_neighbors = knn.best_estimator_.get_params()['n_neighbors']
-
-# print('Best leaf_size:', best_leaf_size)
-# print('Best n_neighbors:', best_n_neighbors)
-
-# df = pd.DataFrame({'best_leaf_size':[best_leaf_size], 'n_neighbors':[best_n_neighbors]})
-
-# FILE_NAME = f"{MODEL_NAME}/leeds_{MODEL_TIMESTAMP}.csv"
-
-# df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
+#     df.to_csv(HYPERPARAMS_PATH + FILE_NAME, index = True)
 
 
 # #### Escritura del modelo
@@ -5240,14 +5436,12 @@ n_neighbors = list(range(1,25, 5))
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.pkl"
+# if city and train_nn and other_models:
 
-# # Its important to use binary mode 
-# knnPickle = open(MODEL_PATH + MODEL_FILE_NAME, 'wb') 
+#     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+#     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
 
-# # source, destination 
-# pickle.dump(knn, knnPickle)
+#     dump(knn, MODEL_PATH + MODEL_FILE_NAME) 
 
 
 # #### Carga de modelo pre-entrenado
@@ -5255,11 +5449,13 @@ n_neighbors = list(range(1,25, 5))
 # In[ ]:
 
 
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_2022-04-27-21:50:26.pkl"
+# if city and not train_nn and other_models:
 
-# # load the model from disk
-# loaded_model = pickle.load(open(MODEL_PATH + MODEL_FILE_NAME, 'rb'))
+#     version = 'X'
+#     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+#     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{model_version}.joblib"
+
+#     knn = load(MODEL_PATH + MODEL_FILE_NAME)
 
 
 # #### Resultados
@@ -5267,44 +5463,128 @@ n_neighbors = list(range(1,25, 5))
 # In[ ]:
 
 
-# y_true = tf.argmax(Y_test_onehot, axis=1)
-# y_predicted = knn.predict(X_test)
+if city:
+    print("[INFO] evaluating model...")
 
+    if train_nn:
+        Y_train_predicted = knn.predict(X_train)
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+    Y_predicted = knn.predict(X_test)
 
-# ############## SAVE CLASSIFICATION REPORT ##############
-# report = classification_report(y_true,
-#                                y_predicted,
-#                                target_names = Y_test_labels.unique(),
-#                                output_dict = True)
-
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"leeds_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
-
-# report_df = pd.DataFrame(report).transpose()
-# report_df.to_csv(REPORT_PATH + REPORT_NAME, index= True)
-
-
-# ############## SAVE CONFUSION MATRIX ##############
-
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"leeds_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-# cm = confusion_matrix(y_true,
-#                       y_predicted,
-#                       labels = Y_test.unique())
-
-# disp = ConfusionMatrixDisplay(confusion_matrix = cm,
-#                               display_labels = Y_test_labels.unique()).plot()
-
-# plt.savefig(CONFUSION_MATRIX_PATH + CONFUSION_MATRIX_NAME, dpi = 150)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ### Convolution 1D
 
-# In[ ]:
+# In[273]:
 
 
 MODEL_NAME = MODELS_NAME[1]
+
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+
+
+# #### Entrenamiento
+
+# In[359]:
+
+
+if city and train_nn:
+    start = time.time()
+
+    history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                                 # class_weight = pesos,
+                                 batch_size = 128,
+                                 epochs = 500,
+                                 shuffle = True,
+                                 validation_data = (array_test_images, Y_test_onehot))
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
+
+    times = times.append(model_time)
+
+    history
+
+
+# #### Escritura del modelo
+
+# In[ ]:
+
+
+if city and train_nn:
+
+    convolution_1d.save(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[ ]:
+
+
+if city and not train_nn and not laptop:
+    # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+    MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-19-06:33:55.h5'
+
+    convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+if city and not laptop:
+
+    print("[INFO] evaluating network...")
+
+    Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+
+    if train_nn:
+        F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+        F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
+
+        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                              f1_score_name = F1_SCORE_NAME,
+                              history = history)
+
+        Y_train_predicted = convolution_1d.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
+
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
+
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
+
+
+# ### Convolution 2D
+
+# In[ ]:
+
+
+MODEL_NAME = MODELS_NAME[2]
+
+MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 
 
 # #### Entrenamiento
@@ -5312,29 +5592,25 @@ MODEL_NAME = MODELS_NAME[1]
 # In[ ]:
 
 
-from keras.callbacks import ModelCheckpoint
+if city and train_nn:
 
-if city and True:
-    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-    file_name = '_epoch{epoch:02d}-loss{val_loss:.2f}'
-    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_{file_name}.hdf5"
-    
-    checkpoint = ModelCheckpoint(filepath= MODEL_PATH + MODEL_FILE_NAME, 
-                                 monitor = 'val_loss',
-                                 verbose = 1, 
-                                 save_best_only = True,
-                                 mode = 'min')
-    callbacks = [checkpoint]
+    start = time.time()
 
-    history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                                 # class_weight = pesos,
-                                 batch_size = 128,
-                                 epochs = 100,
-                                 shuffle = True,
-                                 validation_data = (array_test_images, Y_test_onehot))
-                                 # callbacks = callbacks)
+    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                           # class_weight = pesos,
+                           batch_size = 128,
+                           epochs = 500,
+                           shuffle = True,
+                           validation_data = (array_test_images, Y_test_onehot))
 
-    # convolution_1d.load_weights(MODEL_FILE_NAME)
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
+    times = times.append(model_time)    
 
     history
 
@@ -5356,105 +5632,73 @@ if city and train_nn:
 # In[ ]:
 
 
-if not city and not train_nn and not laptop:
-    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-    MODEL_FILE_NAME = 'leeds_convolution_1d_2022-05-11-08:53:52.h5'
-    # MODEL_FILE_NAME = f"{city}_convolution_1d_{loaded_timestamp}.h5"
-
-    convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
-
-
-# #### Resultados
-
-# In[ ]:
-
-
-if city and not laptop:
-    Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
-
-    if train_nn:
-        F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-        F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
-
-        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                              f1_score_name = F1_SCORE_NAME,
-                              history = history)
-
-    print("[INFO] evaluating network...")
-
-    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
-
-    plot_classification_report(path = REPORT_PATH,
-                               file_name = REPORT_NAME,
-                               y_true = Y_test,
-                               y_predicted = Y_predicted)
-
-
-    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                          file_name = CONFUSION_MATRIX_NAME,
-                          y_true = Y_test,
-                          y_predicted = Y_predicted)
-
-
-# ### Convolution 2D
-
-# In[ ]:
-
-
-MODEL_NAME = MODELS_NAME[2]
-
-
-# #### Entrenamiento
-
-# In[ ]:
-
-
-if city and train_nn:
-    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                           # class_weight = pesos,
-                           batch_size = 128,
-                           epochs = 100,
-                           shuffle = True,
-                           validation_data = (array_test_images, Y_test_onehot))
-
-    history
-
-
-# #### Escritura del modelo
-
-# In[ ]:
-
-
-if city and train_nn:
-    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-    MODEL_FILE_NAME = f"leeds_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
-
-    tasp_cnn.save(MODEL_PATH + MODEL_FILE_NAME)
-
-
-# #### Carga de modelo pre-entrenado
-
-# In[ ]:
-
-
 if city and not train_nn and not laptop:
-    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-    MODEL_FILE_NAME = 'leeds_convolution_2d_2022-05-11-08:53:52.h5'
-    # MODEL_NAME = 'leeds_2022-04-25-08:30:33.h5'
+    # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+    MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-18-19:50:16.h5'
 
     tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
+# In[ ]:
+
+
+# ## Exportar los kernels
+
+# n_samples = 3
+# layers = [0, 2, 4, 6]
+
+# for layer_number in layers:
+#     filters, biases = tasp_cnn.layers[layer_number].get_weights()
+    
+#     layer_name = layer_number//2 + 1
+
+#     for i in range(n_samples):
+#         # X,Y, channel, filter_number
+#         current_filter = filters[:,:,0, i]
+
+#         plt.figure(figsize=(3, 3))
+#         plt.grid(b = None)
+#         plt.imshow(current_filter, cmap='gray')
+
+#         # plt.savefig(f"filters/{city_name}_filter_layer_{layer_name}_{i}.svg", transparent=True)
+#         plt.show()
+
+
+# In[ ]:
+
+
+# # import tf.keras.mo.Model
+# tasp_cnn_feature_maps = tf.keras.models.Model(inputs = tasp_cnn.inputs, outputs=tasp_cnn.layers[0].output)
+
+# tasp_cnn_feature_maps.predict(array_train_images[:3]).shape
+
+
+# In[ ]:
+
+
+# feature_maps = tasp_cnn.predict(array_train_images)
+# # plot all 64 maps in an 8x8 squares
+# square = 5
+# ix = 1
+# for _ in range(square):
+#     for _ in range(square):
+#         # specify subplot and turn of axis
+
+#         # plot filter channel in grayscale
+#         plt.imshow(tasp_cnn_feature_maps[ix-1,:,:,:], cmap='gray')
+#         ix += 1
+# # show the figure
+# plt.show()
+
+
 # #### Resultados
 
 # In[ ]:
 
 
 if city and not laptop:
+
+    print("[INFO] evaluating network...")
 
     Y_predicted = tasp_cnn.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
 
@@ -5466,24 +5710,19 @@ if city and not laptop:
                               f1_score_name = F1_SCORE_NAME,
                               history = history)
 
-    print("[INFO] evaluating network...")
+        Y_train_predicted = tasp_cnn.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
 
-    REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-    REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
+        save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                         model_timestamp = MODEL_TIMESTAMP,
+                                                         y_true = Y_train,
+                                                         y_predicted = Y_train_predicted,
+                                                         data = 'train')
 
-    plot_classification_report(path = REPORT_PATH,
-                               file_name = REPORT_NAME,
-                               y_true = Y_test,
-                               y_predicted = Y_predicted)
-
-
-    CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-    CONFUSION_MATRIX_NAME = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-    plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-                          file_name = CONFUSION_MATRIX_NAME,
-                          y_true = Y_test,
-                          y_predicted = Y_predicted)
+    save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+                                                     model_timestamp = MODEL_TIMESTAMP,
+                                                     y_true = Y_test,
+                                                     y_predicted = Y_predicted,
+                                                     data = 'test')
 
 
 # ## AutoML
@@ -5491,96 +5730,7 @@ if city and not laptop:
 # In[ ]:
 
 
-MODEL_NAME = 'auto_ml'
-
-
-# In[ ]:
-
-
-# import autokeras as ak
-# from tensorflow.keras.datasets import mnist
-
-# # (x_train, y_train), (x_test, y_test) = mnist.load_data()
-
-# clf = ak.ImageClassifier(num_classes = 3,
-#                          loss='categorical_crossentropy',
-#                          metrics = [tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold = 0.1)],
-#                          overwrite = True,
-#                          tuner= 'bayesian',
-#                          max_trials = 20,
-#                          max_model_size = 3000000
-#                         )
-    
-# clf.fit(array_train_images,
-#         np.asarray(Y_train),
-#         epochs = 50,
-#         batch_size = 128,
-#         validation_data = (array_test_images, np.asarray(Y_test)))
-
-# best_auto_model = clf.export_model()
-# print(best_auto_model.summary())
-
-
-# ### Escritura del modelo
-
-# In[ ]:
-
-
-# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
-
-# best_auto_model.save(MODEL_PATH + MODEL_FILE_NAME)
-
-# # def myprint(s):
-# #     with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}_summary.txt",'w+') as f:
-# #         print(s, file=f)
-
-        
-# from contextlib import redirect_stdout
-
-# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}_summary.txt"
-
-# # with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
-
-# #     best_auto_model.summary(print_fn=lambda x: f.write(x + '\n'))
-# with open(f"{MODEL_PATH}_{MODEL_FILE_NAME}", 'w') as f:
-#     with redirect_stdout(f):
-#         best_auto_model.summary()
-#         f.close()
-
-
-# ### Resultados
-
-# In[ ]:
-
-
-# Y_predicted = best_auto_model.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
-
-# F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
-# F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
-
-# plot_f1_score(f1_score_path = F1_SCORE_PATH,
-#               f1_score_name = F1_SCORE_NAME,
-#               history = history)
-
-# print("[INFO] evaluating network...")
-
-# REPORT_PATH = f"{REPORTS_PATH}{MODEL_NAME}/"
-# REPORT_NAME  = f"{city_name}_{MODEL_NAME}_report_{MODEL_TIMESTAMP}.csv"
-
-# plot_classification_report(path = REPORT_PATH,
-#                            file_name = REPORT_NAME,
-#                            y_true = Y_test,
-#                            y_predicted = Y_predicted)
-
-
-# CONFUSION_MATRIX_PATH = f"{CONFUSIONS_MATRIX_PATH}{MODEL_NAME}/"
-# CONFUSION_MATRIX_NAME  = f"{city_name}_{MODEL_NAME}_confusion_matrix_{MODEL_TIMESTAMP}.svg"
-
-# plot_confusion_matrix(path = CONFUSION_MATRIX_PATH,
-#                       file_name = CONFUSION_MATRIX_NAME,
-#                       y_true = Y_test,
-#                       y_predicted = Y_predicted)
+MODEL_NAME = MODELS_NAME[3]
 
 
 # # Data Summary
@@ -5643,6 +5793,7 @@ models_renaming = {'knn': 'KNN',
                    'nb': 'NB',
                    'svc': 'SVC'}
                    # 'auto_ml': 'AutoML'}
+
 splits = ['train', 'test']
 
 sorted_by_time_models_name = times.model
