@@ -4258,7 +4258,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # UK
 
-# In[36]:
+# In[72]:
 
 
 loaded_timestamp = '2022-07-07-18:34:23'
@@ -4266,7 +4266,7 @@ loaded_timestamp = '2022-07-07-18:34:23'
 
 # ## Importación de datos
 
-# In[37]:
+# In[79]:
 
 
 import pandas as pd
@@ -4293,7 +4293,13 @@ root_path = './Data/UK'
 # accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
 # data_frame = pd.merge(casualty_dataframe, accidents_dataframe, on=['accident_index'])
 
+years = list(range(2016,2021))
+
 data_frame = pd.read_csv(f"{root_path}/accident-casualty-2005-2020.csv")
+
+data_frame = data_frame[data_frame.accident_year_x.isin(years)]
+
+
 # data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2005-2020.csv")
 
 
@@ -4622,6 +4628,12 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 
 # ### Genético
+
+# In[71]:
+
+
+data_frame.describe()
+
 
 # In[55]:
 
