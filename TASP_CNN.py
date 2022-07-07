@@ -71,7 +71,7 @@ train_nn = not laptop
 other_models = True
 
 
-# In[56]:
+# In[4]:
 
 
 # laptop = True
@@ -323,9 +323,9 @@ HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
                           }
 
 number_of_individuals = 50
-numberOfParentsMating = 15
+numberOfParentsMating = 10
 number_of_hyperparams = len(HYPERPARAMS_TO_OPTIMIZE)
-number_of_generations = 100
+number_of_generations = 50
 
 
 # ### Inicializar población
@@ -427,7 +427,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
         # preds = preds > 0.5
         fitness_score = fitness_f1score(Y_test, single_predictions)
 
-        print(f"{individual_index}: {hyperparams} --> time(s): {round(end - start, 2)} --> score: {fitness_score}")
+        # print(f"{individual_index}: {hyperparams} --> time(s): {round(end - start, 2)} --> score: {fitness_score}")
 
         fScore.append(fitness_score)
 
@@ -525,7 +525,7 @@ def mutation(crossover, hyperparams_to_optimize):
                 round_to = hyperparams_to_optimize[hyperparam_selected_name]['round']
                 mutationValue = round(random.uniform(min_mutation_value, max_mutation_value), round_to)
                 
-            print(idx, hyperparam_selected_name, mutationValue)
+            # print(idx, hyperparam_selected_name, mutationValue)
 
             crossover[idx, hyperparam_selected_index] = crossover[idx,hyperparam_selected_index] + mutationValue
 
@@ -4261,7 +4261,7 @@ MODEL_NAME = MODELS_NAME[3]
 # In[36]:
 
 
-loaded_timestamp = '2022-07-07-13:40:41'
+loaded_timestamp = '2022-07-07-18:34:23'
 
 
 # ## Importación de datos
@@ -4294,6 +4294,7 @@ root_path = './Data/UK'
 # data_frame = pd.merge(casualty_dataframe, accidents_dataframe, on=['accident_index'])
 
 data_frame = pd.read_csv(f"{root_path}/accident-casualty-2005-2020.csv")
+# data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2005-2020.csv")
 
 
 # In[38]:
@@ -4364,21 +4365,22 @@ data_frame = data_frame.loc[:, data_frame.columns.isin(COLUMNS_TO_GET)]
 # In[41]:
 
 
-# print('Before cleaning')
-# print(f"Road Surface Conditions: {data_frame.road_surface_conditions.value_counts()}")
-# print(f"Weather Surface Conditions: {data_frame.weather_conditions.value_counts()}")
-# print(f"Light Conditions: {data_frame.light_conditions.value_counts()}")
-# print(f"Casualty Type: {data_frame.casualty_type.value_counts()}")
+print('Before cleaning')
+print(f"First Road Class: {data_frame.first_road_class.value_counts()}")
+print(f"Road Surface Conditions: {data_frame.road_surface_conditions.value_counts()}")
+print(f"Weather Surface Conditions: {data_frame.weather_conditions.value_counts()}")
+print(f"Light Conditions: {data_frame.light_conditions.value_counts()}")
+print(f"Casualty Type: {data_frame.casualty_type.value_counts()}")
 
 
 # In[42]:
 
 
-ROAD_SURFACE_VALUES_TO_REMOVE = [6, 7, 9]
+ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
 WEATHER_CONDITIONS_VALUES_TO_REMOVE = [9]
 
-data_frame.road_surface_conditions.drop(ROAD_SURFACE_VALUES_TO_REMOVE, inplace = True)
-data_frame.weather_conditions.drop(WEATHER_CONDITIONS_VALUES_TO_REMOVE, inplace = True)
+data_frame = data_frame[~data_frame.road_surface_conditions.isin(ROAD_SURFACE_VALUES_TO_REMOVE)]
+data_frame = data_frame[~data_frame.weather_conditions.isin(WEATHER_CONDITIONS_VALUES_TO_REMOVE)]
 
 LIGHT_CONDITIONS_REPLACE = {6: 2, 4: 3, 5: 4, 7: 5}
 data_frame['light_conditions'].replace(LIGHT_CONDITIONS_REPLACE, inplace = True)
@@ -4392,7 +4394,6 @@ CASUALTY_TYPE_REPLACE = { 8:  6,  9:  7, 10:  8,
 data_frame['casualty_type'].replace(CASUALTY_TYPE_REPLACE, inplace = True)
 
 data_frame = data_frame[data_frame.sex_of_casualty != -1]
-
 
 data_frame['age_of_casualty'] = data_frame['age_of_casualty'].mask(data_frame['age_of_casualty'] < 18, 1)
 data_frame['age_of_casualty'] = data_frame['age_of_casualty'].mask(data_frame['age_of_casualty'].between(18, 25), 2)
@@ -4425,6 +4426,19 @@ data_frame
 
 
 # In[44]:
+
+
+print('After cleaning')
+print(f"First Road Class: {data_frame.first_road_class.value_counts()}")
+print(f"Number of Vehicles: {data_frame.number_of_vehicles.value_counts()}")
+print(f"Accident Time: {data_frame.time.value_counts()}")
+print(f"Road Surface Conditions: {data_frame.road_surface_conditions.value_counts()}")
+print(f"Weather Conditions: {data_frame.weather_conditions.value_counts()}")
+print(f"Light Conditions: {data_frame.light_conditions.value_counts()}")
+print(f"Casualty Type: {data_frame.casualty_type.value_counts()}")
+
+
+# In[45]:
 
 
 # Quitados:
@@ -4473,13 +4487,13 @@ data_frame
 
 # ## Split de datos
 
-# In[45]:
+# In[46]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[46]:
+# In[47]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4496,7 +4510,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[47]:
+# In[48]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4526,13 +4540,13 @@ Y_train_downsampled = downsampled_dataset[target_class]
 # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[48]:
+# In[49]:
 
 
 len(X_slight_downsampled)
 
 
-# In[49]:
+# In[50]:
 
 
 # fv2gi(feature_vector)
@@ -4554,13 +4568,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[50]:
+# In[51]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[51]:
+# In[52]:
 
 
 X_train = X_train.astype(int)
@@ -4579,7 +4593,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[52]:
+# In[53]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4599,7 +4613,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[53]:
+# In[54]:
 
 
 from xgboost import XGBClassifier
@@ -4609,7 +4623,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[54]:
+# In[55]:
 
 
 SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -4620,7 +4634,7 @@ SEVERITY_TYPE_REPLACE = {'Fatal': 0,
 Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[59]:
+# In[56]:
 
 
 import xgboost as xgb
@@ -4727,7 +4741,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[60]:
+# In[57]:
 
 
 if calculate_weights and city:
@@ -4766,7 +4780,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[61]:
+# In[58]:
 
 
 if not calculate_weights:
@@ -4786,7 +4800,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[62]:
+# In[59]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -4836,7 +4850,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[63]:
+# In[60]:
 
 
 if calculate_weights and city:
@@ -4851,7 +4865,7 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[64]:
+# In[61]:
 
 
 # FILE_NAME = 'UK_default_weights.json'
@@ -4862,7 +4876,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[65]:
+# In[62]:
 
 
 if calculate_weights and city:
@@ -4880,7 +4894,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[66]:
+# In[63]:
 
 
 if calculate_weights and city:
@@ -4897,7 +4911,7 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[67]:
+# In[64]:
 
 
 if calculate_weights and city:    
@@ -4911,7 +4925,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[68]:
+# In[65]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -4919,7 +4933,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[69]:
+# In[66]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -4933,7 +4947,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[70]:
+# In[67]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -4946,7 +4960,7 @@ train_original_images = shape_images(X_data = X_train_original,
                             gray_images = train_original_bgi)
 
 
-# In[71]:
+# In[68]:
 
 
 plt.gray()
@@ -4957,7 +4971,7 @@ for i in range(0,3):
     plt.show()
 
 
-# In[72]:
+# In[69]:
 
 
 MODEL_TIMESTAMP
