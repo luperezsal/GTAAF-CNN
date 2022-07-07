@@ -14,7 +14,7 @@
 
 # ## Carga Google Drive
 
-# In[38]:
+# In[93]:
 
 
 # from google.colab import drive
@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[39]:
+# In[94]:
 
 
 from datetime import datetime
@@ -54,7 +54,7 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 loaded_timestamp = '2022-07-06-10:47:41'
 
 
-# In[40]:
+# In[95]:
 
 
 laptop = False
@@ -71,7 +71,7 @@ train_nn = not laptop
 other_models = True
 
 
-# In[99]:
+# In[96]:
 
 
 # laptop = True
@@ -89,13 +89,13 @@ other_models = True
 
 # ## Importar Tensorflow
 
-# In[42]:
+# In[97]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[43]:
+# In[98]:
 
 
 import tensorflow as tf
@@ -110,7 +110,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[44]:
+# In[99]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -122,7 +122,7 @@ print('Found GPU at: {}'.format(device_name))
 
 # ## Importador/Exportador JSON
 
-# In[45]:
+# In[100]:
 
 
 import json
@@ -140,7 +140,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[46]:
+# In[101]:
 
 
 import numpy as np
@@ -220,7 +220,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[47]:
+# In[102]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -242,7 +242,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[48]:
+# In[103]:
 
 
 from scipy.stats import zscore
@@ -262,7 +262,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[49]:
+# In[104]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -287,7 +287,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[50]:
+# In[105]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -302,7 +302,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ## Algoritmo genético
 
-# In[114]:
+# In[106]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -330,7 +330,7 @@ number_of_generations = 30
 
 # ### Inicializar población
 
-# In[105]:
+# In[107]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -366,7 +366,7 @@ def initialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[106]:
+# In[108]:
 
 
 from sklearn.metrics import f1_score
@@ -380,7 +380,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[107]:
+# In[109]:
 
 
 from xgboost import XGBClassifier
@@ -436,7 +436,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[108]:
+# In[110]:
 
 
 # Select parents for mating
@@ -454,7 +454,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[109]:
+# In[111]:
 
 
 '''
@@ -488,7 +488,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[110]:
+# In[112]:
 
 
 def mutation(crossover, hyperparams_to_optimize):
@@ -543,7 +543,7 @@ def mutation(crossover, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[58]:
+# In[113]:
 
 
 # Add one channel
@@ -566,7 +566,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[59]:
+# In[114]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -596,7 +596,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[60]:
+# In[115]:
 
 
 import seaborn as sns
@@ -612,7 +612,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[61]:
+# In[116]:
 
 
 from sklearn.decomposition import PCA
@@ -633,7 +633,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[62]:
+# In[117]:
 
 
 from sklearn.manifold import TSNE
@@ -663,7 +663,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name, title):
 
 # ### Autoencoder
 
-# In[63]:
+# In[118]:
 
 
 def autoencoder ():
@@ -690,7 +690,7 @@ def autoencoder ():
 
 # ## 1D-Convolution
 
-# In[64]:
+# In[119]:
 
 
 import tensorflow_addons as tfa
@@ -720,7 +720,7 @@ convolution_1d.compile(
 
 # ## TASP-CNN
 
-# In[65]:
+# In[120]:
 
 
 lr_init = 0.1
@@ -746,13 +746,13 @@ tasp_cnn.compile(
   )
 
 
-# In[66]:
+# In[121]:
 
 
 tasp_cnn.summary()
 
 
-# In[67]:
+# In[122]:
 
 
 print('Done!')
@@ -762,7 +762,7 @@ print('Done!')
 
 # ### F1-Score History
 
-# In[68]:
+# In[123]:
 
 
 def plot_f1_score_history(f1_score_path, f1_score_name, history):
@@ -782,7 +782,7 @@ def plot_f1_score_history(f1_score_path, f1_score_name, history):
 
 # ### Classification Report
 
-# In[69]:
+# In[124]:
 
 
 from sklearn.metrics import classification_report
@@ -804,7 +804,7 @@ def plot_classification_report(path, file_name, y_true, y_predicted):
 
 # ### Confusion Matrix
 
-# In[70]:
+# In[125]:
 
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -823,7 +823,7 @@ def plot_confusion_matrix(path, file_name, y_true, y_predicted):
     plt.savefig(path + file_name, dpi = 150)
 
 
-# In[71]:
+# In[126]:
 
 
 def save_classification_report_and_confussion_matrix(model_name, model_timestamp, y_true, y_predicted, data):
@@ -848,7 +848,7 @@ def save_classification_report_and_confussion_matrix(model_name, model_timestamp
                           y_predicted = y_predicted)
 
 
-# In[72]:
+# In[127]:
 
 
 print('Done!')
@@ -4258,7 +4258,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # UK
 
-# In[73]:
+# In[128]:
 
 
 loaded_timestamp = '2022-07-06-21:24:31'
@@ -4266,7 +4266,7 @@ loaded_timestamp = '2022-07-06-21:24:31'
 
 # ## Importación de datos
 
-# In[74]:
+# In[129]:
 
 
 import pandas as pd
@@ -4292,13 +4292,13 @@ for year in years:
     accidents_dataframe = pd.concat([accidents_dataframe, aux_dataframe])
 
 
-# In[75]:
+# In[130]:
 
 
 accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
 
 
-# In[76]:
+# In[131]:
 
 
 data_frame = pd.merge(casualty_dataframe, accidents_dataframe, on=['accident_index'])
@@ -4307,7 +4307,7 @@ pd.set_option('display.max_columns', None)
 data_frame
 
 
-# In[77]:
+# In[132]:
 
 
 data_frame.columns
@@ -4315,7 +4315,7 @@ data_frame.columns
 
 # ## Limpieza de datos
 
-# In[78]:
+# In[133]:
 
 
 COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4328,7 +4328,7 @@ COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road
 data_frame = data_frame.loc[:, data_frame.columns.isin(COLUMNS_TO_GET)]
 
 
-# In[79]:
+# In[134]:
 
 
 print('Before cleaning')
@@ -4338,7 +4338,7 @@ print(f"Light Conditions: {data_frame.light_conditions.value_counts()}")
 print(f"Casualty Type: {data_frame.casualty_type.value_counts()}")
 
 
-# In[80]:
+# In[135]:
 
 
 # data_frame['road_surface_conditions'] == 
@@ -4367,8 +4367,8 @@ data_frame['age_of_casualty'] = data_frame['age_of_casualty'].mask(data_frame['a
 data_frame['age_of_casualty'] = data_frame['age_of_casualty'].mask(data_frame['age_of_casualty'].between(25, 65), 3)
 data_frame['age_of_casualty'] = data_frame['age_of_casualty'].mask(data_frame['age_of_casualty'] > 65, 4)
 
-time = pd.DatetimeIndex(data_frame['time'])
-data_frame['time'] = time.hour * 60 + time.minute
+accident_time = pd.DatetimeIndex(data_frame['time'])
+data_frame['time'] = accident_time.hour * 60 + accident_time.minute
 
 data_frame['time'] = data_frame['time'].mask(data_frame['time'] < 600, 2)
 data_frame['time'] = data_frame['time'].mask(data_frame['time'] > 1800, 2)
@@ -4388,7 +4388,7 @@ data_frame = data_frame.reset_index(drop = True)
 data_frame
 
 
-# In[81]:
+# In[136]:
 
 
 # Quitados:
@@ -4437,13 +4437,13 @@ data_frame
 
 # ## Split de datos
 
-# In[82]:
+# In[137]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[83]:
+# In[138]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4460,7 +4460,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[84]:
+# In[139]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4490,7 +4490,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin([tar
 Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[85]:
+# In[140]:
 
 
 # fv2gi(feature_vector)
@@ -4512,13 +4512,13 @@ Y_test_downsampled = downsampled_test[target_class]
 
 # ## Normalización de datos
 
-# In[86]:
+# In[141]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[87]:
+# In[142]:
 
 
 X_train = X_train.astype(int)
@@ -4537,7 +4537,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[88]:
+# In[143]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4563,7 +4563,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[89]:
+# In[144]:
 
 
 from xgboost import XGBClassifier
@@ -4573,7 +4573,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[90]:
+# In[145]:
 
 
 SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -4584,7 +4584,7 @@ SEVERITY_TYPE_REPLACE = {'Fatal': 0,
 Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[115]:
+# In[146]:
 
 
 import xgboost as xgb
@@ -4701,7 +4701,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[116]:
+# In[147]:
 
 
 if calculate_weights and city:
@@ -4740,7 +4740,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[ ]:
+# In[148]:
 
 
 if not calculate_weights:
@@ -4760,7 +4760,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[ ]:
+# In[149]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -4810,7 +4810,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[117]:
+# In[150]:
 
 
 if calculate_weights and city:
@@ -4825,7 +4825,7 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[118]:
+# In[151]:
 
 
 # FILE_NAME = 'UK_default_weights.json'
@@ -4836,7 +4836,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[119]:
+# In[152]:
 
 
 if calculate_weights and city:
@@ -4854,7 +4854,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[120]:
+# In[153]:
 
 
 if calculate_weights and city:
@@ -4871,7 +4871,7 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[121]:
+# In[154]:
 
 
 if calculate_weights and city:    
@@ -4885,7 +4885,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[122]:
+# In[155]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -4893,7 +4893,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[123]:
+# In[156]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -4907,7 +4907,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[124]:
+# In[157]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -4920,7 +4920,7 @@ train_original_images = shape_images(X_data = X_train_original,
                             gray_images = train_original_bgi)
 
 
-# In[125]:
+# In[158]:
 
 
 plt.gray()
@@ -4931,7 +4931,7 @@ for i in range(0,3):
     plt.show()
 
 
-# In[ ]:
+# In[159]:
 
 
 # image = train_bgi[:,:,0]
@@ -4940,13 +4940,13 @@ for i in range(0,3):
 # plt.savefig(f"test.svg",transparent=True, dpi=150)
 
 
-# In[ ]:
+# In[160]:
 
 
 # !conda install scikit-image
 
 
-# In[ ]:
+# In[161]:
 
 
 # input_shape = (5, 5)
@@ -4957,13 +4957,13 @@ array_test_images  = np.asarray(test_images)
 array_train_original_images = np.asarray(train_original_images)
 
 
-# In[ ]:
+# In[162]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[ ]:
+# In[163]:
 
 
 ######### EN TERMINAL #########
@@ -4972,7 +4972,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ## Visualización de datos
 
-# In[ ]:
+# In[164]:
 
 
 # !conda install seaborn
@@ -4980,7 +4980,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[165]:
 
 
 # correlation_matrix(X_test)
@@ -4988,7 +4988,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ### PCA
 
-# In[ ]:
+# In[166]:
 
 
 # pca(X_train, X_test)
@@ -4996,7 +4996,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ### TSNE
 
-# In[ ]:
+# In[167]:
 
 
 n_samples = 150
@@ -5005,7 +5005,7 @@ index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
 index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
-# In[ ]:
+# In[168]:
 
 
 # Get same number of class samples from SMOTEII
@@ -5022,7 +5022,7 @@ Y_fatal_train_tsne   = Y_train[index_fatal]
 Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
-# In[ ]:
+# In[169]:
 
 
 n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
@@ -5032,7 +5032,7 @@ index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].inde
 index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
-# In[ ]:
+# In[170]:
 
 
 # Get same number of class samples from original
@@ -5049,7 +5049,7 @@ Y_fatal_clean_tsne   = Y_train_original[index_fatal]
 Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
 
 
-# In[ ]:
+# In[171]:
 
 
 if tsne:
@@ -5070,7 +5070,7 @@ if tsne:
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[172]:
 
 
 # X_train = array_train_images
@@ -5090,7 +5090,7 @@ if tsne:
 
 # #### Visualización
 
-# In[ ]:
+# In[173]:
 
 
 # # create encoder model
@@ -5146,7 +5146,7 @@ if tsne:
 
 # ## One-Hot
 
-# In[ ]:
+# In[174]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -5156,19 +5156,19 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 # ## Models
 
-# In[340]:
+# In[175]:
 
 
 array_train_images = np.asarray(train_images)
-array_val_images   = np.asarray(val_images)
+# array_val_images   = np.asarray(val_images)
 array_test_images  = np.asarray(test_images)
 
 input_train_shape = (len(array_train_images), 5, 5, 1)
-input_val_shape = (len(array_val_images), 5, 5, 1)
+# input_val_shape = (len(array_val_images), 5, 5, 1)
 input_test_shape  = (len(array_test_images), 5, 5, 1)
 
 array_train_images = array_train_images.reshape(input_train_shape)
-array_val_images   = array_val_images.reshape(input_val_shape)
+# array_val_images   = array_val_images.reshape(input_val_shape)
 array_test_images  = array_test_images.reshape(input_test_shape)
 
 Y_test_labels = one_hot_to_casualty(Y_test)
@@ -5236,7 +5236,7 @@ if city and train_nn and other_models:
 
 # #### Escritura del modelo
 
-# In[179]:
+# In[180]:
 
 
 if city and train_nn and other_models:
@@ -5246,7 +5246,7 @@ if city and train_nn and other_models:
 
 # #### Carga de modelo pre-entrenado
 
-# In[180]:
+# In[181]:
 
 
 if city and not train_nn and other_models:
@@ -5256,7 +5256,7 @@ if city and not train_nn and other_models:
 
 # #### Resultados
 
-# In[ ]:
+# In[182]:
 
 
 if city:
@@ -5279,7 +5279,7 @@ if city:
 
 # ### SVC
 
-# In[ ]:
+# In[183]:
 
 
 from sklearn.pipeline import make_pipeline
@@ -5291,7 +5291,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
 MODEL_NAME = MODELS_NAME[4]
 
 
-# In[ ]:
+# In[184]:
 
 
 if city and train_nn and other_models:
@@ -5313,7 +5313,7 @@ if city and train_nn and other_models:
 
 # #### Escritura del modelo
 
-# In[ ]:
+# In[186]:
 
 
 if city and train_nn and other_models:
@@ -5323,7 +5323,7 @@ if city and train_nn and other_models:
 
 # #### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[187]:
 
 
 if city and not train_nn and other_models:
@@ -5334,7 +5334,7 @@ if city and not train_nn and other_models:
 
 # #### Resultados
 
-# In[ ]:
+# In[188]:
 
 
 if city:
@@ -5359,7 +5359,7 @@ if city:
 
 # ### KNN
 
-# In[ ]:
+# In[189]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -5460,7 +5460,7 @@ times = times.append(model_time)
 
 # #### Resultados
 
-# In[ ]:
+# In[190]:
 
 
 if city:
@@ -5484,7 +5484,7 @@ if city:
 
 # ### Convolution 1D
 
-# In[273]:
+# In[191]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -5495,7 +5495,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
 # #### Entrenamiento
 
-# In[359]:
+# In[192]:
 
 
 if city and train_nn:
@@ -5504,7 +5504,7 @@ if city and train_nn:
     history = convolution_1d.fit(array_train_images, Y_train_onehot,
                                  # class_weight = pesos,
                                  batch_size = 128,
-                                 epochs = 500,
+                                 epochs = 100,
                                  shuffle = True,
                                  validation_data = (array_test_images, Y_test_onehot))
     end = time.time()
@@ -5599,7 +5599,7 @@ if city and train_nn:
     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                            # class_weight = pesos,
                            batch_size = 128,
-                           epochs = 500,
+                           epochs = 100,
                            shuffle = True,
                            validation_data = (array_test_images, Y_test_onehot))
 
@@ -5739,7 +5739,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Sort
 
-# In[ ]:
+# In[193]:
 
 
 times = times.sort_values('time')
@@ -5747,7 +5747,7 @@ times = times.sort_values('time')
 
 # ### Save csv
 
-# In[ ]:
+# In[194]:
 
 
 SAVE_PATH = f"{REPORTS_TIMES_PATH}{MODEL_TIMESTAMP}.csv"
@@ -5756,7 +5756,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ### Save fig
 
-# In[ ]:
+# In[195]:
 
 
 # LOAD_PATH = f"{REPORTS_TIMES_PATH}2022-05-23-15:28:04.csv"
@@ -5774,7 +5774,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[ ]:
+# In[196]:
 
 
 from os.path import exists
@@ -5832,7 +5832,7 @@ for split in splits:
 
 # ## Models scores plot
 
-# In[ ]:
+# In[197]:
 
 
 import seaborn as sns
@@ -5906,4 +5906,10 @@ for split in splits:
 
         fig = fig.get_figure()
         fig.savefig(SAVE_PATH)
+
+
+# In[ ]:
+
+
+
 
