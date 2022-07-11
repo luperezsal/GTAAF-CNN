@@ -1,0 +1,6 @@
+,city,model,time
+0,UK,nb,0.01
+0,UK,knn,0.08
+0,UK,svc,25.9
+0,UK,convolution_2d,100.76
+0,UK,convolution_1d,113.28
