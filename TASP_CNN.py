@@ -54,7 +54,7 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 loaded_timestamp = '2022-07-06-10:47:41'
 
 
-# In[63]:
+# In[3]:
 
 
 laptop = False
@@ -71,7 +71,7 @@ train_nn = not laptop
 other_models = True
 
 
-# In[64]:
+# In[4]:
 
 
 # laptop = True
@@ -4758,6 +4758,15 @@ print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 # !conda install scikit-learn --y
 
 
+# In[56]:
+
+
+data_frame['Easting']  = data_frame['Easting'].astype(int)
+data_frame['Northing'] = data_frame['Northing'].astype(int)
+data_frame.dtypes
+data_frame.describe()
+
+
 # In[51]:
 
 
@@ -5139,8 +5148,8 @@ if calculate_weights and city:
 # In[70]:
 
 
-FILE_NAME = 'UK_default_weights.json'
-# FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
+# FILE_NAME = 'UK_default_weights.json'
+FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
