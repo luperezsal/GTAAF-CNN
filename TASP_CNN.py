@@ -54,7 +54,7 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 loaded_timestamp = '2022-07-06-10:47:41'
 
 
-# In[3]:
+# In[63]:
 
 
 laptop = False
@@ -71,7 +71,7 @@ train_nn = not laptop
 other_models = True
 
 
-# In[4]:
+# In[64]:
 
 
 # laptop = True
@@ -140,7 +140,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[9]:
 
 
 import numpy as np
@@ -220,7 +220,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[ ]:
+# In[10]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -242,7 +242,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[11]:
 
 
 from scipy.stats import zscore
@@ -262,7 +262,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[ ]:
+# In[12]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -287,7 +287,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[13]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -302,7 +302,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ## Algoritmo genético
 
-# In[ ]:
+# In[14]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -330,7 +330,7 @@ number_of_generations = 50
 
 # ### Inicializar población
 
-# In[ ]:
+# In[15]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -366,7 +366,7 @@ def initialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[ ]:
+# In[16]:
 
 
 from sklearn.metrics import f1_score
@@ -380,7 +380,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[ ]:
+# In[17]:
 
 
 from xgboost import XGBClassifier
@@ -436,7 +436,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[ ]:
+# In[18]:
 
 
 # Select parents for mating
@@ -454,7 +454,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[ ]:
+# In[19]:
 
 
 '''
@@ -488,7 +488,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[ ]:
+# In[20]:
 
 
 def mutation(crossover, hyperparams_to_optimize):
@@ -543,7 +543,7 @@ def mutation(crossover, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[21]:
 
 
 # Add one channel
@@ -566,7 +566,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[ ]:
+# In[22]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -596,7 +596,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[23]:
 
 
 import seaborn as sns
@@ -612,7 +612,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[ ]:
+# In[24]:
 
 
 from sklearn.decomposition import PCA
@@ -633,7 +633,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[ ]:
+# In[25]:
 
 
 from sklearn.manifold import TSNE
@@ -663,7 +663,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name, title):
 
 # ### Autoencoder
 
-# In[ ]:
+# In[26]:
 
 
 def autoencoder ():
@@ -690,7 +690,7 @@ def autoencoder ():
 
 # ## 1D-Convolution
 
-# In[ ]:
+# In[27]:
 
 
 import tensorflow_addons as tfa
@@ -720,7 +720,7 @@ convolution_1d.compile(
 
 # ## TASP-CNN
 
-# In[ ]:
+# In[28]:
 
 
 lr_init = 0.1
@@ -746,13 +746,13 @@ tasp_cnn.compile(
   )
 
 
-# In[ ]:
+# In[29]:
 
 
 tasp_cnn.summary()
 
 
-# In[ ]:
+# In[30]:
 
 
 print('Done!')
@@ -762,7 +762,7 @@ print('Done!')
 
 # ### F1-Score History
 
-# In[ ]:
+# In[31]:
 
 
 def plot_f1_score_history(f1_score_path, f1_score_name, history):
@@ -782,7 +782,7 @@ def plot_f1_score_history(f1_score_path, f1_score_name, history):
 
 # ### Classification Report
 
-# In[ ]:
+# In[32]:
 
 
 from sklearn.metrics import classification_report
@@ -804,7 +804,7 @@ def plot_classification_report(path, file_name, y_true, y_predicted):
 
 # ### Confusion Matrix
 
-# In[ ]:
+# In[33]:
 
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -823,7 +823,7 @@ def plot_confusion_matrix(path, file_name, y_true, y_predicted):
     plt.savefig(path + file_name, dpi = 150)
 
 
-# In[ ]:
+# In[34]:
 
 
 def save_classification_report_and_confussion_matrix(model_name, model_timestamp, y_true, y_predicted, data):
@@ -848,7 +848,7 @@ def save_classification_report_and_confussion_matrix(model_name, model_timestamp
                           y_predicted = y_predicted)
 
 
-# In[ ]:
+# In[35]:
 
 
 print('Done!')
@@ -858,17 +858,17 @@ print('Done!')
 
 # ## Importación de datos
 
-# In[ ]:
+# In[36]:
 
 
 # !conda install pandas --y
 
 
-# In[78]:
+# In[37]:
 
 
 import pandas as pd
-leeds  = True
+# leeds  = True
 city = leeds
 
 if leeds:
@@ -923,10 +923,10 @@ if leeds:
     # a['1st Road Class'].value_counts()
 
 
-# In[79]:
+# In[38]:
 
 
-file_2009
+a
 
 
 # ## Limpieza de datos
@@ -4288,15 +4288,15 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # UK
 
-# In[123]:
+# In[36]:
 
 
-loaded_timestamp = '2022-07-08-15:50:14'
+loaded_timestamp = '2022-07-11-11:45:18'
 
 
 # ## Importación de datos
 
-# In[124]:
+# In[37]:
 
 
 import pandas as pd
@@ -4336,7 +4336,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 data_frame
 
 
-# In[125]:
+# In[38]:
 
 
 # import pandas as pd
@@ -4386,7 +4386,7 @@ data_frame
 # data_frame.to_csv(f"{root_path}/leeds-accident-casualty-2009-2016.csv")
 
 
-# In[126]:
+# In[39]:
 
 
 # # casualty_2009 = casualty_dataframe[casualty_dataframe.accident_year == 2009]
@@ -4394,13 +4394,7 @@ data_frame
 # casualty_2009 = pd.read_csv(f"{root_path}/leeds_casualty_2009.csv")
 
 
-# In[127]:
-
-
-# accidents_2009 = accidents_dataframe[accidents_dataframe.accident_year == 2009]
-
-
-# In[128]:
+# In[40]:
 
 
 # # leeds_accidents_2009 = accidents_2009[accidents_2009.local_authority_district == 204]
@@ -4411,14 +4405,7 @@ data_frame
 # leeds_accidents_2009 = pd.read_csv(f"{root_path}/leeds_accidents_2009.csv")
 
 
-# In[129]:
-
-
-# leeds_accidents_2009['accident_index'] = leeds_accidents_2009.accident_index.astype('string')
-# casualty_2009['accident_index'] = casualty_2009.accident_index.astype('string')
-
-
-# In[130]:
+# In[41]:
 
 
 # pd.set_option('display.max_columns', None)
@@ -4430,13 +4417,7 @@ data_frame
 # merged_2009
 
 
-# In[131]:
-
-
-# casualty_dataframe[casualty_dataframe.accident_index.isin(leeds_accidents_2009.accident_index)]
-
-
-# In[132]:
+# In[42]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4445,7 +4426,7 @@ data_frame
 
 # ## Limpieza de datos
 
-# In[133]:
+# In[43]:
 
 
 COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4470,13 +4451,13 @@ RENAMED_COLUMNS = ['Easting', 'Northing', 'Number of Vehicles', 'Accident Time',
 data_frame.columns = RENAMED_COLUMNS
 
 
-# In[134]:
+# In[44]:
 
 
 data_frame
 
 
-# In[135]:
+# In[45]:
 
 
 print('Before cleaning')
@@ -4486,42 +4467,51 @@ print(f"Accident Time: {data_frame['Accident Time'].value_counts()}")
 print(f"Road Surface Conditions: {data_frame['Road Surface'].value_counts()}")
 print(f"Weather Surface Conditions: {data_frame['Weather Conditions'].value_counts()}")
 print(f"Light Conditions: {data_frame['Lighting Conditions'].value_counts()}")
+print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 
-# In[147]:
+# In[46]:
 
 
-# ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
-# WEATHER_CONDITIONS_VALUES_TO_REMOVE = [9]
+ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
+WEATHER_CONDITIONS_VALUES_TO_REMOVE = [-1, 9]
 
-# data_frame = data_frame[~data_frame['Road Surface'].isin(ROAD_SURFACE_VALUES_TO_REMOVE)]
-# data_frame = data_frame[~data_frame['Weather Conditions'].isin(WEATHER_CONDITIONS_VALUES_TO_REMOVE)]
+data_frame = data_frame[~data_frame['Road Surface'].isin(ROAD_SURFACE_VALUES_TO_REMOVE)]
+data_frame = data_frame[~data_frame['Weather Conditions'].isin(WEATHER_CONDITIONS_VALUES_TO_REMOVE)]
 
-# LIGHT_CONDITIONS_REPLACE = {6: 2, 4: 3, 5: 4, 7: 5}
-# data_frame['Lighting Conditions'].replace(LIGHT_CONDITIONS_REPLACE, inplace = True)
+LIGHT_CONDITIONS_REPLACE = {6: 2, 4: 3, 5: 4, 7: 5}
+LIGHT_CONDITIONS_VALUES_TO_REMOVE = [-1]
+data_frame['Lighting Conditions'].replace(LIGHT_CONDITIONS_REPLACE, inplace = True)
+data_frame = data_frame[~data_frame['Lighting Conditions'].isin(LIGHT_CONDITIONS_VALUES_TO_REMOVE)]
+
 
 # CASUALTY_TYPE_REPLACE = { 8:  6,  9:  7, 10:  8,
 #                          11:  9, 16: 10, 17: 11,
 #                          18: 12, 19: 13, 20: 14,
 #                          21: 15, 98: 16, 22: 17,
 #                          23: 18, 97: 19, 90: 20}
+CASUALTY_TYPE_REPLACE = { 8:  6,  9:  7, 10:  8,
+                         11:  9, 16: 10, 17: 11,
+                         18: 12, 19: 13, 20: 14,
+                         21: 15, 22: 16, 90: 17,
+                         97: 18}
 
-# data_frame['Type of Vehicle'].replace(CASUALTY_TYPE_REPLACE, inplace = True)
+data_frame['Type of Vehicle'].replace(CASUALTY_TYPE_REPLACE, inplace = True)
 
-# data_frame = data_frame[data_frame['Sex of Casualty'] != -1]
+data_frame = data_frame[data_frame['Sex of Casualty'] != -1]
 
-# data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'] < 18, 1)
-# data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'].between(18, 25), 2)
-# data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'].between(25, 65), 3)
-# data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'] > 65, 4)
+data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'] < 18, 1)
+data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'].between(18, 25), 2)
+data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'].between(25, 65), 3)
+data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'] > 65, 4)
 
-# accident_time = pd.DatetimeIndex(data_frame['Accident Time'])
-# data_frame['Accident Time'] = accident_time.hour * 60 + accident_time.minute
+accident_time = pd.DatetimeIndex(data_frame['Accident Time'])
+data_frame['Accident Time'] = accident_time.hour * 60 + accident_time.minute
 
-# data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] < 600, 2)
-# data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] > 1800, 2)
-# data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'].between(600, 1800), 1)
+data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] < 600, 2)
+data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] > 1800, 2)
+data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'].between(600, 1800), 1)
 
 SEVERITY_TYPE_REPLACE = {1: 'Fatal',
                          2: 'Serious',
@@ -4530,192 +4520,182 @@ SEVERITY_TYPE_REPLACE = {1: 'Fatal',
 
 data_frame[target_class].replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
-# data_frame = data_frame.drop_duplicates()
-# data_frame = data_frame.dropna()
-# data_frame = data_frame.reset_index(drop = True)
+data_frame['Weather Conditions'] = data_frame['Weather Conditions'].astype('int')
+data_frame['Casualty Class']     = data_frame['Casualty Class'].astype('int')
+
+data_frame = data_frame.drop_duplicates()
+data_frame = data_frame.dropna()
+data_frame = data_frame.reset_index(drop = True)
 
 
-# In[138]:
+# In[47]:
 
 
-###################### DICCIONARIOS DE REEMPLAZO ######################
-# Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
-# A, A(M) y Motorway lo mismo?
-# B:            De carácter regional y utilizado para conectar zonas de menor importancia.
-#               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
-#               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
-#               ¿Carretera como tal?
+# ###################### DICCIONARIOS DE REEMPLAZO ######################
+# # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
+# # A, A(M) y Motorway lo mismo?
+# # B:            De carácter regional y utilizado para conectar zonas de menor importancia.
+# #               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
+# #               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
+# #               ¿Carretera como tal?
 
-# C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
-#               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
-road_class_replace = {
-    'Motorway': 1,
-    'A(M)': 2,
-    'A': 3,
-    'B': 4,
-    'C': 5,
-    'Unclassified': 6
-}
+# # C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
+# #               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
+# road_class_replace = {
+#     'Motorway': 1,
+#     'A(M)': 2,
+#     'A': 3,
+#     'B': 4,
+#     'C': 5,
+#     'Unclassified': 6
+# }
 
-##################################
-accident_date_replace = {
-    'Dry': 1,
-    'Wet / Damp': 2,
-    'Snow': 3,
-    'Frost / Ice': 4,
-    'Flood': 5,
-}
-##################################
+# ##################################
+# accident_date_replace = {
+#     'Dry': 1,
+#     'Wet / Damp': 2,
+#     'Snow': 3,
+#     'Frost / Ice': 4,
+#     'Flood': 5,
+# }
+# ##################################
 
-road_surface_replace = {
-    'Dry': 1,
-    'Wet / Damp': 2,
-    'Snow': 3,
-    'Frost/ Ice': 4,
-    'Frost / Ice': 4,
-    'Flood': 5,
-    'Flood (surface water over 3cm deep)': 5,
-    '5': 5
-}
+# road_surface_replace = {
+#     'Dry': 1,
+#     'Wet / Damp': 2,
+#     'Snow': 3,
+#     'Frost/ Ice': 4,
+#     'Frost / Ice': 4,
+#     'Flood': 5,
+#     'Flood (surface water over 3cm deep)': 5,
+#     '5': 5
+# }
 
-# La 5: "Darkness: street lighting unknown" no está presente en el paper, le hemos puesto un 5 porque sí #
-lighting_conditions_replace = {
-    'Daylight: street lights present': 1,
-    'Darkness: no street lighting': 2,
-    'Darkness: street lights present and lit': 3,
-    'Darkness: street lights present but unlit': 4,
-    'Darkness: street lighting unknown': 5,
-    '5': 5
-}
-
-
-# La 8.2: "Unknown" no está presente en el paper, le hemos puesto un 8 porque sí (Other) #
-weather_conditions_replace = {
-    'Fine without high winds': 1,
-    'Raining without high winds': 2,
-    'Snowing without high winds': 3,
-    'Fine with high winds': 4,
-    'Raining with high winds': 5,
-    'Snowing with high winds': 6,
-    'Fog or mist – if hazard': 7,
-    'Other': 8,
-    'Unknown': 8
-}
-
-type_of_vehicle_replace = {
-    'Pedal cycle': 1,
-    'M/cycle 50cc and under': 2,
-    'Motorcycle over 50cc and up to 125cc': 3,
-    'Motorcycle over 125cc and up to 500cc': 4,
-    'Motorcycle over 500cc': 5,
-    'Taxi/Private hire car': 6,
-    'Car': 7,
-    'Minibus (8 – 16 passenger seats)': 8,
-    'Bus or coach (17 or more passenger seats)': 9,
-    'Ridden horse': 10,
-    'Agricultural vehicle (includes diggers etc.)': 11,
-    'Tram / Light rail': 12,
-    'Goods vehicle 3.5 tonnes mgw and under': 13,
-    'Goods vehicle over 3.5 tonnes and under 7.5 tonnes mgw': 14,
-    'Goods vehicle 7.5 tonnes mgw and over': 15,
-    'Mobility Scooter': 16,
-    'Other Vehicle ': 17,
-    'Motorcycle - Unknown CC': 18
-}
-
-casualty_class_replace = {
-    'Driver': 1,
-    'Driver/Rider': 1,
-    'Driver or rider': 1,
-    'Passenger': 2,
-    'Vehicle or pillion passenger': 2,
-    'Pedestrian': 3
-}
+# # La 5: "Darkness: street lighting unknown" no está presente en el paper, le hemos puesto un 5 porque sí #
+# lighting_conditions_replace = {
+#     'Daylight: street lights present': 1,
+#     'Darkness: no street lighting': 2,
+#     'Darkness: street lights present and lit': 3,
+#     'Darkness: street lights present but unlit': 4,
+#     'Darkness: street lighting unknown': 5,
+#     '5': 5
+# }
 
 
-sex_of_casualty_replace = {
-    'Male': 1,
-    'Female': 2
-}
+# # La 8.2: "Unknown" no está presente en el paper, le hemos puesto un 8 porque sí (Other) #
+# weather_conditions_replace = {
+#     'Fine without high winds': 1,
+#     'Raining without high winds': 2,
+#     'Snowing without high winds': 3,
+#     'Fine with high winds': 4,
+#     'Raining with high winds': 5,
+#     'Snowing with high winds': 6,
+#     'Fog or mist – if hazard': 7,
+#     'Other': 8,
+#     'Unknown': 8
+# }
 
-a = clean_df = data_frame
+# type_of_vehicle_replace = {
+#     'Pedal cycle': 1,
+#     'M/cycle 50cc and under': 2,
+#     'Motorcycle over 50cc and up to 125cc': 3,
+#     'Motorcycle over 125cc and up to 500cc': 4,
+#     'Motorcycle over 500cc': 5,
+#     'Taxi/Private hire car': 6,
+#     'Car': 7,
+#     'Minibus (8 – 16 passenger seats)': 8,
+#     'Bus or coach (17 or more passenger seats)': 9,
+#     'Ridden horse': 10,
+#     'Agricultural vehicle (includes diggers etc.)': 11,
+#     'Tram / Light rail': 12,
+#     'Goods vehicle 3.5 tonnes mgw and under': 13,
+#     'Goods vehicle over 3.5 tonnes and under 7.5 tonnes mgw': 14,
+#     'Goods vehicle 7.5 tonnes mgw and over': 15,
+#     'Mobility Scooter': 16,
+#     'Other Vehicle ': 17,
+#     'Motorcycle - Unknown CC': 18
+# }
 
-###################### REEMPLAZOS ######################
-clean_df = clean_df.dropna()
-
-a['1st Road Class'].replace(road_class_replace, inplace = True)
-# print('1st Road Class:', a['1st Road Class'].unique())
-
-##################################
-# a['Accident Date'].replace(accident_date_replace, inplace = True)
-# print('Accident Date:', a['Accident Date'].unique())
-##################################
-a['Road Surface'].replace(road_surface_replace, inplace = True)
-a.dropna(inplace = True)
-
-a['Road Surface'] = a['Road Surface'].astype('int')
-# print('Road Surface:', a['Road Surface'].unique())
-
-a['Lighting Conditions'].replace(lighting_conditions_replace, inplace = True)
-# print('Lighting Conditions:', a['Lighting Conditions'].unique())
-
-a['Weather Conditions'].replace(weather_conditions_replace, inplace = True)
-a = a[a['Weather Conditions'] != 'Darkness: street lighting unknown']
-# print('Weather Conditions:', a['Weather Conditions'].unique())
-
-a['Type of Vehicle'].replace(type_of_vehicle_replace, inplace = True)
-# print('Type of Vehicle:', a['Type of Vehicle'].unique())
-
-a['Casualty Class'].replace(casualty_class_replace, inplace = True)
-# print('Casualty Class:', a['Casualty Class'].unique())
-
-a['Sex of Casualty'].replace(sex_of_casualty_replace, inplace = True)
-# print('Sex of Casualty:', a['Sex of Casualty'].unique())
-
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] < 18, 1)
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(18, 25), 2)
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(25, 65), 3)
-a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] > 65, 4)
-# print('Age of Casualty:', a['Age of Casualty'].unique())
-
-a['Accident Time'] = a['Accident Time'].str.replace(':', '')
-a['Accident Time'] = a['Accident Time'].astype(int)
-
-a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'] < 600, 2)
-a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'] > 1800, 2)
-a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'].between(600, 1800), 1)
-# print('Time (24hr):', a['Time (24hr)'].unique())
-
-###################### LIMPIEZA DE VALORES NULOS/DUPLICADOS ######################
-
-clean_df = a.loc[:, ~a.columns.isin(['Accident Date', 'Reference Number'])]
-
-clean_df['Weather Conditions'] = clean_df['Weather Conditions'].astype('int')
-clean_df['Casualty Class']     = clean_df['Casualty Class'].astype('int')
-
-clean_df = clean_df.drop_duplicates()
-clean_df = clean_df.dropna()
-clean_df = clean_df.reset_index(drop=True)
+# casualty_class_replace = {
+#     'Driver': 1,
+#     'Driver/Rider': 1,
+#     'Driver or rider': 1,
+#     'Passenger': 2,
+#     'Vehicle or pillion passenger': 2,
+#     'Pedestrian': 3
+# }
 
 
-clean_df
+# sex_of_casualty_replace = {
+#     'Male': 1,
+#     'Female': 2
+# }
+
+# a = clean_df = data_frame
+
+# ###################### REEMPLAZOS ######################
+# clean_df = clean_df.dropna()
+
+# a['1st Road Class'].replace(road_class_replace, inplace = True)
+# # print('1st Road Class:', a['1st Road Class'].unique())
+
+# ##################################
+# # a['Accident Date'].replace(accident_date_replace, inplace = True)
+# # print('Accident Date:', a['Accident Date'].unique())
+# ##################################
+# a['Road Surface'].replace(road_surface_replace, inplace = True)
+# a.dropna(inplace = True)
+
+# a['Road Surface'] = a['Road Surface'].astype('int')
+# # print('Road Surface:', a['Road Surface'].unique())
+
+# a['Lighting Conditions'].replace(lighting_conditions_replace, inplace = True)
+# # print('Lighting Conditions:', a['Lighting Conditions'].unique())
+
+# a['Weather Conditions'].replace(weather_conditions_replace, inplace = True)
+# a = a[a['Weather Conditions'] != 'Darkness: street lighting unknown']
+# # print('Weather Conditions:', a['Weather Conditions'].unique())
+
+# a['Type of Vehicle'].replace(type_of_vehicle_replace, inplace = True)
+# # print('Type of Vehicle:', a['Type of Vehicle'].unique())
+
+# a['Casualty Class'].replace(casualty_class_replace, inplace = True)
+# # print('Casualty Class:', a['Casualty Class'].unique())
+
+# a['Sex of Casualty'].replace(sex_of_casualty_replace, inplace = True)
+# # print('Sex of Casualty:', a['Sex of Casualty'].unique())
+
+# a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] < 18, 1)
+# a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(18, 25), 2)
+# a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(25, 65), 3)
+# a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] > 65, 4)
+# # print('Age of Casualty:', a['Age of Casualty'].unique())
+
+# a['Accident Time'] = a['Accident Time'].str.replace(':', '')
+# a['Accident Time'] = a['Accident Time'].astype(int)
+
+# a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'] < 600, 2)
+# a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'] > 1800, 2)
+# a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'].between(600, 1800), 1)
+# # print('Time (24hr):', a['Time (24hr)'].unique())
+# a['Accident Time'].astype(int)
+
+# ###################### LIMPIEZA DE VALORES NULOS/DUPLICADOS ######################
+
+# clean_df = a.loc[:, ~a.columns.isin(['Accident Date', 'Reference Number'])]
+
+# clean_df['Weather Conditions'] = clean_df['Weather Conditions'].astype('int')
+# clean_df['Casualty Class']     = clean_df['Casualty Class'].astype('int')
+
+# clean_df = clean_df.drop_duplicates()
+# clean_df = clean_df.dropna()
+# clean_df = clean_df.reset_index(drop=True)
 
 
-# In[122]:
+# clean_df
 
 
-a['Time (24hr)'] = a['Time (24hr)'].str.replace(':', '')
-a['Time (24hr)'].astype(int)
-
-
-# In[139]:
-
-
-data_frame = clean_df
-data_frame
-
-
-# In[140]:
+# In[48]:
 
 
 print('After cleaning')
@@ -4725,10 +4705,11 @@ print(f"Accident Time: {data_frame['Accident Time'].value_counts()}")
 print(f"Road Surface Conditions: {data_frame['Road Surface'].value_counts()}")
 print(f"Weather Surface Conditions: {data_frame['Weather Conditions'].value_counts()}")
 print(f"Light Conditions: {data_frame['Lighting Conditions'].value_counts()}")
+print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 
-# In[141]:
+# In[49]:
 
 
 # Quitados:
@@ -4777,13 +4758,13 @@ print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 # ## Split de datos
 
-# In[142]:
+# In[50]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[148]:
+# In[51]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4800,7 +4781,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[149]:
+# In[52]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4830,13 +4811,13 @@ Y_train_downsampled = downsampled_dataset[target_class]
 # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[150]:
+# In[53]:
 
 
 len(X_slight_downsampled)
 
 
-# In[151]:
+# In[54]:
 
 
 # fv2gi(feature_vector)
@@ -4858,13 +4839,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[152]:
+# In[55]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[153]:
+# In[56]:
 
 
 X_train = X_train.astype(int)
@@ -4883,7 +4864,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[154]:
+# In[57]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4903,7 +4884,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[155]:
+# In[58]:
 
 
 from xgboost import XGBClassifier
@@ -4913,13 +4894,13 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[156]:
+# In[59]:
 
 
 data_frame.describe()
 
 
-# In[157]:
+# In[60]:
 
 
 SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -4930,7 +4911,7 @@ SEVERITY_TYPE_REPLACE = {'Fatal': 0,
 Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[158]:
+# In[65]:
 
 
 import xgboost as xgb
@@ -5037,7 +5018,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[159]:
+# In[66]:
 
 
 if calculate_weights and city:
@@ -5076,7 +5057,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[160]:
+# In[67]:
 
 
 if not calculate_weights:
@@ -5096,7 +5077,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[161]:
+# In[68]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -5146,7 +5127,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[162]:
+# In[69]:
 
 
 if calculate_weights and city:
@@ -5161,7 +5142,7 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[163]:
+# In[70]:
 
 
 FILE_NAME = 'UK_default_weights.json'
@@ -5172,7 +5153,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[164]:
+# In[71]:
 
 
 if calculate_weights and city:
@@ -5190,7 +5171,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[165]:
+# In[72]:
 
 
 if calculate_weights and city:
@@ -5207,7 +5188,7 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[166]:
+# In[73]:
 
 
 if calculate_weights and city:    
@@ -5221,7 +5202,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[167]:
+# In[74]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -5229,7 +5210,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[168]:
+# In[75]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -5243,7 +5224,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[169]:
+# In[76]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -5256,7 +5237,7 @@ train_original_images = shape_images(X_data = X_train_original,
                             gray_images = train_original_bgi)
 
 
-# In[170]:
+# In[77]:
 
 
 plt.gray()
@@ -5267,7 +5248,7 @@ for i in range(0,3):
     plt.show()
 
 
-# In[171]:
+# In[78]:
 
 
 MODEL_TIMESTAMP
