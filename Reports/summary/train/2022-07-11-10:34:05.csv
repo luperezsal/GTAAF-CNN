@@ -1,0 +1,31 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Fatal,Fatal,UK_1D-convolution,train,UK,1D-convolution,0.895,0.877,0.886,14013.0
+Serious,Serious,UK_1D-convolution,train,UK,1D-convolution,0.653,0.732,0.69,14012.0
+Slight,Slight,UK_1D-convolution,train,UK,1D-convolution,0.757,0.68,0.716,14013.0
+accuracy,accuracy,UK_1D-convolution,train,UK,1D-convolution,0.763,0.763,0.763,0.763
+macro avg,macro avg,UK_1D-convolution,train,UK,1D-convolution,0.768,0.763,0.764,42038.0
+weighted avg,weighted avg,UK_1D-convolution,train,UK,1D-convolution,0.768,0.763,0.764,42038.0
+Fatal,Fatal,UK_2D-convolution,train,UK,2D-convolution,0.906,0.995,0.948,14013.0
+Serious,Serious,UK_2D-convolution,train,UK,2D-convolution,0.708,0.726,0.717,14012.0
+Slight,Slight,UK_2D-convolution,train,UK,2D-convolution,0.771,0.677,0.721,14013.0
+accuracy,accuracy,UK_2D-convolution,train,UK,2D-convolution,0.799,0.799,0.799,0.799
+macro avg,macro avg,UK_2D-convolution,train,UK,2D-convolution,0.795,0.799,0.795,42038.0
+weighted avg,weighted avg,UK_2D-convolution,train,UK,2D-convolution,0.795,0.799,0.795,42038.0
+Fatal,Fatal,UK_KNN,train,UK,KNN,0.876,0.99,0.929,14013.0
+Serious,Serious,UK_KNN,train,UK,KNN,0.723,0.78,0.75,14012.0
+Slight,Slight,UK_KNN,train,UK,KNN,0.818,0.647,0.723,14013.0
+accuracy,accuracy,UK_KNN,train,UK,KNN,0.806,0.806,0.806,0.806
+macro avg,macro avg,UK_KNN,train,UK,KNN,0.806,0.806,0.801,42038.0
+weighted avg,weighted avg,UK_KNN,train,UK,KNN,0.806,0.806,0.801,42038.0
+Fatal,Fatal,UK_NB,train,UK,NB,0.703,0.683,0.693,14013.0
+Serious,Serious,UK_NB,train,UK,NB,0.576,0.667,0.618,14012.0
+Slight,Slight,UK_NB,train,UK,NB,0.61,0.531,0.568,14013.0
+accuracy,accuracy,UK_NB,train,UK,NB,0.627,0.627,0.627,0.627
+macro avg,macro avg,UK_NB,train,UK,NB,0.63,0.627,0.626,42038.0
+weighted avg,weighted avg,UK_NB,train,UK,NB,0.63,0.627,0.626,42038.0
+Fatal,Fatal,UK_SVC,train,UK,SVC,0.95,0.984,0.967,14013.0
+Serious,Serious,UK_SVC,train,UK,SVC,0.775,0.842,0.807,14012.0
+Slight,Slight,UK_SVC,train,UK,SVC,0.856,0.751,0.8,14013.0
+accuracy,accuracy,UK_SVC,train,UK,SVC,0.859,0.859,0.859,0.859
+macro avg,macro avg,UK_SVC,train,UK,SVC,0.86,0.859,0.858,42038.0
+weighted avg,weighted avg,UK_SVC,train,UK,SVC,0.86,0.859,0.858,42038.0
