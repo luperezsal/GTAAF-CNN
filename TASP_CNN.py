@@ -923,12 +923,6 @@ if leeds:
     # a['1st Road Class'].value_counts()
 
 
-# In[38]:
-
-
-a
-
-
 # ## Limpieza de datos
 
 # In[83]:
