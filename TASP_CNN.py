@@ -868,7 +868,7 @@ print('Done!')
 
 
 import pandas as pd
-leeds  = True
+# leeds  = True
 city = leeds
 
 if leeds:
@@ -5525,7 +5525,7 @@ if tsne:
 
 # ## One-Hot
 
-# In[109]:
+# In[64]:
 
 
 Y_train_onehot = casualty_to_one_hot(Y_train)
