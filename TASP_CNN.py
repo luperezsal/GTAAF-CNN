@@ -714,7 +714,7 @@ convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
 convolution_1d.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.2)]
   )
 
 
@@ -742,7 +742,7 @@ tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 tasp_cnn.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.3)]
   )
 
 
@@ -5955,6 +5955,134 @@ if city and not laptop:
                                                      y_true = Y_test,
                                                      y_predicted = Y_predicted,
                                                      data = 'test')
+
+
+# In[ ]:
+
+
+
+
+
+# ### Convolution 1D
+
+# In[ ]:
+
+
+# import tensorflow_addons as tfa
+
+# lr_init = 0.1
+# num_classes = 3
+
+# convolution_1d = models.Sequential()
+# convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(5, 5, 1)))
+# convolution_1d.add(layers.BatchNormalization())
+# convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
+# convolution_1d.add(layers.BatchNormalization())
+# convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
+# convolution_1d.add(layers.BatchNormalization())
+# convolution_1d.add(layers.Flatten())
+# convolution_1d.add(layers.Dense(units=128))
+# convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
+
+# convolution_1d.compile(
+#     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
+#     loss='categorical_crossentropy',
+#     metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+#   )
+
+
+# In[191]:
+
+
+# MODEL_NAME = 'Convolution3Layers'
+
+# MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+# MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+
+
+# #### Entrenamiento
+
+# In[192]:
+
+
+# if city and train_nn:
+#     start = time.time()
+
+#     fold_no = 1
+#     # for train, test in kfold.split(inputs, targets):
+#     history = convolution_1d.fit(array_train_images, Y_train_onehot,
+#                                  # class_weight = pesos,
+#                                  batch_size = 128,
+#                                  epochs = 100,
+#                                  shuffle = True,
+#                                  validation_data = (array_test_images, Y_test_onehot))
+#     end = time.time()
+
+#     ellapsed_time = round(end - start, 2)
+
+#     model_time = pd.DataFrame({'city': [city_name],
+#                                'model': [MODEL_NAME],
+#                                'time': [ellapsed_time]})
+
+#     times = times.append(model_time)
+
+#     history
+
+
+# #### Escritura del modelo
+
+# In[ ]:
+
+
+# if city and train_nn:
+
+#     convolution_1d.save(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Carga de modelo pre-entrenado
+
+# In[ ]:
+
+
+# if city and not train_nn and not laptop:
+#     # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
+#     MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-19-06:33:55.h5'
+
+#     convolution_1d = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
+
+
+# #### Resultados
+
+# In[ ]:
+
+
+# if city and not laptop:
+
+#     print("[INFO] evaluating network...")
+
+#     Y_predicted = convolution_1d.predict(x = array_test_images, batch_size = 128).argmax(axis = 1)
+
+#     if train_nn:
+#         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
+#         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
+
+#         plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+#                               f1_score_name = F1_SCORE_NAME,
+#                               history = history)
+
+#         Y_train_predicted = convolution_1d.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
+
+#         save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+#                                                          model_timestamp = MODEL_TIMESTAMP,
+#                                                          y_true = Y_train,
+#                                                          y_predicted = Y_train_predicted,
+#                                                          data = 'train')
+
+#     save_classification_report_and_confussion_matrix(model_name = MODEL_NAME,
+#                                                      model_timestamp = MODEL_TIMESTAMP,
+#                                                      y_true = Y_test,
+#                                                      y_predicted = Y_predicted,
+#                                                      data = 'test')
 
 
 # ### Convolution 2D
