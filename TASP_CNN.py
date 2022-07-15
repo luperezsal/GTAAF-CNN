@@ -742,7 +742,7 @@ tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 tasp_cnn.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.3)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.2)]
   )
 
 
