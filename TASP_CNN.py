@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[2]:
+# In[67]:
 
 
 from datetime import datetime
@@ -54,7 +54,7 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 loaded_timestamp = '2022-07-06-10:47:41'
 
 
-# In[3]:
+# In[68]:
 
 
 laptop = False
@@ -71,7 +71,7 @@ train_nn = not laptop
 other_models = True
 
 
-# In[4]:
+# In[69]:
 
 
 # laptop = True
@@ -4298,12 +4298,12 @@ MODEL_NAME = MODELS_NAME[3]
 # In[36]:
 
 
-loaded_timestamp = '2022-07-15-10:09:02'
+loaded_timestamp = '2022-07-11-11:45:18'
 
 
 # ## Importación de datos
 
-# In[37]:
+# In[70]:
 
 
 import pandas as pd
@@ -4343,7 +4343,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 data_frame
 
 
-# In[38]:
+# In[71]:
 
 
 # import pandas as pd
@@ -4393,13 +4393,13 @@ data_frame
 # data_frame.to_csv(f"{root_path}/leeds-accident-casualty-2009-2016.csv")
 
 
-# In[39]:
+# In[72]:
 
 
 # accidents_dataframe.local_authority_district.value_counts()
 
 
-# In[40]:
+# In[73]:
 
 
 # # casualty_2009 = casualty_dataframe[casualty_dataframe.accident_year == 2009]
@@ -4407,7 +4407,7 @@ data_frame
 # casualty_2009 = pd.read_csv(f"{root_path}/leeds_casualty_2009.csv")
 
 
-# In[41]:
+# In[74]:
 
 
 # # leeds_accidents_2009 = accidents_2009[accidents_2009.local_authority_district == 204]
@@ -4418,7 +4418,7 @@ data_frame
 # leeds_accidents_2009 = pd.read_csv(f"{root_path}/leeds_accidents_2009.csv")
 
 
-# In[42]:
+# In[75]:
 
 
 # pd.set_option('display.max_columns', None)
@@ -4430,7 +4430,7 @@ data_frame
 # merged_2009
 
 
-# In[43]:
+# In[76]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4441,7 +4441,7 @@ data_frame
 
 # ## Limpieza de datos
 
-# In[44]:
+# In[77]:
 
 
 # test_2009 = data_frame[data_frame.accident_year_x == 2009]
@@ -4455,7 +4455,7 @@ data_frame
 # data_frame = test_2009
 
 
-# In[45]:
+# In[78]:
 
 
 COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4480,7 +4480,7 @@ RENAMED_COLUMNS = ['Easting', 'Northing', 'Number of Vehicles', 'Accident Time',
 data_frame.columns = RENAMED_COLUMNS
 
 
-# In[46]:
+# In[79]:
 
 
 # print('Before cleaning')
@@ -4494,7 +4494,7 @@ data_frame.columns = RENAMED_COLUMNS
 # print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 
-# In[47]:
+# In[80]:
 
 
 ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
@@ -4557,7 +4557,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop = True)
 
 
-# In[48]:
+# In[81]:
 
 
 # ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -4724,7 +4724,7 @@ data_frame = data_frame.reset_index(drop = True)
 # clean_df
 
 
-# In[49]:
+# In[82]:
 
 
 # print('After cleaning')
@@ -4738,7 +4738,7 @@ data_frame = data_frame.reset_index(drop = True)
 # print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 
-# In[50]:
+# In[83]:
 
 
 # Quitados:
@@ -4787,13 +4787,13 @@ data_frame = data_frame.reset_index(drop = True)
 
 # ## Split de datos
 
-# In[51]:
+# In[84]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[52]:
+# In[85]:
 
 
 data_frame['Easting']  = data_frame['Easting'].astype(int)
@@ -4802,7 +4802,7 @@ data_frame.dtypes
 data_frame.describe()
 
 
-# In[53]:
+# In[86]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4819,7 +4819,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[54]:
+# In[87]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4849,13 +4849,13 @@ Y_train_downsampled = downsampled_dataset[target_class]
 # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[55]:
+# In[88]:
 
 
 len(X_slight_downsampled)
 
 
-# In[56]:
+# In[89]:
 
 
 # fv2gi(feature_vector)
@@ -4877,13 +4877,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[57]:
+# In[90]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[58]:
+# In[91]:
 
 
 X_train = X_train.astype(int)
@@ -4902,7 +4902,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[59]:
+# In[92]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4922,7 +4922,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[60]:
+# In[93]:
 
 
 from xgboost import XGBClassifier
@@ -4932,13 +4932,13 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[61]:
+# In[94]:
 
 
 data_frame.describe()
 
 
-# In[62]:
+# In[95]:
 
 
 # SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -4949,14 +4949,14 @@ data_frame.describe()
 # Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[63]:
+# In[ ]:
 
 
 import xgboost as xgb
 import random
 
 if calculate_weights:
-
+    casualty_to_one_hot(Y_train)
     casualty_to_one_hot(Y_train_downsampled)
     casualty_to_one_hot(Y_test)
 
@@ -4970,8 +4970,8 @@ if calculate_weights:
     best_solution_history = np.empty([(number_of_generations), number_of_hyperparams+1])
     populationHistory[0:number_of_individuals,:] = population
 
-    dtrain = xgb.DMatrix(data  = X_train_downsampled,
-                         label = Y_train_downsampled)
+    dtrain = xgb.DMatrix(data  = X_train,
+                         label = Y_train)
 
     dtest  = xgb.DMatrix(data  = X_test, 
                          label = Y_test)
@@ -5056,7 +5056,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[64]:
+# In[ ]:
 
 
 if calculate_weights and city:
@@ -5095,7 +5095,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[65]:
+# In[ ]:
 
 
 if not calculate_weights:
