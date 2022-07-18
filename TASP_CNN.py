@@ -714,7 +714,7 @@ convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
 convolution_1d.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.3)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.2)]
   )
 
 
@@ -742,7 +742,7 @@ tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 tasp_cnn.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.4)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
   )
 
 
@@ -4298,7 +4298,7 @@ MODEL_NAME = MODELS_NAME[3]
 # In[36]:
 
 
-loaded_timestamp = '2022-07-11-11:45:18'
+loaded_timestamp = '2022-07-15-13:12:13'
 
 
 # ## Importación de datos
@@ -4949,7 +4949,7 @@ data_frame.describe()
 # Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[ ]:
+# In[96]:
 
 
 import xgboost as xgb
@@ -5056,7 +5056,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[ ]:
+# In[99]:
 
 
 if calculate_weights and city:
@@ -5095,7 +5095,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[ ]:
+# In[100]:
 
 
 if not calculate_weights:
@@ -5115,7 +5115,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[66]:
+# In[101]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -5165,7 +5165,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[67]:
+# In[102]:
 
 
 if calculate_weights and city:
@@ -5180,7 +5180,13 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[68]:
+# In[114]:
+
+
+loaded_timestamp
+
+
+# In[103]:
 
 
 # FILE_NAME = 'UK_default_weights.json'
@@ -5191,7 +5197,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[76]:
+# In[104]:
 
 
 if calculate_weights and city:
@@ -5207,7 +5213,7 @@ if calculate_weights and city:
     feature_vector = fill_feature_vector(X_train, child_weights)
 
 
-# In[77]:
+# In[105]:
 
 
 # casualty_to_one_hot(Y_train)
@@ -5227,7 +5233,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[78]:
+# In[106]:
 
 
 if calculate_weights and city:
@@ -5244,7 +5250,13 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[79]:
+# In[113]:
+
+
+feature_vector
+
+
+# In[107]:
 
 
 if calculate_weights and city:    
@@ -5258,7 +5270,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[80]:
+# In[108]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -5266,7 +5278,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[81]:
+# In[109]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -5280,7 +5292,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[82]:
+# In[110]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -5293,7 +5305,7 @@ train_original_images = shape_images(X_data = X_train_original,
                                      gray_images = train_original_bgi)
 
 
-# In[83]:
+# In[111]:
 
 
 plt.gray()
@@ -5304,7 +5316,7 @@ for i in range(0,3):
     plt.show()
 
 
-# In[84]:
+# In[112]:
 
 
 MODEL_TIMESTAMP
