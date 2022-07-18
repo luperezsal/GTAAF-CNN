@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[67]:
+# In[2]:
 
 
 from datetime import datetime
@@ -54,7 +54,7 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 loaded_timestamp = '2022-07-06-10:47:41'
 
 
-# In[68]:
+# In[3]:
 
 
 laptop = False
@@ -71,20 +71,20 @@ train_nn = not laptop
 other_models = True
 
 
-# In[69]:
+# In[4]:
 
 
-# laptop = True
-# calculate_weights = True
-# tsne = False
+laptop = True
+calculate_weights = True
+tsne = False
 
-# leeds  = False
-# madrid = False
-# UK = True
+leeds  = False
+madrid = False
+UK = True
 
-# tree_method = 'auto' if laptop else 'gpu_hist'
-# # tree_method = 'gpu_hist'
-# train_nn = not laptop
+tree_method = 'auto' if laptop else 'gpu_hist'
+# tree_method = 'gpu_hist'
+train_nn = not laptop
 
 
 # ## Importar Tensorflow
@@ -4298,12 +4298,12 @@ MODEL_NAME = MODELS_NAME[3]
 # In[36]:
 
 
-loaded_timestamp = '2022-07-15-13:12:13'
+loaded_timestamp = '2022-07-18-11:28:37'
 
 
 # ## Importación de datos
 
-# In[70]:
+# In[37]:
 
 
 import pandas as pd
@@ -4316,7 +4316,7 @@ target_class = 'Casualty Severity'
 
 root_path = './Data/UK'
 
-years = list(range(2009,2017))
+years = list(range(2007,2020))
 
 # casualty_dataframe = accidents_dataframe = pd.DataFrame()
 
@@ -4336,14 +4336,12 @@ years = list(range(2009,2017))
 # data_frame = pd.read_csv(f"{root_path}/accident-casualty-2005-2020.csv")
 # data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2005-2020.csv")
 # data_frame = pd.read_csv(f"{root_path}/leeds-accident-casualty-2005-2020.csv")
-data_frame = pd.read_csv(f"{root_path}/leeds-accident-casualty-2009-2016.csv")
+data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2007-2020.csv")
 
 data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 
-data_frame
 
-
-# In[71]:
+# In[1]:
 
 
 # import pandas as pd
@@ -4352,7 +4350,7 @@ data_frame
 
 # #Código para filtrar el archivo 1979-2020 y escribir en disco el dataframe filtrado 2005-2020
 
-# years = list(range(2009,2017))
+# years = list(range(2007,2020))
 
 # # # CASUALTY READ, FILTER AND STORE
 # casualty_dataframe  = pd.read_csv(f"{root_path}/casualty-1979-2020.csv")
@@ -4375,8 +4373,8 @@ data_frame
 # # if you want all the dataframes together, here it is
 # accidents_dataframe = pd.concat(list_of_dataframes)
 # # 300 = Ciudad que queremos
-# accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 204]
-# # accidents_dataframe.to_csv(f"{root_path}/accident-2005-2020.csv")
+# accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
+# accidents_dataframe.to_csv(f"{root_path}/birmingham-accident-2007-2020.csv")
 
 
 # # # MERGED, DROP DUPLICATES AND STORE
@@ -4389,48 +4387,10 @@ data_frame
 # data_frame = data_frame.dropna()
 # data_frame = data_frame.reset_index(drop = True)
 
-# data_frame
-# data_frame.to_csv(f"{root_path}/leeds-accident-casualty-2009-2016.csv")
+# data_frame.to_csv(f"{root_path}/birmingham-accident-casualty-2007-2020.csv")
 
 
-# In[72]:
-
-
-# accidents_dataframe.local_authority_district.value_counts()
-
-
-# In[73]:
-
-
-# # casualty_2009 = casualty_dataframe[casualty_dataframe.accident_year == 2009]
-# # casualty_2009.to_csv(f"{root_path}/leeds_casualty_2009.csv")
-# casualty_2009 = pd.read_csv(f"{root_path}/leeds_casualty_2009.csv")
-
-
-# In[74]:
-
-
-# # leeds_accidents_2009 = accidents_2009[accidents_2009.local_authority_district == 204]
-# # leeds_accidents_2009['date'] = pd.to_datetime(leeds_accidents_2009.date, format='%d/%m/%Y')
-# # leeds_accidents_2009 = leeds_accidents_2009.sort_values('date')
-# # leeds_accidents_2009
-# # leeds_accidents_2009.to_csv(f"{root_path}/leeds_accidents_2009.csv")
-# leeds_accidents_2009 = pd.read_csv(f"{root_path}/leeds_accidents_2009.csv")
-
-
-# In[75]:
-
-
-# pd.set_option('display.max_columns', None)
-# merged_2009 = pd.merge(casualty_2009, leeds_accidents_2009, on=['accident_index'], how='right')
-# merged_2009['date'] = pd.to_datetime(merged_2009.date)
-# merged_2009 = merged_2009.sort_values('date')
-# # leeds_accidents_2009
-# merged_2009.to_csv(f"{root_path}/leeds_merged_2009.csv")
-# merged_2009
-
-
-# In[76]:
+# In[40]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4441,7 +4401,7 @@ data_frame
 
 # ## Limpieza de datos
 
-# In[77]:
+# In[41]:
 
 
 # test_2009 = data_frame[data_frame.accident_year_x == 2009]
@@ -4455,7 +4415,7 @@ data_frame
 # data_frame = test_2009
 
 
-# In[78]:
+# In[42]:
 
 
 COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4480,21 +4440,21 @@ RENAMED_COLUMNS = ['Easting', 'Northing', 'Number of Vehicles', 'Accident Time',
 data_frame.columns = RENAMED_COLUMNS
 
 
-# In[79]:
+# In[44]:
 
 
-# print('Before cleaning')
-# print(f"First Road Class: {data_frame['1st Road Class'].value_counts()}")
-# print(f"Number of Vehicles: {data_frame['Number of Vehicles'].value_counts()}")
-# print(f"Accident Time: {data_frame['Accident Time'].value_counts()}")
-# print(f"Road Surface Conditions: {data_frame['Road Surface'].value_counts()}")
-# print(f"Weather Surface Conditions: {data_frame['Weather Conditions'].value_counts()}")
-# print(f"Light Conditions: {data_frame['Lighting Conditions'].value_counts()}")
-# print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
-# print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
+print('Before cleaning')
+print(f"First Road Class: {data_frame['1st Road Class'].value_counts()}")
+print(f"Number of Vehicles: {data_frame['Number of Vehicles'].value_counts()}")
+print(f"Accident Time: {data_frame['Accident Time'].value_counts()}")
+print(f"Road Surface Conditions: {data_frame['Road Surface'].value_counts()}")
+print(f"Weather Surface Conditions: {data_frame['Weather Conditions'].value_counts()}")
+print(f"Light Conditions: {data_frame['Lighting Conditions'].value_counts()}")
+print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
+print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 
-# In[80]:
+# In[45]:
 
 
 ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
@@ -4557,7 +4517,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop = True)
 
 
-# In[81]:
+# In[46]:
 
 
 # ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -4724,21 +4684,21 @@ data_frame = data_frame.reset_index(drop = True)
 # clean_df
 
 
-# In[82]:
+# In[47]:
 
 
-# print('After cleaning')
-# print(f"First Road Class: {data_frame['1st Road Class'].value_counts()}")
-# print(f"Number of Vehicles: {data_frame['Number of Vehicles'].value_counts()}")
-# print(f"Accident Time: {data_frame['Accident Time'].value_counts()}")
-# print(f"Road Surface Conditions: {data_frame['Road Surface'].value_counts()}")
-# print(f"Weather Surface Conditions: {data_frame['Weather Conditions'].value_counts()}")
-# print(f"Light Conditions: {data_frame['Lighting Conditions'].value_counts()}")
-# print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
-# print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
+print('After cleaning')
+print(f"First Road Class: {data_frame['1st Road Class'].value_counts()}")
+print(f"Number of Vehicles: {data_frame['Number of Vehicles'].value_counts()}")
+print(f"Accident Time: {data_frame['Accident Time'].value_counts()}")
+print(f"Road Surface Conditions: {data_frame['Road Surface'].value_counts()}")
+print(f"Weather Surface Conditions: {data_frame['Weather Conditions'].value_counts()}")
+print(f"Light Conditions: {data_frame['Lighting Conditions'].value_counts()}")
+print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
+print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 
-# In[83]:
+# In[48]:
 
 
 # Quitados:
@@ -4787,13 +4747,13 @@ data_frame = data_frame.reset_index(drop = True)
 
 # ## Split de datos
 
-# In[84]:
+# In[49]:
 
 
 # !conda install scikit-learn --y
 
 
-# In[85]:
+# In[50]:
 
 
 data_frame['Easting']  = data_frame['Easting'].astype(int)
@@ -4802,7 +4762,7 @@ data_frame.dtypes
 data_frame.describe()
 
 
-# In[86]:
+# In[51]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4819,7 +4779,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[87]:
+# In[52]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4849,13 +4809,13 @@ Y_train_downsampled = downsampled_dataset[target_class]
 # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[88]:
+# In[53]:
 
 
 len(X_slight_downsampled)
 
 
-# In[89]:
+# In[54]:
 
 
 # fv2gi(feature_vector)
@@ -4877,13 +4837,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[90]:
+# In[55]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[91]:
+# In[56]:
 
 
 X_train = X_train.astype(int)
@@ -4902,7 +4862,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[92]:
+# In[57]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4922,7 +4882,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[93]:
+# In[58]:
 
 
 from xgboost import XGBClassifier
@@ -4932,13 +4892,13 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[94]:
+# In[59]:
 
 
 data_frame.describe()
 
 
-# In[95]:
+# In[60]:
 
 
 # SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -4949,7 +4909,7 @@ data_frame.describe()
 # Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[96]:
+# In[61]:
 
 
 import xgboost as xgb
@@ -5056,7 +5016,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[99]:
+# In[62]:
 
 
 if calculate_weights and city:
@@ -5095,7 +5055,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[100]:
+# In[63]:
 
 
 if not calculate_weights:
@@ -5115,7 +5075,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[101]:
+# In[64]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -5165,7 +5125,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[102]:
+# In[65]:
 
 
 if calculate_weights and city:
@@ -5180,13 +5140,13 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[114]:
+# In[66]:
 
 
 loaded_timestamp
 
 
-# In[103]:
+# In[67]:
 
 
 # FILE_NAME = 'UK_default_weights.json'
@@ -5197,7 +5157,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[104]:
+# In[68]:
 
 
 if calculate_weights and city:
@@ -5213,7 +5173,7 @@ if calculate_weights and city:
     feature_vector = fill_feature_vector(X_train, child_weights)
 
 
-# In[105]:
+# In[69]:
 
 
 # casualty_to_one_hot(Y_train)
@@ -5233,7 +5193,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[106]:
+# In[70]:
 
 
 if calculate_weights and city:
@@ -5250,13 +5210,13 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[113]:
+# In[71]:
 
 
 feature_vector
 
 
-# In[107]:
+# In[72]:
 
 
 if calculate_weights and city:    
@@ -5270,7 +5230,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[108]:
+# In[73]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -5278,7 +5238,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[109]:
+# In[74]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -5292,7 +5252,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[110]:
+# In[75]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -5305,7 +5265,7 @@ train_original_images = shape_images(X_data = X_train_original,
                                      gray_images = train_original_bgi)
 
 
-# In[111]:
+# In[76]:
 
 
 plt.gray()
@@ -5316,13 +5276,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[112]:
+# In[77]:
 
 
 MODEL_TIMESTAMP
 
 
-# In[172]:
+# In[78]:
 
 
 # image = train_bgi[:,:,0]
