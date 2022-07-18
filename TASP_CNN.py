@@ -703,6 +703,8 @@ convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding
 convolution_1d.add(layers.BatchNormalization())
 convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
 convolution_1d.add(layers.BatchNormalization())
+convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
+convolution_1d.add(layers.BatchNormalization())
 convolution_1d.add(layers.Flatten())
 convolution_1d.add(layers.Dense(units=128))
 convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
@@ -724,6 +726,8 @@ num_classes = 3
 
 tasp_cnn = models.Sequential()
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
+tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
