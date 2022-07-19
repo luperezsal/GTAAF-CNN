@@ -6409,7 +6409,6 @@ for split in splits:
                                  palette = 'deep',
                                  data = UK_reports_summary.loc[ACCIDENT_TYPES],
                                  ax = axis_UK).set(title = f"{measure_type} UK")                
-                ax.bar_label(ax.containers[0])
 
         SAVE_PATH = f"{REPORTS_SUMMARY_PATH}{split}/{MODEL_TIMESTAMP}.png"
 
