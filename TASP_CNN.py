@@ -705,6 +705,8 @@ convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding
 convolution_1d.add(layers.BatchNormalization())
 convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
 convolution_1d.add(layers.BatchNormalization())
+convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(3, 3, 256)))
+convolution_1d.add(layers.BatchNormalization())
 convolution_1d.add(layers.Flatten())
 convolution_1d.add(layers.Dense(units=128))
 convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
@@ -726,6 +728,8 @@ num_classes = 3
 
 tasp_cnn = models.Sequential()
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
+tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
@@ -4312,7 +4316,7 @@ target_class = 'Casualty Severity'
 
 root_path = './Data/UK'
 
-years = list(range(2007,2020))
+years = list(range(2007,2007))
 
 # casualty_dataframe = accidents_dataframe = pd.DataFrame()
 
@@ -4333,6 +4337,7 @@ years = list(range(2007,2020))
 # data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2005-2020.csv")
 # data_frame = pd.read_csv(f"{root_path}/leeds-accident-casualty-2005-2020.csv")
 data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2007-2020.csv")
+# data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2009-2019.csv")
 
 data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 
@@ -4346,7 +4351,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 
 # #Código para filtrar el archivo 1979-2020 y escribir en disco el dataframe filtrado 2005-2020
 
-# years = list(range(2007,2020))
+# years = list(range(2009,2019))
 
 # # # CASUALTY READ, FILTER AND STORE
 # casualty_dataframe  = pd.read_csv(f"{root_path}/casualty-1979-2020.csv")
@@ -4370,7 +4375,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 # accidents_dataframe = pd.concat(list_of_dataframes)
 # # 300 = Ciudad que queremos
 # accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
-# accidents_dataframe.to_csv(f"{root_path}/birmingham-accident-2007-2020.csv")
+# accidents_dataframe.to_csv(f"{root_path}/birmingham-accident-2009-2019.csv")
 
 
 # # # MERGED, DROP DUPLICATES AND STORE
@@ -4383,7 +4388,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 # data_frame = data_frame.dropna()
 # data_frame = data_frame.reset_index(drop = True)
 
-# data_frame.to_csv(f"{root_path}/birmingham-accident-casualty-2007-2020.csv")
+# data_frame.to_csv(f"{root_path}/birmingham-accident-casualty-2009-2019.csv")
 
 
 # In[39]:
@@ -5283,7 +5288,7 @@ for i in range(0,3):
 MODEL_TIMESTAMP
 
 
-# In[221]:
+# In[76]:
 
 
 # image = train_bgi[:,:,0]
@@ -5292,13 +5297,13 @@ MODEL_TIMESTAMP
 # plt.savefig(f"test.svg",transparent=True, dpi=150)
 
 
-# In[173]:
+# In[77]:
 
 
 # !conda install scikit-image
 
 
-# In[174]:
+# In[78]:
 
 
 # input_shape = (5, 5)
@@ -5309,7 +5314,7 @@ array_test_images  = np.asarray(test_images)
 array_train_original_images = np.asarray(train_original_images)
 
 
-# In[175]:
+# In[79]:
 
 
 # !conda install -c conda-forge tensorflow 
