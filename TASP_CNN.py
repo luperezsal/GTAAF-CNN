@@ -4316,7 +4316,7 @@ target_class = 'Casualty Severity'
 
 root_path = './Data/UK'
 
-years = list(range(2007,2007))
+years = list(range(2007,2020))
 
 # casualty_dataframe = accidents_dataframe = pd.DataFrame()
 
