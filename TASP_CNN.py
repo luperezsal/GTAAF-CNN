@@ -714,7 +714,7 @@ convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
 convolution_1d.compile(
     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
     loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.2)]
+    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
   )
 
 
@@ -4303,7 +4303,7 @@ loaded_timestamp = '2022-07-19-09:56:11'
 
 # ## Importación de datos
 
-# In[136]:
+# In[201]:
 
 
 import pandas as pd
@@ -4342,7 +4342,7 @@ data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2007-2020.cs
 data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 
 
-# In[137]:
+# In[202]:
 
 
 # import pandas as pd
@@ -4391,7 +4391,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 # data_frame.to_csv(f"{root_path}/birmingham-accident-casualty-2009-2019.csv")
 
 
-# In[138]:
+# In[203]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4402,7 +4402,7 @@ data_frame.speed_limit.value_counts()
 
 # ## Limpieza de datos
 
-# In[139]:
+# In[204]:
 
 
 # test_2009 = data_frame[data_frame.accident_year_x == 2009]
@@ -4416,7 +4416,7 @@ data_frame.speed_limit.value_counts()
 # data_frame = test_2009
 
 
-# In[140]:
+# In[205]:
 
 
 # COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4441,7 +4441,7 @@ data_frame.speed_limit.value_counts()
 # data_frame.columns = RENAMED_COLUMNS
 
 
-# In[141]:
+# In[206]:
 
 
 COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4466,7 +4466,7 @@ RENAMED_COLUMNS = ['Easting', 'Northing', 'Number of Vehicles', 'Accident Time',
 data_frame.columns = RENAMED_COLUMNS
 
 
-# In[142]:
+# In[207]:
 
 
 print('Before cleaning')
@@ -4480,7 +4480,7 @@ print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 
 
-# In[143]:
+# In[208]:
 
 
 ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
@@ -4548,7 +4548,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop = True)
 
 
-# In[144]:
+# In[209]:
 
 
 # ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -4715,7 +4715,7 @@ data_frame = data_frame.reset_index(drop = True)
 # clean_df
 
 
-# In[145]:
+# In[210]:
 
 
 print('After cleaning')
@@ -4730,7 +4730,7 @@ print(f"Casualty Type: {data_frame['Type of Vehicle'].value_counts()}")
 data_frame
 
 
-# In[146]:
+# In[211]:
 
 
 # Quitados:
