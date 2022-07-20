@@ -5181,8 +5181,8 @@ loaded_timestamp
 # In[249]:
 
 
-FILE_NAME = 'UK_default_weights_mod_3.json'
-# FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
+# FILE_NAME = 'UK_default_weights_mod_3.json'
+FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
 
 feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
