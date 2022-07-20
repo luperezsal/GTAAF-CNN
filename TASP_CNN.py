@@ -4298,7 +4298,7 @@ MODEL_NAME = MODELS_NAME[3]
 # In[36]:
 
 
-loaded_timestamp = '2022-07-20-18:25:28'
+loaded_timestamp = '2022-07-20-19:12:45'
 
 
 # ## Importación de datos
@@ -4961,7 +4961,7 @@ data_frame.describe()
 # Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[ ]:
+# In[58]:
 
 
 import xgboost as xgb
@@ -5068,7 +5068,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[ ]:
+# In[59]:
 
 
 if calculate_weights and city:
@@ -5107,7 +5107,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[ ]:
+# In[60]:
 
 
 if not calculate_weights:
@@ -5127,7 +5127,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[ ]:
+# In[61]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -5177,7 +5177,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[ ]:
+# In[62]:
 
 
 if calculate_weights and city:
@@ -5192,13 +5192,13 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[ ]:
+# In[63]:
 
 
 loaded_timestamp
 
 
-# In[ ]:
+# In[64]:
 
 
 # FILE_NAME = 'UK_default_weights_mod_3.json'
@@ -5209,7 +5209,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[ ]:
+# In[65]:
 
 
 if calculate_weights and city:
@@ -5225,7 +5225,7 @@ if calculate_weights and city:
     feature_vector = fill_feature_vector(X_train, child_weights)
 
 
-# In[ ]:
+# In[66]:
 
 
 # casualty_to_one_hot(Y_train)
@@ -5245,7 +5245,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[ ]:
+# In[67]:
 
 
 if calculate_weights and city:
@@ -5262,13 +5262,13 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[ ]:
+# In[68]:
 
 
 feature_vector
 
 
-# In[ ]:
+# In[69]:
 
 
 if calculate_weights and city:    
@@ -5282,7 +5282,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[ ]:
+# In[70]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -5290,7 +5290,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[ ]:
+# In[71]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -5304,7 +5304,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[ ]:
+# In[72]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -5317,7 +5317,7 @@ train_original_images = shape_images(X_data = X_train_original,
                                      gray_images = train_original_bgi)
 
 
-# In[ ]:
+# In[73]:
 
 
 plt.gray()
@@ -5328,13 +5328,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[ ]:
+# In[74]:
 
 
 MODEL_TIMESTAMP
 
 
-# In[ ]:
+# In[75]:
 
 
 # image = train_bgi[:,:,0]
@@ -5343,13 +5343,13 @@ MODEL_TIMESTAMP
 # plt.savefig(f"test.svg",transparent=True, dpi=150)
 
 
-# In[ ]:
+# In[76]:
 
 
 # !conda install scikit-image
 
 
-# In[ ]:
+# In[77]:
 
 
 # input_shape = (5, 5)
@@ -5360,13 +5360,13 @@ array_test_images  = np.asarray(test_images)
 array_train_original_images = np.asarray(train_original_images)
 
 
-# In[ ]:
+# In[78]:
 
 
 # !conda install -c conda-forge tensorflow 
 
 
-# In[ ]:
+# In[79]:
 
 
 ######### EN TERMINAL #########
@@ -5375,7 +5375,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ## Visualización de datos
 
-# In[ ]:
+# In[80]:
 
 
 # !conda install seaborn
@@ -5383,7 +5383,7 @@ array_train_original_images = np.asarray(train_original_images)
 
 # ### Matriz de correlación
 
-# In[ ]:
+# In[81]:
 
 
 # correlation_matrix(X_test)
