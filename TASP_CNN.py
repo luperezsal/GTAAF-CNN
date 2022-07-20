@@ -74,17 +74,17 @@ other_models = True
 # In[170]:
 
 
-laptop = True
-calculate_weights = True
-tsne = False
+# laptop = True
+# calculate_weights = True
+# tsne = False
 
-leeds  = False
-madrid = False
-UK = True
+# leeds  = False
+# madrid = False
+# UK = True
 
-tree_method = 'auto' if laptop else 'gpu_hist'
-# tree_method = 'gpu_hist'
-train_nn = False
+# tree_method = 'auto' if laptop else 'gpu_hist'
+# # tree_method = 'gpu_hist'
+# train_nn = False
 
 
 # ## Importar Tensorflow
