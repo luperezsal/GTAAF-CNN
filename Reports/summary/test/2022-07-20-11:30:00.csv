@@ -1,0 +1,31 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,UK_1D-convolution,test,UK,1D-convolution,0.96,0.578,0.722,15687.0
+Fatal,Fatal,UK_1D-convolution,test,UK,1D-convolution,0.145,0.624,0.235,1435.0
+Serious,Serious,UK_1D-convolution,test,UK,1D-convolution,0.019,0.312,0.036,96.0
+accuracy,accuracy,UK_1D-convolution,test,UK,1D-convolution,0.58,0.58,0.58,0.58
+macro avg,macro avg,UK_1D-convolution,test,UK,1D-convolution,0.375,0.505,0.331,17218.0
+weighted avg,weighted avg,UK_1D-convolution,test,UK,1D-convolution,0.887,0.58,0.677,17218.0
+Slight,Slight,UK_2D-convolution,test,UK,2D-convolution,0.946,0.815,0.876,15687.0
+Fatal,Fatal,UK_2D-convolution,test,UK,2D-convolution,0.209,0.478,0.291,1435.0
+Serious,Serious,UK_2D-convolution,test,UK,2D-convolution,0.052,0.229,0.085,96.0
+accuracy,accuracy,UK_2D-convolution,test,UK,2D-convolution,0.784,0.784,0.784,0.784
+macro avg,macro avg,UK_2D-convolution,test,UK,2D-convolution,0.402,0.507,0.417,17218.0
+weighted avg,weighted avg,UK_2D-convolution,test,UK,2D-convolution,0.88,0.784,0.823,17218.0
+Slight,Slight,UK_KNN,test,UK,KNN,0.958,0.706,0.813,15687.0
+Fatal,Fatal,UK_KNN,test,UK,KNN,0.187,0.578,0.283,1435.0
+Serious,Serious,UK_KNN,test,UK,KNN,0.029,0.365,0.053,96.0
+accuracy,accuracy,UK_KNN,test,UK,KNN,0.694,0.694,0.694,0.694
+macro avg,macro avg,UK_KNN,test,UK,KNN,0.391,0.55,0.383,17218.0
+weighted avg,weighted avg,UK_KNN,test,UK,KNN,0.888,0.694,0.764,17218.0
+Slight,Slight,UK_NB,test,UK,NB,0.95,0.698,0.805,15687.0
+Fatal,Fatal,UK_NB,test,UK,NB,0.187,0.481,0.269,1435.0
+Serious,Serious,UK_NB,test,UK,NB,0.014,0.292,0.027,96.0
+accuracy,accuracy,UK_NB,test,UK,NB,0.678,0.678,0.678,0.678
+macro avg,macro avg,UK_NB,test,UK,NB,0.384,0.49,0.367,17218.0
+weighted avg,weighted avg,UK_NB,test,UK,NB,0.881,0.678,0.756,17218.0
+Slight,Slight,UK_SVC,test,UK,SVC,0.953,0.823,0.883,15687.0
+Fatal,Fatal,UK_SVC,test,UK,SVC,0.235,0.548,0.329,1435.0
+Serious,Serious,UK_SVC,test,UK,SVC,0.069,0.24,0.107,96.0
+accuracy,accuracy,UK_SVC,test,UK,SVC,0.796,0.796,0.796,0.796
+macro avg,macro avg,UK_SVC,test,UK,SVC,0.419,0.537,0.44,17218.0
+weighted avg,weighted avg,UK_SVC,test,UK,SVC,0.888,0.796,0.833,17218.0
