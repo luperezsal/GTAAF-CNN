@@ -6222,7 +6222,7 @@ X_train_singled = array_train_images.reshape((len(array_train_images), -1))
 X_train_singled
 
 
-# In[174]:
+# In[175]:
 
 
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
@@ -6239,19 +6239,17 @@ model = KerasClassifier(build_fn=get_tasp_cnn, verbose=2)
 
 # define a grid of the hyperparameter search space
 
-fm_one = fm_two = fm_three = fm_four = [16]
+fm_one = fm_two = fm_three = fm_four = [128, 256, 512]
 # fm_one = fm_two = fm_three, fm_four = [32, 64, 128, 256]
 
-dense  = [128]
+dense  = [64, 128, 256]
 
-learnRate = [1e-2]
 # learnRate = [1e-2, 1e-3, 1e-4]
 
-batchSize = [1024]
-# batchSize = [32, 64, 128, 256, 512]
+batchSize = [64, 128, 256]
 
-epochs = [10]
-# epochs = [10, 20, 30, 40]
+# epochs = [10]
+epochs = [20, 40]
 
 # create a dictionary from the hyperparameter grid
 grid = dict(
@@ -6268,7 +6266,7 @@ grid = dict(
 # initialize a random search with a 3-fold cross-validation and then
 # start the hyperparameter search process
 print("[INFO] performing random search...")
-searcher = RandomizedSearchCV(estimator=model, cv=3,
+searcher = RandomizedSearchCV(estimator=model,
                               param_distributions=grid, scoring="accuracy")
 
 searchResults = searcher.fit(array_train_images, Y_train)
@@ -6283,6 +6281,12 @@ print("[INFO] evaluating the best model...")
 taspcnn = bestModel = searchResults.best_estimator_
 # accuracy = bestModel.score(array_test_images, Y_test)
 # print("accuracy: {:.2f}%".format(accuracy * 100))
+
+
+# In[177]:
+
+
+taspcnn
 
 
 # #### Escritura del modelo
@@ -6364,7 +6368,7 @@ if city and not train_nn:
 
 # #### Resultados
 
-# In[ ]:
+# In[178]:
 
 
 if city:
@@ -6377,9 +6381,9 @@ if city:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                              f1_score_name = F1_SCORE_NAME,
-                              history = history)
+        # plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+        #                       f1_score_name = F1_SCORE_NAME,
+        #                       history = history)
 
         Y_train_predicted = tasp_cnn.predict(x = array_train_images).argmax(axis = 1)
 
