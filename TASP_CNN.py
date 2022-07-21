@@ -69,7 +69,7 @@ tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
 other_models = cnn1d = False
-other_models = True
+# other_models = True
 
 
 # In[4]:
@@ -5701,7 +5701,7 @@ if city and not train_nn and other_models:
 
 # #### Resultados
 
-# In[103]:
+# In[100]:
 
 
 if city and other_models:
@@ -5724,7 +5724,7 @@ if city and other_models:
 
 # ### SVC
 
-# In[104]:
+# In[101]:
 
 
 from sklearn.pipeline import make_pipeline
@@ -5736,7 +5736,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
 MODEL_NAME = MODELS_NAME[4]
 
 
-# In[105]:
+# In[102]:
 
 
 if city and train_nn and other_models:
@@ -5758,7 +5758,7 @@ if city and train_nn and other_models:
 
 # #### Escritura del modelo
 
-# In[106]:
+# In[103]:
 
 
 if city and train_nn and other_models:
@@ -5768,7 +5768,7 @@ if city and train_nn and other_models:
 
 # #### Carga de modelo pre-entrenado
 
-# In[107]:
+# In[104]:
 
 
 if city and not train_nn and other_models:
@@ -5779,7 +5779,7 @@ if city and not train_nn and other_models:
 
 # #### Resultados
 
-# In[108]:
+# In[105]:
 
 
 if city and train_nn and other_models:
@@ -5804,7 +5804,7 @@ if city and train_nn and other_models:
 
 # ### KNN
 
-# In[109]:
+# In[106]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -5815,7 +5815,7 @@ MODEL_NAME = MODELS_NAME[0]
 
 # #### Entrenamiento
 
-# In[110]:
+# In[107]:
 
 
 if city and train_nn and other_models:
@@ -5879,7 +5879,7 @@ if city and train_nn and other_models:
 
 # #### Escritura del modelo
 
-# In[111]:
+# In[108]:
 
 
 # if city and train_nn and other_models:
@@ -5892,7 +5892,7 @@ if city and train_nn and other_models:
 
 # #### Carga de modelo pre-entrenado
 
-# In[112]:
+# In[109]:
 
 
 # if city and not train_nn and other_models:
@@ -5906,7 +5906,7 @@ if city and train_nn and other_models:
 
 # #### Resultados
 
-# In[113]:
+# In[110]:
 
 
 if city and train_nn and other_models:
@@ -5930,7 +5930,7 @@ if city and train_nn and other_models:
 
 # ### Convolution 1D
 
-# In[114]:
+# In[111]:
 
 
 MODEL_NAME = MODELS_NAME[1]
@@ -5941,7 +5941,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
 # #### Entrenamiento
 
-# In[115]:
+# In[112]:
 
 
 if city and train_nn and cnn1d:
@@ -5970,7 +5970,7 @@ if city and train_nn and cnn1d:
 
 # #### Escritura del modelo
 
-# In[116]:
+# In[113]:
 
 
 if city and train_nn and cnn1d:
@@ -5980,7 +5980,7 @@ if city and train_nn and cnn1d:
 
 # #### Carga de modelo pre-entrenado
 
-# In[117]:
+# In[114]:
 
 
 if city and not train_nn and not laptop and cnn1d:
@@ -5993,7 +5993,7 @@ if city and not train_nn and not laptop and cnn1d:
 
 # #### Resultados
 
-# In[118]:
+# In[115]:
 
 
 if city and cnn1d:
@@ -6006,9 +6006,9 @@ if city and cnn1d:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                              f1_score_name = F1_SCORE_NAME,
-                              history = history)
+        # plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+        #                       f1_score_name = F1_SCORE_NAME,
+        #                       history = history)
 
         Y_train_predicted = convolution_1d.predict(x = array_train_images, batch_size = 128).argmax(axis = 1)
 
@@ -6033,7 +6033,7 @@ if city and cnn1d:
 
 # ### Convolution 1D
 
-# In[119]:
+# In[116]:
 
 
 # import tensorflow_addons as tfa
@@ -6059,7 +6059,7 @@ if city and cnn1d:
 #   )
 
 
-# In[120]:
+# In[117]:
 
 
 # MODEL_NAME = 'Convolution3Layers'
@@ -6070,7 +6070,7 @@ if city and cnn1d:
 
 # #### Entrenamiento
 
-# In[121]:
+# In[118]:
 
 
 # if city and train_nn:
@@ -6099,7 +6099,7 @@ if city and cnn1d:
 
 # #### Escritura del modelo
 
-# In[122]:
+# In[119]:
 
 
 # if city and train_nn:
@@ -6109,7 +6109,7 @@ if city and cnn1d:
 
 # #### Carga de modelo pre-entrenado
 
-# In[123]:
+# In[120]:
 
 
 # if city and not train_nn and not laptop:
@@ -6121,7 +6121,7 @@ if city and cnn1d:
 
 # #### Resultados
 
-# In[124]:
+# In[121]:
 
 
 # if city and not laptop:
@@ -6155,7 +6155,7 @@ if city and cnn1d:
 
 # ### Convolution 2D
 
-# In[125]:
+# In[122]:
 
 
 MODEL_NAME = MODELS_NAME[2]
@@ -6166,39 +6166,39 @@ MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 
 # #### Entrenamiento
 
-# In[126]:
+# In[123]:
 
 
-if city and train_nn:
+# if city and train_nn:
 
-    start = time.time()
+#     start = time.time()
 
-    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                           # class_weight = pesos,
-                           batch_size = 128,
-                           epochs = 100,
-                           shuffle = True,
-                           validation_data = (array_test_images, Y_test_onehot))
+#     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+#                            # class_weight = pesos,
+#                            batch_size = 128,
+#                            epochs = 100,
+#                            shuffle = True,
+#                            validation_data = (array_test_images, Y_test_onehot))
 
-    end = time.time()
+#     end = time.time()
 
-    ellapsed_time = round(end - start, 2)
+#     ellapsed_time = round(end - start, 2)
 
-    model_time = pd.DataFrame({'city': [city_name],
-                               'model': [MODEL_NAME],
-                               'time': [ellapsed_time]})
-    times = times.append(model_time)    
+#     model_time = pd.DataFrame({'city': [city_name],
+#                                'model': [MODEL_NAME],
+#                                'time': [ellapsed_time]})
+#     times = times.append(model_time)    
 
-    history
-
-
-# In[167]:
-
-
-
+#     history
 
 
 # In[ ]:
+
+
+
+
+
+# In[124]:
 
 
 # from kerastuner import RandomSearch
@@ -6216,80 +6216,86 @@ if city and train_nn:
 
 
 
-# In[170]:
+# In[125]:
 
 
 X_train_singled = array_train_images.reshape((len(array_train_images), -1))
 X_train_singled
 
 
-# In[202]:
+# In[163]:
 
 
-# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-# from sklearn.model_selection import RandomizedSearchCV
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import RandomizedSearchCV
 
 
-# model_time = pd.DataFrame({'city': [city_name],
-#                            'model': [MODEL_NAME],
-#                            'time': 0})
-# times = times.append(model_time)
-# # wrap our model into a scikit-learn compatible classifier
-# print("[INFO] initializing model...")
-# model = KerasClassifier(build_fn=get_tasp_cnn, verbose=2)
+model_time = pd.DataFrame({'city': [city_name],
+                           'model': [MODEL_NAME],
+                           'time': 0})
+times = times.append(model_time)
+# wrap our model into a scikit-learn compatible classifier
+print("[INFO] initializing model...")
+model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
 
-# # define a grid of the hyperparameter search space
+# define a grid of the hyperparameter search space
 
-# fm_one = fm_two = fm_three = fm_four = [128, 256, 512]
-# # fm_one = fm_two = fm_three, fm_four = [32, 64, 128, 256]
+fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512]
+# fm_one = fm_two = fm_three, fm_four = [32, 64, 128, 256]
 
-# dense  = [64, 128, 256]
+dense  = [32, 64, 128, 256]
 
-# # learnRate = [1e-2, 1e-3, 1e-4]
-# learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+# learnRate = [1e-2, 1e-3, 1e-4]
+learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
-# batchSize = [64, 128, 256]
+batchSize = [32, 64, 128, 256]
 
-# # epochs = [10]
-# epochs = [20, 40, 80]
+# epochs = [10]
+epochs = [65]
 
-# # create a dictionary from the hyperparameter grid
-# grid = dict(
-# 	fm_one = fm_one,
-#     fm_two = fm_two,
-#     fm_three = fm_three,
-#     fm_four = fm_four,
-#     dense = dense,
-# 	learnRate=learnRate,
-# 	batch_size=batchSize,
-# 	epochs=epochs
-# )
 
-# # initialize a random search with a 3-fold cross-validation and then
-# # start the hyperparameter search process
-# print("[INFO] performing random search...")
-# searcher = RandomizedSearchCV(estimator = model,
-#                               cv = 3,
-#                               param_distributions = grid,
-#                               scoring = 'f1_micro')
+# create a dictionary from the hyperparameter grid
+grid = dict(
+	fm_one = fm_one,
+    fm_two = fm_two,
+    fm_three = fm_three,
+    fm_four = fm_four,
+    dense = dense,
+	learnRate=learnRate,
+	batch_size=batchSize,
+	epochs=epochs
+)
 
-# searchResults = searcher.fit(array_train_images, Y_train)
+# initialize a random search with a 3-fold cross-validation and then
+# start the hyperparameter search process
+print("[INFO] performing random search...")
+searcher = RandomizedSearchCV(estimator = model,
+                              n_iter = 80,
+                              cv = 3,
+                              param_distributions = grid,
+                              scoring = 'f1_micro')
 
-# # summarize grid search information
-# bestScore = searchResults.best_score_
-# bestParams = searchResults.best_params_
+searchResults = searcher.fit(array_train_images, Y_train)
 
-# print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+# summarize grid search information
+bestScore = searchResults.best_score_
+bestParams = searchResults.best_params_
 
-# print("[INFO] evaluating the best model...")
-# taspcnn = bestModel = searchResults.best_estimator_
-# # accuracy = bestModel.score(array_test_images, Y_test)
-# # print("accuracy: {:.2f}%".format(accuracy * 100))
+print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+
+print("[INFO] evaluating the best model...")
+taspcnn = bestModel = searchResults.best_estimator_
+# accuracy = bestModel.score(array_test_images, Y_test)
+# print("accuracy: {:.2f}%".format(accuracy * 100))
+
+text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+n = text_file.write(str(searchResults.cv_results_))
+text_file.close()
 
 
 # #### Escritura del modelo
 
-# In[ ]:
+# In[164]:
 
 
 if city and train_nn:
@@ -6301,7 +6307,7 @@ if city and train_nn:
 
 # #### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[165]:
 
 
 if city and not train_nn:
@@ -6312,7 +6318,7 @@ if city and not train_nn:
     tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
-# In[ ]:
+# In[166]:
 
 
 # ## Exportar los kernels
@@ -6337,7 +6343,7 @@ if city and not train_nn:
 #         plt.show()
 
 
-# In[ ]:
+# In[167]:
 
 
 # # import tf.keras.mo.Model
@@ -6346,7 +6352,7 @@ if city and not train_nn:
 # tasp_cnn_feature_maps.predict(array_train_images[:3]).shape
 
 
-# In[ ]:
+# In[168]:
 
 
 # feature_maps = tasp_cnn.predict(array_train_images)
@@ -6366,7 +6372,7 @@ if city and not train_nn:
 
 # #### Resultados
 
-# In[178]:
+# In[169]:
 
 
 if city:
@@ -6379,9 +6385,9 @@ if city:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                              f1_score_name = F1_SCORE_NAME,
-                              history = history)
+        # plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+        #                       f1_score_name = F1_SCORE_NAME,
+        #                       history = history)
 
         Y_train_predicted = tasp_cnn.predict(x = array_train_images).argmax(axis = 1)
 
@@ -6400,7 +6406,7 @@ if city:
 
 # ## AutoML
 
-# In[ ]:
+# In[170]:
 
 
 MODEL_NAME = MODELS_NAME[3]
@@ -6412,7 +6418,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Sort
 
-# In[ ]:
+# In[171]:
 
 
 times = times.sort_values('time')
@@ -6420,7 +6426,7 @@ times = times.sort_values('time')
 
 # ### Save csv
 
-# In[ ]:
+# In[172]:
 
 
 SAVE_PATH = f"{REPORTS_TIMES_PATH}{MODEL_TIMESTAMP}.csv"
@@ -6429,7 +6435,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ### Save fig
 
-# In[ ]:
+# In[173]:
 
 
 # LOAD_PATH = f"{REPORTS_TIMES_PATH}2022-05-23-15:28:04.csv"
@@ -6447,7 +6453,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[ ]:
+# In[174]:
 
 
 from os.path import exists
@@ -6505,7 +6511,7 @@ for split in splits:
 
 # ## Models scores plot
 
-# In[ ]:
+# In[175]:
 
 
 import seaborn as sns
@@ -6525,7 +6531,7 @@ if UK:
 
 for split in splits:
     
-    REPORT_PATH = f"{REPORTS_SUMMARY_PATH}{split}/{MODEL_TIMESTAMP}.csv"
+    REPORT_PATH = f"{REPORTS_SUMMARY_PATH}{split}/2022-07-21-13:18:31.csv"
 
     if exists(REPORT_PATH):
         fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,20))
@@ -6579,4 +6585,28 @@ for split in splits:
 
         fig = fig.get_figure()
         fig.savefig(SAVE_PATH)
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
