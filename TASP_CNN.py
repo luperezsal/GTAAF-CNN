@@ -6245,7 +6245,7 @@ fm_one = fm_two = fm_three = fm_four = [128, 256, 512]
 dense  = [64, 128, 256]
 
 # learnRate = [1e-2, 1e-3, 1e-4]
-learnRate = [.1, 1e-2, 1e-3, 1e-4]
+learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
 batchSize = [64, 128, 256]
 
@@ -6268,7 +6268,7 @@ grid = dict(
 # start the hyperparameter search process
 print("[INFO] performing random search...")
 searcher = RandomizedSearchCV(estimator = model,
-                              cv = 3
+                              cv = 3,
                               param_distributions = grid,
                               scoring = 'f1_micro')
 
