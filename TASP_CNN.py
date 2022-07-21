@@ -6222,7 +6222,7 @@ X_train_singled = array_train_images.reshape((len(array_train_images), -1))
 X_train_singled
 
 
-# In[175]:
+# In[202]:
 
 
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
@@ -6244,12 +6244,13 @@ fm_one = fm_two = fm_three = fm_four = [128, 256, 512]
 
 dense  = [64, 128, 256]
 
-learnRate = [1e-2, 1e-3, 1e-4]
+# learnRate = [1e-2, 1e-3, 1e-4]
+learnRate = [.1, 1e-2, 1e-3, 1e-4]
 
 batchSize = [64, 128, 256]
 
 # epochs = [10]
-epochs = [20, 40]
+epochs = [20, 40, 80]
 
 # create a dictionary from the hyperparameter grid
 grid = dict(
@@ -6266,8 +6267,10 @@ grid = dict(
 # initialize a random search with a 3-fold cross-validation and then
 # start the hyperparameter search process
 print("[INFO] performing random search...")
-searcher = RandomizedSearchCV(estimator=model,
-                              param_distributions=grid, scoring="accuracy")
+searcher = RandomizedSearchCV(estimator = model,
+                              cv = 3
+                              param_distributions = grid,
+                              scoring = 'f1_micro')
 
 searchResults = searcher.fit(array_train_images, Y_train)
 
@@ -6283,9 +6286,15 @@ taspcnn = bestModel = searchResults.best_estimator_
 # print("accuracy: {:.2f}%".format(accuracy * 100))
 
 
+# In[177]:
+
+
+taspcnn
+
+
 # #### Escritura del modelo
 
-# In[179]:
+# In[ ]:
 
 
 if city and train_nn:
@@ -6297,7 +6306,7 @@ if city and train_nn:
 
 # #### Carga de modelo pre-entrenado
 
-# In[180]:
+# In[ ]:
 
 
 if city and not train_nn:
@@ -6308,7 +6317,7 @@ if city and not train_nn:
     tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
-# In[181]:
+# In[ ]:
 
 
 # ## Exportar los kernels
@@ -6333,7 +6342,7 @@ if city and not train_nn:
 #         plt.show()
 
 
-# In[182]:
+# In[ ]:
 
 
 # # import tf.keras.mo.Model
@@ -6342,7 +6351,7 @@ if city and not train_nn:
 # tasp_cnn_feature_maps.predict(array_train_images[:3]).shape
 
 
-# In[183]:
+# In[ ]:
 
 
 # feature_maps = tasp_cnn.predict(array_train_images)
@@ -6362,7 +6371,7 @@ if city and not train_nn:
 
 # #### Resultados
 
-# In[184]:
+# In[178]:
 
 
 if city:
@@ -6396,13 +6405,7 @@ if city:
 
 # ## AutoML
 
-# In[188]:
-
-
-times = times.append(model_time)
-
-
-# In[185]:
+# In[ ]:
 
 
 MODEL_NAME = MODELS_NAME[3]
@@ -6414,7 +6417,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Sort
 
-# In[189]:
+# In[ ]:
 
 
 times = times.sort_values('time')
@@ -6422,7 +6425,7 @@ times = times.sort_values('time')
 
 # ### Save csv
 
-# In[190]:
+# In[ ]:
 
 
 SAVE_PATH = f"{REPORTS_TIMES_PATH}{MODEL_TIMESTAMP}.csv"
@@ -6431,7 +6434,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ### Save fig
 
-# In[191]:
+# In[ ]:
 
 
 # LOAD_PATH = f"{REPORTS_TIMES_PATH}2022-05-23-15:28:04.csv"
@@ -6449,7 +6452,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[192]:
+# In[ ]:
 
 
 from os.path import exists
@@ -6507,7 +6510,7 @@ for split in splits:
 
 # ## Models scores plot
 
-# In[193]:
+# In[ ]:
 
 
 import seaborn as sns
@@ -6581,40 +6584,4 @@ for split in splits:
 
         fig = fig.get_figure()
         fig.savefig(SAVE_PATH)
-
-
-# In[ ]:
-
-
-taspcnn.model.summary()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
