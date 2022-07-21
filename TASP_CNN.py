@@ -71,7 +71,7 @@ train_nn = not laptop
 other_models = True
 
 
-# In[4]:
+# In[49]:
 
 
 # laptop = True
@@ -4298,7 +4298,7 @@ MODEL_NAME = MODELS_NAME[3]
 # In[36]:
 
 
-loaded_timestamp = '2022-07-20-19:12:45'
+loaded_timestamp = '2022-07-21-08:55:32'
 
 
 # ## Importación de datos
@@ -4338,7 +4338,8 @@ years = list(range(2009,2020))
 # data_frame = pd.read_csv(f"{root_path}/leeds-accident-casualty-2005-2020.csv")
 # data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2007-2020.csv")
 # data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-2009-2019.csv")
-data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-vehicles-2005-2019.csv")
+# data_frame = pd.read_csv(f"{root_path}/birmingham-accident-casualty-vehicles-2005-2019.csv")
+data_frame = pd.read_csv(f"{root_path}/westminster-accident-casualty-vehicles-2005-2019.csv")
 
 data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 
@@ -4356,13 +4357,15 @@ data_frame
 
 # years = list(range(2005,2020))
 
-# # # CASUALTY READ, FILTER AND STORE
-# casualty_dataframe  = pd.read_csv(f"{root_path}/casualty-1979-2020.csv")
+# # # # CASUALTY READ, FILTER AND STORE
+# # casualty_dataframe  = pd.read_csv(f"{root_path}/casualty-1979-2020.csv")
 
-# casualty_dataframe = casualty_dataframe[casualty_dataframe.accident_year.isin(years)]
-# casualty_dataframe.to_csv(f"{root_path}/casualty-2005-2019.csv")
+# # casualty_dataframe = casualty_dataframe[casualty_dataframe.accident_year.isin(years)]
+# # casualty_dataframe.to_csv(f"{root_path}/casualty-2005-2019.csv")
 
-# ## ACCIDENTS READ, FILTER AND STORE
+# casualty_dataframe = pd.read_csv(f"{root_path}/casualty-2005-2019.csv")
+
+# # ## ACCIDENTS READ, FILTER AND STORE
 
 # chunksize = 1000
 
@@ -4377,26 +4380,26 @@ data_frame
 # # if you want all the dataframes together, here it is
 # accidents_dataframe = pd.concat(list_of_dataframes)
 # # 300 = Ciudad que queremos
-# accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 300]
-# accidents_dataframe.to_csv(f"{root_path}/birmingham-accident-2005-2019.csv")
+# accidents_dataframe = accidents_dataframe[accidents_dataframe.local_authority_district == 1]
+# accidents_dataframe.to_csv(f"{root_path}/westminster-accident-2005-2019.csv")
 
 # # VEHICLES READ, FILTER AND STORE
 
-# chunksize = 1000
+# # chunksize = 1000
 
-# # # the list that contains all the dataframes
-# list_of_dataframes = []
+# # # # the list that contains all the dataframes
+# # list_of_dataframes = []
 
-# for df in pd.read_csv(f"{root_path}/dft-road-casualty-statistics-vehicle-1979-2020.csv", chunksize=chunksize):
-#     # process your data frame here
-#     # then add the current data frame into the list
-#     list_of_dataframes.append(df[df.accident_year.isin(years)])
+# # for df in pd.read_csv(f"{root_path}/dft-road-casualty-statistics-vehicle-1979-2020.csv", chunksize=chunksize):
+# #     # process your data frame here
+# #     # then add the current data frame into the list
+# #     list_of_dataframes.append(df[df.accident_year.isin(years)])
 
-# # if you want all the dataframes together, here it is
-# vehicles_dataframe = pd.concat(list_of_dataframes)
-# # 300 = Ciudad que queremos
-# vehicles_dataframe.to_csv(f"{root_path}/vehicles-2005-2019.csv")
-
+# # # if you want all the dataframes together, here it is
+# # vehicles_dataframe = pd.concat(list_of_dataframes)
+# # # 300 = Ciudad que queremos
+# # vehicles_dataframe.to_csv(f"{root_path}/vehicles-2005-2019.csv")
+# vehicles_dataframe = pd.read_csv(f"{root_path}/vehicles-2005-2019.csv")
 
 # # # # MERGED, DROP DUPLICATES AND STORE
 # accidents_dataframe['accident_index'] = accidents_dataframe.accident_index.astype('string')
@@ -4410,17 +4413,23 @@ data_frame
 # data_frame = data_frame.dropna()
 # data_frame = data_frame.reset_index(drop = True)
 
-# data_frame.to_csv(f"{root_path}/birmingham-accident-casualty-vehicles-2005-2019.csv")
+# data_frame.to_csv(f"{root_path}/westminster-accident-casualty-vehicles-2005-2019.csv")
 
 
 # In[39]:
+
+
+# accidents_dataframe.local_authority_district.value_counts()
+
+
+# In[40]:
 
 
 # data_frame.vehicle_manoeuvre.value_counts()
 data_frame.age_of_vehicle.value_counts()
 
 
-# In[40]:
+# In[41]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4431,7 +4440,7 @@ data_frame
 
 # ## Limpieza de datos
 
-# In[41]:
+# In[42]:
 
 
 # COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4456,7 +4465,7 @@ data_frame
 # data_frame.columns = RENAMED_COLUMNS
 
 
-# In[42]:
+# In[43]:
 
 
 COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4479,7 +4488,7 @@ RENAMED_COLUMNS = ['Easting', 'Northing', '1st Road Class', 'Accident Time', 'Nu
 data_frame.columns = RENAMED_COLUMNS
 
 
-# In[43]:
+# In[44]:
 
 
 print('Before cleaning')
@@ -4497,7 +4506,7 @@ print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 
-# In[44]:
+# In[45]:
 
 
 ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
@@ -4580,7 +4589,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop = True)
 
 
-# In[45]:
+# In[46]:
 
 
 # ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -4747,7 +4756,7 @@ data_frame = data_frame.reset_index(drop = True)
 # clean_df
 
 
-# In[46]:
+# In[47]:
 
 
 print('After cleaning')
@@ -4765,7 +4774,7 @@ print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 
-# In[47]:
+# In[48]:
 
 
 # Quitados:
@@ -4814,7 +4823,7 @@ print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 # ## Split de datos
 
-# In[48]:
+# In[50]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4831,7 +4840,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[49]:
+# In[51]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4861,13 +4870,13 @@ Y_train_downsampled = downsampled_dataset[target_class]
 # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[50]:
+# In[52]:
 
 
 len(X_slight_downsampled)
 
 
-# In[51]:
+# In[53]:
 
 
 # fv2gi(feature_vector)
@@ -4889,13 +4898,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[52]:
+# In[54]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[53]:
+# In[55]:
 
 
 X_train = X_train.astype(int)
@@ -4914,7 +4923,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[54]:
+# In[56]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4934,7 +4943,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[55]:
+# In[57]:
 
 
 from xgboost import XGBClassifier
@@ -4944,13 +4953,13 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[56]:
+# In[58]:
 
 
 data_frame.describe()
 
 
-# In[57]:
+# In[59]:
 
 
 # SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -4961,7 +4970,7 @@ data_frame.describe()
 # Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[58]:
+# In[60]:
 
 
 import xgboost as xgb
@@ -5068,7 +5077,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[59]:
+# In[61]:
 
 
 if calculate_weights and city:
@@ -5107,7 +5116,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[60]:
+# In[62]:
 
 
 if not calculate_weights:
@@ -5127,7 +5136,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[61]:
+# In[63]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -5177,7 +5186,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[62]:
+# In[64]:
 
 
 if calculate_weights and city:
@@ -5192,13 +5201,13 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[63]:
+# In[65]:
 
 
 loaded_timestamp
 
 
-# In[64]:
+# In[66]:
 
 
 # FILE_NAME = 'UK_default_weights_mod_3.json'
@@ -5209,7 +5218,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[65]:
+# In[67]:
 
 
 if calculate_weights and city:
@@ -5225,7 +5234,7 @@ if calculate_weights and city:
     feature_vector = fill_feature_vector(X_train, child_weights)
 
 
-# In[66]:
+# In[68]:
 
 
 # casualty_to_one_hot(Y_train)
@@ -5245,7 +5254,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[67]:
+# In[69]:
 
 
 if calculate_weights and city:
@@ -5262,13 +5271,13 @@ if calculate_weights and city:
 
 # #### Escritura de pesos de características
 
-# In[68]:
+# In[70]:
 
 
 feature_vector
 
 
-# In[69]:
+# In[71]:
 
 
 if calculate_weights and city:    
@@ -5282,7 +5291,7 @@ if calculate_weights and city:
 
 # ### Cálculo índices de matriz
 
-# In[70]:
+# In[72]:
 
 
 matrix_indexes = fv2gi(feature_vector)
@@ -5290,7 +5299,7 @@ matrix_indexes = fv2gi(feature_vector)
 
 # ## Construcción de imágenes
 
-# In[71]:
+# In[73]:
 
 
 train_bgi = build_gray_images(X_train, 5, matrix_indexes)
@@ -5304,7 +5313,7 @@ pd.DataFrame(train_bgi[:,:,1057])
 
 # ## Reshape de imágenes
 
-# In[72]:
+# In[74]:
 
 
 train_images = shape_images(X_data = X_train,
@@ -5317,7 +5326,7 @@ train_original_images = shape_images(X_data = X_train_original,
                                      gray_images = train_original_bgi)
 
 
-# In[73]:
+# In[75]:
 
 
 plt.gray()
@@ -5328,13 +5337,13 @@ for i in range(0,3):
     plt.show()
 
 
-# In[74]:
+# In[76]:
 
 
 MODEL_TIMESTAMP
 
 
-# In[75]:
+# In[77]:
 
 
 # image = train_bgi[:,:,0]
@@ -5343,7 +5352,7 @@ MODEL_TIMESTAMP
 # plt.savefig(f"test.svg",transparent=True, dpi=150)
 
 
-# In[76]:
+# In[78]:
 
 
 # !conda install scikit-image
