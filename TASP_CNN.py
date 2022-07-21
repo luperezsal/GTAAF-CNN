@@ -723,20 +723,20 @@ convolution_1d.compile(
 # In[28]:
 
 
-lr_init = 0.1
+lr_init = 0.001
 num_classes = 3
 
 tasp_cnn = models.Sequential()
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
+tasp_cnn.add(layers.Conv2D(128, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
+tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(layers.Conv2D(128, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
-tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
+tasp_cnn.add(layers.Conv2D(128, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Flatten())
-tasp_cnn.add(layers.Dense(units=128))
+tasp_cnn.add(layers.Dense(units=64))
 tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 
 tasp_cnn.compile(
@@ -5950,7 +5950,7 @@ if city and train_nn and cnn1d:
     # for train, test in kfold.split(inputs, targets):
     history = convolution_1d.fit(array_train_images, Y_train_onehot,
                                  # class_weight = pesos,
-                                 batch_size = 128,
+                                 batch_size = 64,
                                  epochs = 100,
                                  shuffle = True,
                                  validation_data = (array_test_images, Y_test_onehot))
@@ -6168,27 +6168,27 @@ MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 # In[126]:
 
 
-# if city and train_nn:
+if city and train_nn:
 
-#     start = time.time()
+    start = time.time()
 
-#     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-#                            # class_weight = pesos,
-#                            batch_size = 128,
-#                            epochs = 100,
-#                            shuffle = True,
-#                            validation_data = (array_test_images, Y_test_onehot))
+    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                           # class_weight = pesos,
+                           batch_size = 128,
+                           epochs = 100,
+                           shuffle = True,
+                           validation_data = (array_test_images, Y_test_onehot))
 
-#     end = time.time()
+    end = time.time()
 
-#     ellapsed_time = round(end - start, 2)
+    ellapsed_time = round(end - start, 2)
 
-#     model_time = pd.DataFrame({'city': [city_name],
-#                                'model': [MODEL_NAME],
-#                                'time': [ellapsed_time]})
-#     times = times.append(model_time)    
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
+    times = times.append(model_time)    
 
-#     history
+    history
 
 
 # In[167]:
@@ -6225,65 +6225,65 @@ X_train_singled
 # In[202]:
 
 
-from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.model_selection import RandomizedSearchCV
+# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+# from sklearn.model_selection import RandomizedSearchCV
 
 
-model_time = pd.DataFrame({'city': [city_name],
-                           'model': [MODEL_NAME],
-                           'time': 0})
-times = times.append(model_time)
-# wrap our model into a scikit-learn compatible classifier
-print("[INFO] initializing model...")
-model = KerasClassifier(build_fn=get_tasp_cnn, verbose=2)
+# model_time = pd.DataFrame({'city': [city_name],
+#                            'model': [MODEL_NAME],
+#                            'time': 0})
+# times = times.append(model_time)
+# # wrap our model into a scikit-learn compatible classifier
+# print("[INFO] initializing model...")
+# model = KerasClassifier(build_fn=get_tasp_cnn, verbose=2)
 
-# define a grid of the hyperparameter search space
+# # define a grid of the hyperparameter search space
 
-fm_one = fm_two = fm_three = fm_four = [128, 256, 512]
-# fm_one = fm_two = fm_three, fm_four = [32, 64, 128, 256]
+# fm_one = fm_two = fm_three = fm_four = [128, 256, 512]
+# # fm_one = fm_two = fm_three, fm_four = [32, 64, 128, 256]
 
-dense  = [64, 128, 256]
+# dense  = [64, 128, 256]
 
-# learnRate = [1e-2, 1e-3, 1e-4]
-learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+# # learnRate = [1e-2, 1e-3, 1e-4]
+# learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
-batchSize = [64, 128, 256]
+# batchSize = [64, 128, 256]
 
-# epochs = [10]
-epochs = [20, 40, 80]
+# # epochs = [10]
+# epochs = [20, 40, 80]
 
-# create a dictionary from the hyperparameter grid
-grid = dict(
-	fm_one = fm_one,
-    fm_two = fm_two,
-    fm_three = fm_three,
-    fm_four = fm_four,
-    dense = dense,
-	learnRate=learnRate,
-	batch_size=batchSize,
-	epochs=epochs
-)
+# # create a dictionary from the hyperparameter grid
+# grid = dict(
+# 	fm_one = fm_one,
+#     fm_two = fm_two,
+#     fm_three = fm_three,
+#     fm_four = fm_four,
+#     dense = dense,
+# 	learnRate=learnRate,
+# 	batch_size=batchSize,
+# 	epochs=epochs
+# )
 
-# initialize a random search with a 3-fold cross-validation and then
-# start the hyperparameter search process
-print("[INFO] performing random search...")
-searcher = RandomizedSearchCV(estimator = model,
-                              cv = 3,
-                              param_distributions = grid,
-                              scoring = 'f1_micro')
+# # initialize a random search with a 3-fold cross-validation and then
+# # start the hyperparameter search process
+# print("[INFO] performing random search...")
+# searcher = RandomizedSearchCV(estimator = model,
+#                               cv = 3,
+#                               param_distributions = grid,
+#                               scoring = 'f1_micro')
 
-searchResults = searcher.fit(array_train_images, Y_train)
+# searchResults = searcher.fit(array_train_images, Y_train)
 
-# summarize grid search information
-bestScore = searchResults.best_score_
-bestParams = searchResults.best_params_
+# # summarize grid search information
+# bestScore = searchResults.best_score_
+# bestParams = searchResults.best_params_
 
-print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+# print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
-print("[INFO] evaluating the best model...")
-taspcnn = bestModel = searchResults.best_estimator_
-# accuracy = bestModel.score(array_test_images, Y_test)
-# print("accuracy: {:.2f}%".format(accuracy * 100))
+# print("[INFO] evaluating the best model...")
+# taspcnn = bestModel = searchResults.best_estimator_
+# # accuracy = bestModel.score(array_test_images, Y_test)
+# # print("accuracy: {:.2f}%".format(accuracy * 100))
 
 
 # In[177]:
@@ -6384,9 +6384,9 @@ if city:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-        # plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-        #                       f1_score_name = F1_SCORE_NAME,
-        #                       history = history)
+        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                              f1_score_name = F1_SCORE_NAME,
+                              history = history)
 
         Y_train_predicted = tasp_cnn.predict(x = array_train_images).argmax(axis = 1)
 
