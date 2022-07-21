@@ -1,0 +1,13 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,UK_2D-convolution,test,UK,2D-convolution,0.911,0.043,0.082,15983.0
+Serious,Serious,UK_2D-convolution,test,UK,2D-convolution,0.089,0.96,0.163,1566.0
+Fatal,Fatal,UK_2D-convolution,test,UK,2D-convolution,0.0,0.0,0.0,104.0
+accuracy,accuracy,UK_2D-convolution,test,UK,2D-convolution,0.124,0.124,0.124,0.124
+macro avg,macro avg,UK_2D-convolution,test,UK,2D-convolution,0.333,0.334,0.081,17653.0
+weighted avg,weighted avg,UK_2D-convolution,test,UK,2D-convolution,0.832,0.124,0.088,17653.0
+Slight,Slight,UK_2D-convolution,test,UK,2D-convolution,0.911,0.043,0.082,15983.0
+Serious,Serious,UK_2D-convolution,test,UK,2D-convolution,0.089,0.96,0.163,1566.0
+Fatal,Fatal,UK_2D-convolution,test,UK,2D-convolution,0.0,0.0,0.0,104.0
+accuracy,accuracy,UK_2D-convolution,test,UK,2D-convolution,0.124,0.124,0.124,0.124
+macro avg,macro avg,UK_2D-convolution,test,UK,2D-convolution,0.333,0.334,0.081,17653.0
+weighted avg,weighted avg,UK_2D-convolution,test,UK,2D-convolution,0.832,0.124,0.088,17653.0
