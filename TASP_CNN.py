@@ -6235,7 +6235,7 @@ model_time = pd.DataFrame({'city': [city_name],
 
 # wrap our model into a scikit-learn compatible classifier
 print("[INFO] initializing model...")
-model = KerasClassifier(build_fn=get_tasp_cnn, verbose=0)
+model = KerasClassifier(build_fn=get_tasp_cnn, verbose=2)
 
 # define a grid of the hyperparameter search space
 
@@ -6281,7 +6281,7 @@ print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
 print("[INFO] evaluating the best model...")
 taspcnn = bestModel = searchResults.best_estimator_
-accuracy = bestModel.score(X_test, Y_test)
+accuracy = bestModel.score(array_test_images, Y_test)
 print("accuracy: {:.2f}%".format(accuracy * 100))
 
 
