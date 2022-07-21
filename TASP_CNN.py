@@ -6247,10 +6247,10 @@ dense  = [128]
 learnRate = [1e-2]
 # learnRate = [1e-2, 1e-3, 1e-4]
 
-batchSize = [512, 1024]
+batchSize = [1024]
 # batchSize = [32, 64, 128, 256, 512]
 
-epochs = [10, 15]
+epochs = [10]
 # epochs = [10, 20, 30, 40]
 
 # create a dictionary from the hyperparameter grid
@@ -6281,8 +6281,8 @@ print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
 print("[INFO] evaluating the best model...")
 taspcnn = bestModel = searchResults.best_estimator_
-accuracy = bestModel.score(array_test_images, Y_test)
-print("accuracy: {:.2f}%".format(accuracy * 100))
+# accuracy = bestModel.score(array_test_images, Y_test)
+# print("accuracy: {:.2f}%".format(accuracy * 100))
 
 
 # #### Escritura del modelo
