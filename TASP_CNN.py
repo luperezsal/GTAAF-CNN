@@ -6232,7 +6232,7 @@ from sklearn.model_selection import RandomizedSearchCV
 model_time = pd.DataFrame({'city': [city_name],
                            'model': [MODEL_NAME],
                            'time': 0})
-
+times = times.append(model_time)
 # wrap our model into a scikit-learn compatible classifier
 print("[INFO] initializing model...")
 model = KerasClassifier(build_fn=get_tasp_cnn, verbose=2)
@@ -6291,7 +6291,7 @@ taspcnn
 
 # #### Escritura del modelo
 
-# In[128]:
+# In[179]:
 
 
 if city and train_nn:
@@ -6303,7 +6303,7 @@ if city and train_nn:
 
 # #### Carga de modelo pre-entrenado
 
-# In[ ]:
+# In[180]:
 
 
 if city and not train_nn:
@@ -6314,7 +6314,7 @@ if city and not train_nn:
     tasp_cnn = tf.keras.models.load_model(MODEL_PATH + MODEL_FILE_NAME)
 
 
-# In[ ]:
+# In[181]:
 
 
 # ## Exportar los kernels
@@ -6339,7 +6339,7 @@ if city and not train_nn:
 #         plt.show()
 
 
-# In[ ]:
+# In[182]:
 
 
 # # import tf.keras.mo.Model
@@ -6348,7 +6348,7 @@ if city and not train_nn:
 # tasp_cnn_feature_maps.predict(array_train_images[:3]).shape
 
 
-# In[ ]:
+# In[183]:
 
 
 # feature_maps = tasp_cnn.predict(array_train_images)
@@ -6368,7 +6368,7 @@ if city and not train_nn:
 
 # #### Resultados
 
-# In[178]:
+# In[184]:
 
 
 if city:
@@ -6402,7 +6402,13 @@ if city:
 
 # ## AutoML
 
-# In[ ]:
+# In[187]:
+
+
+times
+
+
+# In[185]:
 
 
 MODEL_NAME = MODELS_NAME[3]
@@ -6414,7 +6420,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Sort
 
-# In[ ]:
+# In[186]:
 
 
 times = times.sort_values('time')
@@ -6431,7 +6437,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ### Save fig
 
-# In[101]:
+# In[ ]:
 
 
 # LOAD_PATH = f"{REPORTS_TIMES_PATH}2022-05-23-15:28:04.csv"
@@ -6449,7 +6455,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[102]:
+# In[ ]:
 
 
 from os.path import exists
@@ -6581,4 +6587,40 @@ for split in splits:
 
         fig = fig.get_figure()
         fig.savefig(SAVE_PATH)
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
