@@ -69,6 +69,7 @@ tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
 other_models = cnn1d = False
+other_models = True
 
 
 # In[4]:
@@ -6284,12 +6285,6 @@ X_train_singled
 # taspcnn = bestModel = searchResults.best_estimator_
 # # accuracy = bestModel.score(array_test_images, Y_test)
 # # print("accuracy: {:.2f}%".format(accuracy * 100))
-
-
-# In[177]:
-
-
-taspcnn
 
 
 # #### Escritura del modelo
