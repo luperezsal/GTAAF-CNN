@@ -6244,7 +6244,7 @@ fm_one = fm_two = fm_three = fm_four = [128, 256, 512]
 
 dense  = [64, 128, 256]
 
-# learnRate = [1e-2, 1e-3, 1e-4]
+learnRate = [1e-2, 1e-3, 1e-4]
 
 batchSize = [64, 128, 256]
 
@@ -6281,12 +6281,6 @@ print("[INFO] evaluating the best model...")
 taspcnn = bestModel = searchResults.best_estimator_
 # accuracy = bestModel.score(array_test_images, Y_test)
 # print("accuracy: {:.2f}%".format(accuracy * 100))
-
-
-# In[177]:
-
-
-taspcnn
 
 
 # #### Escritura del modelo
@@ -6402,10 +6396,10 @@ if city:
 
 # ## AutoML
 
-# In[187]:
+# In[188]:
 
 
-times
+times = times.append(model_time)
 
 
 # In[185]:
@@ -6420,7 +6414,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Sort
 
-# In[186]:
+# In[189]:
 
 
 times = times.sort_values('time')
@@ -6428,7 +6422,7 @@ times = times.sort_values('time')
 
 # ### Save csv
 
-# In[ ]:
+# In[190]:
 
 
 SAVE_PATH = f"{REPORTS_TIMES_PATH}{MODEL_TIMESTAMP}.csv"
@@ -6437,7 +6431,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ### Save fig
 
-# In[ ]:
+# In[191]:
 
 
 # LOAD_PATH = f"{REPORTS_TIMES_PATH}2022-05-23-15:28:04.csv"
@@ -6455,7 +6449,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[ ]:
+# In[192]:
 
 
 from os.path import exists
@@ -6513,7 +6507,7 @@ for split in splits:
 
 # ## Models scores plot
 
-# In[ ]:
+# In[193]:
 
 
 import seaborn as sns
@@ -6592,7 +6586,7 @@ for split in splits:
 # In[ ]:
 
 
-
+taspcnn.model.summary()
 
 
 # In[ ]:
