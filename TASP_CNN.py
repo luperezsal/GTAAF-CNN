@@ -6510,7 +6510,7 @@ if UK:
 
 for split in splits:
     
-    REPORT_PATH = f"{REPORTS_SUMMARY_PATH}{split}/2022-07-21-13:18:31.csv"
+    REPORT_PATH = f"{REPORTS_SUMMARY_PATH}{split}/{MODEL_TIMESTAMP}.csv"
 
     if exists(REPORT_PATH):
         fig, axs = plt.subplots(len(MEASURE_TYPES), len(cities), figsize=(15,20))
