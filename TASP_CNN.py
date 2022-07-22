@@ -724,20 +724,20 @@ convolution_1d.compile(
 # In[28]:
 
 
-lr_init = 0.001
+lr_init = 0.0001
 num_classes = 3
 
 tasp_cnn = models.Sequential()
-tasp_cnn.add(layers.Conv2D(128, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
+tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
 tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(128, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
+tasp_cnn.add(layers.Conv2D(512, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
+tasp_cnn.add(layers.BatchNormalization())
+tasp_cnn.add(layers.Conv2D(512, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
 tasp_cnn.add(layers.BatchNormalization())
-tasp_cnn.add(layers.Conv2D(128, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
-tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Flatten())
-tasp_cnn.add(layers.Dense(units=64))
+tasp_cnn.add(layers.Dense(units=32))
 tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 
 tasp_cnn.compile(
@@ -4330,7 +4330,7 @@ loaded_timestamp = '2022-07-21-09:21:13'
 
 # ## Importación de datos
 
-# In[38]:
+# In[53]:
 
 
 import pandas as pd
@@ -4373,7 +4373,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 data_frame
 
 
-# In[39]:
+# In[54]:
 
 
 # import pandas as pd
@@ -4443,20 +4443,20 @@ data_frame
 # data_frame.to_csv(f"{root_path}/westminster-accident-casualty-vehicles-2005-2019.csv")
 
 
-# In[40]:
+# In[55]:
 
 
 # accidents_dataframe.local_authority_district.value_counts()
 
 
-# In[41]:
+# In[56]:
 
 
 # data_frame.vehicle_manoeuvre.value_counts()
 data_frame.age_of_vehicle.value_counts()
 
 
-# In[42]:
+# In[57]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4467,7 +4467,7 @@ data_frame
 
 # ## Limpieza de datos
 
-# In[43]:
+# In[58]:
 
 
 # COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4492,7 +4492,7 @@ data_frame
 # data_frame.columns = RENAMED_COLUMNS
 
 
-# In[44]:
+# In[59]:
 
 
 COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4515,7 +4515,7 @@ RENAMED_COLUMNS = ['Easting', 'Northing', '1st Road Class', 'Accident Time', 'Nu
 data_frame.columns = RENAMED_COLUMNS
 
 
-# In[45]:
+# In[60]:
 
 
 print('Before cleaning')
@@ -4533,7 +4533,7 @@ print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 
-# In[46]:
+# In[61]:
 
 
 ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
@@ -4616,7 +4616,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop = True)
 
 
-# In[47]:
+# In[62]:
 
 
 # ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -4783,7 +4783,7 @@ data_frame = data_frame.reset_index(drop = True)
 # clean_df
 
 
-# In[48]:
+# In[63]:
 
 
 print('After cleaning')
@@ -4801,7 +4801,7 @@ print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 
-# In[49]:
+# In[64]:
 
 
 # Quitados:
@@ -4850,13 +4850,13 @@ print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 # ## Split de datos
 
-# In[50]:
+# In[65]:
 
 
 data_frame[data_frame['Number of Vehicles'] == 3]
 
 
-# In[51]:
+# In[66]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4873,7 +4873,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[52]:
+# In[67]:
 
 
 from sklearn.model_selection import train_test_split
@@ -4903,13 +4903,13 @@ Y_train_downsampled = downsampled_dataset[target_class]
 # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[53]:
+# In[68]:
 
 
 len(X_slight_downsampled)
 
 
-# In[54]:
+# In[69]:
 
 
 # fv2gi(feature_vector)
@@ -4931,13 +4931,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[55]:
+# In[70]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[56]:
+# In[71]:
 
 
 X_train = X_train.astype(int)
@@ -4956,7 +4956,7 @@ X_train_original = normalize_data(X_train_original)
 
 # ## Oversamplig de datos
 
-# In[57]:
+# In[72]:
 
 
 print('********** Train Before OverSampling **********')
@@ -4976,7 +4976,7 @@ print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 # ## XGBoost
 
-# In[58]:
+# In[73]:
 
 
 from xgboost import XGBClassifier
@@ -4986,13 +4986,13 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[59]:
+# In[74]:
 
 
 data_frame.describe()
 
 
-# In[60]:
+# In[75]:
 
 
 # SEVERITY_TYPE_REPLACE = {'Fatal': 0,
@@ -5003,7 +5003,7 @@ data_frame.describe()
 # Y_train.replace(SEVERITY_TYPE_REPLACE, inplace = True)
 
 
-# In[61]:
+# In[76]:
 
 
 import xgboost as xgb
@@ -5110,7 +5110,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[62]:
+# In[77]:
 
 
 if calculate_weights and city:
@@ -5149,7 +5149,7 @@ if calculate_weights and city:
 
 # #### Carga hiperparámetros
 
-# In[63]:
+# In[78]:
 
 
 if not calculate_weights:
@@ -5169,7 +5169,7 @@ if not calculate_weights:
 
 # #### Cálculo de Hiperparámetros
 
-# In[64]:
+# In[79]:
 
 
 # Y_train_onehot = casualty_to_one_hot(Y_train)
@@ -5219,7 +5219,7 @@ if not calculate_weights:
 
 # #### Escritura hiperparámetros
 
-# In[65]:
+# In[80]:
 
 
 if calculate_weights and city:
@@ -5234,13 +5234,13 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[66]:
+# In[81]:
 
 
 loaded_timestamp
 
 
-# In[67]:
+# In[82]:
 
 
 # FILE_NAME = 'UK_default_weights_mod_3.json'
@@ -5251,7 +5251,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[68]:
+# In[83]:
 
 
 if calculate_weights and city:
@@ -5265,24 +5265,6 @@ if calculate_weights and city:
 
     child_weights  = np.array(xgboost.feature_importances_)
     feature_vector = fill_feature_vector(X_train, child_weights)
-
-
-# In[69]:
-
-
-# casualty_to_one_hot(Y_train)
-
-# best_hyperparams['max_depth'] = int(best_hyperparams['max_depth'])
-
-# dtrain = xgb.DMatrix(data  = X_train,
-#                      label = Y_train)
-
-# dtest  = xgb.DMatrix(data  = X_test, 
-#                      label = Y_test)
-
-# xgb.set_config(verbosity=0)
-# bst = xgb.train(best_hyperparams, dtrain)
-# bst
 
 
 # #### Visualización pesos calculados
@@ -6169,27 +6151,27 @@ MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 # In[123]:
 
 
-# if city and train_nn:
+if city and train_nn:
 
-#     start = time.time()
+    start = time.time()
 
-#     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-#                            # class_weight = pesos,
-#                            batch_size = 128,
-#                            epochs = 100,
-#                            shuffle = True,
-#                            validation_data = (array_test_images, Y_test_onehot))
+    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                           # class_weight = pesos,
+                           batch_size = 64,
+                           epochs = 100,
+                           shuffle = True,
+                           validation_data = (array_test_images, Y_test_onehot))
 
-#     end = time.time()
+    end = time.time()
 
-#     ellapsed_time = round(end - start, 2)
+    ellapsed_time = round(end - start, 2)
 
-#     model_time = pd.DataFrame({'city': [city_name],
-#                                'model': [MODEL_NAME],
-#                                'time': [ellapsed_time]})
-#     times = times.append(model_time)    
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
+    times = times.append(model_time)    
 
-#     history
+    history
 
 
 # In[ ]:
@@ -6226,71 +6208,68 @@ X_train_singled
 # In[163]:
 
 
-from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.model_selection import RandomizedSearchCV
+# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+# from sklearn.model_selection import RandomizedSearchCV
 
 
-model_time = pd.DataFrame({'city': [city_name],
-                           'model': [MODEL_NAME],
-                           'time': 0})
-times = times.append(model_time)
-# wrap our model into a scikit-learn compatible classifier
-print("[INFO] initializing model...")
-model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
+# model_time = pd.DataFrame({'city': [city_name],
+#                            'model': [MODEL_NAME],
+#                            'time': 0})
+# times = times.append(model_time)
+# # wrap our model into a scikit-learn compatible classifier
+# print("[INFO] initializing model...")
+# model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
 
-# define a grid of the hyperparameter search space
+# # define a grid of the hyperparameter search space
 
-fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512]
-# fm_one = fm_two = fm_three, fm_four = [32, 64, 128, 256]
+# fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512]
 
-dense  = [32, 64, 128, 256]
+# dense  = [32, 64, 128, 256]
 
-# learnRate = [1e-2, 1e-3, 1e-4]
-learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+# learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
-batchSize = [32, 64, 128, 256]
+# batchSize = [32, 64, 128, 256]
 
-# epochs = [10]
-epochs = [65]
+# epochs = [65]
 
 
-# create a dictionary from the hyperparameter grid
-grid = dict(
-	fm_one = fm_one,
-    fm_two = fm_two,
-    fm_three = fm_three,
-    fm_four = fm_four,
-    dense = dense,
-	learnRate=learnRate,
-	batch_size=batchSize,
-	epochs=epochs
-)
+# # create a dictionary from the hyperparameter grid
+# grid = dict(
+# 	fm_one = fm_one,
+#     fm_two = fm_two,
+#     fm_three = fm_three,
+#     fm_four = fm_four,
+#     dense = dense,
+# 	learnRate=learnRate,
+# 	batch_size=batchSize,
+# 	epochs=epochs
+# )
 
-# initialize a random search with a 3-fold cross-validation and then
-# start the hyperparameter search process
-print("[INFO] performing random search...")
-searcher = RandomizedSearchCV(estimator = model,
-                              n_iter = 80,
-                              cv = 3,
-                              param_distributions = grid,
-                              scoring = 'f1_micro')
+# # initialize a random search with a 3-fold cross-validation and then
+# # start the hyperparameter search process
+# print("[INFO] performing random search...")
+# searcher = RandomizedSearchCV(estimator = model,
+#                               n_iter = 80,
+#                               cv = 3,
+#                               param_distributions = grid,
+#                               scoring = 'f1_micro')
 
-searchResults = searcher.fit(array_train_images, Y_train)
+# searchResults = searcher.fit(array_train_images, Y_train)
 
-# summarize grid search information
-bestScore = searchResults.best_score_
-bestParams = searchResults.best_params_
+# # summarize grid search information
+# bestScore = searchResults.best_score_
+# bestParams = searchResults.best_params_
 
-print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+# print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
-print("[INFO] evaluating the best model...")
-taspcnn = bestModel = searchResults.best_estimator_
-# accuracy = bestModel.score(array_test_images, Y_test)
-# print("accuracy: {:.2f}%".format(accuracy * 100))
+# print("[INFO] evaluating the best model...")
+# taspcnn = bestModel = searchResults.best_estimator_
+# # accuracy = bestModel.score(array_test_images, Y_test)
+# # print("accuracy: {:.2f}%".format(accuracy * 100))
 
-text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
-n = text_file.write(str(searchResults.cv_results_))
-text_file.close()
+# text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+# n = text_file.write(str(searchResults.cv_results_))
+# text_file.close()
 
 
 # #### Escritura del modelo
@@ -6385,9 +6364,9 @@ if city:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-        # plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-        #                       f1_score_name = F1_SCORE_NAME,
-        #                       history = history)
+        plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                              f1_score_name = F1_SCORE_NAME,
+                              history = history)
 
         Y_train_predicted = tasp_cnn.predict(x = array_train_images).argmax(axis = 1)
 
