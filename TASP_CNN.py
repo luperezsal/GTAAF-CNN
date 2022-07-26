@@ -750,7 +750,7 @@ tasp_cnn.compile(
 # In[29]:
 
 
-def get_tasp_cnn(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRate=0.01):
+def get_tasp_cnn(fm_one, fm_two, fm_three, fm_four, fm_five, fm_six, dense, dropout=0.2, learnRate=0.01):
     tasp_cnn = models.Sequential()
     tasp_cnn.add(layers.Conv2D(fm_one, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
     tasp_cnn.add(layers.BatchNormalization())
@@ -762,7 +762,7 @@ def get_tasp_cnn(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRat
     tasp_cnn.add(layers.BatchNormalization())
     tasp_cnn.add(layers.Conv2D(fm_five, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
     tasp_cnn.add(layers.BatchNormalization())
-    tasp_cnn.add(layers.Conv2D(fm_size, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
+    tasp_cnn.add(layers.Conv2D(fm_six, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(3, 3, 256)))
     tasp_cnn.add(layers.BatchNormalization())
     tasp_cnn.add(layers.Flatten())
     tasp_cnn.add(layers.Dense(units=dense))
