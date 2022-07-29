@@ -1,0 +1,7 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,UK_2D-convolution,test,UK,2D-convolution,0.939,0.854,0.895,15983.0
+Serious,Serious,UK_2D-convolution,test,UK,2D-convolution,0.238,0.444,0.31,1566.0
+Fatal,Fatal,UK_2D-convolution,test,UK,2D-convolution,0.143,0.269,0.187,104.0
+accuracy,accuracy,UK_2D-convolution,test,UK,2D-convolution,0.814,0.814,0.814,0.814
+macro avg,macro avg,UK_2D-convolution,test,UK,2D-convolution,0.44,0.523,0.464,17653.0
+weighted avg,weighted avg,UK_2D-convolution,test,UK,2D-convolution,0.872,0.814,0.839,17653.0
