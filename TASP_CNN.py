@@ -743,7 +743,7 @@ tasp_cnn.add(layers.Dropout(.2,  input_shape=(3, 3, 1024)))
 tasp_cnn.add(layers.Flatten())
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Dense(units=32))
-tasp_cnn.add(layers.Dropout(.5)
+tasp_cnn.add(layers.Dropout(.5))
 tasp_cnn.add(layers.BatchNormalization())
 tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
 
