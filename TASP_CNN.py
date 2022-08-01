@@ -69,7 +69,7 @@ tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
 other_models = cnn1d = False
-other_models = cnn1d = True
+# other_models = cnn1d = True
 
 
 # In[4]:
@@ -3802,7 +3802,6 @@ if city and not train_nn and other_models:
 # #### Resultados
 
 # In[ ]:
-
 
 
 if city and other_models:
