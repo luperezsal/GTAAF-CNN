@@ -4187,7 +4187,7 @@ learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
 batchSize = [32, 64, 128]
 
-epochs = [4]
+epochs = [35]
 
 # create a dictionary from the hyperparameter grid
 grid = dict(
