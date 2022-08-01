@@ -3805,7 +3805,7 @@ if city and not train_nn and other_models:
 
 
 
-if city:
+if city and other_models:
     print("[INFO] evaluating model...")
     if train_nn:
         Y_train_predicted = gnb.predict(X_train)
@@ -3883,7 +3883,7 @@ if city and not train_nn and other_models:
 # In[ ]:
 
 
-if city:
+if city and other_models:
     print("[INFO] evaluating model...")
 
     if train_nn:
@@ -3919,18 +3919,19 @@ MODEL_NAME = MODELS_NAME[0]
 # In[ ]:
 
 
-knn = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
+if city and other_models:
+    knn = KNeighborsClassifier(leaf_size = 7, n_neighbors = 91)
 
-start = time.time()
+    start = time.time()
 
-knn.fit(X_train, Y_train)
+    knn.fit(X_train, Y_train)
 
-end = time.time()
+    end = time.time()
 
-ellapsed_time = round(end - start, 2)
+    ellapsed_time = round(end - start, 2)
 
-model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
-times = times.append(model_time)
+    model_time = pd.DataFrame({'city': [city_name], 'model': [MODEL_NAME], 'time': [ellapsed_time]})
+    times = times.append(model_time)
 
 # leaf_size = list(range(1,10, 2))
 # n_neighbors = list(range(1,100, 10))
@@ -4009,7 +4010,7 @@ times = times.append(model_time)
 # In[ ]:
 
 
-if city:
+if city and other_models:
     print("[INFO] evaluating model...")
 
     if train_nn:
@@ -4044,7 +4045,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 # In[359]:
 
 
-if city and train_nn:
+if city and train_nn and cnn1d:
     start = time.time()
 
     history = convolution_1d.fit(array_train_images, Y_train_onehot,
@@ -4071,7 +4072,7 @@ if city and train_nn:
 # In[ ]:
 
 
-if city and train_nn:
+if city and train_nn and cnn1d:
 
     convolution_1d.save(MODEL_PATH + MODEL_FILE_NAME)
 
@@ -4081,7 +4082,7 @@ if city and train_nn:
 # In[ ]:
 
 
-if city and not train_nn and not laptop:
+if city and not train_nn and not laptop and cnn1d:
     # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
     MODEL_FILE_NAME = 'madrid_convolution_1d_2022-05-19-06:33:55.h5'
 
@@ -4093,7 +4094,7 @@ if city and not train_nn and not laptop:
 # In[ ]:
 
 
-if city and not laptop:
+if city and not laptop and cnn1d:
 
     print("[INFO] evaluating network...")
 
