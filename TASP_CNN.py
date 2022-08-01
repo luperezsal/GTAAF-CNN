@@ -5824,7 +5824,7 @@ if city:
 import pickle
 from joblib import dump, load
 
-if city;
+if city:
     times = pd.DataFrame()
 
 
