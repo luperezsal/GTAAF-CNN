@@ -4207,8 +4207,8 @@ grid = dict(
 # start the hyperparameter search process
 print("[INFO] performing random search...")
 searcher = RandomizedSearchCV(estimator = model,
-                              n_iter = 1,
-                              cv = 2,
+                              n_iter = 50,
+                              cv = 3,
                               param_distributions = grid,
                               scoring = 'f1_micro')
 
@@ -4225,7 +4225,7 @@ taspcnn = bestModel = searchResults.best_estimator_
 # accuracy = bestModel.score(array_test_images, Y_test)
 # print("accuracy: {:.2f}%".format(accuracy * 100))
 
-text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+text_file = open(f"./madrid-CNN2D-{MODEL_TIMESTAMP}.txt", "w")
 n = text_file.write(str(searchResults.cv_results_))
 text_file.close()
 
