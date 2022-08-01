@@ -4207,7 +4207,7 @@ grid = dict(
 # start the hyperparameter search process
 print("[INFO] performing random search...")
 searcher = RandomizedSearchCV(estimator = model,
-                              n_iter = 50,
+                              n_iter = 1,
                               cv = 2,
                               param_distributions = grid,
                               scoring = 'f1_micro')
