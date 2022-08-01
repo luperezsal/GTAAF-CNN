@@ -4187,7 +4187,7 @@ learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
 batchSize = [32, 64, 128]
 
-epochs = [30]
+epochs = [4]
 
 # create a dictionary from the hyperparameter grid
 grid = dict(
@@ -4207,8 +4207,8 @@ grid = dict(
 # start the hyperparameter search process
 print("[INFO] performing random search...")
 searcher = RandomizedSearchCV(estimator = model,
-                              n_iter = 1,
-                              cv = 3,
+                              n_iter = 50,
+                              cv = 2,
                               param_distributions = grid,
                               scoring = 'f1_micro')
 
@@ -5032,24 +5032,25 @@ Y_test = test[target_class]
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
 
-slight_data  = train[train[target_class] == 'Slight']
-assistance_data = train[train[target_class] == 'Assistance']
+if city:
+    slight_data  = train[train[target_class] == 'Slight']
+    assistance_data = train[train[target_class] == 'Assistance']
 
-X_slight_downsampled  = resample(slight_data,
-                                 replace = True,
-                                 n_samples = len(assistance_data))
-
-
-downsampled_dataset = pd.concat([X_slight_downsampled, assistance_data])
-
-# downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
+    X_slight_downsampled  = resample(slight_data,
+                                     replace = True,
+                                     n_samples = len(assistance_data))
 
 
-X_train_downsampled = downsampled_dataset.loc[:, ~downsampled_dataset.columns.isin([target_class])]
-Y_train_downsampled = downsampled_dataset[target_class]
+    downsampled_dataset = pd.concat([X_slight_downsampled, assistance_data])
 
-# X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin([target_class])]
-# Y_test_downsampled = downsampled_test[target_class]
+    # downsampled_train, downsampled_test = train_test_split(downsampled_dataset, test_size=0.2)
+
+
+    X_train_downsampled = downsampled_dataset.loc[:, ~downsampled_dataset.columns.isin([target_class])]
+    Y_train_downsampled = downsampled_dataset[target_class]
+
+    # X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin([target_class])]
+    # Y_test_downsampled = downsampled_test[target_class]
 
 
 # In[218]:
@@ -5089,18 +5090,19 @@ len(X_slight_downsampled)
 # In[221]:
 
 
-X_train = X_train.astype(int)
-X_test  = X_test.astype(int)
-X_train_downsampled = X_train_downsampled.astype(int)
-# X_test_downsampled  = X_test_downsampled.astype(int)
+if city:
+    X_train = X_train.astype(int)
+    X_test  = X_test.astype(int)
+    X_train_downsampled = X_train_downsampled.astype(int)
+    # X_test_downsampled  = X_test_downsampled.astype(int)
 
-X_train = normalize_data(X_train)
-X_test  = normalize_data(X_test)
-X_train_downsampled = normalize_data(X_train_downsampled)
-# X_test_downsampled  = normalize_data(X_test_downsampled)
+    X_train = normalize_data(X_train)
+    X_test  = normalize_data(X_test)
+    X_train_downsampled = normalize_data(X_train_downsampled)
+    # X_test_downsampled  = normalize_data(X_test_downsampled)
 
-X_train_original = X_train_original.astype(int)
-X_train_original = normalize_data(X_train_original)
+    X_train_original = X_train_original.astype(int)
+    X_train_original = normalize_data(X_train_original)
 
 
 # ## Oversamplig de datos
@@ -5126,17 +5128,18 @@ X_train_original = normalize_data(X_train_original)
 # In[223]:
 
 
-print('********** Train Before OverSampling **********')
-print('Slight: ', (Y_train == 'Slight').sum())
-print('Assistance:  ', (Y_train == 'Assistance').sum())
-print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
+if city:
+    print('********** Train Before OverSampling **********')
+    print('Slight: ', (Y_train == 'Slight').sum())
+    print('Assistance:  ', (Y_train == 'Assistance').sum())
+    print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 
-X_train, Y_train = oversample_data(X_train, Y_train)
+    X_train, Y_train = oversample_data(X_train, Y_train)
 
-print('********** Test **********')
-print('Slight: ', (Y_test == 'Slight').sum())
-print('Assistance:  ', (Y_test == 'Assistance').sum())
-print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
+    print('********** Test **********')
+    print('Slight: ', (Y_test == 'Slight').sum())
+    print('Assistance:  ', (Y_test == 'Assistance').sum())
+    print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 
 # ## XGBoost
@@ -5160,8 +5163,9 @@ data_frame.describe()
 # In[228]:
 
 
-casualty_to_one_hot(Y_train)
-Y_train
+if city:
+    casualty_to_one_hot(Y_train)
+    Y_train
 
 
 # In[226]:
@@ -5182,7 +5186,7 @@ Y_train
 import xgboost as xgb
 import random
 
-if calculate_weights:
+if city and calculate_weights:
     casualty_to_one_hot(Y_train)
     casualty_to_one_hot(Y_train_downsampled)
     casualty_to_one_hot(Y_test)
@@ -5325,7 +5329,7 @@ if calculate_weights and city:
 # In[233]:
 
 
-if not calculate_weights:
+if city and not calculate_weights:
     FILE_NAME = f"{city_name}_hyperparams{loaded_timestamp}.json"
 
     best_hyperparams = load_json(f"{HYPERPARAMS_PATH}{city_name}/", FILE_NAME)
@@ -5426,18 +5430,13 @@ loaded_timestamp
 
 
 # FILE_NAME = 'UK_default_weights_mod_3.json'
-FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
+if city:
+    FILE_NAME = f"{city_name}_weights_{loaded_timestamp}.json"
 
-feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
+    feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
 # #### Cálculo de pesos de caracetrísticas
-
-# In[238]:
-
-
-calculate_weights
-
 
 # In[264]:
 
@@ -5482,7 +5481,7 @@ if calculate_weights and city:
 # In[ ]:
 
 
-feature_vector
+# feature_vector
 
 
 # In[ ]:
@@ -5502,7 +5501,8 @@ if calculate_weights and city:
 # In[ ]:
 
 
-matrix_indexes = fv2gi(feature_vector)
+if city:
+    matrix_indexes = fv2gi(feature_vector)
 
 
 # ## Construcción de imágenes
@@ -5510,13 +5510,14 @@ matrix_indexes = fv2gi(feature_vector)
 # In[ ]:
 
 
-train_bgi = build_gray_images(X_train, 5, matrix_indexes)
-train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
+if city:
+    train_bgi = build_gray_images(X_train, 5, matrix_indexes)
+    train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
 
-test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
+    test_bgi  = build_gray_images(X_test, 5, matrix_indexes)
 
 
-pd.DataFrame(train_bgi[:,:,1057])
+    pd.DataFrame(train_bgi[:,:,1057])
 
 
 # ## Reshape de imágenes
@@ -5524,25 +5525,27 @@ pd.DataFrame(train_bgi[:,:,1057])
 # In[ ]:
 
 
-train_images = shape_images(X_data = X_train,
+if city:
+    train_images = shape_images(X_data = X_train,
                             gray_images = train_bgi)
-test_images  = shape_images(X_data = X_test,
-                            gray_images = test_bgi)
+    test_images  = shape_images(X_data = X_test,
+                                gray_images = test_bgi)
 
 
-train_original_images = shape_images(X_data = X_train_original,
-                                     gray_images = train_original_bgi)
+    train_original_images = shape_images(X_data = X_train_original,
+                                         gray_images = train_original_bgi)
 
 
 # In[ ]:
 
 
-plt.gray()
-for i in range(0,3):
-    plt.figure(figsize=(3, 3))
-    plt.imshow(train_bgi[:,:,i])
-    # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
-    plt.show()
+if city:
+    plt.gray()
+    for i in range(0,3):
+        plt.figure(figsize=(3, 3))
+        plt.imshow(train_bgi[:,:,i])
+        # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
+        plt.show()
 
 
 # In[ ]:
@@ -5569,12 +5572,13 @@ MODEL_TIMESTAMP
 # In[ ]:
 
 
-# input_shape = (5, 5)
+if city:
+    # input_shape = (5, 5)
 
-array_train_images = np.asarray(train_images)
-array_test_images  = np.asarray(test_images)
+    array_train_images = np.asarray(train_images)
+    array_test_images  = np.asarray(test_images)
 
-array_train_original_images = np.asarray(train_original_images)
+    array_train_original_images = np.asarray(train_original_images)
 
 
 # In[ ]:
@@ -5619,60 +5623,64 @@ array_train_original_images = np.asarray(train_original_images)
 # In[85]:
 
 
-n_samples = 150
-index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
-index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
-index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
+if city:
+    n_samples = 150
+    index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
+    index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
+    index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
 # In[86]:
 
 
-# Get same number of class samples from SMOTEII
-X_slight_train_tsne  = X_train.loc[index_slight]
-X_serious_train_tsne = X_train.loc[index_serious]
-X_fatal_train_tsne   = X_train.loc[index_fatal]
+if city:
+    # Get same number of class samples from SMOTEII
+    X_slight_train_tsne  = X_train.loc[index_slight]
+    X_serious_train_tsne = X_train.loc[index_serious]
+    X_fatal_train_tsne   = X_train.loc[index_fatal]
 
-X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
+    X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
 
-Y_slight_train_tsne  = Y_train[index_slight]
-Y_serious_train_tsne = Y_train[index_serious]
-Y_fatal_train_tsne   = Y_train[index_fatal]
+    Y_slight_train_tsne  = Y_train[index_slight]
+    Y_serious_train_tsne = Y_train[index_serious]
+    Y_fatal_train_tsne   = Y_train[index_fatal]
 
-Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
+    Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
 # In[87]:
 
 
-n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
+if city:
+    n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
 
-index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
-index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
-index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
+    index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
+    index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
+    index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
 # In[88]:
 
 
-# Get same number of class samples from original
-X_slight_clean_tsne  = X_train_original.loc[index_slight]
-X_serious_clean_tsne = X_train_original.loc[index_serious]
-X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
+if city:
+    # Get same number of class samples from original
+    X_slight_clean_tsne  = X_train_original.loc[index_slight]
+    X_serious_clean_tsne = X_train_original.loc[index_serious]
+    X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
 
-X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
+    X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
 
-Y_slight_clean_tsne  = Y_train_original[index_slight]
-Y_serious_clean_tsne = Y_train_original[index_serious]
-Y_fatal_clean_tsne   = Y_train_original[index_fatal]
+    Y_slight_clean_tsne  = Y_train_original[index_slight]
+    Y_serious_clean_tsne = Y_train_original[index_serious]
+    Y_fatal_clean_tsne   = Y_train_original[index_fatal]
 
-Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
+    Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
 
 
 # In[89]:
 
 
-if tsne:
+if tsne and city:
     FILE_NAME = f"{TSNE_PATH}{city_name}/2d_{MODEL_TIMESTAMP}.svg"
     plot_TSNE(X_clean_tsne, Y_clean_tsne, n_components = 2, output_file_name = FILE_NAME, title = 'Muestras originales 2 Componentes')
 
@@ -5769,9 +5777,10 @@ if tsne:
 # In[92]:
 
 
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
+if city:
+    Y_train_onehot = casualty_to_one_hot(Y_train)
+    Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
+    Y_test_onehot  = casualty_to_one_hot(Y_test)
 
 
 # ## Models
@@ -5779,33 +5788,34 @@ Y_test_onehot  = casualty_to_one_hot(Y_test)
 # In[93]:
 
 
-array_train_images = np.asarray(train_images)
-# array_val_images   = np.asarray(val_images)
-array_test_images  = np.asarray(test_images)
+if city:
+    array_train_images = np.asarray(train_images)
+    # array_val_images   = np.asarray(val_images)
+    array_test_images  = np.asarray(test_images)
 
-input_train_shape = (len(array_train_images), 5, 5, 1)
-# input_val_shape = (len(array_val_images), 5, 5, 1)
-input_test_shape  = (len(array_test_images), 5, 5, 1)
+    input_train_shape = (len(array_train_images), 5, 5, 1)
+    # input_val_shape = (len(array_val_images), 5, 5, 1)
+    input_test_shape  = (len(array_test_images), 5, 5, 1)
 
-array_train_images = array_train_images.reshape(input_train_shape)
-# array_val_images   = array_val_images.reshape(input_val_shape)
-array_test_images  = array_test_images.reshape(input_test_shape)
+    array_train_images = array_train_images.reshape(input_train_shape)
+    # array_val_images   = array_val_images.reshape(input_val_shape)
+    array_test_images  = array_test_images.reshape(input_test_shape)
 
-Y_test_labels = one_hot_to_casualty(Y_test)
+    Y_test_labels = one_hot_to_casualty(Y_test)
 
-from sklearn.utils import class_weight
+    from sklearn.utils import class_weight
 
-pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_original),
-                                          y = Y_train_original)
-
-
-print('\nPesos calculados:', pesos, '\n\n')
+    pesos = class_weight.compute_class_weight('balanced',
+                                              classes = np.unique(Y_train_original),
+                                              y = Y_train_original)
 
 
-# Keras espera un diccionario donde la clave sea el número de clase 
-# y el valor sea el peso calculado. 
-pesos = dict(enumerate(pesos))  
+    print('\nPesos calculados:', pesos, '\n\n')
+
+
+    # Keras espera un diccionario donde la clave sea el número de clase 
+    # y el valor sea el peso calculado. 
+    pesos = dict(enumerate(pesos))  
 
 
 # In[94]:
@@ -6389,70 +6399,71 @@ X_train_singled
 # In[125]:
 
 
-# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-# from sklearn.model_selection import RandomizedSearchCV
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import RandomizedSearchCV
 
+if city and train_nn:
 
-# model_time = pd.DataFrame({'city': [city_name],
-#                            'model': [MODEL_NAME],
-#                            'time': 0})
-# times = times.append(model_time)
-# # wrap our model into a scikit-learn compatible classifier
-# print("[INFO] initializing model...")
-# model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': 0})
+    times = times.append(model_time)
+    # wrap our model into a scikit-learn compatible classifier
+    print("[INFO] initializing model...")
+    model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
 
-# # define a grid of the hyperparameter search space
+    # define a grid of the hyperparameter search space
 
-# # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
-# fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
+    # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
+    fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
 
-# dense  = [32, 64, 128, 256]
+    dense  = [32, 64, 128, 256]
 
-# learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+    learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
-# batchSize = [32, 64]
+    batchSize = [32, 64]
 
-# epochs = [20]
+    epochs = [20]
 
-# # create a dictionary from the hyperparameter grid
-# grid = dict(
-# 	fm_one = fm_one,
-#     fm_two = fm_two,
-#     fm_three = fm_three,
-#     fm_four = fm_four,
-#     # fm_five = fm_five,
-#     # fm_six = fm_six,
-#     dense = dense,
-# 	learnRate=learnRate,
-# 	batch_size=batchSize,
-# 	epochs=epochs
-# )
+    # create a dictionary from the hyperparameter grid
+    grid = dict(
+        fm_one = fm_one,
+        fm_two = fm_two,
+        fm_three = fm_three,
+        fm_four = fm_four,
+        # fm_five = fm_five,
+        # fm_six = fm_six,
+        dense = dense,
+        learnRate=learnRate,
+        batch_size=batchSize,
+        epochs=epochs
+    )
 
-# # initialize a random search with a 3-fold cross-validation and then
-# # start the hyperparameter search process
-# print("[INFO] performing random search...")
-# searcher = RandomizedSearchCV(estimator = model,
-#                               n_iter = 60,
-#                               cv = 3,
-#                               param_distributions = grid,
-#                               scoring = 'f1_micro')
+    # initialize a random search with a 3-fold cross-validation and then
+    # start the hyperparameter search process
+    print("[INFO] performing random search...")
+    searcher = RandomizedSearchCV(estimator = model,
+                                  n_iter = 60,
+                                  cv = 3,
+                                  param_distributions = grid,
+                                  scoring = 'f1_micro')
 
-# searchResults = searcher.fit(array_train_images, Y_train)
+    searchResults = searcher.fit(array_train_images, Y_train)
 
-# # summarize grid search information
-# bestScore = searchResults.best_score_
-# bestParams = searchResults.best_params_
+    # summarize grid search information
+    bestScore = searchResults.best_score_
+    bestParams = searchResults.best_params_
 
-# print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+    print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
-# print("[INFO] evaluating the best model...")
-# taspcnn = bestModel = searchResults.best_estimator_
-# # accuracy = bestModel.score(array_test_images, Y_test)
-# # print("accuracy: {:.2f}%".format(accuracy * 100))
+    print("[INFO] evaluating the best model...")
+    taspcnn = bestModel = searchResults.best_estimator_
+    # accuracy = bestModel.score(array_test_images, Y_test)
+    # print("accuracy: {:.2f}%".format(accuracy * 100))
 
-# text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
-# n = text_file.write(str(searchResults.cv_results_))
-# text_file.close()
+    text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+    n = text_file.write(str(searchResults.cv_results_))
+    text_file.close()
 
 
 # #### Escritura del modelo
