@@ -68,8 +68,8 @@ UK = False
 tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
-other_models = cnn1d = False
-# other_models = cnn1d = True
+# other_models = cnn1d = False
+other_models = cnn1d = True
 
 
 # In[4]:
@@ -86,6 +86,7 @@ other_models = cnn1d = False
 # tree_method = 'auto' if laptop else 'gpu_hist'
 # # tree_method = 'gpu_hist'
 # train_nn = False
+# other_models = cnn1d = False
 
 
 # ## Importar Tensorflow
@@ -3508,7 +3509,7 @@ for i in range(100,103):
 # In[83]:
 
 
-data_frame = ['', '', '', '', 'Weather conditions', 'Vehicle']
+# data_frame = ['', '', '', '', 'Weather conditions', 'Vehicle']
 # correlation_matrix(data_frame)
 
 
