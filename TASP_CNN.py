@@ -69,7 +69,7 @@ tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
 # other_models = cnn1d = False
-other_models = cnn1d = True
+# other_models = cnn1d = True
 
 
 # In[72]:
@@ -6422,44 +6422,44 @@ MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 # In[250]:
 
 
-if city and train_nn:
+# if city and train_nn:
     
-    fm_one, fm_two, fm_three, fm_four = (128, 1024, 512, 1024)
-    n_classes = Y_train.unique()
+#     fm_one, fm_two, fm_three, fm_four = (128, 1024, 512, 1024)
+#     n_classes = Y_train.unique()
 
-    dense  = 32
+#     dense  = 32
 
-    learnRate = 0.0001
+#     learnRate = 0.0001
 
-    batchSize = 64
+#     batchSize = 64
 
-    start = time.time()
+#     start = time.time()
 
-    tasp_cnn = get_tasp_cnn(fm_one = fm_one,
-                            fm_two = fm_two,
-                            fm_three = fm_three,
-                            fm_four = fm_four,
-                            dense = dense,
-                            dropout = 0.2,
-                            learnRate = learnRate)
+#     tasp_cnn = get_tasp_cnn(fm_one = fm_one,
+#                             fm_two = fm_two,
+#                             fm_three = fm_three,
+#                             fm_four = fm_four,
+#                             dense = dense,
+#                             dropout = 0.2,
+#                             learnRate = learnRate)
 
-    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                           # class_weight = pesos,
-                           batch_size = batchSize,
-                           epochs = 75,
-                           shuffle = True,
-                           validation_data = (array_test_images, Y_test_onehot))
+#     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+#                            # class_weight = pesos,
+#                            batch_size = batchSize,
+#                            epochs = 75,
+#                            shuffle = True,
+#                            validation_data = (array_test_images, Y_test_onehot))
 
-    end = time.time()
+#     end = time.time()
 
-    ellapsed_time = round(end - start, 2)
+#     ellapsed_time = round(end - start, 2)
 
-    model_time = pd.DataFrame({'city': [city_name],
-                               'model': [MODEL_NAME],
-                               'time': [ellapsed_time]})
-    times = times.append(model_time)    
+#     model_time = pd.DataFrame({'city': [city_name],
+#                                'model': [MODEL_NAME],
+#                                'time': [ellapsed_time]})
+#     times = times.append(model_time)    
 
-    history
+#     history
 
 
 # In[251]:
@@ -6484,71 +6484,71 @@ X_train_singled
 # In[253]:
 
 
-# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-# from sklearn.model_selection import RandomizedSearchCV
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import RandomizedSearchCV
 
-# if city and train_nn:
+if city and train_nn:
 
-#     model_time = pd.DataFrame({'city': [city_name],
-#                                'model': [MODEL_NAME],
-#                                'time': 0})
-#     times = times.append(model_time)
-#     # wrap our model into a scikit-learn compatible classifier
-#     print("[INFO] initializing model...")
-#     model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': 0})
+    times = times.append(model_time)
+    # wrap our model into a scikit-learn compatible classifier
+    print("[INFO] initializing model...")
+    model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
 
-#     # define a grid of the hyperparameter search space
+    # define a grid of the hyperparameter search space
 
-#     # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
-#     fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
+    # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
+    fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
 
-#     dense  = [32, 64, 128, 256]
+    dense  = [32, 64, 128, 256]
 
-#     learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+    learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
-#     batchSize = [32, 64]
+    batchSize = [32, 64, 128]
 
-#     epochs = [20]
+    epochs = [40]
 
-#     # create a dictionary from the hyperparameter grid
-#     grid = dict(
-#         fm_one = fm_one,
-#         fm_two = fm_two,
-#         fm_three = fm_three,
-#         fm_four = fm_four,
-#         # fm_five = fm_five,
-#         # fm_six = fm_six,
-#         dense = dense,
-#         learnRate=learnRate,
-#         batch_size=batchSize,
-#         epochs=epochs
-#     )
+    # create a dictionary from the hyperparameter grid
+    grid = dict(
+        fm_one = fm_one,
+        fm_two = fm_two,
+        fm_three = fm_three,
+        fm_four = fm_four,
+        # fm_five = fm_five,
+        # fm_six = fm_six,
+        dense = dense,
+        learnRate=learnRate,
+        batch_size=batchSize,
+        epochs=epochs
+    )
 
-#     # initialize a random search with a 3-fold cross-validation and then
-#     # start the hyperparameter search process
-#     print("[INFO] performing random search...")
-#     searcher = RandomizedSearchCV(estimator = model,
-#                                   n_iter = 60,
-#                                   cv = 3,
-#                                   param_distributions = grid,
-#                                   scoring = 'f1_micro')
+    # initialize a random search with a 3-fold cross-validation and then
+    # start the hyperparameter search process
+    print("[INFO] performing random search...")
+    searcher = RandomizedSearchCV(estimator = model,
+                                  n_iter = 60,
+                                  cv = 3,
+                                  param_distributions = grid,
+                                  scoring = 'f1_micro')
 
-#     searchResults = searcher.fit(array_train_images, Y_train)
+    searchResults = searcher.fit(array_train_images, Y_train)
 
-#     # summarize grid search information
-#     bestScore = searchResults.best_score_
-#     bestParams = searchResults.best_params_
+    # summarize grid search information
+    bestScore = searchResults.best_score_
+    bestParams = searchResults.best_params_
 
-#     print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+    print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
-#     print("[INFO] evaluating the best model...")
-#     taspcnn = bestModel = searchResults.best_estimator_
-#     # accuracy = bestModel.score(array_test_images, Y_test)
-#     # print("accuracy: {:.2f}%".format(accuracy * 100))
+    print("[INFO] evaluating the best model...")
+    taspcnn = bestModel = searchResults.best_estimator_
+    # accuracy = bestModel.score(array_test_images, Y_test)
+    # print("accuracy: {:.2f}%".format(accuracy * 100))
 
-#     text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
-#     n = text_file.write(str(searchResults.cv_results_))
-#     text_file.close()
+    text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+    n = text_file.write(str(searchResults.cv_results_))
+    text_file.close()
 
 
 # #### Escritura del modelo
@@ -6711,7 +6711,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[40]:
+# In[255]:
 
 
 from os.path import exists
@@ -6719,6 +6719,7 @@ from os.path import exists
 reports_summary = pd.DataFrame()
 
 cities = []
+# MODEL_TIMESTAMP = '2022-08-02-10:10:19'
 
 cities.append('leeds')  if leeds else None
 cities.append('madrid') if madrid else None
@@ -6732,7 +6733,6 @@ models_renaming = {'knn': 'KNN',
                    # 'auto_ml': 'AutoML'}
 
 splits = ['train', 'test']
-
 sorted_by_time_models_name = times.model
 
 for split in splits:
@@ -6769,13 +6769,15 @@ for split in splits:
 
 # ## Models scores plot
 
-# In[ ]:
+# In[256]:
 
 
 import seaborn as sns
 
 MEASURE_TYPES  = ['precision', 'recall', 'f1-score']
-ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
+# ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
+
+ACCIDENT_TYPES = ['Slight', 'Assistance']
 
 
 if leeds:
