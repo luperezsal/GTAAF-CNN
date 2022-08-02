@@ -3141,7 +3141,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 # In[64]:
 
 
-if calculate_weights:
+if city and calculate_weights:
     Y_train_downsampled_copy = Y_train_downsampled.copy()
     Y_test_downsampled_copy  = Y_test_downsampled.copy()
     Y_test_copy = Y_test.copy()
@@ -3253,7 +3253,7 @@ if calculate_weights:
 # In[65]:
 
 
-if calculate_weights and madrid:
+if calculate_weights and city:
     #### PLOT FITNESS EVOLUTION ####
     x_fitness = [np.max(fitnessHistory[i]) for i in range(0,fitnessHistory.shape[0])]
 
@@ -3294,7 +3294,7 @@ if calculate_weights and madrid:
 # In[66]:
 
 
-if not calculate_weights:
+if not calculate_weights and city:
 
     # FILE_NAME = f"{city_name}_hyperparams{loaded_timestamp}.json"
     FILE_NAME = f"{city_name}_hyperparams2022-04-14-11:16:13.json"
@@ -3315,7 +3315,7 @@ if not calculate_weights:
 # In[67]:
 
 
-if calculate_weights and madrid:
+if calculate_weights and city:
     FILE_NAME = f"{city_name}_hyperparams{MODEL_TIMESTAMP}.json"
 
     write_json(best_hyperparams, f"{HYPERPARAMS_PATH}{city_name}/", FILE_NAME)
@@ -3371,7 +3371,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 # In[69]:
 
 
-if calculate_weights and madrid:
+if calculate_weights and city:
     xgboost = XGBClassifier(best_hyperparams,
                             tree_method = tree_method,
                             single_precision_histogram =  True)
@@ -3387,7 +3387,7 @@ if calculate_weights and madrid:
 # In[70]:
 
 
-if calculate_weights and madrid:
+if calculate_weights and city:
     FILE_NAME = f"{city_name}_figure_weights_{MODEL_TIMESTAMP}.svg"
 
     print(xgboost.get_booster().get_score(importance_type= 'weight'))
@@ -3433,7 +3433,8 @@ feature_vector
 # In[73]:
 
 
-matrix_indexes = fv2gi(feature_vector)
+if city:
+    matrix_indexes = fv2gi(feature_vector)
 
 
 # ## Construcción de imágenes
@@ -3441,13 +3442,15 @@ matrix_indexes = fv2gi(feature_vector)
 # In[74]:
 
 
-train_bgi = build_gray_images(X_train, 5, matrix_indexes)
-train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
+if city:
 
-val_bgi  = build_gray_images(X_val, 5, matrix_indexes)
-test_bgi = build_gray_images(X_test, 5, matrix_indexes)
+    train_bgi = build_gray_images(X_train, 5, matrix_indexes)
+    train_original_bgi = build_gray_images(X_train_original, 5, matrix_indexes)
 
-pd.DataFrame(train_bgi[:,:,1057])
+    val_bgi  = build_gray_images(X_val, 5, matrix_indexes)
+    test_bgi = build_gray_images(X_test, 5, matrix_indexes)
+
+    pd.DataFrame(train_bgi[:,:,1057])
 
 
 # ## Reshape de imágenes
@@ -3455,30 +3458,34 @@ pd.DataFrame(train_bgi[:,:,1057])
 # In[75]:
 
 
-train_images = shape_images(X_data = X_train,
+if city:
+
+    train_images = shape_images(X_data = X_train,
                             gray_images = train_bgi)
 
-train_original_images = shape_images(X_data = X_train_original,
-                                     gray_images = train_original_bgi)
+    train_original_images = shape_images(X_data = X_train_original,
+                                         gray_images = train_original_bgi)
 
-val_images  = shape_images(X_data = X_val,
-                           gray_images = val_bgi)
+    val_images  = shape_images(X_data = X_val,
+                               gray_images = val_bgi)
 
-test_images  = shape_images(X_data = X_test,
-                            gray_images = test_bgi)
+    test_images  = shape_images(X_data = X_test,
+                                gray_images = test_bgi)
 
 
 # In[76]:
 
 
-sns.set_theme(style="whitegrid")
-plt.gray()
-for i in range(100,103):
-    plt.figure(figsize=(3, 3))
-    plt.grid(b=None)
-    plt.imshow(train_bgi[:,:,i])
-    # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
-    plt.show()
+if city:
+    
+    sns.set_theme(style="whitegrid")
+    plt.gray()
+    for i in range(100,103):
+        plt.figure(figsize=(3, 3))
+        plt.grid(b=None)
+        plt.imshow(train_bgi[:,:,i])
+        # plt.savefig(f"{city_name}_image_example_{i}.svg",transparent=True)
+        plt.show()
 
 
 # In[77]:
@@ -3526,60 +3533,67 @@ for i in range(100,103):
 # In[ ]:
 
 
-n_samples = 150
-index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
-index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
-index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
+if city:
+    n_samples = 150
+    index_slight  = Y_train[Y_train == 'Slight'][:n_samples].index
+    index_serious = Y_train[Y_train == 'Serious'][:n_samples].index
+    index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
 # In[ ]:
 
 
-# Get same number of class samples from SMOTEII
-X_slight_train_tsne  = X_train.loc[index_slight]
-X_serious_train_tsne = X_train.loc[index_serious]
-X_fatal_train_tsne   = X_train.loc[index_fatal]
+if city:
 
-X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
+    # Get same number of class samples from SMOTEII
+    X_slight_train_tsne  = X_train.loc[index_slight]
+    X_serious_train_tsne = X_train.loc[index_serious]
+    X_fatal_train_tsne   = X_train.loc[index_fatal]
 
-Y_slight_train_tsne  = Y_train[index_slight]
-Y_serious_train_tsne = Y_train[index_serious]
-Y_fatal_train_tsne   = Y_train[index_fatal]
+    X_train_tsne = pd.concat([X_slight_train_tsne, X_serious_train_tsne, X_fatal_train_tsne])
 
-Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
+    Y_slight_train_tsne  = Y_train[index_slight]
+    Y_serious_train_tsne = Y_train[index_serious]
+    Y_fatal_train_tsne   = Y_train[index_fatal]
 
-
-# In[ ]:
-
-
-n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
-
-index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
-index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
-index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
+    Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
 # In[ ]:
 
 
-# Get same number of class samples from original
-X_slight_clean_tsne  = X_train_original.loc[index_slight]
-X_serious_clean_tsne = X_train_original.loc[index_serious]
-X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
+if city:
 
-X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
+    n_samples = len(Y_train_original[Y_train_original == 'Fatal'])
 
-Y_slight_clean_tsne  = Y_train_original[index_slight]
-Y_serious_clean_tsne = Y_train_original[index_serious]
-Y_fatal_clean_tsne   = Y_train_original[index_fatal]
-
-Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
+    index_slight  = Y_train_original[Y_train_original == 'Slight'][:n_samples].index
+    index_serious = Y_train_original[Y_train_original == 'Serious'][:n_samples].index
+    index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
 # In[ ]:
 
 
-if tsne:
+if city:
+
+    # Get same number of class samples from original
+    X_slight_clean_tsne  = X_train_original.loc[index_slight]
+    X_serious_clean_tsne = X_train_original.loc[index_serious]
+    X_fatal_clean_tsne   = X_train_original.loc[index_fatal]
+
+    X_clean_tsne = pd.concat([X_slight_clean_tsne, X_serious_clean_tsne, X_fatal_clean_tsne])
+
+    Y_slight_clean_tsne  = Y_train_original[index_slight]
+    Y_serious_clean_tsne = Y_train_original[index_serious]
+    Y_fatal_clean_tsne   = Y_train_original[index_fatal]
+
+    Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
+
+
+# In[ ]:
+
+
+if tsne and city:
     FILE_NAME = f"{TSNE_PATH}{city_name}/2d_tsne_clean.svg"
     plot_TSNE(X_clean_tsne, Y_clean_tsne, n_components = 2, output_file_name = FILE_NAME, title = 'Muestras originales 2 Componentes')
 
@@ -3690,21 +3704,23 @@ if tsne:
 # In[ ]:
 
 
-Y_train_onehot = casualty_to_one_hot(Y_train)
-Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
-Y_val_onehot   = casualty_to_one_hot(Y_val)
-Y_test_onehot  = casualty_to_one_hot(Y_test)
+if city:
+    Y_train_onehot = casualty_to_one_hot(Y_train)
+    Y_train_original_onehot = casualty_to_one_hot(Y_train_original)
+    Y_val_onehot   = casualty_to_one_hot(Y_val)
+    Y_test_onehot  = casualty_to_one_hot(Y_test)
 
-array_train_images = np.asarray(train_images)
-array_train_original_images = np.asarray(train_original_images)
-array_val_images   = np.asarray(val_images)
-array_test_images  = np.asarray(test_images)
+    array_train_images = np.asarray(train_images)
+    array_train_original_images = np.asarray(train_original_images)
+    array_val_images   = np.asarray(val_images)
+    array_test_images  = np.asarray(test_images)
 
 
 # In[ ]:
 
 
-array_val_images.shape
+if city:
+    array_val_images.shape
 
 
 # ## Models
@@ -3712,33 +3728,34 @@ array_val_images.shape
 # In[ ]:
 
 
-array_train_images = np.asarray(train_images)
-array_val_images   = np.asarray(val_images)
-array_test_images  = np.asarray(test_images)
+if city:
+    array_train_images = np.asarray(train_images)
+    array_val_images   = np.asarray(val_images)
+    array_test_images  = np.asarray(test_images)
 
-input_train_shape = (len(array_train_images), 5, 5, 1)
-input_val_shape = (len(array_val_images), 5, 5, 1)
-input_test_shape  = (len(array_test_images), 5, 5, 1)
+    input_train_shape = (len(array_train_images), 5, 5, 1)
+    input_val_shape = (len(array_val_images), 5, 5, 1)
+    input_test_shape  = (len(array_test_images), 5, 5, 1)
 
-array_train_images = array_train_images.reshape(input_train_shape)
-array_val_images   = array_val_images.reshape(input_val_shape)
-array_test_images  = array_test_images.reshape(input_test_shape)
+    array_train_images = array_train_images.reshape(input_train_shape)
+    array_val_images   = array_val_images.reshape(input_val_shape)
+    array_test_images  = array_test_images.reshape(input_test_shape)
 
-Y_test_labels = one_hot_to_casualty(Y_test)
+    Y_test_labels = one_hot_to_casualty(Y_test)
 
-from sklearn.utils import class_weight
+    from sklearn.utils import class_weight
 
-pesos = class_weight.compute_class_weight('balanced',
-                                          classes = np.unique(Y_train_original),
-                                          y = Y_train_original)
-
-
-print('\nPesos calculados:', pesos, '\n\n')
+    pesos = class_weight.compute_class_weight('balanced',
+                                              classes = np.unique(Y_train_original),
+                                              y = Y_train_original)
 
 
-# Keras espera un diccionario donde la clave sea el número de clase 
-# y el valor sea el peso calculado. 
-pesos = dict(enumerate(pesos))  
+    print('\nPesos calculados:', pesos, '\n\n')
+
+
+    # Keras espera un diccionario donde la clave sea el número de clase 
+    # y el valor sea el peso calculado. 
+    pesos = dict(enumerate(pesos))  
 
 
 # In[ ]:
@@ -3747,7 +3764,9 @@ pesos = dict(enumerate(pesos))
 import pickle
 from joblib import dump, load
 
-times = pd.DataFrame()
+if city:
+
+    times = pd.DataFrame()
 
 
 # ### NB
@@ -3755,12 +3774,14 @@ times = pd.DataFrame()
 # In[ ]:
 
 
-MODEL_NAME = MODELS_NAME[3]
+if city:
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+    MODEL_NAME = MODELS_NAME[3]
 
-sns.reset_defaults()
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+
+    sns.reset_defaults()
 
 
 # #### Entrenamiento
@@ -3839,9 +3860,11 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
-MODEL_NAME = MODELS_NAME[4]
+if city:
+
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.joblib"
+    MODEL_NAME = MODELS_NAME[4]
 
 
 # In[ ]:
@@ -3918,7 +3941,9 @@ if city and other_models:
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
 
-MODEL_NAME = MODELS_NAME[0]
+if city:
+
+    MODEL_NAME = MODELS_NAME[0]
 
 
 # #### Entrenamiento
@@ -4041,10 +4066,12 @@ if city and other_models:
 # In[ ]:
 
 
-MODEL_NAME = MODELS_NAME[1]
+if city:
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
+    MODEL_NAME = MODELS_NAME[1]
+
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
 
 # #### Entrenamiento
@@ -4135,10 +4162,12 @@ if city and not laptop and cnn1d:
 # In[ ]:
 
 
-MODEL_NAME = MODELS_NAME[2]
+if city:
 
-MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
+    MODEL_NAME = MODELS_NAME[2]
+
+    MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
+    MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 
 
 # #### Entrenamiento
