@@ -279,14 +279,14 @@ def oversample_data(X_data, Y_labels):
     X_oversampled, Y_oversampled = oversampler.fit_resample(X_data, Y_labels)
 
     print('********** After OverSampling **********')
-    # print('Slight: ', (Y_oversampled == 'Slight').sum())
-    # print('Serious:', (Y_oversampled == 'Serious').sum())
-    # print('Fatal:  ', (Y_oversampled == 'Fatal').sum())
-    # print('\n Total X: ', len(X_oversampled), ' Total Y: ', len(Y_oversampled), '\n')
-
     print('Slight: ', (Y_oversampled == 'Slight').sum())
-    print('Assistance:', (Y_oversampled == 'Assistance').sum())
+    print('Serious:', (Y_oversampled == 'Serious').sum())
+    print('Fatal:  ', (Y_oversampled == 'Fatal').sum())
     print('\n Total X: ', len(X_oversampled), ' Total Y: ', len(Y_oversampled), '\n')
+
+    # print('Slight: ', (Y_oversampled == 'Slight').sum())
+    # print('Assistance:', (Y_oversampled == 'Assistance').sum())
+    # print('\n Total X: ', len(X_oversampled), ' Total Y: ', len(Y_oversampled), '\n')
 
     return X_oversampled, Y_oversampled
 
@@ -4456,7 +4456,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # # UK
 
-# In[ ]:
+# In[41]:
 
 
 loaded_timestamp = '2022-08-01-11:18:30'
@@ -4464,7 +4464,7 @@ loaded_timestamp = '2022-08-01-11:18:30'
 
 # ## Importación de datos
 
-# In[ ]:
+# In[42]:
 
 
 import pandas as pd
@@ -4507,7 +4507,7 @@ data_frame = data_frame[data_frame.accident_year_x.isin(years)]
 data_frame
 
 
-# In[ ]:
+# In[43]:
 
 
 # import pandas as pd
@@ -4577,20 +4577,20 @@ data_frame
 # data_frame.to_csv(f"{root_path}/westminster-accident-casualty-vehicles-2005-2019.csv")
 
 
-# In[ ]:
+# In[44]:
 
 
 # accidents_dataframe.local_authority_district.value_counts()
 
 
-# In[ ]:
+# In[45]:
 
 
 # data_frame.vehicle_manoeuvre.value_counts()
 data_frame.age_of_vehicle.value_counts()
 
 
-# In[ ]:
+# In[46]:
 
 
 pd.set_option('display.max_columns', None)
@@ -4601,7 +4601,7 @@ data_frame
 
 # ## Limpieza de datos
 
-# In[ ]:
+# In[47]:
 
 
 # COLUMNS_TO_GET = ['accident_reference_x','location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4626,7 +4626,7 @@ data_frame
 # data_frame.columns = RENAMED_COLUMNS
 
 
-# In[ ]:
+# In[48]:
 
 
 COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
@@ -4649,7 +4649,7 @@ RENAMED_COLUMNS = ['Easting', 'Northing', '1st Road Class', 'Accident Time', 'Nu
 data_frame.columns = RENAMED_COLUMNS
 
 
-# In[ ]:
+# In[49]:
 
 
 print('Before cleaning')
@@ -4667,7 +4667,7 @@ print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 
-# In[ ]:
+# In[50]:
 
 
 ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
@@ -4757,7 +4757,7 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop = True)
 
 
-# In[ ]:
+# In[51]:
 
 
 # ###################### DICCIONARIOS DE REEMPLAZO ######################
@@ -4924,7 +4924,7 @@ data_frame = data_frame.reset_index(drop = True)
 # clean_df
 
 
-# In[ ]:
+# In[52]:
 
 
 print('After cleaning')
@@ -4942,7 +4942,7 @@ print(f"Sex of Casualty: {data_frame['Sex of Casualty'].value_counts()}")
 print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 
-# In[ ]:
+# In[53]:
 
 
 # Quitados:
@@ -4991,13 +4991,13 @@ print(f"Age of Casualty: {data_frame['Age of Casualty'].value_counts()}")
 
 # ## Split de datos
 
-# In[ ]:
+# In[54]:
 
 
 data_frame[data_frame['Number of Vehicles'] == 3]
 
 
-# In[ ]:
+# In[55]:
 
 
 from sklearn.model_selection import train_test_split
@@ -5014,7 +5014,7 @@ Y_test = test[target_class]
 
 # ### Downsampling
 
-# In[ ]:
+# In[56]:
 
 
 # from sklearn.model_selection import train_test_split
@@ -5050,7 +5050,7 @@ Y_test = test[target_class]
 
 
 
-# In[ ]:
+# In[57]:
 
 
 from sklearn.model_selection import train_test_split
@@ -5077,13 +5077,13 @@ if city:
     # Y_test_downsampled = downsampled_test[target_class]
 
 
-# In[ ]:
+# In[58]:
 
 
 len(X_slight_downsampled)
 
 
-# In[ ]:
+# In[59]:
 
 
 # fv2gi(feature_vector)
@@ -5105,13 +5105,13 @@ len(X_slight_downsampled)
 
 # ## Normalización de datos
 
-# In[ ]:
+# In[60]:
 
 
 # !conda install -c conda-forge imbalanced-learn
 
 
-# In[ ]:
+# In[61]:
 
 
 if city:
@@ -5131,7 +5131,7 @@ if city:
 
 # ## Oversamplig de datos
 
-# In[ ]:
+# In[62]:
 
 
 # print('********** Train Before OverSampling **********')
@@ -5149,7 +5149,7 @@ if city:
 # print('\n Total X:', len(Y_test), ' Total Y:', len(Y_test), '\n')
 
 
-# In[ ]:
+# In[63]:
 
 
 if city:
@@ -5168,7 +5168,7 @@ if city:
 
 # ## XGBoost
 
-# In[ ]:
+# In[64]:
 
 
 from xgboost import XGBClassifier
@@ -5178,13 +5178,19 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[ ]:
+# In[65]:
 
 
 data_frame.describe()
 
 
-# In[ ]:
+# In[67]:
+
+
+Y_train
+
+
+# In[66]:
 
 
 if city:
@@ -6616,7 +6622,7 @@ MODEL_NAME = MODELS_NAME[3]
 
 # ### Sort
 
-# In[ ]:
+# In[38]:
 
 
 times = times.sort_values('time')
@@ -6633,7 +6639,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ### Save fig
 
-# In[ ]:
+# In[39]:
 
 
 # LOAD_PATH = f"{REPORTS_TIMES_PATH}2022-05-23-15:28:04.csv"
@@ -6651,7 +6657,7 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[ ]:
+# In[40]:
 
 
 from os.path import exists
