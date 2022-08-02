@@ -68,7 +68,7 @@ UK = True
 tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
-# other_models = cnn1d = False
+other_models = cnn1d = False
 # other_models = cnn1d = True
 
 
