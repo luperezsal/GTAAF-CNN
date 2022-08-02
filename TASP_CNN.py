@@ -724,13 +724,18 @@ def autoencoder ():
 
 # ## 1D-Convolution
 
+# In[ ]:
+
+
+num_classes = 2
+
+
 # In[96]:
 
 
 import tensorflow_addons as tfa
 
 lr_init = 0.1
-num_classes = 3
 
 convolution_1d = models.Sequential()
 convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(5, 5, 1)))
@@ -759,7 +764,6 @@ convolution_1d.compile(
 
 
 lr_init = 0.0001
-num_classes = 2
 
 tasp_cnn = models.Sequential()
 tasp_cnn.add(layers.Conv2D(128, (3, 3), strides=(1, 1), activation='relu', padding='same', input_shape=(5, 5, 1)))
