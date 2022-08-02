@@ -4140,41 +4140,41 @@ MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 
 if city and train_nn:
     
-fm_one, fm_two, fm_three, fm_four = (256, 512, 512, 256)
+    fm_one, fm_two, fm_three, fm_four = (256, 512, 512, 256)
 
-dense  = 128
+    dense  = 128
 
-learnRate = 0.001
+    learnRate = 0.001
 
-batchSize = 32
+    batchSize = 32
 
-    start = time.time()
+        start = time.time()
 
-    tasp_cnn = get_tasp_cnn(fm_one = fm_one,
-                            fm_two = fm_two,
-                            fm_three = fm_three,
-                            fm_four = fm_four,
-                            dense = dense,
-                            dropout = 0.2,
-                            learnRate = learnRate)
+        tasp_cnn = get_tasp_cnn(fm_one = fm_one,
+                                fm_two = fm_two,
+                                fm_three = fm_three,
+                                fm_four = fm_four,
+                                dense = dense,
+                                dropout = 0.2,
+                                learnRate = learnRate)
 
-    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                           # class_weight = pesos,
-                           batch_size = batchSize,
-                           epochs = 100,
-                           shuffle = True,
-                           validation_data = (array_test_images, Y_test_onehot))
+        history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+                               # class_weight = pesos,
+                               batch_size = batchSize,
+                               epochs = 100,
+                               shuffle = True,
+                               validation_data = (array_test_images, Y_test_onehot))
 
-    end = time.time()
+        end = time.time()
 
-    ellapsed_time = round(end - start, 2)
+        ellapsed_time = round(end - start, 2)
 
-    model_time = pd.DataFrame({'city': [city_name],
-                               'model': [MODEL_NAME],
-                               'time': [ellapsed_time]})
-    times = times.append(model_time)    
+        model_time = pd.DataFrame({'city': [city_name],
+                                   'model': [MODEL_NAME],
+                                   'time': [ellapsed_time]})
+        times = times.append(model_time)    
 
-    history
+        history
 
 
 # In[ ]:
