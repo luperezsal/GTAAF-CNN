@@ -1,0 +1,31 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,madrid_1D-convolution,test,madrid,1D-convolution,0.983,0.511,0.673,10640.0
+Serious,Serious,madrid_1D-convolution,test,madrid,1D-convolution,0.032,0.598,0.061,246.0
+Fatal,Fatal,madrid_1D-convolution,test,madrid,1D-convolution,0.001,0.067,0.002,15.0
+accuracy,accuracy,madrid_1D-convolution,test,madrid,1D-convolution,0.513,0.513,0.513,0.513
+macro avg,macro avg,madrid_1D-convolution,test,madrid,1D-convolution,0.339,0.392,0.246,10901.0
+weighted avg,weighted avg,madrid_1D-convolution,test,madrid,1D-convolution,0.96,0.513,0.658,10901.0
+Slight,Slight,madrid_2D-convolution,test,madrid,2D-convolution,0.98,0.688,0.808,10640.0
+Serious,Serious,madrid_2D-convolution,test,madrid,2D-convolution,0.03,0.386,0.056,246.0
+Fatal,Fatal,madrid_2D-convolution,test,madrid,2D-convolution,0.0,0.0,0.0,15.0
+accuracy,accuracy,madrid_2D-convolution,test,madrid,2D-convolution,0.68,0.68,0.68,0.68
+macro avg,macro avg,madrid_2D-convolution,test,madrid,2D-convolution,0.337,0.358,0.288,10901.0
+weighted avg,weighted avg,madrid_2D-convolution,test,madrid,2D-convolution,0.957,0.68,0.79,10901.0
+Slight,Slight,madrid_KNN,test,madrid,KNN,0.983,0.601,0.746,10640.0
+Serious,Serious,madrid_KNN,test,madrid,KNN,0.036,0.5,0.067,246.0
+Fatal,Fatal,madrid_KNN,test,madrid,KNN,0.001,0.067,0.002,15.0
+accuracy,accuracy,madrid_KNN,test,madrid,KNN,0.598,0.598,0.598,0.598
+macro avg,macro avg,madrid_KNN,test,madrid,KNN,0.34,0.389,0.272,10901.0
+weighted avg,weighted avg,madrid_KNN,test,madrid,KNN,0.961,0.598,0.73,10901.0
+Slight,Slight,madrid_NB,test,madrid,NB,0.98,0.362,0.529,10640.0
+Serious,Serious,madrid_NB,test,madrid,NB,0.025,0.707,0.048,246.0
+Fatal,Fatal,madrid_NB,test,madrid,NB,0.0,0.0,0.0,15.0
+accuracy,accuracy,madrid_NB,test,madrid,NB,0.369,0.369,0.369,0.369
+macro avg,macro avg,madrid_NB,test,madrid,NB,0.335,0.356,0.192,10901.0
+weighted avg,weighted avg,madrid_NB,test,madrid,NB,0.957,0.369,0.517,10901.0
+Slight,Slight,madrid_SVC,test,madrid,SVC,0.98,0.641,0.775,10640.0
+Serious,Serious,madrid_SVC,test,madrid,SVC,0.031,0.439,0.058,246.0
+Fatal,Fatal,madrid_SVC,test,madrid,SVC,0.002,0.067,0.004,15.0
+accuracy,accuracy,madrid_SVC,test,madrid,SVC,0.636,0.636,0.636,0.636
+macro avg,macro avg,madrid_SVC,test,madrid,SVC,0.338,0.382,0.279,10901.0
+weighted avg,weighted avg,madrid_SVC,test,madrid,SVC,0.958,0.636,0.758,10901.0
