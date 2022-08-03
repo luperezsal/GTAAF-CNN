@@ -737,28 +737,28 @@ num_classes = 2
 
 import tensorflow_addons as tfa
 
-def get_1d_conv(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRate=0.01):
-    1d_conv = models.Sequential()
-    1d_conv.add(layers.Conv1D(fm_one, 3, strides=1, activation='relu', padding='same', input_shape=(5, 5, 1)))
-    1d_conv.add(layers.BatchNormalization())
-    1d_conv.add(layers.Conv1D(fm_two, 3, strides=1, activation='relu', padding='same'))
-    1d_conv.add(layers.BatchNormalization())
-    1d_conv.add(layers.Conv1D(fm_three, 3, strides=1, activation='relu', padding='same'))
-    1d_conv.add(layers.BatchNormalization())
-    1d_conv.add(layers.Conv1D(fm_four, 3, strides=1, activation='relu', padding='same'))
-    1d_conv.add(layers.Flatten())
-    1d_conv.add(layers.BatchNormalization())
-    1d_conv.add(layers.Dense(units=dense))
-    1d_conv.add(layers.BatchNormalization())
-    1d_conv.add(layers.Dense(num_classes, activation='sigmoid'))
+def get_cnn_1d_conv(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRate=0.01):
+    cnn_1d_conv = models.Sequential()
+    cnn_1d_conv.add(layers.Conv1D(fm_one, 3, strides=1, activation='relu', padding='same', input_shape=(5, 5, 1)))
+    cnn_1d_conv.add(layers.BatchNormalization())
+    cnn_1d_conv.add(layers.Conv1D(fm_two, 3, strides=1, activation='relu', padding='same'))
+    cnn_1d_conv.add(layers.BatchNormalization())
+    cnn_1d_conv.add(layers.Conv1D(fm_three, 3, strides=1, activation='relu', padding='same'))
+    cnn_1d_conv.add(layers.BatchNormalization())
+    cnn_1d_conv.add(layers.Conv1D(fm_four, 3, strides=1, activation='relu', padding='same'))
+    cnn_1d_conv.add(layers.Flatten())
+    cnn_1d_conv.add(layers.BatchNormalization())
+    cnn_1d_conv.add(layers.Dense(units=dense))
+    cnn_1d_conv.add(layers.BatchNormalization())
+    cnn_1d_conv.add(layers.Dense(num_classes, activation='sigmoid'))
 
-    1d_conv.compile(
+    cnn_1d_conv.compile(
         optimizer=Adam(learning_rate = learnRate, epsilon=1e-06),
         loss='binary_crossentropy',
         metrics='accuracy'
       )
     
-    return 1d_conv
+    return cnn_1d_conv
 
 # convolution_1d.compile(
 #     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
