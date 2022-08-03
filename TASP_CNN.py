@@ -6734,13 +6734,6 @@ times.to_csv(SAVE_PATH, index= True)
 
 # ## Models metrics file
 
-# In[171]:
-
-
-REPORT_NAME  = f"{city_name}_{model_name}_report_{MODEL_TIMESTAMP}.csv"
-REPORT_NAME
-
-
 # In[172]:
 
 
