@@ -67,7 +67,7 @@ UK = True
 
 tree_method = 'auto' if laptop else 'gpu_hist'
 
-train_nn = False
+train_nn = not laptop
 other_models = cnn1d = False
 # other_models = cnn1d = True
 
@@ -6644,9 +6644,9 @@ if city:
         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
         if not calculate_cnn_hyperparams:
-            plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-                                  f1_score_name = F1_SCORE_NAME,
-                                  history = history)
+            # plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+            #                       f1_score_name = F1_SCORE_NAME,
+            #                       history = history)
 
         Y_train_predicted = tasp_cnn.predict(x = array_train_images).argmax(axis = 1)
 
