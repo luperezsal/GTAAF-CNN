@@ -6237,7 +6237,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 # In[119]:
 
 
-if city and train_nn and cnn1d:
+if city and train_nn and cnn1d and not calculate_cnn_hyperparams:
     start = time.time()
 
     fold_no = 1
