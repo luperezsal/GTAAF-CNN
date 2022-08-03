@@ -6332,7 +6332,7 @@ if city and train_nn and calculate_cnn_hyperparams:
 
     batchSize = [32, 64, 128]
 
-    epochs = [1]
+    epochs = [60]
 
     # create a dictionary from the hyperparameter grid
     grid = dict(
@@ -6350,7 +6350,7 @@ if city and train_nn and calculate_cnn_hyperparams:
     # start the hyperparameter search process
     print("[INFO] performing random search...")
     searcher = RandomizedSearchCV(estimator = model,
-                                  n_iter = 1,
+                                  n_iter = 10,
                                   cv = 2,
                                   param_distributions = grid,
                                   scoring = 'f1_micro')
