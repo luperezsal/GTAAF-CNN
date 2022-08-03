@@ -69,6 +69,7 @@ tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
 other_models = cnn1d = False
+cnn1d = True
 # other_models = cnn1d = True
 
 calculate_cnn_hyperparams = True
@@ -737,7 +738,7 @@ num_classes = 2
 
 import tensorflow_addons as tfa
 
-def get_cnn_1d_conv(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRate=0.01):
+def get_1d_conv(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRate=0.01):
     cnn_1d_conv = models.Sequential()
     cnn_1d_conv.add(layers.Conv1D(fm_one, 3, strides=1, activation='relu', padding='same', input_shape=(5, 5, 1)))
     cnn_1d_conv.add(layers.BatchNormalization())
@@ -6257,7 +6258,7 @@ if city and train_nn and calculate_cnn_hyperparams:
 
     batchSize = [32, 64, 128]
 
-    epochs = [40]
+    epochs = [20]
 
     # create a dictionary from the hyperparameter grid
     grid = dict(
