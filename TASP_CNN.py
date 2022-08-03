@@ -70,6 +70,7 @@ tree_method = 'auto' if laptop else 'gpu_hist'
 train_nn = not laptop
 other_models = cnn1d = False
 cnn1d = True
+cnn2d = False
 # other_models = cnn1d = True
 
 calculate_cnn_hyperparams = True
@@ -6638,7 +6639,7 @@ X_train_singled
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
-if city and train_nn and calculate_cnn_hyperparams:
+if city and train_nn and cnn2d and calculate_cnn_hyperparams:
 
     model_time = pd.DataFrame({'city': [city_name],
                                'model': [MODEL_NAME],
@@ -6705,7 +6706,7 @@ if city and train_nn and calculate_cnn_hyperparams:
 # In[ ]:
 
 
-if city and train_nn:
+if city and train_nn and cnn2d:
     MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
@@ -6717,7 +6718,7 @@ if city and train_nn:
 # In[ ]:
 
 
-if city and not train_nn:
+if city and not train_nn and cnn2d:
     # MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{timestamp_load}.joblib"
     MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_2022-07-19-08:49:34.h5"
     # MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-18-19:50:16.h5'
@@ -6782,7 +6783,7 @@ if city and not train_nn:
 # In[254]:
 
 
-if city:
+if city and cnn2d:
 
     print("[INFO] evaluating network...")
 
