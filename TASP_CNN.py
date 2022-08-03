@@ -67,7 +67,7 @@ UK = True
 
 tree_method = 'auto' if laptop else 'gpu_hist'
 
-train_nn = not laptop
+train_nn = False
 other_models = cnn1d = False
 # other_models = cnn1d = True
 
@@ -6416,7 +6416,7 @@ if city and cnn1d:
 MODEL_NAME = MODELS_NAME[2]
 
 MODEL_PATH = f"{MODELS_PATH}{MODEL_NAME}/"
-MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
+MODEL_FILE_NAME = 'UK_convolution_2d_2022-08-03-10:32:15.h5'
 
 
 # #### Entrenamiento
@@ -6448,7 +6448,7 @@ if city and train_nn and not calculate_cnn_hyperparams:
     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                            # class_weight = pesos,
                            batch_size = batchSize,
-                           epochs = 75,
+                           epochs = 50,
                            shuffle = True,
                            validation_data = (array_test_images, Y_test_onehot))
 
