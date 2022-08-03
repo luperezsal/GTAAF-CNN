@@ -6237,31 +6237,74 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 # In[119]:
 
 
-# if city and train_nn and cnn1d:
-#     start = time.time()
+if city and train_nn and cnn1d:
+    start = time.time()
 
-#     fold_no = 1
-#     # for train, test in kfold.split(inputs, targets):
-#     history = convolution_1d.fit(array_train_images, Y_train_onehot,
-#                                  # class_weight = pesos,
-#                                  batch_size = 64,
-#                                  epochs = 100,
-#                                  shuffle = True,
-#                                  validation_data = (array_test_images, Y_test_onehot))
-#     end = time.time()
+    fold_no = 1
+    # for train, test in kfold.split(inputs, targets):
+    history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                                 # class_weight = pesos,
+                                 batch_size = 64,
+                                 epochs = 100,
+                                 shuffle = True,
+                                 validation_data = (array_test_images, Y_test_onehot))
+    end = time.time()
 
-#     ellapsed_time = round(end - start, 2)
+    ellapsed_time = round(end - start, 2)
 
-#     model_time = pd.DataFrame({'city': [city_name],
-#                                'model': [MODEL_NAME],
-#                                'time': [ellapsed_time]})
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
 
-#     times = times.append(model_time)
+    times = times.append(model_time)
 
-#     history
+    history
 
 
 # In[ ]:
+
+
+if city and train_nn and not calculate_cnn_hyperparams:
+    
+    fm_one, fm_two, fm_three, fm_four = (64, 512, 1024, 512)
+    n_classes = Y_train.unique()
+
+    dense  = 32
+
+    learnRate = 0.001
+
+    batchSize = 32
+
+    start = time.time()
+
+    convolution_1d = get_1d_conv(fm_one = fm_one,
+                           fm_two = fm_two,
+                           fm_three = fm_three,
+                           fm_four = fm_four,
+                           dense = dense,
+                           dropout = 0.2,
+                           learnRate = learnRate)
+
+    history = convolution_1d.fit(array_train_images, Y_train_onehot,
+                           # class_weight = pesos,
+                           batch_size = batchSize,
+                           epochs = 1,
+                           shuffle = True,
+                           validation_data = (array_test_images, Y_test_onehot))
+
+    end = time.time()
+
+    ellapsed_time = round(end - start, 2)
+
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': [ellapsed_time]})
+    times = times.append(model_time)    
+
+    history
+
+
+# In[124]:
 
 
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
@@ -6288,7 +6331,7 @@ if city and train_nn and calculate_cnn_hyperparams:
 
     batchSize = [32, 64, 128]
 
-    epochs = [20]
+    epochs = [1]
 
     # create a dictionary from the hyperparameter grid
     grid = dict(
@@ -6307,7 +6350,7 @@ if city and train_nn and calculate_cnn_hyperparams:
     print("[INFO] performing random search...")
     searcher = RandomizedSearchCV(estimator = model,
                                   n_iter = 2,
-                                  cv = 3,
+                                  cv = 1,
                                   param_distributions = grid,
                                   scoring = 'f1_micro')
 
@@ -6320,7 +6363,7 @@ if city and train_nn and calculate_cnn_hyperparams:
     print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
     print("[INFO] evaluating the best model...")
-    taspcnn = bestModel = searchResults.best_estimator_
+    convolution_1d = bestModel = searchResults.best_estimator_
     # accuracy = bestModel.score(array_test_images, Y_test)
     # print("accuracy: {:.2f}%".format(accuracy * 100))
 
