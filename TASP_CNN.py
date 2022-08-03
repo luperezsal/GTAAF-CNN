@@ -6350,8 +6350,8 @@ if city and train_nn and calculate_cnn_hyperparams:
     # start the hyperparameter search process
     print("[INFO] performing random search...")
     searcher = RandomizedSearchCV(estimator = model,
-                                  n_iter = 10,
-                                  cv = 2,
+                                  n_iter = 50,
+                                  cv = 3,
                                   param_distributions = grid,
                                   scoring = 'f1_micro')
 
