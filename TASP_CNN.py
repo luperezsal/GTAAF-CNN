@@ -6304,7 +6304,7 @@ if city and train_nn and not calculate_cnn_hyperparams:
     history
 
 
-# In[ ]:
+# In[128]:
 
 
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
@@ -6331,7 +6331,7 @@ if city and train_nn and calculate_cnn_hyperparams:
 
     batchSize = [32, 64, 128]
 
-    epochs = [2]
+    epochs = [1]
 
     # create a dictionary from the hyperparameter grid
     grid = dict(
@@ -6349,7 +6349,7 @@ if city and train_nn and calculate_cnn_hyperparams:
     # start the hyperparameter search process
     print("[INFO] performing random search...")
     searcher = RandomizedSearchCV(estimator = model,
-                                  n_iter = 2,
+                                  n_iter = 1,
                                   cv = 2,
                                   param_distributions = grid,
                                   scoring = 'f1_micro')
@@ -6363,7 +6363,7 @@ if city and train_nn and calculate_cnn_hyperparams:
     print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
     print("[INFO] evaluating the best model...")
-    convolution_1d = bestModel = searchResults.best_estimator_
+    convolution1d = bestModel = searchResults.best_estimator_
     # accuracy = bestModel.score(array_test_images, Y_test)
     # print("accuracy: {:.2f}%".format(accuracy * 100))
 
