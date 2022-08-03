@@ -737,27 +737,34 @@ num_classes = 2
 
 import tensorflow_addons as tfa
 
-lr_init = 0.1
+def get_1d_conv(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRate=0.01):
+    1d_conv = models.Sequential()
+    1d_conv.add(layers.Conv1D(fm_one, 3, strides=1, activation='relu', padding='same', input_shape=(5, 5, 1)))
+    1d_conv.add(layers.BatchNormalization())
+    1d_conv.add(layers.Conv1D(fm_two, 3, strides=1, activation='relu', padding='same'))
+    1d_conv.add(layers.BatchNormalization())
+    1d_conv.add(layers.Conv1D(fm_three, 3, strides=1, activation='relu', padding='same'))
+    1d_conv.add(layers.BatchNormalization())
+    1d_conv.add(layers.Conv1D(fm_four, 3, strides=1, activation='relu', padding='same'))
+    1d_conv.add(layers.Flatten())
+    1d_conv.add(layers.BatchNormalization())
+    1d_conv.add(layers.Dense(units=dense))
+    1d_conv.add(layers.BatchNormalization())
+    1d_conv.add(layers.Dense(num_classes, activation='sigmoid'))
 
-convolution_1d = models.Sequential()
-convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same', input_shape=(5, 5, 1)))
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same'))
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same'))
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Conv1D(256, 3, strides = 1, activation='relu', padding='same'))
-convolution_1d.add(layers.Flatten())
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Dense(units=128))
-convolution_1d.add(layers.BatchNormalization())
-convolution_1d.add(layers.Dense(num_classes, activation='softmax'))
+    1d_conv.compile(
+        optimizer=Adam(learning_rate = learnRate, epsilon=1e-06),
+        loss='binary_crossentropy',
+        metrics='accuracy'
+      )
+    
+    return 1d_conv
 
-convolution_1d.compile(
-    optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
-    loss='categorical_crossentropy',
-    metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
-  )
+# convolution_1d.compile(
+#     optimizer=Adam(learning_rate = lr_init, epsilon=1e-06),
+#     loss='categorical_crossentropy',
+#     metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+#   )
 
 
 # ## TASP-CNN
@@ -6199,28 +6206,96 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 # In[ ]:
 
 
-if city and train_nn and cnn1d:
-    start = time.time()
+# if city and train_nn and cnn1d:
+#     start = time.time()
 
-    fold_no = 1
-    # for train, test in kfold.split(inputs, targets):
-    history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                                 # class_weight = pesos,
-                                 batch_size = 64,
-                                 epochs = 100,
-                                 shuffle = True,
-                                 validation_data = (array_test_images, Y_test_onehot))
-    end = time.time()
+#     fold_no = 1
+#     # for train, test in kfold.split(inputs, targets):
+#     history = convolution_1d.fit(array_train_images, Y_train_onehot,
+#                                  # class_weight = pesos,
+#                                  batch_size = 64,
+#                                  epochs = 100,
+#                                  shuffle = True,
+#                                  validation_data = (array_test_images, Y_test_onehot))
+#     end = time.time()
 
-    ellapsed_time = round(end - start, 2)
+#     ellapsed_time = round(end - start, 2)
+
+#     model_time = pd.DataFrame({'city': [city_name],
+#                                'model': [MODEL_NAME],
+#                                'time': [ellapsed_time]})
+
+#     times = times.append(model_time)
+
+#     history
+
+
+# In[ ]:
+
+
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import RandomizedSearchCV
+
+if city and train_nn and calculate_cnn_hyperparams:
 
     model_time = pd.DataFrame({'city': [city_name],
                                'model': [MODEL_NAME],
-                               'time': [ellapsed_time]})
-
+                               'time': 0})
     times = times.append(model_time)
+    # wrap our model into a scikit-learn compatible classifier
+    print("[INFO] initializing model...")
+    model = KerasClassifier(build_fn=get_1d_conv, verbose=10)
 
-    history
+    # define a grid of the hyperparameter search space
+
+    # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
+    fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
+
+    dense  = [32, 64, 128, 256]
+
+    learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+
+    batchSize = [32, 64, 128]
+
+    epochs = [40]
+
+    # create a dictionary from the hyperparameter grid
+    grid = dict(
+        fm_one = fm_one,
+        fm_two = fm_two,
+        fm_three = fm_three,
+        fm_four = fm_four,
+        dense = dense,
+        learnRate=learnRate,
+        batch_size=batchSize,
+        epochs=epochs
+    )
+
+    # initialize a random search with a 3-fold cross-validation and then
+    # start the hyperparameter search process
+    print("[INFO] performing random search...")
+    searcher = RandomizedSearchCV(estimator = model,
+                                  n_iter = 60,
+                                  cv = 3,
+                                  param_distributions = grid,
+                                  scoring = 'f1_micro')
+
+    searchResults = searcher.fit(array_train_images, Y_train)
+
+    # summarize grid search information
+    bestScore = searchResults.best_score_
+    bestParams = searchResults.best_params_
+
+    print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+
+    print("[INFO] evaluating the best model...")
+    taspcnn = bestModel = searchResults.best_estimator_
+    # accuracy = bestModel.score(array_test_images, Y_test)
+    # print("accuracy: {:.2f}%".format(accuracy * 100))
+
+    text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+    n = text_file.write(str(searchResults.cv_results_))
+    text_file.close()
 
 
 # #### Escritura del modelo
@@ -6448,7 +6523,7 @@ if city and train_nn and not calculate_cnn_hyperparams:
     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                            # class_weight = pesos,
                            batch_size = batchSize,
-                           epochs = 50,
+                           epochs = 1,
                            shuffle = True,
                            validation_data = (array_test_images, Y_test_onehot))
 
