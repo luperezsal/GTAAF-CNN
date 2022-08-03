@@ -69,7 +69,7 @@ tree_method = 'auto' if laptop else 'gpu_hist'
 
 train_nn = not laptop
 other_models = cnn1d = False
-other_models = cnn1d = True
+# other_models = cnn1d = True
 
 calculate_cnn_hyperparams = False
 
@@ -810,12 +810,12 @@ def get_tasp_cnn(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRat
     tasp_cnn.add(layers.BatchNormalization())
     tasp_cnn.add(layers.Dense(units=dense))
     tasp_cnn.add(layers.BatchNormalization())
-    tasp_cnn.add(layers.Dense(num_classes, activation='softmax'))
+    tasp_cnn.add(layers.Dense(num_classes, activation='sigmoid'))
 
     tasp_cnn.compile(
         optimizer=Adam(learning_rate = learnRate, epsilon=1e-06),
-        loss='categorical_crossentropy',
-        metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
+        loss='binary_crossentropy',
+        metrics='accuracy'
       )
     
     return tasp_cnn
@@ -6518,8 +6518,6 @@ if city and train_nn and calculate_cnn_hyperparams:
         fm_two = fm_two,
         fm_three = fm_three,
         fm_four = fm_four,
-        # fm_five = fm_five,
-        # fm_six = fm_six,
         dense = dense,
         learnRate=learnRate,
         batch_size=batchSize,
