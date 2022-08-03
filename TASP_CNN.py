@@ -6234,7 +6234,7 @@ MODEL_FILE_NAME = f"{city_name}_{MODEL_NAME}_{MODEL_TIMESTAMP}.h5"
 
 # #### Entrenamiento
 
-# In[119]:
+# In[125]:
 
 
 if city and train_nn and cnn1d and not calculate_cnn_hyperparams:
@@ -6261,7 +6261,7 @@ if city and train_nn and cnn1d and not calculate_cnn_hyperparams:
     history
 
 
-# In[ ]:
+# In[126]:
 
 
 if city and train_nn and not calculate_cnn_hyperparams:
@@ -6304,7 +6304,7 @@ if city and train_nn and not calculate_cnn_hyperparams:
     history
 
 
-# In[124]:
+# In[ ]:
 
 
 from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
@@ -6331,7 +6331,7 @@ if city and train_nn and calculate_cnn_hyperparams:
 
     batchSize = [32, 64, 128]
 
-    epochs = [1]
+    epochs = [2]
 
     # create a dictionary from the hyperparameter grid
     grid = dict(
@@ -6350,7 +6350,7 @@ if city and train_nn and calculate_cnn_hyperparams:
     print("[INFO] performing random search...")
     searcher = RandomizedSearchCV(estimator = model,
                                   n_iter = 2,
-                                  cv = 1,
+                                  cv = 2,
                                   param_distributions = grid,
                                   scoring = 'f1_micro')
 
