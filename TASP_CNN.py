@@ -71,7 +71,7 @@ train_nn = not laptop
 other_models = cnn1d = False
 # other_models = cnn1d = True
 
-calculate_cnn_hyperparams = False
+calculate_cnn_hyperparams = True
 
 
 # In[72]:
@@ -915,10 +915,10 @@ def save_classification_report_and_confussion_matrix(model_name, model_timestamp
     report_name = f"{city_name}_{MODEL_NAME}_report_{model_timestamp}.csv"
 
 
-    plot_classification_report(path = report_path,
-                               file_name = report_name,
-                               y_true = y_true,
-                               y_predicted = y_predicted)
+    # plot_classification_report(path = report_path,
+    #                            file_name = report_name,
+    #                            y_true = y_true,
+    #                            y_predicted = y_predicted)
 
 
     confussion_matrix_path = f"{CONFUSIONS_MATRIX_PATH}{model_name}/{data}/"
@@ -6275,7 +6275,7 @@ if city and train_nn and calculate_cnn_hyperparams:
     # start the hyperparameter search process
     print("[INFO] performing random search...")
     searcher = RandomizedSearchCV(estimator = model,
-                                  n_iter = 60,
+                                  n_iter = 15,
                                   cv = 3,
                                   param_distributions = grid,
                                   scoring = 'f1_micro')
