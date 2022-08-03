@@ -71,6 +71,8 @@ train_nn = not laptop
 other_models = cnn1d = False
 other_models = cnn1d = True
 
+calculate_cnn_hyperparams = False
+
 
 # In[72]:
 
@@ -6422,7 +6424,7 @@ MODEL_FILE_NAME = 'madrid_convolution_2d_2022-05-19-06:33:55.h5'
 # In[250]:
 
 
-if city and train_nn:
+if city and train_nn and not calculate_cnn_hyperparams:
     
     fm_one, fm_two, fm_three, fm_four = (64, 512, 1024, 512)
     n_classes = Y_train.unique()
@@ -6484,71 +6486,71 @@ X_train_singled
 # In[253]:
 
 
-# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-# from sklearn.model_selection import RandomizedSearchCV
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import RandomizedSearchCV
 
-# if city and train_nn:
+if city and train_nn and calculate_cnn_hyperparams:
 
-#     model_time = pd.DataFrame({'city': [city_name],
-#                                'model': [MODEL_NAME],
-#                                'time': 0})
-#     times = times.append(model_time)
-#     # wrap our model into a scikit-learn compatible classifier
-#     print("[INFO] initializing model...")
-#     model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
+    model_time = pd.DataFrame({'city': [city_name],
+                               'model': [MODEL_NAME],
+                               'time': 0})
+    times = times.append(model_time)
+    # wrap our model into a scikit-learn compatible classifier
+    print("[INFO] initializing model...")
+    model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
 
-#     # define a grid of the hyperparameter search space
+    # define a grid of the hyperparameter search space
 
-#     # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
-#     fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
+    # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
+    fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
 
-#     dense  = [32, 64, 128, 256]
+    dense  = [32, 64, 128, 256]
 
-#     learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+    learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
-#     batchSize = [32, 64, 128]
+    batchSize = [32, 64, 128]
 
-#     epochs = [40]
+    epochs = [40]
 
-#     # create a dictionary from the hyperparameter grid
-#     grid = dict(
-#         fm_one = fm_one,
-#         fm_two = fm_two,
-#         fm_three = fm_three,
-#         fm_four = fm_four,
-#         # fm_five = fm_five,
-#         # fm_six = fm_six,
-#         dense = dense,
-#         learnRate=learnRate,
-#         batch_size=batchSize,
-#         epochs=epochs
-#     )
+    # create a dictionary from the hyperparameter grid
+    grid = dict(
+        fm_one = fm_one,
+        fm_two = fm_two,
+        fm_three = fm_three,
+        fm_four = fm_four,
+        # fm_five = fm_five,
+        # fm_six = fm_six,
+        dense = dense,
+        learnRate=learnRate,
+        batch_size=batchSize,
+        epochs=epochs
+    )
 
-#     # initialize a random search with a 3-fold cross-validation and then
-#     # start the hyperparameter search process
-#     print("[INFO] performing random search...")
-#     searcher = RandomizedSearchCV(estimator = model,
-#                                   n_iter = 60,
-#                                   cv = 3,
-#                                   param_distributions = grid,
-#                                   scoring = 'f1_micro')
+    # initialize a random search with a 3-fold cross-validation and then
+    # start the hyperparameter search process
+    print("[INFO] performing random search...")
+    searcher = RandomizedSearchCV(estimator = model,
+                                  n_iter = 60,
+                                  cv = 3,
+                                  param_distributions = grid,
+                                  scoring = 'f1_micro')
 
-#     searchResults = searcher.fit(array_train_images, Y_train)
+    searchResults = searcher.fit(array_train_images, Y_train)
 
-#     # summarize grid search information
-#     bestScore = searchResults.best_score_
-#     bestParams = searchResults.best_params_
+    # summarize grid search information
+    bestScore = searchResults.best_score_
+    bestParams = searchResults.best_params_
 
-#     print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+    print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
-#     print("[INFO] evaluating the best model...")
-#     taspcnn = bestModel = searchResults.best_estimator_
-#     # accuracy = bestModel.score(array_test_images, Y_test)
-#     # print("accuracy: {:.2f}%".format(accuracy * 100))
+    print("[INFO] evaluating the best model...")
+    taspcnn = bestModel = searchResults.best_estimator_
+    # accuracy = bestModel.score(array_test_images, Y_test)
+    # print("accuracy: {:.2f}%".format(accuracy * 100))
 
-#     text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
-#     n = text_file.write(str(searchResults.cv_results_))
-#     text_file.close()
+    text_file = open(f"./CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+    n = text_file.write(str(searchResults.cv_results_))
+    text_file.close()
 
 
 # #### Escritura del modelo
@@ -6643,9 +6645,10 @@ if city:
         F1_SCORE_PATH = f"{F1_SCORES_PATH}{MODEL_NAME}/"
         F1_SCORE_NAME = f"{city_name}_{MODEL_NAME}_f1_score_{MODEL_TIMESTAMP}.svg"
 
-        # plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
-        #                       f1_score_name = F1_SCORE_NAME,
-        #                       history = history)
+        if not calculate_cnn_hyperparams:
+            plot_f1_score_history(f1_score_path = F1_SCORE_PATH,
+                                  f1_score_name = F1_SCORE_NAME,
+                                  history = history)
 
         Y_train_predicted = tasp_cnn.predict(x = array_train_images).argmax(axis = 1)
 
