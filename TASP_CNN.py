@@ -5083,7 +5083,7 @@ from sklearn.model_selection import train_test_split
 
 Y = data_frame[target_class]
 
-train, test = train_test_split(data_frame, test_size = 0.2, random_state = 1)
+train, test = train_test_split(data_frame, test_size = 0.3)
 X_train = X_train_original = train.loc[:, ~train.columns.isin([target_class])]
 Y_train = Y_train_original = train[target_class]
 
@@ -5121,12 +5121,6 @@ Y_test = test[target_class]
 
 # # X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin([target_class])]
 # # Y_test_downsampled = downsampled_test[target_class]
-
-
-# In[ ]:
-
-
-
 
 
 # In[56]:
