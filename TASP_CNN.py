@@ -6508,7 +6508,7 @@ if city and train_nn and not calculate_cnn_hyperparams:
     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                            # class_weight = pesos,
                            batch_size = batchSize,
-                           epochs = 1,
+                           epochs = 100,
                            shuffle = True,
                            validation_data = (array_test_images, Y_test_onehot))
 
