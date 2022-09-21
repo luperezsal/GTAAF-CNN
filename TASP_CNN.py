@@ -855,7 +855,7 @@ def get_tasp_cnn(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRat
     tasp_cnn.compile(
         optimizer=Adam(learning_rate = learnRate, epsilon=1e-06),
         loss='categorical_crossentropy',
-        metrics='accuracy'
+        metrics=[tfa.metrics.F1Score(num_classes = num_classes, average='micro', threshold=0.1)]
       )
     
     return tasp_cnn
@@ -4283,7 +4283,7 @@ if city:
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[236]:
 
 
 if city and train_nn:
@@ -4309,7 +4309,7 @@ if city and train_nn:
     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
                            # class_weight = pesos,
                            batch_size = batchSize,
-                           epochs = 75,
+                           epochs = 100,
                            shuffle = True,
                            validation_data = (array_test_images, Y_test_onehot))
 
@@ -4472,7 +4472,7 @@ if city and not train_nn and not laptop:
 
 # #### Resultados
 
-# In[ ]:
+# In[237]:
 
 
 if city and not laptop:
@@ -4502,6 +4502,12 @@ if city and not laptop:
                                                      y_true = Y_test,
                                                      y_predicted = Y_predicted,
                                                      data = 'test')
+
+
+# In[239]:
+
+
+history.history
 
 
 # ## AutoML
