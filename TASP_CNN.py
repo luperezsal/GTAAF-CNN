@@ -3337,32 +3337,32 @@ if calculate_weights and madrid:
 # In[203]:
 
 
-# best_solution_history_2 = best_solution_history.copy()
-# best_solution_history_2 =  np.append([[0, 0, 0]] ,best_solution_history)
+# # best_solution_history_2 = best_solution_history.copy()
+# # best_solution_history_2 =  np.append([[0, 0, 0]] ,best_solution_history)
 
-FILE_NAME = "save2.json"
+# FILE_NAME = "save2.json"
 
-# np.savetxt(FILE_NAME, best_solution_history, fmt='%s')
-vector = load_json('./', FILE_NAME)
-with open(FILE_NAME) as json_file:
-    data = json.load(json_file)
+# # np.savetxt(FILE_NAME, best_solution_history, fmt='%s')
+# vector = load_json('./', FILE_NAME)
+# with open(FILE_NAME) as json_file:
+#     data = json.load(json_file)
 
 
 # In[204]:
 
 
-new_array = []
-for one_list in data:
-    new_array.append(np.asarray(one_list))
+# new_array = []
+# for one_list in data:
+#     new_array.append(np.asarray(one_list))
 
-new_array = np.asarray(new_array)
+# new_array = np.asarray(new_array)
 
 
 # In[205]:
 
 
-for i in range(0,4):
-    print(i)
+# for i in range(0,4):
+#     print(i)
 
 
 # In[206]:
@@ -3387,7 +3387,7 @@ for i in range(0,4):
 # In[207]:
 
 
-data
+# data
 
 
 # ### Hiperparámetros
