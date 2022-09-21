@@ -877,12 +877,6 @@ print('Done!')
 
 # ### F1-Score History
 
-# In[ ]:
-
-
-history.history['f1_score']
-
-
 # In[74]:
 
 
