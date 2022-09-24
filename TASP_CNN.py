@@ -14,7 +14,7 @@
 
 # ## Carga Google Drive
 
-# In[40]:
+# In[1]:
 
 
 # from google.colab import drive
@@ -23,7 +23,7 @@
 
 # ## Versión y especificación de directorios
 
-# In[41]:
+# In[2]:
 
 
 from datetime import datetime
@@ -54,7 +54,7 @@ REPORTS_SUMMARY_PATH = f"{REPORTS_PATH}summary/"
 loaded_timestamp = '2022-07-06-10:47:41'
 
 
-# In[42]:
+# In[3]:
 
 
 laptop = False
@@ -77,7 +77,7 @@ other_models = cnn1d = True
 calculate_cnn_hyperparams = False
 
 
-# In[43]:
+# In[4]:
 
 
 # laptop = True
@@ -96,13 +96,13 @@ calculate_cnn_hyperparams = False
 
 # ## Importar Tensorflow
 
-# In[44]:
+# In[5]:
 
 
 # !pip install tensorflow-addons
 
 
-# In[45]:
+# In[6]:
 
 
 import tensorflow as tf
@@ -117,7 +117,7 @@ from tensorflow.keras.utils import model_to_dot, plot_model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, BatchNormalization, Add, concatenate, Conv2DTranspose, Flatten
 
 
-# In[46]:
+# In[7]:
 
 
 device_name = tf.test.gpu_device_name()
@@ -129,7 +129,7 @@ print('Found GPU at: {}'.format(device_name))
 
 # ## Importador/Exportador JSON
 
-# In[47]:
+# In[8]:
 
 
 import json
@@ -147,7 +147,7 @@ def load_json(root_path, file_name):
 
 # ## Construcción de imágenes
 
-# In[48]:
+# In[9]:
 
 
 import numpy as np
@@ -227,7 +227,7 @@ def fv2gi(feature_vector):
 
 # ## Construcción Feature Vector
 
-# In[49]:
+# In[10]:
 
 
 def fill_feature_vector(X_dataset,child_weights):
@@ -249,7 +249,7 @@ def fill_feature_vector(X_dataset,child_weights):
 
 # ## Normalización de datos
 
-# In[50]:
+# In[11]:
 
 
 from scipy.stats import zscore
@@ -269,7 +269,7 @@ def normalize_data(X_data):
 
 # ## Oversampling de datos
 
-# In[51]:
+# In[12]:
 
 
 from imblearn.over_sampling import BorderlineSMOTE
@@ -298,7 +298,7 @@ def oversample_data(X_data, Y_labels):
 
 # ## Construcción de imágenes
 
-# In[52]:
+# In[13]:
 
 
 def build_gray_images(dataset, max_dimension, matrix_indexes):
@@ -313,7 +313,7 @@ def build_gray_images(dataset, max_dimension, matrix_indexes):
 
 # ## Algoritmo genético
 
-# In[53]:
+# In[14]:
 
 
 HYPERPARAMS_TO_OPTIMIZE = {'eta': {'type': 'float',
@@ -341,7 +341,7 @@ number_of_generations = 50
 
 # ### Inicializar población
 
-# In[54]:
+# In[15]:
 
 
 def generate_individual(hyperparams_to_optimize):
@@ -377,7 +377,7 @@ def initialize_population(number_of_individuals, hyperparams_to_optimize):
 
 # ### Fitness function
 
-# In[55]:
+# In[16]:
 
 
 from sklearn.metrics import f1_score
@@ -391,7 +391,7 @@ def fitness_f1score(y_true, y_pred):
 
 # ### Evaluación de población
 
-# In[56]:
+# In[17]:
 
 
 from xgboost import XGBClassifier
@@ -451,7 +451,7 @@ def train_population(population, hyperparams_to_optimize, dMatrixTrain, dMatrixT
 
 # ### Selección de padres
 
-# In[57]:
+# In[18]:
 
 
 # Select parents for mating
@@ -469,7 +469,7 @@ def new_parents_selection(population, fitness, numParents):
 
 # ### Cruzamiento de población
 
-# In[58]:
+# In[19]:
 
 
 '''
@@ -503,7 +503,7 @@ def crossover_uniform(parents, childrenSize):
 
 # ### Mutación
 
-# In[59]:
+# In[20]:
 
 
 def mutation(crossover, hyperparams_to_optimize):
@@ -558,7 +558,7 @@ def mutation(crossover, hyperparams_to_optimize):
 
 # ## Reshape de imágenes
 
-# In[60]:
+# In[21]:
 
 
 # Add one channel
@@ -581,7 +581,7 @@ def shape_images(X_data, gray_images):
 
 # ## One-Hot Encoder/Decoder
 
-# In[61]:
+# In[22]:
 
 
 def casualty_to_one_hot(Y_labels):
@@ -607,7 +607,7 @@ def one_hot_to_casualty(Y_labels):
     return Y_labels.replace(transf)
 
 
-# In[62]:
+# In[23]:
 
 
 # def casualty_to_one_hot(Y_labels):
@@ -635,7 +635,7 @@ def one_hot_to_casualty(Y_labels):
 
 # ### Matriz de correlación
 
-# In[63]:
+# In[24]:
 
 
 import seaborn as sns
@@ -651,7 +651,7 @@ def correlation_matrix(X_data):
 
 # ### PCA
 
-# In[64]:
+# In[25]:
 
 
 from sklearn.decomposition import PCA
@@ -672,7 +672,7 @@ def pca(X_train_data, X_test_data):
 
 # ### TSNE
 
-# In[65]:
+# In[26]:
 
 
 from sklearn.manifold import TSNE
@@ -702,7 +702,7 @@ def plot_TSNE(X_data, Y_data, n_components, output_file_name, title):
 
 # ### Autoencoder
 
-# In[66]:
+# In[27]:
 
 
 def autoencoder ():
@@ -729,13 +729,13 @@ def autoencoder ():
 
 # ## 1D-Convolution
 
-# In[153]:
+# In[28]:
 
 
 num_classes = 3
 
 
-# In[154]:
+# In[29]:
 
 
 
@@ -765,7 +765,7 @@ convolution_1d.compile(
   )
 
 
-# In[69]:
+# In[30]:
 
 
 import tensorflow_addons as tfa
@@ -802,7 +802,7 @@ def get_1d_conv(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRate
 
 # ## TASP-CNN
 
-# In[70]:
+# In[31]:
 
 
 lr_init = 0.0001
@@ -833,7 +833,7 @@ tasp_cnn.compile(
   )
 
 
-# In[71]:
+# In[32]:
 
 
 # def get_tasp_cnn(fm_one, fm_two, fm_three, fm_four, fm_five, fm_six, dense, dropout=0.2, learnRate=0.01):
@@ -861,13 +861,13 @@ def get_tasp_cnn(fm_one, fm_two, fm_three, fm_four, dense, dropout=0.2, learnRat
     return tasp_cnn
 
 
-# In[72]:
+# In[33]:
 
 
 tasp_cnn.summary()
 
 
-# In[73]:
+# In[34]:
 
 
 print('Done!')
@@ -877,7 +877,7 @@ print('Done!')
 
 # ### F1-Score History
 
-# In[74]:
+# In[35]:
 
 
 def plot_f1_score_history(f1_score_path, f1_score_name, history):
@@ -900,7 +900,7 @@ def plot_f1_score_history(f1_score_path, f1_score_name, history):
 
 # ### Classification Report
 
-# In[75]:
+# In[36]:
 
 
 from sklearn.metrics import classification_report
@@ -922,7 +922,7 @@ def plot_classification_report(path, file_name, y_true, y_predicted):
 
 # ### Confusion Matrix
 
-# In[76]:
+# In[37]:
 
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -941,7 +941,7 @@ def plot_confusion_matrix(path, file_name, y_true, y_predicted):
     plt.savefig(path + file_name, dpi = 150)
 
 
-# In[77]:
+# In[38]:
 
 
 def save_classification_report_and_confussion_matrix(model_name, model_timestamp, y_true, y_predicted, data):
@@ -966,7 +966,7 @@ def save_classification_report_and_confussion_matrix(model_name, model_timestamp
                           y_predicted = y_predicted)
 
 
-# In[78]:
+# In[39]:
 
 
 print('Done!')
@@ -2382,14 +2382,14 @@ MODEL_NAME = 'auto_ml'
 # 
 # 
 
-# In[175]:
+# In[40]:
 
 
 loaded_timestamp = '2022-05-24-11:01:39'
 model_version = '2022-05-17-20:07:36'
 
 
-# In[176]:
+# In[41]:
 
 
 import pandas as pd
@@ -2440,7 +2440,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # A partir del número de expediente (un mismo expediente en varias filas quiere decir que se trata del mismo accidente) se hace un `groupby` a partir de él. Como el atributo `positiva_alcohol` no tiene valores nulos en ninguna de las filas, hacemos un conteo a partir de él y se asigna a una nueva columna `positiva_alcohol_rename` que posteriormente será renombrada como `vehiculos_implicados`
 
-# In[177]:
+# In[42]:
 
 
 data_frame = data_frame.join(data_frame.groupby('num_expediente')['positiva_alcohol'].count(), on='num_expediente', rsuffix='_rename')
@@ -2453,7 +2453,7 @@ data_frame = data_frame.reset_index(drop=True)
 
 # ### Clasificación de carreteras
 
-# In[178]:
+# In[43]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2532,20 +2532,20 @@ for index,regex_values in enumerate(regex.values()):
 # data_frame = data_frame[~(data_frame.tipo_via == 'N/A')]
 
 
-# In[179]:
+# In[44]:
 
 
 index_of_assigned_location_values = data_frame[~data_frame.localizacion.str.isnumeric()].index
 data_frame.loc[index_of_assigned_location_values, 'localizacion'] = 19
 
 
-# In[180]:
+# In[45]:
 
 
 data_frame.localizacion.value_counts()
 
 
-# In[181]:
+# In[46]:
 
 
 # ######################### SIGUIENTE CELDA #########################
@@ -2608,7 +2608,7 @@ data_frame.localizacion.value_counts()
 # # print(data_frame.localizacion.unique())
 
 
-# In[182]:
+# In[47]:
 
 
 data_frame
@@ -2623,7 +2623,7 @@ data_frame
 # - Patinetes y Vehículos de Mobilidad Urbana se consideran como `Mobility Scooters`.
 # - `Vehículo articulado` se considera como un vehículo de más de 7.5 toneladas.
 
-# In[183]:
+# In[48]:
 
 
 weather_conditions_replace = {
@@ -2827,7 +2827,7 @@ data_frame = data_frame[data_frame.lesividad != 77]
 # 
 # Por lo que el objetivo es estandarizar todos los formatos convirtiendo cada una de las coordenadas a un número entero, siendo necesario tratar con cada una de las casuísticas para añadir ceros a la derecha en caso de que falten para que cada una de las coordenadas tenga la misma longitud.
 
-# In[184]:
+# In[49]:
 
 
 # Todos las comas a puntos
@@ -2916,7 +2916,7 @@ data_frame.processed_y_utm = data_frame.processed_y_utm.astype(int)
 
 # ### Renombrado y eliminación de columnas
 
-# In[185]:
+# In[50]:
 
 
 # COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm', 'positiva_droga']
@@ -2935,13 +2935,13 @@ data_frame = data_frame.dropna()
 data_frame = data_frame.reset_index(drop=True)
 
 
-# In[186]:
+# In[51]:
 
 
 data_frame
 
 
-# In[187]:
+# In[52]:
 
 
 # X_data_frame = data_frame.loc[:, ~data_frame.columns.isin(['lesividad'])]
@@ -2954,7 +2954,7 @@ data_frame
 
 # Histograma de desbalanceo
 
-# In[188]:
+# In[53]:
 
 
 from sklearn.model_selection import train_test_split
@@ -2973,7 +2973,7 @@ X_test = X_test.astype(int)
 Y_test = test['lesividad']
 
 
-# In[189]:
+# In[54]:
 
 
 plt.figure(figsize=(20, 10))
@@ -2984,13 +2984,13 @@ plt.savefig('histograms_images/original.svg')
 one_hot_to_casualty(Y_train).value_counts()
 
 
-# In[190]:
+# In[55]:
 
 
 Y_test.value_counts()
 
 
-# In[191]:
+# In[56]:
 
 
 # # FILE_NAME = f"{city_name}_calculated_weights.json"
@@ -2999,7 +2999,7 @@ Y_test.value_counts()
 # feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 
-# In[192]:
+# In[57]:
 
 
 
@@ -3062,7 +3062,7 @@ Y_test.value_counts()
 
 # ## Normalización de datos
 
-# In[193]:
+# In[58]:
 
 
 X_train = X_train.astype(int)
@@ -3077,7 +3077,7 @@ X_test  = normalize_data(X_test)
 
 # ## Oversampling de datos
 
-# In[194]:
+# In[59]:
 
 
 print('********** Before OverSampling **********')
@@ -3089,7 +3089,7 @@ print('\n Total X:', len(X_train), ' Total Y:', len(Y_train), '\n')
 X_train, Y_train = oversample_data(X_train, Y_train)
 
 
-# In[195]:
+# In[60]:
 
 
 plt.figure(figsize=(20, 10))
@@ -3102,7 +3102,7 @@ Y_train.value_counts()
 
 # ## Downsampling de datos
 
-# In[196]:
+# In[61]:
 
 
 from sklearn.model_selection import train_test_split
@@ -3133,7 +3133,7 @@ X_test_downsampled = downsampled_test.loc[:, ~downsampled_test.columns.isin(['le
 Y_test_downsampled = downsampled_test['lesividad']
 
 
-# In[197]:
+# In[62]:
 
 
 # plt.figure(figsize=(20, 10))
@@ -3152,7 +3152,7 @@ Y_test_downsampled = downsampled_test['lesividad']
 # Y_train_downsampled.value_counts()
 
 
-# In[198]:
+# In[63]:
 
 
 X_train = X_train.astype(int)
@@ -3169,7 +3169,7 @@ X_train_downsampled = normalize_data(X_train_downsampled)
 X_test_downsampled  = normalize_data(X_test_downsampled)
 
 
-# In[199]:
+# In[64]:
 
 
 # X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.2, random_state = 2)
@@ -3177,7 +3177,7 @@ X_test_downsampled  = normalize_data(X_test_downsampled)
 
 # ## XGBoost
 
-# In[200]:
+# In[65]:
 
 
 from xgboost import XGBClassifier
@@ -3187,7 +3187,7 @@ from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 
 # ### Genético
 
-# In[201]:
+# In[66]:
 
 
 if calculate_weights:
@@ -3299,7 +3299,7 @@ if calculate_weights:
         best_hyperparams[hyperparam] = population[bestFitnessIndex][n_param]
 
 
-# In[202]:
+# In[67]:
 
 
 if calculate_weights and madrid:
@@ -3334,7 +3334,7 @@ if calculate_weights and madrid:
     np.savetxt(FINAL_POPULATION_PATH + FILE_NAME, population, fmt='%s')
 
 
-# In[203]:
+# In[68]:
 
 
 # # best_solution_history_2 = best_solution_history.copy()
@@ -3348,7 +3348,7 @@ if calculate_weights and madrid:
 #     data = json.load(json_file)
 
 
-# In[204]:
+# In[69]:
 
 
 # new_array = []
@@ -3358,14 +3358,14 @@ if calculate_weights and madrid:
 # new_array = np.asarray(new_array)
 
 
-# In[205]:
+# In[70]:
 
 
 # for i in range(0,4):
 #     print(i)
 
 
-# In[206]:
+# In[71]:
 
 
 # vector = np.array(data).reshape(-1, 4)
@@ -3384,7 +3384,7 @@ if calculate_weights and madrid:
 #     plt.savefig('new.svg', dpi=300)
 
 
-# In[207]:
+# In[72]:
 
 
 # data
@@ -3396,7 +3396,7 @@ if calculate_weights and madrid:
 
 # #### Carga hiperparámetros
 
-# In[208]:
+# In[73]:
 
 
 if not calculate_weights and city:
@@ -3417,7 +3417,7 @@ if not calculate_weights and city:
 
 # #### Escritura hiperparámetros
 
-# In[209]:
+# In[74]:
 
 
 if calculate_weights and city:
@@ -3431,7 +3431,7 @@ if calculate_weights and city:
 
 # #### Carga definitiva/auxiliar de pesos
 
-# In[210]:
+# In[75]:
 
 
 # FILE_NAME = 'madrid_adapted_leeds_default_weights.json'
@@ -3473,7 +3473,7 @@ feature_vector = load_json(WEIGHTS_PATH, FILE_NAME)
 
 # #### Cálculo de pesos de caracetrísticas
 
-# In[211]:
+# In[76]:
 
 
 if calculate_weights and city:
@@ -3489,7 +3489,7 @@ if calculate_weights and city:
 
 # #### Visualización pesos calculados
 
-# In[212]:
+# In[77]:
 
 
 if calculate_weights and city:
@@ -3515,7 +3515,7 @@ if calculate_weights and city:
 # - v6: Pesos calculados con hiperparámetros. En el dataset están tipificados los vehículos como en el artículo, las edades están en rango.
 # - v7: hiperparams, tipos de carretera tipificados por vía.
 
-# In[213]:
+# In[78]:
 
 
 if calculate_weights and madrid:
@@ -3527,7 +3527,7 @@ if calculate_weights and madrid:
     write_json(feature_vector, WEIGHTS_PATH, FILE_NAME)
 
 
-# In[214]:
+# In[79]:
 
 
 feature_vector
@@ -3535,7 +3535,7 @@ feature_vector
 
 # ### Cálculo índices de matriz
 
-# In[215]:
+# In[80]:
 
 
 if city:
@@ -3544,7 +3544,7 @@ if city:
 
 # ## Construcción de imágenes
 
-# In[216]:
+# In[81]:
 
 
 if city:
@@ -3560,7 +3560,7 @@ if city:
 
 # ## Reshape de imágenes
 
-# In[217]:
+# In[82]:
 
 
 if city:
@@ -3578,7 +3578,7 @@ if city:
                                 gray_images = test_bgi)
 
 
-# In[218]:
+# In[83]:
 
 
 if city:
@@ -3593,7 +3593,7 @@ if city:
         plt.show()
 
 
-# In[219]:
+# In[84]:
 
 
 # train_images = shape_images(X_data = X_train,
@@ -3604,7 +3604,7 @@ if city:
 
 # ## Visualización de datos
 
-# In[220]:
+# In[85]:
 
 
 # !conda install -c anaconda seaborn --y
@@ -3612,13 +3612,13 @@ if city:
 
 # ### Matriz de correlación
 
-# In[221]:
+# In[86]:
 
 
 # p
 
 
-# In[222]:
+# In[87]:
 
 
 # data_frame = ['', '', '', '', 'Weather conditions', 'Vehicle']
@@ -3627,7 +3627,7 @@ if city:
 
 # ### PCA
 
-# In[223]:
+# In[88]:
 
 
 # pca(X_train, X_test)
@@ -3635,7 +3635,7 @@ if city:
 
 # ### TSNE
 
-# In[224]:
+# In[89]:
 
 
 if city:
@@ -3645,7 +3645,7 @@ if city:
     index_fatal   = Y_train[Y_train == 'Fatal'][:n_samples].index
 
 
-# In[225]:
+# In[90]:
 
 
 if city:
@@ -3664,7 +3664,7 @@ if city:
     Y_train_tsne = pd.concat([Y_slight_train_tsne, Y_serious_train_tsne, Y_fatal_train_tsne])
 
 
-# In[226]:
+# In[91]:
 
 
 if city:
@@ -3676,7 +3676,7 @@ if city:
     index_fatal   = Y_train_original[Y_train_original == 'Fatal'][:n_samples].index
 
 
-# In[227]:
+# In[92]:
 
 
 if city:
@@ -3695,7 +3695,7 @@ if city:
     Y_clean_tsne = pd.concat([Y_slight_clean_tsne, Y_serious_clean_tsne, Y_fatal_clean_tsne])
 
 
-# In[228]:
+# In[93]:
 
 
 if tsne and city:
@@ -3716,7 +3716,7 @@ if tsne and city:
 
 # #### Entrenamiento
 
-# In[229]:
+# In[94]:
 
 
 # # input_img = Input(shape=(25,))
@@ -3750,7 +3750,7 @@ if tsne and city:
 
 # #### Visualización
 
-# In[230]:
+# In[95]:
 
 
 # # create encoder model
@@ -3806,7 +3806,7 @@ if tsne and city:
 
 # ## One-Hot
 
-# In[231]:
+# In[96]:
 
 
 if city:
@@ -3821,7 +3821,7 @@ if city:
     array_test_images  = np.asarray(test_images)
 
 
-# In[232]:
+# In[97]:
 
 
 # if city:
@@ -3830,7 +3830,7 @@ if city:
 
 # ## Models
 
-# In[233]:
+# In[98]:
 
 
 if city:
@@ -3863,7 +3863,7 @@ if city:
     pesos = dict(enumerate(pesos))  
 
 
-# In[234]:
+# In[99]:
 
 
 import pickle
@@ -3876,7 +3876,7 @@ if city:
 
 # ### NB
 
-# In[ ]:
+# In[100]:
 
 
 if city:
@@ -3891,7 +3891,7 @@ if city:
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[101]:
 
 
 from sklearn.naive_bayes import GaussianNB
@@ -4168,7 +4168,7 @@ if city and other_models:
 
 # ### Convolution 1D
 
-# In[ ]:
+# In[102]:
 
 
 if city:
@@ -4181,35 +4181,104 @@ if city:
 
 # #### Entrenamiento
 
-# In[ ]:
+# In[103]:
 
 
 Y_test_onehot.shape
 
 
-# In[ ]:
+# In[104]:
 
 
-if city and train_nn and cnn1d:
-    start = time.time()
+# if city and train_nn and cnn1d:
+#     start = time.time()
 
-    history = convolution_1d.fit(array_train_images, Y_train_onehot,
-                                 # class_weight = pesos,
-                                 batch_size = 128,
-                                 epochs = 100,
-                                 shuffle = True,
-                                 validation_data = (array_test_images, Y_test_onehot))
-    end = time.time()
+#     history = convolution_1d.fit(array_train_images, Y_train_onehot,
+#                                  # class_weight = pesos,
+#                                  batch_size = 128,
+#                                  epochs = 100,
+#                                  shuffle = True,
+#                                  validation_data = (array_test_images, Y_test_onehot))
+#     end = time.time()
 
-    ellapsed_time = round(end - start, 2)
+#     ellapsed_time = round(end - start, 2)
 
-    model_time = pd.DataFrame({'city': [city_name],
-                               'model': [MODEL_NAME],
-                               'time': [ellapsed_time]})
+#     model_time = pd.DataFrame({'city': [city_name],
+#                                'model': [MODEL_NAME],
+#                                'time': [ellapsed_time]})
 
-    times = times.append(model_time)
+#     times = times.append(model_time)
 
-    history
+#     history
+
+
+# In[105]:
+
+
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import RandomizedSearchCV
+
+
+model_time = pd.DataFrame({'city': [city_name],
+                           'model': [MODEL_NAME],
+                           'time': 0})
+times = times.append(model_time)
+# wrap our model into a scikit-learn compatible classifier
+print("[INFO] initializing model...")
+model = KerasClassifier(build_fn=get_1d_conv, verbose=10)
+
+# define a grid of the hyperparameter search space
+
+# fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
+fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
+
+dense  = [32, 64, 128, 256]
+
+learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+
+batchSize = [32, 64, 128]
+
+epochs = [50]
+
+# create a dictionary from the hyperparameter grid
+grid = dict(
+	fm_one = fm_one,
+    fm_two = fm_two,
+    fm_three = fm_three,
+    fm_four = fm_four,
+    # fm_five = fm_five,
+    # fm_six = fm_six,
+    dense = dense,
+	learnRate=learnRate,
+	batch_size=batchSize,
+	epochs=epochs
+)
+
+# initialize a random search with a 3-fold cross-validation and then
+# start the hyperparameter search process
+print("[INFO] performing random search...")
+searcher = RandomizedSearchCV(estimator = model,
+                              n_iter = 55,
+                              cv = 3,
+                              param_distributions = grid,
+                              scoring = 'f1_micro')
+
+searchResults = searcher.fit(array_train_images, Y_train)
+
+# summarize grid search information
+bestScore = searchResults.best_score_
+bestParams = searchResults.best_params_
+
+print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+
+print("[INFO] evaluating the best model...")
+convolution_1d = bestModel = searchResults.best_estimator_
+# accuracy = bestModel.score(array_test_images, Y_test)
+# print("accuracy: {:.2f}%".format(accuracy * 100))
+
+text_file = open(f"./madrid-CNN1D-{MODEL_TIMESTAMP}.txt", "w")
+n = text_file.write(str(searchResults.cv_results_))
+text_file.close()
 
 
 # #### Escritura del modelo
@@ -4286,112 +4355,112 @@ if city:
 # In[236]:
 
 
-if city and train_nn:
+# if city and train_nn:
     
-    fm_one, fm_two, fm_three, fm_four = (256, 512, 512, 256)
+#     fm_one, fm_two, fm_three, fm_four = (256, 512, 512, 256)
 
-    dense  = 128
+#     dense  = 128
 
-    learnRate = 0.001
+#     learnRate = 0.001
 
-    batchSize = 32
+#     batchSize = 32
 
-    start = time.time()
+#     start = time.time()
 
-    tasp_cnn = get_tasp_cnn(fm_one = fm_one,
-                            fm_two = fm_two,
-                            fm_three = fm_three,
-                            fm_four = fm_four,
-                            dense = dense,
-                            dropout = 0.2,
-                            learnRate = learnRate)
+#     tasp_cnn = get_tasp_cnn(fm_one = fm_one,
+#                             fm_two = fm_two,
+#                             fm_three = fm_three,
+#                             fm_four = fm_four,
+#                             dense = dense,
+#                             dropout = 0.2,
+#                             learnRate = learnRate)
 
-    history = tasp_cnn.fit(array_train_images, Y_train_onehot,
-                           # class_weight = pesos,
-                           batch_size = batchSize,
-                           epochs = 100,
-                           shuffle = True,
-                           validation_data = (array_test_images, Y_test_onehot))
+#     history = tasp_cnn.fit(array_train_images, Y_train_onehot,
+#                            # class_weight = pesos,
+#                            batch_size = batchSize,
+#                            epochs = 100,
+#                            shuffle = True,
+#                            validation_data = (array_test_images, Y_test_onehot))
 
-    end = time.time()
+#     end = time.time()
 
-    ellapsed_time = round(end - start, 2)
+#     ellapsed_time = round(end - start, 2)
 
-    model_time = pd.DataFrame({'city': [city_name],
-                               'model': [MODEL_NAME],
-                               'time': [ellapsed_time]})
-    times = times.append(model_time)    
+#     model_time = pd.DataFrame({'city': [city_name],
+#                                'model': [MODEL_NAME],
+#                                'time': [ellapsed_time]})
+#     times = times.append(model_time)    
 
-    history
+#     history
 
 
 # In[ ]:
 
 
-# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-# from sklearn.model_selection import RandomizedSearchCV
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import RandomizedSearchCV
 
 
-# model_time = pd.DataFrame({'city': [city_name],
-#                            'model': [MODEL_NAME],
-#                            'time': 0})
-# times = times.append(model_time)
-# # wrap our model into a scikit-learn compatible classifier
-# print("[INFO] initializing model...")
-# model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
+model_time = pd.DataFrame({'city': [city_name],
+                           'model': [MODEL_NAME],
+                           'time': 0})
+times = times.append(model_time)
+# wrap our model into a scikit-learn compatible classifier
+print("[INFO] initializing model...")
+model = KerasClassifier(build_fn=get_tasp_cnn, verbose=10)
 
-# # define a grid of the hyperparameter search space
+# define a grid of the hyperparameter search space
 
-# # fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
-# fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
+# fm_one = fm_two = fm_three = fm_four = fm_five = fm_six = [32, 64, 128, 256, 512]
+fm_one = fm_two = fm_three = fm_four = [32, 64, 128, 256, 512, 1024]
 
-# dense  = [32, 64, 128, 256]
+dense  = [32, 64, 128, 256]
 
-# learnRate = [0.1, 1e-2, 1e-3, 1e-4]
+learnRate = [0.1, 1e-2, 1e-3, 1e-4]
 
-# batchSize = [32, 64, 128]
+batchSize = [32, 64, 128]
 
-# epochs = [35]
+epochs = [50]
 
-# # create a dictionary from the hyperparameter grid
-# grid = dict(
-# 	fm_one = fm_one,
-#     fm_two = fm_two,
-#     fm_three = fm_three,
-#     fm_four = fm_four,
-#     # fm_five = fm_five,
-#     # fm_six = fm_six,
-#     dense = dense,
-# 	learnRate=learnRate,
-# 	batch_size=batchSize,
-# 	epochs=epochs
-# )
+# create a dictionary from the hyperparameter grid
+grid = dict(
+	fm_one = fm_one,
+    fm_two = fm_two,
+    fm_three = fm_three,
+    fm_four = fm_four,
+    # fm_five = fm_five,
+    # fm_six = fm_six,
+    dense = dense,
+	learnRate=learnRate,
+	batch_size=batchSize,
+	epochs=epochs
+)
 
-# # initialize a random search with a 3-fold cross-validation and then
-# # start the hyperparameter search process
-# print("[INFO] performing random search...")
-# searcher = RandomizedSearchCV(estimator = model,
-#                               n_iter = 50,
-#                               cv = 3,
-#                               param_distributions = grid,
-#                               scoring = 'f1_micro')
+# initialize a random search with a 3-fold cross-validation and then
+# start the hyperparameter search process
+print("[INFO] performing random search...")
+searcher = RandomizedSearchCV(estimator = model,
+                              n_iter = 55,
+                              cv = 3,
+                              param_distributions = grid,
+                              scoring = 'f1_micro')
 
-# searchResults = searcher.fit(array_train_images, Y_train)
+searchResults = searcher.fit(array_train_images, Y_train)
 
-# # summarize grid search information
-# bestScore = searchResults.best_score_
-# bestParams = searchResults.best_params_
+# summarize grid search information
+bestScore = searchResults.best_score_
+bestParams = searchResults.best_params_
 
-# print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
+print("[INFO] best score is {:.2f} using {}".format(bestScore,	bestParams))
 
-# print("[INFO] evaluating the best model...")
-# taspcnn = bestModel = searchResults.best_estimator_
-# # accuracy = bestModel.score(array_test_images, Y_test)
-# # print("accuracy: {:.2f}%".format(accuracy * 100))
+print("[INFO] evaluating the best model...")
+tasp_cnn = bestModel = searchResults.best_estimator_
+# accuracy = bestModel.score(array_test_images, Y_test)
+# print("accuracy: {:.2f}%".format(accuracy * 100))
 
-# text_file = open(f"./madrid-CNN2D-{MODEL_TIMESTAMP}.txt", "w")
-# n = text_file.write(str(searchResults.cv_results_))
-# text_file.close()
+text_file = open(f"./madrid-CNN2D-{MODEL_TIMESTAMP}.txt", "w")
+n = text_file.write(str(searchResults.cv_results_))
+text_file.close()
 
 
 # #### Escritura del modelo
@@ -6641,7 +6710,7 @@ if city and train_nn and cnn2d and calculate_cnn_hyperparams:
 
     batchSize = [32, 64, 128]
 
-    epochs = [40]
+    epochs = [60]
 
     # create a dictionary from the hyperparameter grid
     grid = dict(
@@ -6909,7 +6978,7 @@ import seaborn as sns
 MEASURE_TYPES  = ['precision', 'recall', 'f1-score']
 # ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
-ACCIDENT_TYPES = ['Slight', 'Assistance']
+ACCIDENT_TYPES = ['Slight', 'Serious', 'Fatal']
 
 
 if leeds:
