@@ -1,0 +1,26 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,madrid_1D-convolution,test,madrid,1D-convolution,0.776,0.965,0.86,344.0
+Assistance,Assistance,madrid_1D-convolution,test,madrid,1D-convolution,0.684,0.213,0.325,122.0
+accuracy,accuracy,madrid_1D-convolution,test,madrid,1D-convolution,0.768,0.768,0.768,0.768
+macro avg,macro avg,madrid_1D-convolution,test,madrid,1D-convolution,0.73,0.589,0.593,466.0
+weighted avg,weighted avg,madrid_1D-convolution,test,madrid,1D-convolution,0.752,0.768,0.72,466.0
+Slight,Slight,madrid_2D-convolution,test,madrid,2D-convolution,0.828,0.741,0.782,344.0
+Assistance,Assistance,madrid_2D-convolution,test,madrid,2D-convolution,0.437,0.566,0.493,122.0
+accuracy,accuracy,madrid_2D-convolution,test,madrid,2D-convolution,0.695,0.695,0.695,0.695
+macro avg,macro avg,madrid_2D-convolution,test,madrid,2D-convolution,0.632,0.653,0.638,466.0
+weighted avg,weighted avg,madrid_2D-convolution,test,madrid,2D-convolution,0.726,0.695,0.706,466.0
+Slight,Slight,madrid_KNN,test,madrid,KNN,0.794,0.977,0.876,344.0
+Assistance,Assistance,madrid_KNN,test,madrid,KNN,0.814,0.287,0.424,122.0
+accuracy,accuracy,madrid_KNN,test,madrid,KNN,0.796,0.796,0.796,0.796
+macro avg,macro avg,madrid_KNN,test,madrid,KNN,0.804,0.632,0.65,466.0
+weighted avg,weighted avg,madrid_KNN,test,madrid,KNN,0.799,0.796,0.758,466.0
+Slight,Slight,madrid_NB,test,madrid,NB,0.807,0.901,0.852,344.0
+Assistance,Assistance,madrid_NB,test,madrid,NB,0.585,0.393,0.471,122.0
+accuracy,accuracy,madrid_NB,test,madrid,NB,0.768,0.768,0.768,0.768
+macro avg,macro avg,madrid_NB,test,madrid,NB,0.696,0.647,0.661,466.0
+weighted avg,weighted avg,madrid_NB,test,madrid,NB,0.749,0.768,0.752,466.0
+Slight,Slight,madrid_SVC,test,madrid,SVC,0.813,0.948,0.875,344.0
+Assistance,Assistance,madrid_SVC,test,madrid,SVC,0.723,0.385,0.503,122.0
+accuracy,accuracy,madrid_SVC,test,madrid,SVC,0.8,0.8,0.8,0.8
+macro avg,macro avg,madrid_SVC,test,madrid,SVC,0.768,0.666,0.689,466.0
+weighted avg,weighted avg,madrid_SVC,test,madrid,SVC,0.789,0.8,0.778,466.0
