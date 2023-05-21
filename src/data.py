@@ -202,6 +202,9 @@ def categorize_features(data_frame) :
     data_frame['sexo'].replace(sex_of_casualty_replace, inplace = True)
     # print('Sexo: \n', data_frame['sexo'].value_counts())
 
+    indexes_of_positive_drug = data_frame[data_frame.positiva_droga == 1].index
+    data_frame.loc[indexes_of_positive_drug, 'positiva_alcohol'] = 'S'
+
     data_frame['positiva_alcohol'].replace(alcohol_replace, inplace = True)
     # print('Positivo Alcohol: \n', data_frame['positiva_alcohol'].value_counts())
 
@@ -237,7 +240,7 @@ def categorize_features(data_frame) :
 
 ######################################################
 
-def utm_to_int(data_frame):
+def utm_to_int_old(data_frame):
     # Todos las comas a puntos
 
     s = data_frame.coordenada_x_utm.str
@@ -321,15 +324,54 @@ def utm_to_int(data_frame):
 
     return data_frame
 
+
+import utm
+
+
+def make_dirty_utm_to_clean_float_utm(utm_coordinate, int_part_number_of_digits):
+    try:
+        all_string_digit_list = re.findall(r"\d", utm_coordinate)
+    except:
+        print(utm_coordinate)
+        return 0
+
+    int_utm_part   = all_string_digit_list[:int_part_number_of_digits]
+    float_utm_part = all_string_digit_list[int_part_number_of_digits:]
+
+    int_utm_part   = ''.join(int_utm_part)
+    float_utm_part = ''.join(float_utm_part)
+
+    utm_coordinate = f"{int_utm_part}.{float_utm_part}"
+    float_utm_coordinate = float(utm_coordinate)
+
+    return float_utm_coordinate
+
+def utm_to_int(data_frame):
+    # Todos las comas a puntos
+
+
+    int_part_number_of_digits = 6
+    data_frame.coordenada_x_utm = data_frame.coordenada_x_utm.apply(lambda utm_coordinate: make_dirty_utm_to_clean_float_utm(utm_coordinate, int_part_number_of_digits))
+
+    int_part_number_of_digits = 7
+    data_frame.coordenada_y_utm = data_frame.coordenada_y_utm.apply(lambda utm_coordinate: make_dirty_utm_to_clean_float_utm(utm_coordinate, int_part_number_of_digits))
+
+    data_frame = data_frame[data_frame.coordenada_y_utm != 0]
+    data_frame = data_frame[data_frame.coordenada_x_utm != 0]
+
+    data_frame = data_frame.assign(Latitude = lambda row: (utm.to_latlon(row.coordenada_x_utm, row.coordenada_y_utm, 30, 'T')[0]))
+    data_frame = data_frame.assign(Longitude = lambda row: (utm.to_latlon(row.coordenada_x_utm, row.coordenada_y_utm, 30, 'T')[1]))
+
+    return data_frame
+
+
 ######################################################
 def remove_features(data_frame):
-    COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'coordenada_x_utm', 'coordenada_y_utm']
+    COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga']
 
     data_frame = data_frame.loc[:, ~data_frame.columns.isin(COLUMNS_TO_REMOVE)]
 
     data_frame.rename(columns={"localizacion": "tipo_carretera"}, errors="raise", inplace=True)
-    data_frame.rename(columns={"processed_x_utm": "coordenada_x_utm"}, errors="raise", inplace=True)
-    data_frame.rename(columns={"processed_y_utm": "coordenada_y_utm"}, errors="raise", inplace=True)
     data_frame.rename(columns={"positiva_alcohol": "drogas_alcohol_positivo"}, errors="raise", inplace=True)
 
     data_frame = data_frame.drop_duplicates()
@@ -340,39 +382,36 @@ def remove_features(data_frame):
 ######################################################
 
 from tqdm import tqdm
+import math
 
 def get_rows_by_removing_areas(data_frame):
 
     ######################################################
     
-    min_x = data_frame.coordenada_x_utm.min()
-    max_x = data_frame.coordenada_x_utm.max()
+    min_x = int(data_frame.coordenada_x_utm.min())
+    max_x = math.ceil(data_frame.coordenada_x_utm.max())
 
-    min_y = data_frame.coordenada_y_utm.min()
-    max_y = data_frame.coordenada_y_utm.max()
+    min_y = int(data_frame.coordenada_y_utm.min())
+    max_y = math.ceil(data_frame.coordenada_y_utm.max())
 
     interval_x = (max_x - min_x)
     interval_y = (max_y - min_y)
-    interval_x, interval_y
 
     ######################################################
 
     # Se ejecuta 2 veces
-    for two_executions in range(2):
-        data_frame = data_frame[data_frame.coordenada_x_utm != min_x]
-        min_x = data_frame.coordenada_x_utm.min()
+    # for two_executions in range(1):
+        # data_frame = data_frame[data_frame.coordenada_x_utm != min_x]
+        # data_frame = data_frame[data_frame.coordenada_y_utm != min_y]
 
-        data_frame = data_frame[data_frame.coordenada_x_utm != min_x]
-        min_x = data_frame.coordenada_x_utm.min()
+        # min_x = data_frame.coordenada_x_utm.min()
+        # max_x = data_frame.coordenada_x_utm.max()
 
-        max_x = data_frame.coordenada_x_utm.max()
+        # min_y = data_frame.coordenada_y_utm.min()
+        # max_y = data_frame.coordenada_y_utm.max()
 
-        min_y = data_frame.coordenada_y_utm.min()
-        max_y = data_frame.coordenada_y_utm.max()
-
-        interval_x = (max_x - min_x)
-        interval_y = (max_y - min_y)
-        interval_x, interval_y
+        # interval_x = (math.ceil(max_x) - int(min_x))
+        # interval_y = (math.ceil(max_y) - int(min_y))
 
         
         
