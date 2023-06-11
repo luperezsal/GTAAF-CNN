@@ -30,11 +30,15 @@
   "Environmental Features": {
     "feature_childs": [
       "Lighting Conditions",
-      "Weather Conditions"
+      "Weather Conditions",
+ 	  "dia_semana",
+ 	  "semana_en_año"
     ],
     "feature_weights": [
       "0.057274867",
-      "0.025912259"
+      "0.025912259",
+      "0.0",
+      "0.0"
     ],
     "wpi": 0.083187126
   },
