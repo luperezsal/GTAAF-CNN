@@ -24,18 +24,18 @@ def one_hot_to_casualty(Y_labels):
 def remove_features(data_frame):
     COLUMNS_TO_GET = ['location_easting_osgr', 'location_northing_osgr', 'first_road_class', 'time', 'number_of_vehicles',
                       'road_surface_conditions', 'speed_limit',
-                      'light_conditions', 'weather_conditions',
+                      'light_conditions', 'weather_conditions', 'dia_semana', 'semana_en_año',
                       'casualty_type', 'age_of_vehicle', 'first_point_of_impact',
                       'casualty_class', 'sex_of_casualty', 'age_of_casualty',
                       'casualty_severity',
-                      'longitude', 'latitude']
+                      'longitude', 'latitude',]
 
     data_frame = data_frame.loc[:, data_frame.columns.isin(COLUMNS_TO_GET)]
     data_frame = data_frame[COLUMNS_TO_GET]
 
     RENAMED_COLUMNS = ['Easting', 'Northing', '1st Road Class', 'Accident Time', 'Number of Vehicles',
                        'Road Surface', 'Speed Limit',
-                       'Lighting Conditions', 'Weather Conditions',
+                       'Lighting Conditions', 'Weather Conditions', 'dia_semana', 'semana_en_año',
                        'Type of Vehicle', 'Age of Vehicle', 'First Point of Impact',
                        'Casualty Class', 'Sex of Casualty', 'Age of Casualty',
                        'Casualty Severity',

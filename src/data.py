@@ -37,8 +37,8 @@ def read_madrid_data(root_path):
     
     return data_frame
     
-def get_to_iso_calendar(data_frame_row):
-    row_datetime = pd.to_datetime(data_frame_row['fecha'], format="%d/%m/%Y")
+def get_to_iso_calendar(data_frame_row, date_column='fecha'):
+    row_datetime = pd.to_datetime(data_frame_row[date_column], format="%d/%m/%Y")
 
     return row_datetime.isocalendar()
 
