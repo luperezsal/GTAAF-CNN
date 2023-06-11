@@ -5,6 +5,14 @@ import matplotlib.pyplot as plt
 import os
 
 
+import pandas as pds
+import geopandas as gpd
+import osmnx as ox
+import contextily as cx
+import numpy as np
+import shapely
+
+
 def plot_week_days(new_dataframe, name, filters=[]):
 
     ec = {'Fatal': 'red',
@@ -40,3 +48,12 @@ def plot_week_days(new_dataframe, name, filters=[]):
             bbox_inches="tight",
             title = 'a'
         )
+
+
+def plot_map(data_frame, latitude_name = 'Latitud', longitude_name = 'Longitud', color_by = 'lesividad'):
+    gdf = gpd.GeoDataFrame(data_frame,
+                           geometry = gpd.points_from_xy(data_frame[longitude_name], data_frame[latitude_name]),
+                           crs = "EPSG:4326")
+    df_wm = gdf.to_crs(epsg=3857)
+    ax = df_wm.plot(figsize=(20, 20), column=color_by, edgecolor="k", legend=True)
+    cx.add_basemap(ax)

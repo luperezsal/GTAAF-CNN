@@ -384,15 +384,38 @@ def remove_features(data_frame):
 from tqdm import tqdm
 import math
 
-def get_rows_by_removing_areas(data_frame):
+
+def get_intervals(data_frame, x_name='coordenada_x_utm', y_name='coordenada_y_utm'):
+
+    min_x = int(data_frame[x_name].min())
+    max_x = math.ceil(data_frame[x_name].max())
+
+    min_y = int(data_frame[y_name].min())
+    max_y = math.ceil(data_frame[y_name].max())
+
+    interval_x = (max_x - min_x)
+    interval_y = (max_y - min_y)
+
+    return interval_x, interval_y
+
+
+def get_divisible_numbers(number):
+
+    for i in range (1, number):
+        zero = number%i
+        if zero == 0: print(f"Area units: {i}, regions: {number/i}")
+
+
+def get_rows_by_removing_areas(data_frame, x_name='coordenada_x_utm', y_name='coordenada_y_utm', x_offset = 14311, y_offset = 17335, casualty_name='lesividad', casualty_target_names=['Fatal', 'Serious']):
+    # Default: Madrid names
 
     ######################################################
     
-    min_x = int(data_frame.coordenada_x_utm.min())
-    max_x = math.ceil(data_frame.coordenada_x_utm.max())
+    min_x = int(data_frame[x_name].min())
+    max_x = math.ceil(data_frame[x_name].max())
 
-    min_y = int(data_frame.coordenada_y_utm.min())
-    max_y = math.ceil(data_frame.coordenada_y_utm.max())
+    min_y = int(data_frame[y_name].min())
+    max_y = math.ceil(data_frame[y_name].max())
 
     interval_x = (max_x - min_x)
     interval_y = (max_y - min_y)
@@ -432,9 +455,6 @@ def get_rows_by_removing_areas(data_frame):
     initial_x = min_x
     initial_y = max_y
 
-    x_offset = 14311
-    y_offset = 17335
-
     X_vertices = [x_vertice for x_vertice in range(min_x, max_x, x_offset)]
     Y_vertices = [y_vertice for y_vertice in range(min_y, max_y, y_offset)]
 
@@ -442,27 +462,27 @@ def get_rows_by_removing_areas(data_frame):
 
     new_dataframe = pd.DataFrame()
 
-    serious_and_fatal_dataframe = data_frame[data_frame.lesividad.isin(['Fatal', 'Serious'])]
+    serious_and_fatal_dataframe = data_frame[data_frame[casualty_name].isin(casualty_target_names)]
 
     for y_vertice in tqdm(Y_vertices):
         box_y_min = y_vertice
         box_y_max = y_vertice + y_offset
 
-        serious_and_fatal_on_this_height = serious_and_fatal_dataframe[serious_and_fatal_dataframe.coordenada_y_utm.between(box_y_min, box_y_max)]
+        serious_and_fatal_on_this_height = serious_and_fatal_dataframe[serious_and_fatal_dataframe[y_name].between(box_y_min, box_y_max)]
 
         if serious_and_fatal_on_this_height.empty: continue
 
-        all_entries = data_frame[data_frame.coordenada_y_utm.between(box_y_min, box_y_max)]
+        all_entries = data_frame[data_frame[y_name].between(box_y_min, box_y_max)]
 
         for x_vertice in X_vertices:
             box_x_min = x_vertice
             box_x_max = x_vertice + x_offset
 
-            serious_and_fatal_on_this_box = serious_and_fatal_on_this_height[serious_and_fatal_on_this_height.coordenada_x_utm.between(box_x_min, box_x_max)]
+            serious_and_fatal_on_this_box = serious_and_fatal_on_this_height[serious_and_fatal_on_this_height[x_name].between(box_x_min, box_x_max)]
 
             if serious_and_fatal_on_this_box.empty: continue
 
-            all_entries = all_entries[all_entries.coordenada_x_utm.between(box_x_min, box_x_max)]
+            all_entries = all_entries[all_entries[x_name].between(box_x_min, box_x_max)]
 
             new_dataframe = pd.concat([new_dataframe, all_entries])
             # print(len(new_dataframe))
