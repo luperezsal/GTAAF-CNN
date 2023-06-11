@@ -2,3 +2,5 @@ XGBoost_Weights/.ipynb_checkpoints/*-checkpoint.json
 Data/*
 *checkpoint*
 .ipynb_checkpoints/TASP_CNN-checkpoint.ipynb
+*__pycache__
+
