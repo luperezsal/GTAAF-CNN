@@ -468,3 +468,13 @@ def get_rows_by_removing_areas(data_frame):
             # print(len(new_dataframe))
 
     return new_dataframe
+
+days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+
+## accepts an integer, no strings, if weekday is more than 6 - prints error and returns something else than a week day
+def dayNameFromWeekday(weekday):
+    if weekday>7:
+
+        print('error');
+        return 'an unknown day'
+    return days[weekday-1]
