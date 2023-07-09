@@ -405,6 +405,19 @@ def get_divisible_numbers(number):
         zero = number%i
         if zero == 0: print(f"Area units: {i}, regions: {number/i}")
 
+def remove_outliers(data_frame, x_name, y_name):
+
+    min_x = int(data_frame[x_name].min())
+    max_x = math.ceil(data_frame[x_name].max())
+    min_y = int(data_frame[y_name].min())
+    max_y = math.ceil(data_frame[y_name].max())
+
+    data_frame = data_frame[data_frame[x_name] != min_x]
+    data_frame = data_frame[data_frame[y_name] != min_y]
+
+    return data_frame
+
+
 
 def get_rows_by_removing_areas(data_frame, x_name='coordenada_x_utm', y_name='coordenada_y_utm', x_offset = 14311, y_offset = 17335, casualty_name='lesividad', casualty_target_names=['Fatal', 'Serious']):
     # Default: Madrid names
@@ -424,8 +437,8 @@ def get_rows_by_removing_areas(data_frame, x_name='coordenada_x_utm', y_name='co
 
     # Se ejecuta 2 veces
     # for two_executions in range(1):
-        # data_frame = data_frame[data_frame.coordenada_x_utm != min_x]
-        # data_frame = data_frame[data_frame.coordenada_y_utm != min_y]
+        # data_frame = remove_outliers(data_frame, x_name, y_name)
+
 
         # min_x = data_frame.coordenada_x_utm.min()
         # max_x = data_frame.coordenada_x_utm.max()
