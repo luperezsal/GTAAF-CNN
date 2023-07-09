@@ -1,0 +1,41 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,Birmingham_1D-convolution,test,Birmingham,1D-convolution,0.832,0.812,0.822,1231.0
+Assistance,Assistance,Birmingham_1D-convolution,test,Birmingham,1D-convolution,0.641,0.672,0.656,616.0
+accuracy,accuracy,Birmingham_1D-convolution,test,Birmingham,1D-convolution,0.765,0.765,0.765,0.765
+macro avg,macro avg,Birmingham_1D-convolution,test,Birmingham,1D-convolution,0.736,0.742,0.739,1847.0
+weighted avg,weighted avg,Birmingham_1D-convolution,test,Birmingham,1D-convolution,0.768,0.765,0.766,1847.0
+Slight,Slight,Birmingham_2D-convolution,test,Birmingham,2D-convolution,0.842,0.841,0.841,1231.0
+Assistance,Assistance,Birmingham_2D-convolution,test,Birmingham,2D-convolution,0.683,0.685,0.684,616.0
+accuracy,accuracy,Birmingham_2D-convolution,test,Birmingham,2D-convolution,0.789,0.789,0.789,0.789
+macro avg,macro avg,Birmingham_2D-convolution,test,Birmingham,2D-convolution,0.762,0.763,0.763,1847.0
+weighted avg,weighted avg,Birmingham_2D-convolution,test,Birmingham,2D-convolution,0.789,0.789,0.789,1847.0
+Slight,Slight,Birmingham_KNN,test,Birmingham,KNN,0.824,0.645,0.723,1231.0
+Assistance,Assistance,Birmingham_KNN,test,Birmingham,KNN,0.505,0.724,0.595,616.0
+accuracy,accuracy,Birmingham_KNN,test,Birmingham,KNN,0.671,0.671,0.671,0.671
+macro avg,macro avg,Birmingham_KNN,test,Birmingham,KNN,0.664,0.685,0.659,1847.0
+weighted avg,weighted avg,Birmingham_KNN,test,Birmingham,KNN,0.717,0.671,0.681,1847.0
+Slight,Slight,Birmingham_Logistic-Regression,test,Birmingham,Logistic-Regression,0.838,0.73,0.78,1231.0
+Assistance,Assistance,Birmingham_Logistic-Regression,test,Birmingham,Logistic-Regression,0.571,0.718,0.636,616.0
+accuracy,accuracy,Birmingham_Logistic-Regression,test,Birmingham,Logistic-Regression,0.726,0.726,0.726,0.726
+macro avg,macro avg,Birmingham_Logistic-Regression,test,Birmingham,Logistic-Regression,0.704,0.724,0.708,1847.0
+weighted avg,weighted avg,Birmingham_Logistic-Regression,test,Birmingham,Logistic-Regression,0.749,0.726,0.732,1847.0
+Slight,Slight,Birmingham_ML-Perceptron,test,Birmingham,ML-Perceptron,0.832,0.809,0.82,1231.0
+Assistance,Assistance,Birmingham_ML-Perceptron,test,Birmingham,ML-Perceptron,0.638,0.674,0.656,616.0
+accuracy,accuracy,Birmingham_ML-Perceptron,test,Birmingham,ML-Perceptron,0.764,0.764,0.764,0.764
+macro avg,macro avg,Birmingham_ML-Perceptron,test,Birmingham,ML-Perceptron,0.735,0.741,0.738,1847.0
+weighted avg,weighted avg,Birmingham_ML-Perceptron,test,Birmingham,ML-Perceptron,0.768,0.764,0.765,1847.0
+Slight,Slight,Birmingham_NB,test,Birmingham,NB,0.802,0.794,0.798,1231.0
+Assistance,Assistance,Birmingham_NB,test,Birmingham,NB,0.596,0.609,0.602,616.0
+accuracy,accuracy,Birmingham_NB,test,Birmingham,NB,0.732,0.732,0.732,0.732
+macro avg,macro avg,Birmingham_NB,test,Birmingham,NB,0.699,0.701,0.7,1847.0
+weighted avg,weighted avg,Birmingham_NB,test,Birmingham,NB,0.733,0.732,0.733,1847.0
+Slight,Slight,Birmingham_Random-Forest,test,Birmingham,Random-Forest,0.819,0.807,0.813,1231.0
+Assistance,Assistance,Birmingham_Random-Forest,test,Birmingham,Random-Forest,0.625,0.643,0.634,616.0
+accuracy,accuracy,Birmingham_Random-Forest,test,Birmingham,Random-Forest,0.752,0.752,0.752,0.752
+macro avg,macro avg,Birmingham_Random-Forest,test,Birmingham,Random-Forest,0.722,0.725,0.723,1847.0
+weighted avg,weighted avg,Birmingham_Random-Forest,test,Birmingham,Random-Forest,0.754,0.752,0.753,1847.0
+Slight,Slight,Birmingham_SVC,test,Birmingham,SVC,0.854,0.747,0.797,1231.0
+Assistance,Assistance,Birmingham_SVC,test,Birmingham,SVC,0.596,0.745,0.662,616.0
+accuracy,accuracy,Birmingham_SVC,test,Birmingham,SVC,0.747,0.747,0.747,0.747
+macro avg,macro avg,Birmingham_SVC,test,Birmingham,SVC,0.725,0.746,0.73,1847.0
+weighted avg,weighted avg,Birmingham_SVC,test,Birmingham,SVC,0.768,0.747,0.752,1847.0
