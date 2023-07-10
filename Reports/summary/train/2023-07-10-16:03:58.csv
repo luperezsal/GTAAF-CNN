@@ -1,0 +1,41 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,Manchester_1D-convolution,train,Manchester,1D-convolution,0.959,0.975,0.967,3207.0
+Assistance,Assistance,Manchester_1D-convolution,train,Manchester,1D-convolution,0.975,0.958,0.966,3206.0
+accuracy,accuracy,Manchester_1D-convolution,train,Manchester,1D-convolution,0.967,0.967,0.967,0.967
+macro avg,macro avg,Manchester_1D-convolution,train,Manchester,1D-convolution,0.967,0.967,0.967,6413.0
+weighted avg,weighted avg,Manchester_1D-convolution,train,Manchester,1D-convolution,0.967,0.967,0.967,6413.0
+Slight,Slight,Manchester_2D-convolution,train,Manchester,2D-convolution,0.997,0.988,0.993,3207.0
+Assistance,Assistance,Manchester_2D-convolution,train,Manchester,2D-convolution,0.988,0.998,0.993,3206.0
+accuracy,accuracy,Manchester_2D-convolution,train,Manchester,2D-convolution,0.993,0.993,0.993,0.993
+macro avg,macro avg,Manchester_2D-convolution,train,Manchester,2D-convolution,0.993,0.993,0.993,6413.0
+weighted avg,weighted avg,Manchester_2D-convolution,train,Manchester,2D-convolution,0.993,0.993,0.993,6413.0
+Slight,Slight,Manchester_KNN,train,Manchester,KNN,0.783,0.676,0.726,3207.0
+Assistance,Assistance,Manchester_KNN,train,Manchester,KNN,0.715,0.813,0.761,3206.0
+accuracy,accuracy,Manchester_KNN,train,Manchester,KNN,0.744,0.744,0.744,0.744
+macro avg,macro avg,Manchester_KNN,train,Manchester,KNN,0.749,0.744,0.743,6413.0
+weighted avg,weighted avg,Manchester_KNN,train,Manchester,KNN,0.749,0.744,0.743,6413.0
+Slight,Slight,Manchester_Logistic-Regression,train,Manchester,Logistic-Regression,0.682,0.767,0.722,3207.0
+Assistance,Assistance,Manchester_Logistic-Regression,train,Manchester,Logistic-Regression,0.734,0.643,0.685,3206.0
+accuracy,accuracy,Manchester_Logistic-Regression,train,Manchester,Logistic-Regression,0.705,0.705,0.705,0.705
+macro avg,macro avg,Manchester_Logistic-Regression,train,Manchester,Logistic-Regression,0.708,0.705,0.704,6413.0
+weighted avg,weighted avg,Manchester_Logistic-Regression,train,Manchester,Logistic-Regression,0.708,0.705,0.704,6413.0
+Slight,Slight,Manchester_ML-Perceptron,train,Manchester,ML-Perceptron,0.955,0.904,0.929,3207.0
+Assistance,Assistance,Manchester_ML-Perceptron,train,Manchester,ML-Perceptron,0.909,0.957,0.932,3206.0
+accuracy,accuracy,Manchester_ML-Perceptron,train,Manchester,ML-Perceptron,0.931,0.931,0.931,0.931
+macro avg,macro avg,Manchester_ML-Perceptron,train,Manchester,ML-Perceptron,0.932,0.931,0.931,6413.0
+weighted avg,weighted avg,Manchester_ML-Perceptron,train,Manchester,ML-Perceptron,0.932,0.931,0.931,6413.0
+Slight,Slight,Manchester_NB,train,Manchester,NB,0.626,0.801,0.702,3207.0
+Assistance,Assistance,Manchester_NB,train,Manchester,NB,0.723,0.521,0.605,3206.0
+accuracy,accuracy,Manchester_NB,train,Manchester,NB,0.661,0.661,0.661,0.661
+macro avg,macro avg,Manchester_NB,train,Manchester,NB,0.674,0.661,0.654,6413.0
+weighted avg,weighted avg,Manchester_NB,train,Manchester,NB,0.674,0.661,0.654,6413.0
+Slight,Slight,Manchester_Random-Forest,train,Manchester,Random-Forest,0.705,0.814,0.755,3207.0
+Assistance,Assistance,Manchester_Random-Forest,train,Manchester,Random-Forest,0.78,0.66,0.715,3206.0
+accuracy,accuracy,Manchester_Random-Forest,train,Manchester,Random-Forest,0.737,0.737,0.737,0.737
+macro avg,macro avg,Manchester_Random-Forest,train,Manchester,Random-Forest,0.742,0.737,0.735,6413.0
+weighted avg,weighted avg,Manchester_Random-Forest,train,Manchester,Random-Forest,0.742,0.737,0.735,6413.0
+Slight,Slight,Manchester_SVC,train,Manchester,SVC,0.89,0.839,0.864,3207.0
+Assistance,Assistance,Manchester_SVC,train,Manchester,SVC,0.848,0.896,0.872,3206.0
+accuracy,accuracy,Manchester_SVC,train,Manchester,SVC,0.868,0.868,0.868,0.868
+macro avg,macro avg,Manchester_SVC,train,Manchester,SVC,0.869,0.868,0.868,6413.0
+weighted avg,weighted avg,Manchester_SVC,train,Manchester,SVC,0.869,0.868,0.868,6413.0
