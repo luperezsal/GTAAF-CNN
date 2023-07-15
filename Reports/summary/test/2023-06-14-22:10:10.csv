@@ -1,0 +1,26 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Assistance,Assistance,UK_1D-convolution,test,UK,1D-convolution,0.809,0.817,0.813,279.0
+Slight,Slight,UK_1D-convolution,test,UK,1D-convolution,0.589,0.575,0.582,127.0
+accuracy,accuracy,UK_1D-convolution,test,UK,1D-convolution,0.741,0.741,0.741,0.741
+macro avg,macro avg,UK_1D-convolution,test,UK,1D-convolution,0.699,0.696,0.697,406.0
+weighted avg,weighted avg,UK_1D-convolution,test,UK,1D-convolution,0.74,0.741,0.741,406.0
+Assistance,Assistance,UK_2D-convolution,test,UK,2D-convolution,0.805,0.842,0.823,279.0
+Slight,Slight,UK_2D-convolution,test,UK,2D-convolution,0.614,0.551,0.581,127.0
+accuracy,accuracy,UK_2D-convolution,test,UK,2D-convolution,0.751,0.751,0.751,0.751
+macro avg,macro avg,UK_2D-convolution,test,UK,2D-convolution,0.709,0.697,0.702,406.0
+weighted avg,weighted avg,UK_2D-convolution,test,UK,2D-convolution,0.745,0.751,0.747,406.0
+Assistance,Assistance,UK_KNN,test,UK,KNN,0.763,0.473,0.584,279.0
+Slight,Slight,UK_KNN,test,UK,KNN,0.369,0.677,0.478,127.0
+accuracy,accuracy,UK_KNN,test,UK,KNN,0.537,0.537,0.537,0.537
+macro avg,macro avg,UK_KNN,test,UK,KNN,0.566,0.575,0.531,406.0
+weighted avg,weighted avg,UK_KNN,test,UK,KNN,0.64,0.537,0.551,406.0
+Assistance,Assistance,UK_NB,test,UK,NB,0.788,0.677,0.728,279.0
+Slight,Slight,UK_NB,test,UK,NB,0.458,0.598,0.519,127.0
+accuracy,accuracy,UK_NB,test,UK,NB,0.653,0.653,0.653,0.653
+macro avg,macro avg,UK_NB,test,UK,NB,0.623,0.638,0.624,406.0
+weighted avg,weighted avg,UK_NB,test,UK,NB,0.684,0.653,0.663,406.0
+Assistance,Assistance,UK_SVC,test,UK,SVC,0.805,0.767,0.785,279.0
+Slight,Slight,UK_SVC,test,UK,SVC,0.536,0.591,0.562,127.0
+accuracy,accuracy,UK_SVC,test,UK,SVC,0.712,0.712,0.712,0.712
+macro avg,macro avg,UK_SVC,test,UK,SVC,0.67,0.679,0.674,406.0
+weighted avg,weighted avg,UK_SVC,test,UK,SVC,0.72,0.712,0.715,406.0
