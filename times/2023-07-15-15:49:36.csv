@@ -1,0 +1,9 @@
+,city,model,time
+0,Cornwall,nb,0.0
+0,Cornwall,knn,0.0
+0,Cornwall,logistic_regression,0.01
+0,Cornwall,random_forest,0.08
+0,Cornwall,svc,0.29
+0,Cornwall,mlp,2.36
+0,Cornwall,convolution_1d,30.69
+0,Cornwall,convolution_2d,88.29
