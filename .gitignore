@@ -4,3 +4,4 @@ Data/*
 .ipynb_checkpoints/TASP_CNN-checkpoint.ipynb
 *__pycache__
 
+Models/
