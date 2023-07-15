@@ -1,0 +1,9 @@
+,city,model,time
+0,Birmingham,nb,0.0
+0,Birmingham,knn,0.0
+0,Birmingham,logistic_regression,0.01
+0,Birmingham,random_forest,0.09
+0,Birmingham,svc,0.45
+0,Birmingham,mlp,2.71
+0,Birmingham,convolution_1d,46.15
+0,Birmingham,convolution_2d,109.24
