@@ -1,0 +1,1 @@
+[INFO] best score is 0.85 using {'learning_rate': 0.01, 'fm_two': 256, 'fm_three': 256, 'fm_one': 512, 'fm_four': 32, 'epochs': 50, 'dense': 256, 'batch_size': 64}
