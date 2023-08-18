@@ -1,0 +1,36 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Assistance,Assistance,Liverpool_2D-convolution,train,Liverpool,2D-convolution,0.975,0.981,0.978,4884.0
+Slight,Slight,Liverpool_2D-convolution,train,Liverpool,2D-convolution,0.981,0.975,0.978,4884.0
+accuracy,accuracy,Liverpool_2D-convolution,train,Liverpool,2D-convolution,0.978,0.978,0.978,0.978
+macro avg,macro avg,Liverpool_2D-convolution,train,Liverpool,2D-convolution,0.978,0.978,0.978,9768.0
+weighted avg,weighted avg,Liverpool_2D-convolution,train,Liverpool,2D-convolution,0.978,0.978,0.978,9768.0
+Assistance,Assistance,Liverpool_KNN,train,Liverpool,KNN,0.698,0.816,0.752,4884.0
+Slight,Slight,Liverpool_KNN,train,Liverpool,KNN,0.779,0.647,0.707,4884.0
+accuracy,accuracy,Liverpool_KNN,train,Liverpool,KNN,0.731,0.731,0.731,0.731
+macro avg,macro avg,Liverpool_KNN,train,Liverpool,KNN,0.738,0.731,0.73,9768.0
+weighted avg,weighted avg,Liverpool_KNN,train,Liverpool,KNN,0.738,0.731,0.73,9768.0
+Assistance,Assistance,Liverpool_Logistic-Regression,train,Liverpool,Logistic-Regression,0.712,0.628,0.667,4884.0
+Slight,Slight,Liverpool_Logistic-Regression,train,Liverpool,Logistic-Regression,0.667,0.745,0.704,4884.0
+accuracy,accuracy,Liverpool_Logistic-Regression,train,Liverpool,Logistic-Regression,0.687,0.687,0.687,0.687
+macro avg,macro avg,Liverpool_Logistic-Regression,train,Liverpool,Logistic-Regression,0.689,0.687,0.686,9768.0
+weighted avg,weighted avg,Liverpool_Logistic-Regression,train,Liverpool,Logistic-Regression,0.689,0.687,0.686,9768.0
+Assistance,Assistance,Liverpool_ML-Perceptron,train,Liverpool,ML-Perceptron,0.932,0.961,0.946,4884.0
+Slight,Slight,Liverpool_ML-Perceptron,train,Liverpool,ML-Perceptron,0.96,0.93,0.944,4884.0
+accuracy,accuracy,Liverpool_ML-Perceptron,train,Liverpool,ML-Perceptron,0.945,0.945,0.945,0.945
+macro avg,macro avg,Liverpool_ML-Perceptron,train,Liverpool,ML-Perceptron,0.946,0.945,0.945,9768.0
+weighted avg,weighted avg,Liverpool_ML-Perceptron,train,Liverpool,ML-Perceptron,0.946,0.945,0.945,9768.0
+Assistance,Assistance,Liverpool_NB,train,Liverpool,NB,0.738,0.521,0.611,4884.0
+Slight,Slight,Liverpool_NB,train,Liverpool,NB,0.63,0.816,0.711,4884.0
+accuracy,accuracy,Liverpool_NB,train,Liverpool,NB,0.668,0.668,0.668,0.668
+macro avg,macro avg,Liverpool_NB,train,Liverpool,NB,0.684,0.668,0.661,9768.0
+weighted avg,weighted avg,Liverpool_NB,train,Liverpool,NB,0.684,0.668,0.661,9768.0
+Assistance,Assistance,Liverpool_Random-Forest,train,Liverpool,Random-Forest,0.702,0.74,0.72,4884.0
+Slight,Slight,Liverpool_Random-Forest,train,Liverpool,Random-Forest,0.725,0.685,0.704,4884.0
+accuracy,accuracy,Liverpool_Random-Forest,train,Liverpool,Random-Forest,0.713,0.713,0.713,0.713
+macro avg,macro avg,Liverpool_Random-Forest,train,Liverpool,Random-Forest,0.713,0.713,0.712,9768.0
+weighted avg,weighted avg,Liverpool_Random-Forest,train,Liverpool,Random-Forest,0.713,0.713,0.712,9768.0
+Assistance,Assistance,Liverpool_SVC,train,Liverpool,SVC,0.852,0.886,0.869,4884.0
+Slight,Slight,Liverpool_SVC,train,Liverpool,SVC,0.881,0.846,0.864,4884.0
+accuracy,accuracy,Liverpool_SVC,train,Liverpool,SVC,0.866,0.866,0.866,0.866
+macro avg,macro avg,Liverpool_SVC,train,Liverpool,SVC,0.867,0.866,0.866,9768.0
+weighted avg,weighted avg,Liverpool_SVC,train,Liverpool,SVC,0.867,0.866,0.866,9768.0

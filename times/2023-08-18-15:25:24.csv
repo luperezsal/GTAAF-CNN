@@ -1,0 +1,8 @@
+,city,model,time
+0,Liverpool,knn,0.0
+0,Liverpool,nb,0.01
+0,Liverpool,random_forest,0.04
+0,Liverpool,logistic_regression,0.09
+0,Liverpool,svc,4.73
+0,Liverpool,mlp,31.25
+0,Liverpool,convolution_2d,320.11

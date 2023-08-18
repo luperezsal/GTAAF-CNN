@@ -1,0 +1,36 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Assistance,Assistance,Sheffield_2D-convolution,test,Sheffield,2D-convolution,0.875,0.903,0.889,661.0
+Slight,Slight,Sheffield_2D-convolution,test,Sheffield,2D-convolution,0.928,0.907,0.918,915.0
+accuracy,accuracy,Sheffield_2D-convolution,test,Sheffield,2D-convolution,0.905,0.905,0.905,0.905
+macro avg,macro avg,Sheffield_2D-convolution,test,Sheffield,2D-convolution,0.902,0.905,0.903,1576.0
+weighted avg,weighted avg,Sheffield_2D-convolution,test,Sheffield,2D-convolution,0.906,0.905,0.906,1576.0
+Assistance,Assistance,Sheffield_KNN,test,Sheffield,KNN,0.657,0.696,0.676,661.0
+Slight,Slight,Sheffield_KNN,test,Sheffield,KNN,0.771,0.738,0.754,915.0
+accuracy,accuracy,Sheffield_KNN,test,Sheffield,KNN,0.72,0.72,0.72,0.72
+macro avg,macro avg,Sheffield_KNN,test,Sheffield,KNN,0.714,0.717,0.715,1576.0
+weighted avg,weighted avg,Sheffield_KNN,test,Sheffield,KNN,0.723,0.72,0.721,1576.0
+Assistance,Assistance,Sheffield_Logistic-Regression,test,Sheffield,Logistic-Regression,0.631,0.673,0.652,661.0
+Slight,Slight,Sheffield_Logistic-Regression,test,Sheffield,Logistic-Regression,0.752,0.716,0.733,915.0
+accuracy,accuracy,Sheffield_Logistic-Regression,test,Sheffield,Logistic-Regression,0.698,0.698,0.698,0.698
+macro avg,macro avg,Sheffield_Logistic-Regression,test,Sheffield,Logistic-Regression,0.692,0.695,0.693,1576.0
+weighted avg,weighted avg,Sheffield_Logistic-Regression,test,Sheffield,Logistic-Regression,0.701,0.698,0.699,1576.0
+Assistance,Assistance,Sheffield_ML-Perceptron,test,Sheffield,ML-Perceptron,0.782,0.84,0.81,661.0
+Slight,Slight,Sheffield_ML-Perceptron,test,Sheffield,ML-Perceptron,0.878,0.831,0.853,915.0
+accuracy,accuracy,Sheffield_ML-Perceptron,test,Sheffield,ML-Perceptron,0.834,0.834,0.834,0.834
+macro avg,macro avg,Sheffield_ML-Perceptron,test,Sheffield,ML-Perceptron,0.83,0.835,0.832,1576.0
+weighted avg,weighted avg,Sheffield_ML-Perceptron,test,Sheffield,ML-Perceptron,0.837,0.834,0.835,1576.0
+Assistance,Assistance,Sheffield_NB,test,Sheffield,NB,0.55,0.852,0.669,661.0
+Slight,Slight,Sheffield_NB,test,Sheffield,NB,0.823,0.497,0.62,915.0
+accuracy,accuracy,Sheffield_NB,test,Sheffield,NB,0.646,0.646,0.646,0.646
+macro avg,macro avg,Sheffield_NB,test,Sheffield,NB,0.687,0.675,0.644,1576.0
+weighted avg,weighted avg,Sheffield_NB,test,Sheffield,NB,0.709,0.646,0.64,1576.0
+Assistance,Assistance,Sheffield_Random-Forest,test,Sheffield,Random-Forest,0.441,0.868,0.585,661.0
+Slight,Slight,Sheffield_Random-Forest,test,Sheffield,Random-Forest,0.681,0.203,0.313,915.0
+accuracy,accuracy,Sheffield_Random-Forest,test,Sheffield,Random-Forest,0.482,0.482,0.482,0.482
+macro avg,macro avg,Sheffield_Random-Forest,test,Sheffield,Random-Forest,0.561,0.536,0.449,1576.0
+weighted avg,weighted avg,Sheffield_Random-Forest,test,Sheffield,Random-Forest,0.58,0.482,0.427,1576.0
+Assistance,Assistance,Sheffield_SVC,test,Sheffield,SVC,0.715,0.841,0.773,661.0
+Slight,Slight,Sheffield_SVC,test,Sheffield,SVC,0.868,0.757,0.809,915.0
+accuracy,accuracy,Sheffield_SVC,test,Sheffield,SVC,0.793,0.793,0.793,0.793
+macro avg,macro avg,Sheffield_SVC,test,Sheffield,SVC,0.792,0.799,0.791,1576.0
+weighted avg,weighted avg,Sheffield_SVC,test,Sheffield,SVC,0.804,0.793,0.794,1576.0

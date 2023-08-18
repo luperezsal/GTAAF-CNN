@@ -1,0 +1,8 @@
+,city,model,time
+0,Manchester,knn,0.0
+0,Manchester,nb,0.01
+0,Manchester,random_forest,0.01
+0,Manchester,logistic_regression,0.02
+0,Manchester,svc,1.61
+0,Manchester,mlp,23.8
+0,Manchester,convolution_2d,185.13

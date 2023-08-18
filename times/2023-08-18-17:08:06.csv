@@ -1,0 +1,8 @@
+,city,model,time
+0,Sheffield,nb,0.0
+0,Sheffield,knn,0.0
+0,Sheffield,logistic_regression,0.02
+0,Sheffield,random_forest,0.03
+0,Sheffield,svc,0.99
+0,Sheffield,mlp,13.65
+0,Sheffield,convolution_2d,141.09

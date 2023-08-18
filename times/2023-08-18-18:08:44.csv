@@ -1,0 +1,8 @@
+,city,model,time
+0,Southwark,knn,0.0
+0,Southwark,nb,0.01
+0,Southwark,logistic_regression,0.03
+0,Southwark,random_forest,0.07
+0,Southwark,svc,1.32
+0,Southwark,mlp,19.86
+0,Southwark,convolution_2d,156.11

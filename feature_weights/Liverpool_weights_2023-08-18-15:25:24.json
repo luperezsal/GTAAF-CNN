@@ -1,0 +1,98 @@
+{
+    "Accident Features":
+    {
+        "feature_childs":
+        [
+            "Easting",
+            "Northing",
+            "1st Road Class",
+            "Number of Vehicles"
+        ],
+        "feature_weights":
+        [
+            "0.026649844",
+            "0.026395127",
+            "0.028207766",
+            "0.06550935"
+        ],
+        "wpi": 0.14676208699999999
+    },
+    "Roadway Features":
+    {
+        "feature_childs":
+        [
+            "Road Surface",
+            "Speed Limit"
+        ],
+        "feature_weights":
+        [
+            "0.027342781",
+            "0.026959067"
+        ],
+        "wpi": 0.054301848
+    },
+    "Environmental Features":
+    {
+        "feature_childs":
+        [
+            "Lighting Conditions",
+            "Weather Conditions"
+        ],
+        "feature_weights":
+        [
+            "0.24375226",
+            "0.018140942"
+        ],
+        "wpi": 0.261893202
+    },
+    "Vehicle Features":
+    {
+        "feature_childs":
+        [
+            "Type of Vehicle",
+            "Age of Vehicle",
+            "First Point of Impact"
+        ],
+        "feature_weights":
+        [
+            "0.212157",
+            "0.016589278",
+            "0.029966058"
+        ],
+        "wpi": 0.25871233600000004
+    },
+    "Time Features":
+    {
+        "feature_childs":
+        [
+            "Accident Time Sin",
+            "Accident Time Cos",
+            "dia_semana",
+            "semana_en_año"
+        ],
+        "feature_weights":
+        [
+            "0.030058868",
+            "0.09641793",
+            "0.03208433",
+            "0.026952025"
+        ],
+        "wpi": 0.185513153
+    },
+    "Casualty Features":
+    {
+        "feature_childs":
+        [
+            "Casualty Class",
+            "Sex of Casualty",
+            "Age of Casualty"
+        ],
+        "feature_weights":
+        [
+            "0.020896845",
+            "0.026487207",
+            "0.045433413"
+        ],
+        "wpi": 0.09281746499999999
+    }
+}
