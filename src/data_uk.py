@@ -1,5 +1,7 @@
 import pandas as pd
 import tensorflow as tf
+import numpy as np
+
 
 def casualty_to_one_hot(Y_labels):
 
@@ -45,6 +47,49 @@ def remove_features(data_frame):
     
     return data_frame
 
+
+
+def transform_hour_to_day_or_night(data_frame):
+    data_frame['Accident Time'] = data_frame['Accident Time'].astype(int)
+    accident_time = pd.DatetimeIndex(data_frame['Accident Time'])
+
+    data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] < 600, 2)
+    data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] > 1800, 2)
+    data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'].between(600, 1800), 1)
+
+    return data_frame
+
+def accident_time_fake_to_hours_and_minutes(row):
+
+    string_hours = int(row['Accident Time'][:2])
+    string_minutes = int(row['Accident Time'][2:])
+
+    row['Accident Time Fake'] = row['Accident Time Fake'].replace(year = 2000, month = 1, day = 1, hour = string_hours, minute = string_minutes)
+
+    return row['Accident Time Fake']
+
+def accident_time_fake_to_seconds(row):
+
+    row['Accident Time Fake'] = row['Accident Time Fake'].hour * 60 * 60 + row['Accident Time Fake'].minute * 60
+
+    return row['Accident Time Fake']
+
+def transform_hour_into_sin_cos(data_frame):
+    data_frame['Accident Time Fake'] = pd.Series(pd.date_range("2000-01-01", periods=len(data_frame), freq="h"))
+
+    data_frame['Accident Time Fake'] = data_frame.apply(lambda row: accident_time_fake_to_hours_and_minutes(row), axis = 1)
+    data_frame['Accident Time Fake'] = data_frame.apply(lambda row: accident_time_fake_to_seconds(row), axis = 1)
+
+    data_frame.rename({'Accident Time Fake': 'Second on Day'}, inplace = True,  axis='columns')
+
+    seconds_in_day = 24*60*60
+
+    data_frame['Accident Time Sin'] = np.sin(2*np.pi*data_frame['Second on Day']/seconds_in_day)
+    data_frame['Accident Time Cos'] = np.cos(2*np.pi*data_frame['Second on Day']/seconds_in_day)
+
+    data_frame.drop('Second on Day', axis=1, inplace=True)
+
+    return data_frame
 
 def clean_before_1(data_frame):
     target_class = 'Casualty Severity'
@@ -113,13 +158,16 @@ def clean_before_1(data_frame):
 
 
     data_frame['Accident Time'] = data_frame['Accident Time'].str.replace(':', '')
-    data_frame['Accident Time'] = data_frame['Accident Time'].astype(int)
-    accident_time = pd.DatetimeIndex(data_frame['Accident Time'])
 
 
-    data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] < 600, 2)
-    data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'] > 1800, 2)
-    data_frame['Accident Time'] = data_frame['Accident Time'].mask(data_frame['Accident Time'].between(600, 1800), 1)
+    ############ II-PAPER ############
+    # data_frame = transform_hour_to_day_or_night(data_frame)
+
+    ############ III-PAPER ############
+
+
+    data_frame = transform_hour_into_sin_cos(data_frame)
+
 
     SEVERITY_TYPE_REPLACE = {1: 'Assistance',
                              2: 'Assistance',
