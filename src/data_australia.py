@@ -95,9 +95,10 @@ def transform_hour_into_sin_cos(data_frame):
 def clean_before_1(data_frame):
     target_class = 'Casualty Severity'
 
+    AGE_OF_VEHICLE_VALUES_TO_REMOVE = ['XXXX']
+    data_frame = data_frame[~data_frame['Age of Vehicle'].isin(AGE_OF_VEHICLE_VALUES_TO_REMOVE)]
 
     casualty_severity_replace = {
-
         'Treated at Hospital': 'Slight',
         'By Private': 'Slight',
         'Admitted to Hospital': 'Assistance',
