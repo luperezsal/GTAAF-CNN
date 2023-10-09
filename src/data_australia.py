@@ -95,7 +95,15 @@ def transform_hour_into_sin_cos(data_frame):
 def clean_before_1(data_frame):
     target_class = 'Casualty Severity'
 
-    ROAD_SURFACE_VALUES_TO_REMOVE = [-1, 6, 7, 9]
+
+    casualty_severity_replace = {
+
+        'Treated at Hospital': 'Slight',
+        'By Private': 'Slight',
+        'Admitted to Hospital': 'Assistance',
+        'Fatal': 'Assistance'
+    }
+    data_frame['Casualty Severity'].replace(casualty_severity_replace, inplace=True)
 
     # SEX_OF_CASUALTY
     SEX_OF_CASUALTY_VALUES_TO_REMOVE = ['Unknown']
@@ -175,21 +183,34 @@ def clean_before_1(data_frame):
 
     data_frame['Type of Vehicle'].replace(type_of_vehicle_replace, inplace=True)
 
-    data_frame['Type of Vehicle'] = data_frame['Type of Vehicle'] + 1
-    data_frame.loc[data_frame['Type of Vehicle'] > 10, 'Type of Vehicle'] -= 1
-    data_frame.loc[data_frame['Type of Vehicle'] > 11, 'Type of Vehicle'] -= 1
+    first_road_class_replace = {
+        'Freeway': 0,
+        'Not Divided': 1,
+        'One Way': 2,
+        'Divided Road': 3,
+        'Multiple': 4,
+        'Interchange': 5,
+        'Cross Road': 6,
+        'Crossover': 7,
+        'T-Junction': 8,
+        'Y-Junction': 9,
+        'Ramp On': 10,
+        'Ramp Off': 11,
+        'Rail Xing': 12,
+        'Rail Crossing': 13,
+        'Pedestrian Crossing': 14,
+        'Other': 10
+    }
+    data_frame['1st Road Class'].replace(first_road_class_replace, inplace = True)
 
-    data_frame = data_frame[data_frame['First Point of Impact'] != -1]
-    data_frame['First Point of Impact'] = data_frame['First Point of Impact'] + 1
 
+    casualty_class_replace = {
+        'Driver': 0,
+        'Passenger': 1,
+        'Rider': 2,
+    }
+    data_frame['Casualty Class'].replace(casualty_class_replace, inplace = True)
 
-    data_frame['Type of Vehicle'] = data_frame['Type of Vehicle'] + 1
-
-    data_frame = data_frame[data_frame['Sex of Casualty'] != -1]
-
-    data_frame = data_frame[data_frame['Sex of Casualty'] != -1]
-
-    data_frame = data_frame[data_frame['Age of Vehicle'] != -1]
 
     data_frame['Age of Casualty'] = data_frame['Age of Casualty'].astype('int')
     data_frame['Age of Casualty'] = data_frame['Age of Casualty'].mask(data_frame['Age of Casualty'] < 18, 1)
@@ -222,176 +243,3 @@ def clean_before_1(data_frame):
 
     return data_frame
 
-
-
-def clean_before_2(data_frame):
-    ###################### DICCIONARIOS DE REEMPLAZO ######################
-    # Unclassified: Carreteras locales sin destino definido. Sin embargo, los destinos locales pueden estar señalizados a lo largo de ellos.
-    # A, A(M) y Motorway lo mismo?
-    # B:            De carácter regional y utilizado para conectar zonas de menor importancia.
-    #               Por lo general, se muestran de color marrón o amarillo en los mapas y tienen las mismas señales blancas que las rutas de clase A que no son primarias.
-    #               Si la ruta es primaria, como la B6261, se mostrará igual que una ruta Clase A primaria.
-    #               ¿Carretera como tal?
-
-    # C:            Designaciones de autoridades locales para rutas dentro de su área con fines administrativos.
-    #               Estas rutas no se muestran en mapas de carreteras a pequeña escala, pero se sabe que ocasionalmente aparecen en las señales de tráfico.
-    road_class_replace = {
-        'Motorway': 1,
-        'A(M)': 2,
-        'A': 3,
-        'B': 4,
-        'C': 5,
-        'Unclassified': 6
-    }
-
-    accident_date_replace = {
-        'Dry': 1,
-        'Wet / Damp': 2,
-        'Snow': 3,
-        'Frost / Ice': 4,
-        'Flood': 5,
-    }
-
-    ##################################
-    road_surface_replace = {
-        '1': 1, # Dry
-        '2': 2, # Wet
-        '3': 3, # Snow
-        '4': 4, # Snow
-        '5': 5, # Icy
-        '6': 6, # Sand/gravel/dirt
-        '8': 8, # Oil
-        '9': 9, # Flooded
-        'Q': -1,
-        'U': -1,
-        'X': -1
-    }
-
-    
-    dataset['Road Surface'].replace(road_surface_replace, inplace=True)
-
-    # La 5: "Darkness: street lighting unknown" no está presente en el paper, le hemos puesto un 5 porque sí #
-    lighting_conditions_replace = {
-        'Daylight: street lights present': 1,
-        'Darkness: no street lighting': 2,
-        'Darkness: street lights present and lit': 3,
-        'Darkness: street lights present but unlit': 4,
-        'Darkness: street lighting unknown': 5,
-        '5': 5
-    }
-
-    ##################################
-    weather_conditions_replace = {
-        '1': 1, # Clear and sunny
-        '2': 2, # Overcast, cloudy but no precipitation
-        '3': 3, # Raining
-        '4': 4, # Snowing, not including drifting snow
-        '5': 5, # Freezing rain, sleet, hail
-        '6': 6, # Visibility limitation
-        '7': 7, # Strong wind
-        'Q': -1,
-        'U': -1,
-        'X': -1
-    }
-
-    dataset['Weather Conditions'].replace(weather_conditions_replace, inplace=True)
-
-
-
-
-    type_of_vehicle_replace = {
-        'Pedal cycle': 1,
-        'M/cycle 50cc and under': 2,
-        'Motorcycle over 50cc and up to 125cc': 3,
-        'Motorcycle over 125cc and up to 500cc': 4,
-        'Motorcycle over 500cc': 5,
-        'Taxi/Private hire car': 6,
-        'Car': 7,
-        'Minibus (8 – 16 passenger seats)': 8,
-        'Bus or coach (17 or more passenger seats)': 9,
-        'Ridden horse': 10,
-        'Agricultural vehicle (includes diggers etc.)': 11,
-        'Tram / Light rail': 12,
-        'Goods vehicle 3.5 tonnes mgw and under': 13,
-        'Goods vehicle over 3.5 tonnes and under 7.5 tonnes mgw': 14,
-        'Goods vehicle 7.5 tonnes mgw and over': 15,
-        'Mobility Scooter': 16,
-        'Other Vehicle ': 17,
-        'Motorcycle - Unknown CC': 18
-    }
-    casualty_class_replace = {
-        'Driver': 1,
-        'Driver/Rider': 1,
-        'Driver or rider': 1,
-        'Passenger': 2,
-        'Vehicle or pillion passenger': 2,
-        'Pedestrian': 3
-    }
-
-
-    sex_of_casualty_replace = {
-        'Male': 1,
-        'Female': 2
-    }
-
-    a = clean_df = data_frame
-
-    ###################### REEMPLAZOS ######################
-    clean_df = clean_df.dropna()
-
-    a['1st Road Class'].replace(road_class_replace, inplace = True)
-    # print('1st Road Class:', a['1st Road Class'].unique())
-
-    ##################################
-    # a['Accident Date'].replace(accident_date_replace, inplace = True)
-    # print('Accident Date:', a['Accident Date'].unique())
-    ##################################
-    a['Road Surface'].replace(road_surface_replace, inplace = True)
-    a.dropna(inplace = True)
-
-    a['Road Surface'] = a['Road Surface'].astype('int')
-    # print('Road Surface:', a['Road Surface'].unique())
-
-    a['Lighting Conditions'].replace(lighting_conditions_replace, inplace = True)
-    # print('Lighting Conditions:', a['Lighting Conditions'].unique())
-
-    a['Weather Conditions'].replace(weather_conditions_replace, inplace = True)
-    a = a[a['Weather Conditions'] != 'Darkness: street lighting unknown']
-    # print('Weather Conditions:', a['Weather Conditions'].unique())
-
-    a['Type of Vehicle'].replace(type_of_vehicle_replace, inplace = True)
-    # print('Type of Vehicle:', a['Type of Vehicle'].unique())
-
-    a['Casualty Class'].replace(casualty_class_replace, inplace = True)
-    # print('Casualty Class:', a['Casualty Class'].unique())
-
-    a['Sex of Casualty'].replace(sex_of_casualty_replace, inplace = True)
-    # print('Sex of Casualty:', a['Sex of Casualty'].unique())
-
-    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] < 18, 1)
-    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(18, 25), 2)
-    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'].between(25, 65), 3)
-    a['Age of Casualty'] = a['Age of Casualty'].mask(a['Age of Casualty'] > 65, 4)
-    # print('Age of Casualty:', a['Age of Casualty'].unique())
-
-    a['Accident Time'] = a['Accident Time'].str.replace(':', '')
-    a['Accident Time'] = a['Accident Time'].astype(int)
-
-    a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'] < 600, 2)
-    a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'] > 1800, 2)
-    a['Accident Time'] = a['Accident Time'].mask(a['Accident Time'].between(600, 1800), 1)
-    # print('Time (24hr):', a['Time (24hr)'].unique())
-    a['Accident Time'].astype(int)
-
-    ###################### LIMPIEZA DE VALORES NULOS/DUPLICADOS ######################
-
-    clean_df = a.loc[:, ~a.columns.isin(['Accident Date', 'Reference Number'])]
-
-    clean_df['Weather Conditions'] = clean_df['Weather Conditions'].astype('int')
-    clean_df['Casualty Class']     = clean_df['Casualty Class'].astype('int')
-
-    clean_df = clean_df.drop_duplicates()
-    clean_df = clean_df.dropna()
-    clean_df = clean_df.reset_index(drop=True)
-
-    return clean_df
