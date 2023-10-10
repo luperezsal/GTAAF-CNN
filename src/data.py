@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+import numpy as np
 
 def read_madrid_data(root_path):
 
@@ -41,6 +42,40 @@ def get_to_iso_calendar(data_frame_row, date_column='fecha'):
     row_datetime = pd.to_datetime(data_frame_row[date_column], format="%d/%m/%Y")
 
     return row_datetime.isocalendar()
+
+def accident_time_fake_to_hours_and_minutes(row):
+
+    if len(row['hora']) == 7: row['hora'] = "0" + row['hora']
+
+    string_hours = int(row['hora'][:2])
+    string_minutes = int(row['hora'][3::3])
+
+    row['Accident Time Fake'] = row['Accident Time Fake'].replace(year = 2000, month = 1, day = 1, hour = string_hours, minute = string_minutes)
+
+    return row['Accident Time Fake']
+
+def accident_time_fake_to_seconds(row):
+
+    row['Accident Time Fake'] = row['Accident Time Fake'].hour * 60 * 60 + row['Accident Time Fake'].minute * 60
+
+    return row['Accident Time Fake']
+
+def transform_hour_into_sin_cos(data_frame):
+    data_frame['Accident Time Fake'] = pd.Series(pd.date_range("2000-01-01", periods=len(data_frame), freq="h"))
+
+    data_frame['Accident Time Fake'] = data_frame.apply(lambda row: accident_time_fake_to_hours_and_minutes(row), axis = 1)
+    data_frame['Accident Time Fake'] = data_frame.apply(lambda row: accident_time_fake_to_seconds(row), axis = 1)
+
+    data_frame.rename({'Accident Time Fake': 'Second on Day'}, inplace = True,  axis='columns')
+
+    seconds_in_day = 24*60*60
+
+    data_frame['Accident Time Sin'] = np.sin(2*np.pi*data_frame['Second on Day']/seconds_in_day)
+    data_frame['Accident Time Cos'] = np.cos(2*np.pi*data_frame['Second on Day']/seconds_in_day)
+
+    data_frame.drop('Second on Day', axis=1, inplace=True)
+
+    return data_frame
 
 ######################################################
 
@@ -214,10 +249,8 @@ def categorize_features(data_frame) :
     data_frame['rango_edad'].replace(age_replace, inplace = True)
     # print('Edad: \n', data_frame['rango_edad'].value_counts())
 
-    data_frame.hora = data_frame.hora.mask(pd.to_datetime(data_frame.hora) < '06:00:00', 2)
-    data_frame.hora = data_frame.hora.mask(pd.to_datetime(data_frame.hora) > '18:00:00', 2)
-    data_frame.hora = data_frame.hora.mask(pd.to_datetime(data_frame.hora).between('06:00:00', '18:00:00'), 1)
-    # print('hora:', data_frame['hora'].value_counts())
+    data_frame = transform_hour_into_sin_cos(data_frame)
+
 
     district_replace = {}
     for index,distrito in enumerate(data_frame.distrito.unique()):
@@ -235,6 +268,10 @@ def categorize_features(data_frame) :
 
     # Eliminamos aquellas lesividades desconocidas i.e. 77.
     data_frame = data_frame[data_frame.lesividad != 77]
+
+
+
+
 
     return data_frame
 
@@ -367,7 +404,7 @@ def utm_to_int(data_frame):
 
 ######################################################
 def remove_features(data_frame):
-    COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga']
+    COLUMNS_TO_REMOVE = ['num_expediente', 'fecha', 'tipo_via', 'numero', 'positiva_droga', 'hora']
 
     data_frame = data_frame.loc[:, ~data_frame.columns.isin(COLUMNS_TO_REMOVE)]
 
