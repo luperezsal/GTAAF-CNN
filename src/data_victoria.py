@@ -99,118 +99,26 @@ def clean_before_1(data_frame):
     data_frame = data_frame[~data_frame['Age of Vehicle'].isin(AGE_OF_VEHICLE_VALUES_TO_REMOVE)]
 
     casualty_severity_replace = {
-        'Not injured ': 'Slight',
-        'Other injury': 'Assistance',
-        'Serious injury': 'Assistance',
-        'Fatality': 'Assistance'
+        '4': 'Slight', # Not injured
+        4: 'Slight', # Not injured
+        3: 'Assistance', # Other injury
+        2: 'Assistance', # Serious injury
+        1: 'Assistance' # Fatality
     }
     data_frame['Casualty Severity'].replace(casualty_severity_replace, inplace=True)
 
     # SEX_OF_CASUALTY
-    SEX_OF_CASUALTY_VALUES_TO_REMOVE = ['Unknown']
+    SEX_OF_CASUALTY_VALUES_TO_REMOVE = ['U']
     sex_of_casualty_replace = {
-        'Male': 0,
-        'Female': 1
+        'M': 0,
+        'F': 1
     }
     data_frame = data_frame[~data_frame['Sex of Casualty'].isin(SEX_OF_CASUALTY_VALUES_TO_REMOVE)]
     data_frame['Sex of Casualty'].replace(sex_of_casualty_replace, inplace=True)
 
-    # AGE_OF_CASUALTY
-    AGE_OF_CASUALTY_VALUES_TO_REMOVE = ['XX', 'XXX']
-    data_frame = data_frame[~data_frame['Age of Casualty'].isin(AGE_OF_CASUALTY_VALUES_TO_REMOVE)]
 
-    # WEATHER CONDITIONS
-    WEATHER_CONDITIONS_VALUES_TO_REMOVE = ['Unknown']
-    weather_conditions_replace = {
-        'Not Raining': 0,
-        'Raining': 1
-    }
-    data_frame = data_frame[~data_frame['Weather Conditions'].isin(WEATHER_CONDITIONS_VALUES_TO_REMOVE)]
-    data_frame['Weather Conditions'].replace(weather_conditions_replace, inplace=True)
-
-
-    # LIGHT_CONDITIONS
-    light_conditions_replace = {'Daylight': 0,
-                                'Night': 1}
-    data_frame['Lighting Conditions'].replace(light_conditions_replace, inplace = True)
-
-
-    # FIRST_POINT_OF_IMPACT
-    first_point_of_impact_replace = {
-        'Hit Pedestrian': 0,
-        'Roll Over': 1,
-        'Hit Object on Road': 2,
-        'Left Road - Out of Control': 3,
-        'Head On': 4,
-        'Rear End': 5,
-        'Right Angle': 6,
-        'Side Swipe': 7, 
-        'Right Turn': 8,
-        'Hit Fixed Object': 9,
-        'Hit Animal': 10,
-        'Hit Parked Vehicle': 11,
-        'Other': 12
-    }
-    data_frame['First Point of Impact'].replace(first_point_of_impact_replace, inplace = True)
-
-    # WEATHER CONDITIONS
-    ROAD_SURFACE_CONDITIONS_VALUES_TO_REMOVE = ['Unknown']
-    weather_conditions_replace = {
-        'Sealed': 0,
-        'Unsealed': 1
-    }
-    data_frame = data_frame[~data_frame['Road Surface'].isin(ROAD_SURFACE_CONDITIONS_VALUES_TO_REMOVE)]
-    data_frame['Road Surface'].replace(weather_conditions_replace, inplace=True)
-
-
-    type_of_vehicle_replace = {
-        'Scooter': 0,
-        'Motor Cycle': 1,
-        'Motor Cars - Sedan': 2,
-        'Motor Cars - Tourer': 3,
-        'Taxi Cab': 4,
-        'Station Wagon': 5,
-        'Utility': 6,
-        'Motor Vehicle - Type Unknown': 6,
-        'Panel Van': 7,
-        'Forward Control Passenger Van': 7,
-        'OMNIBUS': 8,
-        'SEMI TRAILER': 9,
-        'Light Truck LT 4.5T': 10,
-        'RIGID TRUCK LGE GE 4.5T': 11,
-        'BDOUBLE - ROAD TRAIN': 12,
-        'Other Defined Special Vehicle': 13
-    }
-
-    data_frame['Type of Vehicle'].replace(type_of_vehicle_replace, inplace=True)
-
-    first_road_class_replace = {
-        'Freeway': 0,
-        'Not Divided': 1,
-        'One Way': 2,
-        'Divided Road': 3,
-        'Multiple': 4,
-        'Interchange': 5,
-        'Cross Road': 6,
-        'Crossover': 7,
-        'T-Junction': 8,
-        'Y-Junction': 9,
-        'Ramp On': 10,
-        'Ramp Off': 11,
-        'Rail Xing': 12,
-        'Rail Crossing': 13,
-        'Pedestrian Crossing': 14,
-        'Other': 10
-    }
-    data_frame['1st Road Class'].replace(first_road_class_replace, inplace = True)
-
-
-    casualty_class_replace = {
-        'Driver': 0,
-        'Passenger': 1,
-        'Rider': 2,
-    }
-    data_frame['Casualty Class'].replace(casualty_class_replace, inplace = True)
+    for i, road_class in enumerate(data_frame['1st Road Class'].value_counts().index):
+        data_frame.loc[data_frame['1st Road Class'] == road_class, '1st Road Class'] = i
 
 
     data_frame['Age of Casualty'] = data_frame['Age of Casualty'].astype('int')
@@ -233,6 +141,10 @@ def clean_before_1(data_frame):
 
     data_frame['Weather Conditions'] = data_frame['Weather Conditions'].astype('int')
     data_frame['Casualty Class']     = data_frame['Casualty Class'].astype('int')
+    data_frame['Age of Vehicle']     = data_frame['Age of Vehicle'].astype('int')
+    data_frame['1st Road Class']     = data_frame['1st Road Class'].astype('int')
+    data_frame['Sex of Casualty']    = data_frame['Sex of Casualty'].astype('int')
+
 
     data_frame['Speed Limit'] = data_frame['Speed Limit'].astype(int)
 
