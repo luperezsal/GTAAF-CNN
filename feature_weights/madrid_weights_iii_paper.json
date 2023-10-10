@@ -25,7 +25,7 @@
   },
   "Environmental Features": {
     "feature_childs": [
-      "estado_meteorológico",
+      "estado_meteorológico"
     ],
     "feature_weights": [
       "0.016438562"
