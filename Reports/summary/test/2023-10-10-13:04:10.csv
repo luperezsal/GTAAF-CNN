@@ -4,6 +4,11 @@ Assistance,Assistance,madrid_2D-convolution,test,madrid,2D-convolution,0.762,0.8
 accuracy,accuracy,madrid_2D-convolution,test,madrid,2D-convolution,0.869,0.869,0.869,0.869
 macro avg,macro avg,madrid_2D-convolution,test,madrid,2D-convolution,0.845,0.865,0.853,778.0
 weighted avg,weighted avg,madrid_2D-convolution,test,madrid,2D-convolution,0.875,0.869,0.871,778.0
+Slight,Slight,madrid_KNN,test,madrid,KNN,0.889,0.633,0.739,531.0
+Assistance,Assistance,madrid_KNN,test,madrid,KNN,0.512,0.83,0.634,247.0
+accuracy,accuracy,madrid_KNN,test,madrid,KNN,0.695,0.695,0.695,0.695
+macro avg,macro avg,madrid_KNN,test,madrid,KNN,0.701,0.731,0.686,778.0
+weighted avg,weighted avg,madrid_KNN,test,madrid,KNN,0.769,0.695,0.706,778.0
 Slight,Slight,madrid_Logistic-Regression,test,madrid,Logistic-Regression,0.867,0.661,0.75,531.0
 Assistance,Assistance,madrid_Logistic-Regression,test,madrid,Logistic-Regression,0.517,0.781,0.623,247.0
 accuracy,accuracy,madrid_Logistic-Regression,test,madrid,Logistic-Regression,0.699,0.699,0.699,0.699
