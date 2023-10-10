@@ -13,7 +13,7 @@ Two classes, filtering areas.
 
 ## Third 
 Add Sin/Cos to Hour and categories
-  - [Madrid](https://github.com/luperezsal/TASP-CNN/commit/a0cd3eccf465821871337ee909ccf979c1ce95dd): [FEATURE] Best Madrid Results 
+  - [Madrid](https://github.com/luperezsal/TASP-CNN/commit/a2980a170222f85a5b36334742f536ace4ff59db): [FEATURE] Add knn missing model
   - [UK](#github-readme-profile-category) TODO
   - [Victoria](https://github.com/luperezsal/TASP-CNN/commit/2a94da53c18dbe707cd8719c13cc4b9065e2ad23):  [FEATURE] Add diagram Victoria vs Adelaida 
 
