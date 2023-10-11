@@ -224,3 +224,103 @@ def plot_time_series():
 	    plt.xlabel('City', fontsize=18)
 	    plt.ylabel('F1-Score', fontsize=18)
 	    plt.savefig(f"{casualty_type}_a.svg")
+
+
+
+
+
+import plotly.express as px
+import plotly.graph_objects as go
+import numpy as np
+
+
+def plot_radial_graph():
+
+
+
+	plt.rcParams.update({
+	    "text.usetex": True,
+	})
+
+	root_path = 'Reports/summary/test/'
+
+	all_cities_summaries = pd.DataFrame()
+
+	best_results_mapper = {'Birmingham': '2023-08-18-15:47:06',
+	                       'Sheffield':  '2023-08-18-17:08:06',
+	                       'Liverpool':  '2023-08-18-15:25:24',
+	                       'Southwark':  '2023-08-18-18:08:44',
+	                       'Manchester': '2023-08-18-17:44:54',
+	                       'Cornwall':   '2023-07-15-15:49:36',
+	                       'Victoria':   '2023-10-10-00:15:31',
+	                       'Madrid':     '2023-10-10-13:04:10'
+	                       }
+
+	for city_name, city_timestamp in best_results_mapper.items():
+	    city_summary = pd.read_csv(f"{root_path}/{city_timestamp}.csv", index_col=0)
+
+	    # City names Capitalized
+	    city_summary['city'] = city_summary['city'].apply(lambda x: x.capitalize())
+
+	    all_cities_summaries = pd.concat([all_cities_summaries, city_summary])
+
+	all_cities_summaries = all_cities_summaries.drop_duplicates()
+
+	casualty_types = ['Assistance']
+
+	all_cities_summaries = all_cities_summaries[all_cities_summaries['model'] != '1D-convolution']
+	all_cities_summaries.index = all_cities_summaries.city
+
+	fig = go.Figure()
+
+	for casualty_type in casualty_types:
+	    current_casualty_type_all_cities_summaries = all_cities_summaries[all_cities_summaries['accident_type'] == casualty_type]
+
+
+	    data_grouped_by_model = current_casualty_type_all_cities_summaries.groupby('model')['f1-score']
+
+	    graph_type = 'hist'
+	    for model_name, cities_model_metrics in data_grouped_by_model:
+
+	        # rc('text', usetex=True)
+
+	        a = pd.DataFrame(cities_model_metrics)
+	        a['city'] = a.index
+	        a.reset_index(drop=True, inplace=True)
+
+	        if model_name == '2D-convolution':
+	            fig.add_trace(go.Scatterpolar(
+		              r=np.append(a['f1-score'].values, a['f1-score'].values[0]),
+		              theta=np.append(a['city'].values, a['city'].values[0]),
+	                  name='<b>OURS</b>',
+	                  opacity=1,
+	                  mode='lines+markers',
+	            ))
+	        else:
+		        fig.add_trace(go.Scatterpolar(
+		              r=np.append(a['f1-score'].values, a['f1-score'].values[0]),
+		              theta=np.append(a['city'].values, a['city'].values[0]),
+		              fill=None,
+		              name=model_name,
+		              opacity=0.4,
+		              mode='lines+markers',
+		        ))
+
+	    plt.legend(fontsize=14)
+	    plt.title(label = f'Models F1-scores by city ({casualty_type} Accidents)', fontsize=15)
+	    plt.xlabel('City', fontsize=18)
+	    plt.ylabel('F1-Score', fontsize=18)
+	    plt.savefig(f"{casualty_type}_a.svg")
+
+	fig.update_layout(
+	    title = dict(text="F1-Score by city", font=dict(size=20), yref='paper'),
+	    polar = dict(
+	        radialaxis=dict(
+	          visible=True,
+	          range=[0.3, 1]
+	        )),
+	    showlegend=True
+	)
+
+	fig.show()
+	fig.write_image("fig1.svg", format='svg')
