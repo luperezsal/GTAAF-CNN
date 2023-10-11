@@ -2,6 +2,20 @@ import pandas as pd
 from os.path import exists
 import seaborn as sns
 import matplotlib.pyplot as plt 
+import geopandas as gpd
+import contextily as cx
+
+
+def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name):
+
+
+    gdf = gpd.GeoDataFrame(data_frame,
+                           geometry = gpd.points_from_xy(data_frame[longitude_name], data_frame[latitude_name]),
+                           crs = "EPSG:4326")
+
+    df_wm = gdf.to_crs(epsg=3857)
+    ax = df_wm.plot(figsize=(20, 20), column=severity_column, edgecolor="k", legend=True)
+    cx.add_basemap(ax)
 
 
 def make_reports_summary(times, city_name, MODEL_TIMESTAMP, REPORTS_PATH, REPORTS_SUMMARY_PATH, leeds, madrid, UK):
