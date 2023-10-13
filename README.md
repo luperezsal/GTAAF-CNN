@@ -1,3 +1,4 @@
+
 <h1 align="center">TASP-CNN Current State</h1>
 
 ## First Paper
@@ -18,4 +19,14 @@ Add Sin/Cos to Hour and categories
     - [All models](https://github.com/luperezsal/TASP-CNN/commit/07d2b0d3f5ffbcbcd6dbae4c76b585de9b16c621): [FEATURE] Retrain all models with 6x5 matrix 
     - [Cornwall](https://github.com/luperezsal/TASP-CNN/commit/848e5e907cfa3f1e5090088acbffbb3ec162a98a): [FEATURE] Add Cornwall 6x5
   - [Victoria](https://github.com/luperezsal/TASP-CNN/commit/2a94da53c18dbe707cd8719c13cc4b9065e2ad23): [FEATURE] Add diagram Victoria vs Adelaida 
+
+
+
+To view F1-Score by model for a single city (report summary test file) run this scrpit:
+
+    import pandas as pd
+    
+    report_summary_path = '2023-10-13-13 21 02.csv'
+    report_summary = pd.read_csv(report_summary_path)
+    report_summary[(report_summary['accident_type'] == 'Slight') | (report_summary['accident_type'] == 'Assistance')].sort_values(['model', 'accident_type'])
 
