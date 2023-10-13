@@ -176,7 +176,7 @@ def plot_time_series():
 	                       'Liverpool':  '2023-08-18-15:25:24',
 	                       'Southwark':  '2023-08-18-18:08:44',
 	                       'Manchester': '2023-08-18-17:44:54',
-	                       'Cornwall':   '2023-07-15-15:49:36',
+	                       'Cornwall':   '2023-10-13-13:21:02',
 	                       'Victoria':   '2023-10-10-00:15:31',
 	                       'Madrid':     '2023-10-10-13:04:10'
 	                       }
@@ -237,7 +237,6 @@ import numpy as np
 def plot_radial_graph():
 
 
-
 	plt.rcParams.update({
 	    "text.usetex": True,
 	})
@@ -266,20 +265,21 @@ def plot_radial_graph():
 
 	all_cities_summaries = all_cities_summaries.drop_duplicates()
 
-	casualty_types = ['Assistance']
+	casualty_types = ['Slight', 'Assistance']
 
 	all_cities_summaries = all_cities_summaries[all_cities_summaries['model'] != '1D-convolution']
 	all_cities_summaries.index = all_cities_summaries.city
 
-	fig = go.Figure()
 
 	for casualty_type in casualty_types:
-	    current_casualty_type_all_cities_summaries = all_cities_summaries[all_cities_summaries['accident_type'] == casualty_type]
+	    fig = go.Figure()
 
+	    current_casualty_type_all_cities_summaries = all_cities_summaries[all_cities_summaries['accident_type'] == casualty_type]
 
 	    data_grouped_by_model = current_casualty_type_all_cities_summaries.groupby('model')['f1-score']
 
 	    graph_type = 'hist'
+
 	    for model_name, cities_model_metrics in data_grouped_by_model:
 
 	        # rc('text', usetex=True)
@@ -306,21 +306,21 @@ def plot_radial_graph():
 		              mode='lines+markers',
 		        ))
 
-	    plt.legend(fontsize=14)
-	    plt.title(label = f'Models F1-scores by city ({casualty_type} Accidents)', fontsize=15)
-	    plt.xlabel('City', fontsize=18)
-	    plt.ylabel('F1-Score', fontsize=18)
-	    plt.savefig(f"{casualty_type}_a.svg")
 
-	fig.update_layout(
-	    title = dict(text="F1-Score by city", font=dict(size=20), yref='paper'),
+	    if casualty_type == 'Slight':
+	    	casualty_range = [0.2, 1]
+	    else:
+	    	casualty_range = [0.3, 1]
+
+	    fig.update_layout(
+	    title = dict(text=f"F1-Score by city ({casualty_type} accidents)", font=dict(size=20), yref='paper'),
 	    polar = dict(
 	        radialaxis=dict(
 	          visible=True,
-	          range=[0.3, 1]
+	          range=casualty_range
 	        )),
 	    showlegend=True
 	)
 
-	fig.show()
-	fig.write_image("fig1.svg", format='svg')
+	    fig.show()
+	    fig.write_image(f"{casualty_type}.svg", format='svg')
