@@ -24,6 +24,7 @@ Add Sin/Cos to Hour and categories
 ### Removing features
   - Cornwall:
     - [Environmental](https://github.com/luperezsal/TASP-CNN/commit/43d81accfe691b92f2db2b18aa70dfb50ba7dc61)
+    - [Environmental-Vehicle](https://github.com/luperezsal/TASP-CNN/commit/fb56ce81b07257d6514a355f59e1d74e756289af)
 
 
 To view F1-Score by model for a single city (report summary test file) run this scrpit:
