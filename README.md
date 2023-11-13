@@ -21,6 +21,10 @@ Add Sin/Cos to Hour and categories
   - [Victoria](https://github.com/luperezsal/TASP-CNN/commit/2a94da53c18dbe707cd8719c13cc4b9065e2ad23): [FEATURE] Add diagram Victoria vs Adelaida 
 
 
+### Removing features
+  - Cornwall:
+    - [Environmental](https://github.com/luperezsal/TASP-CNN/commit/43d81accfe691b92f2db2b18aa70dfb50ba7dc61)
+
 
 To view F1-Score by model for a single city (report summary test file) run this scrpit:
 
