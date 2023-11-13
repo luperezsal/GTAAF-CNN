@@ -1,0 +1,7 @@
+Paper III
+
+Modelo general:
+	- Aplicado a cualquier tipo de dataset
+	- En experimentos hay que explicar muy bien las problemáticas que tiene cada dataset. El de Madrid tiene tal problematica, el otro tiene tal. Para explicar que nuestro modelo generaliza bien en todo tipo de datasets, que se vea lo diferenetes que son.
+	- El preprocessing y postprocessing corto, con diagramas que se expliquen solos, sin hacer incidir mucho
+	- Pensar 

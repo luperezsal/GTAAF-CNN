@@ -1,0 +1,208 @@
+<mxfile host="Electron" modified="2023-10-29T10:48:17.335Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="KLmkvajZmduSdMYpX9um" version="22.0.3" type="device">
+  <diagram name="Página-1" id="PuivpJKKtx6LRkdyY3Sx">
+    <mxGraphModel dx="1145" dy="703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-85" value="&lt;b&gt;Victoria&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="525" y="487" width="150" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-84" value="&lt;b&gt;Madrid&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="365" y="487" width="150" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-83" value="&lt;b&gt;UK&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="205" y="487" width="150" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-2" value="Location &amp;amp; Scale Accident" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="520" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-6" value="First Point of Impact" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="820" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-7" value="Type of Accident Place" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="530" y="560" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-8" value="Latitude" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="520" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-9" value="Longitude" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="540" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-10" value="Number of Vehicles" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="580" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-11" value="Road Surface" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="610" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-12" value="Speed Limit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="630" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-13" value="Weather Conditions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="660" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-14" value="Lighting Conditions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="680" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-15" value="Cosine Hour" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="710" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-16" value="Sine Hour" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="730" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-17" value="Day on Week" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="750" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-18" value="Week on Year" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="770" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-19" value="Vehicle Type" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="800" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-20" value="Age of Vehicle" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="840" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-21" value="Casualty Class" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="870" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-22" value="Casualty Sex" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="890" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-23" value="Casualty Age" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="910" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-24" value="X" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="530" y="930" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-26" value="First Point of Impact" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="820" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-27" value="District" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="370" y="560" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-28" value="Latitude" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="520" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-29" value="Longitude" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="540" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-30" value="Number of Vehicles" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="580" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-31" value="X" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="370" y="610" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-32" value="X" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="370" y="630" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-33" value="Weather Conditions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="660" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-34" value="X" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="370" y="680" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-35" value="Cosine Hour" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="710" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-36" value="Sine Hour" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="730" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-37" value="Day on Week" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="750" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-38" value="Week on Year" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="770" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-39" value="Vehicle Type" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="800" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-40" value="X" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="370" y="840" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-41" value="Casualty Class" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="870" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-42" value="Casualty Sex" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="890" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-43" value="Casualty Age" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="370" y="910" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-44" value="Alcohol/Drugs Positive" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="370" y="930" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-64" value="First Point of Impact" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="820" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-65" value="Road Class" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="210" y="560" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-66" value="Latitude" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="520" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-67" value="Longitude" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="540" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-68" value="Number of Vehicles" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="580" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-69" value="Road Surface" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="610" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-70" value="Speed Limit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="630" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-71" value="Weather Conditions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="660" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-72" value="Lighting Conditions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="680" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-73" value="Cosine Hour" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="710" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-74" value="Sine Hour" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="730" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-75" value="Day on Week" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="750" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-76" value="Week on Year" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="770" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-77" value="Vehicle Type" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="800" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-78" value="Age of Vehicle" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="840" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-79" value="Casualty Class" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="870" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-80" value="Casualty Sex" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="890" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-81" value="Casualty Age" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="210" y="910" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-82" value="X" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="210" y="930" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-86" value="Driving Limitations" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="610" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-89" value="Environmental" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="660" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-90" value="Temporary" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="710" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-91" value="Victim" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="870" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CdfpZOpOzFYrl0ncw5G0-92" value="Vehicle" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="800" width="110" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
