@@ -1,0 +1,84 @@
+{
+    "Accident Features":
+    {
+        "feature_childs":
+        [
+            "Easting",
+            "Northing",
+            "1st Road Class",
+            "Number of Vehicles"
+        ],
+        "feature_weights":
+        [
+            "0.060890876",
+            "0.028181618",
+            "0.027801761",
+            "0.026268138"
+        ],
+        "wpi": 0.245199083
+    },
+    "Roadway Features":
+    {
+        "feature_childs":
+        [
+            "Road Surface",
+            "Speed Limit"
+        ],
+        "feature_weights":
+        [
+            "0.021921087",
+            "0.034279246"
+        ],
+        "wpi": 0.056200333
+    },
+    "Environmental Features":
+    {
+        "feature_childs":
+        [
+            "Lighting Conditions",
+            "Weather Conditions"
+        ],
+        "feature_weights":
+        [
+            "0.044700257",
+            "0.031782687"
+        ],
+        "wpi": 0.14703597499999999
+    },
+    "Time Features":
+    {
+        "feature_childs":
+        [
+			"Accident Time Sin",
+			"Accident Time Cos",
+			"dia_semana",
+			"semana_en_año"
+        ],
+        "feature_weights":
+        [
+            "0.04496877",
+            "0.03450126",
+            "0.022866717",
+            "0.022866717"
+        ],
+        "wpi": 0.102336747
+    },
+    "Casualty Features":
+    {
+        "feature_childs":
+        [
+            "Casualty Class",
+            "Sex of Casualty",
+            "Age of Casualty"
+        ],
+        "feature_weights":
+        [
+            "0.04496877",
+            "0.03450126",
+            "0.022866717"
+        ],
+        "wpi": 0.102336747
+    }
+}
+
+
