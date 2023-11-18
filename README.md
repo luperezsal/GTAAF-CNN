@@ -21,12 +21,28 @@ Add Sin/Cos to Hour and categories
   - [Victoria](https://github.com/luperezsal/TASP-CNN/commit/2a94da53c18dbe707cd8719c13cc4b9065e2ad23): [FEATURE] Add diagram Victoria vs Adelaida 
 
 
-### Removing features
+### Removing categories
   - Cornwall:
     - [Environmental](https://github.com/luperezsal/TASP-CNN/commit/43d81accfe691b92f2db2b18aa70dfb50ba7dc61)
     - [Vehicle Best](https://github.com/luperezsal/TASP-CNN/commit/82d4a5a79005f30faf94371e4508a690d7a96621)
     - [Environmental-Vehicle](https://github.com/luperezsal/TASP-CNN/commit/fb56ce81b07257d6514a355f59e1d74e756289af)
 
+### Removing features
+
+  - More importance:
+    - UK - Cornwall:
+      - [Type Of Vehicle](https://github.com/luperezsal/TASP-CNN/commit/48cda10ad64e76d13ff48bd30ca71820124a156d)
+    - Australia - Victoria:
+      - [X]()
+    - Spain - Madrid:
+      - [X]()
+  - Less importance:
+    - UK - Cornwall:
+      - [Age Of Vehicle](https://github.com/luperezsal/TASP-CNN/commit/9c14e7fa13e5c7948e1aa35773747e95e96bf099)
+    - Australia - Victoria:
+      - [X]()
+    - Spain - Madrid:
+      - [X]()
 
 To view F1-Score by model for a single city (report summary test file) run this scrpit:
 
