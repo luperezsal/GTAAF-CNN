@@ -1,1 +1,80 @@
-{"Accident Features": {"feature_childs": ["Easting", "Northing", "1st Road Class", "Number of Vehicles"], "feature_weights": ["0.03473528", "0.04565134", "0.048300255", "0.10400859"], "wpi": 0.232695465}, "Roadway Features": {"feature_childs": ["Road Surface", "Speed Limit"], "feature_weights": ["0.03611606", "0.051379777"], "wpi": 0.08749583699999999}, "Environmental Features": {"feature_childs": ["Lighting Conditions", "Weather Conditions"], "feature_weights": ["0.042921998", "0.11515399"], "wpi": 0.158075988}, "Vehicle Features": {"feature_childs": ["Type of Vehicle", "Age of Vehicle", "First Point of Impact"], "feature_weights": ["0.018803533", "0.017981868", "0.13529871"], "wpi": 0.17208411099999998}, "Time Features": {"feature_childs": ["Accident Time Sin", "Accident Time Cos", "dia_semana", "semana_en_a\u00f1o"], "feature_weights": ["0.04081644", "0.034349393", "0.050753605", "0.051734082"], "wpi": 0.17765352}, "Casualty Features": {"feature_childs": ["Casualty Class", "Sex of Casualty", "Age of Casualty"], "feature_weights": ["0.074424736", "0.06575213", "0.031818274"], "wpi": 0.17199514000000002}}
+{
+  "Accident Features": {
+    "feature_childs": [
+      "Easting",
+      "Northing",
+      "1st Road Class",
+      "Number of Vehicles"
+    ],
+    "feature_weights": [
+      "0.03473528",
+      "0.04565134",
+      "0.048300255",
+      "0.10400859"
+    ],
+    "wpi": 0.232695465
+  },
+  "Roadway Features": {
+    "feature_childs": [
+      "Road Surface",
+      "Speed Limit"
+    ],
+    "feature_weights": [
+      "0.03611606",
+      "0.051379777"
+    ],
+    "wpi": 0.08749583699999999
+  },
+  "Environmental Features": {
+    "feature_childs": [
+      "Lighting Conditions",
+      "Weather Conditions"
+    ],
+    "feature_weights": [
+      "0.042921998",
+      "0.11515399"
+    ],
+    "wpi": 0.158075988
+  },
+  "Vehicle Features": {
+    "feature_childs": [
+      "Type of Vehicle",
+      "Age of Vehicle",
+      "First Point of Impact"
+    ],
+    "feature_weights": [
+      "0.018803533",
+      "0.017981868",
+      "0.13529871"
+    ],
+    "wpi": 0.17208411099999998
+  },
+  "Time Features": {
+    "feature_childs": [
+      "Accident Time Sin",
+      "Accident Time Cos",
+      "dia_semana",
+      "semana_en_año"
+    ],
+    "feature_weights": [
+      "0.04081644",
+      "0.034349393",
+      "0.050753605",
+      "0.051734082"
+    ],
+    "wpi": 0.17765352
+  },
+  "Casualty Features": {
+    "feature_childs": [
+      "Casualty Class",
+      "Sex of Casualty",
+      "Age of Casualty"
+    ],
+    "feature_weights": [
+      "0.074424736",
+      "0.06575213",
+      "0.031818274"
+    ],
+    "wpi": 0.17199514000000002
+  }
+}
