@@ -1,0 +1,36 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Assistance,Assistance,Cornwall_2D-convolution,train,Cornwall,2D-convolution,0.972,0.958,0.965,1783.0
+Slight,Slight,Cornwall_2D-convolution,train,Cornwall,2D-convolution,0.959,0.973,0.966,1783.0
+accuracy,accuracy,Cornwall_2D-convolution,train,Cornwall,2D-convolution,0.966,0.966,0.966,0.966
+macro avg,macro avg,Cornwall_2D-convolution,train,Cornwall,2D-convolution,0.966,0.966,0.966,3566.0
+weighted avg,weighted avg,Cornwall_2D-convolution,train,Cornwall,2D-convolution,0.966,0.966,0.966,3566.0
+Assistance,Assistance,Cornwall_KNN,train,Cornwall,KNN,0.624,0.525,0.57,1783.0
+Slight,Slight,Cornwall_KNN,train,Cornwall,KNN,0.59,0.683,0.633,1783.0
+accuracy,accuracy,Cornwall_KNN,train,Cornwall,KNN,0.604,0.604,0.604,0.604
+macro avg,macro avg,Cornwall_KNN,train,Cornwall,KNN,0.607,0.604,0.602,3566.0
+weighted avg,weighted avg,Cornwall_KNN,train,Cornwall,KNN,0.607,0.604,0.602,3566.0
+Assistance,Assistance,Cornwall_Logistic-Regression,train,Cornwall,Logistic-Regression,0.579,0.6,0.589,1783.0
+Slight,Slight,Cornwall_Logistic-Regression,train,Cornwall,Logistic-Regression,0.585,0.564,0.574,1783.0
+accuracy,accuracy,Cornwall_Logistic-Regression,train,Cornwall,Logistic-Regression,0.582,0.582,0.582,0.582
+macro avg,macro avg,Cornwall_Logistic-Regression,train,Cornwall,Logistic-Regression,0.582,0.582,0.582,3566.0
+weighted avg,weighted avg,Cornwall_Logistic-Regression,train,Cornwall,Logistic-Regression,0.582,0.582,0.582,3566.0
+Assistance,Assistance,Cornwall_ML-Perceptron,train,Cornwall,ML-Perceptron,0.793,0.784,0.789,1783.0
+Slight,Slight,Cornwall_ML-Perceptron,train,Cornwall,ML-Perceptron,0.787,0.796,0.791,1783.0
+accuracy,accuracy,Cornwall_ML-Perceptron,train,Cornwall,ML-Perceptron,0.79,0.79,0.79,0.79
+macro avg,macro avg,Cornwall_ML-Perceptron,train,Cornwall,ML-Perceptron,0.79,0.79,0.79,3566.0
+weighted avg,weighted avg,Cornwall_ML-Perceptron,train,Cornwall,ML-Perceptron,0.79,0.79,0.79,3566.0
+Assistance,Assistance,Cornwall_NB,train,Cornwall,NB,0.596,0.476,0.529,1783.0
+Slight,Slight,Cornwall_NB,train,Cornwall,NB,0.563,0.677,0.615,1783.0
+accuracy,accuracy,Cornwall_NB,train,Cornwall,NB,0.576,0.576,0.576,0.576
+macro avg,macro avg,Cornwall_NB,train,Cornwall,NB,0.579,0.576,0.572,3566.0
+weighted avg,weighted avg,Cornwall_NB,train,Cornwall,NB,0.579,0.576,0.572,3566.0
+Assistance,Assistance,Cornwall_Random-Forest,train,Cornwall,Random-Forest,0.571,0.754,0.65,1783.0
+Slight,Slight,Cornwall_Random-Forest,train,Cornwall,Random-Forest,0.638,0.434,0.517,1783.0
+accuracy,accuracy,Cornwall_Random-Forest,train,Cornwall,Random-Forest,0.594,0.594,0.594,0.594
+macro avg,macro avg,Cornwall_Random-Forest,train,Cornwall,Random-Forest,0.605,0.594,0.583,3566.0
+weighted avg,weighted avg,Cornwall_Random-Forest,train,Cornwall,Random-Forest,0.605,0.594,0.583,3566.0
+Assistance,Assistance,Cornwall_SVC,train,Cornwall,SVC,0.728,0.679,0.703,1783.0
+Slight,Slight,Cornwall_SVC,train,Cornwall,SVC,0.699,0.747,0.722,1783.0
+accuracy,accuracy,Cornwall_SVC,train,Cornwall,SVC,0.713,0.713,0.713,0.713
+macro avg,macro avg,Cornwall_SVC,train,Cornwall,SVC,0.714,0.713,0.713,3566.0
+weighted avg,weighted avg,Cornwall_SVC,train,Cornwall,SVC,0.714,0.713,0.713,3566.0
