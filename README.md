@@ -45,7 +45,7 @@ Add Sin/Cos to Hour and categories
       - [X]()
   - Combinations (Less | More):
     - UK - Cornwall:
-      - [Age Of Vehicle](https://github.com/luperezsal/TASP-CNN/commit/9c14e7fa13e5c7948e1aa35773747e95e96bf099)
+      - [Age Of Vehicle | Type Of Vehicle](https://github.com/luperezsal/TASP-CNN/commit/788a7514415fe297afa43d8124db79622efff0be)
     - Australia - Victoria:
       - [Age Of Vehicle | First Point Of Impact](https://github.com/luperezsal/TASP-CNN/commit/95e5556662a832c6755e10812f108e2b6cfb0fb6)
     - Spain - Madrid:
