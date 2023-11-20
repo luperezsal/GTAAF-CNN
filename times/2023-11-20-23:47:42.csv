@@ -1,0 +1,8 @@
+,city,model,time
+0,Victoria,nb,0.0
+0,Victoria,knn,0.0
+0,Victoria,logistic_regression,0.0
+0,Victoria,random_forest,0.11
+0,Victoria,svc,0.21
+0,Victoria,mlp,1.81
+0,Victoria,convolution_2d,56.07

@@ -1,0 +1,36 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Assistance,Assistance,Victoria_2D-convolution,test,Victoria,2D-convolution,0.832,0.798,0.814,786.0
+Slight,Slight,Victoria_2D-convolution,test,Victoria,2D-convolution,0.759,0.798,0.778,629.0
+accuracy,accuracy,Victoria_2D-convolution,test,Victoria,2D-convolution,0.798,0.798,0.798,0.798
+macro avg,macro avg,Victoria_2D-convolution,test,Victoria,2D-convolution,0.796,0.798,0.796,1415.0
+weighted avg,weighted avg,Victoria_2D-convolution,test,Victoria,2D-convolution,0.8,0.798,0.798,1415.0
+Assistance,Assistance,Victoria_KNN,test,Victoria,KNN,0.727,0.463,0.566,786.0
+Slight,Slight,Victoria_KNN,test,Victoria,KNN,0.538,0.782,0.638,629.0
+accuracy,accuracy,Victoria_KNN,test,Victoria,KNN,0.605,0.605,0.605,0.605
+macro avg,macro avg,Victoria_KNN,test,Victoria,KNN,0.632,0.623,0.602,1415.0
+weighted avg,weighted avg,Victoria_KNN,test,Victoria,KNN,0.643,0.605,0.598,1415.0
+Assistance,Assistance,Victoria_Logistic-Regression,test,Victoria,Logistic-Regression,0.677,0.617,0.646,786.0
+Slight,Slight,Victoria_Logistic-Regression,test,Victoria,Logistic-Regression,0.569,0.633,0.599,629.0
+accuracy,accuracy,Victoria_Logistic-Regression,test,Victoria,Logistic-Regression,0.624,0.624,0.624,0.624
+macro avg,macro avg,Victoria_Logistic-Regression,test,Victoria,Logistic-Regression,0.623,0.625,0.623,1415.0
+weighted avg,weighted avg,Victoria_Logistic-Regression,test,Victoria,Logistic-Regression,0.629,0.624,0.625,1415.0
+Assistance,Assistance,Victoria_ML-Perceptron,test,Victoria,ML-Perceptron,0.728,0.66,0.692,786.0
+Slight,Slight,Victoria_ML-Perceptron,test,Victoria,ML-Perceptron,0.62,0.692,0.654,629.0
+accuracy,accuracy,Victoria_ML-Perceptron,test,Victoria,ML-Perceptron,0.674,0.674,0.674,0.674
+macro avg,macro avg,Victoria_ML-Perceptron,test,Victoria,ML-Perceptron,0.674,0.676,0.673,1415.0
+weighted avg,weighted avg,Victoria_ML-Perceptron,test,Victoria,ML-Perceptron,0.68,0.674,0.675,1415.0
+Assistance,Assistance,Victoria_NB,test,Victoria,NB,0.681,0.492,0.572,786.0
+Slight,Slight,Victoria_NB,test,Victoria,NB,0.529,0.712,0.607,629.0
+accuracy,accuracy,Victoria_NB,test,Victoria,NB,0.59,0.59,0.59,0.59
+macro avg,macro avg,Victoria_NB,test,Victoria,NB,0.605,0.602,0.589,1415.0
+weighted avg,weighted avg,Victoria_NB,test,Victoria,NB,0.614,0.59,0.587,1415.0
+Assistance,Assistance,Victoria_Random-Forest,test,Victoria,Random-Forest,0.853,0.037,0.071,786.0
+Slight,Slight,Victoria_Random-Forest,test,Victoria,Random-Forest,0.452,0.992,0.621,629.0
+accuracy,accuracy,Victoria_Random-Forest,test,Victoria,Random-Forest,0.461,0.461,0.461,0.461
+macro avg,macro avg,Victoria_Random-Forest,test,Victoria,Random-Forest,0.652,0.514,0.346,1415.0
+weighted avg,weighted avg,Victoria_Random-Forest,test,Victoria,Random-Forest,0.675,0.461,0.315,1415.0
+Assistance,Assistance,Victoria_SVC,test,Victoria,SVC,0.744,0.62,0.676,786.0
+Slight,Slight,Victoria_SVC,test,Victoria,SVC,0.607,0.733,0.664,629.0
+accuracy,accuracy,Victoria_SVC,test,Victoria,SVC,0.67,0.67,0.67,0.67
+macro avg,macro avg,Victoria_SVC,test,Victoria,SVC,0.675,0.676,0.67,1415.0
+weighted avg,weighted avg,Victoria_SVC,test,Victoria,SVC,0.683,0.67,0.671,1415.0
