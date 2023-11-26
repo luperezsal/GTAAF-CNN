@@ -19,7 +19,7 @@ def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_
     return cx
 
 
-def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name, provider, name):
+def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name, provider, name, city_name):
 
 
     gdf = gpd.GeoDataFrame(data_frame,
@@ -39,7 +39,7 @@ def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, lon
     		   cmap=colors.ListedColormap(['#D94325','#5CD925']))
 
     cx.add_basemap(ax, source=provider)
-    fig.savefig(f"providers/Madrid/{name}_{str(provider['name'])}.png", bbox_inches="tight")
+    fig.savefig(f"providers/{city_name}/{name}_{str(provider['name'])}.png", bbox_inches="tight")
 
 	
     return
