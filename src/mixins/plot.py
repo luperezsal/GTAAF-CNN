@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt 
 import geopandas as gpd
 import contextily as cx
-
+import matplotlib.colors as colors
 
 def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name):
 
@@ -19,7 +19,7 @@ def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_
     return cx
 
 
-def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name):
+def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name, provider, name):
 
 
     gdf = gpd.GeoDataFrame(data_frame,
@@ -28,18 +28,21 @@ def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, lon
 
     df_wm = gdf.to_crs(epsg=3857)
 
-    fig = plt.figure(figsize=(16,9))
+    fig = plt.figure(figsize=(15,15))
     ax = plt.subplot()
-    
-    df_wm.plot(figsize=(20, 20), column=severity_column, edgecolor="k", legend=True, ax=ax)
-    cx.add_basemap(ax, source=cx.providers.OpenStreetMap.HOT)
 
-    return cx
+    df_wm.plot(column = severity_column,
+    		   edgecolor = "k",
+    		   legend = True,
+    		   ax = ax,
+    		   markersize=15,
+    		   cmap=colors.ListedColormap(['#D94325','#5CD925']))
 
+    cx.add_basemap(ax, source=provider)
+    fig.savefig(f"providers/Madrid/{name}_{str(provider['name'])}.png", bbox_inches="tight")
 
-
-
-
+	
+    return
 
 
 
