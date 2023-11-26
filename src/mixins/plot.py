@@ -13,9 +13,34 @@ def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_
                            geometry = gpd.points_from_xy(data_frame[longitude_name], data_frame[latitude_name]),
                            crs = "EPSG:4326")
 
-    df_wm = gdf.to_crs(epsg=3857)
+    df_wm = gdf.to_crs(epsg=4326)
     ax = df_wm.plot(figsize=(20, 20), column=severity_column, edgecolor="k", legend=True)
     cx.add_basemap(ax)
+    return cx
+
+
+def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name):
+
+
+    gdf = gpd.GeoDataFrame(data_frame,
+                           geometry = gpd.points_from_xy(data_frame[longitude_name], data_frame[latitude_name]),
+                           crs = "EPSG:4326")
+
+    df_wm = gdf.to_crs(epsg=3857)
+
+    fig = plt.figure(figsize=(16,9))
+    ax = plt.subplot()
+    
+    df_wm.plot(figsize=(20, 20), column=severity_column, edgecolor="k", legend=True, ax=ax)
+    cx.add_basemap(ax, source=cx.providers.OpenStreetMap.HOT)
+
+    return cx
+
+
+
+
+
+
 
 
 def make_reports_summary(times, city_name, MODEL_TIMESTAMP, REPORTS_PATH, REPORTS_SUMMARY_PATH, leeds, madrid, UK):
