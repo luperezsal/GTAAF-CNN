@@ -14,18 +14,9 @@
     ],
     "wpi": 0.246134566
   },
-  "Roadway Features": {
-    "feature_childs": [
-      "tipo_accidente"
-    ],
-    "feature_weights": [
-      "0.04550401"
-    ],
-    "wpi": 0.04550401
-  },
   "Environmental Features": {
     "feature_childs": [
-      "estado_meteorológico"
+      "estado_meteorologico"
     ],
     "feature_weights": [
       "0.016438562"
@@ -34,9 +25,11 @@
   },
   "Vehicle Features": {
     "feature_childs": [
-      "tipo_vehiculo"
+      "tipo_vehiculo",
+      "tipo_accidente"
     ],
     "feature_weights": [
+      "0.053042557",
       "0.053042557"
     ],
     "wpi": 0.053042557
