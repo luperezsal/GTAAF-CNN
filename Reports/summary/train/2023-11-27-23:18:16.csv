@@ -1,0 +1,86 @@
+,accident_type,c_m,split,city,model,precision,recall,f1-score,support
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_2D-convolution,train,madrid,2D-convolution,0.971,0.942,0.956,1653.0
+Assistance,Assistance,madrid_2D-convolution,train,madrid,2D-convolution,0.944,0.972,0.958,1659.0
+accuracy,accuracy,madrid_2D-convolution,train,madrid,2D-convolution,0.957,0.957,0.957,0.957
+macro avg,macro avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+weighted avg,weighted avg,madrid_2D-convolution,train,madrid,2D-convolution,0.958,0.957,0.957,3312.0
+Slight,Slight,madrid_KNN,train,madrid,KNN,0.73,0.551,0.628,1653.0
+Assistance,Assistance,madrid_KNN,train,madrid,KNN,0.641,0.797,0.71,1659.0
+accuracy,accuracy,madrid_KNN,train,madrid,KNN,0.674,0.674,0.674,0.674
+macro avg,macro avg,madrid_KNN,train,madrid,KNN,0.685,0.674,0.669,3312.0
+weighted avg,weighted avg,madrid_KNN,train,madrid,KNN,0.685,0.674,0.669,3312.0
+Slight,Slight,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.646,0.618,0.631,1653.0
+Assistance,Assistance,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.635,0.662,0.648,1659.0
+accuracy,accuracy,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.64,0.64,0.64,0.64
+macro avg,macro avg,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.64,0.64,0.64,3312.0
+weighted avg,weighted avg,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.64,0.64,0.64,3312.0
+Slight,Slight,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.646,0.618,0.631,1653.0
+Assistance,Assistance,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.635,0.662,0.648,1659.0
+accuracy,accuracy,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.64,0.64,0.64,0.64
+macro avg,macro avg,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.64,0.64,0.64,3312.0
+weighted avg,weighted avg,madrid_Logistic-Regression,train,madrid,Logistic-Regression,0.64,0.64,0.64,3312.0
+Slight,Slight,madrid_ML-Perceptron,train,madrid,ML-Perceptron,0.868,0.86,0.864,1653.0
+Assistance,Assistance,madrid_ML-Perceptron,train,madrid,ML-Perceptron,0.862,0.87,0.866,1659.0
+accuracy,accuracy,madrid_ML-Perceptron,train,madrid,ML-Perceptron,0.865,0.865,0.865,0.865
+macro avg,macro avg,madrid_ML-Perceptron,train,madrid,ML-Perceptron,0.865,0.865,0.865,3312.0
+weighted avg,weighted avg,madrid_ML-Perceptron,train,madrid,ML-Perceptron,0.865,0.865,0.865,3312.0
+Slight,Slight,madrid_Random-Forest,train,madrid,Random-Forest,0.599,0.936,0.731,1653.0
+Assistance,Assistance,madrid_Random-Forest,train,madrid,Random-Forest,0.855,0.377,0.523,1659.0
+accuracy,accuracy,madrid_Random-Forest,train,madrid,Random-Forest,0.656,0.656,0.656,0.656
+macro avg,macro avg,madrid_Random-Forest,train,madrid,Random-Forest,0.727,0.656,0.627,3312.0
+weighted avg,weighted avg,madrid_Random-Forest,train,madrid,Random-Forest,0.727,0.656,0.627,3312.0
+Slight,Slight,madrid_SVC,train,madrid,SVC,0.83,0.762,0.795,1653.0
+Assistance,Assistance,madrid_SVC,train,madrid,SVC,0.781,0.845,0.812,1659.0
+accuracy,accuracy,madrid_SVC,train,madrid,SVC,0.803,0.803,0.803,0.803
+macro avg,macro avg,madrid_SVC,train,madrid,SVC,0.806,0.803,0.803,3312.0
+weighted avg,weighted avg,madrid_SVC,train,madrid,SVC,0.806,0.803,0.803,3312.0
