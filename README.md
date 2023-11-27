@@ -35,7 +35,7 @@ Add Sin/Cos to Hour and categories
     - Australia - Victoria:
       - [Age Of Vehicle](https://github.com/luperezsal/TASP-CNN/commit/2119acfede6b1295dabf69c617d2b661c7f06c4b)
     - Spain - Madrid:
-      - [X]()
+      - [Tipo Persona](https://github.com/luperezsal/TASP-CNN/commit/efb5d9b0f65b360f2da924ea298826f679edc62a)
   - More importance:
     - UK - Cornwall:
       - [Type Of Vehicle](https://github.com/luperezsal/TASP-CNN/commit/48cda10ad64e76d13ff48bd30ca71820124a156d)
