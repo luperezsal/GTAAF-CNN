@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 import contextily as cx
 import matplotlib.colors as colors
+import os
 
 def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name):
 
@@ -26,6 +27,7 @@ def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, lon
                            geometry = gpd.points_from_xy(data_frame[longitude_name], data_frame[latitude_name]),
                            crs = "EPSG:4326")
 
+    os.makedirs(f"providers/{city_name}", exist_ok=True)
     df_wm = gdf.to_crs(epsg=3857)
 
     fig = plt.figure(figsize=(15,15))
@@ -167,7 +169,7 @@ def make_f1_score_barplot(reports_summary, splits, city_name, cities, MODEL_TIME
 	                                 hue = 'model',
 	                                 palette = 'deep',
 	                                 data = madrid_reports_summary.loc[ACCIDENT_TYPES],
-	                                 ax = axis_madrid).set(title = f"{measure_type} Madrid")
+	                                 ax = axis_madrid)
 	            
 	            if UK:
 	                ax = sns.barplot(x = 'accident_type',
