@@ -42,14 +42,14 @@ Add Sin/Cos to Hour and categories
     - Australia - Victoria:
       - [First Point Of Impact](https://github.com/luperezsal/TASP-CNN/commit/1dbf36d70e1ce6136f6af4aca94385070616bc33)
     - Spain - Madrid:
-      - [X]()
+      - [Tipo Vehículo](https://github.com/luperezsal/TASP-CNN/commit/7561ec5e68cc38e539a44d9db033e49b698ce43d)
   - Combinations (Less | More):
     - UK - Cornwall:
       - [Age Of Vehicle | Type Of Vehicle](https://github.com/luperezsal/TASP-CNN/commit/788a7514415fe297afa43d8124db79622efff0be)
     - Australia - Victoria:
       - [Age Of Vehicle | First Point Of Impact](https://github.com/luperezsal/TASP-CNN/commit/95e5556662a832c6755e10812f108e2b6cfb0fb6)
     - Spain - Madrid:
-      - [X]()
+      - [Tipo Persona | Tipo Vehículo](https://github.com/luperezsal/TASP-CNN/commit/7561ec5e68cc38e539a44d9db033e49b698ce43d)
 
 To view F1-Score by model for a single city (report summary test file) run this scrpit:
 
