@@ -1,0 +1,8 @@
+,city,model,time
+0,madrid,logistic_regression,0.0
+0,madrid,knn,0.0
+0,madrid,logistic_regression,0.0
+0,madrid,random_forest,0.09
+0,madrid,svc,0.18
+0,madrid,mlp,1.78
+0,madrid,convolution_2d,14.36
