@@ -7,27 +7,40 @@ import contextily as cx
 import matplotlib.colors as colors
 import os
 
-def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name):
+def plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name, bounds):
+    xmin, xmax, ymin, ymax = bounds
 
+    pad = 5
 
-    gdf = gpd.GeoDataFrame(data_frame,
-                           geometry = gpd.points_from_xy(data_frame[longitude_name], data_frame[latitude_name]),
+    data_frame_2 = data_frame.replace({'Slight': 'Non-Assistance'})
+    gdf = gpd.GeoDataFrame(data_frame_2,
+                           geometry = gpd.points_from_xy(data_frame_2[longitude_name], data_frame_2[latitude_name]),
                            crs = "EPSG:4326")
 
     df_wm = gdf.to_crs(epsg=4326)
     ax = df_wm.plot(figsize=(20, 20), column=severity_column, edgecolor="k", legend=True)
+
+    ax.set_xlim(xmin-pad, xmax+pad)
+    ax.set_ylim(ymin-pad, ymax+pad)
+
     cx.add_basemap(ax)
     return cx
 
 
-def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name, provider, name, city_name):
+def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, longitude_name, provider, name, city_name, bounds):
+    xmin, ymin, xmax, ymax  = bounds
 
+    pad = 0
 
-    gdf = gpd.GeoDataFrame(data_frame,
-                           geometry = gpd.points_from_xy(data_frame[longitude_name], data_frame[latitude_name]),
+    data_frame_2 = data_frame.replace({'Slight': 'Non-Assistance'})
+
+    gdf = gpd.GeoDataFrame(data_frame_2,
+                           geometry = gpd.points_from_xy(data_frame_2[longitude_name], data_frame_2[latitude_name]),
                            crs = "EPSG:4326")
 
     os.makedirs(f"providers/{city_name}", exist_ok=True)
+
+    gdf = gdf.cx[xmin:xmax, ymin:ymax]
     df_wm = gdf.to_crs(epsg=3857)
 
     fig = plt.figure(figsize=(15,15))
@@ -39,8 +52,10 @@ def madrid_plot_accidents_in_map(data_frame, severity_column, latitude_name, lon
     		   ax = ax,
     		   markersize=15,
     		   cmap=colors.ListedColormap(['#D94325','#5CD925']))
-
+    #ax.set_xlim(xmin-pad, xmax+pad)
+    #ax.set_ylim(ymin-pad, ymax+pad)
     cx.add_basemap(ax, source=provider)
+
     fig.savefig(f"providers/{city_name}/{name}_{str(provider['name'])}.png", bbox_inches="tight")
 
 	
