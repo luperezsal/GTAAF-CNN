@@ -14,7 +14,7 @@ Two classes, filtering areas.
 
 ## Third 
 Add Sin/Cos to Hour and categories
-  - [Madrid](hhttps://github.com/luperezsal/TASP-CNN/commit/5850dd2f931f861cc9c385c534bcf05365bbabee): [FIX] Fix Madrid normal v2
+  - [Madrid](https://github.com/luperezsal/TASP-CNN/commit/5850dd2f931f861cc9c385c534bcf05365bbabee): [FIX] Fix Madrid normal v2
   - UK:
     - [All models](https://github.com/luperezsal/TASP-CNN/commit/07d2b0d3f5ffbcbcd6dbae4c76b585de9b16c621): [FEATURE] Retrain all models with 6x5 matrix 
     - [Cornwall](https://github.com/luperezsal/TASP-CNN/commit/848e5e907cfa3f1e5090088acbffbb3ec162a98a): [FEATURE] Add Cornwall 6x5
