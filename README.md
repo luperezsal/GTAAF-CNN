@@ -18,7 +18,7 @@ Add Sin/Cos to Hour and categories
   - UK:
     - [All models](https://github.com/luperezsal/TASP-CNN/commit/07d2b0d3f5ffbcbcd6dbae4c76b585de9b16c621): [FEATURE] Retrain all models with 6x5 matrix 
     - [Cornwall](https://github.com/luperezsal/TASP-CNN/commit/848e5e907cfa3f1e5090088acbffbb3ec162a98a): [FEATURE] Add Cornwall 6x5
-  - [Victoria](https://github.com/luperezsal/TASP-CNN/commit/2a94da53c18dbe707cd8719c13cc4b9065e2ad23): [FEATURE] Add diagram Victoria vs Adelaida 
+  - [Victoria](https://github.com/luperezsal/TASP-CNN/commit/14037bc748bf35d8ed38d5845d2b7a8a18a0b47d): [FEATURE] Best Victoria model CNN-2D
 
 
 ### Removing categories
