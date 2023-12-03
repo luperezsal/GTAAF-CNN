@@ -20,6 +20,7 @@ Add Sin/Cos to Hour and categories
     - [Cornwall](https://github.com/luperezsal/TASP-CNN/commit/848e5e907cfa3f1e5090088acbffbb3ec162a98a): [FEATURE] Add Cornwall 6x5
   - [Victoria](https://github.com/luperezsal/TASP-CNN/commit/14037bc748bf35d8ed38d5845d2b7a8a18a0b47d): [FEATURE] Best Victoria model CNN-2D
 
+- [Madrid-Victoria F1 loss function](https://github.com/luperezsal/TASP-CNN/commit/11149a3f615945efa0864e71271012e53b8eaab1): [DOC] Train-Val loss Madrid Victoria 
 
 ### Removing categories
   - Cornwall:
