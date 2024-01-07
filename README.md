@@ -1,5 +1,5 @@
 
-<h1 align="center">TASP-CNN Current State</h1>
+<h1 align="center">GTAAF-CNN Current State</h1>
 
 ## First Paper
 
