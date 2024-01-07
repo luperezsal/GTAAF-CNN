@@ -832,8 +832,9 @@ En la Figura \ref{MatrixConstruction} se muestra un ejemplo del procedimiento
 
 \subsection{Diseño del modelo}
 
-\textbf{Luis: TODO} Cambiar los hiperparams por los últimos (esto está copiado del primer paper).\\
+El nuevo modelo propuesto presenta una arquitectura de cuatro capas convolucionales de dos dimensiones cada una, con un tamaño de kernel de $3 \times 3$ y una función de activación ReLU. A la salida de cada capa convolucional se aplica un proceso de Batch Normalization.
 
+La primera capa convolucional de la red consta de 64 kernels, la segunda de $512$, la tercera de $128$ y la cuarta de $256$. Estos kernels contienen los pesos que se entrenan durante la fase de ajuste del modelo a partir de la salida conocida de los datos etiquetados, aprendiendo qué multiplicaciones en los datos minimizan la función de pérdida definida de la red (entropía cruzada binaria) gracias al proceso de retropropagación. La salida de cada capa convolucional son los mapas de características, que son el resultado de aplicar la multiplicación de estos filtros a su entrada. El paso, o número de unidades que avanzan los kernels para un mapa de características, es 1. También se aplica relleno en las convoluciones, es decir, si la multiplicación del kernel excede los límites de la matriz, se agregarán ceros a estos límites para realizar la convolución. Los mapas de características resultantes de la última capa pasan a través de una capa de aplanamiento, que transforma los datos a una sola dimensión una vez que han finalizado las convoluciones. Cada uno de estos datos aplanados está interconectado con los $256$ nodos definidos de la capa densa (Fully Connected Network). Finalmente, la capa densa está conectada a una capa densa final con la función de activación Softmax, que da la probabilidad de que cada nueva muestra pertenezca a una de las dos clases. En la figura \ref{CNN2DArchitecture} se puede observar, a modo de diagrama, la intuición de la arquitectura de la red.
 
 
 \begin{figure}[H]
@@ -1053,9 +1054,7 @@ Una vez aplicado el proceso de limpieza de datos y elección de características
 
 \underline{Normalización}
 
-En la Tabla \ref{X} se muestra un ejemplo de la aplicación de la normalización de datos en base a la técnica Z-Score, donde en la primera columna se observan los datos previos a esta normalización, mientras que la segunda columna contiene los valores de estas características normalizados.
-
-\textbf{Luis: } Aquí metemos el ejemplo del TFM
+En la Figura \ref{TFM_NormalizationExample} se muestra un ejemplo de la aplicación de la normalización de datos en base a la técnica Z-Score, donde en la primera Tabla \ref{TFM_NormalizationExample:MuestraTipificada} se observa un registro de datos discretizado del dataset y el la Figura \ref{TFM_NormalizationExample:MuestraNormalizada} se observa esta misma muestra tras haber aplicado el proceso de normalización. Este proceso se aplica para cada una de las muestras de tal forma que la dimensión de los datos estén bajo la misma magnitud, para poder ser eficientemente interpretables por los modelos.
 
 
 \begin{figure}[H]
@@ -1065,61 +1064,34 @@ En la Tabla \ref{X} se muestra un ejemplo de la aplicación de la normalización
 	
 	\captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
 	
-	\begin{c}{.4\textwidth}
+	\begin{c}
 		\centering
 		\csvautotabular{Figures/TFM/fatal_original.csv}
 		
 		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
 		
 		\caption{Muestra de accidente tipificada.}
-		\label{ProcesoMatriz:MuestraTipificada}
+		\label{TFM_NormalizationExample:MuestraTipificada}
 	\end{c}
-	\hspace{20mm}
-	\renewcommand{\arraystretch}{1.4}
-	\begin{subtable}{.4\textwidth}
-		\hspace{5mm}
+	\begin{c}
+		\centering
 		\csvautotabular{Figures/TFM/fatal_normalized.csv}
-		\caption{Muestra de accidente normalizada.}
-		\label{ProcesoMatriz:MuestraNormalizada}
-	\end{subtable}
-\end{figure}%
-\begin{figure}[H]\ContinuedFloat
-	\scriptsize
-	\centering
-	\vskip\baselineskip
-	\begin{subtable}{.4\textwidth}
-		\centering
-		\renewcommand{\arraystretch}{1.5}
 		
-		\csvreader[
-		tabular = |c|c|c|c|c|,
-		table head = \hline,
-		table foot = \hline
-		]{Figures/TFM/fatal_matrix.csv}%
-		{0=\cero, 1=\one, 2=\two, 3=\three, 4=\four}{%
-			\cero & \one & \two & \three &  \four
-		}
 		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
-		\caption{Características.}
-		\label{ProcesoMatriz:Array}
-	\end{subtable}
-	\hspace{5em}
-	\begin{subfigure}{0.4\textwidth}
-		\centering
-		\includegraphics[scale=0.5]{Figures/TFM/accidente_fatal.png}
-		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
-		\caption{Imagen de las características.}
-		\label{ProcesoMatriz:VisualizacionDeMatriz}
-	\end{subfigure}
-	\caption{Proceso que sigue una muestra del conjunto de datos tipificada hasta llegar a una matriz (a $\rightarrow$ b $\rightarrow$ c $\rightarrow$ d).}
-	\label{ProcesoMatriz}
-\end{figure}
+		
+		\caption{Muestra de accidente tipificada.}
+		\label{TFM_NormalizationExample:MuestraNormalizada}
+	\end{c}
+	\caption{Ejemplo de normalización de una muestra del dataset.}
+	\label{TFM_NormalizationExample}
+\end{figure}%
 
-Una vez se disponen de los datos normalizados, estos ya son comparables y por tanto pueden ser utilizados para el entrenamiento de cualquier modelo que acepte valores numéricos como entrada.
+
+Una vez se disponen de los datos normalizados, estos ya se encuentran en las mismas magnitudes y por tanto pueden ser utilizados para el entrenamiento de cualquier modelo predictivo.
 
 \underline{División Train-Val-Test}
 
-Una vez se disponen de las categorías 
+El siguiente paso, necesario en cualquier procedimiento de entrenamiento de un modelo predictivo, fue la división entre datos de entrenamiento y datos de validación. Esta división se realiza asignando un 80\% de los datos del dataset para asignarlos al entrenamiento y un 20\% a validación o test.
 
 
 \underline{Categorización}
@@ -1131,7 +1103,7 @@ Para lograr este objetivo, uno de los requisitos de esta transformación era asi
 \begin{table}[H]
 	\centering
 
-		\begin{tabular}{ |l|l| }
+		\begin{tabular}{ |c|c| }
 			\hline
 			\textbf{Categoría} & \textbf{Característica} \\
 			\hline
@@ -1142,17 +1114,22 @@ Para lograr este objetivo, uno de los requisitos de esta transformación era asi
 									   & Tipo de accidente \\
 									   & Severidad \\
 			\hline
+			\hline
 			\multirow{2}{*}{Carretera} & Tipo de carretera \\
 									   & Distrito \\
 			\hline
+			\hline
 			Clima & Condiciones climáticas \\
 			\hline
+			\hline
 			Vehículo & Vehículo \\
+			\hline
 			\hline
 			\multirow{4}{*}{Conductor} & Persona \\
 									   & Género \\
 									   & Edad \\
 									   & Alcohol o Drogas \\
+			\hline
 			\hline
 		\end{tabular}
 
@@ -1163,7 +1140,7 @@ Para lograr este objetivo, uno de los requisitos de esta transformación era asi
 
 \underline{Algoritmo Genético}
 
-En este punto, se analiza la optimización de los hiperparámetros del algoritmo de Boosting mediante un algoritmo genético. La figura \ref{EvolucionHiperparametrosImage} muestra la evolución de  los tres hiperparámetros a lo largo de las generaciones. Como se puede observar, los hiperparámetros toman distintos valores en función del mejor individuo evaluado en la población en cada etapa, estos hiperparámetros convergen aproximadamente en la iteración $42$.
+En este punto, se analiza la optimización de los hiperparámetros del algoritmo de Boosting mediante un algoritmo genético. La figura \ref{EvolucionHiperparametrosImage} muestra la evolución de  los tres hiperparámetros a lo largo de las generaciones. Como se puede observar, los hiperparámetros toman distintos valores en función del mejor individuo evaluado en la población en cada etapa, estos hiperparámetros convergen aproximadamente en la iteración $42$, donde no se observan modificaciones a partir de esta generación.
 
  \begin{figure}[H]
 	     \centering
@@ -1202,27 +1179,33 @@ En la Tabla \ref{1stPaperWeightsFinalCharacteristics} se observa el peso asignad
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
 	\centering
-	\begin{tabular}{ |l|c|l|c| }
+	\begin{tabular}{ |c|c|c|c| }
 		\hline
 		\textbf{Categoría} & \textbf{Categoría de Peso} & \textbf{Característica} & \textbf{Peso de la Característica}\\
 		\hline
-		\multirow{5}{*}{Accidente}   & \multirow{5}{*}{0.299}  & - Coordenada X & 0.071\\
-		&  & - Coordenada Y  & 0.066\\
-		&  & - Hora & 0.055\\
-		&  & - Tipo de accidente  & 0.051\\
-		&  & - Severidad & 0.057\\
 		\hline
-		\multirow{2}{*}{Carretera}   & \multirow{2}{*}{0.187}   & - Distrito  & 0.059\\      
-		&  & - Tipo de Carretera        & 0.127\\
+		\multirow{5}{*}{Accidente}   & \multirow{5}{*}{0.299} & Coordenada X & 0.071\\
+		&  & Coordenada Y  & 0.066\\
+		&  & Hora & 0.055\\
+		&  & Tipo de accidente  & 0.051\\
+		&  & Severidad & 0.057\\
 		\hline
-		\multirow{1}{*}{Clima}  & \multirow{1}{*}{0.050}  & - Condiciones Climáticas  & 0.050\\
 		\hline
-		\multirow{1}{*}{Vehículo}  & \multirow{1}{*}{0.070}        & - Vehículo  & 0.070\\
+		\multirow{2}{*}{Carretera} & \multirow{2}{*}{0.187} & Distrito  & 0.059\\      
+		&  & Tipo de Carretera & 0.127\\
 		\hline
-		\multirow{4}{*}{Conductor}   & \multirow{4}{*}{0.394} & - Persona    & 0.177\\
-		&      & - Género      & 0.111\\
-		&      & - Edad      & 0.050\\
-		&      & - Alcohol o Drogas  & 0.056\\
+		\hline
+		\multirow{1}{*}{Clima}  & \multirow{1}{*}{0.050}  & Condiciones Climáticas  & 0.050\\
+		\hline
+		\hline
+		\multirow{1}{*}{Vehículo}  & \multirow{1}{*}{0.070} & Vehículo  & 0.070\\
+		\hline
+		\hline
+		\multirow{4}{*}{Conductor}   & \multirow{4}{*}{0.394} & Persona & 0.177\\
+		&      & Género      & 0.111\\
+		&      & Edad      & 0.050\\
+		&      & Alcohol o Drogas  & 0.056\\
+		\hline
 		\hline
 	\end{tabular}
 	\caption{Ejemplo con los pesos de todas las características estudiadas, así como los pesos de las cinco categorías.}
@@ -1231,28 +1214,60 @@ En la Tabla \ref{1stPaperWeightsFinalCharacteristics} se observa el peso asignad
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Construcción de matrices}
+\underline{Construcción de matrices}
 
 Una vez se disponían de las características y categorías evaluadas, se aplicaba el proceso de asignación de posiciones de cada característica a una coordenadas dentro de la matriz, aplicando el algoritmo de construcción de matrices.
 
-En la tabla \ref{1stPaperFeaturesNormalizationExample} se observa un ejemplo de un registro (originalmente tabular) transformado a formato matricial.
+En la Figura \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro transformado a formato matricial una vez aplicado el algoritmo de construcción haciendo uso de la importancia de las características de la tabla \ref{1stPaperWeightsFinalCharacteristics}, y en \ref{ProcesoMatriz:VisualizacionDeMatriz} se observa la representación en imagen de dicha matriz.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[H]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{table}[H]
+%	\centering
+%	\begin{tabular}{|ccccc|}
+%		%\hline
+%		0.0   & 0.0   & 0.05  & 0.0   & 0.0 \\
+%		0.0   & 0.059 & 0.128 & 0.0   & 0.0 \\ 
+%		0.050 & 0.111 & 0.177 & 0.056 & 0.0 \\
+%		0.055 & 0.066 & 0.071 & 0.057 & 0.051 \\
+%		0.0   & 0.0   & 0.070 & 0.0   & 0.0 \\
+%		%\hline
+%	\end{tabular}
+%	\caption{A specific accident matrix.}
+%	\label{1stPaperFeaturesNormalizationExample}
+%\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[H]\ContinuedFloat
+	\scriptsize
 	\centering
-	\begin{tabular}{|ccccc|}
-		%\hline
-		0.0   & 0.0   & 0.05  & 0.0   & 0.0 \\
-		0.0   & 0.059 & 0.128 & 0.0   & 0.0 \\ 
-		0.050 & 0.111 & 0.177 & 0.056 & 0.0 \\
-		0.055 & 0.066 & 0.071 & 0.057 & 0.051 \\
-		0.0   & 0.0   & 0.070 & 0.0   & 0.0 \\
-		%\hline
-	\end{tabular}
-	\caption{A specific accident matrix.}
-	\label{1stPaperFeaturesNormalizationExample}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\vskip\baselineskip
+	\begin{subtable}
+		\centering
+		\renewcommand{\arraystretch}{1.5}
+		
+		\csvreader[
+		tabular = |c|c|c|c|c|,
+		table head = \hline,
+		table foot = \hline
+		]{Figures/TFM/fatal_matrix.csv}%
+		{0=\cero, 1=\one, 2=\two, 3=\three, 4=\four}{%
+			\cero & \one & \two & \three &  \four
+		}
+		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
+		\caption{Matriz resultante tras la transformación de un registro a formato matricial.}
+		\label{ProcesoMatriz:Array}
+	\end{subtable}
+	\hspace{5em}
+	\begin{subfigure}
+		\centering
+		\includegraphics[scale=0.5]{Figures/TFM/accidente_fatal.png}
+		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
+		\caption{Imagen de las características.}
+		\label{ProcesoMatriz:VisualizacionDeMatriz}
+	\end{subfigure}
+	\caption{Ejemplo de representación matricial de una muestra normalizada del dataset.}
+	\label{ProcesoMatriz}
+\end{figure}
 
 
 %\begin{figure}[H]
@@ -1367,7 +1382,7 @@ Podemos concluir que el modelo propuesto, basado en redes neuronales convolucion
 	\label{ClassificationReportCNN:Test}
 \end{table}
 
-\subsection{Conclusiones}
+\underline{Conclusiones}
 \textcolor{red}{Trabajos a futuro en función de los resultados obtenidos, justificando el por qué de dichos cambios...}
 
 Analizando los resultados de este artículo se propusieron una serie de mejoras a implementar para crear un modelo útil en la severidad de los accidentes, y aportar valor a los cuerpos de emergencia. Estos cambios a implementar fueron:
@@ -1382,6 +1397,7 @@ Analizando los resultados de este artículo se propusieron una serie de mejoras 
 
 \underline{Aquí pones los resultados del paper 3}
 
+En esta sección se expondrán los resultados ofrecidos por la metodología GTAAF, como se ha comentado anteriormente, esta metodología es una evolución del prototipo anterior. Para ello se analizarán los datos con los que se ha ejecutado este método, y los resultados de cada una de las etapas que lo componen aplicadas a estos datos.
 
 \subsection{Dataset}
 
@@ -1507,7 +1523,7 @@ Por otra parte, la característica Type Of Accident Place, ofrece información s
 Como se puede observar, la población que más valores nulos presenta en las categorías de interés es la ciudad de XX, obteniendo una pérdida del X\% respecto al conjunto de datos incial...
 
 En la Figura X se muestra una representación visual del número de registros previo al proceso de limpieza respecto al resultado de esta etapa.
-(Histogramas pre y post limpieza).
+(Histogramas pre y post limpieza?).
 
 
 \subsection{Filtrado de áreas}
@@ -1634,6 +1650,7 @@ En la figura X se puede observar la distribución de clases para cada población
 
 Tabla de discretización.
 
+\underline{UK}
 UK discretización
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \begin{table}[H]
@@ -1739,6 +1756,7 @@ UK discretización
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\underline{Madrid}
 Madrid discretización, in progress...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \begin{table}[H]
@@ -1824,7 +1842,10 @@ Madrid discretización, in progress...
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\underline{Victoria}
+
 Victoria discretización, in progres...
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \begin{table}[H]
     \small
