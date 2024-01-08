@@ -96,23 +96,22 @@ Aquí explicas la motivación de tu tesis (hay una necesidad, saber si un accide
 
 \underline{Breve estado del arte para explicar como se mide la gravedad de un accidente en la literatura.}
 
-\textcolor{blue}{\textbf{Luis: aquí me he liado, por el solapamiento de contenido respecto a la revisión de los modelos que existen de accidentes, tengo que separar estas dos secciones y readactarlas de cero.}}\\
+\textcolor{blue}{\textbf{Luis: Estoy atascado.}}\\
 
 
-% La categorización a la hora de evaluar un accidente de tráfico ha tenido
-La definición de la gravedad de un accidente de tráfico es un componente esencial para crear un modelo predictivo. La gravedad que implica un accidente de tráfico puede ser medido de muchas formas distintas. A lo largo de los años, muchos han sido las investigaciones que han estudiado a distintos niveles el impacto de estos, tanto a nivel económico, físico y social. Es por esto por lo que en función de los criterios que se utilicen para categorizarlos, el valor que puede aportar un modelo predictivo puede ser muy amplio y aportar valor en distintos ámbitos.
+La definición de la gravedad de un accidente de tráfico es la base fundamental para enfocar cualquier investigación. La interpretación de la gravedad que implica un accidente puede ser muy variada. A lo largo de los años, muchas han sido las investigaciones que han estudiado desde distintos puntos de vista el impacto que supone su consecuencia, como a nivel económico, físico y/o social. Es por esto por lo que, en función del prisma de estudio sobre el que se mire, los criterios que se utilicen para definirlos pueden ser muy variados, y el valor que pueda aportar un modelo predictivo, análisis de datos, o estudios económicos, pueden ser de muy distinta índole en función de la definición sobre la que se estudien.
 
-Existen estudios donde es común medir la gravedad de los accidentes en función del coste que supone la consecución de los accidentes para las autoridades, estos pueden ser categorizados en tres categorías ().
+Para ejemplificar estos casos, existen numerosos estudios donde es común medir la gravedad de los accidentes en función del coste que suponen para las autoridades, estos pueden ser categorizados en tres categorías (). Otro ejemplo de evaluación en la severidad de los accidentes es en función de la cantidad total de daños a la propiedad, número de víctimas con lesiones y número de víctimas mortales que este ha producido \cite{Yang2023}, clasificando finalmente estos datos en cuatro clases distintas (leves, generales, graves y muy graves). Por otra parte, 
 
-Otro ejemplo de evaluación en la severidad de los accidentes es en función de la cantidad total de daños a la propiedad, número de víctimas con lesiones y número de víctimas mortales que este ha producido \cite{Yang2023}, clasificando finalmente estos datos en cuatro clases distintas (leves, generales, graves y muy graves).
-
-
-como a bajo nivel, donde se mide la gravedad en función d elas consecuencias físicas de la víctima. E
+Aún disponiendo de los enfoques anteriores, donde el impacto económico toma un papel protagonista, en el estado del arte es más común observar la evaluación de la gravedad del accidente de tráfico en base a las consecuencias físicas que supone para cada una de las víctimas individuales implicadas en el accidente. La clasificación más común dentro de estos puede ser la división entre lesiones fatales, lesiones graves, lesiones leves y no lesiones. Los tipos más comunes de gravedad de lesiones se clasifican en tres a cinco clases \cite{hosseinzadeh2021investigating,panicker2022injury}. La gravedad también puede clasificarse usando un sistema binario \cite{prati2017using}, como por ejemplo, accidente fatal/no fatal, lesión/no lesión, accidente grave/leve o solo daños materiales \cite{zhang2022hybrid,ma2021analytic}
 
 
-Nosotros nos centraremos exclusivamente en el impacto físico que supone a la víctima del accidente.
+\cite{app7060476}, donde la severidad de los accidentes es considerada en tres clases (accidentes que únicamente daños a la propiedad, aquellos donde se han producido lesiones y accidentes con consecuencias fatales)
 
-Aún disponiendo de los enfoques anteriores, en el estado del arte es más común observar la evaluación de la gravedad del accidente de tráfico en función de la gravedad de la lesión de la víctima. Es por este enfoque por el que nos regiremos a partir de ahroa.
+(\cite{su14031729}) La clasificación de los accidentes se divide en tres clases (leves, serios y fatales).
+ 
+
+En esta tesis, la forma en la que se medirá la gravedad de los accidentes se orientará como las consecuencias físicas que suponen para las víctimas que lo sufren. 
 
 
 En función del criterio o las variables que se consideren, pueden tomarse distintos enfoques para implementar un modelo. Por lo que es importante definir de forma coherente los criterios mediante los que serán categorizados. Para implementar un modelo útil y que aporte valor a los organismos de asistencia médica es necesario revisar las distintas formas de interpretarlos en base al estado del arte.
@@ -134,21 +133,25 @@ En función del criterio o las variables que se consideren, pueden tomarse disti
 
 \section{Revisión sobre modelos de predicción de gravedad de los accidentes de tráfico}
 
+\textcolor{blue}{\textbf{Luis: Si lo veis bien, se termina.}}\\
+
 La predicción de la severidad de los accidentes de tráfico ha sido un campo ampliamente estudiado a lo largo de los últimos años. En la historia reciente, la tendencia en la aparición de nuevos modelos de Aprendizaje Estadístico e Inteligencia Artificial ha ido aumentando en paralelo con los avances disruptivos en el campo de las Ciencias de la Computación. Tanto es así que la proposición de nuevos métodos en el último año ha sido exponencial. A lo largo del tiempo distintos enfoques han sido aplicados para solventar este problema en distintas poblaciones de todo el mundo, donde la severidad de los accidentes han sido consideradas de distintas formas, como se ha mencionado en el apartado anterior.
 
 El componente de los datos a la hora de presentar estos modelos del estado del arte es crucial, ya que un buen entrenamiento y unos buenos resultados sobre un cojunto de datos de una región no implican que este modelo pueda ser aplicado a otras localizaciones, tanto por la falta de características respecto a otros conjuntos de datos y a las peculiaridades del conjunto de datos en cuestión.
 
 
-Como principal punto de partida en la historia reciente podemos tomar \cite{app7060476}, donde la severidad de los accidentes es considerada en tres clases (accidentes que únicamente daños a la propiedad, aquellos donde se han producido lesiones y accidentes con consecuencias fatales). Este modelo está entrenado en base a los accidentes producidos en la Autopista Norte-Sur, Malasia. Este conjunto de datos dispone de características que describen los accidentes, como las condiciones climáticas, la fecha y hora del accidente, tipo de colisión del vehículo, entre otras. El modelo propuesto está basado en Redes Neuronales Recurrentes (RNNs), donde las características de los datos son insertados a lo largo de dos capas LSTM, con el objetivo de capturar las correlaciones temporales entre las características de los accidentes.
+Como principal punto de partida en la historia reciente podemos tomar \cite{app7060476}, donde el modelo propuesto está entrenado en base a los accidentes producidos en la Autopista Norte-Sur, Malasia. Este conjunto de datos dispone de características que describen los accidentes, como las condiciones climáticas, la fecha y hora del accidente, tipo de colisión del vehículo, entre otras. El modelo propuesto está basado en Redes Neuronales Recurrentes (RNNs), donde las características de los datos son insertados a lo largo de dos capas LSTM, con el objetivo de capturar las correlaciones temporales entre las características de los accidentes.
 
 Aplican random forest, ANN y árboles de decisión \cite{app10010129}...
 
+
 Enfoques más recientes contemplan \cite{Yang2023} [2018-2020 Sistema Nacional Chino de Investigación en Profundidad de Accidentes Automovilísticos (Chinese Na- tional Automobile Accident In-Depth Investigation System (NAIS))]. El conjunto de datos sobre el que trabaja esta investigación contiene 18 características que describen los accidentes, tales como ... . Esta investigación propone un modelo de Árboles de Decisión sobre el que se entrena el conjunto de datos enb base a estas características.
 
-Otro enfoque interesante es el aplicado en \cite{su14031729}, donde se aplican en conjunto distintos árboles de decisión para crear un ensemble del tipo Random Forest, cuyos hiperparámetros son optimizados mediante Optimización Bayesiana (BO). Esta publicación busca predecir la severidad de los accidentes en US, entre los estados de Montgomery (Alabama) y el estado de Pensilvania. Este dataset dispone de muchísimas características, como tal tal y tal. La clasificación de los accidentes se divide en tres clases (leves, serios y fatales).
+Otro enfoque interesante es el aplicado en \cite{su14031729}, donde se aplican en conjunto distintos árboles de decisión para crear un ensemble del tipo Random Forest, cuyos hiperparámetros son optimizados mediante Optimización Bayesiana (BO). Esta publicación busca predecir la severidad de los accidentes en US, entre los estados de Montgomery (Alabama) y el estado de Pensilvania. Este dataset dispone de muchas características que aportan información al accidente, como tal tal y tal.
+
+Por otra parte, estudios como \cite{Sattar2023} ofrecen la comparación de distintos modelos predictivos (MLP, MLP con embeddings y TabNet) utilizando Bayesian Optimization para optimizar los hiperparámetros de estos modelos.
 
 Como se puede intuir, existen distintos enfoques aplicados a muchas ciudades distintas. El principal inconveniente de los modelos citados anteriormente es que están muy acoplados a los datos disponibles para cada uno de estos datasets, entrenando modelos que requieren las caracterísitcas explícitas enumeradas en cada uno de ellos. Esto se traduce en una falta de generalización si se quisiese aplicar a otros conjuntos de datos pertenecientes a poblaciones donde estos datos puedan no estar disponibles, ya sea por la dificultad de su recogida o por las condiciones socioeconómicas de la región en concreto.
-
 
 
 % Este es de aviones, está chulo: https://www.obviously.ai/case-studies/accident-severity
@@ -185,13 +188,23 @@ En general nuestra metodología es común en otros papers... Ya sea con XGBoost 
 \section{Métodos de optimización de hiperparámetros}
 \label{HYPERPARAMETERS_OPTIMIZATION_METHODS}
 
-A lo largo del tiempo distintos han sido los enfoques desarrollados para optimizar hiperparámetros de modelos predictivos.. \cite{bischl2023hyperparameter}
+
+En el campo del aprendizaje automático, la optimización de los hiperparámetros (hyper-parameter optimization o HPO) cobra un papel fundamental en su ejecución. Los hiperparámetros son configuraciones que son establecidas durante la etapa previa a iniciar el proceso de aprendizaje, por lo que afectan de forma significativa a la forma en que el modelo aprende sobre los datos y hace predicciones sobre nuevas muestras.
+
+Es por esto que una buena configuración de hiperparámetros es de vital importancia, un modelo potencialmente aplicable a un problema puede llegar a quedar inservible por el simple hecho de no tener una configuración eficiente de estos. Estas configuraciones son dependientes del problema, los datos, y el modelo propuesto para resolver ese problema. Además el espacio de búsqueda de las configuraciones pueden ser más o menos amplias dependiendo de la naturaleza de cada modelo de aprendizaje y de las posibilidades a nivel de configuración que este ofrezca. Debido a esto, es necesario optimizar los hiperparámetros, y existen distintos métodos por los que hacerlo.
+
+La principal limitación a la hora de encontrar una configuración de hiperparámetros consistente es el coste que puede suponer en términos de recursos computacionales. Para evaluar una de estas configuraciones se requiere entrenar el modelo con dicha configuración y evaluar el rendimiento que ofrece sobre datos que nunca ha visto, de esta forma se puede tener una intuición de la calidad de esos hiperparámetros, por lo que es necesario aplicar técnicas que permitan maximizar la calidad de la configuración, minimizando el coste que esto supone.
+ 
+A lo largo del tiempo distintos han sido los enfoques desarrollados para HPO de modelos predictivos, cada uno con sus fortalezas y debilidades dependiendo del contexto en el que se apliquen \cite{bischl2023hyperparameter}. Una de las técnicas clásicas y referentes debido a su precisión es la técnica Grid Search. Esta técnica permite probar y es idónea para modelos ligeros y con pocos datos de entrenamiento, ya que permite probar cada combinación posible. Otra de las técnicas ampliamente reconocidas para el problema HPO y basada en el método Grid Search, es el Random Search \cite{bergstra2012random}. Esta técnica establece también una parrilla donde se especifican los posibles valores que pueden tomar los hiperparámetros para seleccionar combinaciones de estos de manera aleatoria. Esto permite probar un gran número de confiuraciones sin tener que pasar por cada una de las individualemnte, reduciendo considerablemente el coste computacional permitiendo explorar zonas del espacio de búsqueda muy disintas. Sin embargo, al ser una selección aleatoria, es posible que se pasen configuraciones que pueden converger.. Por otra parte, existen métodos de HPO que utilizan modelos probabilísticos para calcular el set óptimo de hiperparámetros, como es el Optimizador Bayesiano. Este modelo busca la relación entre los parámetros de entrada y los valores de salida creando un modelo Gausiano probabilístico, reduciendo así el número de evaluaciones necesaria para llegar a una solución óptima.
+
+Otro enfoque interesante para lograr una buena configuración de hiperparámetros es el uso de algoritmos genéticos \cite{alibrahim2021hyperparameter}. La naturaleza de estos algoritmos permite aplicarlos de forma eficiente al problema HPO, ya que son métodos óptimos para problemas de minimización, donde en función de unos parámetros de entrada, estos son capaces de maximizar la calidad de la soluciones minimizando el esfuerzo que implica llegar a ella a lo largo de las generaciones.
 
 \section{Algoritmos Genéticos}
 \underline{Explicación de los diferentes algoritmos genéticos que hay, formulas, descripcion, etc...}
 
 \textcolor{blue}{\textbf{Luis: hay que terminarlo, y revisarlo, pero el enfoque propuesto es este.}}\\
 
+\textcolor{blue}{\textbf{Luis: Decir que son muy buenos para problemas de minimización (reducir coste y maximizar calidad, nos viene de lujo como entrada para la sección anterior)}}\\
 
 Los algoritmos genéticos son métodos inspirados en la evolución biológica, que buscan optimizar soluciones a problemas matemáticos mediante la simulación la evolución de una población que genera descencia a lo largo de generaciones. Estos algoritmos han sido ampliamente utilizados en casos como tal tal y tal. La principal fortaleza de estos algoritmos es que son métodos eficientes y seguros para llegar a soluciones aproximadas a la óptima ideal, reduciendo así el coste computacional en muchos casos exponencial, que supondría la búsqueda de la solución ideal (óptimo global) mediante métodos de combinación a lo largo de todo el conjunto total de posibles soluciones (espacio de búsqueda).
 
@@ -317,8 +330,6 @@ $$(f * g)[n] = \sum_{m=0}^{M-1} f[m] \cdot g[n-m]$$
 Estos modelos son ampliamente utilizados para problemas orientados a detecciones de patrones en señales, donde la naturaleza de los datos es principalmente secuencial. Por ejemplo, algunas de las aplicaciones donde las CNN-1D han demostrado ser efectivas han sido el monitoreo de electrocardiograma en tiempo real \cite{Kiranyaz2017tt}, detección de daños estructurales basada en vibraciones en infraestructuras civiles \cite{khodabandehlou2019vibration} o para clasifiación de audios musicales \cite{allamy20211d}. Estas arquitecturas son una buena opción en problemas de este tipo, tanto en la calidad de resultados que presentan en este dominio, como en la rapidez de inferencia que demuestran, permitiendo ser aplicadas en tiempo real en dispositivos que requieren baja demanda de recursos computacionales, como teléfonos móviles. Sin embargo, la principal limitación de estas arquitecturas se 
 
 \underline{CNN-2D}
-
-\underline{CNN-3D?}
 
 
 El proceso de aprendizaje de las redes neuronales está dividido en varias fases. Las redes en su etapa de entrenamiento realizan predicciones sobre los datos de entrada, aplicando operaciones matemáticas sobre ellos utilizando los pesos configurados en la red (Forward Propagation).
@@ -785,7 +796,7 @@ En esta metodología se utilizará el algoritmo tipo Boosting XGBoost, donde se 
 
 \textcolor{blue}{\textbf{Luis: Ni leerlo, tengo que }}\\
 
-Existen numerosos métodos para optimizar hiperparámetros...
+Como se ha comentado en la sección \ref{HYPERPARAMETERS_OPTIMIZATION_METHODS}, existen numerosos métodos para optimizar hiperparámetros...
 
 Es por esto por lo que en esta tesis, los algoritmos genéticos son utilizados para optimizar los hiperparámetros de entrenamiento del algoritmo XGBoost, que ofrecerá la importancia de las características, necesaria para la construcción de las matrices de entrada a la red CNN-2D propuesta. Donde cada uno de los individuos de la población del algoritmo genético representará una posible combinación de hiperparámetros, concretamente los valores de (Max Depth, ETA y N árboles). La función heurística que será optimizada será el F1-Score otorgado sobre los datos de test de cada uno de los conjuntos de datos.
 
