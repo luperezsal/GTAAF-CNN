@@ -369,3 +369,93 @@ def plot_radial_graph():
 
 	    fig.show()
 	    fig.write_image(f"{casualty_type}.svg", format='svg')
+
+
+
+
+def plot_victoria_sin_cos_hours_in_circle(data_frame, save_path):
+    plt.rcParams.update({'font.size': 15})
+    
+    index_of_selected_hours = [6917, 8469, 4190, 841, 4259, 4351, 1175, 4840, 3058, 9299, 6383, 4689, 6512, 6564, 7750, 4608]
+
+    sin = np.asarray(data_frame['Accident Time Cos'].loc[index_of_selected_hours])
+    cos = np.asarray(data_frame['Accident Time Sin'].loc[index_of_selected_hours])
+    labels = data_frame['Accident Time'].loc[index_of_selected_hours]
+    labels = labels.apply(lambda x: x.replace('.', ':'))
+
+    # Set Seaborn style
+    sns.set(style='whitegrid')
+
+    # Plot the circle
+    plt.figure(figsize=(10, 10))  # Adjust the figure size as needed
+
+    plt.scatter(cos, sin, color='purple', label='Points', s=120, edgecolors='black', linewidth=1.5)
+
+    for i, (x, y, label) in enumerate(zip(cos, sin, labels)):
+        plt.text(x + 0.05, y, label, fontsize=10, ha='left', va='center')
+
+    # Add labels and title
+    plt.xlabel('Cosine Value', fontsize=15)
+    plt.ylabel('Sine Value', fontsize=15)
+    plt.title('Plot of Sin/Cos Accidents Hour', fontsize=18)
+
+    # Set font size for tick labels
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+
+    # Add grid
+    plt.grid(True, linestyle='--', alpha=0.7)
+
+    # Increment bounding axis for extra space
+    buffer = 0.9
+    plt.xlim(buffer)
+    plt.ylim(buffer)
+
+    # Equal aspect ratio to make it a perfect circle
+    plt.axis('equal')
+
+    # Show the plot
+    plt.savefig(save_path)
+    plt.show()
+
+def plot_victoria_sin_cos_hours_in_circle_2(data_frame, save_path):
+	plt.rcParams.update({'font.size': 15})
+
+	index_of_selected_hours = [6917, 8469, 4190, 841, 4259, 4351, 1175, 4840, 3058, 9299, 6383, 4689, 6512, 6564, 7750, 4608]
+
+	sin = np.asarray(data_frame['Accident Time Cos'].loc[index_of_selected_hours])
+	cos = np.asarray(data_frame['Accident Time Sin'].loc[index_of_selected_hours])
+	labels = data_frame['Accident Time'].loc[index_of_selected_hours]
+	labels = labels.apply(lambda x: x.replace('.', ':'))
+
+	# Set Seaborn style
+	sns.set(style='whitegrid')
+
+	# Convert angles from radians to degrees
+	angles = np.arctan2(sin, cos) * 180 / np.pi
+
+	# Plot the polar plot
+	plt.figure(figsize=(10, 10))
+	ax = plt.subplot(111, projection='polar')
+
+	# Plot points with colors based on hours
+	scatter = ax.scatter(np.radians(angles), np.sqrt(sin**2 + cos**2), c=np.arange(len(labels)), cmap='viridis', s=120, edgecolors='black', linewidth=1.5)
+
+	# Add labels
+	for i, (angle, label) in enumerate(zip(np.radians(angles), labels)):
+	    ax.text(angle, 1.1, label, ha='left', va='center', fontsize=10)
+
+	# Add color bar
+	cbar = plt.colorbar(scatter, ax=ax, pad=0.1)
+	cbar.set_label('Hour Index', rotation=270, labelpad=15)
+
+	# Set title
+	plt.title('Polar Plot of Sin/Cos Accidents Hour', fontsize=18)
+
+	# Show the plot
+
+	plt.savefig(save_path)
+	plt.show()
+
+	# Example usage
+	# plot_victoria_sin_cos_hours_in_circle(your_data_frame)
