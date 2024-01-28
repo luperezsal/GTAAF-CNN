@@ -12,7 +12,7 @@ Two classes, filtering areas.
   - [Madrid](#github-readme-profile-category)
   - [UK](https://github.com/luperezsal/TASP-CNN/commit/f8c3ab6a410e80339d937ee4055c36a7a78a3e4f):  [FEATURE] Last updates 
 
-## Third 
+## Third Paper
 Add Sin/Cos to Hour and categories
   - [Madrid](https://github.com/luperezsal/TASP-CNN/commit/5850dd2f931f861cc9c385c534bcf05365bbabee): [FIX] Fix Madrid normal v2
   - UK:
