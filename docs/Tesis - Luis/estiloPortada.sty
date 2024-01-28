@@ -1,0 +1,251 @@
+%:Elementos personales relacionados con la edición
+
+%:Para poner la marca de agua
+\ifdraft{
+	\makeatletter		
+	\SetBgContents{} 
+	\SetBgOpacity{1} 
+	\SetBgScale{1} 
+	\AddEverypageHook{%
+		\ifthenelse{\isodd{\thepage}}
+		{\SetBgAngle{0}%
+			\SetBgHshift{0} 
+			\SetBgColor{gray!75}%
+			\SetBgContents{\copyright\ \afiliafont \elautor\;\afiliafont \eldepartamento\;\afiliafont\launiversidad\; \today  \; \timestring}}%
+		{\SetBgAngle{0}
+			\SetBgColor{gray!75}%
+			\SetBgHshift{0} 
+			\SetBgContents{\afiliafont \timestring\; \today \; \afiliafont \eldepartamento\;\afiliafont\launiversidad \; \copyright\ \afiliafont \elautor}}%
+		\bg@material} 
+	\makeatother
+}{}
+%:Fin de la marca de agua
+
+\newif\iftitle
+
+
+%:Definición de las variables
+\def\titulo#1{\def\eltitulo{#1}}
+\def\subtitulo#1{\def\elsubtitulo{\subtitulofont #1}}
+\def\autor#1{\def\elautor{ #1}}
+\def\director#1{\def\eldirector{ #1}}
+\def\titulodirector#1{\def\eltitulodirector{ #1}}
+\let\autors\autor
+\def\edicion#1{\def\laedicion{\editionfont #1}}
+\def\departamento#1{\def\eldepartamento{#1}}
+\def\centro#1{\def\elcentro{#1}}
+\def\universidad#1{\def\launiversidad{#1}}
+\def\titulacion#1{\def\latitulacion{#1}}
+\def\fecha#1{\def\lafecha{#1}}
+\def\nombretrabajo#1{\def\elnombretrabajo{ #1}}
+\def\isbn#1{\def\elisbn{ #1}}
+\def\rpintelectual#1{\def\elrpintelectual{ #1}}
+
+\titulo{}
+\subtitulo{}
+\edicion{}
+\autor{}
+\director{}
+\titulodirector{}
+\departamento{}
+\centro{}
+\universidad{}
+\titulacion{}
+\fecha{}
+\nombretrabajo{}
+\isbn{}
+\rpintelectual{}
+
+
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+
+%:Construcción de la portada
+\makeatletter		
+\def\portadaTesis#1{%
+	\pgfdeclarelayer{background}
+	\pgfdeclarelayer{foreground}
+	\pgfsetlayers{background,main,foreground}
+	
+	\pagestyle{empty}
+	\definecolor{etsi}{RGB}{150,150,150}
+	\definecolor{epsa}{RGB}{130,130,130}
+	\definecolor{fondo}{RGB}{50,50,50}
+	\definecolor{texto}{RGB}{255,255,255}%{253,181,138}
+	\definecolor{logoetsi}{RGB}{176,124,96}
+	\begin{tikzpicture}[remember picture,overlay]
+	\begin{pgfonlayer}{background}
+	\filldraw[fondo] (current page.north west) rectangle (current page.south east);
+	\filldraw[epsa] (current page.north west) rectangle ([xshift=30mm]current page.south west);
+	\filldraw[etsi] ([yshift=-165mm] current page.north west) rectangle ([yshift=-210mm]current page.north east);
+	
+	\node[anchor=north west, %anchor is upper left corner of the graphic
+	xshift=-1.2mm, %shifting around
+	yshift=-164mm] 
+	at (current page.north west) %left upper corner of the page
+	{\includegraphics[width=30mm, height=44mm]{figuras/LogotipoUA.JPG}}; 
+	
+%	\node[anchor=north west, %anchor is upper left corner of the graphic
+%	xshift=140mm, %shifting around
+%	yshift=-172.5mm] 
+%	at (current page.north west) %left upper corner of the page
+%	{\includegraphics[height=25mm]{figuras/etsi.pdf}}; 
+	
+	\node[align=right, anchor=north west] 
+	at ([xshift=40mm,yshift=-70mm]current page.north west)
+	{\includegraphics[height=65mm]{#1} 
+	};
+	
+	\end{pgfonlayer}
+	
+	% Todo el texto 
+	\begin{pgfonlayer}{foreground}
+	
+	\node[align=right, anchor=north west, color=texto] 
+	at ([xshift=40mm,yshift=-15mm]current page.north west) 
+	{\begin{minipage}{0.9\textwidth}
+		\hyphenpenalty10000
+		\filright
+		\fontsize{19}{21}\titulart Tesis Doctoral\\
+		\latitulacion
+		\end{minipage}};
+	
+	\node[align=right, anchor=north west, color=texto] 
+	at ([xshift=40mm,yshift=-45mm]current page.north west) 
+	{\begin{minipage}{0.9\textwidth}
+		\hyphenpenalty10000
+		\filright
+		\fontsize{21}{23}\titulart \eltitulo
+		\end{minipage}};
+	
+	\node[align=right, anchor=north west, color=texto] 
+	at ([xshift=40mm,yshift=-145mm]current page.north west) 
+	{\begin{minipage}{0.9\textwidth}
+		\hyphenpenalty10000
+		\filright
+		\fontsize{17}{20}\titulart Autor: \elautor\\
+		Directores: \eldirector
+		\end{minipage}};
+	
+	\node[align=left, anchor=north west, color=texto] 
+	at ([xshift=40mm,yshift=-175mm]current page.north west) 
+	{\begin{minipage}{0.85\textwidth}
+		\hyphenpenalty10000
+		\filright
+		\fontsize{\lcatorce}{\lcatorce}\titulartoc 
+		\eldepartamento\\
+		\elcentro\\
+		\launiversidad\\
+		\vskip 12pt
+		Alicante, \lafecha
+		\end{minipage}};
+	\end{pgfonlayer}
+	\end{tikzpicture}
+	\newpage\thispagestyle{empty}\mbox{}
+	\clearpage
+	\firstpage
+	\secondpage
+}
+\makeatother
+
+
+\makeatletter			
+%%%%%%primera pagina TESIS %%%%%%%%%
+\def\firstpage{%%%%%%%%%%%%%%%%%%%%
+	
+	\thispagestyle{empty}%
+	%   \null\vfill
+	\begin{center}
+		\setstretch{1.5}
+		{\Large Tesis Doctoral\\ \latitulacion}
+	\end{center}
+	\vskip 2cm
+	\begin{center}
+		\setstretch{1.5}
+		{\Large \eltitulo}
+	\end{center}
+	\vspace{2cm}
+	\begin{center}
+		\rm 
+		Autor:\\
+		\par \vspace{0.2cm}
+		{\large \bf\elautor}\\
+		\par \vspace{0.1cm}
+		%  \autortitulo\\  %Poner si es para un máster, tesis...
+	\end{center}
+	\vspace{.5cm}
+	\begin{center}
+		\rm Director:
+		\\
+		\par \vspace{.2cm}
+		{\large \bf \eldirector}\\
+		\par \vspace{.1cm}
+		\eltitulodirector\\
+		%\par \vspace{.2cm}
+	\end{center}
+	\par
+	\vspace{1.5cm}
+	\begin{center}
+		{\afiliafont \eldepartamento\\ \afiliafont\elcentro \\ \afiliafont\launiversidad}
+	\end{center}
+	\vspace{.1cm}
+	\begin{center}
+		\afiliafont \lafecha
+	\end{center}
+	\vfill
+	\newpage\thispagestyle{empty}\mbox{}\clearpage %Trick to create an empty page
+}% First page
+\makeatother
+
+
+%
+%%%%%%segunda pagina TESIS %%%%%%%%%
+\def\secondpage{%
+	\thispagestyle{empty}%
+	%  \null\vfill %vskip1in%
+	Tesis Doctoral:\hspace{.5cm}  \parbox[t]{10cm}{\eltitulo}
+	\vspace{0.5cm}
+	%   \vspace{.5cm}
+	\begin{tabbing}
+		\hspace{.5cm} Autor:    \hspace{0.8cm} \elautor
+		\\
+		\hspace{.5cm} Director: \hspace{0.45cm}  \eldirector %\\ \hspace{5.18cm}  %\directorb \\
+	\end{tabbing}
+	\vspace{.5cm}
+	El tribunal nombrado para juzgar la Tesis arriba indicada, compuesto por los siguientes
+	doctores:
+	\\
+	\par
+	\vspace*{.5cm}
+	\hspace{2cm}  Presidente:\\
+	\par
+	\vspace*{.7cm}
+	\hspace{2cm}  Vocales:\\
+	\par
+	\vspace*{2.5cm}
+	\hspace{2cm}  Secretario:\\
+	\par
+	\vspace*{1cm}
+	acuerdan otorgarle la calificación de:\\
+	\par
+	\vspace*{1.5cm}
+	\hspace{7cm}%\fecha
+	\\
+	\par
+	\vspace*{1.0cm}
+	\hspace{8cm} El Secretario del Tribunal
+	\vskip 2 cm
+	\hspace{8cm} Fecha:
+	%        \begin{center}
+	\vfill
+	\newpage\thispagestyle{empty}\mbox{}%\clearpage %Trick to create an empty page
+	\lettrine[lraise=-0.1, lines=2, loversize=0.25]{ }{ }   %Este comando, inocuo, lo metemos porque no hacerlo da fallos \f@size
+}% Second Page
+%

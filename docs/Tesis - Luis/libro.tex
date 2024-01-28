@@ -1,0 +1,344 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%CONFIGURATIÓN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%:Clase del documento
+\documentclass[paper=a4,10pt, Myfinal=true,twoside]{scrbook}
+%, Myfinal=true, Minion=true, English=true
+
+
+
+
+\usepackage{algorithmic}
+\usepackage{color}
+\usepackage{pdfpages} 
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{subfigure}
+\usepackage{svg}
+\usepackage{multirow}
+\usepackage{ulem}
+\usepackage{csvsimple}
+\usepackage{makecell}
+\usepackage{svg}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{csvsimple}
+\usepackage{amsmath}
+\usepackage{subfig}
+
+% TFM
+
+\usepackage{caption} % Para aumentar las opciones de diseño
+\usepackage{csvsimple}
+
+
+%:Paquete de estilos propuesto
+\usepackage{estiloLibro}
+
+%:Paquete para notaciones específicas
+\usepackage{estiloNotacion}
+
+%:Paquete para incorporar aspectos concretos de la edición
+\usepackage{estiloPortada}
+
+\usepackage{tabularx,booktabs}
+
+%:Para modificar fácilmente la fuente del texto. 
+\makeatletter
+\ifdtsc@Minion % Queremos utilizar la fuente Minion y lo hemos declarado al principio
+	\ifluatex
+		\setmainfont[Renderer=Basic, Ligatures=TeX,	% Fuente del texto 
+		Scale=1.01,
+		]{Minion Pro}
+   		% En este caso conviene modificar ligeramente el tamaño de las fuentes matemáticas
+		\DeclareMathSizes{10}{10.5}{7.35}{5.25}
+		\DeclareMathSizes{10.95}{11.55}{8.08}{5.77}
+		\DeclareMathSizes{12}{12.6}{8.82}{6.3}
+%		\setmainfont[Renderer=Basic, Ligatures=TeX,	% Fuente del texto 
+%		]{Adobe Garamond Pro}
+%		\setmainfont[Renderer=Basic, Ligatures=TeX,	% Fuente del texto 
+%		]{Palatino LT Std}
+	\fi
+\else
+	\ifluatex
+		% Para utilizar la fuente Times New Roman, o alguna otra que se tenga instalada
+		\setmainfont[Renderer=Basic, Ligatures=TeX,	% Fuente del texto 
+		Scale=1.0,
+		]{Times New Roman}
+	\else
+		\usepackage{tgtermes} 	%clone of Times
+		%\usepackage[default]{droidserif}
+		%\usepackage{anttor} 	
+	\fi
+\fi
+\makeatother
+
+% Ejemplo de Glosario
+\newacronym[type=main]{EPS}{EPS}{Escuela Politécnica Superior}
+\newacronym[type=main]{UA}{UA}{Universidad de Alicante}
+
+\makeindex
+\makeglossaries %Si no se quiere el glosario, comentar esta línea.
+
+%TAMAÑO LIBRO O A4
+%Para definir el tamaño del documento, hay que elegir uno de los siguientes y comentar el otro
+%Formato Libro
+\geometry
+{paperheight=250mm,%
+paperwidth=180mm,%
+top=25mm,%
+headsep=7.5mm,%
+footskip=10mm,%
+textheight=190mm,%
+textwidth=124mm,%
+bindingoffset=15mm,%
+twoside
+}
+
+%\usepackage[a4,center, cross]{crop}%para poner las cruces de esquina de página, poner la opción cross
+% Formato A4
+%\usepackage[paperheight=297mm, paperwidth=210mm, top=25mm, headsep=8.5mm, includefoot, textheight=240mm, textwidth=150mm, bindingoffset=0mm, twoside]{geometry}
+
+%:Esquema de numeración por defecto
+\setenumerate[1]{label=\normalfont\bfseries{\arabic*.}, leftmargin=*, labelindent=\parindent}
+\setenumerate[2]{label=\normalfont\bfseries{\alph*}), leftmargin=*}
+\setenumerate[3]{label=\normalfont\bfseries{\roman*.}, leftmargin=*}
+\setlist{itemsep=.1em}
+\setlength{\parindent}{1.0 em}
+
+\setcounter{tocdepth}{2} % El nivel hasta el que se muestra el índice 
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%DOCUMENTO
+
+%:Empieza el documento
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+	\begin{figure}[H]
+		\includegraphics[width=6cm]{figuras/logoua.jpg}
+	\end{figure}
+\end{center}
+\vskip 2cm
+
+\begin{center}
+	{\large\titular{DEPARTAMENTO DE CIENCIA DE LA COMPUTACIÓN E INTELIGENCIA ARTIFICIAL} }
+\end{center}
+% Nombre de la facultad o escuela al que está adscrito.
+\begin{center}
+	{\large\titular{ESCUELA POLITÉCNICA SUPERIOR} }
+\end{center}
+
+\vskip 1cm
+\begin{center}
+	{\Huge\titular{Predicción de asistencia en accidentes de tráfico con un modelo de aprendizaje profundo}}
+\end{center}
+\textcolor[RGB]{170,170,170}{\rule{\linewidth}{4.2pt}}
+\vskip 1cm
+\begin{center}
+	{\Huge\titular{Luis Pérez-Sala García-Plata}}
+\end{center}
+\vskip 1cm
+\begin{center}
+	{\normalsize\textbf{Tesis presentada para aspirar al grado de}}
+\end{center}
+\begin{center}
+	{\large\titular{Doctor por la Universidad de Alicante}}
+\end{center}
+\begin{center}
+	{\large\titular{Doctorado en Informática}}
+\end{center}
+\vskip 3cm
+\begin{center}
+	{\normalsize\textbf{Dirigido por:}}
+\end{center}
+\begin{center}
+	{\large \titular{Dr. José F. Vicent Francés}}
+\end{center}
+\begin{center}
+	{\large \titular{Dr. Manuel Curado Navarro}}
+\end{center}
+\clearpage
+%:Construcción de la portada y hojas obligatorias. Ver edicionTesis.sty para posibles modificaciones
+%\titulo{Medidas de Centralidad en Redes Urbanas Basadas en el Concepto del Vector Propio Dominante}
+%\autor{Luis Pérez-Sala García-Plat}
+%\director{José F. Vicent Francés y Manuel Curado Navarro}
+%\titulodirector{Profesores Titulares}
+%
+%\departamento{Ciencia de Computación e Inteligencia Artificial}
+%\centro{Escuela Politécnica Superior}
+%\universidad{Universidad de Alicante}
+%%\titulacion{Ingeniería Informática}
+%\fecha{2024}
+%\nombretrabajo{Tesis Doctoral}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINA: PORTADA
+%\portadaTesis{figuras/Fondo.jpg}
+
+%:Para establecer características del pdf generado
+\hypersetup
+	{
+ 	linkcolor=ublue, %Tocar para poner color en enlaces
+	pdfauthor={\elautor},
+	pdftitle={\eltitulo}, 
+	pdfkeywords={Formato de Tesis, Latex, EPS, Universidad de Alicante}	
+	 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%:Todo lo que constituye la primera parte del texto que no es el cuerpo del texto en realidad
+\frontmatter
+\pagenumbering{Roman} %Pone la numeración en mayúscula (En español parece que es obligatorio)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINA: DEDICATORIA
+\dedicatoria{A .....} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINA: AGRADECIMIENTOS
+\include{agradecimientos/agradecimientos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINA: RESUMEN
+%\include{resumen/resumen}justificacion/justificacion
+\include{justificacion/justificacion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: ÍNDICE ABREVIADO
+% Índice abreviado 
+% El índice abreviado se incluye también en algunos textos, con menor detalle que el completo. Descomentar las siguientes líneas.
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{listasf}{\shortcontentsname}
+%\pagestyle{especial}
+%\shorttoc{\shortcontentsname}{1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: ÍNDICE COMPLETO
+%Índice normal, el completo
+\cleardoublepage
+\phantomsection
+\pagestyle{especial}
+\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: NOTACIÓN
+%\include{notacion/notacion} %No incluir si no se quiere, comentándolo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%:Empieza el contenido del libro
+\mainmatter
+
+%:Para incluir toda la referencia bibliográfica aunque no se cite, descomente la siguiente línea
+%\nocite{*}
+
+%:Página por defecto
+\pagestyle{esitscCD}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: CAPÍTULOS
+%:Los diferentes capítulos, en carpetas separadas
+\include{capitulo1/capitulo1}
+\include{capitulo2/capitulo2} 
+\include{capitulo3/capitulo3} 
+\include{capitulo4/capitulo4} 
+\include{capitulo5/capitulo5} 
+\include{capitulo6/capitulo6} 
+\include{capitulo7/capitulo7}
+\include{capitulo8/capitulo8}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: APÉNDICES
+%:Empezamos con los apéndices, que irían en uno o más ficheros. Es necesario incluir estos ficheros entre el entorno \begin{appendices}....\end{appendices} debido a que se ha deseado utilizar un formato diferente para el título de los apéndices, incluyendo la palabra apéndice, para la numeración de los apéndices, alfabético, y para las cabeceras de las páginas.
+
+%\begin{appendices}
+% Fichero en el que se incluyen los apéndices
+%\include{apendices/apendices} %Ver este fichero para incluir ahí los apéndices.
+%\end{appendices}
+%:Fin de la inclusión de apéndices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%:Empieza todo lo que no constituye el cuerpo en si del libro. Todo lo que va detrás
+\backmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: ÍNDICE DE FIGURAS
+%:Indice de figuras, coméntese las siguientes líneas si no se desea
+%\cleardoublepage
+%\phantomsection
+%:Para añadir una línea en blanco en el TOC y separar esta lista
+%\addtocontents{toc}{\protect\mbox{}\protect\hspace*{0pt}\par}
+%\addcontentsline{toc}{listasb}{\listfigurename}
+%\pagestyle{especial}
+%\listoffigures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: ÍNDICE DE TABLAS
+%:Indice de tablas, coméntese las siguientes líneas si no se desea
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{listasb}{\listtablename}
+%\pagestyle{especial}
+%\listoftables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: ÍNDICE DE PROGRAMAS
+%:Indice de Programas
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{listasb}{\lstlistlistingname}
+%\pagestyle{especial}
+%\lstlistoflistings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%BIBLIOGRAFÍA BIBTEX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%:Bibliografía con biblatex y biber
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{listasb}{\bibname}
+\pagestyle{especial}
+
+\bibliographystyle{amsplain} %flexbib amsplain alpha
+%\bibliographystyle{unsrt} %flexbib amsplain alpha
+%:Fichero con la bibliografía, BIBTEX
+
+\cite{alibrahim2021hyperparameter}
+\bibliography{ref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: ÍNDICE DE ALFABÉTICO
+%%:Índice alfabético de palabras
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{listasb}{\indexname}
+%\chaptermark{\indexname}
+%\printindex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGINAS: ACRÓNIMOS
+%%:Acrónimos
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{listasb}{\glossaryname}
+%\chaptermark{\glossaryname}
+%\printglossaries
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%

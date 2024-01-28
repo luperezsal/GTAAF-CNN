@@ -1,0 +1,110 @@
+    \chapter{Estado del arte}
+
+\section{?`Cómo medir la gravedad de un accidente?}
+%\underline{Breve estado del arte para explicar como se mide la gravedad de un accidente en la literatura.}
+
+La definición de la gravedad de un accidente de tráfico es el punto de partida para enfocar cualquier investigación relacionada con la prevención en seguridad vial. La interpretación de la gravedad que implica un accidente puede ser muy variada e interpretada de distintas formas. De hecho, a lo largo de los años, muchas han sido las investigaciones que han estudiado desde distintos puntos de vista el impacto que suponen sus consecuencias, tanto a nivel económico, como físico y/o social. Es por esto por lo que, en función del prisma con el que se mire, los criterios que se utilicen para definirlos pueden ser muy variados, y el valor que pueda aportar un modelo predictivo puede ser de muy distinta índole en función de la definición sobre la que se estudien.
+
+% \textcolor{blue}{\textbf{Luis: en este párrafo estoy atascado.}}\\
+
+Una de las vertientes de los estudios recientes se centran en medir la gravedad de los accidentes en función del coste que suponen para las autoridades junto con el número total de víctimas involucradas en ellos, interpretando así la gravedad y permitiendo su agrupación en distintas clases \cite{app7060476}. En otros estudios, se evalúa la gravedad de los accidentes en función de la cantidad total de daños a la propiedad, número de víctimas con lesiones graves y número de víctimas mortales que se han producido \cite{Yang2023}, clasificando finalmente estos datos en cuatro clases distintas: \textbf{leves, generales, graves y muy graves}.
+
+No obstante, parece más relevante a nivel social un enfoque más orientado al daño físico de la persona accidentada, en detrimento del impacto económico, que puede ser solucionado con recursos económicos. Es más, esta interpretación es la más común en la literatura: las consecuencias físicas que supone para cada una de las víctimas individuales implicadas en el accidente. La clasificación más común dentro de estos puede ser la división entre \textbf{lesiones fatales, graves y sin lesiones}. Otros estudios (ver \cite{panicker2022injury}) toman como referencia la agrupación de la gravedad de las víctimas hasta en cuatro clases: sin lesiones, lesiones leves, lesiones moderadas y accidentes fatales.
+
+Estos enfoques donde se clasifican la gravedad en un conjunto de niveles tiene una problemática: la subjetividad y/o solapamiento de niveles. Por ejemplo, un accidente puede situarse de forma difusa entre lesión grave y fatal, e incluso puede ser grave en un momento y convertirse en fatal en función de múltiples factores externos que no es posible controlar. A nivel de predicción, también se puede encontrar el problema de que la falta de datos haga más difícil evitar ese solapamiento y producir errores de predicción graves.
+
+Por ello, es interesante valorar clasificaciones binarias \cite{prati2017using, hosseinzadeh2021investigating}, donde la gravedad puede clasificarse en dos, como por ejemplo, \textbf{accidente fatal/no fatal}, como \textbf{lesión/no lesión}, o incluso \textbf{accidente con lesiones o solo daños materiales }\cite{zhang2022hybrid, ma2021analytic}.
+
+% \cite{app7060476}, donde la gravedad de los accidentes es considerada en tres clases (accidentes que únicamente daños a la propiedad, aquellos donde se han producido lesiones y accidentes con consecuencias fatales)
+
+% (\cite{su14031729}) La clasificación de los accidentes se divide en tres clases (leves, serios y fatales).
+
+En este trabajo, la forma en la que se medirá la gravedad de los accidentes de tráfico se orienta a las consecuencias físicas que suponen para cada una de las víctimas individuales implicadas en ellos, poniendo el foco en \textbf{la necesidad de asistencia sanitaria} a las personas en un accidente de tráfico.
+
+
+% En función del criterio o las variables que se consideren, pueden tomarse distintos enfoques para implementar un modelo. Por lo que es importante definir de forma coherente los criterios mediante los que serán categorizados. Para implementar un modelo útil y que aporte valor a los organismos de asistencia médica es necesario revisar las distintas formas de interpretarlos en base al estado del arte.
+
+%A lo largo de los años, distintos enfoques han sido tomados para definirlos. Por ejemplo,  estos suelen clasificarse en diferentes categorías de resultados, como lesiones fatales, lesiones graves, lesiones leves y no lesiones. Los tipos más comunes de gravedad de lesiones se clasifican en tres a cinco clases \cite{hosseinzadeh2021investigating,panicker2022injury}. La gravedad también puede clasificarse usando un sistema binario \cite{prati2017using}, como por ejemplo, accidente fatal/no fatal, lesión/no lesión, accidente grave/leve o solo daños materiales \cite{zhang2022hybrid,ma2021analytic}. La inteligencia artificial y más específicamente los modelos de aprendizaje profundo se han utilizado con frecuencia para predecir la gravedad de los accidentes de tráfico, principalmente debido a su capacidad para capturar relaciones complejas y producir mayor precisión. Los métodos basados en aprendizaje profundo no requieren suposiciones previas sobre las variables o el proceso estocástico que las genera, produciendo así predicciones muy confiables.
+
+%En \cite{JingChen2022}, los autores dividen la clasificación de accidentes de tráfico entre macroscópica y microscópica. La predicción macroscópica implica el uso de datos de tráfico basados en texto, como la hora del accidente o las condiciones climáticas, el flujo de vehículos y la iluminación de la carretera, para predecir el número y la gravedad de los accidentes de tráfico. Por otro lado, la predicción microscópica de accidentes de tráfico consiste en predecir un posible accidente de tráfico utilizando sensores en el vehículo, como sensores de velocidad o lidar. En este estudio, nos enfocamos en la predicción macroscópica, y dentro de ella, los datos se analizan en dominios euclídeos \cite{Zheng2019,LiAbdel2020}, utilizando redes neuronales convolucionales (CNN) para analizar las características del tráfico urbano.
+
+%Los modelos utilizados para predecir la gravedad de los accidentes de tráfico incluyen principalmente tres categorías: modelos físicos, modelos estadísticos y aquellos basados en aprendizaje automático. Los modelos físicos analizan con precisión todo el proceso de colisión de vehículos, pero su principal inconveniente es la complejidad de su representación, siendo los dos métodos más utilizados el Delta-V y el método de velocidad de energía equivalente. Los modelos estadísticos se utilizan para analizar la relación entre variables independientes y variables dependientes \cite{zhang2018comparing}. Se han utilizado modelos estadísticos tradicionales, como Probit Ordenado \cite{xie2009crash}, para predecir la gravedad de los accidentes de tráfico, pero se requiere previamente una forma funcional bien definida para describir la relación entre la ocurrencia del accidente y las variables explicativas y, además, tienen limitaciones, especialmente cuando se infringen sus supuestos subyacentes \cite{Shiram2021}.
+
+%Para superar las limitaciones de los modelos físicos y estadísticos, comenzaron a utilizarse métodos basados en inteligencia artificial, más específicamente en aprendizaje profundo. Estos algoritmos ofrecen adaptabilidad y pueden manejar relaciones no lineales complejas y destacamos su uso: algoritmos basados en redes neuronales \cite{zeng2014stable}, árboles de decisión \cite{de2013extracting}, modelos tipo bosque aleatorio \cite{harb2009exploring}, SVP (máquina de vectores de soporte) \cite{li2012using} o algoritmos de agrupamiento tipo K-means \cite{mauro2013using}, entre otros. En general, estos métodos proporcionan un modelo preciso según el problema en cuestión, funcionan bien en problemas complejos, son bastante flexibles y suelen centrarse en cómo diseñar modelos u funciones objetivo, aplicables a una amplia gama de escenarios. Además, suelen seguir una serie de pasos como la recopilación y preparación de los datos utilizados, el entrenamiento y prueba del modelo y la comparación de los resultados.
+
+%En \cite{manzoor2021rfcnn}, los autores combinan Random Forest y Convolutional Neural Network (RFCNN) con un conjunto de datos de accidentes de tráfico recopilados en EE. UU. de 2016 a 2020, logrando construir un modelo con alta precisión. En \cite{alkheder2017severity}, los autores utilizan una red neuronal junto con un conjunto de datos sobre accidentes ocurridos en Abu Dhabi, con inicialmente 48 atributos que incluyen la variable objetivo (que se categoriza en cuatro clases: leve, moderada, grave y muerte), para lograr una tasa de precisión de alrededor de 0.7. Los autores del artículo \cite{labib2019road} determinan la gravedad de los accidentes de tráfico utilizando técnicas de ML en un conjunto de datos de accidentes en Bangladés. Comparan los resultados de cuatro algoritmos de aprendizaje automático en dos experimentos. El primero es sobre cuatro clases de gravedad de accidentes: fatal, grave, lesión simple y colisión motorizada y en el segundo experimento transforman la variable objetivo en dos tipos: fatal o grave. En \cite{malik2021road}, los autores predicen la gravedad de los accidentes, distinguiendo dos tipos (grave o leve), utilizando un modelo basado en seis algoritmos de aprendizaje automático: Naive Bayes, regresión logística, árboles de decisión, bosque aleatorio, Bagging y AdaBoost.
+
+
+\section{?`Cómo predecir la gravedad de un accidente de tráfico?}
+
+%\subsection*{Revisión sobre modelos de predicción de gravedad de los accidentes de tráfico}
+
+%\textcolor{green}{MANU: falta las referencias del final y OK.}
+
+%\textcolor{orange}{\textbf{Luis: } Hecho}
+
+
+La predicción de la gravedad de los accidentes de tráfico ha sido un campo ampliamente estudiado a lo largo de los últimos años, debido a la importancia que tienen para las autoridades a lo largo de todo el mundo. En la historia reciente, la tendencia en la aparición de nuevos modelos de Aprendizaje Estadístico e Inteligencia Artificial ha ido aumentando en paralelo con los avances disruptivos en el campo de las Ciencias de la Computación. Tanto es así que, la proposición de nuevos métodos en los últimos años ha sido exponencial. Es por esto que, para solventar este problema, se han aplicados diferentes enfoques a lo largo de distintas poblaciones en todo el mundo, donde la gravedad de los accidentes han sido consideradas de forma muy variada, como se ha mencionado en el apartado anterior.
+
+Como principal punto de partida en la historia reciente se puede tomar \cite{app7060476}, donde el modelo propuesto está entrenado en base a los accidentes producidos en la autopista Norte-Sur de Malasia. Este conjunto de datos dispone de características que describen los accidentes, como las condiciones climáticas, la fecha y hora del accidente o el tipo de colisión del vehículo, entre otras. El modelo propuesto está basado en Redes Neuronales Recurrentes (RNNs), donde las características de los datos son incluidos a lo largo de dos capas \textit{LSTM} (\textit{Long Short-Term Memory}), con el objetivo de capturar las correlaciones temporales entre las características de los accidentes. Por otra parte, en \cite{app10010129} se aplican tres métodos distintos al contexto para predecir la gravedad de los accidentes en la ciudad de Seúl, concretamente \textit{Random Forest}, Perceptrones Multicapa y árboles de decisión, con el objetivo de comparar cuál de ellos generaliza mejor sobre los datos, siendo finalmente el modelo \textit{Random Forest} el que mejores resultados presentaba.
+
+Enfoques más recientes se contemplan en el \textit{Chinese National Automobile Accident In-Depth Investigation System (NAIS)} \cite{Yang2023}. El conjunto de datos sobre el que trabaja esta investigación contiene $18$ características que describen los accidentes, sobre los que proponen un modelo de árboles de decisión que se entrena el conjunto de datos en base a estas características evaluando estos resultados con otros modelos del estado del arte.
+
+Otra proposición interesante es la propuesta en \cite{su14031729}, donde se aplican en conjunto distintos árboles de decisión para crear un \textit{ensemble} del tipo \textit{Random Forest}, cuyos hiperparámetros son optimizados mediante \textit{Optimización Bayesiana (BO)}. Esta publicación busca predecir la gravedad de los accidentes a lo largo de Estados Unidos, concretamente entre los estados de Alabama y el estado de Pensilvania. Para ello, se utiliza un conjunto de datos relativo a accidentes de tráfico producidos entre los años $2016$ y $2019$.
+
+Otras perspectivas contemplan únicamente la predicción de la gravedad de los accidentes sobre un subconjunto de vehículos, como por ejemplo los de dos ruedas. Una de estas investigaciones se presenta en \cite{panicker2022injury}, donde se predice la gravedad del accidente exclusivamente en conductores de vehículos de dos ruedas en la ciudad de Chennai (India) entre los años 2016 y 2018. Para esto, se desarrollan dos modelos independientes para compararlos, el primero de ellos un modelo \textit{Random Forest} convencional y  el segundo \textit{Conditional Inference Forest (CIF)}. Este algoritmo es similar al \textit{Random Forest} pero, en lugar de utilizar el índice Gini para separar las muestras en cada nodo, se utilizan métodos estadísticos para determinar la importancia de la separación de los datos en base al p-valor, asegurando así que la división de los datos se realiza en base a las características más significativas. Este enfoque permite además medir la importancia de cada característica disponible en el dataset. Para evaluar el rendimiento de este modelo se compara con el otro método desarrollado (\textit{Random Forest}) y un método \textit{Ordered Probit}, ambos siendo superados por \textit{CIF}. Igualmente, siguiendo con la predicción de la gravedad de accidentes en vehículos de dos ruedas, en \cite{prati2017using} se propone un tratamiento orientado a ciclistas. Se quieren predecir las características clave que influyen en la gravedad de los accidentes de ciclistas a lo largo de las carreteras de Italia, utilizando un conjunto de datos que contempla registros de accidentes desde el año 2011 hasta el 2013. Para ello utilizan un árbol de decisión tipo \textit{CHAID (Chi-square Automatic Interaction Detection)} que evalúa la importancia de las características más relevantes que producen este tipo de accidentes, posteriormente, las ocho más significativas son incluidas en el entrenamiento de un Optimizador Bayesiano clasificador de gravedad.
+
+Otro tipo de investigaciones se han orientado a la predicción de la gravedad de vehículos más pesados, como es el caso de \cite{hosseinzadeh2021investigating}. El objetivo principal de este estudio es predecir las características más influyentes en accidentes donde se encuentran involucrados camiones. Para ello, los autores utilizan un conjunto de datos de Irán, donde se estudian los accidentes a lo largo de ocho provincias entre los años 2011 y 2014. En base a estos datos, se entrena un modelo del tipo \textit{Support Vector Machine (SVM)} y un tipo de árbol de decisión \textit{Random Parameter Binary Logit (RPBL)} por separado, para predecir qué variables afectan en mayor medida a la consecución de accidentes graves. 
+
+En la historia reciente también es común encontrar investigaciones que combinan distintos modelos para lograr un mejor rendimiento, como es el caso de \cite{zhang2022hybrid}. En este artículo los investigadores implementan un enfoque de clasificación híbrida basada en modelos \textit{Machine Learning} sobre los datos de la autopista de Pakistán N-5 entre los años 2015 y 2019. Para ello se utiliza un algoritmo de selección de características (\textit{Boruta Algorithm}) para decidir las características son influyentes en la predicción de la gravedad de los accidentes, apoyándose en un clasificador \textit{Random Forest}. Posteriormente, estas características resultantes se incluyen para el entrenamiento de cuatro modelos clasificadores con el fin de comparar el rendimiento entre ellos, concretamente \textit{Naive Bayes (NB), k-Nearest Neighbor (KNN), Binary Logistic Regression (BLR) y XGBoost}, siendo este último el que mejor generaliza sobre los datos.
+
+%\textcolor{red}{MANU: tenías esta anotación comentada, está resuelta?  'Falta poner este \cite{ma2021analytic}'}.
+
+%\textcolor{orange}{LUIS: Pues no, ni me acordaba. Pero está muy chulo, utilizan autoencoders. Lo ponemos?}.
+
+%\textcolor{purple}{Jose: SI}
+
+%\textcolor{orange}{\textbf{Luis: } Hecho}
+
+Otra de las vertientes propuestas recientemente es la basada en aplicar distintos algoritmos de aprendizaje automático para pre-procesar la entrada a un modelo basado en \textit{Autoencoders}. Esta propuesta utiliza algoritmos para seleccionar características influyentes que afecten a la gravedad de los accidentes de tráfico para utilizar posteriormente algoritmos de agrupación en base a las características geográficas de los datos, con el objetivo final de entrenar un \textit{Stacked Sparse Autoencoder (SSAE)} \cite{ma2021analytic} que predice la severidad de dichos accidentes.
+
+Por otra parte, estudios como \cite{Sattar2023} ofrecen la comparación de distintos modelos predictivos como \textit{Multi Layer Perceptron (MLP)}, \textit{MLP con embeddings} y \textit{TabNet}, utilizando optimizadores bayesianos para optimizar los hiperparámetros de estos modelos.
+
+El componente de los datos a la hora de presentar todos estos modelos del estado del arte es crucial, ya que un buen entrenamiento y unos buenos resultados sobre un conjunto de datos de una región no implican que este modelo pueda ser aplicado a otras localizaciones, debido tanto a la falta de características comunes respecto a otros conjuntos de datos como a las peculiaridades concretas de cada conjunto de datos en cuestión.
+
+Como se puede intuir, existen distintos enfoques aplicados a muchas ciudades distintas. El principal inconveniente de los modelos citados anteriormente es que están muy acoplados a los datos disponibles para cada uno de estos datasets, entrenando modelos que requieren las características explícitas enumeradas en cada uno de ellos. Esto se traduce en una falta de generalización si se quisiese aplicar a otros conjuntos de datos pertenecientes a poblaciones donde estos datos puedan no estar disponibles, ya sea por la dificultad de su recogida o por las condiciones socio-económicas de la región en concreto. Esta dependencia de los datos, es una debilidad que impide el desarrollo de modelos generales y que ha motivado el estudio presentado en esta tesis.
+
+
+% Este es de aviones, está chulo: https://www.obviously.ai/case-studies/accident-severity
+
+% Literalmente el nuestro: \cite{9693055}
+% Otro nuestro: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9693055
+
+% Usan Particle Swarm Optimization para encontrar hiperparams de ANNs: https://norma.ncirl.ie/6222/1/jiliyamathew.pdf
+
+% Muy citado pero 2016: https://www.tandfonline.com/doi/full/10.1080/13588265.2016.1275431
+
+% Muy cutre pero usan autoencoders, cno 4 clases de gravedad: https://www.rivas.ai/pdfs/bibb2021predicting.pdf
+
+% 2019: https://iopscience.iop.org/article/10.1088/1757-899X/598/1/012089/pdf
+
+% Muy cutre, pero por apuntarlo: https://library.acadlore.com/MITS/2023/2/4/MITS_02.04_03.pdf
+
+% 2023: Datos de Albania, dos clases (muerto y gravedad): https://univ-angers.hal.science/hal-03993917/document
+
+% 2023: ensemble de tres modelos simples. 4 clases, datos como los nuestros. Datos nueva Zelanda: https://hpcn.exeter.ac.uk/iucc2021/proceedings/pdfs/IUCC-CIT-DSCI-SmartCNS2021-40WP54zLa9Wagib9WOs48p/666700a392/666700a392.pdf
+
+% 2022: Comparación de modelos de ML contra dos o tres datasets (Michigan, Abu Dhabi, etc.). Los datos tienen nuestras características. Dos clases (Asistencia y Otro tipo[leves]) https://dergipark.org.tr/en/download/article-file/2509821
+
+% 2017: https://www.mdpi.com/2076-3417/7/6/476
+
+% 2017: https://www.researchgate.net/profile/Seyed-Mohammad-Hossein-Hasheminejad/publication/312051504_Traffic_accident_severity_prediction_using_a_novel_multi-objective_genetic_algorithm/links/5c762b8b299bf1268d285dc4/Traffic-accident-severity-prediction-using-a-novel-multi-objective-genetic-algorithm.pdf
+
+% 2016: https://www.researchgate.net/profile/Salah-Taamneh/publication/301708789_Severity_Prediction_of_Traffic_Accident_Using_an_Artificial_Neural_Network_Traffic_Accident_Severity_Prediction_Using_Artificial_Neural_Network/links/5aa82c31a6fdcc1b59c638e7/Severity-Prediction-of-Traffic-Accident-Using-an-Artificial-Neural-Network-Traffic-Accident-Severity-Prediction-Using-Artificial-Neural-Network.pdf
+
+% Artículo rollo medium sobre UK y han hecho una APP: https://www.analyticsvidhya.com/blog/2023/01/machine-learning-solution-predicting-road-accident-severity/
+
+
+En resumen, se puede observar como los estudios sobre la predicción y análisis de accidentes de tráfico son muy específicos, centrándose en un dataset concreto, en un área acotada. Además, la mayoría se enfoca a un perfil de accidente concreto (camiones, bicicletas, etc) y analiza la gravedad en base a un criterio como los citados en la sección anterior. Es por ello que se plantea en esta tesis un modelo general, donde se analice la necesidad de asistencia médica o no de los accidentes de tráfico independientemente de la urbe y del vehículo implicado, entre otras características.
+
+En el siguiente capítulo se hace un estudio base de las técnicas y modelos estudiados en esta tesis, previo a la explicación detallada del modelo propuesto.

@@ -1,0 +1,67 @@
+\chapter{Introducción} \label{CAP_01}
+
+
+\chapter{Introducción}
+
+%\textcolor{red}{\textbf{Luis: } hay que hacerlo. Entre el abstract y la motivación no sé qué poner aquí.}\\
+
+%blablabla
+
+%\section{Motivación}
+
+
+%\textcolor{red}{\textbf{Luis: Problema} Tengo un problema y es que al redactar no sé hasta qué punto esto se solapa con la introducción, los objetivos, etc..}
+
+%\textcolor{purple}{\textbf{Jose: Solución, } Yo quitaría la subsección Motivación y Objetivos y lo incluiría todo en Introducción. No es un paper o TFM y, en una tesis, el objetivo general siempre es presentar las investigaciones llevadas a cabo. }
+
+%\textcolor{green}{Manu: Rellenar el último párrafo en rojo y FIN.}
+
+%\textcolor{orange}{Luis: Puesto.}
+
+La Organización Mundial de la Salud (OMS) estima que alrededor de 1,19 millones de personas a lo largo de todo el mundo mueren anualmente como resultado de accidentes de tráfico \cite{WHO}. Esto supone que los accidentes de tráfico sean considerados como un importante desafío de salud pública, que requiere de esfuerzos coordinados a nivel global para prevenir lesiones y salvar vidas, así como para abordar las repercusiones económicas y sociales que estos suponen. Numerosos estudios avalan que el tiempo en el que responden los servicios de emergencia ante accidentes de gravedad están directamente correlacionados con tasas de mortalidad más altas \cite{timeresponse_deaths}, lo que convierte esto en un factor clave para minimizar las consecuencias de las víctimas.
+
+
+% \underline{Beneficios tanto a nivel de salud como económicos}
+
+El hecho de conocer si un accidente puede tener consecuencias graves para alguna de las personas implicadas, una vez se ha producido el accidente es una necesidad básica, ya que permitiría a las administraciones públicas y privadas una asignación de recursos médicos (por ejemplo, una ambulancia) eficiente y prioritaria para minimizar a corto y largo plazo tanto las consecuencias físicas para las víctimas como las de los costes económicos que pudieran suponer los tratamientos posteriores necesarios para su posible recuperación.  
+
+% \underline{debilidad de los modelos existentes}
+
+La creación de un modelo predictivo general aplicable a cualquier área urbanizada tiene como principal restricción la dependencia en la disponibilidad de la información que ofrece cada administración. Para la creación de un modelo son necesarios datos que describan el accidente, para que este tome conocimiento sobre ellos y pueda realizar predicciones ante nuevas muestras. Cada población cuenta con recursos económicos distintos y condiciones sociales diferentes, por lo que los datos disponibles en cada una de estas suelen variar, haciendo difícil diseñar una metodología general que no sea dependiente de los datos individuales ofrecidos por cada administración.
+
+% \underline{Creción de un modelo general}
+En base a la necesidad de solventar esta debilidad, el \textbf{objetivo principal} de esta tesis es proponer una metodología y un modelo general aplicable a cualquier área urbana para conocer la gravedad de un accidente con víctimas implicadas en base a la descripción del incidente, que de otra forma sólo sería posible conocer una vez acudiesen las asistencias médicas al lugar del mismo. Para ello, se propone una metodología y un modelo convolucional generalizables que hace uso de la categorización de la información disponible en cualquier conjunto de datos de accidentes, ya que engloba en información básica características individuales presentes en los datos, de tal forma que se pueda aplicar a cualquier sitio, creando una herramienta práctica para cualquier servicios de emergencia a lo largo de todo el mundo.
+Otro punto importante a destacar es la de dotar al modelo de una robustez frente a pérdida de características, para que sea del todo generalizable y no dependa del país donde se produzca el accidente (por ejemplo, si un país tiene un dataset sin datos de test de alcohol/drogas por falta de desarrollo económico, el modelo siga funcionando correctamente).
+
+%\section{Objetivos}
+
+%A continuaión, se exponen los objetivos generales del trabajo junto con los objetivos específicos necesarios para cumplimentar el objetivo principal.
+
+%\subsection*{Objetivos Generales}
+
+El principal avance en la investigación, desarrollada en el marco de este programa de doctorado, es el desarrollo de una metodología general  para la predicción de la gravedad de los accidentes de tráfico en base a la descripción de las circunstancias que rodean al mismo. El modelo se basa en la utilización de redes neuronales convolucionales de dos dimensiones y puede ser aplicable a cualquier población del mundo.
+
+%\subsection*{Objetivos Específicos}
+
+%Para la consecución del objetivo general se definen una serie de objetivos específicos, indispensables para cubrir el diseño y comparación de la metodología y modelos desarrollados:
+
+Para la creación del modelo se ha tenido que estudiar una serie de elementos que se enumeran a continuación:
+
+\begin{enumerate}
+	\item Técnicas de transformación de datos tabulares a matrices.
+	\item Algoritmos de medición de importancia de características. 
+	\item Algoritmos evolutivos para optimización de hiperparámetros.
+	\item Diseño de redes convolucionales aplicadas a datos de baja dimensionalidad.
+	\item Técnicas de balanceo de datos.
+	\item Métodos de tipificación y categorización de datos.
+	\item Estudio de modelos del estado del arte para la comparativa. 
+	\item Técnicas de exploración de datos geográficos espaciales.
+	\item Análisis de resultados e implementación de mejoras.
+\end{enumerate}
+
+%\sout{\textcolor{red}{Nuevo párrafo: Para ello, en el capítulo 2 se va a estudiar el estado del arte ...blablabla. En el capítulo 3 se va a ver blablabla...}}
+
+%\textcolor{orange}{Luis: Nuevo párrafo:}\\
+%\textcolor{green}{Manu: OK!}\\
+Para llevar a cabo los objetivos propuestos, en el Capítulo 2 se estudiará el estado del arte de la predicción de la gravedad de los accidentes de tráfico. La contextualización del marco teórico relativo a las herramientas utilizadas para el desarrollo de este trabajo se tratará en el Capítulo 3. Seguidamente, en el Capítulo 4, se definirá la metodología propuesta para resolver la necesidad de la predicción de la gravedad de los accidentes, tanto un modelo preliminar como un modelo definitivo desarrollado en base a este, aplicando mejoras sobre el primero con el objetivo de aumentar el rendimiento del primer prototipo y transformándolo en un modelo aplicable a cualquier población (GTAAF). En el Capítulo 5 se expondrán los datos utilizados para evaluar ambas metodologías y los resultados obtenidos en comparación con otros modelos del estado del arte. Por último, en el capitulo 6, se interpretará la utilidad de este trabajo y se expondrán posibles mejoras a futuro para seguir incrementando el rendimiento de la metodología GTAAF final propuesta.
+
