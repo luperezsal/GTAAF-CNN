@@ -591,7 +591,6 @@ Sobre este conjunto de datos, la variable a predecir puede tomar tres valores di
 Los detalles de lo que engloban estas clases puede consultarse en la web de Departamento de Transportes de Reino Unido \cite{UKDepartmentSeverityDefinition}.
 
 
-
 \section{Prototipo. Resultados preliminares}
 
 % \textcolor{purple}{\textbf{Luis: }Esto entra en colapso con la sección de Introducción a la Metodología Prototipo}
@@ -603,9 +602,9 @@ Los detalles de lo que engloban estas clases puede consultarse en la web de Depa
 
 % \textcolor{orange}{\textbf{Luis: } Nueva redacción..}
 
-En esta sección se exponen los resultados sobre el modelo preliminar, aplicándola sobre los datos de la ciudad de Madrid y presentada en el artículo \cite{PEREZSALA2023113245}. Como se ha comentado en la sección de metodología \ref{METODOLOGIA_MODELO_PRELIMINAR}, este desarrollo tenía como objetivo crear un método que transformase datos tabulares en datos matriciales para aplicar dos redes neuronales convolucionales, de una y dos dimensiones. Este método tenía el fin predecir la gravedad de las víctimas en los accidentes de tráfico divididos en tres clases claramente diferenciadas (\textbf{leves, severos y fatales}). 
+En esta sección se exponen los resultados sobre el modelo preliminar, aplicándolo sobre los datos de la ciudad de Madrid y presentada en el artículo \cite{PEREZSALA2023113245}. Como se ha comentado en la sección de metodología \ref{METODOLOGIA_MODELO_PRELIMINAR}, este desarrollo tenía como objetivo crear un método que transformase datos tabulares en datos matriciales para aplicar dos redes neuronales convolucionales, de una y dos dimensiones. Este método tenía el fin predecir la gravedad de las víctimas en los accidentes de tráfico divididos en tres clases claramente diferenciadas (\textbf{leves, severos y fatales}). 
 
-Para lograr esta clasificación, se realizaron transformaciones sobre los valores de la variable a predecir, la lesividad del accidentado, reasignando las 7 clases originales disponibles en el conjunto de datos a tres, en función de su gravedad. Esta asignación se ha realizado en base al siguiente criterio:
+Para llegar a esta clasificación, se realizaron transformaciones sobre los valores de la variable a predecir, la gravedad del accidentado, reasignando las 7 clases originales disponibles en el conjunto de datos a tres, en función de su importancia. Esta asignación se ha realizado en base al siguiente criterio:
 
 \begin{enumerate}
 	\item Leve: esto varía desde aquellos que no han sido heridos hasta aquellos que han necesitado ser admitidos en un hospital por no más de 24 horas. La cuantificación numérica es:
@@ -639,23 +638,24 @@ En un primer lugar, se analizaron las características de los datos en bruto que
 % \textcolor{purple}{\textbf{Luis: Comentario} Esto queda obsoleto con la nueva estructura}
 
 % \sout{Para entrenar un modelo de Inteligencia Artificial es necesario analizar la dependencia entre cada par de variables, por esto se analizó la relación entre variables mediante una matriz de correlación.}
-Además, se eliminaron aquellas características que no aportaban valor a los modelos predictivos, como el Identificador del accidente. Por otra parte, se analizó la dependencia entre cada par de variables mediante matrices de correlación que muestran la intensidad con la que una variable es dependiente del resto. Remarcar que los coeficientes de correlación varían entre $-1$ y $1$, indicando la magnitud y dirección de esta dependencia. Después, se ha aplicado un umbral de correlación entre variables del $\pm 0.44$, lo que quiere decir que aquellas que presentasen una correlación superior a este valor son excluidas. En la figura \ref{CorrelationMatrix} se muestra la matriz de correlación resultante tras eliminar las características que superasen este límite de dependencia entre sí, pasando a ser $14$ de las $18$ originales.
+Además, se eliminaron aquellas características que no aportaban valor a los modelos predictivos, como el Identificador del accidente. Por otra parte, se analizó la dependencia entre cada par de variables mediante matrices de correlación, mostrando la intensidad con la que las variables eran dependientes entre sí. Es importante remarcar en este punto que los coeficientes de correlación varían entre $-1$ y $1$, indicando la magnitud y dirección de esta dependencia. Después, se aplicó un umbral de correlación entre variables del $\pm 0.44$, lo que quiere decir que aquellas que presentasen una correlación superior a este valor eran excluidas. En la figura \ref{CorrelationMatrix} se muestra la matriz de correlación resultante tras eliminar las características que superasen este límite de dependencia entre sí, pasando a ser $14$ de las $18$ originales.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=14cm]{Figures/1stPaper/CorrelationMatrix.png}
-	\caption{Matriz de correlación entre las variables del conjunto de datos.}
+	\includegraphics[width=12cm]{Figures/1stPaper/CorrelationMatrix.png}
+	\caption{Matriz de correlación entre las variables del conjunto de datos de Madrid}
 	\label{CorrelationMatrix}
 \end{figure}
 
 
 \subsection*{Discretización}
 
-Una vez se disponen de unos datos refinados, era necesario transformarlos para hacerlos interpretables por los modelos. Este proceso se hizo mediante la asignación de valores numéricos a cada una de las variables cualitativas del dataset en función de la fuerza que representaban los valores de cada característica. Por otra parte, las variables originales \textit{Positivo en Drogas} y \textit{Positivo en Alcohol} se unieron en una nueva característica \textit{Alcohol o Drogas}, con el objetivo de recoger esta información en un único campo para no descartar muchos registros que presentaban valores nulos en ambas columnas. En la Tabla \ref{TransformacionDatosTabla} se muestra la discretización realizada para cada una de las variables.
+Una vez se disponían de los datos refinados y las características adecuadas seleccionadas, era necesario transformar los valores para hacerlos interpretables por los modelos. Este proceso se hizo mediante la asignación de valores numéricos a cada una de las variables cualitativas del dataset en función de la fuerza que representaban los valores de cada característica. Por otra parte, las variables originales \textit{Positivo en Drogas} y \textit{Positivo en Alcohol} se unieron en una nueva característica \textit{Alcohol o Drogas}, con el objetivo de recoger esta información en un único campo y no descartar registros que presentaban valores nulos en ambas columnas. En la Tabla \ref{TransformacionDatosTabla} se muestra la discretización realizada para cada una de las variables.
 
 \textcolor{purple}{Si pones dos columnas en vez de cuatro quedará mejor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[ht]
+
+\begin{table}[H]
 	\centering
 	\renewcommand{\arraystretch}{1.2}
 	\small
@@ -689,7 +689,7 @@ Una vez se disponen de unos datos refinados, era necesario transformarlos para h
 		& 3: Desconocido & \multirow{1}{*}{Alcohol o Drogas} & 1: Sí / 2: No\\ \hline
 	\end{tabular}
 	
-	\caption{Asignación numérica de las variables del conjunto de datos.}
+	\caption{Asignación numérica de las variables del conjunto de datos}
 	\label{TransformacionDatosTabla}
 \end{table}
 
@@ -700,11 +700,6 @@ Una vez se disponen de unos datos refinados, era necesario transformarlos para h
 
 Como es habitual en el diseño de los modelos predictivos, es común dividir los datos en subconjuntos para el aprendizaje de los modelos y su evaluación real sobre registros que nunca ha visto. Del total de muestras resultantes del proceso de filtrado ($65\,158$) se asignan el 80\% de ellas para el conjunto de entrenamiento ($54\,211$), resultando en $53\,213$ accidentes leves, $984$ graves y $50$ fatales. El $20\%$ de los datos restantes se asignaron al conjunto validación o test ($10\,911$), concretamente $10\,640$ accidentes leves, $256$ graves y $15$ fatales.
 
-
-\subsection*{Resampling}
-
-Una vez aplicado el proceso de limpieza de datos y elección de características del dataset, se analizó la distribución final de los datos de entrenamiento en base a la clase a predecir, la gravedad del accidente. Atendiendo a los registros resultantes (Leve, Grave y Fatal), se puede observar que el conjunto de datos está claramente desbalanceado. Se disponían de $53\,213$ accidentes leves, $984$ graves y $50$ fatales. Esto, como se ha comentado en la sección \ref{SOAT_RESAMPLING} se convierte en un problema para los modelos de clasificación, ya que en estos casos tienden a predecir las nuevas muestras como aquellas que pertenecen a la clase mayoritaria del conjunto de entrenamiento. Para paliar este problema se aplicó la técnica de remuestreo Borderline SMOTE-II, con el objetivo de generar más muestras de accidentes pertenecientes a clases minoritarias (Grave y Fatal) hasta llegar a la mayoritaria (Leves), evitando que el modelo se sobreajuste. Una vez aplicado el algoritmo, se disponen de $53\,213$ muestras de la clase leve, $53\,213$ de la clase grave y $53\,213$ de la clase fatal, haciendo un total de $159\,639$ registros en el nuevo conjunto de datos balanceado.
-
 \subsection*{Normalización}
 
 % \textcolor{red}{\textbf{Luis: Inquietud} Si pongo un ejemplo de normalización random en eta sección, qué pondríamos en resultados GTAAF en esta fase para no repetirnos? Veo lagunas}
@@ -712,14 +707,21 @@ Una vez aplicado el proceso de limpieza de datos y elección de características
 % \textcolor{orange}{\textbf{Luis: Propuesta} Lo mencionamos en el resampling como una última frase y listo?}
 % \textcolor{purple}{Pon un ejemplo random aquí y en GTAAF se comenta que la normalización es idéntica. Además, deberías poner el rango de normalización}
 
-Una vez se han filtrado los datos y generado nuevos en base al método de Resampling, se aplica la normalización en base a la técnica Z-Score, que transformará los datos a una distribución normal con media 0 y desviación 1 de cada valor. Este proceso se aplica para cada una de las muestras de tal forma que la dimensión de los datos quede bajo la misma magnitud, para poder ser  interpretarse eficientemente por los modelos. Una vez se dispone de todos los datos normalizados, pueden ser utilizados para el entrenamiento de cualquier modelo predictivo.
+Una vez aplicado el proceso de limpieza de datos y elección de características del dataset, se aplica la normalización en base a la técnica \textit{Z-Score}, que transformará los datos a una distribución normal con media 0 y desviación 1 de cada valor. Este proceso se aplica para cada una de las muestras de tal forma que la dimensión de los datos quede bajo la misma magnitud, para poder ser  interpretarse eficientemente por los modelos. Una vez se dispone de todos los datos normalizados, pueden ser utilizados para el entrenamiento de cualquier modelo predictivo.
+
+
+\subsection*{Resampling}
+
+
+En el punto en el que se disponían de los datos normalizados e interpretables por los modelos, se analizó la distribución final de los datos de entrenamiento en base a la clase a predecir, la gravedad del accidente. Atendiendo a los registros resultantes (Leve, Grave y Fatal), se pudo observar que el conjunto de datos estaba claramente desbalanceado. Se disponían de $53\,213$ accidentes leves, $984$ graves y $50$ fatales. Esto, como se ha comentado en la sección \ref{SOAT_RESAMPLING}, se convierte en un problema para los modelos de clasificación, ya que en estos casos tienden a predecir las nuevas muestras como aquellas que pertenecen a la clase mayoritaria. Para paliar este problema se aplicó la técnica de remuestreo \textit{Borderline SMOTE-II}, con el objetivo de generar más muestras de accidentes pertenecientes a clases minoritarias (Grave y Fatal) hasta llegar a la mayoritaria (Leves), evitando que el modelo se sobreajuste. Una vez aplicado el algoritmo, se disponen de $53\,213$ muestras de la clase leve, $53\,213$ de la clase grave y $53\,213$ de la clase fatal, haciendo un total de $159\,639$ registros en el nuevo conjunto de datos de entrenamiento balanceado.
+
 
 
 \subsection*{Categorización}
 
-Como se ha comentado, las redes neuronales convolucionales (CNN) aprenden patrones utilizando matrices como datos de entrada.Así pues, como disponemos de datos tabulares, se hace necesario transformarlos en matrices.
+Como se ha comentado en secciones anteriores, las redes neuronales convolucionales aprenden patrones utilizando matrices como datos de entrada. Así pues, como se disponen de datos tabulares, se hace necesario transformarlos en matrices.
 
-Uno de los requisitos de esta transformación era asignar cada característica a una categoría del dataset. Sobre este conjunto de datos de Madrid, las variables eran asignadas a $5$ categorías en base a la información de la que se disponía: Características del accidente, Condiciones de la carretera, Condiciones meteorológicas, Características del vehículo y Características del conductor. En la Tabla \ref{JC} se observa la categorización de cada característica en función de la información que describen.
+Uno de los requisitos de esta transformación era asignar cada característica a una categoría del dataset. Sobre este conjunto de datos de Madrid, las variables eran asignadas a $5$ categorías en base a la información de la que se disponía: (1) Características del accidente, (2) Condiciones de la carretera, (3) Condiciones meteorológicas, (4) Características del vehículo y (5) Características del conductor. En la Tabla \ref{JC} se observa la categorización de cada característica en función de la información que describen.
 
 % \textcolor{red}{\textbf{Luis: Comentario} Exponer la categorización no me termina de cuadrar aquí, principalmente porque en el siguiente (GTAAF) esto se pone en la descripción de los datos. A lo mejor no está mal dejarlo como está... Porque así el lector le daría más importancia a la categorización en el modelo GTAAF, porque aparece lo primero. No sé, también es verdad que si lo dejamos así queda un poco caótico a la hora de comparar la metodología preliminar y la GTAAF. Siento el rollo, hay alguna opinión? :-(}
 
@@ -762,7 +764,7 @@ Uno de los requisitos de esta transformación era asignar cada característica a
 		\hline
 	\end{tabular}
 	
-	\caption{Clasificación de las Características (variables del conjunto de datos) en Categorías.}
+	\caption{Clasificación de las Características (variables del conjunto de datos) en Categorías}
 	\label{JC}
 \end{table}
 
@@ -774,18 +776,18 @@ Uno de los requisitos de esta transformación era asignar cada característica a
 
 % \textcolor{purple}{Déjalo como está, no creo que nadie se mire el paper 1 para comparar. Si te preguntan en el tribunal, puedes decir que al principio se optimizaron 5 pero que el resultado de 2 de ellos siempre era el mismo, con lo que se decidió optimizar solo 3}
 
-En este punto, se analiza la optimización de los hiperparámetros del algoritmo XGBoost a través del algoritmo genético mediante la maximización de la métrica F1-Score de los datos de entrenamiento. Los hiperparámetros del algoritmo XGBoost a optimizar fueron: profundidad máxima del árbol, peso mínimo de los hijos y el ratio de aprendizaje. El algoritmo genético se configuró para optimizar esta función durante $80$ generaciones, con un máximo de $40$ individuos en la población y los $10$ mejores en cada iteración eran seleccionados para reproducirse mediante una estrategia de cruce aleatorio.
+En este punto, se analiza la optimización de los hiperparámetros del algoritmo \textit{XGBoost} a través del algoritmo genético mediante la maximización de la métrica \textit{F1-Score} de los datos de entrenamiento. Los hiperparámetros del algoritmo \textit{XGBoost} a optimizar fueron: profundidad máxima del árbol, peso mínimo de los hijos y el ratio de aprendizaje. El algoritmo genético se configuró para optimizar esta función durante $80$ generaciones, con un máximo de $40$ individuos en la población y los $10$ mejores en cada iteración eran seleccionados para reproducirse mediante una estrategia de cruce aleatorio.
 
-La figura \ref{EvolucionHiperparametrosImage} muestra la evolución de  los tres hiperparámetros del XGBoost a lo largo de las generaciones. Como se puede observar, los hiperparámetros toman distintos valores en función del mejor individuo evaluado en la población en cada etapa, estos hiperparámetros convergen aproximadamente en la iteración $42$, donde no se observan modificaciones a partir de esta generación.
+La figura \ref{EvolucionHiperparametrosImage} muestra la evolución de  los tres hiperparámetros del \textit{XGBoost} a lo largo de las generaciones. Como se puede observar, los hiperparámetros toman distintos valores en función del mejor individuo evaluado en la población en cada etapa, estos hiperparámetros convergían aproximadamente en la iteración $42$, donde no se observaron incrementos en este métrica a partir de esta generación.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=14cm]{Figures/1stPaper/EvolutionH.png}
-	\caption{Evolución de los hiperparámetros del XGBoost a lo largo de las generaciones.}
+	\caption{Evolución de los hiperparámetros del \textit{XGBoost} a lo largo de las generaciones}
 	\label{EvolucionHiperparametrosImage}
 \end{figure}
 
-En la tabla \ref{BestGASolutionTable} se observa el valor tomado por el mejor individuo resultante de la ejecución de las distintas generaciones para cada uno de los hiperparámetros del XGBoost. 
+En la tabla \ref{BestGASolutionTable} se observa el valor tomado por el mejor individuo resultante de la ejecución de las distintas generaciones para cada uno de los hiperparámetros del \textit{XGBoost}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[h]
@@ -799,14 +801,14 @@ En la tabla \ref{BestGASolutionTable} se observa el valor tomado por el mejor in
 		ETA & 0.007 \\
 		\hline
 	\end{tabular}
-	\caption{Valores optimizados de los parámetros después de aplicar el algoritmo genético.}
+	\caption{Valores optimizados de los parámetros del \textit{XGBoost} después de aplicar el algoritmo genético del modelo preliminar}
 	\label{BestGASolutionTable}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\underline{Pesos de categorías}
 
-Con la configuración de hiperparámetros mostrada en la Tabla \ref{BestGASolutionTable} se entrena el algoritmo XGBoost para obtener el peso de todas las  características del dataset. así, en la Tabla \ref{1stPaperWeightsFinalCharacteristics} se muestra el peso asignado a cada una de las características individuales, donde la columna peso de la Categoría muestra el peso de cada categoría como suma de los peso de cada una de las  características individuales que la componen.
+Con la configuración de hiperparámetros mostrada en la Tabla \ref{BestGASolutionTable} se entrena el algoritmo \textit{XGBoost} para obtener el peso de todas las  características del conjunto de datos. Así, en la Tabla \ref{1stPaperWeightsFinalCharacteristics} se muestra el peso asignado a cada una de las características individuales, donde la columna peso de la Categoría muestra el peso de cada categoría como suma de los peso de cada una de las características individuales que la componen.
 
 % \textcolor{red}{\textbf{Luis: CUIDADO} En el paper 1 en esta tabla se pone severidad dentro de accidente... y no es el único sitio. Es posible solicitar correcciones del otro paper?}
 
@@ -842,34 +844,16 @@ Con la configuración de hiperparámetros mostrada en la Tabla \ref{BestGASoluti
 		\hline
 		
 	\end{tabular}
-	\caption{Ejemplo con los pesos de todas las características estudiadas, así como los pesos de las cinco categorías.}
+	\caption{Ejemplo con los pesos de todas las características estudiadas, así como los pesos de las cinco categorías}
 	\label{1stPaperWeightsFinalCharacteristics}
 \end{table}
 
 \subsection*{Construcción de matrices}
 
-\textbf{TRABAJAR EN ESTO, no se sabe que categorías son las de las imágenes.}
-Una vez se disponían de las características y categorías evaluadas, se aplicaba el proceso de asignación de posiciones de cada característica a una coordenadas dentro de la matriz, aplicando el algoritmo de construcción de matrices.
 
-En la Tabla \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro transformado a formato matricial una vez aplicado el algoritmo de construcción haciendo uso de la importancia de las características de la tabla \ref{1stPaperWeightsFinalCharacteristics}. Igualmente, en la figura\ref{ProcesoMatriz:VisualizacionDeMatriz} se observa la representación en imagen de escala de grises de dicha matriz.
+Una vez se disponían de las características y categorías evaluadas, se aplicaba el proceso de asignación de posiciones de cada característica a las respectivas coordenadas dentro de la matriz, aplicando el algoritmo de construcción de matrices.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{table}[H]
-%   \centering
-%   \begin{tabular}{|ccccc|}
-	%       %\hline
-	%       0.0   & 0.0   & 0.05  & 0.0   & 0.0 \\
-	%       0.0   & 0.059 & 0.128 & 0.0   & 0.0 \\ 
-	%       0.050 & 0.111 & 0.177 & 0.056 & 0.0 \\
-	%       0.055 & 0.066 & 0.071 & 0.057 & 0.051 \\
-	%       0.0   & 0.0   & 0.070 & 0.0   & 0.0 \\
-	%       %\hline
-	%   \end{tabular}
-%   \caption{A specific accident matrix.}
-%   \label{1stPaperFeaturesNormalizationExample}
-%\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+En la Tabla \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro transformado a formato matricial una vez se ha aplicado el algoritmo de construcción haciendo uso de la importancia de las características de la tabla \ref{1stPaperWeightsFinalCharacteristics}. Igualmente, en la figura \ref{ProcesoMatriz:VisualizacionDeMatriz}, se observa la representación en imagen de escala de grises de dicha matriz.
 
 
 \begin{table}[H]
@@ -897,10 +881,10 @@ En la Tabla \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro trans
 		\centering
 		\includegraphics[scale=0.5]{Figures/TFM/accidente_fatal.png}
 		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
-		\caption{Imagen de la matriz en escala de grises.}
+		\caption{Imagen de la matriz en escala de grises}
 		\label{ProcesoMatriz:VisualizacionDeMatriz}
 	\end{subfigure}
-	\caption{Ejemplo de construcción matricial de una muestra normalizada del dataset.}
+	\caption{Ejemplo de construcción matricial de una muestra normalizada del dataset}
 	\label{ProcesoMatriz}
 \end{table}
 
@@ -914,18 +898,18 @@ En la Tabla \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro trans
 
 \subsection*{Entrenamientos}
 
-Una vez que las matrices han sido construidas, se describe la red convolucional utilizada en el modelo propuesto. En esta sección se presenta la información resultante de los entrenamientos realizados para los dos modelos convolucionales, de una y dos dimensiones, con los que trabaja esta metodología preliminar. De esta forma se analizará la evolución de la función de pérdida en cada uno de estos modelos. Ambos fueron entrenados con $100$ épocas, al analizar la evolución del entrenamiento de la red convolucional unidimensional, se puedo verificar que la puntuación F1 de entrenamiento incrementaba ínfimamente a lo largo de las épocas, sufriendo además altibajos sobre el conjunto de validación a medida que el modelo se entrenaba, comenzando inicialmente con un valor de entrenamiento inferior a $0.58$ y llegando hasta $0.68$, mostrando poca capacidad de aprendizaje y generalización ante nuevas muestras.
+Una vez que las matrices han sido construidas, se describe la red convolucional utilizada en el modelo propuesto. En esta sección se presenta la información resultante de los entrenamientos realizados para los dos modelos convolucionales, de una y dos dimensiones, sobre los que trabaja la metodología preliminar. De esta forma se analizará la evolución de la función de pérdida en cada uno de estos modelos. Ambos fueron entrenados con $100$ épocas, al analizar la evolución del entrenamiento de la red convolucional unidimensional (CNN-1D), se puedo verificar que la puntuación \textit{F1-Score} de entrenamiento incrementaba ínfimamente a lo largo de las épocas, sufriendo además altibajos sobre el conjunto de validación a medida que el modelo se entrenaba, comenzando inicialmente con un valor de entrenamiento inferior a $0.58$ y llegando hasta $0.68$, mostrando poca capacidad de aprendizaje y generalización ante nuevas muestras.
 
-Por otro lado, sobre el modelo convolucional bidimensional observó que la tendencia de la función de pérdida en el conjunto de datos de entrenamiento era más estable. Se pudo comprobar cómo la red, en la primera ejecución, comenzaba con un puntuación F1 de $0.62$ hasta alcanzar $0.78$ en la iteración $100$, por lo que se puede deducir que esta red logró un mejor rendimiento en el conjunto de entrenamiento en comparación con la red convolucional unidimensional, sufriendo menos altibajos en el conjunto de validación.
+Por otro lado, sobre el modelo convolucional bidimensional (CNN-2D) observó que la tendencia de la función de pérdida en el conjunto de datos de entrenamiento era más estable. Se pudo comprobar cómo la red, en la primera ejecución, comenzaba con una puntuación \textit{F1-Score} de $0.62$ hasta alcanzar $0.78$ en la iteración $100$, por lo que se puedo deducir que esta red lograba un mejor rendimiento en el conjunto de entrenamiento en comparación con la red convolucional unidimensional, sufriendo menos altibajos en el conjunto de validación.
 
 
 \subsection*{Evaluación}
 
-\textcolor{red}{\textbf{Luis: quitaría incluso el análisis de los datos de entrenamiento}}
+% \textcolor{red}{\textbf{Luis: quitaría incluso el análisis de los datos de entrenamiento}}
 
-Para evaluar el rendimiento del modelo preeliminar, se realizó una comparación con tres modelos del estado del arte, Gaussian Naive Bayes (GNB), Support Vector Classifier (SVC) y K-Nearest Neighbor (KNN). En esta sección se utilizarán las métricas obtenidas tras la ejecución de los cinco modelos sobre el conjunto de datos de test (CNN-1D, CNN-2D, GNB, SVC y KNN), además se muestran los resultados de predicción basados en matrices de confusión.
+Para evaluar el rendimiento del modelo preeliminar, se realizó una comparación con tres modelos del estado del arte, \textit{Gaussian Naive Bayes (GNB), Support Vector Classifier (SVC)} y \textit{K-Nearest Neighbor (KNN)}. En esta sección se utilizarán las métricas obtenidas tras la ejecución de los cinco modelos sobre el conjunto de datos de test (\textit{CNN-1D, CNN-2D, GNB, SVC} y \textit{KNN}).
 
-Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN:TestCNN} detallan las métricas resultantes de la clasificación de las redes para los conjuntos de entrenamiento y test respectivamente. Se observó que, para el conjunto de entrenamiento, el modelo CNN-1D obtenía un mejor F1-Score en la clasificación de todas las clases de accidentes en comparación con la red CNN-2D. Sin embargo, al analizar las métricas de los datos de test, el modelo que presentaba mejor F1-Score para accidentes leves y graves es CNN-2D, con $0.950$ y $0.148$ respectivamente, mientras que en accidentes fatales ambas redes ofrecían el mismo rendimiento con un $0.004$ de F1-Score.
+Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN:TestCNN} detallan las métricas resultantes de la clasificación de las redes para los conjuntos de entrenamiento y test respectivamente. Se observó que, para el conjunto de entrenamiento, el modelo CNN-1D obtenía un mejor \textit{F1-Score} en la clasificación de todas las clases de accidentes en comparación con la red CNN-2D. Sin embargo, al analizar las métricas de los datos de test, el modelo que presentaba mejor \textit{F1-Score} para accidentes leves y graves era el CNN-2D, con $0.950$ y $0.148$ respectivamente, mientras que en accidentes fatales ambas redes ofrecían el mismo rendimiento con un $0.004$ de \textit{F1-Score}.
 
 \begin{table}[H]
 	\begin{center}
@@ -939,7 +923,7 @@ Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN
 			F1-score & 0.712 & 0.597 & 0.828 & 0.650 & 0.409 & 0.679\\ \hline 
 		\end{tabular}
 	\end{center}
-	\caption{Métricas sobre el conjunto de entrenamiento para los modelos CNN-1D y CNN-2D.}
+	\caption{Métricas sobre el conjunto de entrenamiento para los modelos CNN-1D y CNN-2D}
 	\label{ClassificationReportCNN:TrainCNN}
 \end{table}
 
@@ -955,15 +939,15 @@ Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN
 			F1-score & 0.596 & 0.058 & 0.004 & 0.950 & 0.148 & 0.004\\ \hline 
 		\end{tabular}
 	\end{center}
-	\caption{Métricas sobre el conjunto de test para los modelos CNN-1D y CNN-2D.}
+	\caption{Métricas sobre el conjunto de test para los modelos CNN-1D y CNN-2D}
 	\label{ClassificationReportCNN:TestCNN}
 \end{table}
 
-\textcolor{red}{\textbf{Luis: Percepción} me da la sensación de que hay mucho contenido aquí. La forma de exponer los resultados (primero los de las CNNs y luego los modelos del estado del arte) provoca que esto sea muy largo cuando en mi opinión, estos resultados no tienen mucha importancia. Lo reestructuramos o qué pensais?}
+% \textcolor{red}{\textbf{Luis: Percepción} me da la sensación de que hay mucho contenido aquí. La forma de exponer los resultados (primero los de las CNNs y luego los modelos del estado del arte) provoca que esto sea muy largo cuando en mi opinión, estos resultados no tienen mucha importancia. Lo reestructuramos o qué pensais?}
 
-\textcolor{purple}{Jose: Tienes razón, se me está haciendo un poco pesado de leer, lo que significa que deberíamos reducirlo. ¿Quitamos lo referente a las matrices de confusión y lo centramos en los resultados del F1-score?}
+% \textcolor{purple}{Jose: Tienes razón, se me está haciendo un poco pesado de leer, lo que significa que deberíamos reducirlo. ¿Quitamos lo referente a las matrices de confusión y lo centramos en los resultados del F1-score?}
 
-\textcolor{orange}{Luis: Me parece buena idea, he quitado lo relativo a las matrices. Además creo que deberíamos reducir todo lo referente a los resultados preliminares..}
+% \textcolor{orange}{Luis: Me parece buena idea, he quitado lo relativo a las matrices. Además creo que deberíamos reducir todo lo referente a los resultados preliminares..}
 
 % La Figura \ref{ConfusionMatricesImages} muestra las matrices de confusión para los conjuntos de entrenamiento y test de ambos modelos, donde se pueden analizar las tendencias predictivas. Para los datos de entrenamiento de CNN-2D, tendía a una mayor propensión de predecir observaciones como accidentes leves en comparación con la red CNN-1D. Esto provocaba que la CNN-1D clasificase correctamente más accidentes graves y fatales. Para el conjunto de datos de test, la red CNN-2D clasificaba más observaciones como accidentes leves que el modelo CNN-1D, prediciendo menos accidentes graves pero con mayor confianza.
 
@@ -980,15 +964,15 @@ Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-La información con la que se evalúan los modelos, es decir, las métricas de clasificación resultantes, para el conjunto de test se muestran en la Tabla \ref{ClassificationReportCNN:Test} para cada una de las clases predichas. Como se puede ver en esta tabla, el modelo KNN obtiene mejores resultados en todas las medidas de todas las clases, excepto en Recall en accidentes graves, donde GNB es un poco mejor.
+La información con la que se evalúan los modelos, es decir, las métricas de clasificación resultantes para el conjunto de test se muestran en la Tabla \ref{ClassificationReportCNN:Test} para cada una de las clases predichas. Como se puede ver en esta tabla, el modelo \textit{KNN} obtiene mejores resultados en todas las medidas de todas las clases, excepto en \textit{Recall} en accidentes graves, donde el \textit{GNB} es un ligeramente mejor.
 
-Si analizamos la métrica de Precisión en los cinco modelos comparados, se puede observar que el modelo que presenta el mejor promedio para las clases de accidentes leves es la Red Neuronal Convolucional 1D (CNN-1D) con $0.984$, seguida por la Red Neuronal Convolucional 2D (CNN-2D) y el modelo KNN con $0.982$. Además, la CNN-2D también ofrece la mejor métrica para accidentes graves, $0.097$, con una gran diferencia respecto al modelo que le sigue, KNN con $0.042$. En cuanto a los accidentes fatales, ambos modelos CNN-1D y CNN-2D tienen un valor similar, obteniendo $0.002$.
+Si analizamos la métrica de \textit{Precision} en los cinco modelos comparados, se puede observar que el modelo que presenta el mejor promedio para las clases de accidentes leves es la Red Neuronal Convolucional 1D (CNN-1D) con $0.984$, seguida por la Red Neuronal Convolucional 2D (CNN-2D) y el modelo \textit{KNN} con $0.982$. Además, la CNN-2D también ofrece la mejor métrica para accidentes graves, $0.097$, con una gran diferencia respecto al modelo que le sigue, \textit{KNN} con $0.042$. En cuanto a los accidentes fatales, ambos modelos CNN-1D y CNN-2D tienen un valor similar, obteniendo $0.002$.
 
-Con respecto a la métrica de Recall, el mejor promedio para las clases de accidentes leves es la Red Neuronal Convolucional 2D (CNN-2D) con $0.919$, seguida por el modelo KNN con $0.689$. Además, el modelo GNB ofrece la mejor métrica para accidentes graves, $0.699$. En accidentes fatales, CNN-2D tiene el mejor valor con $0.1$.
+Con respecto a la métrica de \textit{Recall}, el mejor promedio para las clases de accidentes leves es la Red Neuronal Convolucional 2D (CNN-2D) con $0.919$, seguida por el modelo \textit{KNN} con $0.689$. Además, el modelo \textit{GNB} ofrece la mejor métrica para accidentes graves, $0.699$. En accidentes fatales, CNN-2D presenta el mejor valor con $0.1$.
 
-Es necesario señalar que el F1-score es una forma de combinar las métricas de Precisión y Recall, y se define como la media armónica de la Precisión y el Recall del modelo. Teniendo esto en cuenta, si analizamos el F1-score de los informes, el modelo que presenta el mejor promedio para las clases de accidentes leves es la Red Neuronal Convolucional 2D (CNN-2D), alcanzando $0.950$, muy por encima del siguiente modelo KNN, que ofrece un valor de $0.810$. Además, la CNN-2D también ofrece la mejor métrica para accidentes graves, $0.148$, alcanzando el doble de rendimiento en comparación con el modelo que le sigue, KNN con $0.076$. En cuanto a los accidentes fatales, los modelos con mejor clasificación son tanto CNN-1D como CNN-2D, obteniendo $0.004$, el doble que KNN, que son los siguientes mejores modelos en esta clase con $0.002$.
+Es necesario señalar que el \textit{F1-score} es una forma de combinar las métricas de \textit{Precision} y \textit{Recall}, y se define como la media armónica de ambas. Teniendo esto en cuenta, analizando el \textit{F1-Score} de los reportes, el modelo que presenta el mejor promedio para las clases de accidentes leves es la red CNN-2D, alcanzando $0.950$, muy por encima del siguiente modelo \textit{KNN}, que ofrece un valor de $0.810$. Además, la CNN-2D también ofrece la mejor métrica para accidentes graves, $0.148$, alcanzando el doble de rendimiento en comparación con el modelo que le sigue, \textit{KNN} con $0.076$. En cuanto a los accidentes fatales, los modelos con mejor clasificación son tanto la CNN-1D como la CNN-2D, obteniendo $0.004$, el doble que \textit{KNN}, que son los siguientes mejores modelos en esta clase con $0.002$.
 
-Podemos concluir que el modelo propuesto, basado en redes neuronales convolucionales, presenta mejores predicciones con respecto a la métrica F1-score, que es una combinación de Precisión y Recall.
+Podemos concluir que el modelo preliminar propuesto, basado en redes neuronales convolucionales, presentaba mejores predicciones con respecto a la métrica \textit{F1-score}, aunque con gran potencial de mejora.
 
 \begin{table}[H]
 	\begin{center}
@@ -1002,13 +986,13 @@ Podemos concluir que el modelo propuesto, basado en redes neuronales convolucion
 			F1-score & 0.536 & 0.048 & 0 & 0.777 & 0.054 & 0 & 0.810 & 0.076 & 0.002\\ \hline 
 		\end{tabular}
 	\end{center}
-	\caption{Métricas de clasificación sobre el conjunto de test de los modelos GNB, SVC y KNN.}
+	\caption{Métricas de clasificación sobre el conjunto de test de los modelos GNB, SVC y KNN en comparación con el modelo preliminar.}
 	\label{ClassificationReportCNN:Test}
 \end{table}
 
-\textcolor{purple}{Jose: ¿Quitamos lo de las matrices de confusión en este apartado?}
+% \textcolor{purple}{Jose: ¿Quitamos lo de las matrices de confusión en este apartado?}
 
-\textcolor{orange}{Luis: Quitado}
+% \textcolor{orange}{Luis: Quitado}
 
 % La Figura \ref{ClassificationReportCNN:Test} muestra las matrices de confusión aplicadas al conjunto de prueba, presentando una representación visual de las métricas de clasificación. Esto permite abordar el hecho de que los modelos GNB y SVC no clasifican correctamente ninguna de las observaciones de accidentes fatales, mientras que KNN clasifica una. En cuanto a los accidentes leves, el modelo CNN-2D es el que clasifica correctamente el mayor número, al igual que en los accidentes graves. Esto se debe a la naturaleza de las redes aplicadas a la complejidad del problema, cada una de ellas encuentra patrones diferentes según los mapas característicos resultantes de las convoluciones de cada red.
 
@@ -1032,29 +1016,14 @@ Podemos concluir que el modelo propuesto, basado en redes neuronales convolucion
 
 \subsection*{Discusión de resultados del modelo preliminar}
 
-\textcolor{red}{\textbf{Luis: } esto es realmente lo mismo que la introducción al modelo GTAAF pero más justificado en base al análisis de resultados, no sé si estaría bien repetirse.}
+% \textcolor{red}{\textbf{Luis: } esto es realmente lo mismo que la introducción al modelo GTAAF pero más justificado en base al análisis de resultados, no sé si estaría bien repetirse.}
 
-\textcolor{purple}{\textbf{Jose: Aquí pondría esto}}
+% \textcolor{purple}{\textbf{Jose: Aquí pondría esto}}
 
-\textcolor{purple}{Analizando los resultados finales de este modelo preliminar se propusieron una serie de mejoras a desarrollar para crear un modelo general en la gravedad de los accidentes de tráfico, aportando así un posible valor a las administraciones públicas para asignar recursos médicos en los accidentes de tráfico. En primer lugar, se detectó que la decisión de disgregar la clasificación de la gravedad de los accidentes en tres clases provocaba un efecto conflictivo en la clasificación de los modelos debido a que dos de las clases en las que se dividía la gravedad de los accidentes eran minoritarias, lo que penalizaba el aprendizaje del modelo. Por otra lado, al intentar generalizar el modelo, la adaptación de la metodología para poder aplicarla en cualquier conjunto de datos era prioritaria. De esta forma, cualquier información que pudiese ser relevante en la predicción de la gravedad de los accidentes, orientado a la falta de disponibilidad de datos en cada región, debería ser añadida. Finalmente se comprobó que había datos ya existentes de los que se podían sacar más características importantes. Por ejemplo, la hora del accidente no estaba representada debido a su naturaleza cíclica. Todos estas debilidades hicieron necesario la implantación de soluciones que aportaran generalidad al modelo definitivo.}
+Analizando los resultados finales de este modelo preliminar se propusieron una serie de mejoras a desarrollar para crear un modelo general en la gravedad de los accidentes de tráfico, aportando así un posible valor a las administraciones públicas para asignar recursos médicos en los accidentes de tráfico. En primer lugar, se detectó que la decisión de disgregar la clasificación de la gravedad de los accidentes en tres clases provocaba un efecto conflictivo en la clasificación de los modelos debido a que dos de las clases en las que se dividía la gravedad de los accidentes eran minoritarias, lo que penalizaba el aprendizaje del modelo. Por otra lado, al intentar generalizar el modelo, la adaptación de la metodología para poder aplicarla en cualquier conjunto de datos era prioritaria. De esta forma, cualquier información que pudiese ser relevante en la predicción de la gravedad de los accidentes, orientado a la falta de disponibilidad de datos en cada región, debería ser añadida. Finalmente se comprobó que había datos ya existentes de los que se podían sacar más características importantes. Por ejemplo, la hora del accidente no estaba representada debido a su naturaleza cíclica. Todos estas debilidades hicieron necesario la implantación de soluciones que aportaran generalidad al modelo definitivo.
 
-\textcolor{purple}{\textbf{Jose: Los siguientes párrafos los pasaría al modelo definitivo, al principio de la sección siguiente}}
+% \textcolor{purple}{\textbf{Jose: Los siguientes párrafos los pasaría al modelo definitivo, al principio de la sección siguiente}}
 
-Como se ha comentado, al analizar los resultados del modelo preliminar se detectaron una serie de mejoras que era necesario estudiar si se quería  crear un modelo general que fuera posible utilizarlo por las administraciones públicas.
-
-En primer lugar, se detectó que la decisión de disgregar la clasificación de la gravedad de los accidentes en tres clases provocaba un efecto conflictivo en la clasificación de los modelos. Al tener dos clases minoritarias con tan pocas muestras, el efecto del \textit{resmapling} datos no presentaba el rendimiento esperado, ya que la diferencia entre dos clases con tan pocas muestras penalizaba el aprendizaje del modelo. Además, el valor que aporta la distinción entre accidentes graves y fatales es insignificante, ya que en ambos casos la asistencia de los organismos de emergencia es necesaria. Por este motivo, con la finalidad de aumentar la utilidad de la metodología y paliar el efecto de superposición, se agruparon las de consecuencias graves y fatales en una sola, \textbf{necesidad de asistencia}.
-
-\textcolor{red}{\textbf{Luis: } Cuidado con este párrafo que en Madrid nos quedamos con 5x4 y estamos diciendo que tenemos 6 categorías..}
-
-\textcolor{purple}{Jose: \textbf{Lo que hay que insistir es en que tennos siempre matrices 6x4 y si hay alguna categoría de la que no se tienen datos, pues una fila de ceros pero el tamaño de la matriz es siempre la misma}}
-
-Por otra parte, la adaptación de la metodología para poder aplicarla en cualquier población era prioritaria, y cualquier información que pudiese ser relevante en la predicción de la gravedad de los accidentes, orientado a la falta de disponibilidad de datos en cada región, debería ser añadida. Para llegar a esto en futuros conjuntos de datos, se redefinieron las categorías para que contemplasen información que pudieran describir conceptos más genéricos y de fácil asignación. Se propuso un replanteamiento de las categorías, pasando de ser 5 a 6: (1) Información del accidente, (2) limitaciones en la conducción, (3) factores ambientales, (4) información temporal, (5) información del vehículo y (6) información de la víctima. Esto implica que la dimensionalidad de la matriz de características crezca verticalmente, pudiendo agregar más información para aumentar su dimensión en distintos conjuntos de datos, pasando de ser de $5 \times 5$ a $6 \times 5$.
-
-Por otra parte, se planteó aplicar transformaciones sobre los datos ya existentes para aumentar el número de características en base a la información ya seleccionada. Por ejemplo, una de las principales debilidades del modelo anterior es que la hora del accidente no estaba representada en base a su naturaleza cíclica. Para discretizar mejor esta variable se aplicaron transformaciones en forma de senos y cosenos para contemplar esta información, que gracias a la propuesta de la nueva categorización, esta, junto a muchas otras, podría ser incluida.
-
-En base al análisis de resultados, se planteó abordar el problema del desbalanceo de los datos añadiendo un componente más. El número de muestras originales evidenciaban que aún con el método de \textit{resampling} no era posible conseguir una generalización en las predicciones. Para este efecto sobre los datos originales, se propuso un método que filtrase los datos de forma que se redujesen el número de muestras de accidentes leves en comparación con el resto, mediante un sistema de selección de áreas donde coexistiesen todos los tipos de accidente.
-
-Por último, en base a estos resultados, el modelo CNN-2D presentaba mejores métricas sobre el entrenamiento de los datos, evidenciando que esta arquitectura era capaz de capturar patrones más representativos, por lo que se propuso centrar los esfuerzos en el desarrollo de este modelo, descartando así la CNN-1D. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%M Me he quedado  por aquí %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1063,13 +1032,36 @@ Por último, en base a estos resultados, el modelo CNN-2D presentaba mejores mé
 
 % \textcolor{red}{\textbf{Luis: Inquietud} Me preocupa que no se entienda que son 8 entrenamientos distintos en esta sección y se pueda dar lugar a pensar que es un modelo general entrenado con todos los datos de las tres regiones...}
 
-En esta sección se presentan los resultados del modelo GTAAF sobre los tres conjuntos de datos descritos en la sección \ref{DATA_PRESENTATION_RESULTS}. Como se ha comentado en apartados anteriores, este modelo es una evolución del prototipo anterior, por lo que presentará diferencias respecto a su predecesor. Como consideración importante a tener en cuenta en este punto es que una de las principales diferencias de esta metodología es la clasificación de la gravedad del accidente en \textbf{dos clases: sin necesidad de asistencia y con necesidad de asistencia}, donde a partir de ahora estas variables se denominarán Con Asistencia y Sin Asistencia respectivamente. En la siguiente tabla \ref{MAPPING_ASSISTANCE} se muestra la asignación del valor de la gravedad del accidente original de cada uno de los tres conjuntos de datos a estas dos clases.
+\textcolor{orange}{\textbf{Luis:} Estos párrafos me quedan raros. Esto inicialmente estaba en la sección de conclusiones anterior (se puede ver en el overleaf), a mí al leerlo me está pareciendo raro, opiniones?}
 
-\textcolor{red}{\textbf{Luis: Inquietud Viendo lo de Madrid.... Lo hemos hecho mal... Qué hacemos?}}
+\textcolor{orange}{\textbf{Desde aquí}}
 
-\textcolor{purple}{\textbf{Jose: no hacemos nada, callarnos como...}}
+Como se ha comentado, al analizar los resultados del modelo preliminar se detectaron una serie de deficiencias que era necesario atajar si se quería crear un modelo general que aportase un valor real a las administraciones públicas y servicios de emergencia.
 
-\textcolor{orange}{\textbf{Luis: se cambian los valores de tabla después de coordinarlo con Manuel}}
+En primer lugar, se detectó que la decisión de disgregar la clasificación de la gravedad de los accidentes en tres clases provocaba un efecto conflictivo en la clasificación de los modelos. Al tener dos clases minoritarias con tan pocas muestras, el efecto del \textit{resmapling} datos no presentaba el rendimiento esperado, ya que la diferencia entre dos clases con tan pocas muestras penalizaba el aprendizaje del modelo. Además, el valor que aporta la distinción entre accidentes graves y fatales es insignificante, ya que en ambos casos la asistencia de los organismos de emergencia es necesaria. Por este motivo, con la finalidad de aumentar la utilidad de la metodología y paliar el efecto de superposición, se agruparon las de consecuencias graves y fatales en una sola, \textbf{necesidad de asistencia}.
+
+% \textcolor{red}{\textbf{Luis: } Cuidado con este párrafo que en Madrid nos quedamos con 5x4 y estamos diciendo que tenemos 6 categorías..}
+
+% \textcolor{purple}{Jose: \textbf{Lo que hay que insistir es en que tennos siempre matrices 6x4 y si hay alguna categoría de la que no se tienen datos, pues una fila de ceros pero el tamaño de la matriz es siempre la misma}}
+
+
+Por otra parte, la adaptación de la metodología para poder aplicarla en cualquier población era prioritaria, y cualquier información que pudiese ser relevante en la predicción de la gravedad de los accidentes, orientado a la falta de disponibilidad de datos en cada región, debería ser añadida. Para llegar a esto en futuros conjuntos de datos, se redefinieron las categorías para que contemplasen información que pudieran describir conceptos más genéricos y de fácil asignación. Se propuso un replanteamiento de las categorías, pasando de ser de 5 a 6 potenciales, dejando alguna de estas sin información en caso de que no existiesen características que la describiesen: (1) Información del accidente, (2) limitaciones en la conducción, (3) factores ambientales, (4) información temporal, (5) información del vehículo y (6) información de la víctima. Esto implica que la dimensionalidad de la matriz de características crezca verticalmente, pudiendo agregar más información para aumentar su dimensión en distintos conjuntos de datos, pasando de ser de $5 \times 5$ a $6 \times 5$.
+
+Por otra parte, se planteó aplicar transformaciones sobre los datos ya existentes para aumentar el número de características en base a la información ya seleccionada. Por ejemplo, una de las principales debilidades del modelo anterior es que la hora del accidente no estaba representada en base a su naturaleza cíclica. Para discretizar mejor esta variable se aplicaron transformaciones en forma de senos y cosenos para contemplar esta información, que gracias a la propuesta de la nueva categorización, esta, junto a muchas otras, podría ser incluida.
+
+En base al análisis de resultados, se planteó abordar el problema del desbalanceo de los datos añadiendo un componente más. El número de muestras originales evidenciaban que aún con el método de \textit{resampling} no era posible conseguir una generalización en las predicciones. Para este efecto sobre los datos originales, se propuso un método que filtrase los datos de forma que se redujesen el número de muestras de accidentes leves en comparación con el resto, mediante un sistema de selección de áreas donde coexistiesen todos los tipos de accidente.
+
+Por último, en base a los resultados preliminares, el modelo CNN-2D presentaba mejores métricas sobre el entrenamiento de los datos, evidenciando que esta arquitectura era capaz de capturar patrones más representativos en este problema, por lo que se propuso centrar los esfuerzos en el desarrollo de este modelo, descartando así la red CNN-1D. 
+
+\textcolor{orange}{\textbf{Hasta aquí}}
+
+En esta sección se presentan los resultados del modelo GTAAF sobre los tres conjuntos de datos descritos en la sección \ref{DATA_PRESENTATION_RESULTS}. Como se ha comentado en apartados anteriores, este modelo es una evolución del prototipo anterior, por lo que presentará diferencias respecto a su predecesor.  Como consideración importante a tener en cuenta en este punto es que una de las principales diferencias de esta metodología es la clasificación de la gravedad del accidente en \textbf{dos clases: sin necesidad de asistencia y con necesidad de asistencia}, donde a partir de ahora estas variables se denominarán Con Asistencia y Sin Asistencia respectivamente. En la siguiente tabla \ref{MAPPING_ASSISTANCE} se muestra la asignación del valor de la gravedad del accidente original de cada uno de los tres conjuntos de datos a estas dos clases.
+
+% \textcolor{red}{\textbf{Luis: Inquietud Viendo lo de Madrid.... Lo hemos hecho mal... Qué hacemos?}}
+
+% \textcolor{purple}{\textbf{Jose: no hacemos nada, callarnos como...}}
+
+% \textcolor{orange}{\textbf{Luis: se cambian los valores de tabla después de coordinarlo con Manuel}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
