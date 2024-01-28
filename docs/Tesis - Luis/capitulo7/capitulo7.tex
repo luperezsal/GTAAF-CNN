@@ -1,8 +1,50 @@
-\chapter{Conclusiones}
+
+\chapter{Publicaciones}
+
+1. \textbf{Pérez-Sala, L.}, Curado, M., Tortosa, L., \& Vicent, J. F. (2023). Deep learning model of convolutional neural networks powered by a genetic algorithm for prevention of traffic accidents severity. Chaos, Solitons \& Fractals, 169, 113245.\\
+
+\textbf{Indicadores de calidad:} 
+\begin{itemize}
+	\item Factor de impacto: 9.992
+	\item Ranking: 1/108 (MATHEMATICS, INTERDISCIPLINARY APPLICATIONS)
+	\item Cuartil: Q1
+\end{itemize}
+
+\textbf{Resumen.} La Organización Mundial de la Salud destaca que el número de muertes anuales por accidentes de tráfico ha alcanzado los 1,35 millones (Informe Mundial sobre la Situación de la Seguridad Vial 2018). Además, millones de personas sufren lesiones más o menos graves como consecuencia de este tipo de accidentes. En este escenario, la predicción de la gravedad de los accidentes de tráfico es un punto esencial cuando se trata de mejorar la prevención y la reacción de las entidades responsables. Por otro lado, el desarrollo de metodologías confiables para predecir y clasificar el nivel de gravedad de los accidentes de tráfico, basado en diversas variables, es un componente clave en el campo de investigación en seguridad vial. Este trabajo tiene como objetivo proponer un nuevo enfoque, basado en redes neuronales convolucionales, para la detección de la gravedad de los accidentes de tráfico. Detrás de este objetivo se encuentra la limpieza, análisis y visualización de datos, así como el diseño, implementación y comparación de modelos de aprendizaje automático considerando la precisión como indicador de rendimiento.
+Con este propósito, se ha implementado una metodología escalable y fácilmente reutilizable. Esta metodología se ha comparado con otros modelos de aprendizaje profundo, verificando que los resultados de la red neuronal diseñada ofrecen un mejor rendimiento en términos de medidas de calidad.\\
 
 
-En esta tesis se ha propuesto un nuevo modelo que evalúa la necesidad de asistencia médica en los accidentes de tráfico. Esta funcionalidad es extremadamente importante para priorizar la asignación de recursos médicos una vez se conocen las características del accidente, de tal forma que se puedan minimizar las consecuencias físicas a corto y largo plazo de los afectados. Para ello se ha propuesto una metodología que transforma las características que describen los accidentes, mediante categorizaciones, en datos matriciales para alimentar a nuestro modelo convolucional GTAAF. Como se ha demostrado en su evaluación, los resultados no solo mejoran ampliamente a los modelos del estado del arte (con valores de hasta el 13.8\%), sino que la categorización propuesta ha demostrado robustez respecto a la interpretación de las características de forma individual de los demás modelos. Además, nuestro modelo ha mostrado un gran rendimiento en distintos contextos, concretamente en  distintos datasets de 8 poblaciones de diferentes densidades de población.\\
+2. \textbf{Pérez-Sala, L.}, Curado, M., Tortosa, L., \& Vicent, J. F. Increasing the accuracy of a deep learning model for traffic accident severity prediction by adding a temporal category. En International Conference on Advances in Computing Research, Madrid (3-5 Junio 2024). Estado: Aceptado.\\
 
-Además, con el objetivo de proponer un modelo general que pueda ser aplicado a nuevas poblaciones que no dispongan de la misma información que los datasets presentados en este artículo (debido principalmente a la dificultad inherente de recogida de datos específicos, como controles de alcohol y drogas, u otras características cuya obtención esté relacionada con la condición económica de la población), se ha analizado la robustez del modelo eliminando características, excluyendo aquellas de mayor y menor impacto que han resultado del \textit{XGBoost} optimizado mediante el algoritmo genético, obteniendo resultados incluso mejores en nuestro modelo. Esto hace indicar la sensibilidad que tiene respecto a estos casos extremos.
+\textbf{Indicadores de calidad:} 
+\begin{itemize}
+	\item Tipo de congreso: Internacional
+	\item Ranking: CORE C
+\end{itemize}
 
-Como principal medida medida como trabajo a futuro se propone aplicar este modelo a otros conjuntos de datos de accidentes para evaluar la utilidad que ofrece en comparación con otros modelos, por otra parte se debe analizar cómo reducir la sensibilidad del modelo GTAAF ante características extremas.
+\textbf{Resumen.} La inteligencia artificial se ha convertido en una herramienta ampliamente utilizada en el contexto de la movilidad urbana y las aplicaciones de seguridad vial. Este artículo se centra en predecir la gravedad de los accidentes utilizando características que se pueden recopilar de manera fácil y rápida. Proponemos un modelo de aprendizaje profundo basado en una red neuronal convolucional que se compara, desde el punto de vista del rendimiento, con varios modelos de aprendizaje profundo para predecir la gravedad de las colisiones de tráfico. Nuestra propuesta modifica un modelo anterior al refinar la categorización del accidente, implementar un filtro de área para abordar los datos desequilibrados, reorganizar el conjunto de datos en diferentes características basadas en su naturaleza y discretizar el tiempo de los accidentes mediante funciones seno y coseno. Este trabajo demuestra un rendimiento superior a seis modelos de aprendizaje profundo, logrando una mejora importante en la predicción de las dos categorías analizadas (accidentes que requieren asistencia y los que no la requieren). \\
+
+
+3. \textbf{Pérez-Sala, L.}, Curado, M., Oliver, J. L., \& Vicent, J. F. (2023). A General Approach to Predict the Traffic Accident Assistance Based on Deep Learning. Applied Soft Computing. Estado: Under Review .\\
+
+\textbf{Indicadores de calidad:} 
+\begin{itemize}
+	\item Factor de impacto: 8.7
+	\item Ranking: 12/110 (COMPUTER SCIENCE, INTERDISCIPLINARY APPLICATIONS)
+	
+	\item Cuartil: Q1
+\end{itemize}
+
+\textbf{Resumen.} Ante el problema de los numerosos accidentes de tráfico que ocurren diariamente, es crucial  la predicción de la necesidad de asistencia médica en estos accidentes, lo cual ha sido estudiado en numerosos trabajos que abordan cuestiones como los datos desequilibrados. Con este propósito, proponemos un modelo de aprendizaje profundo para analizar la asistencia en los accidentes, cuyo objetivo final es distinguir si un accidente requiere asistencia médica o no. Nuestra perspectiva es general, de modo que el modelo sea válido para cualquier ciudad. Para lograrlo, presentamos un modelo dividido en tres etapas claramente diferenciadas. En la etapa de pre-procesamiento, se realiza un tratamiento de datos. En segundo lugar, en la etapa de postprocesamiento, se emplean algoritmos genéticos y de impulso para obtener la importancia de todas las variables del conjunto de datos utilizadas en la predicción. Finalmente, evaluamos la eficacia y precisión del modelo aplicándolo a accidentes de tráfico en seis ciudades diferentes. Los resultados experimentales muestran que el modelo propuesto logra una mayor precisión en todas las ciudades en comparación con seis modelos de vanguardia. Los resultados confirman la idoneidad y aplicabilidad del propuesto modelo generalizado de aprendizaje profundo para detectar la asistencia en accidentes de tráfico. \\
+
+
+4. \textbf{Pérez-Sala, L.}, Curado, M. \& Vicent, J. F. (2023). Features Fusion for a Robust Traffic Accidents Assistance Forecasting Model with Deep Learning. Expert Systems with Applications. Estado: Under Review.\\
+
+\textbf{Indicadores de calidad:} 
+\begin{itemize}
+	\item Factor de impacto: 8.5
+	\item Ranking: 24/145 (COMPUTER SCIENCE, ARTIFICIAL INTELLIGENCE)
+	\item Cuartil: Q1
+\end{itemize}
+
+\textbf{Resumen.} Los accidentes de tráfico representan un problema muy importante tanto desde un punto de vista social como económico, y pueden considerarse como un obstáculo que frena el desarrollo de los países. En los accidentes de carretera, muchas personas pierden la vida debido a la falta de asistencia médica. La provisión oportuna de atención de emergencia puede reducir la tasa de mortalidad, así como la gravedad de los accidentes. En este estudio, predecimos la gravedad de los accidentes de tráfico en términos de la necesidad de asistencia utilizando aprendizaje profundo para que las autoridades competentes lo utilicen en la gestión de la atención médica. En este trabajo, proponemos un modelo general para la predicción de asistencia en accidentes de tráfico llamado GTAAF, que utiliza una red neuronal convolucional alimentada por matrices construidas mediante algoritmos evolutivos y modelos de tipo boosting. Se realizaron experimentos con datos de accidentes de tráfico de ocho áreas del Reino Unido, España y Australia en los últimos años. Para evaluar la eficiencia del modelo presentado, se comparó con seis modelos de aprendizaje automático de vanguardia, mostrando una mejora en precisión, recall y F1-score. Además, se probó la robustez de la propuesta eliminando variables extremas de los conjuntos de datos, obteniendo mejoras significativas respecto a los demás modelos.

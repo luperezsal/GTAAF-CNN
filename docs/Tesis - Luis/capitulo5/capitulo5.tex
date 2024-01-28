@@ -1,7 +1,7 @@
       
 \chapter{Experimentos y resultados}
 
-En esta sección se expone la información técnica de interés relativa a los experimentos y resultados realizados en este trabajo. En primer lugar se presentarán las tecnologías utilizadas durante el transcurso de este trabajo, en segundo lugar se mostrarán los datos sobre los que se han realizado los experimentos. En tercera instancia se exponen los resultados obtenidos por un \textbf{prototipo preliminar} tras su ejecución bajo una población específica, Madrid, que sirve como base para los experimentos relativos al cuarto apartado, donde se presentarán los resultados del modelo final \textbf{GTAAF} aplicado a datos de ocho regiones distintas. La finalidad última es validar la generalización del modelo propuesto a datasets de distintas regiones, concretamente Reino Unido (municipio de Southwark, ciudad de Manchester, ciudad de Birmingham, ciudad de Liverpool, ciudad de Sheffield y condado de Cornwall), España (Madrid) y Australia (estado de Victoria).
+En esta sección se expone la información técnica de interés relativa a los experimentos y resultados realizados en este trabajo. En primer lugar se presentarán los datos sobre los que se han realizado los experimentos. Posteriormente se expondrán los resultados obtenidos por un \textbf{prototipo preliminar} tras su ejecución bajo una población específica, Madrid, que sirve como base para los experimentos relativos al cuarto apartado, donde se presentarán los resultados del modelo final \textbf{GTAAF} aplicado a datos de ocho regiones distintas. La finalidad de esto será validar la generalización del modelo propuesto a través de conjuntos de datos de distintas regiones, concretamente Reino Unido (municipio de Southwark, ciudad de Manchester, ciudad de Birmingham, ciudad de Liverpool, ciudad de Sheffield y condado de Cornwall), España (Madrid) y Australia (Estado de Victoria).
 
 % \section{Tecnologías}
 
@@ -56,15 +56,15 @@ En esta sección se expone la información técnica de interés relativa a los e
 % \textcolor{red}{Luis: Este párrafo está regular. Por otra parte colapsa con el apartado Evaluación del modelo: Eficiencia y Robustez. Aunque no sé si está mal que sea así..}
 % \textcolor{purple}{JOSE: \textbf{ahora lo veo bien}}
 
-En este punto se presentan los datos sobre los que se han aplicado los modelos. Los datos escogidos para la validación pertenecen a tres regiones distintas, donde cada una de ellas presenta distintas singularidades. El criterio escogido para la selección de estos datos se basa en la búsqueda de la variabilidad a lo largo de distintos contextos y casos de uso con el objetivo de validar que el modelo propuesto es capaz de generalizar a lo largo de circunstancias distintas. Esta evaluación se basará en dos factores principales: la distinta disponibilidad de información en los conjuntos de datos y en función de la densidad de población de las regiones escogidas. A su vez, para este último factor de la densidad de población, distinguiremos tres casos de estudio claramente diferenciados: (1) alta concentración de población, (2) concentración media y (3) concentración dispersa. Con esta variabilidad en los datos se busca medir la robustez y generalización del modelo GTAAF desarrollada.
+En este punto se presentan los datos sobre los que se han trabajado en esta tesis. Los datos escogidos para la validación pertenecen a tres regiones diferentes, donde cada una de ellas presenta distintas singularidades. El criterio escogido para la selección de estos datos se basa en la búsqueda de la variabilidad a lo largo de distintos contextos y casos de uso con el objetivo de validar que el modelo propuesto es capaz de generalizar a través de múltiples circunstancias. Esta evaluación se basará en dos factores principales: (1) la distinta disponibilidad de información en los conjuntos de datos y (2) en función de la densidad de población de las regiones escogidas. A su vez, para este último factor de la densidad de población, distinguiremos tres casos de estudio claramente diferenciados: (1) alta concentración de población, (2) concentración media y (3) concentración dispersa. Con esta variabilidad en los datos se busca medir la robustez y generalización del modelo GTAAF desarrollado.
 
 
 
 \subsection*{Madrid}
 
-El primer dataset seleccionado para su adaptación contiene información de accidentes de tráfico sobre la Comunidad de Madrid, comprendidos entre los años $2019$ y $2022$ a lo largo de toda la ciudad. Estos datos describen los accidentes mediante 18 características para $73\,514$ registros totales. Este conjunto de datos ha sido extraído del Portal de Datos Abiertos del Ayuntamiento de Madrid \cite{InfoDatasetMadrid}. 
+El primer conjunto de datos seleccionado para su adaptación contiene información de accidentes de tráfico sobre la Comunidad de Madrid, comprendidos entre los años $2019$ y $2022$ a lo largo de toda la ciudad. Estos datos describen los accidentes mediante 18 características para $73\,514$ registros totales, extraídos desde el Portal de Datos Abiertos del Ayuntamiento de Madrid \cite{InfoDatasetMadrid}. 
 
-La alta densidad de población de Madrid convierte este conjunto de datos en un caso de estudio de alta concentración de población, en la Tabla \ref{Madrid_statistics} se pueden observar los datos de geográficos de interés sobre esta ciudad.
+La alta densidad de población de Madrid convierte a este conjunto de datos en un caso de estudio de alta concentración de población, en la Tabla \ref{Madrid_statistics} se pueden observar los datos de geográficos y de accidentes sobre esta ciudad.
 
 \begin{table}[ht]
 	\begin{center}
@@ -77,7 +77,7 @@ La alta densidad de población de Madrid convierte este conjunto de datos en un 
 			
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de las propiedades geográficas de la ciudad de Madrid.}
+	\caption{Descripción de las propiedades geográficas en base a los accidentes de la ciudad de Madrid}
 	\label{Madrid_statistics}
 \end{table}
 
@@ -109,7 +109,7 @@ Las características originales presentes en este conjunto de datos se encuentra
 			Drogas & Si la persona involucrada ha dado positivo en drogas (S o N) \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Madrid y sus descripciones.}
+	\caption{Variables del conjunto de datos de Madrid y sus descripciones}
 	\label{Datadescription}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,14 +126,14 @@ En lo que respecta a la variable a predecir, la \textbf{Gravedad} del accidente,
 	\item Sin atención médica: $7$.
 \end{itemize}
 
-Hay que resaltar que el conjunto de datos de la ciudad de Madrid se utilizará para validar ambos modelos (preliminar y GTAAF). Por este motivo, la interpretación de los valores que toma la variable de la gravedad del accidente, serán considerados de forma distintas en cada una de ellas, tanto en el modelo preliminar, donde se interpretará la gravedad como tres posibles clases (\textbf{leves}, \textbf{severos} y \textbf{fatales}), como en el modelo GTAAF, donde la gravedad es considerada como dos clases (\textbf{con necesidad de asistencia} y \textbf{sin necesidad de asistencia}).
+Hay que resaltar que el conjunto de datos de la ciudad de Madrid se utilizará para validar ambos modelos (preliminar y GTAAF). Por este motivo, la interpretación de los valores que toma la variable de la gravedad del accidente serán considerados de forma distinta en cada una de ellas. En el modelo preliminar se interpretará como tres posibles clases (\textbf{leves}, \textbf{severos} y \textbf{fatales}), y  en el modelo GTAAF se considerará como dos (\textbf{con necesidad de asistencia} y \textbf{sin necesidad de asistencia}).
 
 
 \subsection*{Victoria}
 
-El segundo caso de estudio contempla una situación de concentración de población dispersa, concretamente a lo largo del estado de Victoria, Australia, contemplando los accidentes producidos desde el año $2000$ y hasta el $2005$, contando con un total de $14\,123$ registros. Este conjunto de datos ha sido obtenido a través del Departamento de Transportes y Planificación del Gobierno del estado de Victoria \cite{InfoDatasetVictoria}.
+El segundo caso de estudio contempla una situación de concentración de población dispersa, concretamente a lo largo del Estado de Victoria, Australia. Este conjunto de datos contempla accidentes producidos entre el año $2000$ y el $2005$, contando con un total de $14\,123$ registros. Este conjunto de datos ha sido obtenido a través del Departamento de Transportes y Planificación del Gobierno del estado de Victoria \cite{InfoDatasetVictoria}.
 
-Como se puede apreciar en la tabla \ref{Victoria_statistics}, el caso de uso aplicado del estado de Victoria se muestra como una situación de baja concentración de población. Al ser un estado muy extenso, las densidades de población se encuentran en los núcleos urbanos.
+Como se puede apreciar en la tabla \ref{Victoria_statistics}, el caso de uso aplicado del estado de Victoria se muestra como una situación de baja concentración de población. Al ser un estado muy extenso, las densidades de población se encuentran en los núcleos urbanos, siendo el número de habitantes por kilómetro cuadrado considerablemente bajo en comparación con el resto de datos estudiados en esta tesis.
 
 \begin{table}[H]
 	\begin{center}
@@ -144,12 +144,13 @@ Como se puede apreciar en la tabla \ref{Victoria_statistics}, el caso de uso apl
 			Victoria & 227.416 &  5.603.100  & 25  & 0,0004\\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de las propiedades geográficas del estado de Victoria.}
+	\caption{Descripción de las propiedades geográficas en base a los accidentes del estado de Victoria}
 	\label{Victoria_statistics}
 \end{table}
 
 
-En este caso, el dataset dispone de $140$ características, divididas en varias bases de datos sobre las que ha habido que realizar operaciones de unión para disponer de los datos en su totalidad. Gran parte de estas características contemplan información que no aporta valor descriptivo para los accidentes, ya qsue se tratan de definiciones de los valores numéricos asignados en otras columnas, identificadores para hacer uniones entre las tablas, etc. Estas tablas contienen información relativa a:
+En este caso, se disponen de $140$ características divididas en varias bases de datos sobre las que se han realizado operaciones de unión para disponer de los datos en su totalidad. Gran parte de estas características contemplan información que no aporta valor descriptivo para los accidentes, ya que se tratan de definiciones de los valores numéricos asignados en otras columnas, identificadores para hacer uniones entre las tablas, entre otros. Estas tablas contienen información relativa a:
+
 \begin{itemize}
 	\item \textbf{Víctimas del accidente} \ref{Victoria_CASUALTY_TABLE}
 	\item \textbf{Descriptores del accidente} \ref{Victoria_ACCIDENT_TABLE}
@@ -161,9 +162,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 	\item \textbf{Características del nodo} \ref{Victoria_NODE_TABLE}
 \end{itemize}
 
-\textcolor{orange}{Luis: \textbf{Me parece mucho lío meter todas estas tablas aquí, las smetería en anexos.}}
-
-\textcolor{purple}{déjalo, siempre estamos a tiempo de quitarlo}
+A continuación se describirán los datos contemplados en cada una de estas tablas.
 
 \begin{table}[H]
 	\begin{center}
@@ -191,7 +190,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			EJECTED\_CODE & Código de expulsión \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla relativa a las víctimas.}
+	\caption{Descripción de características de la tabla Víctima de los datos de Victoria}
 	\label{Victoria_CASUALTY_TABLE}
 \end{table} 
 
@@ -232,7 +231,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			SPEED\_ZONE & Zona de velocidad \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla Accidente.}
+	\caption{Descripción de características de la tabla Accidente de los datos de Victoria}
 	\label{Victoria_ACCIDENT_TABLE}
 \end{table} 
 
@@ -250,7 +249,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			SURFACE\_COND\_SEQ & Secuencia de la condición de la superficie \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla Características de Carretera.}
+	\caption{Descripción de características de la tabla Características de la Carretera de los datos de Victoria}
 	\label{Victoria_ROAD_SURF_TABLE}
 \end{table} 
 
@@ -268,7 +267,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			ATMOSPH\_COND\_DESC & Descripción de la condición atmosférica \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla Características Atmosféricas.}
+	\caption{Descripción de características de la tabla Características Atmosféricas de los datos de Victoria}
 	\label{Victoria_ATMOS_COND_TABLE}
 \end{table} 
 
@@ -319,7 +318,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			TRAFFIC\_CONTROL\_DESC & Descripción del control de tráfico \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla Vehículo.}
+	\caption{Descripción de características de la tabla Vehículo de los datos de Victoria}
 	\label{Victoria_VEHICLE_TABLE}
 \end{table} 
 
@@ -345,7 +344,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			OBJECT\_TYPE\_DESC & Descripción del tipo de objeto \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla Evento Accidentes.}
+	\caption{Descripción de características de la tabla Evento-Accidente de los datos de Victoria}
 	\label{Victoria_ACCIDENT_EVENT_TABLE}
 \end{table} 
 
@@ -369,7 +368,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			OFF\_ROAD\_LOCATION & Ubicación fuera de la carretera \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla Localización de Accidente.}
+	\caption{Descripción de características de la tabla Localización de Accidente de los datos de Victoria}
 	\label{Victoria_ACCIDENT_LOCATION_TABLE}
 \end{table} 
 
@@ -394,7 +393,7 @@ En este caso, el dataset dispone de $140$ características, divididas en varias 
 			POSTCODE\_N0 & Código postal \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Victoria y sus descripciones. Tabla de nodos.}
+	\caption{Descripción de características de la tabla Nodo de los datos de Victoria}
 	\label{Victoria_NODE_TABLE}
 \end{table} 
 
@@ -416,10 +415,10 @@ En lo que respecta a la variable predictiva que indica la gravedad de las vícti
 
 El tercer conjunto de datos pertenece al Departamento de Transportes de Reino Unido \cite{DatasetUK}, donde se contempla información de los accidentes producidos entre el año $2005$ y $2020$ a lo largo de todo el país. Sobre este conjunto de datos se han seleccionado 6 regiones diferentes: Southwark, Manchester, Birmingham, Liverpool, Sheffield y Cornwall. Cada una de ellas presenta un caso de uso distinto en función de su densidad de población. 
 
-Este dataset dispone, en su versión original, con $77$ características que describen información acerca de los accidentes, las víctimas y los vehículos implicados en ellos, en bases de datos separadas. Por lo que para obtener la información total desglosada por víctima se realizan operaciones de unión entre ellas. En la tabla \ref{UK_DATASET_SAMPLES_NUMBERS} se puede observar la cantidad de registros resultantes tras realizar estas operaciones en cada una de las regiones seleccionadas.
+Estos datos disponen, en su versión original, de $77$ características que describen información acerca de los accidentes, las víctimas y los vehículos implicados en ellos en bases de datos separadas. Por lo que para obtener la información total desglosada por víctima se realizan operaciones de unión entre ellas. En la tabla \ref{UK_DATASET_SAMPLES_NUMBERS} se puede observar la cantidad de registros resultantes tras realizar estas operaciones en cada una de las regiones seleccionadas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[ht]
+\begin{table}[h!]
 	\centering
 	\begin{tabular}{|c|c|}
 		\hline
@@ -433,19 +432,14 @@ Este dataset dispone, en su versión original, con $77$ características que des
 		Sheffield  & 49.466 \\ \hline
 		Cornwall   & 37.846 \\ \hline \hline
 	\end{tabular}
-	\caption{Número original de muestras de las regiones del Reino Unido.}
+	\caption{Número original de muestras de las regiones del Reino Unido}
 	\label{UK_DATASET_SAMPLES_NUMBERS}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \textcolor{red}{\textbf{Luis, pregunta:} ¿ponemos también el caso de estudio de cada una de las ciudades en función de la densidad de población? Creo que es mucho lío, si no es el caso habría que pensar cómo justificar por qué no lo hacemos con este conjunto de datos.}
-% \textcolor{green}{MANU: puedes justificarlo como que es un dataset más estatal, que no se centra tanto en un nucleo urbano sino en varios, por lo que no es necesario. O puedes buscar la densidad de poblacion de las 6 (no creo que sea un dato muy rebuscado y dificil de encontrar)}
-
-% \textcolor{purple}{JOSE: \textbf{Hay que poner una tabla similar a las anteriores}}
-
 En la tabla \ref{UK_statistics} se observan datos geográficos acerca de cada una de las regiones escogidas de Reino Unido, cada una de ellas presentando una densidad de población distinta y un ratio de accidentes por habitante diferente.
 
-\begin{table}[ht]
+\begin{table}[h!]
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -459,17 +453,9 @@ En la tabla \ref{UK_statistics} se observan datos geográficos acerca de cada un
 			Cornwall    & 3.563 &   569.578  &    160  & 0,004 \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de las propiedades geográficas las regiones de Reino Unido.}
+	\caption{Descripción de las propiedades geográficas en base a los accidentes de las regiones de Reino Unido}
 	\label{UK_statistics}
 \end{table}
-
-
-\textcolor{red}{\textbf{Luis, pregunta:} ¿cómo podemos describir los datos como se ha hecho en el apartado anterior de Madrid, siendo las variables 77?}
-\textcolor{green}{MANU: Las pondría todas. Al fin y al cabo, eso te sirve para justificar uno de los puntos fuertes del modelo: la robustez de la categorización en el caso de que falten características}
-
-\textcolor{purple}{JOSE: \textbf{opino lo mismo, se ponen todas}}
-
-\textcolor{orange}{Luis: \textbf{Hecho, pero yo lo metería en el anexo, esto me parece que queda un poco forzado.}}
 
 
 En las siguientes tablas se muestran las características originales disponibles en el conjunto de datos de Reino Unido, cada una de estas tablas incluye información descriptiva de los accidentes \ref{UK_ACCIDENT_TABLE}, de los vehículos implicados \ref{UK_VEHICLE_TABLE} y de las víctimas \ref{UK_CASUALTY_TABLE}.
@@ -519,7 +505,7 @@ En las siguientes tablas se muestran las características originales disponibles
 			lsoa\_of\_accident\_location & LSOA de la ubicación del accidente \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Reino Unido y sus descripciones. Tabla Accidente.}
+	\caption{Descripción de características de la tabla Accidente de los datos de Reino Unido}
 	\label{UK_ACCIDENT_TABLE}
 \end{table} 
 
@@ -559,7 +545,7 @@ En las siguientes tablas se muestran las características originales disponibles
 			driver\_home\_area\_type & Tipo de área de residencia del conductor \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Reino Unido y sus descripciones. Tabla Vehículo.}
+	\caption{Descripción de características de la tabla Vehículo de los datos de Reino Unido}
 	\label{UK_VEHICLE_TABLE}
 \end{table}
 
@@ -590,9 +576,10 @@ En las siguientes tablas se muestran las características originales disponibles
 			casualty\_imd\_decile & Decil de IMD de la víctima \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Reino Unido y sus descripciones. Tabla Víctima. }
+	\caption{Descripción de características de la tabla Víctima de los datos de Reino Unido}
 	\label{UK_CASUALTY_TABLE}
-\end{table} 
+\end{table}
+
 Sobre este conjunto de datos, la variable a predecir puede tomar tres valores distintos que contemplan las consecuencias del accidente en las víctimas:
 
 \begin{itemize}
