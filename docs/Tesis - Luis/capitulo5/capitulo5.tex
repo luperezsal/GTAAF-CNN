@@ -1922,7 +1922,6 @@ Este primer caso presenta una situación de alta densidad sobre la ciudad de Mad
 
 En la Figura \ref{MadridLossFunction} se muestra la evolución de la función a optimizar (\textit{F1-Score}) a lo largo de las 50 épocas para las que se ha entrenado el modelo GTAAF en la ciudad de Madrid. Se observa cómo el \textit{F1-Score} para el conjunto de entrenamiento sufre una evolución importante durante las diez primeras épocas, después de las cuales sigue aumentando en menor medida. Por otra parte, la métrica sobre el conjunto de validación sufre una evolución más lenta, hasta aproximadamente la época 30 no se ve una clara evolución en la generalización del modelo sobre datos que nunca ha visto.
 
-\textbf{Luis: ME HE QUEDADO AQUÍ 28-01-2024}
 
 \begin{figure}[h]
 	\centering
@@ -1931,7 +1930,7 @@ En la Figura \ref{MadridLossFunction} se muestra la evolución de la función a 
 	\label{MadridLossFunction}
 \end{figure}
 
-En la tabla \ref{SpainMetrics} se observan los resultados de la métrica F1-Score de la predicción de la gravedad de los accidentes de cada uno de los modelos sobre el conjunto de test de la ciudad de Madrid. Como se puede comprobar, el valor más alto lo ofrece el nuevo modelo GTAAF propuesto, llegando a mejorar en un 3,9\% al siguiente mejor modelo, el SVC sobre los accidentes Sin Asistencia, mientras que la mejora sobre los accidentes Con Asistencia se mide en un 5,7\% sobre el siguiente modelo que mejor métricas ofrece, el SVC. Con estos resultados puede interpretar que el nuevo modelo GTAAF propuesto es capaz de generalizar mejor en la predicción de la gravedad de nuevos accidentes que no ha visto previamente sobre la ciudad de Madrid.
+En la tabla \ref{SpainMetrics} se observan los resultados de la métrica \textit{F1-Score} de la predicción de la gravedad de los accidentes de cada uno de los modelos sobre el conjunto de test de la ciudad de Madrid. Como se puede comprobar, el valor más alto lo ofrece el nuevo modelo GTAAF, llegando a mejorar en un 3,9\% al siguiente mejor modelo, el \textit{SVC} sobre los accidentes Sin Asistencia, mientras que la mejora sobre los accidentes Con Asistencia se presenta en un 5,7\% sobre el siguiente modelo que mejor métricas ofrece, el \textit{SVC}. Con estos resultados se puede interpretar que el nuevo modelo GTAAF propuesto es capaz de generalizar mejor en la predicción de la gravedad de nuevos accidentes que no ha visto previamente sobre la ciudad de Madrid.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
@@ -1967,24 +1966,24 @@ En la tabla \ref{SpainMetrics} se observan los resultados de la métrica F1-Scor
 			\textbf{Sí} & \textbf{0.798} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{F1-Score por modelo y clase de accidente en Madrid (España).}
+	\caption{\textit{F1-Score} por modelo y clase de accidente en Madrid (España)}
 	\label{SpainMetrics}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection*{Victoria}
 
-En el segundo caso, tenemos una región dispersa, el estado de Victoria (Australia). Victoria, un estado en Australia, abarca una región diversa con ciudades bulliciosas como Melbourne, situada a lo largo de la costa sureste, conocida por su densidad de población moderada a alta y una mezcla de vitalidad urbana. En la figura \ref{VictoriaAccidentsMap} se muestra la distribución de accidentes sobre la población de Victoria, aquellos Sin Asistencia se encuentran marcados en verde mientras que aquellos tipo Con Asistencia se encuentran representados en rojo. Como se puede observar en la figura \ref{VictoriaAccidentsMap:Original} gran parte de la concentración de los accidentes se encuentra sobre la ciudad de Melbourne y sus núcleos urbanos próximos (como Ballarat al oeste, Shepparton al norte o Traralgon al este), al igual que en las carreteras que interconectan estas poblaciones. Al ser un estado extenso, el filtrado de áreas es más amplio, lo que resulta una variante respecto a ciudades de mayor concentración. En la Figura \ref{VictoriaAccidentsMap:Filtered} se observa la distribución de accidentes resultante tras aplicar el proceso de filtrado, donde aquellas zonas que presentan más accidentes Con Asistencia son en las grandes poblaciones y en las interconexiones entre estas.
+En el segundo caso, tenemos una región dispersa, el estado de Victoria (Australia). Victoria, estado en Australia, abarca una región muy extensa y con gran diversidad, desde regiones desérticas hasta ciudades multitudinarias como Melbourne, situada a lo largo de la costa sureste. En la figura \ref{VictoriaAccidentsMap} se muestra la distribución de accidentes sobre la población de Victoria, aquellos Sin Asistencia se encuentran marcados en verde mientras que aquellos tipo Con Asistencia se encuentran representados en rojo. Como se puede observar en la figura \ref{VictoriaAccidentsMap:Original} gran parte de la concentración de los accidentes se encuentra sobre la ciudad de Melbourne y sus núcleos urbanos próximos (como Ballarat al oeste, Shepparton al norte o Traralgon al este), al igual que en las carreteras que conectan estas poblaciones. Al ser un estado extenso, el filtrado de áreas es más amplio, lo que resulta una variante respecto a ciudades de mayor concentración. En la Figura \ref{VictoriaAccidentsMap:Filtered} se observa la distribución de accidentes resultante tras aplicar el proceso de filtrado, donde aquellas zonas que presentan más accidentes Con Asistencia son en las grandes poblaciones y en las interconexiones entre estas.
 
 
 \begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Victoria.]{
-		\includegraphics[width=90mm]{Figures/Victoria/original_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes originales de Victoria]{
+		\includegraphics[width=120mm]{Figures/Victoria/original_OpenStreetMap.Mapnik.png}
 		\label{VictoriaAccidentsMap:Original}
 	}\\
-	\subfloat[][Mapa de los accidentes filtrados de Victoria.]{
-		\includegraphics[width=90mm]{Figures/Victoria/filtered_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes filtrados de Victoria]{
+		\includegraphics[width=120mm]{Figures/Victoria/filtered_OpenStreetMap.Mapnik.png}
 		\label{VictoriaAccidentsMap:Filtered}
 	}\\
 	\caption{Mapa de accidentes de Victoria original y filtrado.}
@@ -1992,16 +1991,16 @@ En el segundo caso, tenemos una región dispersa, el estado de Victoria (Austral
 \end{figure}
 
 
-En la Figura \ref{VictoriaLossFunction} se muestran las funciones F1-Score sobre los datos de entrenamiento y validación para la región de Victoria. Esta métrica sobre el conjunto de entrenamiento muestra una curva de aprendizaje más lenta respecto a la ciudad de Madrid, lo cual es comprensible ya que existe más variabilidad de datos en esta región al ser mucho más extensa que la anterior. La función de validación presenta más variaciones a lo largo del aprendizaje, llegando a su máximo aproximadamente en la época 45.
+En la Figura \ref{VictoriaLossFunction} se muestran las funciones \textit{F1-Score} sobre los datos de entrenamiento y validación para la región de Victoria. Esta métrica sobre el conjunto de entrenamiento muestra una curva de aprendizaje más lenta respecto a la anterior ciudad de Madrid, lo cual es comprensible ya que existe más variabilidad de datos en esta región al ser mucho más extensa que la anterior. La función de validación presenta más variaciones a lo largo del aprendizaje, llegando a su máximo aproximadamente en la época 45.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=160mm]{Figures/Victoria/Victoria_convolution_2d_f1_score_paper.png}
-	\caption{Evolución de F1-Score del modelo GTAAF en Victoria.}
+	\caption{Evolución de \textit{F1-Score} del modelo GTAAF en Victoria.}
 	\label{VictoriaLossFunction}
 \end{figure}
 
-En la Tabla \ref{AustraliaMetrics}, se presentan los resultados del F1-Score obtenidos por cada uno de los modelos para ambos tipos de clasificación de accidentes. Específicamente, se observa que para la población de Victoria, el nuevo modelo GTAAF propuesto logra una mejora del 6.5\% en comparación con el siguiente mejor modelo, el SVC, para accidentes Sin Asistencia. Por otro lado, en lo que respecta a accidentes Con Asistencia, hay una mejora del 9\% en comparación con el MLP. Estos resultados reflejan una mejora significativa en la capacidad de generalización del nuevo modelo propuesto.
+En la Tabla \ref{AustraliaMetrics}, se presentan los resultados del F1-Score obtenidos por cada uno de los modelos para ambos tipos de clasificación de accidentes. Concretamente, se observa que el nuevo modelo GTAAF logra una mejora del 6.5\% en comparación con el siguiente mejor modelo, el \textit{SVC}, para accidentes Sin Asistencia. Por otro lado, en lo que respecta a accidentes Con Asistencia, hay una mejora del 9\% en comparación con el \textit{MLP}. Estos resultados reflejan una mejora significativa en la capacidad de generalización del nuevo modelo propuesto.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2038,116 +2037,115 @@ En la Tabla \ref{AustraliaMetrics}, se presentan los resultados del F1-Score obt
 			\textbf{Sí} & \textbf{0.784} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{F1-Score por modelo y clase de accidente en Victoria (Australia).}
+	\caption{\textit{F1-Score} por modelo y clase de accidente en Victoria (Australia)}
 	\label{AustraliaMetrics}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-En la Tabla \ref{AustraliaMetrics} se muestran los resultados F1-Score obtenidos de cada uno de los modelos respecto a ambos tipos de clasificación de accidentes. Concretamente se observa que para la ciudad de Victoria el nuevo modelo GTAAF propuesto obtiene una mejora respecto al siguiente mejor modelo, el SVC, para los accidentes Sin Asistencia del 6,5\%. Por otra parte, en lo que respecta a los accidentes tipo Con asistencia se obtiene una mejora del 9\% respecto al MLP. Estos resultados reflejan una mejora de generalización significativa del nuevo modelo propuesto.
-
-
 \subsubsection*{Reino Unido}
+
+En este apartado se analizarán los datos proyectados sobre las distintas localidades escogidas de Reino Unido y sus respectivos resultados. Para ello en primer lugar se realizará un breve análisis de cada una de las regiones, posteriormente se interpretarán las evoluciones de los entrenamientos del modelo GTAAF para concluir con un análisis de resultados de los modelos aplicados sobre ellas.
 
 \textbf{Southwark}\\
 
-Southwark es un distrito de Londres situado en la orilla sur del río Támesis, con una alta densidad de población. En la Figura \ref{SouthwarkAccidentsMap} se observa la distribución de los accidentes a lo largo del municipio de Southwark. Analizando los accidentes del conjunto de datos original, Figura \ref{SouthwarkAccidentsMap:Original}, se observa que estos se producen a lo largo de las distintas vías que conectan el municipio con el centro neurálgico de la ciudad, hecho habitual al conectar zonas menos pobladas con lugares de trabajo y de ocio, mientras que la minoría de ellos se presentan en las calles aledañas. Observando la distribución de accidentes tras el proceso de filtrado por áreas (Figura \ref{SouthwarkAccidentsMap:Filtered}) se acentúa este hecho, donde se observan que aquellos principales accidentes Con Asistencia se producen en estas vías. Por otra parte se muestra una concentración minoritaria de este tipo de accidentes en la zona de Dulwich (sur), en la intersección de la circunvalación S Circular red con la carretera que dirige al centro del municipio.
+Southwark es un distrito de Londres situado en la orilla sur del río Támesis, con una alta densidad de población. En la Figura \ref{SouthwarkAccidentsMap} se observa la distribución de los accidentes a lo largo del municipio de Southwark. Analizando el conjunto de datos original, figura \ref{SouthwarkAccidentsMap:Original}, se observa que estos se producen a lo largo de las distintas vías que conectan el municipio con el centro neurálgico de la ciudad, hecho habitual al conectar zonas menos pobladas con lugares de trabajo y de ocio, mientras que la minoría de ellos se presentan en las calles circundantes. Observando la distribución de accidentes tras el proceso de filtrado por áreas (figura \ref{SouthwarkAccidentsMap:Filtered}) se acentúa este hecho, donde se observan que aquellos principales accidentes Con Asistencia se producen en estas vías. Por otra parte se muestra una concentración minoritaria de este tipo de accidentes en la zona de Dulwich (sur), en la intersección de la circunvalación \textit{S Circular} red con la carretera que dirige al centro del municipio.
 
 %%%%%%%%%%%%%%%%%%%%%%%% DESCOMENTAR %%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Southwark.]{
-		\includegraphics[width=75mm]{Figures/Southwark/original_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes originales de Southwark]{
+		\includegraphics[width=70mm]{Figures/Southwark/original_OpenStreetMap.Mapnik.png}
 		\label{SouthwarkAccidentsMap:Original}
 	}
-	\subfloat[][Mapa de los accidentes filtrados de Southwark.]{
-		\includegraphics[width=75mm]{Figures/Southwark/filtered_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes filtrados de Southwark]{
+		\includegraphics[width=70mm]{Figures/Southwark/filtered_OpenStreetMap.Mapnik.png}
 		\label{SouthwarkAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Southwark original y filtrado.}
+	\caption{Mapa de accidentes de Southwark original y filtrado}
 	\label{SouthwarkAccidentsMap}
 \end{figure}
 
 
 \textbf{Manchester}\\
 
-Manchester, ubicada en el noroeste de Inglaterra, es una gran ciudad conocida por su legado industrial y su alta densidad de población. En la Figure \ref{ManchesterAccidentsMap} se muestra la distribución de los accidentes de Manchester. Atendiendo a la distribución de accidentes original, en la Figura \ref{ManchesterAccidentsMap:Original}, como es habitual en cualquier población se aprecia una concentración de accidentes importante en la zona central de la ciudad, siendo también considerable en el área de Longsight. Por otra parte, las principales vías que comunican las periferias urbanas (norte) con el centro de la ciudad también presentan una concentración mayor de accidentes, lo que puede deberse a desplazamientos por trabajo. Por otra parte, la carretera de Wythenshawe, cercano a Sale Water Park (Sur), también presenta una concentración elevada de accidentes, motivados por los desplazamientos de ocio y de trabajo. En la figura \ref{ManchesterAccidentsMap:Filtered} se observa la localización de los accidentes una vez se ha aplicado el proceso de filtrado por áreas, donde se vislumbra que gran parte de los accidentes Sin Asistencia se distribuyen a lo largo de las carreteras que comunican hacia el centro de la ciudad.
+Manchester, ubicada en el noroeste de Inglaterra, es una gran ciudad conocida por su legado industrial y su alta densidad de población. En la figura \ref{ManchesterAccidentsMap} se muestra la distribución de los accidentes de Manchester. Atendiendo a su distribución original, en la figura \ref{ManchesterAccidentsMap:Original}, como es habitual en cualquier población se aprecia una concentración de accidentes importante en la zona central de la ciudad, siendo también considerable en el área de Longsight. Por otra parte, las principales vías que comunican las periferias urbanas (norte) con el centro de la ciudad también presentan una concentración mayor de accidentes, lo que puede deberse a desplazamientos por motivos laborales o de ocio. Por otra parte, la carretera de Wythenshawe, cercano a Sale Water Park (Sur), también presenta una concentración elevada de accidentes, motivados por los desplazamientos de residencias personales. En la figura \ref{ManchesterAccidentsMap:Filtered} se observa la localización de los accidentes una vez se ha aplicado el proceso de filtrado por áreas, donde se vislumbra que gran parte de los accidentes Sin Asistencia se distribuyen a lo largo de las carreteras que comunican hacia el centro de la ciudad.
 
 %%%%%%%%%%%%%%%%%%%%%%%% DESCOMENTAR %%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Manchester.]{
-		\includegraphics[width=75mm]{Figures/Manchester/original_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes originales de Manchester]{
+		\includegraphics[width=70mm]{Figures/Manchester/original_OpenStreetMap.Mapnik.png}
 		\label{ManchesterAccidentsMap:Original}
 	}
-	\subfloat[][Mapa de los accidentes filtrados de Manchester.]{
-		\includegraphics[width=75mm]{Figures/Manchester/filtered_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes filtrados de Manchester]{
+		\includegraphics[width=70mm]{Figures/Manchester/filtered_OpenStreetMap.Mapnik.png}
 		\label{ManchesterAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Manchester original y filtrado.}
+	\caption{Mapa de accidentes de Manchester original y filtrado}
 	\label{ManchesterAccidentsMap}
 \end{figure}
 
 \textbf{Birmingham}\\
 
-Birmingham, la segunda ciudad más grande de Inglaterra, se extiende por West Midlands con un paisaje urbano diverso y una densidad de población considerable, famosa por su historia industrial y su vitalidad cultural. En la Figura \ref{BirminghamAccidentsMap} se muestra la distribución de los accidentes de Birmingham, tanto los originales como los resultantes una vez aplicado el proceso de filtrado. Como se puede observar en los accidentes originales en la Figura \ref{BirminghamAccidentsMap:Original} se aprecia que gran parte de los accidentes se concentran en la zona centro de la ciudad, una  tendencia normal debido a que es el principal foco de actividad de las ciudades. Mientras que los accidentes se van dispersando a medida que distan de este punto. Se aprecian ligeras agrupaciones de accidentes a lo largo de las zonas de incorporaciones a las principales arterias de la ciudad, como es al este, el caso de Handsworth. Por otra parte, en la figura \ref{BirminghamAccidentsMap:Filtered} se muestran los accidentes una vez se ha aplicado el proceso de filtrado por áreas. Como se puede observar, la información ha sido resumida sin dar lugar a pérdidas en el valor de la misma. Se vislumbran ciertas zonas más conflictivas donde se producen accidentes más importantes, como es el caso de la carretera Holyhead Rd de entrada a la ciudad o en Northfield.
+Birmingham es la segunda ciudad más grande de Inglaterra, se extiende por West Midlands con un panorama urbano diverso y una densidad de población considerable, famosa por su historia industrial y su vitalidad cultural. En la figura \ref{BirminghamAccidentsMap} se muestra la distribución de los accidentes de Birmingham, tanto los originales como los resultantes una vez aplicado el proceso de filtrado. Como se puede observar en los accidentes originales en la Figura \ref{BirminghamAccidentsMap:Original} se aprecia que gran parte de estos se concentran en la zona centro de la ciudad, una  tendencia normal debido a que es el principal foco de actividad de las ciudades. Mientras que los accidentes se van dispersando a medida que distan de este punto. Se aprecian ligeras agrupaciones de accidentes a lo largo de las zonas de incorporaciones a las principales arterias de la ciudad, como es al este, el caso de Handsworth. Por otra parte, en la figura \ref{BirminghamAccidentsMap:Filtered} se muestran los accidentes una vez se ha aplicado el proceso de filtrado por áreas. Como se puede observar, la información ha sido resumida sin dar lugar a pérdidas de valor en ella. Se visualizan ciertas zonas más conflictivas donde se producen accidentes más importantes, como es el caso de la carretera Holyhead Rd de entrada a la ciudad o en Northfield.
 
 %%%%%%%%%%%%%%%%%%%%%%%% DESCOMENTAR %%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Birmingham.]{
-		\includegraphics[width=75mm]{Figures/Birmingham/original_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes originales de Birmingham]{
+		\includegraphics[width=70mm]{Figures/Birmingham/original_OpenStreetMap.Mapnik.png}
 		\label{BirminghamAccidentsMap:Original}
 	}
-	\subfloat[][Mapa de los accidentes filtrados de Birmingham.]{
-		\includegraphics[width=75mm]{Figures/Birmingham/filtered_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes filtrados de Birmingham]{
+		\includegraphics[width=70mm]{Figures/Birmingham/filtered_OpenStreetMap.Mapnik.png}
 		\label{BirminghamAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Birmingham original y filtrado.}
+	\caption{Mapa de accidentes de Birmingham original y filtrado}
 	\label{BirminghamAccidentsMap}
 \end{figure}
 
 
 \textbf{Liverpool}\\
 
-Liverpool, ubicada a lo largo del río Mersey en el noroeste de Inglaterra, prospera como una ciudad marítima con una rica historia, profundidad cultural y una densidad de población significativa, reconocida por su encanto en el frente marítimo y su legado musical. En la Figura \ref{LiverpoolAccidentsMap} se muestra la comparativa de la distribución de accidentes originales del dataset y filtrados para la ciudad de Liverpool. En la Figura \ref{LiverpoolAccidentsMap:Original} se aprecian accidentes concentrados en la zona centro de la ciudad, como viene siendo habitual, además de a lo largo de las circunvalaciones que la rodean. En la Figura \ref{LiverpoolAccidentsMap:Filtered}, después del proceso de filtrado, se aprecia que gran parte de los accidentes Con Asistencia se producen a lo largo de Strand Street (desde el sur hasta el oeste), convergiendo ambas direcciones en el centro neurálgico. Por otra parte se visualiza otra concentración en la carretera que conecta la localidad de Ormskirk con el centro (noroeste), una de las principales vías de conexión.
+Liverpool, ubicada a lo largo del río Mersey en el noroeste de Inglaterra, prospera como una ciudad marítima con una rica historia, profundidad cultural y una densidad de población significativa, reconocida por su encanto en el frente marítimo y su legado musical. En la figura \ref{LiverpoolAccidentsMap} se muestra la comparativa de la distribución de accidentes originales del conjunto de datos y aquellos filtrados para esta ciudad. En la figura \ref{LiverpoolAccidentsMap:Original} se aprecian accidentes concentrados en la zona centro de la ciudad, como viene siendo habitual, además de a lo largo de las circunvalaciones que la rodean. En la figura \ref{LiverpoolAccidentsMap:Filtered}, después del proceso de filtrado, se aprecia que gran parte de los accidentes Con Asistencia se producen a lo largo de Strand Street (desde el sur hasta el oeste), convergiendo ambas direcciones en el centro neurálgico. Por otra parte se visualiza otra concentración en la carretera que conecta la localidad de Ormskirk con el centro (noroeste), una de las principales vías de conexión.
 
 %%%%%%%%%%%%%%%%%%%%%%%% DESCOMENTAR %%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Liverpool.]{
-		\includegraphics[width=75mm]{Figures/Liverpool/original_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes originales de Liverpool]{
+		\includegraphics[width=70mm]{Figures/Liverpool/original_OpenStreetMap.Mapnik.png}
 		\label{LiverpoolAccidentsMap:Original}
 	}
-	\subfloat[][Mapa de los accidentes filtrados de Liverpool.]{
-		\includegraphics[width=75mm]{Figures/Liverpool/filtered_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes filtrados de Liverpool]{
+		\includegraphics[width=70mm]{Figures/Liverpool/filtered_OpenStreetMap.Mapnik.png}
 		\label{LiverpoolAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Liverpool original y filtrado.}
+	\caption{Mapa de accidentes de Liverpool original y filtrado}
 	\label{LiverpoolAccidentsMap}
 \end{figure}
 
 \textbf{Sheffield}\\
 
-Sheffield, ubicada en South Yorkshire, presume de un patrimonio industrial y paisajes pintorescos, con una densidad de población intermedia. En la Figura \ref{SheffieldAccidentsMap} se muestra la distribución de accidentes para la ciudad de Sheffield, tanto la original como la resultante tras la etapa de filtrado. En la Figura \ref{SheffieldAccidentsMap:Original} se pueden apreciar distintas concentraciones en zonas estratégicas. Como suele ser habitual, el núcleo urbano es un centro de mayor densidad de incidentes, mientras que en las intersecciones que conectan la ciudad de Sheffield y la de Rotherham (cruces de Tinsley Viaduct con Meadow Bank Road y la A6178, al noreste de Sheffield). También se aprecian concentraciones en los suburbios de Wadsley Bridge y Malin Bridge, periferias de la ciudad, además de alrededor de todas las vías principales que conectan con el centro. Por otra parte, en la figura \ref{SheffieldAccidentsMap:Filtered} se muestran los accidentes una vez se ha realizado el proceso de filtrado, donde se aprecia que aquellos que han requerido de asistencia normalmente se presentan en las principales arterias, donde se circula a una mayor velocidad.
+Sheffield, ubicada en South Yorkshire, presume de un patrimonio industrial y paisajes pintorescos, con una densidad de población intermedia. En la figura \ref{SheffieldAccidentsMap} se muestra la distribución de accidentes para la ciudad, tanto la original como la resultante tras la etapa de filtrado. En la figura \ref{SheffieldAccidentsMap:Original} se pueden apreciar distintas concentraciones en zonas estratégicas. Como suele ser habitual, el núcleo urbano es un centro de mayor densidad de incidentes, mientras que en las intersecciones que conectan la ciudad de Sheffield y la de Rotherham (cruces de Tinsley Viaduct con Meadow Bank Road y la \textit{A6178}, al noreste de Sheffield). También se aprecian concentraciones en los suburbios de Wadsley Bridge y Malin Bridge, periferias de la ciudad, además de alrededor de todas las vías principales que conectan con el centro. Por otra parte, en la figura \ref{SheffieldAccidentsMap:Filtered} se muestran los accidentes una vez se ha realizado el proceso de filtrado, donde se aprecia que aquellos que han requerido de asistencia normalmente se presentan en las principales arterias, donde se circula a una mayor velocidad.
 
 %%%%%%%%%%%%%%%%%%%%%%%% DESCOMENTAR %%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Sheffield.]{
+	\subfloat[][Mapa de los accidentes originales de Sheffield]{
 		\includegraphics[width=75mm]{Figures/Sheffield/original_OpenStreetMap.Mapnik.png}
 		\label{SheffieldAccidentsMap:Original}
 	}
-	\subfloat[][Mapa de los accidentes filtrados de Sheffield.]{
+	\subfloat[][Mapa de los accidentes filtrados de Sheffield]{
 		\includegraphics[width=75mm]{Figures/Sheffield/filtered_OpenStreetMap.Mapnik.png}
 		\label{SheffieldAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Sheffield original y filtrado.}
+	\caption{Mapa de accidentes de Sheffield original y filtrado}
 	\label{SheffieldAccidentsMap}
 \end{figure}
 
@@ -2159,22 +2157,23 @@ Cornwall, situada en la parte suroeste de Inglaterra con sus apacibles paisajes,
 %%%%%%%%%%%%%%%%%%%%%%%% DESCOMENTAR %%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Cornwall.]{
-		\includegraphics[width=75mm]{Figures/Cornwall/original_OpenStreetMap.Mapnik.png}
+	\subfloat[][Mapa de los accidentes originales de Cornwall]{
+		\includegraphics[width=90mm]{Figures/Cornwall/original_OpenStreetMap.Mapnik.png}
 		\label{CornwallAccidentsMap:Original}
-	}
-	\subfloat[][Mapa de los accidentes filtrados de Cornwall.]{
-		\includegraphics[width=75mm]{Figures/Cornwall/filtered_OpenStreetMap.Mapnik.png}
+	}\\
+	\subfloat[][Mapa de los accidentes filtrados de Cornwall]{
+		\includegraphics[width=90mm]{Figures/Cornwall/filtered_OpenStreetMap.Mapnik.png}
 		\label{CornwallAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Cornwall original y filtrado.}
+	\caption{Mapa de accidentes de Cornwall original y filtrado}
 	\label{CornwallAccidentsMap}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%% DESCOMENTAR %%%%%%%%%%%%%%%%%%%%%%%%
 
+\textcolor{orange}{\textbf{LUIS: AQUÍ QUÉ COMENTAMOS?}}
 
 \begin{figure}[H]
 	\centering
@@ -2184,17 +2183,18 @@ Cornwall, situada en la parte suroeste de Inglaterra con sus apacibles paisajes,
 	\subfloat[][Entrenamiento GTAAF en Liverpool]{\includegraphics[width=80mm]{Figures/Liverpool/Liverpool_convolution_2d_f1_score_paper.png}}\\
 	\subfloat[][Entrenamiento GTAAF en Sheffield]{\includegraphics[width=80mm]{Figures/Sheffield/Sheffield_convolution_2d_f1_score_paper.png}}
 	\subfloat[][Entrenamiento GTAAF en Cornwall]{\includegraphics[width=80mm]{Figures/Cornwall/Cornwall_convolution_2d_f1_score_paper.png}}\\
-	\caption{Evolución de F1-Score del modelo GTAAF en las poblaciones de Reino Unido.}
+	\caption{Evolución de \textit{F1-Score} del modelo GTAAF en las poblaciones de Reino Unido}
 	\label{UKLossFunction}
 \end{figure}
 
 
-En la Tabla \ref{UKMetrics} se muestra el valor F1-Score para cada una de las ciudades de cada modelo sobre el conjunto de test. Como se puede observar, el nuevo modelo propuesto GTAAF es el que mejor métricas ofrece en comparación al resto, obteniendo la mayor diferencia con respecto a su sucesor en los accidentes \textbf{Sin Asistencia}, el MLP, para la ciudad de Manchester con un 6,7\%, mientras que la mayor diferencia para los accidentes \textbf{Con Asistencia} es de un 13.8\% en la ciudad de Southwark respecto al siguiente mejor modelo, de nuevo el MLP. La siguiente mayor diferencia se presenta entre el modelo GTAAF se presenta en la ciudad de Southwark para la clase sin necesidad de asistencia, con un incremento del 4,8\% respecto al siguiente mejor modelo MLP, mientras que para la clase con necesidad de asistencia ésta se presenta en la ciudad de Liverpool con respecto al modelo MLP, llegando a un 13,2\%. Observando los resultados de la tabla, se aprecia que el mayor incremento del rendimiento con respecto al resto de modelos se presenta sobre la clase con necesidad de asistencia, obteniendo de media una mejora de 9,21\% sobre todas las ciudades, mientras que el incremento de rendimiento se acentúa menos en accidentes Sin Asistencia, ya que el resto de modelos ofrecen unas métricas más altas, siendo la mejora de un 3,93\% de media. Estos resultados reflejan una mejor generalización del modelo propuesto en comparación al resto de modelos estudiados para cada una de las ciudades de Reino Unido.
+En la Tabla \ref{UKMetrics} se muestra el valor \textit{F1-Score} para cada una de las ciudades de cada modelo sobre el conjunto de test. Como se puede observar, el nuevo modelo propuesto GTAAF es el que mejor métricas ofrece en comparación al resto, obteniendo la mayor diferencia con respecto a su sucesor en los accidentes \textbf{Sin Asistencia}, el \textit{MLP}, para la ciudad de Manchester con un 6,7\%, mientras que la mayor diferencia para los accidentes \textbf{Con Asistencia} es de un 13.8\% en la ciudad de Southwark respecto al siguiente mejor modelo, de nuevo el \textit{MLP}. La siguiente mayor diferencia se presenta entre el modelo GTAAF se presenta en la ciudad de Southwark para la clase sin necesidad de asistencia, con un incremento del 4,8\% respecto al siguiente mejor modelo \textit{MLP}, mientras que para la clase con necesidad de asistencia ésta se presenta en la ciudad de Liverpool con respecto al modelo \textit{MLP}, llegando a un 13,2\%. Observando los resultados de la tabla, se aprecia que el mayor incremento del rendimiento con respecto al resto de modelos se presenta sobre la clase con necesidad de asistencia, obteniendo de media una mejora de 9,21\% sobre todas las ciudades, mientras que el incremento de rendimiento se acentúa menos en accidentes Sin Asistencia, ya que el resto de modelos ofrecen unas métricas más altas, siendo la mejora de un 3,93\% de media. Estos resultados reflejan una mejor generalización del modelo propuesto en comparación al resto de modelos estudiados para cada una de las ciudades de Reino Unido.
 
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
+			\small
 			\multicolumn{2}{ |c|| }{} &
 			\multicolumn{6}{ |c| }{\textbf{\textit{F1-Score} Reino Unido}} \\ \hline
 			
@@ -2224,34 +2224,43 @@ En la Tabla \ref{UKMetrics} se muestra el valor F1-Score para cada una de las ci
 			\textbf{Sí} & \textbf{0.881} & \textbf{0.762} & \textbf{0.711} & \textbf{0.853} & \textbf{0.889} & \textbf{0.707} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{F1-Score por modelo y clase de accidente para cada una de las poblaciones de Reino Unido.}
+	\caption{\textit{F1-Score} por modelo y clase de accidente para cada una de las poblaciones de Reino Unido}
 	\label{UKMetrics}
 \end{table}
 
 
-La Figura \ref{GlobalSlightF1Score} muestra a modo de comparativa el rendimiento del nuevo modelo GTAAF propuesto en los accidentes \textbf{Sin Asistencia} para cada una de las poblaciones estudiadas respecto al resto de modelos del estado del arte con los que se ha experimentado en esta investigación. Se aprecia un incremento de rendimiento independientemente de las características individuales en todas las poblaciones respecto al resto de modelos estudiados, siendo el mayor incremento en la población de Victoria con un aumento del 6.5\% respecto al siguiente mejor modelo, el SVC.
+La Figura \ref{GlobalSlightF1Score} muestra a modo de comparativa el rendimiento del nuevo modelo GTAAF propuesto en los accidentes \textbf{Sin Asistencia} para cada una de las poblaciones estudiadas respecto al resto de modelos del estado del arte con los que se ha experimentado en esta investigación. Se aprecia un incremento de rendimiento independientemente de las características individuales en todas las poblaciones respecto al resto de modelos estudiados, siendo el mayor incremento en la población de Victoria con un aumento del 6.5\% respecto al siguiente mejor modelo, el \textit{SVC}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{Figures/Slight.png}
-	\caption{Comparación de \textit{F1-Scores} para accidentes \textbf{Sin Asistencia Asistencia}.}
+	\caption{Comparación de \textit{F1-Scores} para accidentes \textbf{Sin Asistencia}}
 	\label{GlobalSlightF1Score}
 \end{figure}
 
-La Figura \ref{GlobalAssistanceF1Score} muestra la comparativa del rendimiento basado en el F1-Score de los modelos para cada una de las ciudades en los accidentes \textbf{Con Asistencia}. En esta gráfica se puede observar una diferencia considerablemente mayor del nuevo modelo GTAAF propuesto . La mayor mejora se presenta en la ciudad de Southwark, con un incremento del F1-Score del 13.8\% respecto al siguiente mejor modelo sobre esta población, el MLP.
+La Figura \ref{GlobalAssistanceF1Score} muestra la comparativa del rendimiento basado en el F1-Score de los modelos para cada una de las ciudades en los accidentes \textbf{Con Asistencia}. En esta gráfica se puede observar una diferencia considerablemente mayor del nuevo modelo GTAAF. La mayor mejora se presenta en la ciudad de Southwark, con un incremento del \textit{F1-Score} del 13.8\% respecto al siguiente mejor modelo sobre esta población, el \textit{MLP}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{Figures/Assistance.png}
-	\caption{Comparación de \textit{F1-Scores} para accidentes \textbf{Con Asistencia}.}    \label{GlobalAssistanceF1Score}
+	\caption{Comparación de \textit{F1-Scores} para accidentes \textbf{Con Asistencia}}
+	\label{GlobalAssistanceF1Score}
 \end{figure}
 
 \subsection{Pruebas de estrés}
 
 
-En esta sección se realizarán distintas pruebas de estrés. El objetivo de estas pruebas es medir el rendimiento del modelo propuesto en casos extremos utilizando como base los conjuntos de datos expuestos en esta tesis para tener una aproximación del rendimiento del modelo en futuros conjuntos de datos que no dispongan de la totalidad de las características descritas en este documento. Para ello se realizarán tres experimentos para cada conjunto de datos, estos consistirán en eliminar aquellas variables de mayor y menor importancia de forma independiente, y, en un experimento posterior, se eliminarán ambas conjuntamente con el objetivo de medir el rendimiento ante la falta de características más y menos influyentes en futuros conjuntos de datos. La evaluación de la importancia de las características viene dada por el peso asignado a cada una de estas mediante el algoritmo XGBoost optimizado mediante el algoritmo genético.
+En esta sección se realizarán distintas pruebas de estrés. El objetivo de estas pruebas es medir el rendimiento del modelo propuesto en casos extremos utilizando como base los conjuntos de datos expuestos en esta tesis para tener una aproximación del rendimiento del modelo en futuros conjuntos de datos que no dispongan de la totalidad de las características descritas en este documento. Para ello se realizarán tres experimentos para cada conjunto de datos, estos consistirán en eliminar aquellas variables de mayor y menor importancia de forma independiente, y, en un experimento posterior, se eliminarán ambas conjuntamente con el objetivo de medir el rendimiento ante la falta de características más y menos influyentes en futuros conjuntos de datos. La evaluación de la importancia de las características viene dada por el peso asignado a cada una de estas mediante el algoritmo \textit{XGBoost} optimizado mediante el algoritmo genético.
 
-En la tabla \ref{CornwallLoss} ...
+\textcolor{orange}{\textbf{LUIS: Copiado y pegado del paper 3}}
+
+Como se puede intuir en la Figura \ref{FeaturesClassification}, uno de los principales problemas en la generalización de un modelo es la disponibilidad de datos. Existen distintas características disponibles en cada conjunto de datos por distintos motivos. Uno de ellos puede ser la dificultad de extracción de información debido a razones económicas, sociales o políticas. Por ejemplo, tenemos el caso extremo de Madrid, que perdió toda una categoría ()Driving Limitations)
+
+Necesitamos probar la robustez y generalización de la metodología y el modelo descritos en esta investigación. Con este propósito, proponemos el tercer experimento: eliminar las variables que tienen la mayor y menor importancia para cada población basándonos en la importancia de cada característica durante el entrenamiento del algoritmo de impulso. Específicamente, se llevaron a cabo tres experimentos independientes para ambas poblaciones. El primero consistió en eliminar la variable con la menor importancia dentro de los datos, el segundo en eliminar la de mayor importancia, y el tercero en eliminar ambas simultáneamente.
+
+Esta prueba de robustez se realizó en dos poblaciones: Cornwall (Reino Unido) y la población de Victoria, con el objetivo de simular nuevos conjuntos de datos donde no estén disponibles todos los datos mencionados en este documento.
+
+En este análisis de resultados (consulte las Tablas \ref{CornwallLoss} y \ref{Victorialoss}), comparamos la brecha de rendimiento entre el nuevo modelo GTAAF propuesto y el mejor modelo posterior para cada experimento. Además, evaluaremos la diferencia en la métrica de F1-Score obtenida en comparación con los resultados presentados en secciones anteriores donde estas características estaban presentes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
@@ -2287,7 +2296,7 @@ En la tabla \ref{CornwallLoss} ...
 			Sí  & \textbf{0.766} & \textbf{0.736} & \textbf{0.787} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Comparativa F1-Score con eliminación de características sobre el conjunto de datos de Cornwall. La columna Menor representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna Mayor presenta los resultados eliminando la característica de mayor importancia y Ambas presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF).}
+	\caption{Comparativa \textit{F1-Score} con eliminación de características sobre el conjunto de datos de Cornwall. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
 	\label{CornwallLoss}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2327,25 +2336,19 @@ En la tabla \ref{CornwallLoss} ...
 			Sí  & \textbf{0.780} & \textbf{0.793} & \textbf{0.814} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Comparativa F1-Score con eliminación de características sobre el conjunto de datos de Victoria. La columna Menor representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna Mayor presenta los resultados eliminando la característica de mayor importancia y Ambas presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF).}
+	\caption{Comparativa \textit{F1-Score} con eliminación de características sobre el conjunto de datos de Victoria. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
 	\label{Victorialoss}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-En este experimento es necesario destacar un resultado: en nuestra propuesta, el modelo GTAAF, existe una gran mejora sobre los resultados del mismo modelo con todas las características. En contraste, hay un gran deterioro en los resultados de los otros modelos con los que se compara. En otras palabras, la diferencia en la puntuación \textit{F1-Score} entre GTAAF y los otros modelos aumenta.
+En este experimento es necesario destacar un resultado: en nuestra propuesta, el modelo GTAAF, existe una gran mejora sobre los resultados del mismo modelo con todas las características. En contraste, hay un gran deterioro en los resultados de los otros modelos con los que se compara. En otras palabras, la diferencia en la puntuación \textit{F1-Score} entre GTAAF y los otros modelos aumenta. Esta circunstancia sugiere que nuestro modelo se ve afectado por las características extremas, donde el modelo de \textit{XGBoost} y el algoritmo genético favorecen y desfavorecen las características más y menos relevantes. Este no es el caso para los otros algoritmos, donde todas las características son individualizadas.
 
-Esta circunstancia sugiere que nuestro modelo se ve afectado por las características extremas, donde el modelo de XGBoost y el algoritmo genético favorecen y desfavorecen las características más y menos relevantes. Este no es el caso para los otros algoritmos, donde todas las características son individualizadas.
-
-En la Figura \ref{lossFig} podemos observar la diferencia de los algoritmos con y sin pérdida de características (Tablas \ref{UKMetrics}, columna Cornwall, y \ref{AustraliaMetrics} contra las Tablas \ref{CornwallLoss} y \ref{Victorialoss} respectivamente). Mostramos cómo nuestro modelo mejora sus propios resultados en todos los casos.
-
-Por ejemplo, en Cornwall, obtenemos una mejora en nuestro modelo del 4.8\% y 5.9\% en los accidentes \textbf{Sin Asistencia} y \textbf{Con Asistencia} (eliminando la peor característica, ver la barra azul en la Figura \ref{lossFig}-arriba), 1.4\% y 2.9\% (eliminando la mejor característica, ver la barra verde en la Figura \ref{lossFig}-arriba) y 7\% y 8\% (eliminando ambas características, ver la barra gris en la Figura \ref{lossFig}-arriba), respectivamente.
-
-Evaluando un área más dispersa como Victoria, los resultados son similares pero con una mejora menor: 0.5\% y 0.4\% (ver la barra azul en la Figura \ref{lossFig}-abajo), -0.7\% y 0.9\% (ver la barra verde en la Figura \ref{lossFig}-abajo), y 5.1\% y 3\% (ver la barra gris en la Figura \ref{lossFig}-abajo), respectivamente. Esto indicaría un efecto menor de los valores extremos en la ponderación del algoritmo genético si el área es más dispersa.
+En la Figura \ref{lossFig} podemos observar la diferencia de los algoritmos con y sin pérdida de características (Tablas \ref{UKMetrics}, columna Cornwall, y \ref{AustraliaMetrics} contra las Tablas \ref{CornwallLoss} y \ref{Victorialoss} respectivamente). Mostramos cómo nuestro modelo mejora sus propios resultados en todos los casos. Por ejemplo, en Cornwall, obtenemos una mejora en nuestro modelo del 4.8\% y 5.9\% en los accidentes \textbf{Sin Asistencia} y \textbf{Con Asistencia} (eliminando la peor característica, ver la barra azul en la Figura \ref{lossFig}-arriba), 1.4\% y 2.9\% (eliminando la mejor característica, ver la barra verde en la Figura \ref{lossFig}-arriba) y 7\% y 8\% (eliminando ambas características, ver la barra gris en la Figura \ref{lossFig}-arriba), respectivamente. Evaluando un área más dispersa como Victoria, los resultados son similares pero con una mejora menor: 0.5\% y 0.4\% (ver la barra azul en la Figura \ref{lossFig}-abajo), -0.7\% y 0.9\% (ver la barra verde en la Figura \ref{lossFig}-abajo), y 5.1\% y 3\% (ver la barra gris en la Figura \ref{lossFig}-abajo), respectivamente. Esto indicaría un efecto menor de los valores extremos en la ponderación del algoritmo genético si el área es más dispersa.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=180mm]{Figures/LossFeatures/loss.png}
-	\caption{Comparación de pérdida de características. Las barras representan la diferencia entre los resultados con todas las características y los resultados sin características extremas: en azul sin la característica más baja, en verde sin la característica más alta y en gris sin ambas características extremas.}
+	\includegraphics[width=150mm]{Figures/LossFeatures/loss.png}
+	\caption{Comparación de pérdida de características. Las barras representan la diferencia entre los resultados con todas las características y los resultados sin características extremas: en azul sin la característica más baja, en verde sin la característica más alta y en gris sin ambas características extremas}
 	\label{lossFig}
 \end{figure}
 
