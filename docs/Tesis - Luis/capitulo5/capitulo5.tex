@@ -986,7 +986,7 @@ Podemos concluir que el modelo preliminar propuesto, basado en redes neuronales 
 			F1-score & 0.536 & 0.048 & 0 & 0.777 & 0.054 & 0 & 0.810 & 0.076 & 0.002\\ \hline 
 		\end{tabular}
 	\end{center}
-	\caption{Métricas de clasificación sobre el conjunto de test de los modelos GNB, SVC y KNN en comparación con el modelo preliminar.}
+	\caption{Métricas de clasificación sobre el conjunto de test de los modelos \textit{GNB}, \textit{SVC} y \textit{KNN} en comparación con el modelo preliminar.}
 	\label{ClassificationReportCNN:Test}
 \end{table}
 
@@ -1098,7 +1098,7 @@ En esta sección se presentan los resultados del modelo GTAAF sobre los tres con
 			
 		\end{tabular}
 	\end{center}
-	\caption{Asignación de los valores de la gravedad de los accidentes en los tres conjuntos de datos a las dos clases a predecir (Sin Asistencia y Con Asistencia).}
+	\caption{Asignación de los valores de la gravedad de los accidentes en los tres conjuntos de datos a las dos clases a predecir (Sin Asistencia y Con Asistencia) en el modelo GTAAF}
 	\label{MAPPING_ASSISTANCE}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1109,7 +1109,7 @@ En esta sección se presentan los resultados del modelo GTAAF sobre los tres con
 
 % \textcolor{orange}{\textbf{Luis: } Paper 3.}
 
-Como se ha comentado en las secciones anteriores, la variación entre la disponibilidad de información es un problema común entre distintos conjuntos de datos. En función de las condiciones sociales y económicas de poblaciones alrededor de todo el mundo, la disponibilidad de la información es variable. El esfuerzo que supone la recogida de ciertos datos puede suponer un coste más alto en comparación a otras poblaciones, lo que se traduce en una heterogeneidad en la información disponible entre distintos conjuntos de datos. Para paliar este problema y con el objetivo de proponer un proceso consistente, escalable, e invariante a las condiciones particulares de cada población, en este modelo se propone agrupar la información disponible un máximo de 6 categorías, las cuales engloban conceptos donde es fácilmente asignar los datos asumiendo que estos no tienen por qué estar siempre disponibles ni que deban representar exactamente la misma información entre distintos conjuntos de datos:
+Como se ha comentado en las secciones anteriores, la variación entre la disponibilidad de información es un problema común entre distintos conjuntos de datos. En función de las condiciones sociales y económicas de las poblaciones alrededor de todo el mundo, la disponibilidad de la información es variable. El esfuerzo que supone la recogida de ciertos datos puede suponer un coste más alto en comparación a otras regiones, lo que se traduce en una heterogeneidad en la información disponible. Para paliar este problema y con el objetivo de proponer un proceso consistente, escalable, e invariante a las condiciones particulares de cada población, en el modelo GTAAF se propone agrupar la información disponible en un máximo de 6 categorías, las cuales engloban conceptos donde es fácilmente asignar los datos asumiendo que estos no tienen por qué estar siempre disponibles ni que deban representar exactamente la misma información entre distintos conjuntos de datos:
 
 \begin{enumerate}
 	\item \textbf{Magnitud y ubicación del accidente:} enfocado en información relativa a la localización y magnitud del accidente, como datos geográficos.
@@ -1120,12 +1120,12 @@ Como se ha comentado en las secciones anteriores, la variación entre la disponi
 	\item \textbf{Información de la Víctima:} descriptores que definan a la víctima en el momento del incidente, factores como la edad, sexo, positivo en sustancias estupefacientes, etc.
 \end{enumerate}
 
-Este enfoque permite aplicar este modelo incluso en casos donde no se dispongan de las seis categorías propuestas, proponiendo un sistema tolerante a información inconsistente entre distintos conjuntos de datos. Para visualizar esta casuística, en la Figura \ref{FeaturesClassification} se presentan las características disponibles en cada uno de los conjuntos de datos bajo la categorización propuesta con el objetivo de mostrar la variabilidad de información que puede existir entre los datos de distintas regiones. Los campos marcados en naranja son aquellos que representan información distinta entre los datasets pero que pueden ser incluidos en las categorías correspondientes. Por otra parte, aquellos campos marcados en rojo indican la ausencia de este tipo de características en comparación con el resto de datasets.
+Este enfoque permite aplicar este modelo incluso en casos donde no se dispongan de las seis categorías propuestas, proponiendo un sistema tolerante a información inconsistente entre distintos conjuntos de datos. Para visualizar esta casuística, en la Figura \ref{FeaturesClassification} se presentan las características disponibles en cada una de las poblaciones bajo la categorización propuesta, con el objetivo de mostrar la variabilidad de información que puede existir entre distintas fuentes de datos. Los campos marcados en naranja son aquellos que representan información distinta pero que pueden ser incluidos en las categorías correspondientes. Por otra parte, aquellos campos marcados en rojo indican la ausencia de este tipo de información en comparación con el resto.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=14cm]{Figures/Dataset Comparative.png}
-	\caption{Clasificación de variables. Los campos mostrados en amarillo representan características de la misma naturaleza pero difieren en la granularidad de los datos. Además, las características ausentes en comparación con otros conjuntos de datos están resaltadas en rojo.}
+	\caption{Clasificación de variables. Los campos mostrados en amarillo representan características de la misma naturaleza pero difieren en la granularidad de los datos. Además, las características ausentes en comparación con otros conjuntos de datos están resaltadas en rojo}
 	\label{FeaturesClassification}
 \end{figure}
 
@@ -1133,21 +1133,23 @@ A continuación se detallarán aquellas partes comunes entre estos tres conjunto
 
 \subsubsection*{Partes comunes entre los datos en base a la categorización}
 
-Normalmente, en cualquier conjunto de datos que describa accidentes, existe información básica y de fácil obtención que suele ser común entre distintas poblaciones. Estas características suelen presentarse en forma de información espacial y temporal del accidente, como es la localización, las condiciones climáticas en el momento del suceso o la hora y fecha en la que se ha producido, como es el caso entre estos tres conjuntos de datos. Por otra parte, como es lógico, existe información básica que puede ser recogida rápidamente observando la escena del accidente, como es la localización del mismo, el número de vehículos implicados, las condiciones climáticas, la hora, el tipo de vehíclo, el punto de impacto y las características del accidentado.
+Normalmente, en cualquier conjunto de datos que describa accidentes, existe información básica y de fácil obtención que suele ser común entre distintas regiones. Estas características suelen presentarse en forma de información espacial y temporal del accidente, como es la localización, las condiciones climáticas en el momento del suceso o la hora y fecha en la que se ha producido, como es el caso entre estos tres conjuntos de datos. Por otra parte, como es lógico, existe información básica que puede ser recogida rápidamente observando la escena del accidente, como es la localización, el número de vehículos implicados, las condiciones climáticas, la hora, el tipo de vehículo, el punto de impacto y las características del accidentado.
 
 
 \subsubsection*{Principales diferencias entre los datos}
 
-Cada una de las regiones ofrece información distinta en cada conjunto de datos. En este punto se analizarán las principales diferencias entre los datos en base a la categorización propuesta:
+Cada una de las regiones ofrece información distinta en cada conjunto de datos. En este punto se analizarán las principales diferencias entre ellos en base a la categorización propuesta:
 
 \textbf{UK}
 
-En el caso de UK se observan ligeras diferencias respeto al resto de conjuntos de datos. Como es el caso de la característica Road class (para la categoría Location \& Scale Accident), cuyo significado varía en comparación con el resto de conjuntos de datos, y la ausencia de información sobre controles de estupefacientes a la víctima (categoría Victim). En el caso de Road Class, este campo representa la clasificación de la carretera en la que se ha producido el accidente en base al tráfico que suelen contener. Esta clasificación es responsabilidad de Gobierno de UK y se clasifican las vías en seis tipos diferentes: (1) Motorways: se trata de autopistas de alta velocidad que permiten el movimiento de vehículos entre los principales pueblos y ciudades. (2) A(M): se trata de carreteras principales que interconectan poblaciones y destinos de interés, estas vías pueden contener secciones transformadas en autovía. (3) A: carreteras importantes que conectan grandes densidades de tráfico entre zonas. Generalmente son las más anchas y directas, y son las de mayor importancia para el tráfico que contiene el área, estas carreteras pueden estar abiertas a distintos usuarios, como viandantes, ciclistas o caballos, aunque normalmente esto está restringido por las autoridades locales competentes. (4) Las carreteras B alimentan el tráfico entre las vías A y las carreteras más pequeñas de la red, siguen siendo de especial importancia para el tráfico, pero menos que las A. (5) Las carreteras tipo C son generalmente más pequeñas e interconectan las vías de tipo A y B. Normalmente unen urbanizaciones con el resto de carreteras de la red, son carreteras de menor importancia que las anteriores pero son de mayor relevancia respecto a las del siguiente tipo. (6) Carreteras no clasificadas, se tratan de vías destinadas al tráfico local, por su naturaleza la mayoría de las vías pertenecen a este tipo, generalmente tienen muy poca importancia y a nivel local \cite{UKDepartmentForTransportRoadClassification}.
+En el caso de UK se observan ligeras diferencias respeto al resto de poblaciones. Como es el caso de la característica Road class (para la categoría Location \& Scale Accident), cuyo significado varía en comparación con el resto, y la ausencia de información sobre controles de estupefacientes a la víctima (categoría Victim). En el caso de Road Class, este campo representa la clasificación de la carretera en la que se ha producido el accidente en base al tráfico que suele fluctuar sobre ella. Esta clasificación es responsabilidad de Gobierno de Reino Unido y se clasifican las vías en seis tipos diferentes: (1) Motorways: se trata de autopistas de alta velocidad que permiten el movimiento de vehículos entre los principales pueblos y ciudades. (2) A(M): se trata de carreteras principales que interconectan poblaciones y destinos de interés, estas vías pueden contener secciones transformadas en autovía. (3) A: carreteras importantes que conectan grandes densidades de tráfico entre zonas. Generalmente son las más anchas y directas, y son las de mayor importancia para el tráfico que contiene el área, estas carreteras pueden estar abiertas a distintos usuarios, como viandantes, ciclistas o caballos, aunque normalmente esto está restringido por las autoridades locales competentes. (4) Las carreteras B alimentan el tráfico entre las vías A y las carreteras más pequeñas de la red, siguen siendo de especial importancia para el tráfico, pero menos que las A. (5) Las carreteras tipo C son generalmente más pequeñas e interconectan las vías de tipo A y B. Normalmente unen urbanizaciones con el resto de carreteras de la red, son carreteras de menor importancia que las anteriores pero son de mayor relevancia respecto a las del siguiente tipo. (6) Carreteras no clasificadas, se tratan de vías destinadas al tráfico local, por su naturaleza la mayoría de las vías pertenecen a este tipo, generalmente tienen muy poca importancia y a nivel local \cite{UKDepartmentForTransportRoadClassification}.
 
 
 \textbf{Madrid}
 
-En el caso del conjunto de datos de Madrid, las diferencias respecto al resto de datasets es más notable. La información disponible es considerablemente menor en comparación con el dataset de Reino Unido y de Victoria. Analizando la Figura \ref{FeaturesClassification} se puede observar que hay ciertas características que no están presentes, llegando a dejar incluso una categoría vacía (Driving Limitations) al no disponer de información de este tipo. Por otra parte, tampoco se dispone de la información de Lighting Conditions para la categoría Environmental ni de Age of Vehicle, en la categoría de características del vehículo. No obstante, aún faltando esta información, el resto de características pueden ser asignadas a las categorías definidas, convirtiendo, por tanto, este dataset aplicable a este modelo.
+\textcolor{orange}{\textbf{Luis: estoy llamando a las variables en inglés, pero así están en la tabla comparativa de arriba. Opiniones?}}
+
+En el caso del conjunto de datos de Madrid, las diferencias respecto al resto de regiones se encuentra más acentuada. La información disponible es considerablemente menor en comparación con los datos de Reino Unido y de Victoria. Analizando la Figura \ref{FeaturesClassification} se puede observar que hay ciertas características que no están presentes, llegando a dejar incluso una categoría vacía (Driving Limitations) al no disponer de información de este tipo. Por otra parte, tampoco se dispone de la información de Lighting Conditions para la categoría Environmental ni de Age of Vehicle, en la categoría de características del vehículo. No obstante, aún faltando esta información, el resto de características pueden ser asignadas a las categorías definidas, convirtiendo, por tanto, este dataset aplicable a este modelo.
 
 Sin embargo, el conjunto de datos de Madrid ofrece información sobre si la víctima se encuentra bajo los efectos del alcohol o de sustancias estupefacientes. Al ser un dato que describe a la víctima del incidente, este será asignado a la categoría Victim.
 
@@ -1157,7 +1159,7 @@ Como diferencia más notable sobre el conjunto de datos de Madrid es que \textbf
 
 \textbf{Victoria}
 
-El conjunto de datos de Victoria contempla un caso parecido al de los datos de UK, donde no se disponen de datos que describan si la víctima se encontraba bajo los efectos de estupefacientes o del alcohol, como es el caso del conjunto de datos de Madrid. Por lo que esta característica quedará vacía también en el dataset de Victoria.
+La información disponible en Victoria contempla un caso parecido al de los datos de Reino Unido, donde no se disponen de datos que describan si la víctima se encontraba bajo los efectos de estupefacientes o del alcohol, como es el caso de Madrid. Por lo que esta característica quedará vacía también en este conjunto de datos.
 
 Respecto a la variable \textit{First Point of Impact}, este campo indica el tipo de colisión del vehículo, es decir, contra qué objeto ha impactado el vehículo, en comparación contra otros conjuntos de datos que indican también de qué parte del mismo ha impactado primero.
 
@@ -1166,7 +1168,7 @@ Por otra parte, la característica \textit{Type Of Accident Place}, ofrece infor
 
 
 \subsection{Limpieza}
-En la tabla \ref{DataDistribution} se expone el número total de registros del conjunto de datos original y el número de muestras resultante tras haber aplicado la limpieza de estos datos para cada una de las poblaciones propuestas.
+En la tabla \ref{DataDistribution} se expone el número total de registros de los datos originales y el número de muestras resultante tras haber aplicado la limpieza de estos datos para cada una de las poblaciones contempladas.
 
 \begin{table}[H]
 	\begin{center}
@@ -1216,7 +1218,7 @@ En la tabla \ref{DataDistribution} se expone el número total de registros del c
 			Sí  & 7.059  & 6.024 \\ \hline \hline
 			
 		\end{tabular}
-		\caption{Comparación de la distribución de datos tras el proceso de limpieza.}
+		\caption{Comparación de la distribución de datos tras el proceso de limpieza}
 		\label{DataDistribution}
 	\end{center}
 \end{table}
@@ -1237,19 +1239,19 @@ En la tabla \ref{DataDistribution} se expone el número total de registros del c
 % - C: 11580
 
 
-Como se puede observar, tras el proceso de limpieza, cada uno de los conjuntos de datoos se ve afectado por una pérdida de registros significativa. Para Reino Unido, de un total de $301.650$ registros, se obtienen finalmente $216.219$, lo que supone un $28,3\%$ de pérdida de información respecto al conjunto de datos inicial. En la ciudad de Madrid, $73,514$ registros en bruto iniciales acaban resultando en $65,158$ con información interpretable, conllevando un $11.38\%$ de pérdida de información. Por último, en el estado de Victoria, de un total de $14.123$ registros iniciales, resultan $11.580$ finales, asumiendo un $18\%$ de pérdida respecto al conjunto de datos inicial.
+Como se puede observar, tras el proceso de limpieza, cada uno de los conjuntos de datos se ve afectado por una pérdida de registros significativa. Para Reino Unido, de un total de $301.650$ registros, se obtienen finalmente $216.219$, lo que supone un $28,3\%$ de pérdida de información respecto a la información inicial. En la ciudad de Madrid, $73,514$ registros en bruto iniciales acaban resultando en $65,158$ con información interpretable, conllevando un $11.38\%$ de pérdida de información. Por último, en el estado de Victoria, de un total de $14.123$ registros iniciales, resultan $11.580$ finales, asumiendo un $18\%$ de pérdida respecto a sus muestras iniciales.
 
 \subsection{Discretización}
 
-En esta sección se expone la discretización escogida para las variables de los tres conjuntos de datos seleccionados para una mayor comprensión del tratamiento de las características en cada región.
+En esta sección se expone la discretización escogida para las variables de las tres regiones seleccionados para una mayor comprensión del tratamiento de las características en cada región.
 
 \subsubsection*{Reino Unido}
 
-La tabla \ref{UKFeaturesClassification} muestra la asignación de valores aplicada a los datos de las regiones de Reino Unido (Southwark, Manchester, Birmingham, Liverpool, Sheffield y Cornwall).
+La tabla \ref{UKFeaturesClassification} muestra la asignación de valores numéricos aplicada a los datos de las regiones de Reino Unido (Southwark, Manchester, Birmingham, Liverpool, Sheffield y Cornwall).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
-	\small
+	\scriptsize
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
@@ -1345,7 +1347,7 @@ La tabla \ref{UKFeaturesClassification} muestra la asignación de valores aplica
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Discretización propuesta de las variables para el conjunto de datos de Reino Unido.}
+	\caption{Discretización propuesta de las variables para el conjunto de datos de Reino Unido}
 	\label{UKFeaturesClassification}
 \end{table}
 
@@ -1353,11 +1355,11 @@ La tabla \ref{UKFeaturesClassification} muestra la asignación de valores aplica
 
 \subsubsection*{Madrid}
 
-La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores aplicada a los datos de las regiones de Madrid. Como cuestión a considerar en este caso es que a la variable Distrito se le aplica un valor numérico en funcón del orden de aparición, sin que este represente ninguna importancia incremental.
+La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores aplicada a los datos de la región de Madrid. Como cuestión a considerar en este caso es que a la variable Distrito se le aplica un valor numérico en funcón del orden de aparición, sin que este represente ninguna importancia incremental.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
-	\small
+	\scriptsize
 	\centering
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
@@ -1368,7 +1370,7 @@ La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores ap
 			\multirow{4}{*}{\textbf{\makecell{Ubicación \& \\ Escala del Accidente}}}
 			& Latitud  & Número Real & Sistema de coordenadas cartesianas \\ \cline{2-4}
 			& Longitud & Número Real & Sistema de coordenadas cartesianas \\ \cline{2-4}
-			& Distrito  & 0-X & \textcolor{red}{Número de distrito (Anexo 1*)} \\ \cline{2-4}
+			& Distrito  & 0-X & Número de distrito \\ \cline{2-4}
 			& Número de Vehículos & 0-N & Dependiendo de los vehículos involucrados \\ \cline{2-4}
 			\hline
 			\hline
@@ -1434,7 +1436,7 @@ La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores ap
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Discretización propuesta de las variables para el conjunto de datos de Madrid.}
+	\caption{Discretización propuesta de las variables para el conjunto de datos de Madrid}
 	\label{MadridFeaturesClassification}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1445,7 +1447,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
-	\small
+	\scriptsize
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
@@ -1544,7 +1546,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Discretización propuesta de las variables para el conjunto de datos de Victoria.}
+	\caption{Discretización propuesta de las variables para el conjunto de datos de Victoria}
 	\label{VictoriaFeaturesClassification}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1553,7 +1555,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 \subsection{Filtrado de áreas}
 
 
-Para ilustrar los parámetros con los que se aplica el filtrado de áreas, se presenta la Tabla \ref{AreasInformation}, donde se muestra para cada población el número de áreas proyectadas resultante de la elección del tamaño de las ventanas en función de los valores X,Y. La elección de estos tamaños variará función de la extensión y densidad de población, tomando valores de ventana más grandes en poblaciones más dispersas y tamaños más pequeños cuando la densidad de población es más alta. Los tamaños de ventana para cada población han sido escogidos mediante un procedimiento experimental, en el que se maximiza el rendimiento final de los modelos.
+Para ilustrar los parámetros con los que se aplica el filtrado de áreas, se presenta la Tabla \ref{AreasInformation}, donde se muestra para cada población el número de áreas proyectadas resultante de la elección del tamaño de las ventanas en función de los valores \textit{X,Y}. La elección de estos tamaños variará función de la extensión y densidad de población, tomando valores de ventana más grandes en poblaciones más dispersas y tamaños más pequeños cuando la densidad de población es más alta. Los tamaños de ventana para cada población han sido escogidos mediante un procedimiento experimental, en el que se maximiza el rendimiento final de los modelos en base a la media total.
 
 \begin{table}[H]
 	\begin{center}
@@ -1601,7 +1603,7 @@ Para ilustrar los parámetros con los que se aplica el filtrado de áreas, se pr
 			Y  & 5.241  & 97 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Número de áreas resultante tras la definición de su tamaño para cada región.}
+	\caption{Número de áreas resultante tras la definición de su tamaño para cada región}
 	\label{AreasInformation}
 \end{table}
 
@@ -1657,7 +1659,7 @@ Una vez se establecen las dimensiones de las ventanas de tamaño $X,Y$ se aplica
 			
 		\end{tabular}
 	\end{center}
-	\caption{Distribución de datos tras el proceso de filtrado para cada una de las regiones.}
+	\caption{Distribución de datos tras el proceso de filtrado para cada una de las regiones}
 	\label{DataDistributionFiltered}
 \end{table}
 
@@ -1676,13 +1678,13 @@ Una vez se establecen las dimensiones de las ventanas de tamaño $X,Y$ se aplica
 %     Cleaned: 11580
 %     Filtered: 4714
 
-Una vez aplicado el filtrado de áreas los conjuntos de datos resultantes presentan un desbalanceo considerablemente menor. Para el dataset de Reino Unido se ha conseguido reducir, de media, una desproporción de las clases del $90,2\%$ y $9,8\%$ de los registros de las clases Sin Asistencia y Con Asistencia respectivamente, al  $53,6\%$ y $46,4\%$. Para la ciudad de Madrid $98\%$ y $2\%$ al  $67\%$ y $33\%$. Para la ciudad de Victoria de un $48\%$ y $52\%$ al  $43,8\%$ $56,2\%$, por lo que sobre esta última, el proceso de remuestreo de clases afectará a la clase Sin Asistencia, siendo el único caso en el que esta es mayoritaria.
+Una vez aplicado el filtrado de áreas los conjuntos de datos resultantes presentan un desbalanceo considerablemente menor. Para el dataset de Reino Unido se ha conseguido reducir, de media, una desproporción de las clases del $90,2\%$ y $9,8\%$ de los registros de las clases Sin Asistencia y Con Asistencia respectivamente hasta un  $53,6\%$ y $46,4\%$. Para la ciudad de Madrid se partía con un $98\%$ de accidentes Sin Asistencia y un $2\%$ de accidentes Con Asistencia, llegando una proporción final del  $67\%$ y $33\%$ respectivamente. Para la ciudad de Victoria se evoluciona desde un $48\%$ y $52\%$ a un $43,8\%$ $56,2\%$, por lo que sobre esta última, el proceso de remuestreo de clases afectará a la clase Sin Asistencia, siendo el único caso en el que esta es mayoritaria.
 
 \subsection{Resampling}
 
-Se ha seleccionado el 80\% de los datos refinados como conjunto de entrenamiento, y 20\% restante como conjunto de validación o test. En la tabla \ref{Resampling} se muestra la distribución de estos datos junto con el número total de muestras de entrenamiento sobre el que se ha aplicado el proceso de aumentado de datos mediante SMOTE-II.
+En esta fase se seleccionan los datos de entrenamiento y de test. La distribución de esta división presenta un 80\% de los datos refinados como conjunto de entrenamiento, y 20\% restante como conjunto de validación o test. En la tabla \ref{Resampling} se muestra la distribución de estos datos junto con el número total de muestras de entrenamiento sobre el que se ha aplicado el proceso de aumentado de datos \textit{SMOTE-II}.
 
-En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplicado el proceso de resampling mediante la generación de datos sintéticos de SMOTE-II, conformando un dataset balanceado en el que se previene el riesgo de sesgo de datos por parte de la red.
+En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplicado el proceso de resampling mediante la generación de datos sintéticos de \textit{SMOTE-II}, conformando un dataset balanceado en el que se previene el riesgo de sesgo de datos por parte de los modelos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
@@ -1731,7 +1733,7 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 			Sí  & 2.649 & 2.119 & 530 & 2.119 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Distribución de datos para las ciudades seleccionadas. La columna Asistencia representa si el accidente ha requerido de asistencia o no, las dos clases objetivo de este documento. La columna Filtrado indica el número de muestras disponibles tras el proceso de filtrado. La columna Entrenamiento representa el 80\% de las muestras de entrenamiento seleccionadas del total de los datos filtrados. La columna Test muestra el 20\% de los datos utilizados para la futura validación de los modelos. Finalmente Oversampled engloba el número de muestra tras aplicar el aumentado de datos sobre el conjunto de entrenamiento de cada población mediante la técnica SMOTE-II para la clase minoritaria.}
+	\caption{Distribución de datos para las ciudades seleccionadas. La columna Asistencia representa si el accidente ha requerido de asistencia o no, las dos clases objetivo de este documento. La columna Filtrado indica el número de muestras disponibles tras el proceso de filtrado. La columna Entrenamiento representa el 80\% de las muestras de entrenamiento seleccionadas del total de los datos filtrados. La columna Test muestra el 20\% de los datos utilizados para la futura validación de los modelos. Finalmente \textit{Oversampled} engloba el número de muestra tras aplicar el aumentado de datos sobre el conjunto de entrenamiento de cada población mediante la técnica \textit{SMOTE-II} para la clase minoritaria}
 	\label{Resampling}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1740,14 +1742,14 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 \subsection{Normalización}
 
 
-En la Tabla \ref{FeaturesNormalizationExample} se muestra un ejemplo de la aplicación de la normalización de datos en base a la técnica Z-Score, donde en la primera columna se observan los datos previos a esta normalización, mientras que la segunda columna contiene los valores de estas características normalizados.
+En la Tabla \ref{FeaturesNormalizationExample} se muestra un ejemplo de la aplicación de la normalización de datos en base a la técnica \textit{Z-Score}, donde en la primera columna se observan los datos discretizados, mientras que la segunda columna contiene los valores de estas características normalizados.
 
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|}
 			\hline
 			
-			\textbf{Categoría} & \textbf{Característica} & \textbf{Valor Original} & \textbf{Valor Normalizado}
+			\textbf{Categoría} & \textbf{Característica} & \textbf{Valor Discretizado} & \textbf{Valor Normalizado}
 			\\ \hline \hline
 			
 			\multirow{4}{*}{\textbf{\makecell{Location \& \\ Scale Accident}}} &
@@ -1776,7 +1778,7 @@ En la Tabla \ref{FeaturesNormalizationExample} se muestra un ejemplo de la aplic
 			& Casualty Age & 1 &  -2.062940 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Ejemplo de muestra original y muestra normalizada.}
+	\caption{Ejemplo de muestra original y muestra normalizada}
 	\label{FeaturesNormalizationExample}
 \end{table}
 
@@ -1788,7 +1790,7 @@ Una vez se disponen de los datos normalizados, estos ya son comparables y por ta
 \subsection{Algoritmo Genético}
 
 
-En la tabla \ref{GAHyperparametersSetup} se muestran los hiperparámetros del algoritmo genético utilizados para optimizar el algoritmo XGBoost. Durante cada una de las generaciones, el límite máximo de individuos en la población es de 50 individuos (fila Población). Estos individuos en cada generación son evaluados mediante la función heurística a optimizar, la métrica F1-Score resultante del algoritmo XGBoost, entrenado con dicha configuración de hiperparámetros, sobre el conjunto de test accidentes, es decir, en los accidentes no vistos durante el entrenamiento (fila Función Heurística). Una vez son evaluados, aquellos 10 mejores individuos son seleccionados para intercambiar su información, es decir, los padres que darán lugar a 10 nuevos individuos de cara a la próxima generación (fila Padres Emparejados). La mezcla de información entre padres se realiza mediante una estrategia de cruce mixta (fila Índice de Cruzamiento), es decir, para cada par de padres se asigna un índice aleatorio en sobre el que se dividirán ambos individuos para luego combinar esta información en el descendiente resultante mediante cruce por punto aleatorio de las soluciones. Una vez se han dado lugar a los 10 nuevos individuos, el valor de cada una de las componentes que los conforman pueden ser modificados con una probabilidad del 40\% (fila Probabilidad de Mutación). Este proceso será repetido a lo largo de todas las 50 generaciones (fila Generaciones).
+En la tabla \ref{GAHyperparametersSetup} se muestran los hiperparámetros del algoritmo genético utilizados para optimizar el algoritmo \textit{XGBoost}. Durante cada una de las generaciones, el límite máximo en la población es de 50 individuos (fila \textit{Población}). Estos individuos en cada generación son evaluados mediante la función heurística a optimizar, la métrica \textit{F1-Score} resultante del algoritmo \textit{XGBoost}, entrenado con dicha configuración de hiperparámetros, sobre el conjunto de test accidentes, es decir, en los accidentes no vistos durante el entrenamiento (fila \textit{Función Heurística}). Una vez son evaluados, aquellos 10 mejores individuos son seleccionados para intercambiar su información, los padres que darán lugar a 10 nuevos individuos de cara a la próxima generación (fila \textit{Padres Emparejados}). La mezcla de información entre padres se realiza mediante una estrategia de cruce mixta (fila \textit{Índice de Cruzamiento}), es decir, para cada par de padres se asigna un índice aleatorio en sobre el que se dividirán ambos individuos para luego combinar esta información en el descendiente resultante mediante cruce por punto aleatorio de las soluciones. Una vez se han dado lugar a los 10 nuevos individuos, el valor de cada una de las componentes que los conforman pueden ser modificados con una probabilidad del 40\% (fila \textit{Probabilidad de Mutación)}. Este proceso será repetido a lo largo de todas las 50 generaciones (fila \textit{Generaciones}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1805,12 +1807,12 @@ En la tabla \ref{GAHyperparametersSetup} se muestran los hiperparámetros del al
 		Probabilidad de Mutación & 0.4 \\ \hline
 		Función Heurística & Puntuación \textit{F1-Score} del \textit{XGBoost} \\ \hline \hline
 	\end{tabular}
-	\caption{Configuración de hiperparámetros del algoritmo genético.}
+	\caption{Configuración de hiperparámetros del algoritmo genético para el modelo GTAAF}
 	\label{GAHyperparametersSetup}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-La Tabla \ref{MutationXGBoostParams} muestran las variaciones en los valores máximos y mínimos permitidos para cada variable a optimizar mediante el algoritmo genético. La fila Inicial de cada hiperparámetro muestra el rango de valores que cada individuo puede tomar cuando es inicializado. En la fila \textit{Mutation} se observan, para cada hiperparámetro, los valores límites permitidos sobre los que los componentes de un sujeto pueden modificarse en el proceso de mutación, siempre y cuando dicho componente haya sufrido una mutación.
+La Tabla \ref{MutationXGBoostParams} muestra las variaciones en los valores máximos y mínimos permitidos para cada variable a optimizar mediante el algoritmo genético. La fila \textit{Inicial} de cada hiperparámetro muestra el rango de valores que cada individuo puede tomar cuando es inicializado. En la fila \textit{Mutación} se observan, para cada hiperparámetro, los valores límites permitidos sobre los que los componentes de un sujeto pueden modificarse en el proceso de mutación, siempre y cuando dicho componente haya sido seleccionado para mutarse.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
@@ -1831,12 +1833,12 @@ La Tabla \ref{MutationXGBoostParams} muestran las variaciones en los valores má
 			Mutación & -4  & 4 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Límites de inicialización y mutación de los hiperparámetros del algoritmo genético.}
+	\caption{Límites de inicialización y mutación de los hiperparámetros del algoritmo genético del modelo GTAAF}
 	\label{MutationXGBoostParams}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-La configuración de estos parámetros, tanto los iniciales como los de mutación se han escogido en base a resultados experimentales, donde se ha priorizado la maximización de la métrica \textit{F1-Score} entre distintos experimentos.
+La configuración de estos parámetros, tanto los iniciales como los de mutación, se han escogido en base a resultados experimentales, donde se ha priorizado la maximización de la métrica \textit{F1-Score} entre distintos experimentos.
 
 En la Tabla \ref{ResultingHyperparamsXGBoost} se pueden observar los hiperparámetros óptimos resultantes de la ejecución del algoritmo genético, donde para cada región se observa la tasa de aprendizaje de los árboles (\textit{ETA}), la profundidad máxima de los árboles y el peso mínimo de los hijos para decidir la separación a través del nivel de los árboles.
 
@@ -1882,49 +1884,50 @@ En la Tabla \ref{ResultingHyperparamsXGBoost} se pueden observar los hiperparám
 			
 		\end{tabular}
 	\end{center}
-	\caption{Hiperparámetros resultantes del \textit{XGBoost} después de ejecutar el algoritmo genético.}
+	\caption{Hiperparámetros resultantes del \textit{XGBoost} después de ejecutar el algoritmo genético del modelo GTAAF}
 	\label{ResultingHyperparamsXGBoost}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Construcción de matrices}
 
-Una vez obtenidos los pesos de las categorías para cada población mediante el algoritmo XGBoost optimizado con hiperparámetros, los registros tabulares de cada una de las poblaciones son convertidos a matrices, siendo estas interpretables por el modelo convolucional propuesto GTAAF.
+Una vez obtenidos los pesos de las características para cada población mediante el algoritmo \textit{XGBoost} optimizado con hiperparámetros, los registros tabulares de cada una de las poblaciones son convertidos a matrices, siendo estas interpretables por el modelo convolucional propuesto GTAAF.
 
-Como los conjuntos de datos utilizados disponen de distintas características, el número de categorías disponibles varía entre ellos y por tanto la dimensionalidad de las matrices resultantes es variable entre las distintas poblaciones. En el caso del conjunto de datos de Madrid se disponen de 5 de las 6 categorías propuestas al no disponer de información sobre las limitaciones de la conducción, por lo que las matrices de entrada para el modelo convolucional serán de 5x4 mientras que para los datos de Reino Unido y Victoria serán de 6x4 al disponer de características que pueden ser englobadas en las 6 categorías. 
+Como los conjuntos de datos utilizados en esta tesis disponen de distintas características, el número de categorías disponibles varía entre ellos, y por tanto la dimensionalidad de las matrices resultantes es distinta entre sí. En el caso del conjunto de datos de Madrid se disponen de 5 de las 6 categorías propuestas, al no disponer de información sobre las limitaciones de la conducción. Por lo que las matrices de entrada para el modelo convolucional serán de 5x4 mientras que para los datos de Reino Unido y Victoria serán de 6x4 al disponer de características que pueden ser englobadas en las 6 categorías. 
 
 % \textcolor{red}{\textbf{Luis: Inquietud} aquí no sé qué más poner.}
 
 \section{Evaluación del modelo GTAAF}
 
-En esta sección se presentarán los resultados del modelo convolucional tras la ejecución de la metodología para la construcción del modelo GTAAF sobre las ocho poblaciones propuestas en esta tesis. Para evaluar la generalización del modelo en distintos contextos, los resultados del modelo convolucional se compararán con otros seis modelos del estado del arte. Los resultados se exponen para cada conjunto de datos, donde se comenzará con Madrid, en segundo lugar se analizarán los resultados de Victoria y en último lugar las seis poblaciones de Reino Unido, cada una con una densidad distinta de habitantes. Los dos primeros casos (Madrid y Australia) presentan condiciones de densidad de población opuestas, alta y baja respectivamente.
+En esta sección se presentarán los resultados del modelo convolucional tras la ejecución de la metodología para la construcción del modelo GTAAF sobre las ocho poblaciones propuestas en esta tesis. Para evaluar la generalización del modelo en distintos contextos, los resultados del modelo convolucional se compararán con otros seis modelos del estado del arte (\textit{SVC, Naive Bayes, Random Forest, KNN, Regresión Logística y MLP}). Los resultados se exponen para cada conjunto de datos, donde se comenzará con Madrid, en segundo lugar se analizarán los resultados de Victoria y en último lugar las seis poblaciones de Reino Unido, cada una con una densidad distinta de habitantes. Los dos primeros casos (Madrid y Australia) presentan condiciones de densidad de población opuestas, alta y baja respectivamente.
 
 \subsection{Comparativas}
 \subsubsection*{Madrid}
 
-Este primer caso presenta una situación de alta densidad. En la figura \ref{MadridAccidentsMap} se muestra la distribución de los accidentes original y la distribución resultante tras aplicar el filtrado por áreas, aquellos accidentes que Sin Asistencia se encuentran representados en verde, mientras que los accidentes Con Asistencia encuentran representados en rojo. Como puede observarse en la figura \ref{MadridAccidentsMap:Original}, la concentración de los accidentes se ve distribuida principalmente por aquellas zonas más próximas al núcleo urbano de Madrid, contando además con una amplia concentración en aquellas carreteras que pertenecen a las principales arterias de comunicación de Madrid. La figura  \ref{MadridAccidentsMap:Filtered} muestra la distribución de accidentes resultante tras haber aplicado el proceso de filtrado de áreas. Este proceso de reducción de datos permite una simplificación de la información sin que esto represente una pérdida en sí misma, de ya que se busca equilibrar el número de accidentes Con Asistencia y Sin Asistencia, manteniendo únicamente la información imprescindible para ello.
+Este primer caso presenta una situación de alta densidad sobre la ciudad de Madrid. En la figura \ref{MadridAccidentsMap} se muestra la distribución de los accidentes original y la distribución resultante tras aplicar el filtrado por áreas, aquellos accidentes Sin Asistencia se encuentran representados en verde, mientras que los accidentes Con Asistencia encuentran representados en rojo. Como puede observarse en la figura \ref{MadridAccidentsMap:Original}, la concentración de los accidentes se ve distribuida principalmente por aquellas zonas más próximas al núcleo urbano de Madrid, contando además con una amplia concentración en aquellas carreteras que pertenecen a las principales arterias de comunicación de la ciudad. La figura  \ref{MadridAccidentsMap:Filtered} muestra la distribución de accidentes resultante tras haber aplicado el proceso de filtrado de áreas. Este proceso de reducción de datos permite una simplificación de la información sin que esto represente una pérdida en sí misma, ya que se busca equilibrar el número de accidentes Con Asistencia y Sin Asistencia, manteniendo únicamente la información imprescindible para ello.
 
 \begin{figure}[H]
 	\centering
-	\subfloat[][Mapa de los accidentes originales de Madrid.]{
+	\subfloat[][Mapa de los accidentes originales de Madrid]{
 		\includegraphics[width=90mm]{Figures/Madrid/original_OpenStreetMap.Mapnik.png}
 		\label{MadridAccidentsMap:Original}
 	}\\
-	\subfloat[][Mapa de los accidentes filtrados de Madrid.]{
+	\subfloat[][Mapa de los accidentes filtrados de Madrid]{
 		\includegraphics[width=90mm]{Figures/Madrid/filtered_OpenStreetMap.Mapnik.png}
 		\label{MadridAccidentsMap:Filtered}
 	}\\
-	\caption{Mapa de accidentes de Madrid original y filtrado.}
+	\caption{Mapa de accidentes de Madrid original y filtrado}
 	\label{MadridAccidentsMap}
 \end{figure}
 
-En la Figura \ref{MadridLossFunction} se muestra la evolución de la función a optimizar (F1-Score) a lo largo de las 50 épocas para las que se ha entrenado el modelo GTAAF en la ciudad de Madrid. Se observa cómo el F1-Score para el conjunto de entrenamiento sufre una evolución importante durante las diez primeras épocas, después de las cuales sigue aumentando en menor medida. Por otra parte, la métrica sobre el conjunto de validación sufre una evolución más lenta, hasta aproximadamente la época 30 no se ve una clara evolución en la generalización del modelo sobre datos que nunca ha visto.
+En la Figura \ref{MadridLossFunction} se muestra la evolución de la función a optimizar (\textit{F1-Score}) a lo largo de las 50 épocas para las que se ha entrenado el modelo GTAAF en la ciudad de Madrid. Se observa cómo el \textit{F1-Score} para el conjunto de entrenamiento sufre una evolución importante durante las diez primeras épocas, después de las cuales sigue aumentando en menor medida. Por otra parte, la métrica sobre el conjunto de validación sufre una evolución más lenta, hasta aproximadamente la época 30 no se ve una clara evolución en la generalización del modelo sobre datos que nunca ha visto.
 
+\textbf{Luis: ME HE QUEDADO AQUÍ 28-01-2024}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=160mm]{Figures/Madrid/madrid_convolution_2d_f1_score_2023-12-03-12 54 29.png}
-	\caption{Evolución de F1-Score del modelo GTAAF en Madrid.}
+	\includegraphics[width=14cm]{Figures/Madrid/madrid_convolution_2d_f1_score_2023-12-03-12 54 29.png}
+	\caption{Evolución de F1-Score del modelo GTAAF en Madrid}
 	\label{MadridLossFunction}
 \end{figure}
 

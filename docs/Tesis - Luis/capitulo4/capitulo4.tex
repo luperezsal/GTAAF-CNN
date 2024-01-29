@@ -71,6 +71,8 @@ Al observarse incongruencias en la interpretación sobre los valores numéricos 
 %\textcolor{purple}{\textbf{Jose:} No estra en colapso con nada, si se repite dos veces no pasa nada...}
 %\textcolor{orange}{\textbf{Luis: } vale, gracias Jose.}
 
+\textcolor{orange}{\textbf{Luis: Me parece muy circular todo esto, todo el rato diciendo lo mismo. Opiniones?}}
+
 Después de analizar los resultados ofrecidos del primer prototipo, se propusieron una serie de modificaciones en el modelo enfocadas a mejorar las debilidades observadas. Estos cambios se estructuraron en una nueva metodología denominada GTAAF (General Model for Traffic Accident Assistance Forecasting) que busca incrementar el rendimiento del prototipo y cuyo principal objetivo es diseñar e implementar un procedimiento de predicción de asistencia de accidentes de tráfico generalizable a cualquier dataset y región. 
 
 El principal problema observado en los conjuntos de datos de accidentes de tráfico es que, dependiendo de la región y/o gobierno que los ofrezca, estos disponen de información diferente, debido principalmente al coste que supone obtener ciertos datos y a la naturaleza social de la población. Es por esto que, la implementación de un modelo de predicción de necesidad de asistencia en accidentes de tráfico general, requiere un trabajo de análisis de la categorización de las variables disponibles y cuáles pueden ser influyentes en la necesidad de asistencia.
@@ -105,7 +107,7 @@ Como quinta variación a considerar, se redefinen las categorías donde son asig
 
 Por otra parte, se han centrado los esfuerzo en desarrollar el modelo convolucional de dos dimensiones CNN-2D. Esto se debió al análisis de entrenamiento de los modelos CNN-1D y CNN-2D, optando por descartar el primero debido a la poca capacidad de generalización sobre el conjunto de validación ofrecido por el modelo unidimensional.
 
-Por último, en un intento de evaluar la generalización del modelo propuesto, se ha probado en distintos datasets y áreas, ampliando los conjuntos de datos sobre los que se aplica la metodología. De esta forma, se incluyendo seis regiones de Reino Unido, una de Australia y Madrid. Además, se ampliaron los modelos del estado del arte contra los que comparar el rendimiento, llegando a seis, SVC, Naive Bayes, Bagging Random Forest, KNN, Regresión Logística y una red neuronal Perceptrón Multicapa.
+Por último, en un intento de evaluar la generalización del modelo propuesto, se ha probado en distintos datasets y áreas, ampliando los conjuntos de datos sobre los que se aplica la metodología. De esta forma, se incluyendo seis regiones de Reino Unido, una de Australia y Madrid. Además, se ampliaron los modelos del estado del arte contra los que comparar el rendimiento, llegando a seis, \textit{SVC, Naive Bayes, Bagging Random Forest, KNN, Regresión Logística} y una red neuronal Perceptrón Multicapa (\textit{MLP}).
 
 \subsection{Pre-procesamiento}
 
@@ -214,7 +216,7 @@ En la Figura \ref{PreprocessingStage} de referencia se observan, marcados en azu
 
 \subsection{Post-procesamiento}
 
-La segunda fase de la metodología implica transformar los datos refinados y balanceados en matrices interpretables por el modelo GTAAF propuesto. Este proceso conlleva asignar los atributos de las muestras tabulares en posiciones dentro de estas matrices. Para realizar esto, se hace uso de un método de transformación que toma en consideración la importancia de cada característica dentro del conjunto de datos. El objetivo es posicionar estratégicamente las características más relevantes en la matriz para maximizar su impacto en el modelo GTAAF, como se ilustra en la Figura \ref{PostprocessingStage}. La determinación de la importancia de las características se basa en un algoritmo tipo boosting, \textit{XGBoost}, que asigna pesos a las variables según su relevancia en la separación de datos durante el entrenamiento de este. Para garantizar un entrenamiento óptimo del modelo, se realiza una optimización de hiperparámetros utilizando algoritmos evolutivos. A lo largo de generaciones sucesivas, este algoritmo genético hace evolucionar los hiperparámetros, guiado por la métrica de F1-Score, que actúa como función heurística a optimizar.
+La segunda fase de la metodología implica transformar los datos refinados y balanceados en matrices interpretables por el modelo GTAAF propuesto. Este proceso conlleva asignar los atributos de las muestras tabulares en posiciones dentro de estas matrices. Para realizar esto, se hace uso de un método de transformación que toma en consideración la importancia de cada característica dentro del conjunto de datos. El objetivo es posicionar estratégicamente las características más relevantes en la matriz para maximizar su impacto en el modelo GTAAF, como se ilustra en la Figura \ref{PostprocessingStage}. La determinación de la importancia de las características se basa en un algoritmo tipo boosting, \textit{XGBoost}, que asigna pesos a las variables según su relevancia en la separación de datos durante el entrenamiento de este. Para garantizar un entrenamiento óptimo del modelo, se realiza una optimización de hiperparámetros utilizando algoritmos evolutivos. A lo largo de generaciones sucesivas, este algoritmo genético hace evolucionar los hiperparámetros, guiado por la métrica de \textit{F1-Score}, que actúa como función heurística a optimizar.
 
 \begin{figure}[H]
 	\centering
@@ -244,7 +246,7 @@ Dentro de estos modelos, los \textit{ensembles} tipo \textit{Boosting} son ampli
 
 En esta metodología se utilizará el algoritmo tipo \textit{Boosting XGBoost}, donde se minimizará el error del modelo mediante la métrica \textit{F1-Score} resultante de la clasificación de ambas clases de accidentes (sin necesidad de asistencia y con necesidad de asistencia).
 
-Este algoritmo ofrece una serie de hiperparámetros, que permiten configurar el método para maximizar su rendimiento. Del total de hiperparámetros disponibles para su configuración, se escogerán aquellos más relevantes, concretamente la profundidad máxima que puede tomar el árbol, el número de árboles que minimizarán el error de sus predecesores y  la tasa de aprendizaje (\textit{learning rate}). Para ello se aplicarán técnicas de optimización de hiperparámetros basadas en algoritmos evolutivos
+Este algoritmo ofrece una serie de hiperparámetros, que permiten configurar el método para maximizar su rendimiento. Del total de hiperparámetros disponibles para su configuración, se escogerán aquellos más relevantes, concretamente la profundidad máxima que puede tomar el árbol, el número de árboles que minimizarán el error de sus predecesores y  la tasa de aprendizaje (\textit{learning rate}). Para ello se aplicarán técnicas de optimización de hiperparámetros basadas en algoritmos evolutivos.
 
 
 % Existen múltiples algoritmos que implementan esta filosofía, entre los que destacan: (1) AdaBoost, orientado a clasificación, que en cada iteración , (2) Random Forest () y (3) XGboost. Para la metodología presentada en esta tesis se ha escogido la técnica XGBoost, ya que las características de este algoritmo son las más adecuadas a este contexto. XGBoost es menos sensible a datos que presentan una alta variabilidad y un importante desbalanceo entre ellos. Además, este algoritmo permite una mejor optimización en sus árboles sucesores al configurar los hiperparámetros con los que se entrena únicamente una única vez para el árbol inicial (profundidad del árbol, número de árboles y learning rate) [2]. El funcionamiento del XGBoost escogido es el siguiente...
@@ -283,7 +285,7 @@ El resultado de este proceso es una transformación de datos inicialmente tabula
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10cm]{Figures/indexing_positions_2.png}
-	\caption{Posición de las categorías y características en base a sus pesos.}
+	\caption{Posición de las categorías y características en base a sus pesos}
 	\label{MatrixIndexes}
 \end{figure}
 
