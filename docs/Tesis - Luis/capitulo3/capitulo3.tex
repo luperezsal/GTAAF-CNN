@@ -30,13 +30,13 @@ P(y) = \frac{\text{Número de muestras de la clase } y}{\text{Número total de m
 
 %\textbf{Luis: buscar las fórmulas a posteriori}
 
-En tiempo de inferencia, la predicción de una nueva muestra se interpreta como aquella probabilidad más alta en base a las clases, haciendo uso de la información que ha obtenido el modelo en base a sus datos de entrenamiento.
+En tiempo de inferencia, la predicción de una nueva muestra se interpreta como aquella probabilidad más alta en base a las clases, haciendo uso de la información que ha obtenido el modelo en base a sus datos de entrenamiento. En la Figura \ref{GNB_BACKGROUND} se puede observar un ejemplo de distribución de datos en base al algoritmo \textit{Gaussian Naive Bayes} \cite{GNBIMAGE}.
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=8cm]{Figures/Background/GNB.png}
-	\caption{Ejemplo de distribuciones en base a Gaussian Naive Bayes \cite{GNBIMAGE}.}
+	\caption{Ejemplo de distribuciones en base a \textit{Gaussian Naive Bayes}}
 	\label{GNB_BACKGROUND}
 \end{figure}
 
@@ -53,12 +53,12 @@ El Perceptrón Multicapa o \textit{Multi-Layer Perceptron (MLP)} es una arquitec
 
 La arquitectura de Perceptrón multicapa se caracteriza porque tiene sus neuronas agrupadas en capas de diferentes niveles: la capa de entrada, las capas ocultas y la capa de salida. Las neuronas de la capa de entrada se encargan únicamente de recibir las señales del exterior y propagarlas a todas las neuronas de la siguiente capa. La última capa proporciona la respuesta de la red para cada uno de los patrones de entrada.
 
-Este tipo de arquitecturas son ampliamente utilizadas en problemas de aprendizaje supervisado, como clasificación y regresión, y ofrecen un gran rendimiento en contextos muy variables. Por ejemplo, en publicaciones recientes, este tipo de modelos ha sido aplicado a problemas como segmentación de imágenes médicas para la prevención de múltiples enfermedades \cite{valanarasu2022unext}, para la clasificación de nubes de puntos en tres dimensiones \cite{choe2022pointmixer} o como apoyo para la predicción del tiempo estimado de trayectos en taxi de la ciudad de Nueva York \cite{poongodi2022new}. Al pertenecer a la familia de las redes neuronales, estos modelos aprenden los pesos asignados a cada una de las conexiones entre neuronas de las capas para dar lugar a las fases comunes de optimización de redes neuronales que detallarán en la sección \ref{CNN_SECTION}.
+Este tipo de arquitecturas son ampliamente utilizadas en problemas de aprendizaje supervisado, como clasificación y regresión, y ofrecen un gran rendimiento en contextos muy variables. Por ejemplo, en publicaciones recientes, este tipo de modelos ha sido aplicado a problemas como segmentación de imágenes médicas para la prevención de múltiples enfermedades \cite{valanarasu2022unext}, para la clasificación de nubes de puntos en tres dimensiones \cite{choe2022pointmixer} o como apoyo para la predicción del tiempo estimado de trayectos en taxi de la ciudad de Nueva York \cite{poongodi2022new}. Al pertenecer a la familia de las redes neuronales, estos modelos aprenden los pesos asignados a cada una de las conexiones entre neuronas de las capas para dar lugar a las fases comunes de optimización de redes neuronales que detallarán en la sección \ref{CNN_SECTION}. En la Figura \ref{MLP_BACKGROUND} se puede observar un ejemplo de la arquitectura \textit{MLP} \cite{PEDRO2017111}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10cm]{Figures/Background/MLP.png}
-	\caption{Ejemplo de arquitectura MLP \cite{PEDRO2017111}.}
+	\caption{Ejemplo de arquitectura \textit{MLP}}
 	\label{MLP_BACKGROUND}
 \end{figure}
 
@@ -108,13 +108,13 @@ La regresión logística hace uso de una función sigmoide, que transforma los v
 P(y = 1 | x) = \frac{1}{1 + e^{-z}}
 \]
 
-Donde $P(y = 1 | x)$ representa la probabilidad de la muestra x de pertenecer a la clase positiva.
+Donde $P(y = 1 | x)$ representa la probabilidad de la muestra x de pertenecer a la clase positiva. En la Figura \ref{LR_BACKGROUND} se puede observar un ejemplo de una clasificación mediante \textit{Regresión Logística} \cite{LR}.
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=10cm]{Figures/Background/LogReg_1.png}
-	\caption{Ejemplo de clasificación mediante Regresión Logística \cite{LR}}
+	\caption{Ejemplo de clasificación mediante \textit{Regresión Logística}}
 	\label{LR_BACKGROUND}
 \end{figure}
 
@@ -129,10 +129,12 @@ El algoritmo \textit{k-Nearest Neighbours (KNN)} es un algoritmo de aprendizaje 
 P(y = j | X = x_0)  = \frac{1}{K} \sum_{i\in N_0} I(y_i = j)
 \]
 
+En la Figura \ref{KNN_BACKGROUND} se puede observar un ejemplo de clasificación mediante \textit{KNN} \cite{VIDUEIRAFERREIRA2015195}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10cm]{Figures/Background/KNN.png}
-	\caption{Ejemplo de clasificación del \textit{KNN} ante una nueva muestra, donde se miden las distancias entre los $N$ puntos más cercanos ante una nueva muestra y se clasifica como aquella que más vecinos cercanos presente \cite{VIDUEIRAFERREIRA2015195}}
+	\caption[Ejemplo de clasificación del \textit{KNN} ante una nueva muestra] {Ejemplo de clasificación del \textit{KNN} ante una nueva muestra. Se miden las distancias entre los $N$ puntos más cercanos de una nueva muestra y se clasifica como aquella que más vecinos cercanos presente}
 	\label{KNN_BACKGROUND}
 \end{figure}
 
@@ -144,13 +146,13 @@ P(y = j | X = x_0)  = \frac{1}{K} \sum_{i\in N_0} I(y_i = j)
 %\textcolor{orange}{\textbf{Luis: } Hecho}
 
 
-Los algoritmos \textit{Random Forest} son algoritmos basados en árboles de decisión que pertenecen al conjunto de modelos Ensembles. Los métodos \textit{Ensemble} son arquitecturas que están conformadas por varios modelos entrenados simultáneamente para dar lugar a un modelo predictivo final. Dentro de la categorización de Ensembles, el método \textit{Random Forest}, pertenece a la subcategoría \textit{Bagging}, cuya principal característica es que se apoyan en crear múltiples modelos que son entrenados con distintas técnicas de reemplazo (\textit{Bootstrap}) sobre los datos, conformando un modelo predictivo final como la combinación de la salida de cada uno de ellos de manera independiente por votación. Este tipo de modelos ha sido aplicado de forma efectiva en contextos muy variados, como para predicción de la contaminación de nitratos de aguas subterráneas \cite{HE2022133388}, predicción de precios de inmuebles en base a sus características \cite{ADETUNJI2022806} o para la medición de características geográficas socio-económicas importantes que influyeron en los fallecidos por \textit{COVID-19} en Estados Unidos \cite{GREKOUSIS2022102744}. Concretamente, \textit{Random Forest} se compone en $N$ árboles de decisión, donde cada uno de ellos es entrenado con un subconjunto de muestras y características de forma independiente al resto para dar lugar a un modelo combinado donde la predicción de nuevas muestras se elige aquella clase más votada de entre todo el conjunto de árboles. De forma generalizada, los modelos tipo \textit{Ensemble} son métodos robustos que son menos sensibles al sobreajuste de los datos gracias a sus técnicas de reemplazo durante su etapa de entrenamiento y la composición de un modelo final en base a varios modelos.
+Los algoritmos \textit{Random Forest} son algoritmos basados en árboles de decisión que pertenecen al conjunto de modelos Ensembles. Los métodos \textit{Ensemble} son arquitecturas que están conformadas por varios modelos entrenados simultáneamente para dar lugar a un modelo predictivo final. Dentro de la categorización de Ensembles, el método \textit{Random Forest}, pertenece a la subcategoría \textit{Bagging}, cuya principal característica es que se apoyan en crear múltiples modelos que son entrenados con distintas técnicas de reemplazo (\textit{Bootstrap}) sobre los datos, conformando un modelo predictivo final como la combinación de la salida de cada uno de ellos de manera independiente por votación. Este tipo de modelos ha sido aplicado de forma efectiva en contextos muy variados, como para predicción de la contaminación de nitratos de aguas subterráneas \cite{HE2022133388}, predicción de precios de inmuebles en base a sus características \cite{ADETUNJI2022806} o para la medición de características geográficas socio-económicas importantes que influyeron en los fallecidos por \textit{COVID-19} en Estados Unidos \cite{GREKOUSIS2022102744}. Concretamente, \textit{Random Forest} se compone en $N$ árboles de decisión, donde cada uno de ellos es entrenado con un subconjunto de muestras y características de forma independiente al resto para dar lugar a un modelo combinado donde la predicción de nuevas muestras se elige aquella clase más votada de entre todo el conjunto de árboles. De forma generalizada, los modelos tipo \textit{Ensemble} son métodos robustos que son menos sensibles al sobreajuste de los datos gracias a sus técnicas de reemplazo durante su etapa de entrenamiento y la composición de un modelo final en base a varios modelos. En la Figura \ref{RF_BACKGROUND} se puede observar un ejemplo de la arquitectura \textit{Random Forest} \cite{MISRA2020243}.
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10cm]{Figures/Background/RF.png}
-	\caption{Ejemplo de arquitectura ensemble Random Forest. El dataset es dividido en subconjuntos mediante Bootsrap y se entrena un árbol de decisión sobre cada uno de ellos. La clasificación final viene dada por la predicción mayoritaria de los modelos \cite{MISRA2020243}}
+	\caption[Ejemplo de arquitectura \textit{Ensemble Random Forest}]{Ejemplo de arquitectura \textit{Ensemble Random Forest}. El dataset es dividido en subconjuntos mediante \textit{Bootsrap} y se entrena un árbol de decisión sobre cada uno de ellos. La clasificación final viene dada por la predicción mayoritaria de los modelos}
 	\label{RF_BACKGROUND}
 \end{figure}
 
@@ -173,10 +175,12 @@ f({x_0}) = \text{sign}({W} \cdot {x_0} - b)
 
 Donde $W$ es el vector de pesos asociado a cada característica, $X$ es el vector de características de la muestra y $b$ es el término de sesgo.
 
+En la Figura \ref{SVC_BACKGROUND} se puede ver un ejemplo de clasificación mediante \textit{SVC} \cite{MISRA2020243}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=7cm]{Figures/Background/SVC.png}
-	\caption{Ejemplo de \textit{SVC} propuesto en \cite{MISRA2020243}}
+	\caption{Ejemplo de \textit{SVC}}
 	\label{SVC_BACKGROUND}
 \end{figure}
 
@@ -349,12 +353,12 @@ Por otra parte, existen otras técnicas que se alejan del aprendizaje estadísti
 
 Dentro la filosofía de los modelos \textit{Ensemble}, los algoritmos \textit{Random Forest} han sido históricamente utilizados para calcular la importancia de las características de su entrenamiento. Para este fin, este algoritmo calcula mediante el peso que ha tenido cada característica a la hora de construir los árboles, en función del número de muestras que dividen cada uno de los niveles en los distintos árboles construidos.
 
-No obstante, existe otra técnica más con mayor potencial dentro de los \textit{Ensembles} que tiene como base el funcionamiento de los \textit{Random Forest}, el algoritmo tipo \textit{Boosting XGBoost} \cite{Chen_2016}. Los algoritmos tipo \textit{Boosting} se caracterizan por crear modelos secuencialmente donde cada nuevo modelo se enfoca en corregir los errores cometidos por los modelos anteriores. \textit{XGBoost} construye $N$ árboles de decisión secuenciales, donde cada uno de estos se corrige el error cometido por el árbol anterior, reduciendo así el sesgo que pudiera llegar a producirse por datos desbalanceados y mejorando la precisión del modelo final, además ofrece de términos de penalización para evitar una complejidad excesiva del modelo final. Estos algoritmos disponen de una serie de hiperparámetros que deben ser configurados para un buen rendimiento, como limitar la profundidad de los árboles que se generan, la tasa de aprendizaje, que define la contribución de cada árbol al modelo final, o el número de instancias mínimas que debe separar un nodo para poder ser creado. Estas configuraciones permiten reducir el sobreajuste de los modelos en posibles casos muy específicos encontrados en los datos de entrenamiento. \textit{XGBoost} ha sido ampliamente utilizado a lo largo de los últimos años debido a su gran potencial para problemas muy diversos, como para la predicción de empresas que entran en bancarrota en base a sus características \cite{BenJabeur2023}, para predecir los niveles de agua subterránea en base a descriptores meteorológicos y geográficos \cite{IBRAHEMAHMEDOSMAN20211545}, o incluso para predecir la fluctuación del valor del oro a lo largo del tiempo \cite{Jabeur2021}
+No obstante, existe otra técnica más con mayor potencial dentro de los \textit{Ensembles} que tiene como base el funcionamiento de los \textit{Random Forest}, el algoritmo tipo \textit{Boosting XGBoost} \cite{Chen_2016}. Los algoritmos tipo \textit{Boosting} se caracterizan por crear modelos secuencialmente donde cada nuevo modelo se enfoca en corregir los errores cometidos por los modelos anteriores. \textit{XGBoost} construye $N$ árboles de decisión secuenciales, donde cada uno de estos se corrige el error cometido por el árbol anterior, reduciendo así el sesgo que pudiera llegar a producirse por datos desbalanceados y mejorando la precisión del modelo final, además ofrece de términos de penalización para evitar una complejidad excesiva del modelo final. Estos algoritmos disponen de una serie de hiperparámetros que deben ser configurados para un buen rendimiento, como limitar la profundidad de los árboles que se generan, la tasa de aprendizaje, que define la contribución de cada árbol al modelo final, o el número de instancias mínimas que debe separar un nodo para poder ser creado. Estas configuraciones permiten reducir el sobreajuste de los modelos en posibles casos muy específicos encontrados en los datos de entrenamiento. \textit{XGBoost} ha sido ampliamente utilizado a lo largo de los últimos años debido a su gran potencial para problemas muy diversos, como para la predicción de empresas que entran en bancarrota en base a sus características \cite{BenJabeur2023}, para predecir los niveles de agua subterránea en base a descriptores meteorológicos y geográficos \cite{IBRAHEMAHMEDOSMAN20211545}, o incluso para predecir la fluctuación del valor del oro a lo largo del tiempo \cite{Jabeur2021}. En la figura \ref{XGBOOST_BACKGROUND} se puede observar un ejemplo del algoritmo \textit{XGBoost} \cite{XGBOOST_IMAGE}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=10cm]{Figures/Background/XGBoost-model-process.png}
-	\caption{Ejemplo de algoritmo \textit{XGBoost} \cite{XGBOOST_IMAGE}}
+	\caption{Ejemplo de algoritmo \textit{XGBoost}}
 	\label{XGBOOST_BACKGROUND}
 \end{figure}
 
@@ -387,28 +391,40 @@ Los algoritmos genéticos son métodos inspirados en la evolución biológica, q
 
 El funcionamiento de un algoritmo genético consta de una serie de etapas que son repetidas a lo largo de las sucesivas generaciones, concretamente \textit{inicialización, evaluación, selección, cruce, mutación y reemplazamiento}.
 
-En la primera de ellas (\textit{inicialización}), se crea una población original de \textit{N} individuos aleatorios, donde cada uno de estos representa una posible solución al problema que se quiere optimizar (véase Figura \ref{GA_inicializacion}). Estos individuos son evaluados mediante una función heurística, donde a cada uno se le asigna una puntuación de calidad en base a un criterio que mida el rendimiento que ofrece dicha solución al problema planteado (\textit{evaluación}), como se muestra en la Figura \ref{GA_selection}. Una vez se dispone de las puntuaciones de calidad, aquellos individuos que mejor se adapten al problema, es decir que mejor puntación reciban, serán escogidos para dar lugar a descendencia (\textit{selección}). La información que contienen los \textit{M} mejores individuos es combinada entre sí (\textit{cruce}), simulando el intercambio de información producido en el intercambio genético en la naturaleza. Una vez se disponen de los nuevos individuos, estos pueden sufrir modificaciones aleatorias sobre su información resultante (\textit{mutación}), como se puede ver en la Figura \ref{GA_cruce_mutacion}. Como en cualquier población biológica, la combinación  de la misma información a lo largo de sucesivas generaciones provoca un estancamiento en la sociedad. La falta de diversidad en la población implica que no exista variabilidad en los individuos sucesores y por tanto que se tienda a explotar una zona del espacio de búsqueda provocando el riesgo de caer en un mínimo local del problema, es decir, una solución subóptima al problema respecto al mínimo global de la función buscado por estos algoritmos. Por este motivo es crucial introducir un componente aleatorio que pueda modificar la información de los individuos generados para tender a explorar este espacio de búsqueda. En este punto se evalúan los nuevos individuos y los \textit{M} miembros con peor puntuación de la población son eliminados, de esta forma la población en cada generación siempre constará de \textit{N} individuos. En caso de que existan individuos iguales en la población, estos son eliminados, lo que provoca que se integren en la población el mismo número de los que se han descartado. Estas etapas son repetidas a lo largo de varias generaciones hasta llegar a una condición de parada, tras la cual se seleccionará el individuo que mejor puntuación haya obtenido mediante la función heurística.
+En la primera de ellas (\textit{inicialización}), se crea una población original de \textit{N} individuos aleatorios, donde cada uno de estos representa una posible solución al problema que se quiere optimizar (véase Figura \ref{GA_inicializacion}).
 
-Cabe mencionar que dentro de la etapa de cruce, existen infinitas estrategias que se pueden aplicar para dar lugar al individuo descendiente. Por ejemplo, una de las más comunes suele consistir en dividir en dos a cada par de individuos que se reproducirán para generar su descendiente en base a composición de estas dos mitades. Otro método común, es seleccionar un punto aleatorio en cada proceso de descendencia del vector solución para dividir ambos progenitores, de tal forma que el individuo generado puede contener más información de un progenitor que de otro.
-
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=6cm]{Figures/GA/inicializacion.png}
-	\caption{Ejemplo de inicialización de individuos de cuatro características en un algoritmo genético}
+	\caption[Ejemplo de inicialización de individuos de algoritmo genético] {Ejemplo de inicialización de individuos de algoritmo genético. Este ejemplo consta de individuos compuestos por cuatro características}
 	\label{GA_inicializacion}
 \end{figure}
+
+
+Estos individuos son evaluados mediante una función heurística, donde a cada uno se le asigna una puntuación de calidad en base a un criterio que mida el rendimiento que ofrece dicha solución al problema planteado (\textit{evaluación}), como se muestra en la Figura \ref{GA_selection}.
+
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=8cm]{Figures/GA/selection.png}
-	\caption{Ejemplo del proceso de selección de los cuatro mejores individuos de una generación a través de su calidad en base a la función heurística (\textit{fitness function})}
+	\caption[Ejemplo del proceso de selección de un algoritmo genético]{Ejemplo del proceso de selección de un algoritmo genético. En este ejemplo los cuatro mejores individuos de una generación son escogidos en base a su calidad en ofrecida por la función heurística (\textit{fitness function})}
 	\label{GA_selection}
 \end{figure}
+
+
+Una vez se dispone de las puntuaciones de calidad, aquellos individuos que mejor se adapten al problema, es decir que mejor puntuación reciban, serán escogidos para dar lugar a descendencia (\textit{selección}). La información que contienen los \textit{M} mejores individuos es combinada entre sí (\textit{cruce}), simulando el intercambio de información producido en el intercambio genético en la naturaleza. Una vez se disponen de los nuevos individuos, estos pueden sufrir modificaciones aleatorias sobre su información resultante (\textit{mutación}), como se puede ver en la Figura \ref{GA_cruce_mutacion}.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=10cm]{Figures/GA/cruce_mutacion.png}
-	\caption{Ejemplo del proceso de cruce entre individuos de una población y mutación de una de las características del descendiente resultante}
+	\caption[Ejemplo del proceso de cruce y mutación de un algoritmo genético] {Ejemplo del proceso de cruce y mutación de un algoritmo genético, donde se muta una característica de los individuos resultantes}
 	\label{GA_cruce_mutacion}
 \end{figure}
+
+Como en cualquier población biológica, la combinación  de la misma información a lo largo de sucesivas generaciones provoca un estancamiento en la sociedad. La falta de diversidad en la población implica que no exista variabilidad en los individuos sucesores y por tanto que se tienda a explotar una zona del espacio de búsqueda provocando el riesgo de caer en un mínimo local del problema, es decir, una solución subóptima al problema respecto al mínimo global de la función buscado por estos algoritmos. Por este motivo es crucial introducir un componente aleatorio que pueda modificar la información de los individuos generados para tender a explorar este espacio de búsqueda. En este punto se evalúan los nuevos individuos y los \textit{M} miembros con peor puntuación de la población son eliminados, de esta forma la población en cada generación siempre constará de \textit{N} individuos. En caso de que existan individuos iguales en la población, estos son eliminados, lo que provoca que se integren en la población el mismo número de los que se han descartado. Estas etapas son repetidas a lo largo de varias generaciones hasta llegar a una condición de parada, tras la cual se seleccionará el individuo que mejor puntuación haya obtenido mediante la función heurística.
+
+Cabe mencionar que dentro de la etapa de cruce, existen infinitas estrategias que se pueden aplicar para dar lugar al individuo descendiente. Por ejemplo, una de las más comunes suele consistir en dividir en dos a cada par de individuos que se reproducirán para generar su descendiente en base a composición de estas dos mitades. Otro método común, es seleccionar un punto aleatorio en cada proceso de descendencia del vector solución para dividir ambos progenitores, de tal forma que el individuo generado puede contener más información de un progenitor que de otro.
+
 
 De esta forma, mediante la mejora continua de individuos a través de las generaciones, seleccionando los mejores y combinando su información entre sí, da lugar a una solución aproximada a la ideal a lo largo de las generaciones.
 

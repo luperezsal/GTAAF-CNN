@@ -56,7 +56,7 @@ En esta sección se expone la información técnica de interés relativa a los e
 % \textcolor{red}{Luis: Este párrafo está regular. Por otra parte colapsa con el apartado Evaluación del modelo: Eficiencia y Robustez. Aunque no sé si está mal que sea así..}
 % \textcolor{purple}{JOSE: \textbf{ahora lo veo bien}}
 
-En este punto se presentan los datos sobre los que se han trabajado en esta tesis. Los datos escogidos para la validación pertenecen a tres regiones diferentes, donde cada una de ellas presenta distintas singularidades. El criterio escogido para la selección de estos datos se basa en la búsqueda de la variabilidad a lo largo de distintos contextos y casos de uso con el objetivo de validar que el modelo propuesto es capaz de generalizar a través de múltiples circunstancias. Esta evaluación se basará en dos factores principales: (1) la distinta disponibilidad de información en los conjuntos de datos y (2) en función de la densidad de población de las regiones escogidas. A su vez, para este último factor de la densidad de población, distinguiremos tres casos de estudio claramente diferenciados: (1) alta concentración de población, (2) concentración media y (3) concentración dispersa. Con esta variabilidad en los datos se busca medir la robustez y generalización del modelo GTAAF desarrollado.
+En este punto se presentan los datos sobre los que se han trabajado en esta tesis. Los datos escogidos para la validación pertenecen a tres regiones diferentes, donde cada una de ellas presenta distintas singularidades. El criterio escogido para la selección de estos datos se basa en la búsqueda de la variabilidad a lo largo de distintos contextos y casos de uso con el objetivo de validar que el modelo propuesto es capaz de generalizar a través de múltiples circunstancias. Esta evaluación se basará en dos factores principales: (1) la distinta disponibilidad de información en los conjuntos de datos y (2) en función de la densidad de población de las regiones escogidas. A su vez, para este último factor de la densidad de población, distinguiremos tres casos de estudio claramente diferenciados: alta concentración de población, concentración media y concentración dispersa. Con esta variabilidad en los datos se busca medir la robustez y generalización del modelo GTAAF desarrollado.
 
 
 
@@ -73,11 +73,11 @@ La alta densidad de población de Madrid convierte a este conjunto de datos en u
 			\textbf{Dataset} & \textbf{$Km^2$} & \textbf{Habitantes} & \textbf{Habitantes por $km^2$} & \textbf{Ratio de accidentes}
 			\\ \hline \hline
 			
-			Madrid & 604,3 & 3.339.931 & 5.530 & 0,006 \\ \hline
+			Madrid & 604,3 & 3.339.931 & 5.530 & 0,0055 \\ \hline
 			
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de las propiedades geográficas en base a los accidentes de la ciudad de Madrid}
+	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de Madrid]{Descripción de las propiedades geográficas de acuerdo a los accidentes de Madrid. El \textit{Ratio de accidentes} representa el número de accidentados por año}
 	\label{Madrid_statistics}
 \end{table}
 
@@ -90,8 +90,8 @@ Las características originales presentes en este conjunto de datos se encuentra
 			\hline
 			\textbf{Atributo} & \textbf{Descripción} \\ \hline \hline
 			ID de Incidente  & Identificador del incidente, si varios registros tienen el mismo número de archivo, se consideran el mismo accidente y cada registro representa a cada una de las personas involucradas en él (conductor, pasajero o peatón)  \\ \hline
-			Fecha  & Día, mes y año en que ocurrió el incidente \\ \hline
-			Hora  & Hora y minutos en que ocurrió el incidente \\ \hline
+			Fecha  & Día/mes/año del accidente \\ \hline
+			Hora  & Hora exacta en la que ocurrió el accidente \\ \hline
 			Tipo de Carretera & Tipo de carretera donde ocurrió el incidente \\ \hline
 			Nombre & Nombre de la calle donde ocurrió el incidente \\ \hline
 			Número de Calle & Número de la calle donde ocurrió el incidente  \\ \hline
@@ -102,7 +102,7 @@ Las características originales presentes en este conjunto de datos se encuentra
 			Persona  & Rol de la persona involucrada: conductor, pasajero o peatón \\ \hline
 			Edad  & Rango de edad de la persona involucrada \\ \hline
 			Género  & Mujer u hombre \\ \hline
-			\textbf{Gravedad}  & Consecuencias físicas de la persona involucrada, si han necesitado atención médica, si han sido hospitalizados o si han sido fatales \\ \hline
+			Gravedad & Consecuencias físicas de la persona involucrada, si han necesitado atención médica, si han sido hospitalizados o si han sido fatales \\ \hline
 			X   & Coordenada X - UTM \\ \hline
 			Y   & Coordenada Y - UTM \\ \hline
 			Alcohol & Si la persona involucrada ha dado positivo en alcohol (S o N) \\ \hline
@@ -144,7 +144,7 @@ Como se puede apreciar en la tabla \ref{Victoria_statistics}, el caso de uso apl
 			Victoria & 227.416 &  5.603.100  & 25  & 0,0004\\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de las propiedades geográficas en base a los accidentes del estado de Victoria}
+	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de Victoria]{Descripción de las propiedades geográficas de acuerdo a los accidentes de Victoria. El \textit{Ratio de accidentes} representa el número de accidentados por año}
 	\label{Victoria_statistics}
 \end{table}
 
@@ -156,7 +156,7 @@ En este caso, se disponen de $140$ características divididas en varias bases de
 	\item \textbf{Descriptores del accidente} \ref{Victoria_ACCIDENT_TABLE}
 	\item \textbf{Características de la carretera} \ref{Victoria_ROAD_SURF_TABLE}
 	\item \textbf{Condiciones atmosféricas} \ref{Victoria_ATMOS_COND_TABLE}
-	\item \textbf{vehículos implicados} \ref{Victoria_VEHICLE_TABLE}
+	\item \textbf{Vehículos implicados} \ref{Victoria_VEHICLE_TABLE}
 	\item \textbf{Evento del accidente} \ref{Victoria_ACCIDENT_EVENT_TABLE}
 	\item \textbf{Localización del accidente} \ref{Victoria_ACCIDENT_LOCATION_TABLE}
 	\item \textbf{Características del nodo} \ref{Victoria_NODE_TABLE}
@@ -403,12 +403,12 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 
 En lo que respecta a la variable predictiva que indica la gravedad de las víctimas en los accidentes, este conjunto de datos categoriza las lesiones en cuatro clases:
 
-\begin{itemize}
-	\item Fatales: $1$.
-	\item Graves: $2$.
-	\item Otro tipo de lesiones: $3$.
-	\item Sin lesiones: $4$.
-\end{itemize}
+\begin{enumerate}
+	\item Fatales
+	\item Graves
+	\item Otro tipo de lesiones
+	\item Sin lesiones
+\end{enumerate}
 
 
 \subsection*{Reino Unido}
@@ -453,7 +453,7 @@ En la tabla \ref{UK_statistics} se observan datos geográficos acerca de cada un
 			Cornwall    & 3.563 &   569.578  &    160  & 0,004 \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de las propiedades geográficas en base a los accidentes de las regiones de Reino Unido}
+	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de las regiones de Reino Unido]{Descripción de las propiedades geográficas de acuerdo a los accidentes de las regiones de Reino Unido. El \textit{Ratio de accidentes} representa el número de accidentados por año}
 	\label{UK_statistics}
 \end{table}
 
@@ -764,7 +764,7 @@ Uno de los requisitos de esta transformación era asignar cada característica a
 		\hline
 	\end{tabular}
 	
-	\caption{Clasificación de las Características (variables del conjunto de datos) en Categorías}
+	\caption{Clasificación de características en categorías. Modelo Preeliminar}
 	\label{JC}
 \end{table}
 
@@ -873,7 +873,7 @@ En la Tabla \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro trans
 			\cero & \one & \two & \three &  \four
 		}
 		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
-		\caption{Matriz resultante tras la transformación de un registro a formato matricial. Las filas representan las categorías y las columnas las características que la componen, ordenadas en función de los pesos mediante el criterio presentado en la sección \ref{METODOLOGIA_MODELO_PRELIMINAR}}
+		\caption[Matriz resultante tras la transformación de un registro. Modelo preeliminar] {Matriz resultante tras la transformación de un registro. Modelo preeliminar. Las filas representan las categorías y las columnas las características que la componen, ordenadas en función de los pesos mediante el criterio presentado en la sección \ref{METODOLOGIA_MODELO_PRELIMINAR}}
 		\label{ProcesoMatriz:Array}
 	\end{subtable}
 	\hspace{5em}
@@ -881,10 +881,10 @@ En la Tabla \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro trans
 		\centering
 		\includegraphics[scale=0.5]{Figures/TFM/accidente_fatal.png}
 		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
-		\caption{Imagen de la matriz en escala de grises}
+		\caption{Imagen de la matriz en escala de grises. Modelo preeliminar}
 		\label{ProcesoMatriz:VisualizacionDeMatriz}
 	\end{subfigure}
-	\caption{Ejemplo de construcción matricial de una muestra normalizada del dataset}
+	\caption{Ejemplo de construcción de un registro a una matriz. Modelo preeliminar}
 	\label{ProcesoMatriz}
 \end{table}
 
@@ -972,7 +972,7 @@ Con respecto a la métrica de \textit{Recall}, el mejor promedio para las clases
 
 Es necesario señalar que el \textit{F1-score} es una forma de combinar las métricas de \textit{Precision} y \textit{Recall}, y se define como la media armónica de ambas. Teniendo esto en cuenta, analizando el \textit{F1-Score} de los reportes, el modelo que presenta el mejor promedio para las clases de accidentes leves es la red CNN-2D, alcanzando $0.950$, muy por encima del siguiente modelo \textit{KNN}, que ofrece un valor de $0.810$. Además, la CNN-2D también ofrece la mejor métrica para accidentes graves, $0.148$, alcanzando el doble de rendimiento en comparación con el modelo que le sigue, \textit{KNN} con $0.076$. En cuanto a los accidentes fatales, los modelos con mejor clasificación son tanto la CNN-1D como la CNN-2D, obteniendo $0.004$, el doble que \textit{KNN}, que son los siguientes mejores modelos en esta clase con $0.002$.
 
-Podemos concluir que el modelo preliminar propuesto, basado en redes neuronales convolucionales, presentaba mejores predicciones con respecto a la métrica \textit{F1-score}, aunque con gran potencial de mejora.
+Podemos concluir que el modelo preliminar propuesto, basado en redes neuronales convolucionales (CNN-1D y CNN-2D), presentaba mejores predicciones con respecto a la métrica \textit{F1-score}, aunque con gran potencial de mejora.
 
 \begin{table}[H]
 	\begin{center}
@@ -1032,9 +1032,9 @@ Analizando los resultados finales de este modelo preliminar se propusieron una s
 
 % \textcolor{red}{\textbf{Luis: Inquietud} Me preocupa que no se entienda que son 8 entrenamientos distintos en esta sección y se pueda dar lugar a pensar que es un modelo general entrenado con todos los datos de las tres regiones...}
 
-\textcolor{orange}{\textbf{Luis:} Estos párrafos me quedan raros. Esto inicialmente estaba en la sección de conclusiones anterior (se puede ver en el overleaf), a mí al leerlo me está pareciendo raro, opiniones?}
+%\textcolor{orange}{\textbf{Luis:} Estos párrafos me quedan raros. Esto inicialmente estaba en la sección de conclusiones anterior (se puede ver en el overleaf), a mí al leerlo me está pareciendo raro, opiniones?}
 
-\textcolor{orange}{\textbf{Desde aquí}}
+%\textcolor{orange}{\textbf{Desde aquí}}
 
 Como se ha comentado, al analizar los resultados del modelo preliminar se detectaron una serie de deficiencias que era necesario atajar si se quería crear un modelo general que aportase un valor real a las administraciones públicas y servicios de emergencia.
 
@@ -1053,7 +1053,7 @@ En base al análisis de resultados, se planteó abordar el problema del desbalan
 
 Por último, en base a los resultados preliminares, el modelo CNN-2D presentaba mejores métricas sobre el entrenamiento de los datos, evidenciando que esta arquitectura era capaz de capturar patrones más representativos en este problema, por lo que se propuso centrar los esfuerzos en el desarrollo de este modelo, descartando así la red CNN-1D. 
 
-\textcolor{orange}{\textbf{Hasta aquí}}
+%\textcolor{orange}{\textbf{Hasta aquí}}
 
 En esta sección se presentan los resultados del modelo GTAAF sobre los tres conjuntos de datos descritos en la sección \ref{DATA_PRESENTATION_RESULTS}. Como se ha comentado en apartados anteriores, este modelo es una evolución del prototipo anterior, por lo que presentará diferencias respecto a su predecesor.  Como consideración importante a tener en cuenta en este punto es que una de las principales diferencias de esta metodología es la clasificación de la gravedad del accidente en \textbf{dos clases: sin necesidad de asistencia y con necesidad de asistencia}, donde a partir de ahora estas variables se denominarán Con Asistencia y Sin Asistencia respectivamente. En la siguiente tabla \ref{MAPPING_ASSISTANCE} se muestra la asignación del valor de la gravedad del accidente original de cada uno de los tres conjuntos de datos a estas dos clases.
 
@@ -1098,7 +1098,7 @@ En esta sección se presentan los resultados del modelo GTAAF sobre los tres con
 			
 		\end{tabular}
 	\end{center}
-	\caption{Asignación de los valores de la gravedad de los accidentes en los tres conjuntos de datos a las dos clases a predecir (Sin Asistencia y Con Asistencia) en el modelo GTAAF}
+	\caption{Asignación de los valores de la gravedad a las clases Sin Asistencia y Con Asistencia. Modelo GTAAF}
 	\label{MAPPING_ASSISTANCE}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1112,12 +1112,12 @@ En esta sección se presentan los resultados del modelo GTAAF sobre los tres con
 Como se ha comentado en las secciones anteriores, la variación entre la disponibilidad de información es un problema común entre distintos conjuntos de datos. En función de las condiciones sociales y económicas de las poblaciones alrededor de todo el mundo, la disponibilidad de la información es variable. El esfuerzo que supone la recogida de ciertos datos puede suponer un coste más alto en comparación a otras regiones, lo que se traduce en una heterogeneidad en la información disponible. Para paliar este problema y con el objetivo de proponer un proceso consistente, escalable, e invariante a las condiciones particulares de cada población, en el modelo GTAAF se propone agrupar la información disponible en un máximo de 6 categorías, las cuales engloban conceptos donde es fácilmente asignar los datos asumiendo que estos no tienen por qué estar siempre disponibles ni que deban representar exactamente la misma información entre distintos conjuntos de datos:
 
 \begin{enumerate}
-	\item \textbf{Magnitud y ubicación del accidente:} enfocado en información relativa a la localización y magnitud del accidente, como datos geográficos.
+	\item \textbf{Localización y Escala del Accidente:} enfocado en información relativa a la localización y magnitud del accidente, como datos geográficos.
 	\item \textbf{Limitaciones de Conducción:} abarcan características que limitan al conductor, como regulaciones relativas a los límites de velocidad o condiciones actuales de la carretera.
 	\item \textbf{Factores ambientales:} condiciones climáticas y de visibilidad.
 	\item \textbf{Información Temporal:} relacionada con el momento del accidente.
-	\item \textbf{Información del Vehículo:} características que describan al vehículo objeto del accidente.
-	\item \textbf{Información de la Víctima:} descriptores que definan a la víctima en el momento del incidente, factores como la edad, sexo, positivo en sustancias estupefacientes, etc.
+	\item \textbf{Vehículo:} características que describan al vehículo objeto del accidente.
+	\item \textbf{Víctima:} descriptores que definan a la víctima en el momento del incidente, factores como la edad, sexo, positivo en sustancias estupefacientes, etc.
 \end{enumerate}
 
 Este enfoque permite aplicar este modelo incluso en casos donde no se dispongan de las seis categorías propuestas, proponiendo un sistema tolerante a información inconsistente entre distintos conjuntos de datos. Para visualizar esta casuística, en la Figura \ref{FeaturesClassification} se presentan las características disponibles en cada una de las poblaciones bajo la categorización propuesta, con el objetivo de mostrar la variabilidad de información que puede existir entre distintas fuentes de datos. Los campos marcados en naranja son aquellos que representan información distinta pero que pueden ser incluidos en las categorías correspondientes. Por otra parte, aquellos campos marcados en rojo indican la ausencia de este tipo de información en comparación con el resto.
@@ -1125,7 +1125,7 @@ Este enfoque permite aplicar este modelo incluso en casos donde no se dispongan 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=14cm]{Figures/Dataset Comparative.png}
-	\caption{Clasificación de variables. Los campos mostrados en amarillo representan características de la misma naturaleza pero difieren en la granularidad de los datos. Además, las características ausentes en comparación con otros conjuntos de datos están resaltadas en rojo}
+	\caption[Clasificación de variables para el modelo GTAAF]{Clasificación de variables para el modelo GTAAF. Los campos mostrados en amarillo representan características de la misma naturaleza pero difieren en la granularidad de los datos. Además, las características ausentes en comparación con otros conjuntos de datos están resaltadas en rojo}
 	\label{FeaturesClassification}
 \end{figure}
 
@@ -1142,18 +1142,18 @@ Cada una de las regiones ofrece información distinta en cada conjunto de datos.
 
 \textbf{UK}
 
-En el caso de UK se observan ligeras diferencias respeto al resto de poblaciones. Como es el caso de la característica Road class (para la categoría Location \& Scale Accident), cuyo significado varía en comparación con el resto, y la ausencia de información sobre controles de estupefacientes a la víctima (categoría Victim). En el caso de Road Class, este campo representa la clasificación de la carretera en la que se ha producido el accidente en base al tráfico que suele fluctuar sobre ella. Esta clasificación es responsabilidad de Gobierno de Reino Unido y se clasifican las vías en seis tipos diferentes: (1) Motorways: se trata de autopistas de alta velocidad que permiten el movimiento de vehículos entre los principales pueblos y ciudades. (2) A(M): se trata de carreteras principales que interconectan poblaciones y destinos de interés, estas vías pueden contener secciones transformadas en autovía. (3) A: carreteras importantes que conectan grandes densidades de tráfico entre zonas. Generalmente son las más anchas y directas, y son las de mayor importancia para el tráfico que contiene el área, estas carreteras pueden estar abiertas a distintos usuarios, como viandantes, ciclistas o caballos, aunque normalmente esto está restringido por las autoridades locales competentes. (4) Las carreteras B alimentan el tráfico entre las vías A y las carreteras más pequeñas de la red, siguen siendo de especial importancia para el tráfico, pero menos que las A. (5) Las carreteras tipo C son generalmente más pequeñas e interconectan las vías de tipo A y B. Normalmente unen urbanizaciones con el resto de carreteras de la red, son carreteras de menor importancia que las anteriores pero son de mayor relevancia respecto a las del siguiente tipo. (6) Carreteras no clasificadas, se tratan de vías destinadas al tráfico local, por su naturaleza la mayoría de las vías pertenecen a este tipo, generalmente tienen muy poca importancia y a nivel local \cite{UKDepartmentForTransportRoadClassification}.
+En el caso de UK se observan ligeras diferencias respeto al resto de poblaciones. Como es el caso de la característica \textit{Road class} (para la categoría \textit{Localización y Escala del Accidente}), cuyo significado varía en comparación con el resto, y la ausencia de información sobre controles de estupefacientes a la víctima (categoría \textit{Víctima}). En el caso de \textit{Road Class}, este campo representa la clasificación de la carretera en la que se ha producido el accidente en base al tráfico que suele fluctuar sobre ella. Esta clasificación es responsabilidad de Gobierno de Reino Unido y se clasifican las vías en seis tipos diferentes: (1) Motorways: se trata de autopistas de alta velocidad que permiten el movimiento de vehículos entre los principales pueblos y ciudades. (2) A(M): se trata de carreteras principales que interconectan poblaciones y destinos de interés, estas vías pueden contener secciones transformadas en autovía. (3) A: carreteras importantes que conectan grandes densidades de tráfico entre zonas. Generalmente son las más anchas y directas, y son las de mayor importancia para el tráfico que contiene el área, estas carreteras pueden estar abiertas a distintos usuarios, como viandantes, ciclistas o caballos, aunque normalmente esto está restringido por las autoridades locales competentes. (4) Las carreteras B alimentan el tráfico entre las vías A y las carreteras más pequeñas de la red, siguen siendo de especial importancia para el tráfico, pero menos que las A. (5) Las carreteras tipo C son generalmente más pequeñas e interconectan las vías de tipo A y B. Normalmente unen urbanizaciones con el resto de carreteras de la red, son carreteras de menor importancia que las anteriores pero son de mayor relevancia respecto a las del siguiente tipo. (6) Carreteras no clasificadas, se tratan de vías destinadas al tráfico local, por su naturaleza la mayoría de las vías pertenecen a este tipo, generalmente tienen muy poca importancia y a nivel local \cite{UKDepartmentForTransportRoadClassification}.
 
 
 \textbf{Madrid}
 
-\textcolor{orange}{\textbf{Luis: estoy llamando a las variables en inglés, pero así están en la tabla comparativa de arriba. Opiniones?}}
+% \textcolor{orange}{\textbf{Luis: estoy llamando a las variables en inglés, pero así están en la tabla comparativa de arriba. Opiniones?}}
 
-En el caso del conjunto de datos de Madrid, las diferencias respecto al resto de regiones se encuentra más acentuada. La información disponible es considerablemente menor en comparación con los datos de Reino Unido y de Victoria. Analizando la Figura \ref{FeaturesClassification} se puede observar que hay ciertas características que no están presentes, llegando a dejar incluso una categoría vacía (Driving Limitations) al no disponer de información de este tipo. Por otra parte, tampoco se dispone de la información de Lighting Conditions para la categoría Environmental ni de Age of Vehicle, en la categoría de características del vehículo. No obstante, aún faltando esta información, el resto de características pueden ser asignadas a las categorías definidas, convirtiendo, por tanto, este dataset aplicable a este modelo.
+En el caso del conjunto de datos de Madrid, las diferencias respecto al resto de regiones se encuentra más acentuada. La información disponible es considerablemente menor en comparación con los datos de Reino Unido y de Victoria. Analizando la Figura \ref{FeaturesClassification} se puede observar que hay ciertas características que no están presentes, llegando a dejar incluso una categoría vacía (\textit{Limitaciones de Conducción}) al no disponer de información de este tipo. Por otra parte, tampoco se dispone de la información de \textit{Lighting Conditions} para la categoría \textit{Ambiental}, ni de \textit{Age of Vehicle}, en la categoría \textit{Vehículo}. No obstante, aún faltando esta información, el resto de características pueden ser asignadas a las categorías definidas, convirtiendo, por tanto, este dataset aplicable a este modelo.
 
 Sin embargo, el conjunto de datos de Madrid ofrece información sobre si la víctima se encuentra bajo los efectos del alcohol o de sustancias estupefacientes. Al ser un dato que describe a la víctima del incidente, este será asignado a la categoría Victim.
 
-Por otro lado, en la categoría Location \& Scale Accident los datos de Madrid presentan una diferencia en lo que representa la característica District respecto al resto de datasets. Este campo contempla el distrito dentro de Madrid en el que se ha producido el accidente, y es interpretado de forma numérica en función del orden de aparición de los distritos en los datos. Al ser una característica que ofrece información sobre la localización del accidente, será incluida en la categoría de Location \& Scale Accident.
+Por otro lado, en la categoría \textit{Localización y Escala del Accidente} los datos de Madrid presentan una diferencia en lo que representa la característica \textit{District} respecto al resto de datasets. Este campo contempla el distrito dentro de Madrid en el que se ha producido el accidente, y es interpretado de forma numérica en función del orden de aparición de los distritos en los datos. Al ser una característica que ofrece información sobre la localización del accidente, será incluida en la categoría de \textit{Localización y Escala del Accidente}.
 
 Como diferencia más notable sobre el conjunto de datos de Madrid es que \textbf{dispone de características para contemplar 5 categorías} respecto a las 6 de los otros dos conjuntos de datos.
 
@@ -1163,7 +1163,7 @@ La información disponible en Victoria contempla un caso parecido al de los dato
 
 Respecto a la variable \textit{First Point of Impact}, este campo indica el tipo de colisión del vehículo, es decir, contra qué objeto ha impactado el vehículo, en comparación contra otros conjuntos de datos que indican también de qué parte del mismo ha impactado primero.
 
-Por otra parte, la característica \textit{Type Of Accident Place}, ofrece información sobre el lugar del accidente, concretamente el lugar donde se ha producido, como autopista, parking, túnel, etc. por lo que irá asignada a la categoría Location \& Scale Accident.
+Por otra parte, la característica \textit{Type Of Accident Place}, ofrece información sobre el lugar del accidente, concretamente el lugar donde se ha producido, como autopista, parking, túnel, etc. por lo que irá asignada a la categoría \textit{Localización y Escala del Accidente}.
 
 
 
@@ -1285,7 +1285,7 @@ La tabla \ref{UKFeaturesClassification} muestra la asignación de valores numér
 			\hline
 			\hline
 			
-			\multirow{13}{*}{\textbf{\makecell{Ambiental}}} 
+			\multirow{13}{*}{\textbf{\makecell{Factores Ambientales}}} 
 			& \multirow{8}{*} {Condiciones Meteorológicas}
 			& 0 & Buen tiempo sin viento fuerte \\ \cline{3-4}
 			&& 1 & Lluvia sin viento fuerte \\ \cline{3-4}
@@ -1367,7 +1367,7 @@ La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores ap
 			\textbf{Categoría} & \textbf{Característica} & \textbf{Valor} & \textbf{Descripción} \\ \hline 
 			\hline
 			
-			\multirow{4}{*}{\textbf{\makecell{Ubicación \& \\ Escala del Accidente}}}
+			\multirow{4}{*}{\textbf{\makecell{Localización \& \\ Escala del Accidente}}}
 			& Latitud  & Número Real & Sistema de coordenadas cartesianas \\ \cline{2-4}
 			& Longitud & Número Real & Sistema de coordenadas cartesianas \\ \cline{2-4}
 			& Distrito  & 0-X & Número de distrito \\ \cline{2-4}
@@ -1375,7 +1375,7 @@ La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores ap
 			\hline
 			\hline
 			
-			\multirow{7}{*}{\textbf{\makecell{Ambiental}}} 
+			\multirow{7}{*}{\textbf{\makecell{Factores Ambientales}}} 
 			& \multirow{8}{*} {Condiciones Meteorológicas}
 			& 0 & Despejado \\ \cline{3-4}
 			&& 1 & Nublado \\ \cline{3-4}
@@ -1454,7 +1454,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 			\textbf{Categoría} & \textbf{Característica} & \textbf{Valor} & \textbf{Descripción} \\ \hline 
 			\hline
 			
-			\multirow{4}{*}{\textbf{\makecell{Ubicación \& \\ Escala del Accidente}}}
+			\multirow{4}{*}{\textbf{\makecell{Localización \& \\ Escala del Accidente}}}
 			& Latitud  & Número Real & Coordenada Este OSGR \\ \cline{2-4}
 			& Longitud & Número Real & Coordenada Norte OSGR \\ \cline{2-4}
 			& Clase de Carretera & 0-58 & En orden de aparición \\ \cline{2-4}
@@ -1477,7 +1477,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 			\hline
 			\hline
 			
-			\multirow{15}{*}{\textbf{\makecell{Ambiental}}} 
+			\multirow{15}{*}{\textbf{\makecell{Factores Ambientales}}} 
 			& \multirow{8}{*} {Condiciones Meteorológicas}
 			& 0 & Despejado \\ \cline{3-4}
 			&& 1 & Lluvia \\ \cline{3-4}
@@ -1733,7 +1733,7 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 			Sí  & 2.649 & 2.119 & 530 & 2.119 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Distribución de datos para las ciudades seleccionadas. La columna Asistencia representa si el accidente ha requerido de asistencia o no, las dos clases objetivo de este documento. La columna Filtrado indica el número de muestras disponibles tras el proceso de filtrado. La columna Entrenamiento representa el 80\% de las muestras de entrenamiento seleccionadas del total de los datos filtrados. La columna Test muestra el 20\% de los datos utilizados para la futura validación de los modelos. Finalmente \textit{Oversampled} engloba el número de muestra tras aplicar el aumentado de datos sobre el conjunto de entrenamiento de cada población mediante la técnica \textit{SMOTE-II} para la clase minoritaria}
+	\caption[Distribución de datos para las ciudades seleccionadas. Modelo GTAAF]{Distribución de datos para las ciudades seleccionadas. Modelo GTAAF. La columna Asistencia representa si el accidente ha requerido de asistencia o no, las dos clases objetivo de este documento. La columna Filtrado indica el número de muestras disponibles tras el proceso de filtrado. La columna Entrenamiento representa el 80\% de las muestras de entrenamiento seleccionadas del total de los datos filtrados. La columna Test muestra el 20\% de los datos utilizados para la futura validación de los modelos. Finalmente \textit{Oversampled} engloba el número de muestra tras aplicar el aumentado de datos sobre el conjunto de entrenamiento de cada población mediante la técnica \textit{SMOTE-II} para la clase minoritaria}
 	\label{Resampling}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1916,7 +1916,7 @@ Este primer caso presenta una situación de alta densidad sobre la ciudad de Mad
 		\includegraphics[width=90mm]{Figures/Madrid/filtered_OpenStreetMap.Mapnik.png}
 		\label{MadridAccidentsMap:Filtered}
 	}\\
-	\caption{Mapa de accidentes de Madrid original y filtrado}
+	\caption{Mapa de accidentes de Madrid, original y filtrado}
 	\label{MadridAccidentsMap}
 \end{figure}
 
@@ -1926,7 +1926,7 @@ En la Figura \ref{MadridLossFunction} se muestra la evolución de la función a 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=14cm]{Figures/Madrid/madrid_convolution_2d_f1_score_2023-12-03-12 54 29.png}
-	\caption{Evolución de F1-Score del modelo GTAAF en Madrid}
+	\caption{Evolución de \textit{F1-Score} del modelo GTAAF en Madrid}
 	\label{MadridLossFunction}
 \end{figure}
 
@@ -1986,7 +1986,7 @@ En el segundo caso, tenemos una región dispersa, el estado de Victoria (Austral
 		\includegraphics[width=120mm]{Figures/Victoria/filtered_OpenStreetMap.Mapnik.png}
 		\label{VictoriaAccidentsMap:Filtered}
 	}\\
-	\caption{Mapa de accidentes de Victoria original y filtrado.}
+	\caption{Mapa de accidentes de Victoria, original y filtrado.}
 	\label{VictoriaAccidentsMap}
 \end{figure}
 
@@ -2062,7 +2062,7 @@ Southwark es un distrito de Londres situado en la orilla sur del río Támesis, 
 		\includegraphics[width=70mm]{Figures/Southwark/filtered_OpenStreetMap.Mapnik.png}
 		\label{SouthwarkAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Southwark original y filtrado}
+	\caption{Mapa de accidentes de Southwark, original y filtrado}
 	\label{SouthwarkAccidentsMap}
 \end{figure}
 
@@ -2083,7 +2083,7 @@ Manchester, ubicada en el noroeste de Inglaterra, es una gran ciudad conocida po
 		\includegraphics[width=70mm]{Figures/Manchester/filtered_OpenStreetMap.Mapnik.png}
 		\label{ManchesterAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Manchester original y filtrado}
+	\caption{Mapa de accidentes de Manchester, original y filtrado}
 	\label{ManchesterAccidentsMap}
 \end{figure}
 
@@ -2103,7 +2103,7 @@ Birmingham es la segunda ciudad más grande de Inglaterra, se extiende por West 
 		\includegraphics[width=70mm]{Figures/Birmingham/filtered_OpenStreetMap.Mapnik.png}
 		\label{BirminghamAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Birmingham original y filtrado}
+	\caption{Mapa de accidentes de Birmingham, original y filtrado}
 	\label{BirminghamAccidentsMap}
 \end{figure}
 
@@ -2125,7 +2125,7 @@ Liverpool, ubicada a lo largo del río Mersey en el noroeste de Inglaterra, pros
 		\includegraphics[width=70mm]{Figures/Liverpool/filtered_OpenStreetMap.Mapnik.png}
 		\label{LiverpoolAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Liverpool original y filtrado}
+	\caption{Mapa de accidentes de Liverpool, original y filtrado}
 	\label{LiverpoolAccidentsMap}
 \end{figure}
 
@@ -2145,7 +2145,7 @@ Sheffield, ubicada en South Yorkshire, presume de un patrimonio industrial y pai
 		\includegraphics[width=75mm]{Figures/Sheffield/filtered_OpenStreetMap.Mapnik.png}
 		\label{SheffieldAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Sheffield original y filtrado}
+	\caption{Mapa de accidentes de Sheffield, original y filtrado}
 	\label{SheffieldAccidentsMap}
 \end{figure}
 
@@ -2167,7 +2167,7 @@ Cornwall, situada en la parte suroeste de Inglaterra con sus apacibles paisajes,
 		\includegraphics[width=90mm]{Figures/Cornwall/filtered_OpenStreetMap.Mapnik.png}
 		\label{CornwallAccidentsMap:Filtered}
 	}
-	\caption{Mapa de accidentes de Cornwall original y filtrado}
+	\caption{Mapa de accidentes de Cornwall, original y filtrado}
 	\label{CornwallAccidentsMap}
 \end{figure}
 
@@ -2234,7 +2234,7 @@ La Figura \ref{GlobalSlightF1Score} muestra a modo de comparativa el rendimiento
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{Figures/Slight.png}
-	\caption{Comparación de \textit{F1-Scores} para accidentes \textbf{Sin Asistencia}}
+	\caption{Comparación de \textit{F1-Scores} para accidentes Sin Asistencia (GTAAF)}
 	\label{GlobalSlightF1Score}
 \end{figure}
 
@@ -2243,18 +2243,18 @@ La Figura \ref{GlobalAssistanceF1Score} muestra la comparativa del rendimiento b
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{Figures/Assistance.png}
-	\caption{Comparación de \textit{F1-Scores} para accidentes \textbf{Con Asistencia}}
+	\caption{Comparación de \textit{F1-Scores} para accidentes Con Asistencia (GTAAF)}
 	\label{GlobalAssistanceF1Score}
 \end{figure}
 
-\subsection{Pruebas de estrés}
+\subsection{Pruebas de robustez}
 
 
 En esta sección se realizarán distintas pruebas de estrés. El objetivo de estas pruebas es medir el rendimiento del modelo propuesto en casos extremos utilizando como base los conjuntos de datos expuestos en esta tesis para tener una aproximación del rendimiento del modelo en futuros conjuntos de datos que no dispongan de la totalidad de las características descritas en este documento. Para ello se realizarán tres experimentos para cada conjunto de datos, estos consistirán en eliminar aquellas variables de mayor y menor importancia de forma independiente, y, en un experimento posterior, se eliminarán ambas conjuntamente con el objetivo de medir el rendimiento ante la falta de características más y menos influyentes en futuros conjuntos de datos. La evaluación de la importancia de las características viene dada por el peso asignado a cada una de estas mediante el algoritmo \textit{XGBoost} optimizado mediante el algoritmo genético.
 
-\textcolor{orange}{\textbf{LUIS: Copiado y pegado del paper 3}}
+% \textcolor{orange}{\textbf{LUIS: Copiado y pegado del paper 3}}
 
-Como se puede intuir en la Figura \ref{FeaturesClassification}, uno de los principales problemas en la generalización de un modelo es la disponibilidad de datos. Existen distintas características disponibles en cada conjunto de datos por distintos motivos. Uno de ellos puede ser la dificultad de extracción de información debido a razones económicas, sociales o políticas. Por ejemplo, tenemos el caso extremo de Madrid, que perdió toda una categoría ()Driving Limitations)
+Como se puede intuir en la Figura \ref{FeaturesClassification}, uno de los principales problemas en la generalización de un modelo es la disponibilidad de datos. Existen distintas características disponibles en cada conjunto de datos por distintos motivos. Uno de ellos puede ser la dificultad de extracción de información debido a razones económicas, sociales o políticas. Por ejemplo, tenemos el caso extremo de Madrid, que perdió toda una categoría (Driving Limitations)
 
 Necesitamos probar la robustez y generalización de la metodología y el modelo descritos en esta investigación. Con este propósito, proponemos el tercer experimento: eliminar las variables que tienen la mayor y menor importancia para cada población basándonos en la importancia de cada característica durante el entrenamiento del algoritmo de impulso. Específicamente, se llevaron a cabo tres experimentos independientes para ambas poblaciones. El primero consistió en eliminar la variable con la menor importancia dentro de los datos, el segundo en eliminar la de mayor importancia, y el tercero en eliminar ambas simultáneamente.
 
@@ -2291,12 +2291,12 @@ En este análisis de resultados (consulte las Tablas \ref{CornwallLoss} y \ref{V
 			\multirow{2}{*}{MLP} &
 			No & 0.724 & 0.652 & 0.680\\ &
 			Sí  & 0.695 & 0.654 & 0.685 \\ \hline \hline
-			\multirow{2}{*}{\textbf{CNN2D}} &
+			\multirow{2}{*}{\textbf{GTAAF}} &
 			No & \textbf{0.768} & \textbf{0.736} & \textbf{0.792}\\ &
 			Sí  & \textbf{0.766} & \textbf{0.736} & \textbf{0.787} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Comparativa \textit{F1-Score} con eliminación de características sobre el conjunto de datos de Cornwall. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
+	\caption[Comparativa \textit{F1-Score} con eliminación de características sobre Cornwall. Modelo GTAAF]{Comparativa \textit{F1-Score} con eliminación de características sobre Cornwall. Modelo GTAAF. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
 	\label{CornwallLoss}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2331,12 +2331,12 @@ En este análisis de resultados (consulte las Tablas \ref{CornwallLoss} y \ref{V
 			\multirow{2}{*}{MLP} &
 			No & 0.635 & 0.636 & 0.654\\ &
 			Sí  & 0.693 & 0.686 & 0.692 \\ \hline \hline
-			\multirow{2}{*}{\textbf{CNN2D}} &
+			\multirow{2}{*}{\textbf{GTAAF}} &
 			No & \textbf{0.732} & \textbf{0.720} & \textbf{0.778}\\ &
 			Sí  & \textbf{0.780} & \textbf{0.793} & \textbf{0.814} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Comparativa \textit{F1-Score} con eliminación de características sobre el conjunto de datos de Victoria. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
+	\caption[Comparativa \textit{F1-Score} con eliminación de características sobre Victoria. Modelo GTAAF]{Comparativa \textit{F1-Score} con eliminación de características sobre Victoria. Modelo GTAAF. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
 	\label{Victorialoss}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2348,7 +2348,7 @@ En la Figura \ref{lossFig} podemos observar la diferencia de los algoritmos con 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=150mm]{Figures/LossFeatures/loss.png}
-	\caption{Comparación de pérdida de características. Las barras representan la diferencia entre los resultados con todas las características y los resultados sin características extremas: en azul sin la característica más baja, en verde sin la característica más alta y en gris sin ambas características extremas}
+	\caption[Comparación de pérdida de características del modelo GTAAF]{Comparación de pérdida de características del modelo GTAAF. Las barras representan la diferencia entre los resultados con todas las características y los resultados sin características extremas: en azul sin la característica más baja, en verde sin la característica más alta y en gris sin ambas características extremas}
 	\label{lossFig}
 \end{figure}
 
