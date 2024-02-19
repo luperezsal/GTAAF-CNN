@@ -43,7 +43,7 @@ Las arquitecturas que se propusieron en la fase prototipo eran dos redes convolu
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{Figures/1stPaper/TASPCNN.png}
+	\includegraphics[width=12cm]{Figures/1stPaper/TASPCNN.png}
 	\caption{Arquitectura de la red neuronal convolucional 2D}
 	\label{TASPCNNIMAGE}
 \end{figure}
@@ -87,7 +87,7 @@ En primera instancia, las fases de la nueva metodología son asignadas a tres et
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=14cm]{Figures/7th DataFlow Chart.png}
+	\includegraphics[width=12cm]{Figures/7th DataFlow Chart.png}
 	\caption[Diagrama de flujo del modelo GTAAF]{Diagrama de flujo del modelo GTAAF. Consta de tres fases simplificadas: pre-procesado de datos, postprocesado y entrenamiento del modelo}
 	\label{DataFlow}
 \end{figure}
@@ -117,7 +117,7 @@ Esta etapa está compuesta por cuatro fases: (1) proceso de limpieza de datos, d
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=14cm]{Figures/Preprocessing.png}
+	\includegraphics[width=13cm]{Figures/Preprocessing.png}
 	\caption[Diagrama de flujo del Preprocesamiento de la metodología GTAAF] {Diagrama de flujo del Preprocesamiento de la metodología GTAAF. Consta de cuatro fases: (1) limpieza, (2) discretización, (3) filtrado de áreas y (4) \textit{resampling}}
 	\label{PreprocessingStage}
 \end{figure}
@@ -181,8 +181,8 @@ Para solventar esto se aplica un filtrado basado en áreas, que buscará balance
 
 \begin{figure}[H]
 	\centering    
-	\subfloat[Ejemplo de muestras de accidentes originales]{\includegraphics[width=7cm]{Figures/areas-points.png}}
-	\subfloat[Ejemplo de muestras de accidentes filtradas]{\includegraphics[width=7cm]{Figures/areas-points-filtered.png}}
+	\subfloat[Ejemplo de muestras de accidentes originales]{\includegraphics[width=6cm]{Figures/areas-points.png}}
+	\subfloat[Ejemplo de muestras de accidentes filtradas]{\includegraphics[width=6cm]{Figures/areas-points-filtered.png}}
 	\caption[Ejemplo de filtrado de áreas]{Ejemplo de filtrado de áreas. Los puntos verdes representan accidentes que no requieren asistencia, mientras que los puntos rojos representan accidentes que necesitan asistencia}
 	\label{Areas}
 \end{figure}
@@ -228,7 +228,7 @@ La segunda fase de la metodología implica transformar los datos refinados y bal
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=14cm]{Figures/Postprocessing_2.png}
+	\includegraphics[width=13cm]{Figures/Postprocessing_2.png}
 	\caption[Diagrama de flujo del Postprocesamiento de la metodología GTAAF]{Diagrama de flujo del Postprocesamiento de la metodología GTAAF. Consta de dos fases: (1) aplicación del algoritmo genético para la optimización de hiperparámetros de \textit{XGBoost}, y (2) construcción de matrices en base a los pesos de las categorías}
 	\label{PostprocessingStage}
 \end{figure}
@@ -301,7 +301,7 @@ En la Figura \ref{MatrixConstruction} se muestra un ejemplo de la ejecución de 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{Figures/Matrix Construction_2.png}
+	\includegraphics[width=13cm]{Figures/Matrix Construction_2.png}
 	\caption[Asignación de características a posiciones de las matrices]{Asignación de características a posiciones de las matrices. Las categorías se asignan a las filas de la matriz en base a su peso; seguidamente, las características de cada categoría se posicionan en las columnas}
 	\label{MatrixConstruction}
 \end{figure}
@@ -314,7 +314,7 @@ La primera capa convolucional de la red consta de $64$ \textit{kernels}, la segu
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{Figures/SIMPLE.png}
+	\includegraphics[width=13cm]{Figures/SIMPLE.png}
 	\caption{Arquitectura del modelo GTAAF propuesto}
 	\label{CNN2DArchitecture}
 \end{figure}

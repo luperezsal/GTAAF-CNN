@@ -11,7 +11,7 @@
 \usepackage{algorithmic}
 \usepackage{color}
 \usepackage{pdfpages} 
-\usepackage{xcolor}
+\usepackage[svgnames, x11names]{xcolor}
 \usepackage{tcolorbox}
 \usepackage{svg}
 \usepackage{multirow}
@@ -20,7 +20,8 @@
 \usepackage{makecell}
 \usepackage{svg}
 \usepackage{graphicx}
-\usepackage{float}
+% \usepackage{float}
+\usepackage{floatrow}
 \usepackage{csvsimple}
 \usepackage{amsmath}
 \usepackage[caption=false]{subfig}
@@ -244,7 +245,7 @@ twoside
 %:Empieza el contenido del libro
 \mainmatter
 
-%:Para incluir toda la referencia bibliográfica aunque no se cite, descomente la siguiente línea
+%:Para incluir toda la referencia gráfica aunque no se cite, descomente la siguiente línea
 %\nocite{*}
 
 %:Página por defecto
@@ -323,8 +324,8 @@ twoside
 %:Fichero con la bibliografía, BIBTEX
 
 \cite{alibrahim2021hyperparameter}
-\bibliography{ref}
 
+\bibliography{bibliografia/bibliography}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -67,6 +67,7 @@ El primer conjunto de datos seleccionado para su adaptación contiene informaci�
 La alta densidad de población de Madrid convierte a este conjunto de datos en un caso de estudio de alta concentración de población, en la Tabla \ref{Madrid_statistics} se pueden observar los datos de geográficos y de accidentes sobre esta ciudad.
 
 \begin{table}[ht]
+	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de Madrid]{Descripción de las propiedades geográficas de acuerdo a los accidentes de Madrid. El \textit{Ratio de accidentes} representa el número de accidentados por año}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -77,7 +78,6 @@ La alta densidad de población de Madrid convierte a este conjunto de datos en u
 			
 		\end{tabular}
 	\end{center}
-	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de Madrid]{Descripción de las propiedades geográficas de acuerdo a los accidentes de Madrid. El \textit{Ratio de accidentes} representa el número de accidentados por año}
 	\label{Madrid_statistics}
 \end{table}
 
@@ -85,8 +85,9 @@ Las características originales presentes en este conjunto de datos se encuentra
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[ht]
+	\caption{Variables del conjunto de datos de Madrid y sus descripciones}
 	\begin{center}
-		\begin{tabular}{|p{3cm}|p{11cm}|}
+		\begin{tabular}{|p{3cm}|p{10cm}|}
 			\hline
 			\textbf{Atributo} & \textbf{Descripción} \\ \hline \hline
 			ID de Incidente  & Identificador del incidente, si varios registros tienen el mismo número de archivo, se consideran el mismo accidente y cada registro representa a cada una de las personas involucradas en él (conductor, pasajero o peatón)  \\ \hline
@@ -109,7 +110,7 @@ Las características originales presentes en este conjunto de datos se encuentra
 			Drogas & Si la persona involucrada ha dado positivo en drogas (S o N) \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Variables del conjunto de datos de Madrid y sus descripciones}
+
 	\label{Datadescription}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -136,6 +137,7 @@ El segundo caso de estudio contempla una situación de concentración de poblaci
 Como se puede apreciar en la tabla \ref{Victoria_statistics}, el caso de uso aplicado del estado de Victoria se muestra como una situación de baja concentración de población. Al ser un estado muy extenso, las densidades de población se encuentran en los núcleos urbanos, siendo el número de habitantes por kilómetro cuadrado considerablemente bajo en comparación con el resto de datos estudiados en esta tesis.
 
 \begin{table}[H]
+	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de Victoria]{Descripción de las propiedades geográficas de acuerdo a los accidentes de Victoria. El \textit{Ratio de accidentes} representa el número de accidentados por año}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -144,7 +146,7 @@ Como se puede apreciar en la tabla \ref{Victoria_statistics}, el caso de uso apl
 			Victoria & 227.416 &  5.603.100  & 25  & 0,0004\\ \hline
 		\end{tabular}
 	\end{center}
-	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de Victoria]{Descripción de las propiedades geográficas de acuerdo a los accidentes de Victoria. El \textit{Ratio de accidentes} representa el número de accidentados por año}
+
 	\label{Victoria_statistics}
 \end{table}
 
@@ -165,6 +167,7 @@ En este caso, se disponen de $140$ características divididas en varias bases de
 A continuación se describirán los datos contemplados en cada una de estas tablas.
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Víctima de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -190,11 +193,12 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			EJECTED\_CODE & Código de expulsión \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Víctima de los datos de Victoria}
+
 	\label{Victoria_CASUALTY_TABLE}
 \end{table} 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Accidente de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -231,12 +235,13 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			SPEED\_ZONE & Zona de velocidad \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Accidente de los datos de Victoria}
+
 	\label{Victoria_ACCIDENT_TABLE}
 \end{table} 
 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Características de la Carretera de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -249,12 +254,13 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			SURFACE\_COND\_SEQ & Secuencia de la condición de la superficie \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Características de la Carretera de los datos de Victoria}
+
 	\label{Victoria_ROAD_SURF_TABLE}
 \end{table} 
 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Características Atmosféricas de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -267,11 +273,12 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			ATMOSPH\_COND\_DESC & Descripción de la condición atmosférica \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Características Atmosféricas de los datos de Victoria}
+
 	\label{Victoria_ATMOS_COND_TABLE}
 \end{table} 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Vehículo de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -318,11 +325,12 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			TRAFFIC\_CONTROL\_DESC & Descripción del control de tráfico \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Vehículo de los datos de Victoria}
+
 	\label{Victoria_VEHICLE_TABLE}
 \end{table} 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Evento-Accidente de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -344,11 +352,12 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			OBJECT\_TYPE\_DESC & Descripción del tipo de objeto \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Evento-Accidente de los datos de Victoria}
+
 	\label{Victoria_ACCIDENT_EVENT_TABLE}
 \end{table} 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Localización de Accidente de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -368,12 +377,13 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			OFF\_ROAD\_LOCATION & Ubicación fuera de la carretera \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Localización de Accidente de los datos de Victoria}
+
 	\label{Victoria_ACCIDENT_LOCATION_TABLE}
 \end{table} 
 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Nodo de los datos de Victoria}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -393,7 +403,7 @@ A continuación se describirán los datos contemplados en cada una de estas tabl
 			POSTCODE\_N0 & Código postal \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Nodo de los datos de Victoria}
+
 	\label{Victoria_NODE_TABLE}
 \end{table} 
 
@@ -419,6 +429,7 @@ Estos datos disponen, en su versión original, de $77$ características que desc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[h!]
+	\caption{Número original de muestras de las regiones del Reino Unido}
 	\centering
 	\begin{tabular}{|c|c|}
 		\hline
@@ -432,7 +443,7 @@ Estos datos disponen, en su versión original, de $77$ características que desc
 		Sheffield  & 49.466 \\ \hline
 		Cornwall   & 37.846 \\ \hline \hline
 	\end{tabular}
-	\caption{Número original de muestras de las regiones del Reino Unido}
+
 	\label{UK_DATASET_SAMPLES_NUMBERS}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -440,6 +451,7 @@ Estos datos disponen, en su versión original, de $77$ características que desc
 En la tabla \ref{UK_statistics} se observan datos geográficos acerca de cada una de las regiones escogidas de Reino Unido, cada una de ellas presentando una densidad de población distinta y un ratio de accidentes por habitante diferente.
 
 \begin{table}[h!]
+	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de las regiones de Reino Unido]{Descripción de las propiedades geográficas de acuerdo a los accidentes de las regiones de Reino Unido. El \textit{Ratio de accidentes} representa el número de accidentados por año}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -453,7 +465,7 @@ En la tabla \ref{UK_statistics} se observan datos geográficos acerca de cada un
 			Cornwall    & 3.563 &   569.578  &    160  & 0,004 \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption[Descripción de las propiedades geográficas de acuerdo a los accidentes de las regiones de Reino Unido]{Descripción de las propiedades geográficas de acuerdo a los accidentes de las regiones de Reino Unido. El \textit{Ratio de accidentes} representa el número de accidentados por año}
+
 	\label{UK_statistics}
 \end{table}
 
@@ -461,6 +473,7 @@ En la tabla \ref{UK_statistics} se observan datos geográficos acerca de cada un
 En las siguientes tablas se muestran las características originales disponibles en el conjunto de datos de Reino Unido, cada una de estas tablas incluye información descriptiva de los accidentes \ref{UK_ACCIDENT_TABLE}, de los vehículos implicados \ref{UK_VEHICLE_TABLE} y de las víctimas \ref{UK_CASUALTY_TABLE}.
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Accidente de los datos de Reino Unido}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -505,11 +518,12 @@ En las siguientes tablas se muestran las características originales disponibles
 			lsoa\_of\_accident\_location & LSOA de la ubicación del accidente \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Accidente de los datos de Reino Unido}
+
 	\label{UK_ACCIDENT_TABLE}
 \end{table} 
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Vehículo de los datos de Reino Unido}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -545,11 +559,12 @@ En las siguientes tablas se muestran las características originales disponibles
 			driver\_home\_area\_type & Tipo de área de residencia del conductor \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Vehículo de los datos de Reino Unido}
+
 	\label{UK_VEHICLE_TABLE}
 \end{table}
 
 \begin{table}[H]
+	\caption{Descripción de características de la tabla Víctima de los datos de Reino Unido}
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -576,7 +591,7 @@ En las siguientes tablas se muestran las características originales disponibles
 			casualty\_imd\_decile & Decil de IMD de la víctima \\ \hline
 		\end{tabular}
 	\end{center}
-	\caption{Descripción de características de la tabla Víctima de los datos de Reino Unido}
+
 	\label{UK_CASUALTY_TABLE}
 \end{table}
 
@@ -764,7 +779,7 @@ Uno de los requisitos de esta transformación era asignar cada característica a
 		\hline
 	\end{tabular}
 	
-	\caption{Clasificación de características en categorías. Modelo Preeliminar}
+	\caption{Clasificación de características (variables del conjunto de datos) en categorías. Modelo Preeliminar}
 	\label{JC}
 \end{table}
 
@@ -791,6 +806,7 @@ En la tabla \ref{BestGASolutionTable} se observa el valor tomado por el mejor in
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[h]
+	\caption{Valores optimizados de los parámetros del \textit{XGBoost} después de aplicar el algoritmo genético del modelo preliminar}
 	\centering
 	\begin{tabular}{ |c|c| } 
 		\hline
@@ -801,7 +817,7 @@ En la tabla \ref{BestGASolutionTable} se observa el valor tomado por el mejor in
 		ETA & 0.007 \\
 		\hline
 	\end{tabular}
-	\caption{Valores optimizados de los parámetros del \textit{XGBoost} después de aplicar el algoritmo genético del modelo preliminar}
+
 	\label{BestGASolutionTable}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -814,6 +830,7 @@ Con la configuración de hiperparámetros mostrada en la Tabla \ref{BestGASoluti
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[ht]
+	\caption{Ejemplo con los pesos de todas las características estudiadas, así como los pesos de las cinco categorías}
 	\centering
 	\begin{tabular}{ |c|c||c|c| }
 		\hline
@@ -844,7 +861,7 @@ Con la configuración de hiperparámetros mostrada en la Tabla \ref{BestGASoluti
 		\hline
 		
 	\end{tabular}
-	\caption{Ejemplo con los pesos de todas las características estudiadas, así como los pesos de las cinco categorías}
+
 	\label{1stPaperWeightsFinalCharacteristics}
 \end{table}
 
@@ -857,36 +874,28 @@ En la Tabla \ref{ProcesoMatriz:Array} se observa un ejemplo de un registro trans
 
 
 \begin{table}[H]
-	\scriptsize
-	\centering
-	\vskip\baselineskip
-	\begin{subtable}
-		\centering
-		\renewcommand{\arraystretch}{1.5}
-		
-		\csvreader[
-		tabular = |c|c|c|c|c|,
-		table head = \hline,
-		table foot = \hline
-		]{Figures/TFM/fatal_matrix.csv}%
-		{0=\cero, 1=\one, 2=\two, 3=\three, 4=\four}{%
-			\cero & \one & \two & \three &  \four
-		}
-		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
-		\caption[Matriz resultante tras la transformación de un registro. Modelo preeliminar] {Matriz resultante tras la transformación de un registro. Modelo preeliminar. Las filas representan las categorías y las columnas las características que la componen, ordenadas en función de los pesos mediante el criterio presentado en la sección \ref{METODOLOGIA_MODELO_PRELIMINAR}}
-		\label{ProcesoMatriz:Array}
-	\end{subtable}
-	\hspace{5em}
-	\begin{subfigure}
-		\centering
-		\includegraphics[scale=0.5]{Figures/TFM/accidente_fatal.png}
-		\captionsetup{singlelinecheck = false, format= hang, justification=centering, font=footnotesize, labelsep=space}
-		\caption{Imagen de la matriz en escala de grises. Modelo preeliminar}
-		\label{ProcesoMatriz:VisualizacionDeMatriz}
-	\end{subfigure}
-	\caption{Ejemplo de construcción de un registro a una matriz. Modelo preeliminar}
-	\label{ProcesoMatriz}
+	\caption{Matriz resultante tras la transformación de un registro a formato matricial. Las filas representan las categorías y las columnas las características que la componen, ordenadas en función de los pesos mediante el criterio presentado en la sección \ref{METODOLOGIA_MODELO_PRELIMINAR}}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			$0.0$ & $0.0$ &  $-0.1621$  & $0.0$ & $0.0$\\
+			$1.2548$ & $0.0081$ &  $-0.0524$  & $-1.4528$ & $-1.4591$\\
+			$0.2129$ & $-0.7004$ &  $-0.5316$  & $0.1488$ & $0.0$\\
+			$0.0$ & $-0.0297$ &  $0.4597$  & $0.0$ & $0.0$\\
+			$0.0$ & $0.0$ &  $-0.2508$  & $0.0$ & $0.0$\\
+			\hline
+		\end{tabular}
+	\end{center}
+
+	\label{ProcesoMatriz:Array}
 \end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6cm]{Figures/TFM/accidente_fatal.png}
+	\caption{Imagen de la matriz en escala de grises.}
+	\label{ProcesoMatriz:VisualizacionDeMatriz}
+\end{figure}
 
 
 %\begin{figure}[H]
@@ -912,6 +921,7 @@ Para evaluar el rendimiento del modelo preeliminar, se realizó una comparación
 Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN:TestCNN} detallan las métricas resultantes de la clasificación de las redes para los conjuntos de entrenamiento y test respectivamente. Se observó que, para el conjunto de entrenamiento, el modelo CNN-1D obtenía un mejor \textit{F1-Score} en la clasificación de todas las clases de accidentes en comparación con la red CNN-2D. Sin embargo, al analizar las métricas de los datos de test, el modelo que presentaba mejor \textit{F1-Score} para accidentes leves y graves era el CNN-2D, con $0.950$ y $0.148$ respectivamente, mientras que en accidentes fatales ambas redes ofrecían el mismo rendimiento con un $0.004$ de \textit{F1-Score}.
 
 \begin{table}[H]
+	\caption{Métricas sobre el conjunto de entrenamiento para los modelos CNN-1D y CNN-2D}
 	\begin{center}
 		\begin{tabular}{|c||c|c|c||c|c|c|}
 			\hline
@@ -923,11 +933,12 @@ Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN
 			F1-score & 0.712 & 0.597 & 0.828 & 0.650 & 0.409 & 0.679\\ \hline 
 		\end{tabular}
 	\end{center}
-	\caption{Métricas sobre el conjunto de entrenamiento para los modelos CNN-1D y CNN-2D}
+
 	\label{ClassificationReportCNN:TrainCNN}
 \end{table}
 
 \begin{table}[H]
+	\caption{Métricas sobre el conjunto de test para los modelos CNN-1D y CNN-2D}
 	\begin{center}
 		\begin{tabular}{|c||c|c|c||c|c|c|}
 			\hline
@@ -939,7 +950,7 @@ Las Tablas \ref{ClassificationReportCNN:TrainCNN} y \ref{ClassificationReportCNN
 			F1-score & 0.596 & 0.058 & 0.004 & 0.950 & 0.148 & 0.004\\ \hline 
 		\end{tabular}
 	\end{center}
-	\caption{Métricas sobre el conjunto de test para los modelos CNN-1D y CNN-2D}
+
 	\label{ClassificationReportCNN:TestCNN}
 \end{table}
 
@@ -975,20 +986,39 @@ Es necesario señalar que el \textit{F1-score} es una forma de combinar las mét
 Podemos concluir que el modelo preliminar propuesto, basado en redes neuronales convolucionales (CNN-1D y CNN-2D), presentaba mejores predicciones con respecto a la métrica \textit{F1-score}, aunque con gran potencial de mejora.
 
 \begin{table}[H]
+	\caption{Métricas de clasificación sobre el conjunto de test de los modelos \textit{GNB}, \textit{SVC} y \textit{KNN} en comparación con el modelo preliminar.}
 	\begin{center}
-		\begin{tabular}{|c||c|c|c||c|c|c||c|c|c|}
+		\begin{tabular}{|c||c|c|c|}
 			\hline
-			\multicolumn{1}{ |c|| }{} & \multicolumn{3}{ |c|| }{\textbf{GNB}} & \multicolumn{3}{ |c|| }{\textbf{SVC}} & \multicolumn{3}{ |c| }{\textbf{KNN}} \\ \hline
-			\textbf{Métrica/Gravedad} & Leve & Graves & Fatal & Leve & Graves & Fatal & Leve & Graves & Fatal
-			\\ \hline \hline 
-			Precision & 0.980 & 0.025 & 0 & 0.979 & 0.029 & 0 & 0.982 & 0.042 & 0.001 \\ \hline 
-			Recall & 0.369 & 0.699 & 0 & 0.644 & 0.411 & 0 & 0.689 & 0.382 & 0.067 \\ \hline 
-			F1-score & 0.536 & 0.048 & 0 & 0.777 & 0.054 & 0 & 0.810 & 0.076 & 0.002\\ \hline 
+			 \multicolumn{4}{ |c| }{\textbf{GNB}} \\
+			  \hline \hline
+			\textbf{Métrica/Gravedad} & Leve & Grave & Fatal \\  \hline 
+			Precision & 0.980 & 0.025 & 0  \\ \hline 
+			Recall & 0.369 & 0.699 & 0  \\ \hline 
+			F1-score & 0.536 & 0.048 & 0 \\ \hline
+			 \multicolumn{4}{ c }{} \\ 
+			 
+			 \hline
+			 \multicolumn{4}{ |c| }{\textbf{SVC}} \\ 
+			 \hline \hline
+			\textbf{Métrica/Gravedad} & Leve & Grave & Fatal \\  \hline 
+			Precision  & 0.979 & 0.029 & 0  \\ \hline 
+			Recall  & 0.644 & 0.411 & 0  \\ \hline 
+			F1-score & 0.777 & 0.054 & 0 \\ \hline
+			\multicolumn{4}{ c }{} \\ 
+			
+			\hline
+			\multicolumn{4}{ |c| }{\textbf{KNN}} \\ 
+			\hline \hline
+			\textbf{Métrica/Gravedad} & Leve & Grave & Fatal \\  \hline 
+			Precision & 0.982 & 0.042 & 0.001 \\ \hline 
+			Recall & 0.689 & 0.382 & 0.067 \\ \hline 
+			F1-score  & 0.810 & 0.076 & 0.002\\ \hline 
 		\end{tabular}
 	\end{center}
-	\caption{Métricas de clasificación sobre el conjunto de test de los modelos \textit{GNB}, \textit{SVC} y \textit{KNN} en comparación con el modelo preliminar.}
 	\label{ClassificationReportCNN:Test}
 \end{table}
+
 
 % \textcolor{purple}{Jose: ¿Quitamos lo de las matrices de confusión en este apartado?}
 
@@ -1065,6 +1095,7 @@ En esta sección se presentan los resultados del modelo GTAAF sobre los tres con
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Asignación de los valores de la gravedad a las clases Sin Asistencia y Con Asistencia. Modelo GTAAF}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|}
 			\hline
@@ -1098,7 +1129,7 @@ En esta sección se presentan los resultados del modelo GTAAF sobre los tres con
 			
 		\end{tabular}
 	\end{center}
-	\caption{Asignación de los valores de la gravedad a las clases Sin Asistencia y Con Asistencia. Modelo GTAAF}
+
 	\label{MAPPING_ASSISTANCE}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1124,7 +1155,7 @@ Este enfoque permite aplicar este modelo incluso en casos donde no se dispongan 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=14cm]{Figures/Dataset Comparative.png}
+	\includegraphics[width=12cm]{Figures/Dataset Comparative.png}
 	\caption[Clasificación de variables para el modelo GTAAF]{Clasificación de variables para el modelo GTAAF. Los campos mostrados en amarillo representan características de la misma naturaleza pero difieren en la granularidad de los datos. Además, las características ausentes en comparación con otros conjuntos de datos están resaltadas en rojo}
 	\label{FeaturesClassification}
 \end{figure}
@@ -1172,6 +1203,7 @@ En la tabla \ref{DataDistribution} se expone el número total de registros de lo
 
 \begin{table}[H]
 	\begin{center}
+		\caption{Comparación de la distribución de datos tras el proceso de limpieza}
 		\begin{tabular}{|c|c||c|c|}
 			\hline
 			\multicolumn{4}{ |c| }{\textbf{Distribución de Datos}} \\ \hline
@@ -1218,7 +1250,7 @@ En la tabla \ref{DataDistribution} se expone el número total de registros de lo
 			Sí  & 7.059  & 6.024 \\ \hline \hline
 			
 		\end{tabular}
-		\caption{Comparación de la distribución de datos tras el proceso de limpieza}
+
 		\label{DataDistribution}
 	\end{center}
 \end{table}
@@ -1251,6 +1283,7 @@ La tabla \ref{UKFeaturesClassification} muestra la asignación de valores numér
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Discretización propuesta de las variables para el conjunto de datos de Reino Unido}
 	\scriptsize
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
@@ -1347,7 +1380,7 @@ La tabla \ref{UKFeaturesClassification} muestra la asignación de valores numér
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Discretización propuesta de las variables para el conjunto de datos de Reino Unido}
+
 	\label{UKFeaturesClassification}
 \end{table}
 
@@ -1359,6 +1392,7 @@ La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores ap
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Discretización propuesta de las variables para el conjunto de datos de Madrid}
 	\scriptsize
 	\centering
 	\begin{center}
@@ -1436,7 +1470,7 @@ La tabla \ref{MadridFeaturesClassification} muestra la asignación de valores ap
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Discretización propuesta de las variables para el conjunto de datos de Madrid}
+
 	\label{MadridFeaturesClassification}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1447,6 +1481,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Discretización propuesta de las variables para el conjunto de datos de Victoria}
 	\scriptsize
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
@@ -1546,7 +1581,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Discretización propuesta de las variables para el conjunto de datos de Victoria}
+
 	\label{VictoriaFeaturesClassification}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1558,6 +1593,7 @@ La tabla \ref{VictoriaFeaturesClassification} muestra la discretización del val
 Para ilustrar los parámetros con los que se aplica el filtrado de áreas, se presenta la Tabla \ref{AreasInformation}, donde se muestra para cada población el número de áreas proyectadas resultante de la elección del tamaño de las ventanas en función de los valores \textit{X,Y}. La elección de estos tamaños variará función de la extensión y densidad de población, tomando valores de ventana más grandes en poblaciones más dispersas y tamaños más pequeños cuando la densidad de población es más alta. Los tamaños de ventana para cada población han sido escogidos mediante un procedimiento experimental, en el que se maximiza el rendimiento final de los modelos en base a la media total.
 
 \begin{table}[H]
+	\caption{Número de áreas resultante tras la definición de su tamaño para cada región}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c||c|c|c}
 			\hline
@@ -1603,7 +1639,7 @@ Para ilustrar los parámetros con los que se aplica el filtrado de áreas, se pr
 			Y  & 5.241  & 97 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Número de áreas resultante tras la definición de su tamaño para cada región}
+
 	\label{AreasInformation}
 \end{table}
 
@@ -1611,6 +1647,7 @@ Una vez se establecen las dimensiones de las ventanas de tamaño $X,Y$ se aplica
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Distribución de datos tras el proceso de filtrado para cada una de las regiones}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|}
 			\hline
@@ -1659,7 +1696,7 @@ Una vez se establecen las dimensiones de las ventanas de tamaño $X,Y$ se aplica
 			
 		\end{tabular}
 	\end{center}
-	\caption{Distribución de datos tras el proceso de filtrado para cada una de las regiones}
+
 	\label{DataDistributionFiltered}
 \end{table}
 
@@ -1688,13 +1725,14 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption[Distribución de datos para las ciudades seleccionadas. Modelo GTAAF]{Distribución de datos para las ciudades seleccionadas. Modelo GTAAF. La columna Asistencia representa si el accidente ha requerido de asistencia o no, las dos clases objetivo de este documento. La columna Filtrado indica el número de muestras disponibles tras el proceso de filtrado. La columna Entrenamiento representa el 80\% de las muestras de entrenamiento seleccionadas del total de los datos filtrados. La columna Test muestra el 20\% de los datos utilizados para la futura validación de los modelos. Finalmente \textit{Oversampled} engloba el número de muestra tras aplicar el aumentado de datos sobre el conjunto de entrenamiento de cada población mediante la técnica \textit{SMOTE-II} para la clase minoritaria}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|}
 			\hline
 			\multicolumn{6}{ |c| }{\textbf{Distribución de Datos}} \\ \hline
 			\multicolumn{6}{ |c| }{\textbf{Reino Unido}} \\ \hline
 			
-			\textbf{Región} & \textbf{Asistencia} & Filtrado & Entrenamiento & Test & \textit{Oversampled} (Entrenamiento)
+			\textbf{Región} & \textbf{Asistencia} & Filtrado & Entrenamiento & Test & \textit{Oversampled}
 			\\ \hline \hline
 			
 			\multirow{2}{*}{Southwark} &
@@ -1717,7 +1755,7 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 			Sí  & 2.020  & 1.616 & 404 & 1.752 \\ \hline \hline
 			
 			\multicolumn{6}{ |c| }{\textbf{España}} \\ \hline
-			\textbf{Región} & \textbf{Asistencia} & Filtrado & Entrenamiento & Test & \textit{Oversampled} (Entrenamiento)
+			\textbf{Región} & \textbf{Asistencia} & Filtrado & Entrenamiento & Test & \textit{Oversampled}
 			\\ \hline \hline
 			
 			\multirow{2}{*}{Madrid} &
@@ -1725,7 +1763,7 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 			Sí  & 1.286  & 1.028 & 258 & 2.080 \\ \hline \hline
 			
 			\multicolumn{6}{ |c| }{\textbf{Australia}} \\ \hline
-			\textbf{Región} & \textbf{Asistencia} & Filtrado & Entrenamiento & Test & \textit{Oversampled} (Entrenamiento)
+			\textbf{Región} & \textbf{Asistencia} & Filtrado & Entrenamiento & Test & \textit{Oversampled}
 			\\ \hline \hline
 			
 			\multirow{2}{*}{Victoria} &
@@ -1733,7 +1771,7 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 			Sí  & 2.649 & 2.119 & 530 & 2.119 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption[Distribución de datos para las ciudades seleccionadas. Modelo GTAAF]{Distribución de datos para las ciudades seleccionadas. Modelo GTAAF. La columna Asistencia representa si el accidente ha requerido de asistencia o no, las dos clases objetivo de este documento. La columna Filtrado indica el número de muestras disponibles tras el proceso de filtrado. La columna Entrenamiento representa el 80\% de las muestras de entrenamiento seleccionadas del total de los datos filtrados. La columna Test muestra el 20\% de los datos utilizados para la futura validación de los modelos. Finalmente \textit{Oversampled} engloba el número de muestra tras aplicar el aumentado de datos sobre el conjunto de entrenamiento de cada población mediante la técnica \textit{SMOTE-II} para la clase minoritaria}
+
 	\label{Resampling}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1745,6 +1783,7 @@ En la tabla \ref{Resampling} se muestran los datos resultantes tras haber aplica
 En la Tabla \ref{FeaturesNormalizationExample} se muestra un ejemplo de la aplicación de la normalización de datos en base a la técnica \textit{Z-Score}, donde en la primera columna se observan los datos discretizados, mientras que la segunda columna contiene los valores de estas características normalizados.
 
 \begin{table}[H]
+	\caption{Ejemplo de muestra original y muestra normalizada}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|}
 			\hline
@@ -1778,7 +1817,7 @@ En la Tabla \ref{FeaturesNormalizationExample} se muestra un ejemplo de la aplic
 			& Casualty Age & 1 &  -2.062940 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Ejemplo de muestra original y muestra normalizada}
+
 	\label{FeaturesNormalizationExample}
 \end{table}
 
@@ -1795,6 +1834,7 @@ En la tabla \ref{GAHyperparametersSetup} se muestran los hiperparámetros del al
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Configuración de hiperparámetros del algoritmo genético para el modelo GTAAF}
 	\centering
 	\begin{tabular}{|c|c|}
 		\hline
@@ -1807,7 +1847,7 @@ En la tabla \ref{GAHyperparametersSetup} se muestran los hiperparámetros del al
 		Probabilidad de Mutación & 0.4 \\ \hline
 		Función Heurística & Puntuación \textit{F1-Score} del \textit{XGBoost} \\ \hline \hline
 	\end{tabular}
-	\caption{Configuración de hiperparámetros del algoritmo genético para el modelo GTAAF}
+
 	\label{GAHyperparametersSetup}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1816,6 +1856,7 @@ La Tabla \ref{MutationXGBoostParams} muestra las variaciones en los valores máx
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Límites de inicialización y mutación de los hiperparámetros del algoritmo genético del modelo GTAAF}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|}
 			\hline
@@ -1833,7 +1874,7 @@ La Tabla \ref{MutationXGBoostParams} muestra las variaciones en los valores máx
 			Mutación & -4  & 4 \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{Límites de inicialización y mutación de los hiperparámetros del algoritmo genético del modelo GTAAF}
+
 	\label{MutationXGBoostParams}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1844,6 +1885,7 @@ En la Tabla \ref{ResultingHyperparamsXGBoost} se pueden observar los hiperparám
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{Hiperparámetros resultantes del \textit{XGBoost} después de ejecutar el algoritmo genético del modelo GTAAF}
 	\begin{center}
 		\begin{tabular}{|c||c|c|c|}
 			\hline
@@ -1884,7 +1926,7 @@ En la Tabla \ref{ResultingHyperparamsXGBoost} se pueden observar los hiperparám
 			
 		\end{tabular}
 	\end{center}
-	\caption{Hiperparámetros resultantes del \textit{XGBoost} después de ejecutar el algoritmo genético del modelo GTAAF}
+
 	\label{ResultingHyperparamsXGBoost}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1934,6 +1976,7 @@ En la tabla \ref{SpainMetrics} se observan los resultados de la métrica \textit
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{\textit{F1-Score} por modelo y clase de accidente en Madrid (España)}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -1966,7 +2009,7 @@ En la tabla \ref{SpainMetrics} se observan los resultados de la métrica \textit
 			\textbf{Sí} & \textbf{0.798} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{\textit{F1-Score} por modelo y clase de accidente en Madrid (España)}
+
 	\label{SpainMetrics}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1995,7 +2038,7 @@ En la Figura \ref{VictoriaLossFunction} se muestran las funciones \textit{F1-Sco
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=160mm]{Figures/Victoria/Victoria_convolution_2d_f1_score_paper.png}
+	\includegraphics[width=14cm]{Figures/Victoria/Victoria_convolution_2d_f1_score_paper.png}
 	\caption{Evolución de \textit{F1-Score} del modelo GTAAF en Victoria.}
 	\label{VictoriaLossFunction}
 \end{figure}
@@ -2005,6 +2048,7 @@ En la Tabla \ref{AustraliaMetrics}, se presentan los resultados del F1-Score obt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption{\textit{F1-Score} por modelo y clase de accidente en Victoria (Australia)}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -2037,7 +2081,7 @@ En la Tabla \ref{AustraliaMetrics}, se presentan los resultados del F1-Score obt
 			\textbf{Sí} & \textbf{0.784} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{\textit{F1-Score} por modelo y clase de accidente en Victoria (Australia)}
+
 	\label{AustraliaMetrics}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2191,6 +2235,7 @@ Cornwall, situada en la parte suroeste de Inglaterra con sus apacibles paisajes,
 En la Tabla \ref{UKMetrics} se muestra el valor \textit{F1-Score} para cada una de las ciudades de cada modelo sobre el conjunto de test. Como se puede observar, el nuevo modelo propuesto GTAAF es el que mejor métricas ofrece en comparación al resto, obteniendo la mayor diferencia con respecto a su sucesor en los accidentes \textbf{Sin Asistencia}, el \textit{MLP}, para la ciudad de Manchester con un 6,7\%, mientras que la mayor diferencia para los accidentes \textbf{Con Asistencia} es de un 13.8\% en la ciudad de Southwark respecto al siguiente mejor modelo, de nuevo el \textit{MLP}. La siguiente mayor diferencia se presenta entre el modelo GTAAF se presenta en la ciudad de Southwark para la clase sin necesidad de asistencia, con un incremento del 4,8\% respecto al siguiente mejor modelo \textit{MLP}, mientras que para la clase con necesidad de asistencia ésta se presenta en la ciudad de Liverpool con respecto al modelo \textit{MLP}, llegando a un 13,2\%. Observando los resultados de la tabla, se aprecia que el mayor incremento del rendimiento con respecto al resto de modelos se presenta sobre la clase con necesidad de asistencia, obteniendo de media una mejora de 9,21\% sobre todas las ciudades, mientras que el incremento de rendimiento se acentúa menos en accidentes Sin Asistencia, ya que el resto de modelos ofrecen unas métricas más altas, siendo la mejora de un 3,93\% de media. Estos resultados reflejan una mejor generalización del modelo propuesto en comparación al resto de modelos estudiados para cada una de las ciudades de Reino Unido.
 
 \begin{table}[H]
+	\caption{\textit{F1-Score} por modelo y clase de accidente para cada una de las poblaciones de Reino Unido}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -2224,7 +2269,7 @@ En la Tabla \ref{UKMetrics} se muestra el valor \textit{F1-Score} para cada una 
 			\textbf{Sí} & \textbf{0.881} & \textbf{0.762} & \textbf{0.711} & \textbf{0.853} & \textbf{0.889} & \textbf{0.707} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption{\textit{F1-Score} por modelo y clase de accidente para cada una de las poblaciones de Reino Unido}
+
 	\label{UKMetrics}
 \end{table}
 
@@ -2264,6 +2309,7 @@ En este análisis de resultados (consulte las Tablas \ref{CornwallLoss} y \ref{V
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption[Comparativa \textit{F1-Score} con eliminación de características sobre Cornwall. Modelo GTAAF]{Comparativa \textit{F1-Score} con eliminación de características sobre Cornwall. Modelo GTAAF. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -2296,7 +2342,7 @@ En este análisis de resultados (consulte las Tablas \ref{CornwallLoss} y \ref{V
 			Sí  & \textbf{0.766} & \textbf{0.736} & \textbf{0.787} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption[Comparativa \textit{F1-Score} con eliminación de características sobre Cornwall. Modelo GTAAF]{Comparativa \textit{F1-Score} con eliminación de características sobre Cornwall. Modelo GTAAF. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
+
 	\label{CornwallLoss}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2304,6 +2350,7 @@ En este análisis de resultados (consulte las Tablas \ref{CornwallLoss} y \ref{V
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[H]
+	\caption[Comparativa \textit{F1-Score} con eliminación de características sobre Victoria. Modelo GTAAF]{Comparativa \textit{F1-Score} con eliminación de características sobre Victoria. Modelo GTAAF. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
 	\begin{center}
 		\begin{tabular}{|c|c||c|c|c|c|c|c|}
 			\hline
@@ -2336,7 +2383,7 @@ En este análisis de resultados (consulte las Tablas \ref{CornwallLoss} y \ref{V
 			Sí  & \textbf{0.780} & \textbf{0.793} & \textbf{0.814} \\ \hline \hline
 		\end{tabular}
 	\end{center}
-	\caption[Comparativa \textit{F1-Score} con eliminación de características sobre Victoria. Modelo GTAAF]{Comparativa \textit{F1-Score} con eliminación de características sobre Victoria. Modelo GTAAF. La columna \textit{Menor} representa los resultados obtenidos ejecutando el modelo y eliminando la característica que menor peso presenta mediante el algoritmo genético, la columna \textit{Mayor} presenta los resultados eliminando la característica de mayor importancia y \textit{Ambas} presenta los resultados eliminando las dos simultáneamente. En negrita se muestran los resultados obtenidos por el mejor modelo (GTAAF)}
+
 	\label{Victorialoss}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
