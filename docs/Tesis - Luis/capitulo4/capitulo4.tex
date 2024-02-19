@@ -57,7 +57,22 @@ En última instancia (6), los dos modelos propuestos, CNN-1D y CNN-2D se compara
 
 Una vez aplicado el modelo sobre el conjunto de datos de Madrid, se analizaron los resultados que este ofrecía sobre el conjunto de datos de test. Esto sirvió para observar ciertas debilidades y localizar puntos de mejora que podrían aumentar el rendimiento de cara a implementar un modelo generalizable a cualquier región.
 
-En primer lugar, se observó que la decisión de dividir los accidentes de tráfico en tres clases (leves, severos y fatales) era un condicionante que perjudicaba considerablemente el rendimiento del modelo. Al tener dos clases notablemente desproporcionadas respecto a la mayoritaria, la generación de datos sintéticos podría carecer de sentido a nivel práctico. Esto hizo que se pensara en agrupar los accidentes en dos categorías (1: leves y 2: graves y fatales) con la finalidad de mejorar el rendimiento del modelo a nivel funcional al no disponer de clases intermedias además de capturar más información al sumar dos tipos de clases.
+En primer lugar, se observó que la decisión de dividir los accidentes de tráfico en tres clases (leves, severos y fatales) era un condicionante que perjudicaba considerablemente el rendimiento del modelo. Al tener dos clases notablemente desproporcionadas respecto a la mayoritaria, la generación de datos sintéticos podría carecer de sentido a nivel práctico. Esto hizo que se pensara en agrupar los accidentes en dos categorías (1: leves y 2: graves y fatales) con la finalidad de mejorar el rendimiento del modelo a nivel funcional al no disponer de clases intermedias además de capturar más información al sumar dos tipos de clases, como se puede apreciar en la tabla \ref{CategorizacionAccidentesModeloGTAAF}.
+
+\begin{table}[H]
+	\caption{Categorización de accidentes del modelo GTAAF}
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Gravedad} & \textbf{Categoría} \\ \hline
+		\hline
+		Leve     & Sin Necesidad de Asistencia \\ \hline
+		Grave & \multirow{2}{*}{Con Necesidad de Asistencia} \\ \cline{1-1}
+		Fatal  &  \\ \hline
+	\end{tabular}
+	\label{CategorizacionAccidentesModeloGTAAF}
+\end{table}
+
 
 % El siguiente paso para resolver esto fue la categorización de estos accidentes en dos clases, además de implementar un proceso de filtrado de áreas que uscaba rebajar el número de accidentes tipo leve de forma natural en el conjunto de datos.
 
